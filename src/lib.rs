@@ -9,12 +9,13 @@ pub mod assure_le; // less than or equal to
 pub mod assure_gt; // greater than
 pub mod assure_ge; // greater than or equal to
 
+// Assure iterator-related bag-based comparison
+pub mod assure_bag_eq; // equal
+pub mod assure_bag_ne; // not equal
+
 // Assure iterator-related set-based comparison
 pub mod assure_set_eq; // equal
 pub mod assure_set_ne; // not equal
-
-// Assure iterator-related set-based comparison
-pub mod assure_bag_eq; // equal
 
 // Assure IO-related truth, which can return Err(std:io:Error(…))
 pub mod assure_io;
