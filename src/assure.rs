@@ -19,14 +19,14 @@
 macro_rules! assure {
     ($x:expr $(,)?) => ({
         if ($x) {
-            Ok(true)
+            Ok($x)
         } else {
             Err("assure")
         }
     });
     ($x:expr, $($arg:tt)+) => ({
         if ($x) {
-            Ok(true)
+            Ok($x)
         } else {
             Err($($arg)+)
         }
@@ -38,32 +38,44 @@ mod tests {
 
     #[test]
     fn test_assure_x_arity_2_return_ok() {
+        let a = true;
+        let x = assure!(a);
+        assert!(x.is_ok());
         assert_eq!(
-            assure!(true).unwrap(), 
-            true
-        );
-    } 
-
-    #[test]
-    fn test_assure_x_arity_3_return_ok() {
-        assert_eq!(
-            assure!(true, "message").unwrap(), 
-            true
+            x.unwrap(), 
+            a
         );
     } 
 
     #[test]
     fn test_assure_x_arity_2_return_err() {
+        let a = false;
+        let x = assure!(a);
+        assert!(x.is_err());
         assert_eq!(
-            assure!(false).unwrap_err(), 
+            x.unwrap_err(), 
             "assure"
         );
     } 
 
     #[test]
-    fn test_assure_x_arity_3_return_err() {
+    fn test_assure_x_arity_3_return_ok() {
+        let a = true;
+        let x = assure!(a, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure!(false, "message").unwrap_err(), 
+            x.unwrap(), 
+            a
+        );
+    } 
+
+    #[test]
+    fn test_assure_x_arity_3_return_err() {
+        let a = false;
+        let x = assure!(a, "message");
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(), 
             "message"
         );
     } 

@@ -14,7 +14,7 @@
 /// # #[macro_use] extern crate assure; fn main() {
 /// let a = [1, 2];
 /// let b = [2, 1];
-/// assure_set_eq!(a, b);
+/// assure_set_eq!(&a, &b);
 /// # }
 /// ```
 ///
@@ -29,7 +29,7 @@
 /// let mut b = LinkedList::new();
 /// b.push_back(2);
 /// b.push_back(1);
-/// assure_set_eq!(a, b);
+/// assure_set_eq!(&a, &b);
 /// # }
 /// ```
 #[macro_export]
@@ -40,7 +40,7 @@ macro_rules! assure_set_eq {
                 let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
                 let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
                 if left_set == right_set {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err(format!("assure_set_eq left:{:?} right:{:?}", left_set, right_set))
                 }
@@ -53,7 +53,7 @@ macro_rules! assure_set_eq {
                 let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
                 let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
                 if left_set == right_set {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err($($arg)+)
                 }
@@ -70,9 +70,11 @@ mod tests {
     fn test_assure_set_eq_x_array_arity_2_return_ok() {
         let a = [1, 2];
         let b = [1, 2];
+        let x = assure_set_eq!(&a, &b);
+        assert!(x.is_ok());
         assert_eq!(
-            assure_set_eq!(a, b).unwrap(),
-            true
+            x.unwrap(),
+            &a
         );
     } 
 
@@ -80,8 +82,10 @@ mod tests {
     fn test_assure_set_eq_x_array_arity_2_return_err() {
         let a = [1, 2];
         let b = [3, 4];
+        let x = assure_set_eq!(&a, &b);
+        assert!(x.is_err());
         assert_eq!(
-            assure_set_eq!(a, b)
+            x
             .unwrap_err()
             .chars()
             .into_iter()
@@ -95,9 +99,11 @@ mod tests {
     fn test_assure_set_eq_x_array_arity_3_return_ok() {
         let a = [1, 2];
         let b = [1, 2];
+        let x = assure_set_eq!(&a, &b, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure_set_eq!(a, b, "message").unwrap(),
-            true
+            x.unwrap(),
+            &a
         )
     }
 
@@ -105,8 +111,10 @@ mod tests {
     fn test_assure_set_eq_x_array_arity_3_return_err() {
         let a = [1, 2];
         let b = [3, 4];
+        let x = assure_set_eq!(&a, &b, "message");
+        assert!(x.is_err());
         assert_eq!(
-            assure_set_eq!(a, b, "message").unwrap_err(),
+            x.unwrap_err(),
             "message"
         )
     } 
@@ -115,9 +123,11 @@ mod tests {
     fn test_assure_set_eq_x_vec_arity_2_return_ok() {
         let a = vec![1, 2];
         let b = vec![1, 2];
+        let x = assure_set_eq!(&a, &b);
+        assert!(x.is_ok());
         assert_eq!(
-            assure_set_eq!(a, b).unwrap(),
-            true
+            x.unwrap(),
+            &a
         );
     } 
 
@@ -125,8 +135,10 @@ mod tests {
     fn test_assure_set_eq_x_vec_arity_2_return_err() {
         let a = vec![1, 2];
         let b = vec![3, 4];
+        let x = assure_set_eq!(&a, &b);
+        assert!(x.is_err());
         assert_eq!(
-            assure_set_eq!(a, b)
+            x
             .unwrap_err()
             .chars()
             .into_iter()
@@ -140,9 +152,11 @@ mod tests {
     fn test_assure_set_eq_x_vec_arity_3_return_ok() {
         let a = vec![1, 2];
         let b = vec![1, 2];
+        let x = assure_set_eq!(&a, &b, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure_set_eq!(a, b, "message").unwrap(),
-            true
+            x.unwrap(),
+            &a
         )
     } 
 
@@ -150,8 +164,10 @@ mod tests {
     fn test_assure_set_eq_x_vec_arity_3_return_err() {
         let a = vec![1, 2];
         let b = vec![3, 4];
+        let x = assure_set_eq!(&a, &b, "message");
+        assert!(x.is_err());
         assert_eq!(
-            assure_set_eq!(a, b, "message").unwrap_err(),
+            x.unwrap_err(),
             "message"
         )
     } 
@@ -164,9 +180,11 @@ mod tests {
         let mut b: LinkedList<u8> = LinkedList::new();
         b.push_back(2);
         b.push_back(1);
+        let x = assure_set_eq!(&a, &b);
+        assert!(x.is_ok());
         assert_eq!(
-            assure_set_eq!(a, b).unwrap(),
-            true
+            x.unwrap(),
+            &a
         );
     } 
 
@@ -178,8 +196,10 @@ mod tests {
         let mut b: LinkedList<u8> = LinkedList::new();
         b.push_back(3);
         b.push_back(4);
+        let x = assure_set_eq!(&a, &b);
+        assert!(x.is_err());
         assert_eq!(
-            assure_set_eq!(a, b)
+            x
             .unwrap_err()
             .chars()
             .into_iter()
@@ -197,9 +217,11 @@ mod tests {
         let mut b: LinkedList<u8> = LinkedList::new();
         b.push_back(2);
         b.push_back(1);
+        let x = assure_set_eq!(&a, &b, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure_set_eq!(a, b, "message").unwrap(),
-            true
+            x.unwrap(),
+            &a
         );
     } 
 
@@ -211,8 +233,10 @@ mod tests {
         let mut b: LinkedList<u8> = LinkedList::new();
         b.push_back(3);
         b.push_back(4);
+        let x = assure_set_eq!(&a, &b, "message");
+        assert!(x.is_err());
         assert_eq!(
-            assure_set_eq!(a, b, "message").unwrap_err(),
+            x.unwrap_err(),
             "message"
         );
     } 

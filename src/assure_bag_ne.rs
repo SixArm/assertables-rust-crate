@@ -14,7 +14,7 @@
 /// # #[macro_use] extern crate assure; fn main() {
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
-/// assure_bag_ne!(a, b);
+/// assure_bag_ne!(&a, &b);
 /// # }
 /// ```
 ///
@@ -30,7 +30,7 @@
 /// b.push_back(1);
 /// b.push_back(1);
 /// b.push_back(1);
-/// assure_bag_ne!(a, b);
+/// assure_bag_ne!(&a, &b);
 /// # }
 /// ```
 #[macro_export]
@@ -49,7 +49,7 @@ macro_rules! assure_bag_ne {
                     *n += 1;
                 }
                 if left_map != right_map {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err(format!("assure_bag_ne left:{:?} right:{:?}", left_map, right_map))
                 }
@@ -70,7 +70,7 @@ macro_rules! assure_bag_ne {
                     *n += 1;
                 }
                 if left_map != right_map {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err($($arg)+)
                 }
@@ -87,9 +87,11 @@ mod tests {
     fn test_assure_bag_ne_x_array_arity_2_return_ok() {
         let a = [1, 1];
         let b = [1, 1, 1];
+        let x = assure_bag_ne!(&a, &b);
+        assert!(x.is_ok());
         assert_eq!(
-            assure_bag_ne!(a, b).unwrap(),
-            true
+            x.unwrap(),
+            &a
         );
     } 
 
@@ -97,8 +99,10 @@ mod tests {
     fn test_assure_bag_ne_x_array_arity_2_return_err() {
         let a = [1, 1];
         let b = [1, 1];
+        let x = assure_bag_ne!(&a, &b);
+        assert!(x.is_err());
         assert_eq!(
-            assure_bag_ne!(a, b)
+            x
             .unwrap_err()
             .chars()
             .into_iter()
@@ -112,9 +116,11 @@ mod tests {
     fn test_assure_bag_ne_x_array_arity_3_return_ok() {
         let a = [1, 1];
         let b = [1, 1, 1];
+        let x = assure_bag_ne!(&a, &b, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure_bag_ne!(a, b, "message").unwrap(),
-            true
+            x.unwrap(),
+            &a
         )
     } 
 
@@ -122,8 +128,10 @@ mod tests {
     fn test_assure_bag_ne_x_array_arity_3_return_err() {
         let a = [1, 1];
         let b = [1, 1];
+        let x = assure_bag_ne!(&a, &b, "message");
+        assert!(x.is_err());
         assert_eq!(
-            assure_bag_ne!(a, b, "message").unwrap_err(), 
+            x.unwrap_err(), 
             "message"
         );
     } 
@@ -132,9 +140,11 @@ mod tests {
     fn test_assure_bag_ne_x_vec_arity_2_return_ok() {
         let a = vec![1, 1];
         let b = vec![1, 1, 1];
+        let x = assure_bag_ne!(&a, &b);
+        assert!(x.is_ok());
         assert_eq!(
-            assure_bag_ne!(a, b).unwrap(),
-            true
+            x.unwrap(),
+            &a
         );
     } 
 
@@ -142,8 +152,10 @@ mod tests {
     fn test_assure_bag_ne_x_vec_arity_2_return_err() {
         let a = vec![1, 1];
         let b = vec![1, 1];
+        let x = assure_bag_ne!(&a, &b);
+        assert!(x.is_err());
         assert_eq!(
-            assure_bag_ne!(a, b)
+            x
             .unwrap_err()
             .chars()
             .into_iter()
@@ -157,9 +169,11 @@ mod tests {
     fn test_assure_bag_ne_x_vec_arity_3_return_ok() {
         let a = vec![1, 1];
         let b = vec![1, 1, 1];
+        let x = assure_bag_ne!(&a, &b, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure_bag_ne!(a, b, "message").unwrap(),
-            true
+            x.unwrap(),
+            &a
         )
     }
 
@@ -167,8 +181,10 @@ mod tests {
     fn test_assure_bag_ne_x_vec_arity_3_return_err() {
         let a = vec![1, 1];
         let b = vec![1, 1];
+        let x = assure_bag_ne!(&a, &b, "message");
+        assert!(x.is_err());
         assert_eq!(
-            assure_bag_ne!(a, b, "message").unwrap_err(), 
+            x.unwrap_err(), 
             "message"
         );
     } 
@@ -182,9 +198,11 @@ mod tests {
         b.push_back(1);
         b.push_back(1);
         b.push_back(1);
+        let x = assure_bag_ne!(&a, &b);
+        assert!(x.is_ok());
         assert_eq!(
-            assure_bag_ne!(a, b).unwrap(),
-            true
+            x.unwrap(),
+            &a
         );
     } 
 
@@ -196,8 +214,10 @@ mod tests {
         let mut b: LinkedList<u8> = LinkedList::new();
         b.push_back(1);
         b.push_back(1);
+        let x = assure_bag_ne!(&a, &b);
+        assert!(x.is_err());
         assert_eq!(
-            assure_bag_ne!(a, b)
+            x
             .unwrap_err()
             .chars()
             .into_iter()
@@ -216,9 +236,11 @@ mod tests {
         b.push_back(1);
         b.push_back(1);
         b.push_back(1);
+        let x= assure_bag_ne!(&a, &b, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure_bag_ne!(a, b, "message").unwrap(),
-            true
+            x.unwrap(),
+            &a
         );
     } 
 
@@ -230,8 +252,10 @@ mod tests {
         let mut b: LinkedList<u8> = LinkedList::new();
         b.push_back(1);
         b.push_back(1);
+        let x = assure_bag_ne!(&a, &b, "message");
+        assert!(x.is_err());
         assert_eq!(
-            assure_bag_ne!(a, b, "message").unwrap_err(),
+            x.unwrap_err(),
             "message"
         );
     } 

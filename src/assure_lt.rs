@@ -21,7 +21,7 @@ macro_rules! assure_lt {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if (left_val < right_val) {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err(format!("assure_lt left:{:?} right:{:?}", left_val, right_val))
                 }
@@ -32,7 +32,7 @@ macro_rules! assure_lt {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if (left_val < right_val) {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err($($arg)+)
                 }
@@ -46,32 +46,48 @@ mod tests {
 
     #[test]
     fn test_assure_lt_x_arity_2_return_ok() {
+        let a = 1;
+        let b = 2;
+        let x = assure_lt!(a, b);
+        assert!(x.is_ok());
         assert_eq!(
-            assure_lt!(1, 2).unwrap(), 
-            true
-        );
-    } 
-
-    #[test]
-    fn test_assure_lt_x_arity_3_return_ok() {
-        assert_eq!(
-            assure_lt!(1, 2, "message").unwrap(),
-            true
+            x.unwrap(), 
+            a
         );
     } 
 
     #[test]
     fn test_assure_lt_x_arity_2_return_err() {
+        let a = 2;
+        let b = 1;
+        let x = assure_lt!(a, b);
+        assert!(x.is_err());
         assert_eq!(
-            assure_lt!(2, 1).unwrap_err(), 
+            x.unwrap_err(), 
             "assure_lt left:2 right:1"
         );
     } 
 
     #[test]
-    fn test_assure_lt_x_arity_3_return_err() {
+    fn test_assure_lt_x_arity_3_return_ok() {
+        let a = 1;
+        let b = 2;
+        let x = assure_lt!(a, b, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure_lt!(2, 1, "message").unwrap_err(), 
+            x.unwrap(),
+            a
+        );
+    } 
+
+    #[test]
+    fn test_assure_lt_x_arity_3_return_err() {
+        let a = 2;
+        let b = 1;
+        let x = assure_lt!(a, b, "message");
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(), 
             "message"
         );
     } 

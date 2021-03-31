@@ -21,7 +21,7 @@ macro_rules! assure_io_eq {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if (left_val == right_val) {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, format!("assure_io_eq left:{:?} right:{:?}",  left_val, right_val)))
                 }
@@ -32,7 +32,7 @@ macro_rules! assure_io_eq {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if (left_val == right_val) {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, $($arg)+))
                 }
@@ -45,33 +45,97 @@ macro_rules! assure_io_eq {
 mod tests {
 
     #[test]
-    fn test_assure_io_eq_x_arity_2_return_ok() {
+    fn test_assure_io_eq_x_i32_arity_2_return_ok() {
+        let a = 1;
+        let b = 1;
+        let x = assure_io_eq!(a, b);
+        assert!(x.is_ok());
         assert_eq!(
-            assure_io_eq!(1, 1).unwrap(), 
-            true
+            x.unwrap(), 
+            a
         );
     } 
 
     #[test]
-    fn test_assure_io_eq_x_arity_3_return_ok() {
+    fn test_assure_io_eq_x_i32_arity_2_return_err() {
+        let a = 1;
+        let b = 2;
+        let x = assure_io_eq!(a, b);
+        assert!(x.is_err());
         assert_eq!(
-            assure_io_eq!(1, 1, "message").unwrap(),
-            true
-        );
-    } 
-
-    #[test]
-    fn test_assure_io_eq_x_arity_2_return_err() {
-        assert_eq!(
-            assure_io_eq!(1, 2).unwrap_err().get_ref().unwrap().to_string(), 
+            x.unwrap_err().get_ref().unwrap().to_string(), 
             "assure_io_eq left:1 right:2"
         );
     } 
 
     #[test]
-    fn test_assure_io_eq_x_arity_3_return_err() {
+    fn test_assure_io_eq_x_i32_arity_3_return_ok() {
+        let a = 1;
+        let b = 1;
+        let x = assure_io_eq!(a, b, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure_io_eq!(1, 2, "message").unwrap_err().get_ref().unwrap().to_string(),
+            x.unwrap(),
+            a
+        );
+    } 
+
+    #[test]
+    fn test_assure_io_eq_x_i32_arity_3_return_err() {
+        let a = 1;
+        let b = 2;
+        let x = assure_io_eq!(a, b, "message");
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err().get_ref().unwrap().to_string(),
+            "message"
+        );
+    } 
+
+    #[test]
+    fn test_assure_io_eq_x_str_arity_2_return_ok() {
+        let a = "aa";
+        let b = "aa";
+        let x = assure_io_eq!(a, b);
+        assert!(x.is_ok());
+        assert_eq!(
+            x.unwrap(), 
+            a
+        );
+    } 
+
+    #[test]
+    fn test_assure_io_eq_x_str_arity_2_return_err() {
+        let a = "aa";
+        let b = "bb";
+        let x = assure_io_eq!(a, b);
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err().get_ref().unwrap().to_string(), 
+            "assure_io_eq left:\"aa\" right:\"bb\""
+        );
+    } 
+
+    #[test]
+    fn test_assure_io_eq_x_str_arity_3_return_ok() {
+        let a = "aa";
+        let b = "aa";
+        let x = assure_io_eq!(a, b, "message");
+        assert!(x.is_ok());
+        assert_eq!(
+            x.unwrap(),
+            a
+        );
+    } 
+
+    #[test]
+    fn test_assure_io_eq_x_str_arity_3_return_err() {
+        let a = "aa";
+        let b = "bb";
+        let x = assure_io_eq!(a, b, "message");
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err().get_ref().unwrap().to_string(),
             "message"
         );
     } 

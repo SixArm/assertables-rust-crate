@@ -21,7 +21,7 @@ macro_rules! assure_ne {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if (left_val != right_val) {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err(format!("assure_ne left:{:?} right:{:?}", left_val, right_val))
                 }
@@ -32,7 +32,7 @@ macro_rules! assure_ne {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if (left_val != right_val) {
-                    Ok(true)
+                    Ok($left)
                 } else {
                     Err($($arg)+)
                 }
@@ -45,33 +45,97 @@ macro_rules! assure_ne {
 mod tests {
 
     #[test]
-    fn test_assure_ne_x_arity_2_return_ok() {
+    fn test_assure_ne_x_i32_arity_2_return_ok() {
+        let a = 1;
+        let b = 2;
+        let x = assure_ne!(a, b);
+        assert!(x.is_ok());
         assert_eq!(
-            assure_ne!(1, 2).unwrap(), 
-            true
+            x.unwrap(), 
+            a
         );
     } 
 
     #[test]
-    fn test_assure_ne_x_arity_3_return_ok() {
+    fn test_assure_ne_x_i32_arity_2_return_err() {
+        let a = 1;
+        let b = 1;
+        let x = assure_ne!(a, b);
+        assert!(x.is_err());
         assert_eq!(
-            assure_ne!(1, 2, "message").unwrap(), 
-            true
-        );
-    }
-
-    #[test]
-    fn test_assure_ne_x_arity_2_return_err() {
-        assert_eq!(
-            assure_ne!(1, 1).unwrap_err(), 
+            x.unwrap_err(), 
             "assure_ne left:1 right:1"
         );
     } 
 
     #[test]
-    fn test_assure_ne_x_arity_3_return_err() {
+    fn test_assure_ne_x_i32_arity_3_return_ok() {
+        let a = 1;
+        let b = 2;
+        let x = assure_ne!(a, b, "message");
+        assert!(x.is_ok());
         assert_eq!(
-            assure_ne!(1, 1, "message").unwrap_err(), 
+            x.unwrap(), 
+            a
+        );
+    }
+
+    #[test]
+    fn test_assure_ne_x_i32_arity_3_return_err() {
+        let a = 1;
+        let b = 1;
+        let x = assure_ne!(a, b, "message");
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(), 
+            "message"
+        );
+    }
+
+    #[test]
+    fn test_assure_ne_x_str_arity_2_return_ok() {
+        let a = "aa";
+        let b = "bb";
+        let x = assure_ne!(a, b);
+        assert!(x.is_ok());
+        assert_eq!(
+            x.unwrap(), 
+            a
+        );
+    } 
+
+    #[test]
+    fn test_assure_ne_x_str_arity_2_return_err() {
+        let a = "aa";
+        let b = "aa";
+        let x = assure_ne!(a, b);
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(), 
+            "assure_ne left:\"aa\" right:\"aa\""
+        );
+    } 
+
+    #[test]
+    fn test_assure_ne_x_str_arity_3_return_ok() {
+        let a = "aa";
+        let b = "bb";
+        let x = assure_ne!(a, b, "message");
+        assert!(x.is_ok());
+        assert_eq!(
+            x.unwrap(), 
+            a
+        );
+    }
+
+    #[test]
+    fn test_assure_ne_x_str_arity_3_return_err() {
+        let a = "aa";
+        let b = "aa";
+        let x = assure_ne!(a, b, "message");
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(), 
             "message"
         );
     }

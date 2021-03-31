@@ -2,24 +2,60 @@
 
 This Rust crate provides the macro `assure!` and related macros.
 
-These macros are similar to the macro `assert!` and related macros.
+These are intentionally similar to the macro `assert!` and related macros.
 
 Available via [https://crates.io/crates/assure](https://crates.io/crates/assure)
 
 
 ## Introduction
 
-The `assure!` macros work like this:
+The `assure` macros work like this:
 
-* `assure!(condition)` will return `Result` with `Ok(true)` or `Err("assure")`.
+* `assure!(x)` will return `Result` with `Ok(x)` or `Err(message)`.
 
-* `assure!(condition, message)` will return `Result` with `Ok(true)` or `Err(message)`.
+For comparison `assert` macros work like this:
 
-Whereas `assert!` macros work like this:
+* `assert!(x)` will return successfully or will call `panic!`.
 
-* `assert!(condition)` will return successfully or will call `panic!`.
 
-* `assert!(condition, message)` will return successfully or will call `panic!` with the message.
+## Error messages
+
+The `assure` macros will generate a diagnostic error message such as:
+
+* `assure_eq!(1, 2)` will return `Err("assure_eq left:1 right:2")`.
+
+If you prefer, you can provide your own error message as the final argument:
+
+* `assure_eq!(1, 2, "whatever")` will return `Err("whatever")`.
+
+This behavior is intentionally similar to `assert` macros.
+
+
+## Return Ok or Err
+
+The `assure…!` macros will return `Result` with either:
+
+* `Ok(…)` with the leftmost macro argument.
+
+* `Err(…)` with a generated error message intended for diagnostics.
+
+Example of `Ok`:
+
+```rust
+let a = 1;
+let b = 1;
+assure_eq!(a, b) 
+-> Ok(a)
+```
+
+Example of `Err`:
+
+```rust
+let a = 1;
+let b = 2;
+assure_eq!(a, b)
+-> Err("assure_eq left:1 right:2")
+```
 
 
 ## Macros for simple values
@@ -42,18 +78,6 @@ Macros for value comparison:
 
 * `assure_ge!(a, b)`: assure `a` is greater than or equal to `b`.
 
-Examples:
-
-```rust
-assure_eq!(1, 1) 
--> Ok(true)
-
-assure_eq!(1, 2) 
--> Err("assure_eq left:1 right:2")
-
-assure_eq!(1, 2, "message") 
--> Err("message")
-```
 
 
 ## Macros for bag checking
@@ -64,17 +88,22 @@ These macros help with comparison of bag parameters, such as comparison of two a
 
 * `assure_bag_ne(a, b)`: assure the bag `a` is not equal to the bag `b`.
 
-Examples:
+Example of `Ok`:
 
 ```rust
-assure_set_eq!([1, 1], [1, 1]) 
--> Ok(true)
+let a = [1, 1];
+let b = [1, 1];
+assure_set_eq!(&a, &b) 
+-> Ok(&a)
+```
 
-assure_set_eq!([1, 1], [1, 1, 1]) 
+Example of `Err`:
+
+```rust
+let a = [1, 1];
+let b = [1, 1, 1];
+assure_set_eq!(&a, &b) 
 -> Err("assure_bag_eq left:{1: 2} right:{1: 3}")
-
-assure_eq!([1, 1], [1, 1, 1], "message") 
--> Err("message")
 ```
 
 
@@ -86,17 +115,22 @@ These macros help with comparison of set parameters, such as comparison of two a
 
 * `assure_set_ne(a, b)`: assure the set `a` is not equal to the set `b`.
 
-Examples:
+Example of `Ok`:
 
 ```rust
-assure_set_eq!([1, 2], [2, 1]) 
--> Ok(true)
+let a = [1, 2];
+let b = [2, 1];
+assure_set_eq!(&a, &b) 
+-> Ok(&a)
+```
 
-assure_set_eq!([1, 2], [3, 4]) 
+Example of `Err`:
+
+```rust
+let a = [1, 2];
+let b = [3, 4];
+assure_set_eq!(&a, &b) 
 -> Err("assure_set_eq left:{1, 2} right:{3, 4}")
-
-assure_eq!([1, 2], [3, 4], "message") 
--> Err("message")
 ```
 
 
@@ -122,13 +156,20 @@ Macros for value comparison:
 
 * `assure_io_ge!(a, b)`: assure `a` is greater than or equal to `b`.
 
+Example of `Ok`:
+
 ```rust
-assure_io_eq!(1, 1) 
--> Ok(true)
+let a = 1;
+let b = 1;
+assure_io_eq!(a, b) 
+-> Ok(a)
+```
 
-assure_io_eq!(1, 2) 
+Example of `Err`:
+
+```rust
+let a = 1;
+let b = 2;
+assure_io_eq!(a, b) 
 -> Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "assure_io_eq left:1 right:2"))
-
-assure_io_eq!(1, 2, "message")
--> Err(std::io::Error:new(std::io::ErrorKind::InvalidInput, "message"))
 ```

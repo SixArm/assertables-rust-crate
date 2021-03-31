@@ -19,14 +19,14 @@
 macro_rules! assure_io {
     ($x:expr $(,)?) => ({
         if ($x) {
-            Ok(true)
+            Ok($x)
         } else {
             Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "assure_io"))
         }
     });
     ($x:expr, $($arg:tt)+) => ({
         if ($x) {
-            Ok(true)
+            Ok($x)
         } else {
             Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, $($arg)+))
         }
@@ -38,25 +38,31 @@ mod tests {
 
     #[test]
     fn test_assure_io_x_arity_2_return_ok() {
-        let x = assure_io!(true);
-        assert_eq!(x.unwrap(), true);
-    } 
-
-    #[test]
-    fn test_assure_io_x_arity_3_return_ok() {
-        let x = assure_io!(true, "message");
-        assert_eq!(x.unwrap(), true);
+        let a = true;
+        let x = assure_io!(a);
+        assert!(x.is_ok());
+        assert_eq!(x.unwrap(), a);
     } 
 
     #[test]
     fn test_assure_io_x_arity_2_return_err() {
-        let x = assure_io!(false);
+        let a = false;
+        let x = assure_io!(a);
         assert!(x.is_err());
     } 
 
     #[test]
+    fn test_assure_io_x_arity_3_return_ok() {
+        let a = true;
+        let x = assure_io!(a, "message");
+        assert!(x.is_ok());
+        assert_eq!(x.unwrap(), a);
+    } 
+
+    #[test]
     fn test_assure_io_x_arity_3_return_err() {
-        let x = assure_io!(false, "message");
+        let a = false;
+        let x = assure_io!(a, "message");
         assert!(x.is_err());
     } 
 
