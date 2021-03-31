@@ -1,8 +1,13 @@
 # Assure: macros for Rust runtime checking
 
-This Rust crate provides the macro `assure!` and its friends. 
+This Rust crate provides the macro `assure!` and related macros.
 
-These macros are similar to the macro `assert!` and its friends.
+These macros are similar to the macro `assert!` and related macros.
+
+Available via [https://crates.io/crates/assure](https://crates.io/crates/assure)
+
+
+## Introduction
 
 The `assure!` macros work like this:
 
@@ -10,7 +15,7 @@ The `assure!` macros work like this:
 
 * `assure!(condition, message)` will return `Result` with `Ok(true)` or `Err(message)`.
 
-Whereas typical `assert!` macros work like this:
+Whereas `assert!` macros work like this:
 
 * `assert!(condition)` will return successfully or will call `panic!`.
 
