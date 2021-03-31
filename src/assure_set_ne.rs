@@ -1,6 +1,6 @@
 /// Assure two sets are not equal.
 ///
-/// This implementation uses [`HashSet`] and [`assert_eq!`].
+/// This implementation uses [`HashSet`] ro count items.
 ///
 /// On error, this macro will print the values of the expressions with their
 /// debug representations.
@@ -38,7 +38,7 @@ macro_rules! assure_set_ne {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
-                let right_set: std::collections::HashSet<_> = right_val.into_iter().collect();
+                let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
                 if left_set != right_set {
                     Ok(true)
                 } else {
@@ -50,8 +50,8 @@ macro_rules! assure_set_ne {
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
-                let left_set: std::collections::HashSet<_> = left_val.into_iter().collect();
-                let right_set: std::collections::HashSet<_> = right_val.into_iter().collect();
+                let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
+                let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
                 if left_set != right_set {
                     Ok(true)
                 } else {
@@ -68,33 +68,91 @@ mod tests {
 
     #[test]
     fn test_assure_set_ne_x_array_arity_2_return_ok() {
+        let a = [1, 2];
+        let b = [3, 4];
         assert_eq!(
-            assure_set_ne!([1, 2], [3, 4]).unwrap(),
+            assure_set_ne!(a, b).unwrap(),
             true
+        );
+    }
+
+    #[test]
+    fn test_assure_set_ne_x_array_arity_2_return_err() {
+        let a = [1, 2];
+        let b = [1, 2];
+        assert_eq!(
+            assure_set_ne!(a, b)
+            .unwrap_err()
+            .chars()
+            .into_iter()
+            .take_while(|x| !x.is_whitespace())
+            .collect::<String>(),
+            "assure_set_ne"
         );
     } 
 
     #[test]
     fn test_assure_set_ne_x_array_arity_3_return_ok() {
+        let a = [1, 2];
+        let b = [3, 4];
         assert_eq!(
-            assure_set_ne!([1, 2], [3, 4], "message").unwrap(),
+            assure_set_ne!(a, b, "message").unwrap(),
             true
+        );
+    } 
+
+    #[test]
+    fn test_assure_set_ne_x_array_arity_3_return_err() {
+        let a = [1, 2];
+        let b = [1, 2];
+        assert_eq!(
+            assure_set_ne!(a, b, "message").unwrap_err(),
+            "message"
         );
     } 
 
     #[test]
     fn test_assure_set_ne_x_vec_arity_2_return_ok() {
+        let a = vec![1, 2];
+        let b = vec![3, 4];
         assert_eq!(
-            assure_set_ne!(vec![1, 2], vec![3, 4]).unwrap(),
+            assure_set_ne!(a, b).unwrap(),
             true
         );
     } 
 
     #[test]
-    fn test_assure_set_ne_x_vec_arity_3_return_ok() {
+    fn test_assure_set_ne_x_vac_arity_2_return_err() {
+        let a = vec![1, 2];
+        let b = vec![1, 2];
         assert_eq!(
-            assure_set_ne!(vec![1, 2], vec![3, 4], "message").unwrap(),
+            assure_set_ne!(a, b)
+            .unwrap_err()
+            .chars()
+            .into_iter()
+            .take_while(|x| !x.is_whitespace())
+            .collect::<String>(),
+            "assure_set_ne"
+        );
+    } 
+
+    #[test]
+    fn test_assure_set_ne_x_vec_arity_3_return_ok() {
+        let a = vec![1, 2];
+        let b = vec![3, 4];
+        assert_eq!(
+            assure_set_ne!(a, b, "message").unwrap(),
             true
+        );
+    } 
+
+    #[test]
+    fn test_assure_set_ne_x_vac_arity_3_return_err() {
+        let a = vec![1, 2];
+        let b = vec![1, 2];
+        assert_eq!(
+            assure_set_ne!(a, b, "message").unwrap_err(),
+            "message"
         );
     } 
 
@@ -113,62 +171,6 @@ mod tests {
     } 
 
     #[test]
-    fn test_assure_set_ne_x_list_arity_3_return_ok() {
-        let mut a: LinkedList<u8> = LinkedList::new();
-        a.push_back(1);
-        a.push_back(2);
-        let mut b: LinkedList<u8> = LinkedList::new();
-        b.push_back(3);
-        b.push_back(4);    
-        assert_eq!(
-            assure_set_ne!(a, b, "message").unwrap(),
-            true
-        );
-    } 
-
-    #[test]
-    fn test_assure_set_ne_x_array_arity_2_return_err() {
-        assert_eq!(
-            assure_set_ne!([1, 2], [1, 2])
-            .unwrap_err()
-            .chars()
-            .into_iter()
-            .filter(|x| !x.is_digit(10))
-            .collect::<String>(),
-            "assure_set_ne left:{, } right:{, }"
-        );
-    } 
-
-    #[test]
-    fn test_assure_set_ne_x_array_arity_3_return_err() {
-        assert_eq!(
-            assure_set_ne!([1, 2], [1, 2], "message").unwrap_err(),
-            "message"
-        );
-    } 
-
-    #[test]
-    fn test_assure_set_ne_x_vac_arity_2_return_err() {
-        assert_eq!(
-            assure_set_ne!(vec![1, 2], vec![1, 2])
-            .unwrap_err()
-            .chars()
-            .into_iter()
-            .filter(|x| !x.is_digit(10))
-            .collect::<String>(),
-            "assure_set_ne left:{, } right:{, }"
-        );
-    } 
-
-    #[test]
-    fn test_assure_set_ne_x_vac_arity_3_return_err() {
-        assert_eq!(
-            assure_set_ne!(vec![1, 2], vec![1, 2], "message").unwrap_err(),
-            "message"
-        );
-    } 
-
-    #[test]
     fn test_assure_set_ne_x_list_arity_2_return_err() {
         let mut a: LinkedList<u8> = LinkedList::new();
         a.push_back(1);
@@ -181,9 +183,23 @@ mod tests {
             .unwrap_err()
             .chars()
             .into_iter()
-            .filter(|x| !x.is_digit(10))
+            .take_while(|x| !x.is_whitespace())
             .collect::<String>(),
-            "assure_set_ne left:{, } right:{, }"
+            "assure_set_ne"
+        );
+    } 
+
+    #[test]
+    fn test_assure_set_ne_x_list_arity_3_return_ok() {
+        let mut a: LinkedList<u8> = LinkedList::new();
+        a.push_back(1);
+        a.push_back(2);
+        let mut b: LinkedList<u8> = LinkedList::new();
+        b.push_back(3);
+        b.push_back(4);    
+        assert_eq!(
+            assure_set_ne!(a, b, "message").unwrap(),
+            true
         );
     } 
 
