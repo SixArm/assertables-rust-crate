@@ -55,11 +55,14 @@ assure_eq!(1, 2, "message")
 -> Err("message")
 ```
 
+
 ## Macros for bag checking
 
-These macros help with order-independent comparison of iterator bag parameters, such as comparison of two arrays, or two vectors.
+These macros help with comparison of bag parameters, such as comparison of two arrays or two vectors, where the item order does not matter, and the item count does matter.
 
 * `assure_bag_eq(a, b)`: assure the bag `a` is equal to the bag `b`.
+
+* `assure_bag_ne(a, b)`: assure the bag `a` is not equal to the bag `b`.
 
 Examples:
 
@@ -74,9 +77,10 @@ assure_eq!([1, 1], [1, 1, 1], "message")
 -> Err("message")
 ```
 
+
 ## Macros for set checking
 
-These macros help with order-independent comparison of iterator set parameters, such as comparison of two arrays, or two vectors.
+These macros help with comparison of set parameters, such as comparison of two arrays or two vectors. where the item order does not matter, and the item count does not matter.
 
 * `assure_set_eq(a, b)`: assure the set `a` is equal to the set `b`.
 
