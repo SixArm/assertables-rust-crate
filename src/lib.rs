@@ -15,3 +15,6 @@ pub mod assure_set_ne; // not equal
 
 // Assure IO-related truth, which can return Err(std:io:Error(…))
 pub mod assure_io;
+
+// Assure IO-related comparison, which can return Err(std:io:Error(…))
+pub mod assure_io_eq; // equal

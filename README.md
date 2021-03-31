@@ -30,6 +30,10 @@ Macros for iterator sets, such as arrays and vectors:
 
 * `assure_set_ne(a, b)`: assure the set `a` is not equal to the set `b`.
 
-Macros for IO-related truth checking, which returns `Err(std::io::Error(…))`:
+Macro for IO-related truth checking, which returns `Err(std::io::Error(…))`:
 
 * `assure_io!(a)`: assure `a` is true.
+
+Macros for IO-related value comparison, which returns `Err(std::io::Error(…))`:
+
+* `assure_io_eq!(a, b)`: assure `a` is equal to `b`.
