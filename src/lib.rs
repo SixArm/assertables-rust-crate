@@ -18,3 +18,4 @@ pub mod assure_io;
 
 // Assure IO-related comparison, which can return Err(std:io:Error(…))
 pub mod assure_io_eq; // equal
+pub mod assure_io_ne; // not equal
