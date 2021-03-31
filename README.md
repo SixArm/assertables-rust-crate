@@ -50,3 +50,11 @@ Macros for value comparison:
 * `assure_io_eq!(a, b)`: assure `a` is equal to `b`.
 
 * `assure_io_ne!(a, b)`: assure `a` is not equal to `b`.
+
+* `assure_io_lt!(a, b)`: assure `a` is less than `b`.
+
+* `assure_io_le!(a, b)`: assure `a` is less than or equal to `b`.
+
+* `assure_io_gt!(a, b)`: assure `a` is greater than `b`.
+
+* `assure_io_ge!(a, b)`: assure `a` is greater than or equal to `b`.

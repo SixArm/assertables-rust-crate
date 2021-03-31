@@ -19,3 +19,7 @@ pub mod assure_io;
 // Assure IO-related comparison, which can return Err(std:io:Error(…))
 pub mod assure_io_eq; // equal
 pub mod assure_io_ne; // not equal
+pub mod assure_io_lt; // less than
+pub mod assure_io_le; // less than or equal to
+pub mod assure_io_gt; // greater than
+pub mod assure_io_ge; // greater than or equal to
