@@ -164,9 +164,10 @@ mod tests {
 
     #[test]
     fn test_assure_bag_eq_x_vec_arity_3_return_err() {
-        let x = assure_bag_eq!(vec![1, 2], vec![1, 1, 1], "message");
+        let a = vec![1, 1];
+        let b = vec![1, 1, 1];
         assert_eq!(
-            x.unwrap_err(), 
+            assure_bag_eq!(a, b, "message").unwrap_err(),
             "message"
         );
     } 
