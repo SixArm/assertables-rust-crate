@@ -12,3 +12,6 @@ pub mod assure_ge; // greater than or equal to
 // Assure iterator-related set-based comparison
 pub mod assure_set_eq; // equal
 pub mod assure_set_ne; // not equal
+
+// Assure IO-related truth, which can return Err(std:io:Error(…))
+pub mod assure_io;
