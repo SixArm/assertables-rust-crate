@@ -5,7 +5,7 @@
 /// On error, this macro will print the values of the expressions with their
 /// debug representations.
 ///
-/// Like [`assure!`], this macro has a second form, 
+/// Like [`assure!`], this macro has a second form,
 /// where a custom message can be provided.
 ///
 /// # Example with arrays
@@ -37,9 +37,9 @@ macro_rules! assure_bag_eq {
     ($left:expr, $right:expr $(,)?) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
-                let mut left_map: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new(); 
+                let mut left_map: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
                 let mut right_map: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                for x in left_val.into_iter() { 
+                for x in left_val.into_iter() {
                     let n = left_map.entry(x).or_insert(0);
                     *n += 1;
                 }
@@ -58,9 +58,9 @@ macro_rules! assure_bag_eq {
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
-                let mut left_map: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new(); 
+                let mut left_map: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
                 let mut right_map: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                for x in left_val.into_iter() { 
+                for x in left_val.into_iter() {
                     let n = left_map.entry(x).or_insert(0);
                     *n += 1;
                 }
@@ -92,7 +92,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_bag_eq_x_array_arity_2_return_err() {
@@ -109,7 +109,7 @@ mod tests {
             .collect::<String>(),
             "assure_bag_eq"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_bag_eq_x_array_arity_3_return_ok() {
@@ -121,7 +121,7 @@ mod tests {
             x.unwrap(),
             &a
         )
-    } 
+    }
 
     #[test]
     fn test_assure_bag_eq_x_array_arity_3_return_err() {
@@ -130,10 +130,10 @@ mod tests {
         let x = assure_bag_eq!(&a, &b, "message");
         assert!(x.is_err());
         assert_eq!(
-            x.unwrap_err(), 
+            x.unwrap_err(),
             "message"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_bag_eq_x_vec_arity_2_return_ok() {
@@ -145,7 +145,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_bag_eq_x_vec_arity_2_return_err() {
@@ -186,7 +186,7 @@ mod tests {
             x.unwrap_err(),
             "message"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_bag_eq_x_list_arity_2_return_ok() {
@@ -202,7 +202,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_bag_eq_x_list_arity_2_return_err() {
@@ -224,7 +224,7 @@ mod tests {
             .collect::<String>(),
             "assure_bag_eq"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_bag_eq_x_list_arity_3_return_ok() {
@@ -240,7 +240,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_bag_eq_x_list_arity_3_return_err() {
@@ -257,6 +257,6 @@ mod tests {
             x.unwrap_err(),
             "message"
         );
-    } 
+    }
 
 }

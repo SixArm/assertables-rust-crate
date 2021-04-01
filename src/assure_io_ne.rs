@@ -51,10 +51,10 @@ mod tests {
         let x = assure_io_ne!(a, b);
         assert!(x.is_ok());
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_io_ne_x_i32_arity_2_return_err() {
@@ -66,7 +66,7 @@ mod tests {
             x.unwrap_err().get_ref().unwrap().to_string(),
             "assure_io_ne left:1 right:1"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_io_ne_x_i32_arity_3_return_ok() {
@@ -75,7 +75,7 @@ mod tests {
         let x = assure_io_ne!(a, b, "message");
         assert!(x.is_ok());
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             a
         );
     }
@@ -99,10 +99,10 @@ mod tests {
         let x = assure_io_ne!(a, b);
         assert!(x.is_ok());
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_io_ne_x_str_arity_2_return_err() {
@@ -114,7 +114,7 @@ mod tests {
             x.unwrap_err().get_ref().unwrap().to_string(),
             "assure_io_ne left:\"aa\" right:\"aa\""
         );
-    } 
+    }
 
     #[test]
     fn test_assure_io_ne_x_str_arity_3_return_ok() {
@@ -123,7 +123,7 @@ mod tests {
         let x = assure_io_ne!(a, b, "message");
         assert!(x.is_ok());
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             a
         );
     }

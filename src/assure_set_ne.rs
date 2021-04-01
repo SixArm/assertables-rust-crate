@@ -93,7 +93,7 @@ mod tests {
             .collect::<String>(),
             "assure_set_ne"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_array_arity_3_return_ok() {
@@ -105,7 +105,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_array_arity_3_return_err() {
@@ -117,7 +117,7 @@ mod tests {
             x.unwrap_err(),
             "message"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_vec_arity_2_return_ok() {
@@ -129,7 +129,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_vac_arity_2_return_err() {
@@ -146,7 +146,7 @@ mod tests {
             .collect::<String>(),
             "assure_set_ne"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_vec_arity_3_return_ok() {
@@ -158,7 +158,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_vec_arity_3_return_err() {
@@ -170,7 +170,7 @@ mod tests {
             x.unwrap_err(),
             "message"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_list_arity_2_return_ok() {
@@ -179,14 +179,14 @@ mod tests {
         a.push_back(2);
         let mut b: LinkedList<u8> = LinkedList::new();
         b.push_back(3);
-        b.push_back(4);    
+        b.push_back(4);
         let x = assure_set_ne!(&a, &b);
         assert!(x.is_ok());
         assert_eq!(
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_list_arity_2_return_err() {
@@ -207,7 +207,7 @@ mod tests {
             .collect::<String>(),
             "assure_set_ne"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_list_arity_3_return_ok() {
@@ -223,7 +223,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_ne_x_list_arity_3_return_err() {
@@ -239,6 +239,6 @@ mod tests {
             x.unwrap_err(),
             "message"
         );
-    } 
+    }
 
 }

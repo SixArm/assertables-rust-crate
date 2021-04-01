@@ -51,10 +51,10 @@ mod tests {
         let x = assure_le!(a, b);
         assert!(x.is_ok());
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_le_x_arity_2_return_err() {
@@ -63,10 +63,10 @@ mod tests {
         let x = assure_le!(a, b);
         assert!(x.is_err());
         assert_eq!(
-            x.unwrap_err(), 
+            x.unwrap_err(),
             "assure_le left:2 right:1"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_le_x_arity_3_return_ok() {
@@ -78,7 +78,7 @@ mod tests {
             x.unwrap(),
             a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_le_x_arity_3_return_err() {
@@ -87,9 +87,9 @@ mod tests {
         let x = assure_le!(a, b, "message");
         assert!(x.is_err());
         assert_eq!(
-            x.unwrap_err(), 
+            x.unwrap_err(),
             "message"
         );
-    } 
+    }
 
 }

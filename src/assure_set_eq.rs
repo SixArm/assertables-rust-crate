@@ -5,7 +5,7 @@
 /// On error, this macro will print the values of the expressions with their
 /// debug representations.
 ///
-/// Like [`assure!`], this macro has a second form, 
+/// Like [`assure!`], this macro has a second form,
 /// where a custom message can be provided.
 ///
 /// # Example with arrays
@@ -76,7 +76,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_array_arity_2_return_err() {
@@ -93,7 +93,7 @@ mod tests {
             .collect::<String>(),
             "assure_set_eq"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_array_arity_3_return_ok() {
@@ -117,7 +117,7 @@ mod tests {
             x.unwrap_err(),
             "message"
         )
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_vec_arity_2_return_ok() {
@@ -129,7 +129,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_vec_arity_2_return_err() {
@@ -146,7 +146,7 @@ mod tests {
             .collect::<String>(),
             "assure_set_eq"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_vec_arity_3_return_ok() {
@@ -158,7 +158,7 @@ mod tests {
             x.unwrap(),
             &a
         )
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_vec_arity_3_return_err() {
@@ -170,7 +170,7 @@ mod tests {
             x.unwrap_err(),
             "message"
         )
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_list_arity_2_return_ok() {
@@ -186,7 +186,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_list_arity_2_return_err() {
@@ -207,7 +207,7 @@ mod tests {
             .collect::<String>(),
             "assure_set_eq"
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_list_arity_3_return_ok() {
@@ -223,7 +223,7 @@ mod tests {
             x.unwrap(),
             &a
         );
-    } 
+    }
 
     #[test]
     fn test_assure_set_eq_x_list_arity_3_return_err() {
@@ -239,6 +239,6 @@ mod tests {
             x.unwrap_err(),
             "message"
         );
-    } 
+    }
 
 }
