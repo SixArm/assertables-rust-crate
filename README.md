@@ -4,7 +4,11 @@ This Rust crate provides the macro `assure!` and related macros.
 
 These are intentionally similar to the macro `assert!` and related macros.
 
-Available via [https://crates.io/crates/assure](https://crates.io/crates/assure)
+Crate: [https://crates.io/crates/assure](https://crates.io/crates/assure)
+
+Docs: [https://docs.rs/assure/](https://docs.rs/assure/)
+
+Repo: [https://github.com/joelparkerhenderson/assure-rust-crate/](https://github.com/joelparkerhenderson/assure-rust-crate/)
 
 
 ## Introduction

@@ -4,7 +4,11 @@
 //!
 //! These are intentionally similar to the macro `assert!` and related macros.
 //!
-//! Available via [https://crates.io/crates/assure](https://crates.io/crates/assure)
+//! Crate: [https://crates.io/crates/assure](https://crates.io/crates/assure)
+//!
+//! Docs: [https://docs.rs/assure/](https://docs.rs/assure/)
+//!
+//! Repo: [https://github.com/joelparkerhenderson/assure-rust-crate/](https://github.com/joelparkerhenderson/assure-rust-crate/)
 //!
 //!
 //! # Introduction
@@ -223,10 +227,12 @@
 //! let a = 1;
 //! let b = 2;
 //! assure_io_eq!(a, b);
-//! //-> Err(std::io::Error::new(
-//!          std::io::ErrorKind::InvalidInput, 
-//!          "assure_io_eq left:1 right:2"
-//!      ))
+//! //-> Err(
+//! //       std::io::Error::new(
+//! //           std::io::ErrorKind::InvalidInput, 
+//! //           "assure_io_eq left:1 right:2"
+//! //       )
+//! //   )
 //! # }
 //! ```
 
