@@ -69,29 +69,6 @@
 //! # }
 //! ```
 //!
-//! # Failure messages
-//!
-//! When a macro fails, it generates a failure message with the
-//! values of expressions with their debug representations, such as:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
-//! // assert_lt!(2, 1)
-//! //-> panic!("assertion failed: `(left == right)`\n  left: `2`,\n right: `1`")
-//! # }
-//! ```
-//!
-//! These macros have a second form where a custom message can be provided,
-//! such as:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
-//! // assert_lt!(2, 1, "my message here");
-//! //-> panic!("my message here")
-//! # }
-//! ```
-//!
-//!
 //! # Assert
 //!
 //! The `assert…` macros can be useful with Rust testing,
@@ -161,6 +138,29 @@
 //!
 //! sum_positive_numbers(-1, -2);
 //! //-> Err("must use postive numbers")
+//! # }
+//! ```
+//!
+//!
+//! # Messages
+//!
+//! When a macro fails, it generates a failure message with the
+//! values of expressions with their debug representations, such as:
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertable; fn main() {
+//! // assert_lt!(2, 1)
+//! //-> panic!("assertion failed: `(left == right)`\n  left: `2`,\n right: `1`")
+//! # }
+//! ```
+//!
+//! These macros have a second form where a custom message can be provided,
+//! such as:
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertable; fn main() {
+//! // assert_lt!(2, 1, "my message here");
+//! //-> panic!("my message here")
 //! # }
 //! ```
 //!
