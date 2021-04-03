@@ -9,7 +9,7 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertable; fn main() {
-/// assert_eq(1, 1);
+/// assert_eq!(1, 1);
 /// //-> Ok()
 /// # }
 /// ```
