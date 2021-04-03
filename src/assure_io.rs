@@ -1,69 +1,92 @@
 /// Assure a condition is true.
 ///
-/// If true, then return Ok(true).
+/// * When true, return `Ok(true)`.
 ///
-/// Otherwise, return Err(std::io::Error …).
+/// * When false, return `Ok(false)`.
 ///
-/// This macro has a second form, where a custom
-/// message can be provided.
+/// * Otherwise, return [`Err`] with a message and the values of the
+///   expressions with their debug representations.
 ///
-/// # Examples
+/// # Example
 ///
-/// ```
-/// # #[macro_use] extern crate assure; fn main() {
-/// assure_io!(true);
-/// assure_io!(true, "message");
+/// ```rust
+/// # #[macro_use] extern crate assertable; fn main() {
+/// let x = assure_io!(true);
+/// //-> Ok(true)
 /// # }
 /// ```
+///
+/// ```rust
+/// # #[macro_use] extern crate assertable; fn main() {
+/// let x = assure_io!(false);
+/// //-> Ok(false)
+/// # }
+/// ```
+///
+/// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assure_io {
     ($x:expr $(,)?) => ({
         if ($x) {
-            Ok($x)
+            Ok(true)
         } else {
-            Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "assure_io"))
+            Ok(false)
         }
-    });
+    } as Result<bool, std::io::Error>);
     ($x:expr, $($arg:tt)+) => ({
         if ($x) {
-            Ok($x)
+            Ok(true)
         } else {
-            Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, $($arg)+))
+            Ok(false)
         }
-    });
+    } as Result<bool, std::io::Error>);
 }
 
 #[cfg(test)]
 mod tests {
 
     #[test]
-    fn test_assure_io_x_arity_2_return_ok() {
+    fn test_assure_io_x_arity_2_success() {
         let a = true;
         let x = assure_io!(a);
-        assert!(x.is_ok());
-        assert_eq!(x.unwrap(), a);
+        assert_eq!(
+            x.unwrap(), 
+            true
+        );
     }
 
     #[test]
-    fn test_assure_io_x_arity_2_return_err() {
+    fn test_assure_io_x_arity_2_failure() {
         let a = false;
         let x = assure_io!(a);
-        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap(),
+            false
+            //x.unwrap_err().get_ref().unwrap().to_string(),
+            //"assure_io condition:false"
+        );
     }
 
     #[test]
-    fn test_assure_io_x_arity_3_return_ok() {
+    fn test_assure_io_x_arity_3_success() {
         let a = true;
         let x = assure_io!(a, "message");
-        assert!(x.is_ok());
-        assert_eq!(x.unwrap(), a);
+        assert_eq!(
+            x.unwrap(), 
+            true
+        );
     }
 
     #[test]
-    fn test_assure_io_x_arity_3_return_err() {
+    fn test_assure_io_x_arity_3_failure() {
         let a = false;
         let x = assure_io!(a, "message");
-        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap(), 
+            false
+            //x.unwrap_err().get_ref().unwrap().to_string(),
+            //"assure_io condition:false"
+        );
     }
 
 }

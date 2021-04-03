@@ -1,82 +1,87 @@
 /// Assure a condition is true.
 ///
-/// If true, then return Ok(true).
+/// * When true, return `Ok(true)`.
 ///
-/// Otherwise, return Err(…).
+/// * When false, return `Ok(false)`.
 ///
-/// This macro has a second form, where a custom
-/// message can be provided.
+/// * Otherwise, return [`Err`] with a message and the values of the
+///   expressions with their debug representations.
 ///
 /// # Examples
 ///
-/// ```
-/// # #[macro_use] extern crate assure; fn main() {
-/// assure!(true);
-/// assure!(true, "message");
+/// ```rust
+/// # #[macro_use] extern crate assertable; fn main() {
+/// let x = assure!(true);
+/// //-> Ok(true)
 /// # }
 /// ```
+///
+/// ```rust
+/// # #[macro_use] extern crate assertable; fn main() {
+/// let x = assure!(false);
+/// //-> Ok(false)
+/// # }
+/// ```
+///
+/// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assure {
     ($x:expr $(,)?) => ({
         if ($x) {
-            Ok($x)
+            Ok(true)
         } else {
-            Err("assure")
+            Ok(false)
         }
-    });
+    } as Result<bool, String>);
     ($x:expr, $($arg:tt)+) => ({
         if ($x) {
-            Ok($x)
+            Ok(true)
         } else {
-            Err($($arg)+)
+            Ok(false)
         }
-    });
+    } as Result<bool, String>);
 }
 
 #[cfg(test)]
 mod tests {
 
     #[test]
-    fn test_assure_x_arity_2_return_ok() {
+    fn test_assure_x_arity_2_success() {
         let a = true;
         let x = assure!(a);
-        assert!(x.is_ok());
         assert_eq!(
             x.unwrap(),
-            a
+            true
         );
     }
 
     #[test]
-    fn test_assure_x_arity_2_return_err() {
+    fn test_assure_x_arity_2_failure() {
         let a = false;
         let x = assure!(a);
-        assert!(x.is_err());
-        assert_eq!(
-            x.unwrap_err(),
-            "assure"
-        );
-    }
-
-    #[test]
-    fn test_assure_x_arity_3_return_ok() {
-        let a = true;
-        let x = assure!(a, "message");
-        assert!(x.is_ok());
         assert_eq!(
             x.unwrap(),
-            a
+            false
         );
     }
 
     #[test]
-    fn test_assure_x_arity_3_return_err() {
+    fn test_assure_x_arity_3_success() {
+        let a = true;
+        let x = assure!(a, "message");
+        assert_eq!(
+            x.unwrap(),
+            true
+        );
+    }
+
+    #[test]
+    fn test_assure_x_arity_3_failure() {
         let a = false;
         let x = assure!(a, "message");
-        assert!(x.is_err());
         assert_eq!(
-            x.unwrap_err(),
-            "message"
+            x.unwrap(),
+            false
         );
     }
 
