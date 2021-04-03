@@ -384,8 +384,6 @@
 //! * [`assure_io_gt!`]`(a, b)`: assure `a` is greater than `b`.
 //!
 //! * [`assure_io_ge!`]`(a, b)`: assure `a` is greater than or equal to `b`.
-//!
-//! ```
 
 // Assert truth
 pub mod assert; // condition (provided by Rust `std`)
