@@ -1,13 +1,13 @@
 [package]
-name = "assure"
-version = "2.1.0"
+name = "assertable"
+version = "3.0.0"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2018"
-description = "Assure: macros for Rust runtime checks and error handling"
+description = "Assertable: macros for Rust runtime checks using `assert…!`, `assume…!`, `assure…!`"
 readme = "README.md"
-repository = "https://github.com/joelparkerhenderson/assure-rust-crate/"
+repository = "https://github.com/joelparkerhenderson/assertable-rust-crate/"
 license = "MIT OR Apache-2.0 OR GPL-2.0-only"
-keywords = ["assert", "assure", "test", "compare"]
+keywords = ["assert", "assume", "assure", "macro", "test"]
 categories = ["development-tools", "development-tools::testing", "rust-patterns"]
 
 [dependencies]
