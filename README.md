@@ -61,8 +61,8 @@ This example function uses the `assure_gt!` macro, which means assure greater th
 
 ```rust
 fn sum_positive_numbers(a: i32, b: i32) -> Result<i32, String> {
-    assure_gt!(a, 0)?;
-    assure_gt!(b, 0)?;
+    assure_lt!(0, a)?;
+    assure_lt!(0, b)?;
     Ok(a + b)
 }
 ```
@@ -201,25 +201,17 @@ Macros for value comparison:
 
 * `assure_io_ge!(a, b)`: assure `a` is greater than or equal to `b`.
 
-Example of `Ok`:
+Example:
 
 ```rust
-let a = 1;
-let b = 1;
-assure_io_eq!(a, b);
-//-> Ok(a)
-```
+assume_io_lt!(1, 2);
+//-> Ok(true)
 
-Example of `Err`:
-
-```rust
-let a = 1;
-let b = 2;
-assure_io_eq!(a, b);
+assure_io_lt!(2, 1);
 //-> Err(
 //       std::io::Error::new(
 //           std::io::ErrorKind::InvalidInput, 
-//           "assure_io_eq left:1 right:2"
+//           "assure_io_lt left:2 right:1"
 //       )
 //   )
 ```
