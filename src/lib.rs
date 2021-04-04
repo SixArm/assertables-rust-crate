@@ -1,7 +1,8 @@
-//! assert-assume-assure: macros for Rust runtime checking
+//! Assertables: Rust crate of macros `assert`, `assume`, `assure`
 //!
-//! This Rust crate provides macros for Rust runtime checking.
-//! using `assert…!`, `assume…!`, `assure…!`, described below.
+//! This `assertables` Rust crate provides macros 
+//! `assert…!`, `assume…!`, `assure…!`, all for runtime
+//!  reliability checking, and all described below. By SixArm.com.
 //!
 //! Crate: [https://crates.io/crates/assure](https://crates.io/crates/assure)
 //!

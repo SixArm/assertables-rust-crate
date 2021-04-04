@@ -1,9 +1,9 @@
 [package]
 name = "assertables"
-version = "3.0.0"
+version = "3.0.1"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2018"
-description = "Assertable: macros for Rust runtime checks using `assert…!`, `assume…!`, `assure…!`. By SixArm.com."
+description = "Assertables: Rust crate of macros `assert…!`, `assume…!`, `assure…!`, all for runtime reliability checking. By SixArm.com."
 readme = "README.md"
 repository = "https://github.com/joelparkerhenderson/assertable-rust-crate/"
 license = "MIT OR Apache-2.0 OR GPL-2.0-only"
