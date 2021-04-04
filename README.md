@@ -1,4 +1,4 @@
-# Assertables: Rust crate of macros `assert`, `assume`, `assure`
+# Assertables: Rust crate of macros assert, assume, assure
 
 This `assertables` Rust crate provides macros 
 `assert…!`, `assume…!`, `assure…!`, all for runtime 
