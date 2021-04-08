@@ -44,7 +44,7 @@ assert_lt!(1, 2);
 
 ```rust
 // assert_lt!(2, 1);
-//-> panic!("assertion failed: `(left == right)`\n  left: `2`,\n right: `1`")
+//-> panic!("assertion failed: `assert_lt(left, right)`\n  left: `2`,\n right: `1`")
 ```
 
 Examples of `assume_lt!`:
@@ -56,7 +56,7 @@ let x = assume_lt!(1, 2);
 
 ```rust
 let x = assume_lt!(2, 1);
-//-> Err("assumption failed: `(left == right)`\n  left: `2`,\n right: `1`")
+//-> Err("assumption failed: `assume_lt(left, right)`\n  left: `2`,\n right: `1`")
 ```
 
 Examples of `assure_lt!`:
