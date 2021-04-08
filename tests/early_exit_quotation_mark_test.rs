@@ -1,4 +1,4 @@
-use ::assertable::*;
+use ::assertables::*;
 
 fn foo_assume(a: i32, b: i32) -> Result<i32, String> {
     assume_lt!(a, b)?;

@@ -1,4 +1,4 @@
-use ::assertable::*;
+use ::assertables::*;
 
 fn foo_assert(a: i32, b: i32) -> () {
     assert_lt!(a, b, format!("message {} and {}", a, b))
