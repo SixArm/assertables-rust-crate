@@ -8,7 +8,7 @@
 /// # Example
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let a = [1, 2];
 /// let b = [2, 1];
 /// assume_set_eq!(&a, &b);
@@ -17,7 +17,7 @@
 /// ```
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let a = [1, 2];
 /// let b = [3, 4];
 /// assume_set_eq!(&a, &b);

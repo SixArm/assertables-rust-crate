@@ -10,14 +10,14 @@
 /// # Example
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assure_set_ne!([1, 2], [3, 4]);
 /// //-> Ok(true)
 /// # }
 /// ```
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assure_set_ne!([1, 2], [1, 2]);
 /// //-> Ok(false)
 /// # }

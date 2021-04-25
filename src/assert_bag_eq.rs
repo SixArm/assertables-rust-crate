@@ -8,14 +8,14 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// assert_bag_eq!([1, 1], [1, 1]);
 /// //-> ()
 /// # }
 /// ```
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// // assert_bag_eq!([1, 1], [1, 1, 1]);
 /// //-> panic!("assertion failed: `assert_bag_eq(left, right)`\n  left: `[1, 1]`\n right: `[1, 1, 1]`")
 /// # }

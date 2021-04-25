@@ -8,14 +8,14 @@
 /// # Example
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assume_gt!(2, 1);
 /// //-> Ok(true)
 /// # }
 /// ```
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assume_gt!(1, 2);
 /// //-> Err("assumption failed: `assume_gt(left, right)`\n  left: `1`\n right: `2`")
 /// # }

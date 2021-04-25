@@ -8,14 +8,14 @@
 /// # Example
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assume_io!(true);
 /// //-> Ok(true)
 /// # }
 /// ```
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assume_io!(false);
 /// //-> Err(
 /// //       std::io::Error::new(

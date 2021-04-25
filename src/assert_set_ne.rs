@@ -8,14 +8,14 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// assert_set_ne!([1, 2], [3, 4]);
 /// //-> ()
 /// # }
 /// ```
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// // assert_set_ne!([1, 2], [1, 2]);
 /// //-> panic!("assertion failed: `assert_set_ne(left, right)`\n  left: `[1, 2]`\n right: `[1, 2]`")
 /// # }

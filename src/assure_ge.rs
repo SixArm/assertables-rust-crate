@@ -10,14 +10,14 @@
 /// # Example
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assure_ge!(2, 1);
 /// //-> Ok(true)
 /// # }
 /// ```
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertable; fn main() {
+/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assure_ge!(1, 2);
 /// //-> Ok(false)
 /// # }
@@ -92,7 +92,7 @@ mod tests {
         let b = 2;
         let x = assure_ge!(a, b, "message");
         assert_eq!(
-        x.unwrap(),
+            x.unwrap(),
             false
         );
     }

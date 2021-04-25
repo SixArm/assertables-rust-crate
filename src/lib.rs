@@ -25,14 +25,14 @@
 //! Examples of `assert_lt!`:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! assert_lt!(1, 2);
 //! //-> ()
 //! # }
 //! ```
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! // assert_lt!(2, 1);
 //! //-> panic!("assertion failed: `(left == right)`\n  left: `2`,\n right: `1`")
 //! # }
@@ -41,14 +41,14 @@
 //! Examples of `assume_lt!`:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_lt!(1, 2);
 //! //-> Ok(true)
 //! # }
 //! ```
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_lt!(2, 1);
 //! //-> Err("assumption failed: `(left == right)`\n  left: `2`,\n right: `1`")
 //! # }
@@ -57,14 +57,14 @@
 //! Examples of `assure_lt!`:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assure_lt!(1, 2);
 //! //-> Ok(true)
 //! # }
 //! ```
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assure_lt!(2, 1);
 //! //-> Ok(false)
 //! # }
@@ -78,7 +78,7 @@
 //! Example:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! fn sum_positive_numbers(a: i32, b: i32) -> Result<i32, String> {
 //!     assert_lt!(0, a);
 //!     assert_lt!(0, b);
@@ -101,7 +101,7 @@
 //! Example:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! fn sum_positive_numbers(a: i32, b: i32) -> Result<i32, String> {
 //!     assume_lt!(0, a)?;
 //!     assume_lt!(0, b)?;
@@ -125,7 +125,7 @@
 //! Example:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! fn sum_positive_numbers(a: i32, b: i32) -> Result<i32, String> {
 //!     if assure_lt!(0, a).unwrap() && assure_lt!(0, b).unwrap() {
 //!         Ok(a + b)
@@ -149,7 +149,7 @@
 //! values of expressions with their debug representations, such as:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! // assert_lt!(2, 1)
 //! //-> panic!("assertion failed: `(left == right)`\n  left: `2`,\n right: `1`")
 //! # }
@@ -159,7 +159,7 @@
 //! such as:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! // assert_lt!(2, 1, "my message here");
 //! //-> panic!("my message here")
 //! # }
@@ -171,14 +171,14 @@
 //! Examples:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_lt!(1, 2);
 //! //-> Ok(true)
 //! # }
 //! ```
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_lt!(2, 1);
 //! //-> Err("assumption failed: `assert_lt(left, right)`\n  left: `2`\n right: `1`")
 //! # }
@@ -242,14 +242,14 @@
 //! Examples:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_set_eq!([1, 2], [2, 1]);
 //! //-> Ok(true)
 //! # }
 //! ```
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_set_eq!([1, 2], [3, 4]);
 //! //-> Err("assertion failed: `assert_set_eq(left, right)`\n  left: `[1, 2]`\n right: `[3, 4]`")
 //! # }
@@ -281,14 +281,14 @@
 //! Examples:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_bag_eq!([1, 1], [1, 1]);
 //! //-> Ok(true)
 //! # }
 //! ```
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_bag_eq!([1, 1], [1, 1, 1]);
 //! //-> Err("assumption failed: `assume_bag_eq(left, right)`\n  left: `[1, 1]`\n right: `[1, 1, 1]`")]
 //! # }
@@ -320,14 +320,14 @@
 //! Examples:
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_io_lt!(1, 2);
 //! //-> Ok(true)
 //! # }
 //! ```
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertable; fn main() {
+//! # #[macro_use] extern crate assertables; fn main() {
 //! let x = assume_io_lt!(2, 1);
 //! //-> Err(
 //! //       std::io::Error::new(
