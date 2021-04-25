@@ -241,19 +241,53 @@ let x = assume_fn_eq!(abs, 1, -2);
 //-> Err("assumption failed: `assume_fn_eq(left, right)`\n fn: `abs`\n  left input: `1`\n right input: `-2`\n  left output: `1`\n right output: `2`")
 ```
 
-Macros:
+`assert…` macros:
 
-* `assert_fn_eq!(f, a, b)`: assert `f(a)` is equal to `f(b)`.
+* `assert!(a)`: assure `f(a)` is true, provided by Rust `std`.
 
-* `assert_fn_ne!(f, a, b)`: assert `f(a)` is not equal to `f(b)`.
+* `assert_fn_eq!(f, a, b)`: assert `f(a)` is equal to `f(b)`, provided by Rust `std`.
+
+* `assert_fn_ne!(f, a, b)`: assert `f(a)` is not equal to `f(b)`, provided by Rust `std`.
+
+* `assert_fn_lt!(f, a, b)`: assert `f(a)` is less than `f(b)`.
+
+* `assert_fn_le!(f, a, b)`: assert `f(a)` is less than or equal to `f(b)`.
+
+* `assert_fn_gt!(f, a, b)`: assert `f(a)` is greater than `f(b)`.
+
+* `assert_fn_ge!(f, a, b)`: assert `f(a)` is greater than or equal to `f(b)`.
+
+`assume…` macros:
+
+* `assume!(a)`: assume `f(a)` is true.
 
 * `assume_fn_eq!(f, a, b)`: assume `f(a)` is equal to `f(b)`.
 
 * `assume_fn_ne!(f, a, b)`: assume `f(a)` is not equal to `f(b)`.
 
+* `assume_fn_lt!(f, a, b)`: assume `f(a)` is less than `f(b)`.
+
+* `assume_fn_le!(f, a, b)`: assume `f(a)` is less than or equal to `f(b)`.
+
+* `assume_fn_gt!(f, a, b)`: assume `f(a)` is greater than `f(b)`.
+
+* `assume_fn_ge!(f, a, b)`: assume `f(a)` is greater than or equal to `f(b)`.
+
+`assure…` macros:
+
+* `assure!(a)`: assure `f(a)` is true.
+
 * `assure_fn_eq!(f, a, b)`: assure `f(a)` is equal to `f(b)`.
 
 * `assure_fn_ne!(f, a, b)`: assure `f(a)` is not equal to `f(b)`.
+
+* `assure_fn_lt!(f, a, b)`: assure `f(a)` is less than `f(b)`.
+
+* `assure_fn_le!(f, a, b)`: assure `f(a)` is less than or equal to `f(b)`.
+
+* `assure_fn_gt!(f, a, b)`: assure `f(a)` is greater than `f(b)`.
+
+* `assure_fn_ge!(f, a, b)`: assure `f(a)` is greater than or equal to `f(b)`.
 
 
 ### Macros for set checking

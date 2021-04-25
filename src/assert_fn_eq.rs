@@ -48,7 +48,7 @@ macro_rules! assert_fn_eq {
 mod tests {
 
     #[test]
-    fn test_assert_fn_eq_x_arity_2_success() {
+    fn test_assert_fn_eq_x_arity_2_eq_success() {
         let a = 1;
         let b = -1;
         let x = assert_fn_eq!(i32::abs, a as i32, b as i32);
@@ -60,14 +60,14 @@ mod tests {
 
     #[test]
     #[should_panic (expected = "assertion failed: `assert_fn_eq(fn, left, right)`\n  left input: `1`\n right input: `-2`\n  left output: `1`\n right output: `2`")]
-    fn test_assert_fn_eq_x_arity_2_failure() {
+    fn test_assert_fn_eq_x_arity_2_ne_failure() {
         let a = 1;
         let b = -2;
         let _ = assert_fn_eq!(i32::abs, a as i32, b as i32);
     }
 
     #[test]
-    fn test_assert_fn_eq_x_arity_3_success() {
+    fn test_assert_fn_eq_x_arity_3_eq_success() {
         let a = 1;
         let b = -1;
         let x = assert_fn_eq!(i32::abs, a as i32, b as i32, "message");
@@ -79,7 +79,7 @@ mod tests {
 
     #[test]
     #[should_panic (expected = "message")]
-    fn test_assert_fn_eq_x_arity_3_failure() {
+    fn test_assert_fn_eq_x_arity_3_ne_failure() {
         let a = 1;
         let b = -2;
         let _ = assert_fn_eq!(i32::abs, a as i32, b as i32, "message");
