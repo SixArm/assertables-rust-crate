@@ -233,7 +233,7 @@ Examples:
 
 ```rust
 let x = assume_fn_eq!(abs, 1, -1);
-//-> Ok()
+//-> Ok(true)
 ```
 
 ```rust
@@ -245,9 +245,15 @@ Macros:
 
 * `assert_fn_eq!(f, a, b)`: assert `f(a)` is equal to `f(b)`.
 
+* `assert_fn_ne!(f, a, b)`: assert `f(a)` is not equal to `f(b)`.
+
 * `assume_fn_eq!(f, a, b)`: assume `f(a)` is equal to `f(b)`.
 
+* `assume_fn_ne!(f, a, b)`: assume `f(a)` is not equal to `f(b)`.
+
 * `assure_fn_eq!(f, a, b)`: assure `f(a)` is equal to `f(b)`.
+
+* `assure_fn_ne!(f, a, b)`: assure `f(a)` is not equal to `f(b)`.
 
 
 ### Macros for set checking
@@ -260,7 +266,7 @@ Examples:
 
 ```rust
 let x = assume_set_eq!([1, 2], [2, 1]);
-//-> Ok()
+//-> Ok(true)
 ```
 
 ```rust

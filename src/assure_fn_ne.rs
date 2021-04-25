@@ -1,4 +1,4 @@
-/// Assure one function output is equal to another function output.
+/// Assure one function output is not equal to another function output.
 ///
 /// * When true, return `Ok(true)`.
 ///
@@ -11,25 +11,25 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
-/// let x: Result<bool, &str> = assure_fn_eq!(i32::abs, 1 as i32, -1 as i32);
+/// let x: Result<bool, &str> = assure_fn_ne!(i32::abs, 1 as i32, -2 as i32);
 /// //-> Ok(true)
 /// # }
 /// ```
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
-/// let x: Result<bool, &str> = assure_fn_eq!(i32::abs, 1 as i32, -2 as i32);
+/// let x: Result<bool, &str> = assure_fn_ne!(i32::abs, 1 as i32, -1 as i32);
 /// //-> Ok(false)
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assure_fn_eq {
+macro_rules! assure_fn_ne {
     ($function:path, $left:expr, $right:expr $(,)?) => ({
         let left = $function($left);
         let right = $function($right);
-        if (left == right) {
+        if (left != right) {
             Ok(true)
         } else {
             Ok(false)
@@ -38,7 +38,7 @@ macro_rules! assure_fn_eq {
     ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
         let left = $function($left);
         let right = $function($right);
-        if (left == right) {
+        if (left != right) {
             Ok(true)
         } else {
             Ok(false)
@@ -50,10 +50,10 @@ macro_rules! assure_fn_eq {
 mod tests {
 
     #[test]
-    fn test_assure_fn_eq_x_arity_2_success() {
+    fn test_assure_fn_ne_x_arity_2_success() {
         let a = 1;
-        let b = -1;
-        let x: Result<bool, &str> = assure_fn_eq!(i32::abs, a as i32, b as i32);
+        let b = -2;
+        let x: Result<bool, &str> = assure_fn_ne!(i32::abs, a as i32, b as i32);
         assert_eq!(
             x.unwrap(),
             true
@@ -61,10 +61,10 @@ mod tests {
     }
 
     #[test]
-    fn test_assure_fn_eq_x_arity_2_failure() {
+    fn test_assure_fn_ne_x_arity_2_failure() {
         let a = 1;
-        let b = -2;
-        let x: Result<bool, &str> = assure_fn_eq!(i32::abs, a as i32, b as i32);
+        let b = -1;
+        let x: Result<bool, &str> = assure_fn_ne!(i32::abs, a as i32, b as i32);
         assert_eq!(
             x.unwrap(),
             false
@@ -72,10 +72,10 @@ mod tests {
     }
 
     #[test]
-    fn test_assure_fn_eq_x_arity_3_success() {
+    fn test_assure_fn_ne_x_arity_3_success() {
         let a = 1;
-        let b = -1;
-        let x: Result<bool, &str> = assure_fn_eq!(i32::abs, a as i32, b as i32, "message");
+        let b = -2;
+        let x: Result<bool, &str> = assure_fn_ne!(i32::abs, a as i32, b as i32, "message");
         assert_eq!(
             x.unwrap(),
             true
@@ -83,10 +83,10 @@ mod tests {
     }
 
     #[test]
-    fn test_assure_fn_eq_x_arity_3_failure() {
+    fn test_assure_fn_ne_x_arity_3_failure() {
         let a = 1;
-        let b = -2;
-        let x: Result<bool, &str> = assure_fn_eq!(i32::abs, a as i32, b as i32, "message");
+        let b = -1;
+        let x: Result<bool, &str> = assure_fn_ne!(i32::abs, a as i32, b as i32, "message");
         assert_eq!(
             x.unwrap(),
             false

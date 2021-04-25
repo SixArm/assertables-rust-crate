@@ -1,4 +1,4 @@
-/// Assert one function output is greater than another function output.
+/// Assert one function output is equal to another function output.
 ///
 /// * When true, return `()`.
 ///
