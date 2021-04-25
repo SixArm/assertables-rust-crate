@@ -224,22 +224,48 @@ let x = assume_lt!(2, 1);
 * `assure_ge!(a, b)`: assure `a` is greater than or equal to `b`.
 
 
+### Macros for function checking
+
+These macros help with comparison of function outputs,
+such as `function(a)` and `function(b)`.
+
+Examples:
+
+```rust
+let x = assume_fn_eq!(abs, 1, -1);
+//-> Ok()
+```
+
+```rust
+let x = assume_fn_eq!(abs, 1, -2);
+//-> Err("assumption failed: `assume_fn_eq(left, right)`\n fn: `abs`\n  left input: `1`\n right input: `-2`\n  left output: `1`\n right output: `2`")
+```
+
+Macros:
+
+* `assert_fn_eq!(f, a, b)`: assert `f(a)` is equal to `f(b)`.
+
+* `assume_fn_eq!(f, a, b)`: assume `f(a)` is equal to `f(b)`.
+
+* `assure_fn_eq!(f, a, b)`: assure `f(a)` is equal to `f(b)`.
+
+
 ### Macros for set checking
 
 These macros help with comparison of set parameters,
-such as two arrays or two vectors. where the item order 
+such as two arrays or two vectors, where the item order 
 does not matter, and the item count does not matter.
 
 Examples:
 
 ```rust
 let x = assume_set_eq!([1, 2], [2, 1]);
-//-> Ok(true)
+//-> Ok()
 ```
 
 ```rust
 let x = assume_set_eq!([1, 2], [3, 4]);
-//-> Err("assertion failed: `assert_set_eq(left, right)`\n  left: `[1, 2]`\n right: `[3, 4]`")
+//-> Err("assumption failed: `assume_set_eq(left, right)`\n  left: `[1, 2]`\n right: `[3, 4]`")
 ```
 
 `assert_set…` macros:

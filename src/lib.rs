@@ -397,6 +397,9 @@ pub mod assert_le; // less than or equal to
 pub mod assert_gt; // greater than
 pub mod assert_ge; // greater than or equal to
 
+// Assert function output comparison
+pub mod assert_fn_eq; // equal
+
 // Assert iterator-related set-based comparison
 pub mod assert_set_eq; // equal
 pub mod assert_set_ne; // not equal
@@ -427,6 +430,9 @@ pub mod assume_le; // less than or equal to
 pub mod assume_gt; // greater than
 pub mod assume_ge; // greater than or equal to
 
+// Assume function output comparison
+pub mod assume_fn_eq; // equal
+
 // Assume iterator-related set-based comparison
 pub mod assume_set_eq; // equal
 pub mod assume_set_ne; // not equal
@@ -456,6 +462,9 @@ pub mod assure_lt; // less than
 pub mod assure_le; // less than or equal to
 pub mod assure_gt; // greater than
 pub mod assure_ge; // greater than or equal to
+
+// Assure function output comparison
+pub mod assure_fn_eq; // equal
 
 // Assure iterator-related set-based comparison
 pub mod assure_set_eq; // equal
