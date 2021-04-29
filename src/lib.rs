@@ -405,6 +405,14 @@ pub mod assert_fn_le; // less than or equal to
 pub mod assert_fn_gt; // greater than
 pub mod assert_fn_ge; // greater than or equal to
 
+// Assert function ok() comparison
+pub mod assert_fn_ok_eq; // equal
+pub mod assert_fn_ok_ne; // not equal
+pub mod assert_fn_ok_lt; // less than
+pub mod assert_fn_ok_le; // less than or equal to
+pub mod assert_fn_ok_gt; // greater than
+pub mod assert_fn_ok_ge; // greater than or equal to
+
 // Assert iterator-related set-based comparison
 pub mod assert_set_eq; // equal
 pub mod assert_set_ne; // not equal
@@ -443,6 +451,14 @@ pub mod assume_fn_le; // less than or equal to
 pub mod assume_fn_gt; // greater than
 pub mod assume_fn_ge; // greater than or equal to
 
+// Assume function ok() comparison
+pub mod assume_fn_ok_eq; // equal
+pub mod assume_fn_ok_ne; // not equal
+pub mod assume_fn_ok_lt; // less than
+pub mod assume_fn_ok_le; // less than or equal to
+pub mod assume_fn_ok_gt; // greater than
+pub mod assume_fn_ok_ge; // greater than or equal to
+
 // Assume iterator-related set-based comparison
 pub mod assume_set_eq; // equal
 pub mod assume_set_ne; // not equal
@@ -480,6 +496,14 @@ pub mod assure_fn_lt; // less than
 pub mod assure_fn_le; // less than or equal to
 pub mod assure_fn_gt; // greater than
 pub mod assure_fn_ge; // greater than or equal to
+
+// Assure function output comparison
+pub mod assure_fn_ok_eq; // equal
+pub mod assure_fn_ok_ne; // not equal
+pub mod assure_fn_ok_lt; // less than
+pub mod assure_fn_ok_le; // less than or equal to
+pub mod assure_fn_ok_gt; // greater than
+pub mod assure_fn_ok_ge; // greater than or equal to
 
 // Assure iterator-related set-based comparison
 pub mod assure_set_eq; // equal
