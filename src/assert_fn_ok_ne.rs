@@ -18,8 +18,8 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
 /// // use std::str::FromStr;
-/// // assert_fn_ok_ne!(i32::from_str, "1", "2");
-/// //-> panic!("assertion failed: `assert_fn_ok_ne(fn, left, right)`\n  left input: `\"1\"`\n right input: `\"2\"`\n  left output: `1`\n right output: `1`")
+/// // assert_fn_ok_ne!(i32::from_str, "1", "1");
+/// //-> panic!("assertion failed: `assert_fn_ok_ne(fn, left, right)`\n  left input: `\"1\"`\n right input: `\"1\"`\n  left output: `1`\n right output: `1`")
 /// # }
 /// ```
 ///
