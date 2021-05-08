@@ -1,16 +1,18 @@
-/// Assume one function ok() is not equal to another function ok().
+/// Assure one function ok() is equal to another function ok().
 ///
 /// * When true, return `Ok(true)`.
+///
+/// * When false, return `Ok(false)`.
 ///
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// assume_fn_err_str_ne!(f, 1, 2);
+/// let x: Result<bool, String> = assure_fn_err_string_eq!(f, 1, 1);
 /// //-> Ok(true)
 /// # }
 /// ```
@@ -18,28 +20,28 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// assume_fn_err_str_ne!(f, 1, 1);
-/// //-> Err("assumption failed: `assume_fn_err_str_ne(left, right)`\n  left input: `1`\n right input: `1`\n  left output: `\"1\"`\n right output: `\"1\"`")
+/// let x: Result<bool, String> = assure_fn_err_string_eq!(f, 1, 2);
+/// //-> Ok(false)
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assume_fn_err_str_ne {
+macro_rules! assure_fn_err_string_eq {
     ($function:path, $left:expr, $right:expr $(,)?) => ({
         let left = $function($left);
         let right = $function($right);
         if !left.is_err() || !right.is_err() {
-            Err(format!("assumption failed: `assume_fn_err_str_ne(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output is_err(): `{:?}`\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err()))
+            Ok(false)
         } else {
             let left = left.unwrap_err();
             let right = right.unwrap_err();
             let left = left.to_string();
             let right = right.to_string();
-            if (left != right) {
+            if (left == right) {
                 Ok(true)
             } else {
-                Err(format!("assumption failed: `assume_fn_err_str_ne(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output: `{:?}`\n right output: `{:?}`", $left, $right, left, right))
+                Ok(false)
             }
         }
     });
@@ -47,16 +49,16 @@ macro_rules! assume_fn_err_str_ne {
         let left = $function($left);
         let right = $function($right);
         if !left.is_err() || !right.is_err() {
-            Err($($arg)+)
+            Ok(false)
         } else {
             let left = left.unwrap_err();
             let right = right.unwrap_err();
             let left = left.to_string();
             let right = right.to_string();
-            if (left != right) {
+            if (left == right) {
                 Ok(true)
             } else {
-                Err($($arg)+)
+                Ok(false)
             }
         }
     });
@@ -68,10 +70,10 @@ mod tests {
     fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
 
     #[test]
-    fn test_assume_fn_err_str_ne_x_arity_2_success() {
+    fn test_assure_fn_err_string_eq_x_arity_2_success() {
         let a = 1;
-        let b = 2;
-        let x = assume_fn_err_str_ne!(f, a, b);
+        let b = 1;
+        let x: Result<bool, String> = assure_fn_err_string_eq!(f, a, b);
         assert_eq!(
             x.unwrap(),
             true
@@ -79,21 +81,21 @@ mod tests {
     }
 
     #[test]
-    fn test_assume_fn_err_str_ne_x_arity_2_failure() {
-        let a = 1;
+    fn test_assure_fn_err_string_eq_x_arity_2_failure() {
+        let a = 2;
         let b = 1;
-        let x = assume_fn_err_str_ne!(f, a, b);
+        let x: Result<bool, String> = assure_fn_err_string_eq!(f, a, b);
         assert_eq!(
-            x.unwrap_err(),
-            "assumption failed: `assume_fn_err_str_ne(fn, left, right)`\n  left input: `1`\n right input: `1`\n  left output: `\"1\"`\n right output: `\"1\"`"
+            x.unwrap(),
+            false
         );
     }
 
     #[test]
-    fn test_assume_fn_err_str_ne_x_arity_3_success() {
+    fn test_assure_fn_err_string_eq_x_arity_3_success() {
         let a = 1;
-        let b = 2;
-        let x = assume_fn_err_str_ne!(f, a, b, "message");
+        let b = 1;
+        let x: Result<bool, String> = assure_fn_err_string_eq!(f, a, b, "message");
         assert_eq!(
             x.unwrap(),
             true
@@ -101,13 +103,13 @@ mod tests {
     }
 
     #[test]
-    fn test_assume_fn_err_str_ne_x_arity_3_failure() {
+    fn test_assure_fn_err_string_eq_x_arity_3_failure() {
         let a = 1;
-        let b = 1;
-        let x = assume_fn_err_str_ne!(f, a, b, "message");
+        let b = 2;
+        let x: Result<bool, String> = assure_fn_err_string_eq!(f, a, b, "message");
         assert_eq!(
-            x.unwrap_err(),
-            "message"
+            x.unwrap(),
+            false
         );
     }
 

@@ -414,12 +414,12 @@ pub mod assert_fn_ok_gt; // greater than
 pub mod assert_fn_ok_ge; // greater than or equal to
 
 // Assert function err() comparison
-pub mod assert_fn_err_str_eq; // equal
-pub mod assert_fn_err_str_ne; // not equal
-pub mod assert_fn_err_str_lt; // less than
-pub mod assert_fn_err_str_le; // less than or equal to
-pub mod assert_fn_err_str_gt; // greater than
-pub mod assert_fn_err_str_ge; // greater than or equal to
+pub mod assert_fn_err_string_eq; // equal
+pub mod assert_fn_err_string_ne; // not equal
+pub mod assert_fn_err_string_lt; // less than
+pub mod assert_fn_err_string_le; // less than or equal to
+pub mod assert_fn_err_string_gt; // greater than
+pub mod assert_fn_err_string_ge; // greater than or equal to
 
 // Assert iterator-related set-based comparison
 pub mod assert_set_eq; // equal
@@ -468,12 +468,12 @@ pub mod assume_fn_ok_gt; // greater than
 pub mod assume_fn_ok_ge; // greater than or equal to
 
 // Assume function err().to_string() comparison
-pub mod assume_fn_err_str_eq; // equal
-pub mod assume_fn_err_str_ne; // not equal
-pub mod assume_fn_err_str_lt; // less than
-pub mod assume_fn_err_str_le; // less than or equal to
-pub mod assume_fn_err_str_gt; // greater than
-pub mod assume_fn_err_str_ge; // greater than or equal to
+pub mod assume_fn_err_string_eq; // equal
+pub mod assume_fn_err_string_ne; // not equal
+pub mod assume_fn_err_string_lt; // less than
+pub mod assume_fn_err_string_le; // less than or equal to
+pub mod assume_fn_err_string_gt; // greater than
+pub mod assume_fn_err_string_ge; // greater than or equal to
 
 // Assume iterator-related set-based comparison
 pub mod assume_set_eq; // equal
@@ -522,12 +522,12 @@ pub mod assure_fn_ok_gt; // greater than
 pub mod assure_fn_ok_ge; // greater than or equal to
 
 // Assure function err().to_string() comparison
-pub mod assure_fn_err_str_eq; // equal
-pub mod assure_fn_err_str_ne; // not equal
-pub mod assure_fn_err_str_lt; // less than
-pub mod assure_fn_err_str_le; // less than or equal to
-pub mod assure_fn_err_str_gt; // greater than
-pub mod assure_fn_err_str_ge; // greater than or equal to
+pub mod assure_fn_err_string_eq; // equal
+pub mod assure_fn_err_string_ne; // not equal
+pub mod assure_fn_err_string_lt; // less than
+pub mod assure_fn_err_string_le; // less than or equal to
+pub mod assure_fn_err_string_gt; // greater than
+pub mod assure_fn_err_string_ge; // greater than or equal to
 
 // Assure iterator-related set-based comparison
 pub mod assure_set_eq; // equal

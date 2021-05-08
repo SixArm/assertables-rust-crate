@@ -1,4 +1,4 @@
-/// Assure one function ok() is greater than or equal to another function ok().
+/// Assure one function ok() is less than to another function ok().
 ///
 /// * When true, return `Ok(true)`.
 ///
@@ -12,7 +12,7 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// let x: Result<bool, String> = assure_fn_err_str_ge!(f, 2, 1);
+/// let x: Result<bool, String> = assure_fn_err_string_lt!(f, 1, 2);
 /// //-> Ok(true)
 /// # }
 /// ```
@@ -20,25 +20,23 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// let x: Result<bool, String> = assure_fn_err_str_ge!(f, 1, 2);
+/// let x: Result<bool, String> = assure_fn_err_string_lt!(f, 2, 1);
 /// //-> Ok(false)
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assure_fn_err_str_ge {
+macro_rules! assure_fn_err_string_lt {
     ($function:path, $left:expr, $right:expr $(,)?) => ({
         let left = $function($left);
         let right = $function($right);
         if !left.is_err() || !right.is_err() {
             Ok(false)
         } else {
-            let left = left.unwrap_err();
-            let right = right.unwrap_err();
-            let left = left.to_string();
-            let right = right.to_string();
-            if (left >= right) {
+            let left = left.unwrap_err().to_string();
+            let right = right.unwrap_err().to_string();
+            if (left < right) {
                 Ok(true)
             } else {
                 Ok(false)
@@ -51,11 +49,9 @@ macro_rules! assure_fn_err_str_ge {
         if !left.is_err() || !right.is_err() {
             Ok(false)
         } else {
-            let left = left.unwrap_err();
-            let right = right.unwrap_err();
-            let left = left.to_string();
-            let right = right.to_string();
-            if (left >= right) {
+            let left = left.unwrap_err().to_string();
+            let right = right.unwrap_err().to_string();
+            if (left < right) {
                 Ok(true)
             } else {
                 Ok(false)
@@ -70,32 +66,21 @@ mod tests {
     fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
 
     #[test]
-    fn test_assure_fn_err_str_ge_x_arity_2_gt_success() {
-        let a = 2;
-        let b = 1;
-        let x: Result<bool, String> = assure_fn_err_str_ge!(f, a, b);
-        assert_eq!(
-            x.unwrap(),
-            true
-        );
-    }
-
-    #[test]
-    fn test_assure_fn_err_str_ge_x_arity_2_eq_success() {
-        let a = 1;
-        let b = 1;
-        let x: Result<bool, String> = assure_fn_err_str_ge!(f, a, b);
-        assert_eq!(
-            x.unwrap(),
-            true
-        );
-    }
-
-    #[test]
-    fn test_assure_fn_err_str_ge_x_arity_2_lt_failure() {
+    fn test_assure_fn_err_string_lt_x_arity_2_lt_success() {
         let a = 1;
         let b = 2;
-        let x: Result<bool, String> = assure_fn_err_str_ge!(f, a, b);
+        let x: Result<bool, String> = assure_fn_err_string_lt!(f, a, b);
+        assert_eq!(
+            x.unwrap(),
+            true
+        );
+    }
+
+    #[test]
+    fn test_assure_fn_err_string_lt_x_arity_2_eq_failure() {
+        let a = 1;
+        let b = 1;
+        let x: Result<bool, String> = assure_fn_err_string_lt!(f, a, b);
         assert_eq!(
             x.unwrap(),
             false
@@ -103,10 +88,21 @@ mod tests {
     }
 
     #[test]
-    fn test_assure_fn_err_str_ge_x_arity_3_gt_success() {
+    fn test_assure_fn_err_string_lt_x_arity_2_gt_failure() {
         let a = 2;
         let b = 1;
-        let x: Result<bool, String> = assure_fn_err_str_ge!(f, a, b, "message");
+        let x: Result<bool, String> = assure_fn_err_string_lt!(f, a, b);
+        assert_eq!(
+            x.unwrap(),
+            false
+        );
+    }
+
+    #[test]
+    fn test_assure_fn_err_string_lt_x_arity_3_lt_success() {
+        let a = 1;
+        let b = 2;
+        let x: Result<bool, String> = assure_fn_err_string_lt!(f, a, b, "message");
         assert_eq!(
             x.unwrap(),
             true
@@ -114,21 +110,21 @@ mod tests {
     }
 
     #[test]
-    fn test_assure_fn_err_str_ge_x_arity_3_eq_success() {
+    fn test_assure_fn_err_string_lt_x_arity_3_eq_failure() {
         let a = 1;
         let b = 1;
-        let x: Result<bool, String> = assure_fn_err_str_ge!(f, a, b, "message");
+        let x: Result<bool, String> = assure_fn_err_string_lt!(f, a, b, "message");
         assert_eq!(
             x.unwrap(),
-            true
+            false
         );
     }
-    
+
     #[test]
-    fn test_assure_fn_err_str_ge_x_arity_3_lt_failure() {
-        let a = 1;
-        let b = 2;
-        let x: Result<bool, String> = assure_fn_err_str_ge!(f, a, b, "message");
+    fn test_assure_fn_err_string_lt_x_arity_3_gt_failure() {
+        let a = 2;
+        let b = 1;
+        let x: Result<bool, String> = assure_fn_err_string_lt!(f, a, b, "message");
         assert_eq!(
             x.unwrap(),
             false

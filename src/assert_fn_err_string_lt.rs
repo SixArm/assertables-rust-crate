@@ -1,4 +1,4 @@
-/// Assert one function ok() is less than or equal to another function ok().
+/// Assert one function ok() is less than another function ok().
 ///
 /// * When true, return `()`.
 ///
@@ -10,7 +10,7 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// assert_fn_err_str_le!(f, 1, 2);
+/// assert_fn_err_string_lt!(f, 1, 2);
 /// //-> ()
 /// # }
 /// ```
@@ -18,28 +18,28 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
 /// // fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// // assert_fn_err_str_le!(f, 2, 1);
-/// //-> panic!("assertion failed: `assert_fn_err_str_le(fn, left, right)`\n  left input: `2`\n right input: `1`\n  left output: `\"2\"`\n right output: `\"1\"`")
+/// // assert_fn_err_string_lt!(f, 2, 1);
+/// //-> panic!("assertion failed: `assert_fn_err_string_lt(fn, left, right)`\n  left input: `2`\n right input: `1`\n  left output: `\"2\"`\n right output: `\"1\"`")
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assert_fn_err_str_le {
+macro_rules! assert_fn_err_string_lt {
     ($function:path, $left:expr, $right:expr $(,)?) => ({
         let left = $function($left);
         let right = $function($right);
         if !left.is_err() || !right.is_err() {
-            panic!("assertion failed: `assert_fn_err_str_le(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output is_err(): `{:?}`\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err());
+            panic!("assertion failed: `assert_fn_err_string_lt(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output is_err(): `{:?}`\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err());
         } else {
             let left = left.unwrap_err();
             let right = right.unwrap_err();
             let left = left.to_string();
             let right = right.to_string();
-            if (left <= right) {
+            if (left < right) {
                 ()
             } else {
-                panic!("assertion failed: `assert_fn_err_str_le(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output: `{:?}`\n right output: `{:?}`", $left, $right, left, right);
+                panic!("assertion failed: `assert_fn_err_string_lt(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output: `{:?}`\n right output: `{:?}`", $left, $right, left, right);
             }
         }
     });
@@ -53,7 +53,7 @@ macro_rules! assert_fn_err_str_le {
             let right = right.unwrap_err();
             let left = left.to_string();
             let right = right.to_string();
-            if (left <= right) {
+            if (left < right) {
                 ()
             } else {
                 panic!("{:?}", $($arg)+)
@@ -68,10 +68,10 @@ mod tests {
     fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
 
     #[test]
-    fn test_assert_fn_err_str_le_x_arity_2_lt_success() {
+    fn test_assert_fn_err_string_lt_x_arity_2_lt_success() {
         let a = 1;
         let b = 2;
-        let x = assert_fn_err_str_le!(f, a, b);
+        let x = assert_fn_err_string_lt!(f, a, b);
         assert_eq!(
             x,
             ()
@@ -79,40 +79,26 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_fn_err_str_le_x_arity_2_eq_success() {
+    #[should_panic (expected = "assertion failed: `assert_fn_err_string_lt(fn, left, right)`\n  left input: `1`\n right input: `1`\n  left output: `\"1\"`\n right output: `\"1\"`")]
+    fn test_assert_fn_err_string_lt_x_arity_2_eq_failure() {
         let a = 1;
         let b = 1;
-        let x = assert_fn_err_str_le!(f, a, b);
-        assert_eq!(
-            x,
-            ()
-        );
+        let _ = assert_fn_err_string_lt!(f, a, b);
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_err_str_le(fn, left, right)`\n  left input: `2`\n right input: `1`\n  left output: `\"2\"`\n right output: `\"1\"`")]
-    fn test_assert_fn_err_str_le_x_arity_2_gt_failure() {
+    #[should_panic (expected = "assertion failed: `assert_fn_err_string_lt(fn, left, right)`\n  left input: `2`\n right input: `1`\n  left output: `\"2\"`\n right output: `\"1\"`")]
+    fn test_assert_fn_err_string_lt_x_arity_2_gt_failure() {
         let a = 2;
         let b = 1;
-        let _ = assert_fn_err_str_le!(f, a, b);
+        let _ = assert_fn_err_string_lt!(f, a, b);
     }
 
     #[test]
-    fn test_assert_fn_err_str_le_x_arity_3_lt_success() {
+    fn test_assert_fn_err_string_lt_x_arity_3_lt_success() {
         let a = 1;
         let b = 2;
-        let x = assert_fn_err_str_le!(f, a, b, "message");
-        assert_eq!(
-            x,
-            ()
-        );
-    }
-
-    #[test]
-    fn test_assert_fn_err_str_le_x_arity_3_eq_success() {
-        let a = 1;
-        let b = 1;
-        let x = assert_fn_err_str_le!(f, a, b, "message");
+        let x = assert_fn_err_string_lt!(f, a, b, "message");
         assert_eq!(
             x,
             ()
@@ -121,10 +107,18 @@ mod tests {
 
     #[test]
     #[should_panic (expected = "message")]
-    fn test_assert_fn_err_str_le_x_arity_3_failure() {
+    fn test_assert_fn_err_string_lt_x_arity_3_eq_failure() {
+        let a = 1;
+        let b = 1;
+        let _ = assert_fn_err_string_lt!(f, a, b, "message");
+    }
+
+    #[test]
+    #[should_panic (expected = "message")]
+    fn test_assert_fn_err_string_lt_x_arity_3_gt_failure() {
         let a = 2;
         let b = 1;
-        let _ = assert_fn_err_str_le!(f, a, b, "message");
+        let _ = assert_fn_err_string_lt!(f, a, b, "message");
     }
 
 }
