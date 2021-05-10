@@ -29,13 +29,13 @@ Contents:
 This Rust crate provides macros for Rust runtime checking,
 and each macro comes in three flavors:
 
-* `assert…!` returns `()` or calls [`panic!`]
+* `assert…!` returns `()` or calls [`panic!(…)`]
 
 * `assume…!` returns [`Result`] with `Ok(true)` or `Err(…)`
 
 * `assure…!` returns [`Result`] with `Ok(true)` or `Ok(false)` or `Err(…)`
 
-Examples of `assert_lt!`:
+Examples of `assert_lt!` meaning "assert less than":
 
 ```rust
 assert_lt!(1, 2);
@@ -43,7 +43,7 @@ assert_lt!(1, 2);
 ```
 
 ```rust
-// assert_lt!(2, 1);
+assert_lt!(2, 1);
 //-> panic!("assertion failed: `assert_lt(left, right)`\n  left: `2`,\n right: `1`")
 ```
 
@@ -71,6 +71,24 @@ let x = assure_lt!(2, 1);
 //-> Ok(false)
 ```
 
+### Messages
+
+When a macro fails, it generates a failure message with the
+values of expressions with their debug representations, such as:
+
+```rust
+// assert_lt!(2, 1)
+//-> panic!("assertion failed: `assert_lt(left, right)`\n  left: `2`,\n right: `1`")
+```
+
+These macros have a second form where a custom message can be provided,
+such as:
+
+```rust
+// assert_lt!(2, 1, "my message here");
+//-> panic!("my message here")
+```
+
 
 ### Assert
 
@@ -80,17 +98,16 @@ such as with macros that Rust `std` does not provide.
 Example:
 
 ```rust
-fn sum_positive_numbers(a: i32, b: i32) -> Result<i32, String> {
-    assert_lt!(0, a);
-    assert_lt!(0, b);
-    Ok(a + b)
+fn duration(a: i32, b: i32) -> i32 {
+    assert_le!(a, b);
+    b - a
 }
 
-sum_positive_numbers(1, 2);
-//-> 3
+duration(1, 3);
+//-> 2
 
-// sum_positive_numbers(-1, -2);
-//-> panic!("assertion failed: `(left == right)`\n  left: `0`,\n right: `-1`")
+// duration(3, 1);
+//-> panic!("assertion failed: `assert_le(left, right)`\n  left: `3`,\n right: `1`")
 ```
 
 ### Assume
@@ -101,17 +118,19 @@ such as with early exits in functions.
 Example:
 
 ```rust
-fn sum_positive_numbers(a: i32, b: i32) -> Result<i32, String> {
-    assume_lt!(0, a)?;
-    assume_lt!(0, b)?;
-    Ok(a + b)
+fn duration(a: i32, b: i32) -> Result<i32, String> {
+    if assert_le!(a, b).is_ok() {
+        Ok(b - a)
+    } else {
+        Err("message")
+    }
 }
 
-sum_positive_numbers(1, 2);
-//-> Ok(3)
+duration(1, 3);
+//-> Ok(2)
 
-sum_positive_numbers(-1, -2);
-//-> Err("assumption failed: `assume_lt(left, right)`\n  left: `0`,\n right: `-1`")
+duration(3, 1);
+//-> Err("assumption failed: `assume_le(left, right)`\n  left: `3`,\n right: `1`")
 ```
 
 
@@ -123,38 +142,19 @@ such as with gate conditions in functions.
 Example:
 
 ```rust
-fn sum_positive_numbers(a: i32, b: i32) -> Result<i32, String> {
-    if assure_lt!(0, a).unwrap() && assure_lt!(0, b).unwrap() {
-        Ok(a + b)
+fn duration(a: i32, b: i32) -> Result<i32, String> {
+    if assure_ge!(a, 0).unwrap() {
+        Ok(b - a)
     } else {
-        Err(format!("please use positive numbers"))
+        Err("message")
     }
 }
 
-sum_positive_numbers(1, 2);
-//-> Ok(3)
+duration(1, 3);
+//-> Ok(2)
 
-sum_positive_numbers(-1, -2);
-//-> Err("must use postive numbers")
-```
-
-
-### Messages
-
-When a macro fails, it generates a failure message with the
-values of expressions with their debug representations, such as:
-
-```rust
-// assert_lt!(2, 1)
-//-> panic!("assertion failed: `(left == right)`\n  left: `2`,\n right: `1`")
-```
-
-These macros have a second form where a custom message can be provided,
-such as:
-
-```rust
-// assert_lt!(2, 1, "my message here");
-//-> panic!("my message here")
+duration(3, 1);
+//-> Err("message")
 ```
 
 
@@ -179,115 +179,198 @@ let x = assume_lt!(2, 1);
 
 * `assert!(a)`: assure `a` is true, provided by Rust `std`.
 
-* `assert_eq!(a, b)`: assert `a` is equal to `b`, provided by Rust `std`.
+* `assert_eq!(a, b)`: assert `a == b`, provided by Rust `std`.
 
-* `assert_ne!(a, b)`: assert `a` is not equal to `b`, provided by Rust `std`.
+* `assert_ne!(a, b)`: assert `a != b`, provided by Rust `std`.
 
-* `assert_lt!(a, b)`: assert `a` is less than `b`.
+* `assert_lt!(a, b)`: assert `a < b`.
 
-* `assert_le!(a, b)`: assert `a` is less than or equal to `b`.
+* `assert_le!(a, b)`: assert `a <= b`.
 
-* `assert_gt!(a, b)`: assert `a` is greater than `b`.
+* `assert_gt!(a, b)`: assert `a > b`.
 
-* `assert_ge!(a, b)`: assert `a` is greater than or equal to `b`.
+* `assert_ge!(a, b)`: assert `a >= b`.
 
 `assume…` macros:
 
 * `assume!(a)`: assume `a` is true.
 
-* `assume_eq!(a, b)`: assume `a` is equal to `b`.
+* `assume_eq!(a, b)`: assume `a == b`.
 
-* `assume_ne!(a, b)`: assume `a` is not equal to `b`.
+* `assume_ne!(a, b)`: assume `a != b`.
 
-* `assume_lt!(a, b)`: assume `a` is less than `b`.
+* `assume_lt!(a, b)`: assume `a < b`.
 
-* `assume_le!(a, b)`: assume `a` is less than or equal to `b`.
+* `assume_le!(a, b)`: assume `a <= b`.
 
-* `assume_gt!(a, b)`: assume `a` is greater than `b`.
+* `assume_gt!(a, b)`: assume `a > b`.
 
-* `assume_ge!(a, b)`: assume `a` is greater than or equal to `b`.
+* `assume_ge!(a, b)`: assume `a >= b`.
 
 `assure…` macros:
 
 * `assure!(a)`: assure `a` is true.
 
-* `assure_eq!(a, b)`: assure `a` is equal to `b`.
+* `assure_eq!(a, b)`: assure `a == b`.
 
-* `assure_ne!(a, b)`: assure `a` is not equal to `b`.
+* `assure_ne!(a, b)`: assure `a != b`.
 
-* `assure_lt!(a, b)`: assure `a` is less than `b`.
+* `assure_lt!(a, b)`: assure `a < b`.
 
-* `assure_le!(a, b)`: assure `a` is less than or equal to `b`.
+* `assure_le!(a, b)`: assure `a <= b`.
 
-* `assure_gt!(a, b)`: assure `a` is greater than `b`.
+* `assure_gt!(a, b)`: assure `a > b`.
 
-* `assure_ge!(a, b)`: assure `a` is greater than or equal to `b`.
+* `assure_ge!(a, b)`: assure `a >= b`.
 
 
 ### Macros for function checking
 
-These macros help with comparison of function outputs,
-such as `function(a)` and `function(b)`.
+These macros check function outputs.
 
-Examples:
-
-```rust
-let x = assume_fn_eq!(abs, 1, -1);
-//-> Ok(true)
-```
+Test a function return value by comparing `f(x)`:
 
 ```rust
-let x = assume_fn_eq!(abs, 1, -2);
-//-> Err("assumption failed: `assume_fn_eq(left, right)`\n fn: `abs`\n  left input: `1`\n right input: `-2`\n  left output: `1`\n right output: `2`")
+assert_fn_eq!(abs, 1, -1);
 ```
 
-`assert…` macros:
+Test a function result `ok` by comparing `f(x).unwrap()`:
 
-* `assert!(a)`: assure `f(a)` is true, provided by Rust `std`.
+```rust
+assert_fn_ok_eq!(i32::from_str, "1", "1");
+```
 
-* `assert_fn_eq!(f, a, b)`: assert `f(a)` is equal to `f(b)`, provided by Rust `std`.
+Test a function result `err` by comparing `f(x).unwrap_err().to_string()"`:
 
-* `assert_fn_ne!(f, a, b)`: assert `f(a)` is not equal to `f(b)`, provided by Rust `std`.
+```rust
+assert_fn_err_string_eq!(i32::from_str, "foo", "foo");
+```
 
-* `assert_fn_lt!(f, a, b)`: assert `f(a)` is less than `f(b)`.
+`assert_fn_…` macros:
 
-* `assert_fn_le!(f, a, b)`: assert `f(a)` is less than or equal to `f(b)`.
+* `assert_fn_eq!(f, a, b)`: assert `f(a) == f(b)`.
 
-* `assert_fn_gt!(f, a, b)`: assert `f(a)` is greater than `f(b)`.
+* `assert_fn_ne!(f, a, b)`: assert `f(a) != f(b)`.
 
-* `assert_fn_ge!(f, a, b)`: assert `f(a)` is greater than or equal to `f(b)`.
+* `assert_fn_lt!(f, a, b)`: assert `f(a) < f(b)`.
 
-`assume…` macros:
+* `assert_fn_le!(f, a, b)`: assert `f(a) <= f(b)`.
 
-* `assume!(a)`: assume `f(a)` is true.
+* `assert_fn_gt!(f, a, b)`: assert `f(a) > f(b)`.
 
-* `assume_fn_eq!(f, a, b)`: assume `f(a)` is equal to `f(b)`.
+* `assert_fn_ge!(f, a, b)`: assert `f(a) >= f(b)`.
 
-* `assume_fn_ne!(f, a, b)`: assume `f(a)` is not equal to `f(b)`.
+`assert_fn_ok_…` macros:
 
-* `assume_fn_lt!(f, a, b)`: assume `f(a)` is less than `f(b)`.
+* `assert_fn_ok_eq!(f, a, b)`: assert `f(a).unwrap() == f(b).unwrap()`.
 
-* `assume_fn_le!(f, a, b)`: assume `f(a)` is less than or equal to `f(b)`.
+* `assert_fn_ok_ne!(f, a, b)`: assert `f(a).unwrap() != f(b).unwrap()`.
 
-* `assume_fn_gt!(f, a, b)`: assume `f(a)` is greater than `f(b)`.
+* `assert_fn_ok_lt!(f, a, b)`: assert `f(a).unwrap() < f(b).unwrap()`.
 
-* `assume_fn_ge!(f, a, b)`: assume `f(a)` is greater than or equal to `f(b)`.
+* `assert_fn_ok_le!(f, a, b)`: assert `f(a).unwrap() <= f(b).unwrap()`.
 
-`assure…` macros:
+* `assert_fn_ok_gt!(f, a, b)`: assert `f(a).unwrap() > f(b).unwrap()`.
 
-* `assure!(a)`: assure `f(a)` is true.
+* `assert_fn_ok_ge!(f, a, b)`: assert `f(a).unwrap() >= f(b).unwrap()`.
 
-* `assure_fn_eq!(f, a, b)`: assure `f(a)` is equal to `f(b)`.
+`assert_fn_err_string_…` macros:
 
-* `assure_fn_ne!(f, a, b)`: assure `f(a)` is not equal to `f(b)`.
+* `assert_fn_err_string_eq!(f, a, b)`: assert `f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()`.
 
-* `assure_fn_lt!(f, a, b)`: assure `f(a)` is less than `f(b)`.
+* `assert_fn_err_string_ne!(f, a, b)`: assert `f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()`.
 
-* `assure_fn_le!(f, a, b)`: assure `f(a)` is less than or equal to `f(b)`.
+* `assert_fn_err_string_lt!(f, a, b)`: assert `f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()`.
 
-* `assure_fn_gt!(f, a, b)`: assure `f(a)` is greater than `f(b)`.
+* `assert_fn_err_string_le!(f, a, b)`: assert `f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()`.
 
-* `assure_fn_ge!(f, a, b)`: assure `f(a)` is greater than or equal to `f(b)`.
+* `assert_fn_err_string_gt!(f, a, b)`: assert `f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()`.
+
+* `assert_fn_err_string_ge!(f, a, b)`: assert `f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()`.
+
+`assume_fn_…` macros:
+
+* `assume_fn_eq!(f, a, b)`: assume `f(a) == f(b)`.
+
+* `assume_fn_ne!(f, a, b)`: assume `f(a) != f(b)`.
+
+* `assume_fn_lt!(f, a, b)`: assume `f(a) < f(b)`.
+
+* `assume_fn_le!(f, a, b)`: assume `f(a) <= f(b)`.
+
+* `assume_fn_gt!(f, a, b)`: assume `f(a) > f(b)`.
+
+* `assume_fn_ge!(f, a, b)`: assume `f(a) >= f(b)`.
+
+`assume_fn_ok_…` macros:
+
+* `assume_fn_ok_eq!(f, a, b)`: assume `f(a).unwrap() == f(b).unwrap()`.
+
+* `assume_fn_ok_ne!(f, a, b)`: assume `f(a).unwrap() != f(b).unwrap()`.
+
+* `assume_fn_ok_lt!(f, a, b)`: assume `f(a).unwrap() < f(b).unwrap()`.
+
+* `assume_fn_ok_le!(f, a, b)`: assume `f(a).unwrap() <= f(b).unwrap()`.
+
+* `assume_fn_ok_gt!(f, a, b)`: assume `f(a).unwrap() > f(b).unwrap()`.
+
+* `assume_fn_ok_ge!(f, a, b)`: assume `f(a).unwrap() >= f(b).unwrap()`.
+
+`assume_fn_err_string_…` macros:
+
+* `assume_fn_err_string_eq!(f, a, b)`: assume `f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()`.
+
+* `assume_fn_err_string_ne!(f, a, b)`: assume `f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()`.
+
+* `assume_fn_err_string_lt!(f, a, b)`: assume `f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()`.
+
+* `assume_fn_err_string_le!(f, a, b)`: assume `f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()`.
+
+* `assume_fn_err_string_gt!(f, a, b)`: assume `f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()`.
+
+* `assume_fn_err_string_ge!(f, a, b)`: assume `f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()`.
+
+`assure_fn_…` macros:
+
+* `assure_fn_eq!(f, a, b)`: assure `f(a) == f(b)`.
+
+* `assure_fn_ne!(f, a, b)`: assure `f(a) != f(b)`.
+
+* `assure_fn_lt!(f, a, b)`: assure `f(a) < f(b)`.
+
+* `assure_fn_le!(f, a, b)`: assure `f(a) <= f(b)`.
+
+* `assure_fn_gt!(f, a, b)`: assure `f(a) > f(b)`.
+
+* `assure_fn_ge!(f, a, b)`: assure `f(a) >= f(b)`.
+
+`assure_fn_ok_…` macros:
+
+* `assure_fn_ok_eq!(f, a, b)`: assure `f(a).unwrap() == f(b).unwrap()`.
+
+* `assure_fn_ok_ne!(f, a, b)`: assure `f(a).unwrap() != f(b).unwrap()`.
+
+* `assure_fn_ok_lt!(f, a, b)`: assure `f(a).unwrap() < f(b).unwrap()`.
+
+* `assure_fn_ok_le!(f, a, b)`: assure `f(a).unwrap() <= f(b).unwrap()`.
+
+* `assure_fn_ok_gt!(f, a, b)`: assure `f(a).unwrap() > f(b).unwrap()`.
+
+* `assure_fn_ok_ge!(f, a, b)`: assure `f(a).unwrap() >= f(b).unwrap()`.
+
+`assure_fn_err_string_…` macros:
+
+* `assure_fn_err_string_eq!(f, a, b)`: assure `f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()`.
+
+* `assure_fn_err_string_ne!(f, a, b)`: assure `f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()`.
+
+* `assure_fn_err_string_lt!(f, a, b)`: assure `f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()`.
+
+* `assure_fn_err_string_le!(f, a, b)`: assure `f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()`.
+
+* `assure_fn_err_string_gt!(f, a, b)`: assure `f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()`.
+
+* `assure_fn_err_string_ge!(f, a, b)`: assure `f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()`.
 
 
 ### Macros for set checking
@@ -387,46 +470,46 @@ let x = assume_io_lt!(2, 1);
 
 * `assert_io!(a)`: assert `a` is true.
 
-* `assert_io_eq!(a, b)`: assert `a` is equal to `b`.
+* `assert_io_eq!(a, b)`: assert `a == b`.
 
-* `assert_io_ne!(a, b)`: assert `a` is not equal to `b`.
+* `assert_io_ne!(a, b)`: assert `a != b`.
 
-* `assert_io_lt!(a, b)`: assert `a` is less than `b`.
+* `assert_io_lt!(a, b)`: assert `a < b`.
 
-* `assert_io_le!(a, b)`: assert `a` is less than or equal to `b`.
+* `assert_io_le!(a, b)`: assert `a <= b`.
 
-* `assert_io_gt!(a, b)`: assert `a` is greater than `b`.
+* `assert_io_gt!(a, b)`: assert `a > b`.
 
-* `assert_io_ge!(a, b)`: assert `a` is greater than or equal to `b`.
+* `assert_io_ge!(a, b)`: assert `a >= b`.
 
 `assume_io…` macros:
 
 * `assume_io!(a)`: assume `a` is true.
 
-* `assume_io_eq!(a, b)`: assume `a` is equal to `b`.
+* `assume_io_eq!(a, b)`: assume `a == b`.
 
-* `assume_io_ne!(a, b)`: assume `a` is not equal to `b`.
+* `assume_io_ne!(a, b)`: assume `a != b`.
 
-* `assume_io_lt!(a, b)`: assume `a` is less than `b`.
+* `assume_io_lt!(a, b)`: assume `a < b`.
 
-* `assume_io_le!(a, b)`: assume `a` is less than or equal to `b`.
+* `assume_io_le!(a, b)`: assume `a <= b`.
 
-* `assume_io_gt!(a, b)`: assume `a` is greater than `b`.
+* `assume_io_gt!(a, b)`: assume `a > b`.
 
-* `assume_io_ge!(a, b)`: assume `a` is greater than or equal to `b`.
+* `assume_io_ge!(a, b)`: assume `a >= b`.
 
 `assure_io…` macros:
 
 * `assure_io!(a)`: assure `a` is true.
 
-* `assure_io_eq!(a, b)`: assure `a` is equal to `b`.
+* `assure_io_eq!(a, b)`: assure `a == b`.
 
-* `assure_io_ne!(a, b)`: assure `a` is not equal to `b`.
+* `assure_io_ne!(a, b)`: assure `a != b`.
 
-* `assure_io_lt!(a, b)`: assure `a` is less than `b`.
+* `assure_io_lt!(a, b)`: assure `a < b`.
 
-* `assure_io_le!(a, b)`: assure `a` is less than or equal to `b`.
+* `assure_io_le!(a, b)`: assure `a <= b`.
 
-* `assure_io_gt!(a, b)`: assure `a` is greater than `b`.
+* `assure_io_gt!(a, b)`: assure `a > b`.
 
-* `assure_io_ge!(a, b)`: assure `a` is greater than or equal to `b`.
+* `assure_io_ge!(a, b)`: assure `a >= b`.
