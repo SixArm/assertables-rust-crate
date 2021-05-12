@@ -26,36 +26,6 @@
 //! 
 //! * `assure_lt!(1, 2)` means check that 1 is less than 2, otherwise return false.
 //! 
-//! All of the macros come in three flavors:
-//! 
-//! * `assert…!` returns `()` or calls [`panic!(…)`]
-//! 
-//! * `assume…!` returns [`Result`] with `Ok(true)` or `Err(…)`
-//! 
-//! * `assure…!` returns [`Result`] with `Ok(true)` or `Ok(false) or an unexpected `Err(…)`.
-//! 
-//! All of the macros have a second form where a custom error message can be provided, such as:
-//! 
-//! * `assert_lt!(x, y, message)` means that a panic will use the message if possible.
-//! 
-//! * `assume_lt!(x, y, message)` means that an error will use the message if possible.
-//! 
-//! * `assure_lt!(x, y, message)` means that an unexpected error will use the message if possible.
-//! 
-//! All of the orderable macros have these comparisons:
-//! 
-//! * `assert_eq!(x, y)` means "equal to"
-//! 
-//! * `assert_ne!(x, y)` means "not equal"
-//! 
-//! * `assert_lt!(x, y)` means "less than"
-//! 
-//! * `assert_le!(x, y)` means "less than or equal to"
-//! 
-//! * `assert_gt!(x, y)` means "greater than"
-//! 
-//! * `assert_ge!(x, y)` means "greater than or equal to"
-//! 
 //!
 //! ### Assert
 //!
@@ -136,7 +106,7 @@
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
-//! assert_lt!(1, 2);
+//! assert_lt!(1, 2); // check that 1 is less than 2
 //! //-> Ok(true)
 //! # }
 //! ```
@@ -262,6 +232,19 @@
 //! //   )
 //! # }
 //! ```
+//! 
+//! 
+//! ## Extras 
+//! 
+//! 
+//! ### Custom error messages
+//! 
+//! The macros have a second form where a custom error message can be provided.
+//! 
+//! 
+//! ### Comparison abbreviations
+//! 
+//! The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals), `lt` (less than), `le` (less than or equal to), `gt` (greater than), `ge` (greater than or equals).
 
 // Assert truth
 pub mod assert; // condition (provided by Rust `std`)

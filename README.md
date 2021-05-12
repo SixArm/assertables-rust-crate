@@ -28,50 +28,18 @@ Contents:
 
 ## Introduction
 
-This Rust crate provides macros for Rust runtime checking.
+This Rust crate provides macros for Rust runtime checking:
 
-Examples:
+* The `assert` macros return `()` or call [`panic!(…)`]
 
-* `assert_lt!(1, 2)` means check that 1 is less than 2, otherwise panic.
+* The `assume` macros return `Result` with `Ok(true)` or `Err(…)`
 
-* `assume_lt!(1, 2)` means check that 1 is less than 2, otherwise return an error.
-
-* `assure_lt!(1, 2)` means check that 1 is less than 2, otherwise return false or an unexpected error.
-
-All of the macros come in three flavors:
-
-* `assert…!` returns `()` or calls [`panic!(…)`]
-
-* `assume…!` returns [`Result`] with `Ok(true)` or `Err(…)`
-
-* `assure…!` returns [`Result`] with `Ok(true)` or `Ok(false)` or an exceptional `Err(…)`.
-
-All of the macros have a second form where a custom error message can be provided, such as:
-
-* `assert_lt!(x, y, message)` means that a panic will use the message if possible.
-
-* `assume_lt!(x, y, message)` means that an error will use the message if possible.
-
-* `assure_lt!(x, y, message)` means that an unexpected error will use the message if possible.
-
-All of the orderable macros have these comparisons:
-
-* `assert_eq!(x, y)` means "equal to"
-
-* `assert_ne!(x, y)` means "not equal to"
-
-* `assert_lt!(x, y)` means "less than"
-
-* `assert_le!(x, y)` means "less than or equal to"
-
-* `assert_gt!(x, y)` means "greater than"
-
-* `assert_ge!(x, y)` means "greater than or equal to"
+* The `assure` macros return `Result` with `Ok(true)` or `Ok(false)` or exceptional `Err(…)`.
 
 
 ### Assert
 
-Example to assert that x is less than y:
+Example: assert that x is less than y; return `()` or call `panic!(message)`.
 
 ```rust
 assert_lt!(1, 2);
@@ -86,7 +54,7 @@ assert_lt!(2, 1);
 
 ### Assume
 
-Example to assume that x is less than y:
+Example: assume that x is less than y; return `Result` with `Ok(true)` or `Err(message)`.
 
 ```rust
 assume_lt!(1, 2);
@@ -101,7 +69,7 @@ assume_lt!(2, 1);
 
 ### Assure
 
-Example to assure that x is less than y:
+Example: assure that x is less than y; return `Result` with `Ok(true)` or `Ok(false)` or exceptional `Err(message)`.
 
 ```rust
 assure_lt!(1, 2);
@@ -122,7 +90,7 @@ assure_lt!(2, 1);
 To compare values:
 
 ```rust
-assert_eq!(1, 1); // 1 == 1
+assert_lt!(1, 2); // check that 1 is less than 2
 ```
 
 
@@ -134,16 +102,16 @@ To compare function return values:
 assert_fn_eq!(abs, 1, -1); // abs(1) == abs(-1)
 ```
 
-To compare function result ok values:
+To compare function `Result` `Ok()` values:
 
 ```rust
-assert_fn_ok_eq!(i32::from_str, "1", "1"); // from_str("1").unwrap() == from_str("1").unwrap()
+assert_fn_ok_eq!(::i32::from_str, "1", "1"); // ::i32::from_str("1").unwrap() == ::i32::from_str("1").unwrap()
 ```
 
-Test a function result error strings:
+Test a function `Result` `Err()` strings:
 
 ```rust
-assert_fn_err_string_eq!(i32::from_str, "foo", "goo"); // from_str("foo").unwrap_err().to_string() == from_str("goo").unwrap_err().to_string()
+assert_fn_err_string_eq!(::i32::from_str, "foo", "goo"); // ::i32::from_str("foo").unwrap_err().to_string() == ::i32::from_str("goo").unwrap_err().to_string()
 ```
 
 
@@ -196,24 +164,37 @@ assert_io_lt!(2, 1);
 ```
 
 
+## Extras 
+
+
+### Custom error messages
+
+The macros have a second form where a custom error message can be provided.
+
+
+### Comparison abbreviations
+
+The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals), `lt` (less than), `le` (less than or equal to), `gt` (greater than), `ge` (greater than or equals).
+
+
 ## Complete list of macros
 
 
 ### assert…
 
-* [`assert!`]`(a)`: assert `a` is true, provided by Rust `std`.
+* `assert!(a)`: assert `a` is true, provided by Rust `std`.
 
-* [`assert_eq!`]`(a, b)`: assert `a == b`, provided by Rust `std`.
+* `assert_eq!(a, b)`: assert `a == b`, provided by Rust `std`.
 
-* [`assert_ne!`]`(a, b)`: assert `a != b`, provided by Rust `std`.
+* `assert_ne!(a, b)`: assert `a != b`, provided by Rust `std`.
 
-* [`assert_lt!`]`(a, b)`: assert `a < b`.
+* `assert_lt!(a, b)`: assert `a < b`.
 
-* [`assert_le!`]`(a, b)`: assert `a <= b`.
+* `assert_le!(a, b)`: assert `a <= b`.
 
-* [`assert_gt!`]`(a, b)`: assert `a > b`.
+* `assert_gt!(a, b)`: assert `a > b`.
 
-* [`assert_ge!`]`(a, b)`: assert `a >= b`.
+* `assert_ge!(a, b)`: assert `a >= b`.
 
 
 ### assert_fn…
@@ -294,19 +275,19 @@ assert_io_lt!(2, 1);
 
 ### assume…
 
-* [`assume!`]`(a)`: assume `a` is true.
+* `assume!(a)`: assume `a` is true.
 
-* [`assume_eq!`]`(a, b)`: assume `a == b`.
+* `assume_eq!(a, b)`: assume `a == b`.
 
-* [`assume_ne!`]`(a, b)`: assume `a != b`.
+* `assume_ne!(a, b)`: assume `a != b`.
 
-* [`assume_lt!`]`(a, b)`: assume `a < b`.
+* `assume_lt!(a, b)`: assume `a < b`.
 
-* [`assume_le!`]`(a, b)`: assume `a <= b`.
+* `assume_le!(a, b)`: assume `a <= b`.
 
-* [`assume_gt!`]`(a, b)`: assume `a > b`.
+* `assume_gt!(a, b)`: assume `a > b`.
 
-* [`assume_ge!`]`(a, b)`: assume `a >= b`.
+* `assume_ge!(a, b)`: assume `a >= b`.
 
 
 ### assume_fn…
@@ -387,19 +368,19 @@ assert_io_lt!(2, 1);
 
 ### assure…
 
-* [`assure!`]`(a)`: assure `a` is true.
+* `assure!(a)`: assure `a` is true.
 
-* [`assure_eq!`]`(a, b)`: assure `a == b`.
+* `assure_eq!(a, b)`: assure `a == b`.
 
-* [`assure_ne!`]`(a, b)`: assure `a != b`.
+* `assure_ne!(a, b)`: assure `a != b`.
 
-* [`assure_lt!`]`(a, b)`: assure `a < b`.
+* `assure_lt!(a, b)`: assure `a < b`.
 
-* [`assure_le!`]`(a, b)`: assure `a <= b`.
+* `assure_le!(a, b)`: assure `a <= b`.
 
-* [`assure_gt!`]`(a, b)`: assure `a > b`.
+* `assure_gt!(a, b)`: assure `a > b`.
 
-* [`assure_ge!`]`(a, b)`: assure `a >= b`.
+* `assure_ge!(a, b)`: assure `a >= b`.
 
 
 ### assure_fn…
