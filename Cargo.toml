@@ -1,6 +1,6 @@
 [package]
 name = "assertables"
-version = "3.2.0"
+version = "3.2.1"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2018"
 description = "Assertables: Rust crate of macros `assert…!`, `assume…!`, `assure…!`, all for runtime reliability checking. By SixArm.com."
@@ -10,4 +10,11 @@ license = "MIT OR Apache-2.0 OR GPL-2.0-only"
 keywords = ["assert", "assume", "assure", "macro", "test"]
 categories = ["development-tools", "development-tools::testing", "rust-patterns"]
 
+[profile.dev]
+panic = "unwind"
+
+[profile.release]
+panic = "unwind"
+
 [dependencies]
+
