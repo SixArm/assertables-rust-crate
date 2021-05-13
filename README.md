@@ -19,16 +19,24 @@ Contents:
   * [Assert](#assert)
   * [Assume](#assume)
   * [Assure](#assure)
-* [Macros list](#macros-list)
-  * [Macros for values](#macros-for-values)
+* [Macros](#macros)
+  * [Macros for value checking](#macros-for-value-checking)
+  * [Macros for function checking](#macros-for-function-checking)
   * [Macros for set checking](#macros-for-set-checking)
   * [Macros for bag checking](#macros-for-bag-checking)
   * [Macros for IO-related checking](#macros-for-io-related-checking)
+* [Extras](#extras)
+  * [Custom error messages](#custom-error-messages)
+  * [Comparison abbreviations](#comparison-abbreviations)
+* [Complete list of macros](#complete-list-of-macros)
+  * [assert macros](#assert-macros)
+  * [assume macros](#assume-macros)
+  * [assure macros](#assure-macros)
 
 
 ## Introduction
 
-This Rust crate provides macros for Rust runtime checking:
+This Rust crate provides macros for Rust runtime checking.
 
 The macros have three forms that can help with various kinds of checking:
 
@@ -188,7 +196,10 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 ## Complete list of macros
 
 
-### assert…
+### assert macros
+
+
+assert…
 
 * `assert!(a)`: assert `a` is true, provided by Rust `std`.
 
@@ -205,7 +216,7 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assert_ge!(a, b)`: assert `a >= b`.
 
 
-### assert_fn…
+assert_fn…
 
 * `assert_fn_eq!(f, a, b)`: assert `f(a) == f(b)`.
 
@@ -220,7 +231,7 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assert_fn_ge!(f, a, b)`: assert `f(a) >= f(b)`.
 
 
-### assert_fn_ok…
+assert_fn_ok…
 
 * `assert_fn_ok_eq!(f, a, b)`: assert `f(a).unwrap() == f(b).unwrap()`.
 
@@ -235,7 +246,7 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assert_fn_ok_ge!(f, a, b)`: assert `f(a).unwrap() >= f(b).unwrap()`.
 
 
-### assert_fn_err_string…
+assert_fn_err_string…
 
 * `assert_fn_err_string_eq!(f, a, b)`: assert `f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()`.
 
@@ -250,21 +261,21 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assert_fn_err_string_ge!(f, a, b)`: assert `f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()`.
 
 
-### assert_set…
+assert_set…
 
 * `assert_set_eq!(a, b)`: assert the set `a` is equal to the set `b`.
 
 * `assert_set_ne!(a, b)`: assert the set `a` is not equal to the set `b`.
 
 
-### assert_bag…
+assert_bag…
 
 * `assert_bag_eq(a, b)`: assert the bag `a` is equal to the bag `b`.
 
 * `assert_bag_ne(a, b)`: assert the bag `a` is not equal to the bag `b`.
 
 
-### assert_io…
+assert_io…
 
 * `assert_io!(a)`: assert `a` is true.
 
@@ -281,7 +292,10 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assert_io_ge!(a, b)`: assert `a >= b`.
 
 
-### assume…
+### assume macros
+
+
+assume…
 
 * `assume!(a)`: assume `a` is true.
 
@@ -298,7 +312,7 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assume_ge!(a, b)`: assume `a >= b`.
 
 
-### assume_fn…
+assume_fn…
 
 * `assume_fn_eq!(f, a, b)`: assume `f(a) == f(b)`.
 
@@ -313,7 +327,7 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assume_fn_ge!(f, a, b)`: assume `f(a) >= f(b)`.
 
 
-### assume_fn_ok…
+assume_fn_ok…
 
 * `assume_fn_ok_eq!(f, a, b)`: assume `f(a).unwrap() == f(b).unwrap()`.
 
@@ -328,7 +342,7 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assume_fn_ok_ge!(f, a, b)`: assume `f(a).unwrap() >= f(b).unwrap()`.
 
 
-### assume_fn_err_string…
+assume_fn_err_string…
 
 * `assume_fn_err_string_eq!(f, a, b)`: assume `f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()`.
 
@@ -343,21 +357,21 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assume_fn_err_string_ge!(f, a, b)`: assume `f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()`.
 
 
-### assume_set…
+assume_set…
 
 * `assume_set_eq!(a, b)`: assume the set `a` is equal to the set `b`.
 
 * `assume_set_ne!(a, b)`: assume the set `a` is not equal to the set `b`.
 
 
-### assume_bag…
+assume_bag…
 
 * `assume_bag_eq!(a, b)`: assume the bag `a` is equal to the bag `b`.
 
 * `assume_bag_ne!(a, b)`: assume the bag `a` is not equal to the bag `b`.
 
 
-### assume_io…
+assume_io…
 
 * `assume_io!(a)`: assume `a` is true.
 
@@ -374,7 +388,10 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assume_io_ge!(a, b)`: assume `a >= b`.
 
 
-### assure…
+### assure macros
+
+
+assure…
 
 * `assure!(a)`: assure `a` is true.
 
@@ -391,7 +408,7 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assure_ge!(a, b)`: assure `a >= b`.
 
 
-### assure_fn…
+assure_fn…
 
 * `assure_fn_eq!(f, a, b)`: assure `f(a) == f(b)`.
 
@@ -406,7 +423,7 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assure_fn_ge!(f, a, b)`: assure `f(a) >= f(b)`.
 
 
-### assure_fn_ok…
+assure_fn_ok…
 
 * `assure_fn_ok_eq!(f, a, b)`: assure `f(a).unwrap() == f(b).unwrap()`.
 
@@ -421,7 +438,7 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assure_fn_ok_ge!(f, a, b)`: assure `f(a).unwrap() >= f(b).unwrap()`.
 
 
-### assure_fn_err_string…
+assure_fn_err_string…
 
 * `assure_fn_err_string_eq!(f, a, b)`: assure `f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()`.
 
@@ -436,21 +453,21 @@ The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals)
 * `assure_fn_err_string_ge!(f, a, b)`: assure `f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()`.
 
 
-### assure_set…
+assure_set…
 
 * `assure_set_eq!(a, b)`: assure the set `a` is equal to the set `b`.
 
 * `assure_set_ne!(a, b)`: assure the set `a` is not equal to the set `b`.
 
 
-### assure_bag…
+assure_bag…
 
 * `assure_bag_eq!(a, b)`: assure the bag `a` is equal to the bag `b`.
 
 * `assure_bag_ne!(a, b)`: assure the bag `a` is not equal to the bag `b`.
 
 
-### assure_io…
+assure_io…
 
 * `assure_io!(a)`: assure `a` is true.
 
