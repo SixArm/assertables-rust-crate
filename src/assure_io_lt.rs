@@ -32,7 +32,7 @@ macro_rules! assure_io_lt {
                 if (left_val < right_val) {
                     Ok(true)
                 } else {
-                    Ok(false)                    
+                    Ok(false)
                 }
             }
         }

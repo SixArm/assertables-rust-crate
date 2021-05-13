@@ -103,7 +103,7 @@ mod tests {
             true
         );
     }
-    
+
     #[test]
     fn test_assure_fn_ge_x_arity_3_lt_failure() {
         let a = 1;

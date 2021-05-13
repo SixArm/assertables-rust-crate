@@ -9,7 +9,7 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
-/// # use std::str::FromStr;    
+/// # use std::str::FromStr;
 /// assert_fn_ok_gt!(i32::from_str, "2", "1");
 /// //-> ()
 /// # }

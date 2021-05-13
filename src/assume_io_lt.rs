@@ -21,7 +21,7 @@
 /// let x = assume_io_lt!(2, 1);
 /// //-> Err(
 /// //       std::io::Error::new(
-/// //           std::io::ErrorKind::InvalidInput, 
+/// //           std::io::ErrorKind::InvalidInput,
 /// //           "assumption failed: `assume_io_lt(left, right)`\n  left: `2`\n right: `1`")]
 /// //       )
 /// //   )
@@ -39,7 +39,7 @@ macro_rules! assume_io_lt {
                 } else {
                     Err(
                         std::io::Error::new(
-                            std::io::ErrorKind::InvalidInput, 
+                            std::io::ErrorKind::InvalidInput,
                             format!("assumption failed: `assume_io_lt(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right)
                         )
                     )
@@ -55,7 +55,7 @@ macro_rules! assume_io_lt {
                 } else {
                     Err(
                         std::io::Error::new(
-                            std::io::ErrorKind::InvalidInput, 
+                            std::io::ErrorKind::InvalidInput,
                             $($arg)+
                         )
                     )

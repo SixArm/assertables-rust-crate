@@ -123,7 +123,7 @@ mod tests {
             true
         );
     }
-    
+
     #[test]
     fn test_assure_fn_err_string_ge_x_arity_3_lt_failure() {
         let a = 1;

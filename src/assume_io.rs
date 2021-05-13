@@ -19,7 +19,7 @@
 /// let x = assume_io!(false);
 /// //-> Err(
 /// //       std::io::Error::new(
-/// //           std::io::ErrorKind::InvalidInput, 
+/// //           std::io::ErrorKind::InvalidInput,
 /// //           "assumption failed: `assume_io(condition) condition: `false`"
 /// //       )
 /// //   )
@@ -35,7 +35,7 @@ macro_rules! assume_io {
         } else {
             Err(
                 std::io::Error::new(
-                    std::io::ErrorKind::InvalidInput, 
+                    std::io::ErrorKind::InvalidInput,
                     format!("assumption failed: `assume_io(condition) condition: `{:?}`", $x)
                 )
             )
@@ -47,7 +47,7 @@ macro_rules! assume_io {
         } else {
             Err(
                 std::io::Error::new(
-                    std::io::ErrorKind::InvalidInput, 
+                    std::io::ErrorKind::InvalidInput,
                     $($arg)+
                 )
             )
@@ -63,7 +63,7 @@ mod tests {
         let a = true;
         let x = assume_io!(a);
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             true
         );
     }
@@ -83,7 +83,7 @@ mod tests {
         let a = true;
         let x = assume_io!(a, "message");
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             true
         );
     }

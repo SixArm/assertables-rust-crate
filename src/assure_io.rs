@@ -50,7 +50,7 @@ mod tests {
         let a = true;
         let x = assure_io!(a);
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             true
         );
     }
@@ -72,7 +72,7 @@ mod tests {
         let a = true;
         let x = assure_io!(a, "message");
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             true
         );
     }
@@ -82,7 +82,7 @@ mod tests {
         let a = false;
         let x = assure_io!(a, "message");
         assert_eq!(
-            x.unwrap(), 
+            x.unwrap(),
             false
             //x.unwrap_err().get_ref().unwrap().to_string(),
             //"assure_io condition:false"

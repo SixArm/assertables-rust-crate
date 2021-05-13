@@ -10,7 +10,7 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables; fn main() {
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-    
+
 /// assert_fn_err_string_gt!(f, 2, 1);
 /// //-> ()
 /// # }

@@ -61,7 +61,7 @@ macro_rules! assert_fn_ok_ge {
 #[cfg(test)]
 mod tests {
     use std::str::FromStr;
-    
+
     #[test]
     fn test_assert_fn_ok_ge_x_arity_2_gt_success() {
         let a = "2";

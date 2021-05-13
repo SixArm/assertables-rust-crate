@@ -7,7 +7,7 @@
 //! Crate:
 //! [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
 //!
-//! Docs: 
+//! Docs:
 //! [https://docs.rs/assertables/](https://docs.rs/assertables/)
 //!
 //! Repo:
@@ -17,15 +17,15 @@
 //! ## Introduction
 //!
 //! This Rust crate provides macros for Rust runtime checking.
-//! 
+//!
 //! Examples:
-//! 
+//!
 //! * `assert_lt!(1, 2)` means check that 1 is less than 2, otherwise panic.
-//! 
+//!
 //! * `assume_lt!(1, 2)` means check that 1 is less than 2, otherwise return error.
-//! 
+//!
 //! * `assure_lt!(1, 2)` means check that 1 is less than 2, otherwise return false.
-//! 
+//!
 //!
 //! ### Assert
 //!
@@ -99,7 +99,7 @@
 //! ## Macros
 //!
 //!
-//! ## Macros for value checking
+//! ### Macros for value checking
 //!
 //! Examples:
 //!
@@ -126,7 +126,28 @@
 //! ```
 //!
 //!
-//! # Macros for set checking
+//! ### Macros for function checking
+//!
+//! To compare function return values:
+//!
+//! ```rust
+//! assert_fn_eq!(abs, 1, -1); // abs(1) == abs(-1)
+//! ```
+//!
+//! To compare function `Result` `Ok()` values:
+//!
+//! ```rust
+//! assert_fn_ok_eq!(::i32::from_str, "1", "1"); // ::i32::from_str("1").unwrap() == ::i32::from_str("1").unwrap()
+//! ```
+//!
+//! Test a function `Result` `Err()` strings:
+//!
+//! ```rust
+//! assert_fn_err_string_eq!(::i32::from_str, "foo", "goo"); // ::i32::from_str("foo").unwrap_err().to_string() == ::i32::from_str("goo").unwrap_err().to_string()
+//! ```
+//!
+//!
+//! ### Macros for set checking
 //!
 //! These macros help with comparison of set parameters, such as two arrays or
 //! two vectors. where the item order does not matter, and the item count does
@@ -157,7 +178,7 @@
 //! ```
 //!
 //!
-//! # Macros for bag checking
+//! ### Macros for bag checking
 //!
 //! Thes macros help with comparison of bag parameters, such as comparison of
 //! two arrays or two vectors, where the item order does not matter, and the
@@ -188,7 +209,7 @@
 //! ```
 //!
 //!
-//! # Macros for IO-related checking
+//! ### Macros for IO-related checking
 //!
 //! These macros help with IO-related checking, such as comparison of files,
 //! streams, etc. These macros return a `Result` with `Ok(true)` or
@@ -219,31 +240,31 @@
 //! ```
 //!
 //! The return is especially helpful for the macro `assume…` error:
-//! 
+//!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
 //! let x = assume_io_lt!(2, 1);
 //! //-> Err(
 //! //       std::io::Error::new(
-//! //           std::io::ErrorKind::InvalidInput, 
+//! //           std::io::ErrorKind::InvalidInput,
 //! //           "assumption failed: `assume_io_lt(left, right)`\n  left: `2`\n right: `1`")]
 //! //       )
 //! //   )
 //! # }
 //! ```
-//! 
-//! 
-//! ## Extras 
-//! 
-//! 
+//!
+//!
+//! ## Extras
+//!
+//!
 //! ### Custom error messages
-//! 
+//!
 //! The macros have a second form where a custom error message can be provided.
-//! 
-//! 
+//!
+//!
 //! ### Comparison abbreviations
-//! 
+//!
 //! The comparison macros use abbreviations such as `eq` (equals), `ne` (not equals), `lt` (less than), `le` (less than or equal to), `gt` (greater than), `ge` (greater than or equals).
 
 // Assert truth

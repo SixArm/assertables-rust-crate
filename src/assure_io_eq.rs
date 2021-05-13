@@ -33,7 +33,7 @@ macro_rules! assure_io_eq {
                     Ok(true)
                 } else {
                     Ok(false)
-                }                
+                }
             }
         }
     } as Result<bool, String>);

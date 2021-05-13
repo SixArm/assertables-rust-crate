@@ -1,16 +1,16 @@
 # Assertables: Rust crate of macros assert, assume, assure
 
-This `assertables` Rust crate provides macros 
-`assert…!`, `assume…!`, `assure…!`, all for runtime 
+This `assertables` Rust crate provides macros
+`assert…!`, `assume…!`, `assure…!`, all for runtime
 reliability checking, and all described below. By SixArm.com.
 
-Crate: 
+Crate:
 [https://crates.io/crates/assertables](https://crates.io/crates/assure)
 
-Docs: 
+Docs:
 [https://docs.rs/assertables/](https://docs.rs/assure/)
 
-Repo: 
+Repo:
 [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
 
 Contents:
@@ -114,6 +114,12 @@ Test a function `Result` `Err()` strings:
 assert_fn_err_string_eq!(::i32::from_str, "foo", "goo"); // ::i32::from_str("foo").unwrap_err().to_string() == ::i32::from_str("goo").unwrap_err().to_string()
 ```
 
+Two functions that are our favorites to use in our tests:
+
+  * `assert_fn_ok_eq!(::i32::from_str, str1, str2); // compare parsed numbers`
+
+  * `assert_fn_ok_eq!(::std::fs::read_to_string, file1, file2); // compare file text`
+
 
 ### Macros for set checking
 
@@ -157,14 +163,14 @@ assert_io_lt!(1, 2);
 assert_io_lt!(2, 1);
 //-> Err(
 //       std::io::Error::new(
-//           std::io::ErrorKind::InvalidInput, 
+//           std::io::ErrorKind::InvalidInput,
 //           "assumption failed: `assume_io_lt(left, right)`\n  left: `2`\n right: `1`")]
 //       )
 //   )
 ```
 
 
-## Extras 
+## Extras
 
 
 ### Custom error messages
