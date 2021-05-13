@@ -18,13 +18,13 @@
 //!
 //! This Rust crate provides macros for Rust runtime checking.
 //!
-//! Examples:
+//! The macros have three forms that can help with various kinds of checking:
 //!
-//! * `assert_lt!(1, 2)` means check that 1 is less than 2, otherwise panic.
+//! * The `assert` macros return `()` or call `panic!(…)`
 //!
-//! * `assume_lt!(1, 2)` means check that 1 is less than 2, otherwise return error.
+//! * The `assume` macros return `Result` with `Ok(true)` or `Err(…)`
 //!
-//! * `assure_lt!(1, 2)` means check that 1 is less than 2, otherwise return false.
+//! * The `assure` macros return `Result` with `Ok(true)` or `Ok(false)` or exceptional `Err(…)`.
 //!
 //!
 //! ### Assert
