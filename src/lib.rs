@@ -131,20 +131,42 @@
 //! To compare function return values:
 //!
 //! ```rust
-//! assert_fn_eq!(abs, 1, -1); // abs(1) == abs(-1)
+//! # #[macro_use] extern crate assertables;
+//! # use std::str::FromStr;
+//! # fn main() {
+//! assert_fn_eq!(i32::abs, 1, -1); // abs(1) == abs(-1)
+//! //-> Ok(true)
+//! # }
 //! ```
 //!
 //! To compare function `Result` `Ok()` values:
 //!
 //! ```rust
-//! assert_fn_ok_eq!(::i32::from_str, "1", "1"); // ::i32::from_str("1").unwrap() == ::i32::from_str("1").unwrap()
+//! # #[macro_use] extern crate assertables;
+//! # use std::str::FromStr;
+//! # fn main() {
+//! assert_fn_ok_eq!(i32::from_str, "1", "1"); // i32::from_str("1").unwrap() == i32::from_str("1").unwrap()
+//! //-> Ok(true)
+//! # }
 //! ```
 //!
 //! Test a function `Result` `Err()` strings:
 //!
 //! ```rust
-//! assert_fn_err_string_eq!(::i32::from_str, "foo", "goo"); // ::i32::from_str("foo").unwrap_err().to_string() == ::i32::from_str("goo").unwrap_err().to_string()
+//! # #[macro_use] extern crate assertables;
+//! # use std::str::FromStr;
+//! # fn main() {
+//! assert_fn_err_string_eq!(i32::from_str, "foo", "goo"); // i32::from_str("foo").unwrap_err().to_string() == i32::from_str("goo").unwrap_err().to_string()
+//! //-> Ok(true)
+//! # }
 //! ```
+//!
+//! Two functions that are our favorites to use in our tests:
+//!
+//!   * `assert_fn_ok_eq!(i32::from_str, str1, str2); // compare parsed numbers`
+//!
+//!   * `assert_fn_ok_eq!(::std::fs::read_to_string, file1, file2); // compare file text`
+//!
 //!
 //!
 //! ### Macros for set checking

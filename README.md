@@ -99,24 +99,24 @@ assert_lt!(1, 2); // check that 1 is less than 2
 To compare function return values:
 
 ```rust
-assert_fn_eq!(abs, 1, -1); // abs(1) == abs(-1)
+assert_fn_eq!\(i32::abs, 1, -1); // abs(1) == abs(-1)
 ```
 
 To compare function `Result` `Ok()` values:
 
 ```rust
-assert_fn_ok_eq!(::i32::from_str, "1", "1"); // ::i32::from_str("1").unwrap() == ::i32::from_str("1").unwrap()
+assert_fn_ok_eq!(i32::from_str, "1", "1"); // i32::from_str("1").unwrap() == i32::from_str("1").unwrap()
 ```
 
 Test a function `Result` `Err()` strings:
 
 ```rust
-assert_fn_err_string_eq!(::i32::from_str, "foo", "goo"); // ::i32::from_str("foo").unwrap_err().to_string() == ::i32::from_str("goo").unwrap_err().to_string()
+assert_fn_err_string_eq!(i32::from_str, "foo", "goo"); // i32::from_str("foo").unwrap_err().to_string() == i32::from_str("goo").unwrap_err().to_string()
 ```
 
 Two functions that are our favorites to use in our tests:
 
-  * `assert_fn_ok_eq!(::i32::from_str, str1, str2); // compare parsed numbers`
+  * `assert_fn_ok_eq!(i32::from_str, str1, str2); // compare parsed numbers`
 
   * `assert_fn_ok_eq!(::std::fs::read_to_string, file1, file2); // compare file text`
 
