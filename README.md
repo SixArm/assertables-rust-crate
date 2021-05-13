@@ -30,7 +30,7 @@ Contents:
 
 This Rust crate provides macros for Rust runtime checking:
 
-* The `assert` macros return `()` or call [`panic!(…)`]
+* The `assert` macros return `()` or call `panic!(…)`
 
 * The `assume` macros return `Result` with `Ok(true)` or `Err(…)`
 
