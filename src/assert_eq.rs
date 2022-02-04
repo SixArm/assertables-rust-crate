@@ -1,6 +1,6 @@
 /// Assert a value is equal to anoter.
 ///
-/// * When true, return `Ok(true)`.
+/// * When true, return `Ok(())`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

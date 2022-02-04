@@ -1,30 +1,34 @@
-/// Assure a std::io::Read read_to_string() value is less than anoter.
+/// Assure one std::io::Read read_to_string() value is less than another.
 ///
-/// * When true, return `Ok(true)`.
+/// * When true, return `Ok(())`.
 ///
-/// * When false, return `Ok(false)`.
+/// * Otherwise, return [`Err`] with a message and the values of the
+///   expressions with their debug representations.
 ///
 /// # Examples
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
+/// # #[allow(unused_imports)]
 /// use std::io::Read;
 /// # fn main() {
 /// let mut a = "a".as_bytes();
 /// let mut b = "b".as_bytes();
 /// let x = assure_std_io_read_to_string_lt!(a, b);
-/// assert_eq!(x.unwrap(), true);
+/// assert!(x.is_ok());
 /// # }
 /// ```
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
+/// # #[allow(unused_imports)]
 /// use std::io::Read;
 /// # fn main() {
 /// let mut a = "a".as_bytes();
 /// let mut b = "b".as_bytes();
 /// let x = assure_std_io_read_to_string_lt!(b, a);
-/// assert_eq!(x.unwrap(), false);
+/// assert!(x.is_err());
+/// assert_eq!(x.unwrap_err(), "assurance failed: `assure_std_io_read_to_string_lt!(left, right)`\n  left: `\"b\"`,\n right: `\"a\"`".to_string());
 /// # }
 /// ```
 ///
@@ -34,41 +38,50 @@ macro_rules! assure_std_io_read_to_string_lt {
     ($left:expr, $right:expr $(,)?) => ({
         let mut left_buffer = String::new();
         let mut right_buffer = String::new();
-        let _left_size = match $left.read_to_string(&mut left_buffer) {
-            Ok(size) => size,
-            Err(_err) => 0,
-        };
-        let _right_size = match $right.read_to_string(&mut right_buffer) {
-            Ok(size) => size,
-            Err(_err) => 0,
-        };
-        if (left_buffer < right_buffer) {
-            Ok(true)
+        let left_result = $left.read_to_string(&mut left_buffer);
+        let right_result = $right.read_to_string(&mut right_buffer);
+        if let Err(err) = left_result {
+            Err(format!("assurance failed: `assure_std_io_read_to_string_lt!(left, right)`\n  left read_to_string error: `{:?}`", err))
         } else {
-            Ok(false)
+            if let Err(err) = right_result {
+                Err(format!("assurance failed: `assure_std_io_read_to_string_lt!(left, right)`\n right read_to_string error: `{:?}`", err))
+            } else {
+                let _left_size = left_result.unwrap();
+                let _right_size = right_result.unwrap();
+                if (left_buffer < right_buffer) {
+                    Ok(())
+                } else {
+                    Err(format!("assurance failed: `assure_std_io_read_to_string_lt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", left_buffer, right_buffer))
+                }
+            }
         }
-    } as Result<bool, String>);
+    });
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         let mut left_buffer = String::new();
         let mut right_buffer = String::new();
-        let _left_size = match $left.read_to_string(&mut left_buffer) {
-            Ok(size) => size,
-            Err(_err) => 0,
-        };
-        let _right_size = match $right.read_to_string(&mut right_buffer) {
-            Ok(size) => size,
-            Err(_err) => 0,
-        };
-        if (left_buffer < right_buffer) {
-            Ok(true)
+        let left_result = $left.read_to_string(&mut left_buffer);
+        let right_result = $right.read_to_string(&mut right_buffer);
+        if let Err(err) = left_result {
+            Err(format!("assurance failed: `assure_std_io_read_to_string_lt!(left, right)`\n  left read_to_string error: `{:?}`", err))
         } else {
-            Ok(false)
+            if let Err(err) = right_result {
+                Err(format!("assurance failed: `assure_std_io_read_to_string_lt!(left, right)`\n right read_to_string error: `{:?}`", err))
+            } else {
+                let _left_size = left_result.unwrap();
+                let _right_size = right_result.unwrap();
+                if (left_buffer < right_buffer) {
+                    Ok(())
+                } else {
+                    Err(format!("{}", $($arg)+))
+                }
+            }
         }
-    } as Result<bool, String>);
+    });
 }
 
 #[cfg(test)]
 mod tests {
+    #[allow(unused_imports)]
     use std::io::Read;
 
     #[test]
@@ -76,10 +89,7 @@ mod tests {
         let mut a = "a".as_bytes();
         let mut b = "b".as_bytes();
         let x = assure_std_io_read_to_string_lt!(a, b);
-        assert_eq!(
-            x,
-            Ok(true)
-        );
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -88,30 +98,27 @@ mod tests {
         let mut b = "b".as_bytes();
         let x = assure_std_io_read_to_string_lt!(b, a);
         assert_eq!(
-            x,
-            Ok(false)
+            x.unwrap_err(),
+            "assurance failed: `assure_std_io_read_to_string_lt!(left, right)`\n  left: `\"b\"`,\n right: `\"a\"`"
         );
     }
 
     #[test]
-    fn test_assert_assure_std_io_read_to_string_lt_x_arity_3_success() {
+    fn test_assure_assure_std_io_read_to_string_lt_x_arity_3_success() {
         let mut a = "a".as_bytes();
         let mut b = "b".as_bytes();
         let x = assure_std_io_read_to_string_lt!(a, b, "message");
-        assert_eq!(
-            x,
-            Ok(true)
-        );
+        assert!(x.is_ok());
     }
 
     #[test]
-    fn test_assert_assure_std_io_read_to_string_lt_x_arity_3_failure() {
+    fn test_assure_assure_std_io_read_to_string_lt_x_arity_3_failure() {
         let mut a = "a".as_bytes();
         let mut b = "b".as_bytes();
         let x = assure_std_io_read_to_string_lt!(b, a, "message");
         assert_eq!(
-            x,
-            Ok(false)
+            x.unwrap_err(),
+            "message"
         );
     }
 

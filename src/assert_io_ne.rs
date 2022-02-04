@@ -1,4 +1,4 @@
-/// Assert two values are equal.
+/// Assert a value is equal to another.
 ///
 /// * When true, return `()`.
 ///

@@ -1,8 +1,9 @@
 /// Assure a condition is true.
 ///
-/// * When true, return `Ok(true)`.
+/// * When true, return `Ok(())`.
 ///
-/// * When false, return `Ok(false)`.
+/// * Otherwise, return [`Err`] with a message and the values of the
+///   expressions with their debug representations.
 ///
 /// # Examples
 ///
@@ -10,7 +11,7 @@
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
 /// let x = assure!(true);
-/// assert_eq!(x.unwrap(), true);
+/// assert!(x.is_ok());
 /// # }
 /// ```
 ///
@@ -18,7 +19,8 @@
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
 /// let x = assure!(false);
-/// assert_eq!(x.unwrap(), false);
+/// assert!(x.is_err());
+/// assert_eq!(x.unwrap_err(), "assurance failed: `false`".to_string());
 /// # }
 /// ```
 ///
@@ -26,19 +28,19 @@
 #[macro_export]
 macro_rules! assure {
     ($x:expr $(,)?) => ({
-        if ($x) {
-            Ok(true)
+        if $x {
+            Ok(())
         } else {
-            Ok(false)
+            Err(format!("assurance failed: `{:?}`", $x))
         }
-    } as Result<bool, String>);
+    });
     ($x:expr, $($arg:tt)+) => ({
-        if ($x) {
-            Ok(true)
+        if $x {
+            Ok(())
         } else {
-            Ok(false)
+            Err($($arg)+)
         }
-    } as Result<bool, String>);
+    });
 }
 
 #[cfg(test)]
@@ -48,10 +50,7 @@ mod tests {
     fn test_assure_x_arity_2_success() {
         let a = true;
         let x = assure!(a);
-        assert_eq!(
-            x.unwrap(),
-            true
-        );
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -59,8 +58,8 @@ mod tests {
         let a = false;
         let x = assure!(a);
         assert_eq!(
-            x.unwrap(),
-            false
+            x.unwrap_err(),
+            "assurance failed: `false`"
         );
     }
 
@@ -68,10 +67,7 @@ mod tests {
     fn test_assure_x_arity_3_success() {
         let a = true;
         let x = assure!(a, "message");
-        assert_eq!(
-            x.unwrap(),
-            true
-        );
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -79,8 +75,8 @@ mod tests {
         let a = false;
         let x = assure!(a, "message");
         assert_eq!(
-            x.unwrap(),
-            false
+            x.unwrap_err(),
+            "message"
         );
     }
 

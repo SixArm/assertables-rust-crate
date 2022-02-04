@@ -1,24 +1,25 @@
-/// Assure two sets are equal.
+/// Assure a set is equal to another.
 ///
-/// * When true, return `Ok(true)`.
+/// * When true, return `Ok(())`.
 ///
-/// * When false, return `Ok(false)`.
+/// * Otherwise, return [`Err`] with a message and the values of the
+///   expressions with their debug representations.
 ///
 /// # Examples
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
-/// let x = assure_set_eq!([1, 2], [2, 1]);
-/// assert_eq!(x.unwrap(), true);
-/// # }
-/// ```
+/// let a = [1, 2];
+/// let b = [2, 1];
+/// let x = assure_set_eq!(&a, &b);
+/// assert!(x.is_ok());
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # fn main() {
-/// let x = assure_set_eq!([1, 2], [3, 4]);
-/// assert_eq!(x.unwrap(), false);
+/// let a = [1, 2];
+/// let b = [3, 4];
+/// let x = assure_set_eq!(&a, &b);
+/// assert!(x.is_err());
+/// assert_eq!(x.unwrap_err(), "assurance failed: `assure_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`".to_string());
 /// # }
 /// ```
 ///
@@ -33,26 +34,26 @@ macro_rules! assure_set_eq {
                 let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
                 let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
                 if left_set == right_set {
-                    Ok(true)
+                    Ok(())
                 } else {
-                    Ok(false)
+                    Err(format!("assurance failed: `assure_set_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right))
                 }
             }
         }
-    } as Result<bool, String>);
+    });
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
                 let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
                 if left_set == right_set {
-                    Ok(true)
+                    Ok(())
                 } else {
-                    Ok(false)
+                    Err($($arg)+)
                 }
             }
         }
-    } as Result<bool, String>);
+    });
 }
 
 #[cfg(test)]
@@ -63,10 +64,7 @@ mod tests {
         let a = [1, 2];
         let b = [1, 2];
         let x = assure_set_eq!(&a, &b);
-        assert_eq!(
-            x.unwrap(),
-            true
-        );
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -75,8 +73,8 @@ mod tests {
         let b = [3, 4];
         let x = assure_set_eq!(&a, &b);
         assert_eq!(
-            x.unwrap(),
-            false
+            x.unwrap_err(),
+            "assurance failed: `assure_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`"
         );
     }
 
@@ -85,10 +83,7 @@ mod tests {
         let a = [1, 2];
         let b = [1, 2];
         let x = assure_set_eq!(&a, &b, "message");
-        assert_eq!(
-            x.unwrap(),
-            true
-        )
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -97,8 +92,8 @@ mod tests {
         let b = [3, 4];
         let x = assure_set_eq!(&a, &b, "message");
         assert_eq!(
-            x.unwrap(),
-            false
+            x.unwrap_err(),
+            "message"
         )
     }
 

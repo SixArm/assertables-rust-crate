@@ -1,6 +1,6 @@
-/// Assert two sets are not equal.
+/// Assert a set is not equal to another.
 ///
-/// * When true, return `Ok(true)`.
+/// * When true, return `Ok(())`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

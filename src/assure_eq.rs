@@ -1,8 +1,9 @@
-/// Assure two values are equal.
+/// Assure a values is equal to another.
 ///
-/// * When true, return `Ok(true)`.
+/// * When true, return `Ok(())`.
 ///
-/// * When false, return `Ok(false)`.
+/// * Otherwise, return [`Err`] with a message and the values of the
+///   expressions with their debug representations.
 ///
 /// # Examples
 ///
@@ -10,7 +11,7 @@
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
 /// let x = assure_eq!(1, 1);
-/// assert_eq!(x.unwrap(), true);
+/// assert!(x.is_ok());
 /// # }
 /// ```
 ///
@@ -18,7 +19,8 @@
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
 /// let x = assure_eq!(1, 2);
-/// assert_eq!(x.unwrap(), false);
+/// assert!(x.is_err());
+/// assert_eq!(x.unwrap_err(), "assurance failed: `assure_eq!(left, right)`\n  left: `1`,\n right: `2`".to_string());
 /// # }
 /// ```
 ///
@@ -29,24 +31,24 @@ macro_rules! assure_eq {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if (left_val == right_val) {
-                    Ok(true)
+                    Ok(())
                 } else {
-                    Ok(false)
+                    Err(format!("assurance failed: `assure_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right))
                 }
             }
         }
-    } as Result<bool, String>);
+    });
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if (left_val == right_val) {
-                    Ok(true)
+                    Ok(())
                 } else {
-                    Ok(false)
+                    Err($($arg)+)
                 }
             }
         }
-    } as Result<bool, String>);
+    });
 }
 
 #[cfg(test)]
@@ -57,10 +59,7 @@ mod tests {
         let a = 1;
         let b = 1;
         let x = assure_eq!(a, b);
-        assert_eq!(
-            x.unwrap(),
-            true
-        );
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -69,8 +68,8 @@ mod tests {
         let b = 2;
         let x =  assure_eq!(a, b);
         assert_eq!(
-            x.unwrap(),
-            false
+            x.unwrap_err(),
+            "assurance failed: `assure_eq!(left, right)`\n  left: `1`,\n right: `2`"
         );
     }
 
@@ -79,10 +78,7 @@ mod tests {
         let a = 1;
         let b = 1;
         let x = assure_eq!(a, b, "message");
-        assert_eq!(
-            x.unwrap(),
-            true
-        );
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -91,8 +87,8 @@ mod tests {
         let b = 2;
         let x = assure_eq!(a, b, "message");
         assert_eq!(
-            x.unwrap(),
-            false
+            x.unwrap_err(),
+            "message"
         );
     }
 

@@ -1,8 +1,9 @@
 /// Assure one value is not equal to another value.
 ///
-/// * When true, return `Ok(true)`.
+/// * When true, return `Ok(())`.
 ///
-/// * When false, return `Ok(false)`.
+/// * Otherwise, return [`Err`] with a message and the values of the
+///   expressions with their debug representations.
 ///
 /// # Examples
 ///
@@ -10,15 +11,19 @@
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
 /// let x = assure_io_ne!(1, 2);
-/// assert_eq!(x.unwrap(), true);
+/// assert!(x.is_ok());
 /// # }
 /// ```
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
-/// let x = assure_io_ne!(1, 1);
-/// assert_eq!(x.unwrap(), false);
+/// let x = assure_io_ne!(1, 1); //-> Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "…");
+/// assert!(x.is_err());
+/// assert_eq!(
+///     x.unwrap_err().get_ref().unwrap().to_string(),
+///     "assurance failed: `assure_io_ne!(left, right)`\n  left: `1`,\n right: `1`"
+/// );
 /// # }
 /// ```
 ///
@@ -29,24 +34,34 @@ macro_rules! assure_io_ne {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if (left_val != right_val) {
-                    Ok(true)
+                    Ok(())
                 } else {
-                    Ok(false)
+                    Err(
+                        std::io::Error::new(
+                            std::io::ErrorKind::InvalidInput,
+                            format!("assurance failed: `assure_io_ne!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right)
+                        )
+                    )
                 }
             }
         }
-    } as Result<bool, String>);
+    });
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if (left_val != right_val) {
-                    Ok(true)
+                    Ok(())
                 } else {
-                    Ok(false)
+                    Err(
+                        std::io::Error::new(
+                            std::io::ErrorKind::InvalidInput,
+                            $($arg)+
+                        )
+                    )
                 }
             }
         }
-    } as Result<bool, String>);
+    });
 }
 
 #[cfg(test)]
@@ -57,10 +72,7 @@ mod tests {
         let a = 1;
         let b = 2;
         let x = assure_io_ne!(a, b);
-        assert_eq!(
-            x.unwrap(),
-            true
-        );
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -69,10 +81,8 @@ mod tests {
         let b = 1;
         let x = assure_io_ne!(a, b);
         assert_eq!(
-            x.unwrap(),
-            false
-            //x.unwrap_err().get_ref().unwrap().to_string(),
-            //"assure_io_ne left:1 right:1"
+            x.unwrap_err().get_ref().unwrap().to_string(),
+            "assurance failed: `assure_io_ne!(left, right)`\n  left: `1`,\n right: `1`"
         );
     }
 
@@ -81,10 +91,7 @@ mod tests {
         let a = 1;
         let b = 2;
         let x = assure_io_ne!(a, b, "message");
-        assert_eq!(
-            x.unwrap(),
-            true
-        );
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -93,10 +100,8 @@ mod tests {
         let b = 1;
         let x = assure_io_ne!(a, b, "message");
         assert_eq!(
-            x.unwrap(),
-            false
-            //x.unwrap_err().get_ref().unwrap().to_string(),
-            //"message"
+            x.unwrap_err().get_ref().unwrap().to_string(),
+            "message"
         );
     }
 

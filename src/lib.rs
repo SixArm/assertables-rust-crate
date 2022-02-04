@@ -1,7 +1,7 @@
-//! Assertables: Rust crate of macros `assert`, `assume`, `assure`
+//! Assertables: Rust crate of macros for `assert` and `assure`.
 //!
-//! This `assertables` Rust crate provides macros `assert…!`, `assume…!`,
-//! `assure…!`, all for runtime reliability checking, and all described below.
+//! This `assertables` Rust crate provides macros for `assert…!` and `assure…!`,
+//! which are useful for testing and also for runtime reliability checking.
 //! By SixArm.com.
 //!
 //! Crate:
@@ -22,9 +22,7 @@
 //!
 //! * The `assert` macros return `()` or call `panic!(…)`
 //!
-//! * The `assume` macros return `Result` with `Ok(true)` or `Err(…)`
-//!
-//! * The `assure` macros return `Result` with `Ok(true)` or `Ok(false)`.
+//! * The `assure` macros return `Result` with `Ok(())` or `Err(…)`
 //!
 //!
 //! ### Assert
@@ -48,27 +46,6 @@
 //! ```
 //!
 //!
-//! ### Assume
-//!
-//! Example to assume that x is less than y:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # fn main() {
-//! let x = assume_lt!(1, 2);
-//! assert_eq!(x.unwrap(), true);
-//! # }
-//! ```
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # fn main() {
-//! let x = assume_lt!(2, 1);
-//! assert_eq!(x.unwrap_err(), "assumption failed: `assume_lt!(left, right)`\n  left: `2`,\n right: `1`".to_string());
-//! # }
-//! ```
-//!
-//!
 //! ### Assure
 //!
 //! Example to assure that x is less than y:
@@ -77,10 +54,15 @@
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
 //! let x = assure_lt!(1, 2);
-//! assert_eq!(x.unwrap(), true);
+//! assert!(x.is_ok());
+//! # }
+//! ```
 //!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # fn main() {
 //! let x = assure_lt!(2, 1);
-//! assert_eq!(x, Ok(false));
+//! assert_eq!(x.unwrap_err(), "assurance failed: `assure_lt!(left, right)`\n  left: `2`,\n right: `1`".to_string());
 //! # }
 //! ```
 //!
@@ -226,16 +208,16 @@
 //! # }
 //! ```
 //!
-//! The return is especially helpful for the macro `assume…` error:
+//! The return is especially helpful for the macro `assure…` error:
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
-//! let x = assume_io_lt!(2, 1);
+//! let x = assure_io_lt!(2, 1);
 //! //-> Err(
 //! //       std::io::Error::new(
 //! //           std::io::ErrorKind::InvalidInput,
-//! //           "assumption failed: `assume_io_lt!(left, right)`\n  left: `2`,\n right: `1`")]
+//! //           "assurance failed: `assure_io_lt!(left, right)`\n  left: `2`,\n right: `1`")]
 //! //       )
 //! //   )
 //! # }
@@ -271,7 +253,7 @@
 //! # }
 //! ```
 //!
-//! The return is especially helpful for the macro `assume…` error:
+//! The return is especially helpful for the macro `assure…` error:
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
@@ -280,11 +262,11 @@
 //! # fn main() {
 //! let mut a = "a".as_bytes();
 //! let mut b = "b".as_bytes();
-//! let x = assume_std_io_read_to_string_lt!(b, a);
+//! let x = assure_std_io_read_to_string_lt!(b, a);
 //! //-> Err(
 //! //       std::io::Error::new(
 //! //           std::io::ErrorKind::InvalidInput,
-//! //           "assumption failed: `assume_std_io_read_to_string_lt!(left, right)`\n  left: `b`,\n right: `a`")]
+//! //           "assurance failed: `assure_std_io_read_to_string_lt!(left, right)`\n  left: `b`,\n right: `a`")]
 //! //       )
 //! //   )
 //! # }
@@ -364,68 +346,6 @@ pub mod assert_std_io_read_to_string_lt; // less than
 pub mod assert_std_io_read_to_string_le; // less than or equal to
 pub mod assert_std_io_read_to_string_gt; // greater than
 pub mod assert_std_io_read_to_string_ge; // greater than or equal to
-
-// Assume truth
-pub mod assume; // condition
-
-// Assume value comparison
-pub mod assume_eq; // equal
-pub mod assume_ne; // not equal
-pub mod assume_lt; // less than
-pub mod assume_le; // less than or equal to
-pub mod assume_gt; // greater than
-pub mod assume_ge; // greater than or equal to
-
-// Assume function output comparison
-pub mod assume_fn_eq; // equal
-pub mod assume_fn_ne; // not equal
-pub mod assume_fn_lt; // less than
-pub mod assume_fn_le; // less than or equal to
-pub mod assume_fn_gt; // greater than
-pub mod assume_fn_ge; // greater than or equal to
-
-// Assume function ok() comparison
-pub mod assume_fn_ok_eq; // equal
-pub mod assume_fn_ok_ne; // not equal
-pub mod assume_fn_ok_lt; // less than
-pub mod assume_fn_ok_le; // less than or equal to
-pub mod assume_fn_ok_gt; // greater than
-pub mod assume_fn_ok_ge; // greater than or equal to
-
-// Assume function err().to_string() comparison
-pub mod assume_fn_err_string_eq; // equal
-pub mod assume_fn_err_string_ne; // not equal
-pub mod assume_fn_err_string_lt; // less than
-pub mod assume_fn_err_string_le; // less than or equal to
-pub mod assume_fn_err_string_gt; // greater than
-pub mod assume_fn_err_string_ge; // greater than or equal to
-
-// Assume iterator-related set-based comparison
-pub mod assume_set_eq; // equal
-pub mod assume_set_ne; // not equal
-
-// Assume iterator-related bag-based comparison
-pub mod assume_bag_eq; // equal
-pub mod assume_bag_ne; // not equal
-
-// Assume IO-related truth, which can return Err(std:io:Error(…))
-pub mod assume_io;
-
-// Assume IO-related comparison, which can return Err(std:io:Error(…))
-pub mod assume_io_eq; // equal
-pub mod assume_io_ne; // not equal
-pub mod assume_io_lt; // less than
-pub mod assume_io_le; // less than or equal to
-pub mod assume_io_gt; // greater than
-pub mod assume_io_ge; // greater than or equal to
-
-// Assume std::io::read comparison
-pub mod assume_std_io_read_to_string_eq; // equal
-pub mod assume_std_io_read_to_string_ne; // not equal
-pub mod assume_std_io_read_to_string_lt; // less than
-pub mod assume_std_io_read_to_string_le; // less than or equal to
-pub mod assume_std_io_read_to_string_gt; // greater than
-pub mod assume_std_io_read_to_string_ge; // greater than or equal to
 
 // Assure truth
 pub mod assure; // condition

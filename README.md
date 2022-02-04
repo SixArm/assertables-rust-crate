@@ -1,8 +1,8 @@
-# Assertables: Rust crate of macros assert, assume, assure
+# Assertables: Rust crate of macros `assert` and `assure`
 
-This `assertables` Rust crate provides macros
-`assert…!`, `assume…!`, `assure…!`, all for runtime
-reliability checking, and all described below. By SixArm.com.
+This `assertables` Rust crate provides macros for `assert…!` and `assume…!`, 
+which are useful for testing and also for runtime reliability checking.
+By SixArm.com.
 
 Crate:
 [https://crates.io/crates/assertables](https://crates.io/crates/assure)
@@ -17,7 +17,6 @@ Contents:
 
 * [Introduction](#introduction)
   * [Assert](#assert)
-  * [Assume](#assume)
   * [Assure](#assure)
 * [Macros](#macros)
   * [Macros for value checking](#macros-for-value-checking)
@@ -204,16 +203,14 @@ assert_io_lt!(1, 2);
 ```
 
 
-## Advanced programming: assert, assume, assure
+## Advanced programming: assert and assure
 
 
 For advanced programming, the macros have three forms that help with three kinds of checking:
 
 * The `assert` macros return `()` or call `panic!(…)`.
 
-* The `assume` macros return `Result` with `Ok(true)` or `Err(…)`.
-
-* The `assure` macros return `Result` with `Ok(true)` or `Ok(false)`.
+* The `assure` macros return `Result` with `Ok(())` or `Err(…)`.
 
 
 ### Assert
@@ -231,31 +228,17 @@ assert_lt!(2, 1); // assert 2 is less than 1
 ```
 
 
-### Assume
-
-Example: assume that x is less than y; return `Result` with `Ok(true)` or `Err(message)`.
-
-```rust
-assume_lt!(1, 2);
-//-> Ok(true)
-```
-
-```rust
-assume_lt!(2, 1);
-//-> Err("assumption failed: `assume_lt!(left, right)`\n  left: `2`,\n right: `1`")
-```
-
-
 ### Assure
 
-Example: assure that x is less than y; return `Result` with `Ok(true)` or `Ok(false)`.
+Example: assure that x is less than y; return `Result` with `Ok(()))` or `Err(message)`.
 
 ```rust
-assure_lt!(1, 2);
-//-> Ok(true)
+let x = assure_lt!(1, 2);
+assert!(x.is_ok())
 ```
 
 ```rust
-assure_lt!(2, 1);
-//-> Ok(false)
+let x = assure_lt!(2, 1);
+assert!(x.is_err())
+//-> Err("assumption failed: `assume_lt!(left, right)`\n  left: `2`,\n right: `1`")
 ```
