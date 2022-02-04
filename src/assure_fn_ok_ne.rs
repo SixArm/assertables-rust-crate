@@ -8,15 +8,19 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// use std::str::FromStr;
-/// 
 /// # fn main() {
 /// let x: Result<bool, &str> = assure_fn_ok_ne!(i32::from_str, "1", "2");
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// use std::str::FromStr;
+/// # fn main() {
 /// let x: Result<bool, &str> = assure_fn_ok_ne!(i32::from_str, "1", "1");
-/// //-> Ok(false)
+/// assert_eq!(x.unwrap(), false);
 /// # }
 /// ```
 ///

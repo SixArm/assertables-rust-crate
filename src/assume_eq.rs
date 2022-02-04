@@ -10,11 +10,16 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
-/// let x = assume_lt!(1, 2);
-/// //-> Ok(true)
+/// let x = assume_eq!(1, 1);
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
-/// let x = assume_lt!(2, 1);
-/// //-> Ok(false)
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
+/// let x = assume_eq!(1, 2);
+/// assert_eq!(x.unwrap_err(), "assumption failed: `assume_eq!(left, right)`\n  left: `1`,\n right: `2`".to_string());
 /// # }
 /// ```
 ///

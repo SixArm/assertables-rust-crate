@@ -8,13 +8,12 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # fn main() {
 /// let x: Result<bool, &str> = assure_fn_eq!(i32::abs, 1 as i32, -1 as i32);
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
 ///
 /// let x: Result<bool, &str> = assure_fn_eq!(i32::abs, 1 as i32, -2 as i32);
-/// //-> Ok(false)
+/// assert_eq!(x.unwrap(), false);
 /// # }
 /// ```
 ///

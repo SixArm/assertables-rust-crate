@@ -9,11 +9,16 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # fn main() {
 /// assert_bag_ne!([1, 1], [1, 1, 1]);
 /// //-> ()
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_bag_ne!([1, 1], [1, 1]);
 /// # });

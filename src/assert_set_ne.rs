@@ -9,11 +9,16 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # fn main() {
 /// assert_set_ne!([1, 2], [3, 4]);
 /// //-> ()
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_set_ne!([1, 2], [1, 2]);
 /// # });

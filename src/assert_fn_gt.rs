@@ -9,11 +9,16 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # fn main() {
 /// assert_fn_gt!(i32::abs, -2 as i32, 1 as i32);
 /// //-> ()
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_fn_gt!(i32::abs, 1 as i32, -2 as i32);
 /// # });

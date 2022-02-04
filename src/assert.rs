@@ -9,11 +9,16 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # fn main() {
 /// assert!(true);
 /// //-> ()
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert!(false);
 /// # });

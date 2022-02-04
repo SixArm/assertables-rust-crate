@@ -11,10 +11,15 @@
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
 /// let x = assume_gt!(2, 1);
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let x = assume_gt!(1, 2);
-/// //-> Err("assumption failed: `assume_gt!(left, right)`\n  left: `1`,\n right: `2`")
+/// assert_eq!(x.unwrap_err(), "assumption failed: `assume_gt!(left, right)`\n  left: `1`,\n right: `2`".to_string());
 /// # }
 /// ```
 ///

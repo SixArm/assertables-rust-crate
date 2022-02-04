@@ -10,16 +10,19 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
-/// let x = assume_io_ne!(1, 1);
-/// //-> Ok(true)
-///
 /// let x = assume_io_ne!(1, 2);
-/// //-> Err(
-/// //       std::io::Error::new(
-/// //           std::io::ErrorKind::InvalidInput,
-/// //           "assumption failed: `assume_io_ne!(left, right)`\n  left: `1`,\n right: `2`")]
-/// //       )
-/// //   )
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
+///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
+/// let x = assume_io_ne!(1, 1); //-> Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "…");
+/// assert_eq!(
+///     x.unwrap_err().get_ref().unwrap().to_string(),
+///     "assumption failed: `assume_io_ne!(left, right)`\n  left: `1`,\n right: `1`"
+/// );
 /// # }
 /// ```
 ///

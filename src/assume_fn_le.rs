@@ -10,11 +10,16 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
-/// assume_fn_le!(i32::abs, 1 as i32, -2 as i32);
-/// //-> Ok(true)
+/// let x = assume_fn_le!(i32::abs, 1 as i32, -2 as i32);
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
-/// assume_fn_le!(i32::abs, -2 as i32, 1 as i32);
-/// //-> Err("assumption failed: `assume_fn_le!(left, right)`\n  left input: `-2`,\n right input: `1`,\n  left output: `2`,\n right output: `1`")
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
+/// let x = assume_fn_le!(i32::abs, -2 as i32, 1 as i32);
+/// assert_eq!(x.unwrap_err(), "assumption failed: `assume_fn_le!(fn, left, right)`\n  left input: `-2`,\n right input: `1`,\n  left output: `2`,\n right output: `1`".to_string());
 /// # }
 /// ```
 ///

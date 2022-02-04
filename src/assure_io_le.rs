@@ -8,13 +8,17 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # fn main() {
 /// let x = assure_io_le!(1, 2);
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let x = assure_io_le!(2, 1);
-/// //-> Ok(false)
+/// assert_eq!(x.unwrap(), false);
 /// # }
 /// ```
 ///

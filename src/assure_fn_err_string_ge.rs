@@ -8,15 +8,19 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// 
 /// # fn main() {
 /// let x: Result<bool, String> = assure_fn_err_string_ge!(f, 2, 1);
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
+/// # fn main() {
 /// let x: Result<bool, String> = assure_fn_err_string_ge!(f, 1, 2);
-/// //-> Ok(false)
+/// assert_eq!(x.unwrap(), false);
 /// # }
 /// ```
 ///

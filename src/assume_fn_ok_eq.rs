@@ -9,13 +9,19 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::str::FromStr;
+/// use std::str::FromStr;
 /// # fn main() {
-/// assume_fn_ok_eq!(i32::from_str, "1", "1");
-/// //-> Ok(true)
+/// let x = assume_fn_ok_eq!(i32::from_str, "1", "1");
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
-/// assume_fn_ok_eq!(i32::from_str, "1", "2");
-/// //-> Err("assumption failed: `assume_fn_ok_eq!(left, right)`\n  left input: `\"1\"`,\n right input: `\"2\"`,\n  left output: `1`,\n right output: `2`")
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// use std::str::FromStr;
+/// # fn main() {
+/// let x = assume_fn_ok_eq!(i32::from_str, "1", "2");
+/// assert_eq!(x.unwrap_err(), "assumption failed: `assume_fn_ok_eq!(fn, left, right)`\n  left input: `\"1\"`,\n right input: `\"2\"`,\n  left output: `1`,\n right output: `2`".to_string());
 /// # }
 /// ```
 ///

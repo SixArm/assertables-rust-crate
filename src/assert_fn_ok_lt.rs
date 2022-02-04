@@ -9,12 +9,18 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # use std::str::FromStr;
 /// # fn main() {
 /// assert_fn_ok_lt!(i32::from_str, "1", "2");
 /// //-> ()
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # use std::str::FromStr;
+/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_fn_ok_lt!(i32::from_str, "2", "1");
 /// # });
@@ -69,7 +75,7 @@ mod tests {
         let b = "2";
         let x = assert_fn_ok_lt!(i32::from_str, a, b);
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }
@@ -96,7 +102,7 @@ mod tests {
         let b = "2";
         let x = assert_fn_ok_lt!(i32::from_str, a, b, "message");
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }

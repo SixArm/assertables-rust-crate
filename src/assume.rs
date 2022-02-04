@@ -9,13 +9,17 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # fn main() {
 /// let x = assume!(true);
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let x = assume!(false);
-/// //-> Err("assumption failed: `false`")
+/// assert_eq!(x.unwrap_err(), "assumption failed: `false`".to_string());
 /// # }
 /// ```
 ///

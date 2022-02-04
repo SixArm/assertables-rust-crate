@@ -13,12 +13,17 @@
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
 /// let x = assume_bag_ne!(&a, &b);
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let a = [1, 1];
-/// let b = [1, 1, 1];
+/// let b = [1, 1];
 /// let x = assume_bag_ne!(&a, &b);
-/// //-> Err("assume_bag_ne left:[1, 1] right:[1, 1, 1]")
+/// assert_eq!(x.unwrap_err(), "assumption failed: `assume_bag_ne!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1]`".to_string());
 /// # }
 /// ```
 ///

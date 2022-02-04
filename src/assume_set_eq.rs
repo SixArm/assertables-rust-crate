@@ -12,13 +12,13 @@
 /// # fn main() {
 /// let a = [1, 2];
 /// let b = [2, 1];
-/// assume_set_eq!(&a, &b);
-/// //-> Ok(true)
+/// let x = assume_set_eq!(&a, &b);
+/// assert_eq!(x.unwrap(), true);
 ///
 /// let a = [1, 2];
 /// let b = [3, 4];
-/// assume_set_eq!(&a, &b);
-/// //-> Err("assume_set_eq left:[1, 2] right:[3, 4]")
+/// let x = assume_set_eq!(&a, &b);
+/// assert_eq!(x.unwrap_err(), "assumption failed: `assume_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`".to_string());
 /// # }
 /// ```
 ///

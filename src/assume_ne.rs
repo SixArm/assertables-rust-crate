@@ -11,10 +11,15 @@
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
 /// let x = assume_ne!(1, 2);
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let x = assume_ne!(1, 1);
-/// //-> Err("assume_ne left:1 right:1")
+/// assert_eq!(x.unwrap_err(), "assumption failed: `assume_ne!(left, right)`\n  left: `1`,\n right: `1`".to_string());
 /// # }
 /// ```
 ///

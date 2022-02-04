@@ -12,13 +12,13 @@
 /// # fn main() {
 /// let a = [1, 2];
 /// let b = [3, 4];
-/// assume_set_ne!(&a, &b);
-/// //-> Ok(true)
+/// let x = assume_set_ne!(&a, &b);
+/// assert_eq!(x.unwrap(), true);
 ///
 /// let a = [1, 2];
 /// let b = [1, 2];
-/// assume_set_ne!(&a, &b);
-/// //-> Err("assume_set_ne left:[1, 2] right:[1, 2]")
+/// let x = assume_set_ne!(&a, &b);
+/// assert_eq!(x.unwrap_err(), "assumption failed: `assume_set_ne!(left, right)`\n  left: `[1, 2]`,\n right: `[1, 2]`".to_string());
 /// # }
 /// ```
 ///

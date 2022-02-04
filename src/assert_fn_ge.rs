@@ -9,11 +9,16 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # fn main() {
 /// assert_fn_ge!(i32::abs, -2 as i32, 1 as i32);
 /// //-> ()
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_fn_ge!(i32::abs, 1 as i32, -2 as i32);
 /// # });
@@ -55,7 +60,7 @@ mod tests {
         let b = 1;
         let x = assert_fn_ge!(i32::abs, a as i32, b as i32);
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }
@@ -66,7 +71,7 @@ mod tests {
         let b = -1;
         let x = assert_fn_ge!(i32::abs, a as i32, b as i32);
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }
@@ -85,7 +90,7 @@ mod tests {
         let b = 1;
         let x = assert_fn_ge!(i32::abs, a as i32, b as i32, "message");
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }
@@ -96,7 +101,7 @@ mod tests {
         let b = -1;
         let x = assert_fn_ge!(i32::abs, a as i32, b as i32, "message");
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }

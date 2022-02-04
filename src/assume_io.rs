@@ -11,15 +11,18 @@
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
 /// let x = assume_io!(true);
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
-/// let x = assume_io!(false);
-/// //-> Err(
-/// //       std::io::Error::new(
-/// //           std::io::ErrorKind::InvalidInput,
-/// //           "assumption failed: `assume_io(condition) condition: `false`"
-/// //       )
-/// //   )
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
+/// let x = assume_io!(false); //-> Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "…");
+/// assert_eq!(
+///     x.unwrap_err().get_ref().unwrap().to_string(),
+///     "assumption failed: `assume_io(condition) condition: `false`"
+/// );
 /// # }
 /// ```
 ///

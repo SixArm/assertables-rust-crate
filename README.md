@@ -179,7 +179,7 @@ assert_bag_eq!([1, 1, 2], [2, 1, 1]); // assert bag {1, 1, 2} == bag {2, 1, 1}
 
 ### Macros for IO-related checking
 
-Compare two IO-related values, such as comparison of files, streams, etc. 
+Compare two IO-related values, such as comparison of files, streams, etc.
 
 * `assert_io!(a)`: assert a is true
 

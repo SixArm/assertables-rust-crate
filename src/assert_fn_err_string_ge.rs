@@ -9,8 +9,7 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn digit_string(i: isize) -> Result<String, String> { 
+/// # fn digit_string(i: isize) -> Result<String, String> {
 /// #     match i {
 /// #         0..=9 => Ok(format!("{}", i)),
 /// #         _ => Err(format!("{:?} is out of range", i)),
@@ -19,7 +18,19 @@
 /// # fn main() {
 /// assert_fn_err_string_ge!(digit_string, 20, 10);
 /// //-> ()
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn digit_string(i: isize) -> Result<String, String> {
+/// #     match i {
+/// #         0..=9 => Ok(format!("{}", i)),
+/// #         _ => Err(format!("{:?} is out of range", i)),
+/// #     }
+/// # }
+/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_fn_err_string_ge!(digit_string, 10, 20);
 /// # });
@@ -70,20 +81,20 @@ macro_rules! assert_fn_err_string_ge {
 mod tests {
 
     // Replicate this function relevant tests in this crate.
-    fn digit_string(i: isize) -> Result<String, String> { 
+    fn digit_string(i: isize) -> Result<String, String> {
         match i {
             0..=9 => Ok(format!("{}", i)),
             _ => Err(format!("{:?} is out of range", i)),
         }
     }
-    
+   
     #[test]
     fn test_assert_fn_err_string_ge_x_arity_2_gt_success() {
         let a = 20;
         let b = 10;
         let x = assert_fn_err_string_ge!(digit_string, a, b);
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }
@@ -94,7 +105,7 @@ mod tests {
         let b = 10;
         let x = assert_fn_err_string_ge!(digit_string, a, b);
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }
@@ -113,7 +124,7 @@ mod tests {
         let b = 10;
         let x = assert_fn_err_string_ge!(digit_string, a, b, "message");
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }
@@ -124,7 +135,7 @@ mod tests {
         let b = 10;
         let x = assert_fn_err_string_ge!(digit_string, a, b, "message");
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }

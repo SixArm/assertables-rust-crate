@@ -9,12 +9,18 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # use std::str::FromStr;
 /// # fn main() {
 /// assert_fn_ok_eq!(i32::from_str, "1", "1");
 /// //-> ()
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # use std::str::FromStr;
+/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_fn_ok_eq!(i32::from_str, "1", "2");
 /// # });

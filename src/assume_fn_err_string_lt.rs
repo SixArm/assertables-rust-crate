@@ -9,14 +9,19 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
+/// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
 /// # fn main() {
-/// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// assume_fn_err_string_lt!(f, 1, 2);
-/// //-> Ok(true)
+/// let x = assume_fn_err_string_lt!(f, 1, 2);
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// assume_fn_err_string_lt!(f, 2, 1);
-/// //-> Err("assumption failed: `assume_fn_err_string_lt!(left, right)`\n  left input: `2`,\n right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`")
+/// # fn main() {
+/// let x = assume_fn_err_string_lt!(f, 2, 1);
+/// assert_eq!(x.unwrap_err(), "assumption failed: `assume_fn_err_string_lt!(fn, left, right)`\n  left input: `2`,\n right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`".to_string());
 /// # }
 /// ```
 ///

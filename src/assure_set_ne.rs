@@ -10,10 +10,15 @@
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
 /// let x = assure_set_ne!([1, 2], [3, 4]);
-/// //-> Ok(true)
+/// assert_eq!(x.unwrap(), true);
+/// # }
+/// ```
 ///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let x = assure_set_ne!([1, 2], [1, 2]);
-/// //-> Ok(false)
+/// assert_eq!(x.unwrap(), false);
 /// # }
 /// ```
 ///
