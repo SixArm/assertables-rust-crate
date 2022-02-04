@@ -1,4 +1,4 @@
-/// Assert two sets are equal.
+/// Assert a set is equal to another.
 ///
 /// * When true, return `Ok(true)`.
 ///
@@ -8,16 +8,18 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// assert_set_eq!([1, 2], [2, 1]);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// // assert_set_eq!([1, 2], [3, 4]);
-/// //-> panic!("assertion failed: `assert_set_eq(left, right)`\n  left: `[1, 2]`\n right: `[3, 4]`")
+/// # let result = panic::catch_unwind(|| {
+/// assert_set_eq!([1, 2], [3, 4]);
+/// # });
+/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # assert_eq!(err, "assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`");
+/// //-> panic!("assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`");
 /// # }
 /// ```
 ///
@@ -34,7 +36,7 @@ macro_rules! assert_set_eq {
                 if left_set == right_set {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_set_eq(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right)
+                    panic!("assertion failed: `assert_set_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right)
                 }
             }
         }
@@ -63,13 +65,13 @@ mod tests {
         let b = [1, 2];
         let x = assert_set_eq!(&a, &b);
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_set_eq(left, right)`\n  left: `[1, 2]`\n right: `[3, 4]`")]
+    #[should_panic (expected = "assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`")]
     fn test_assert_set_eq_x_arity_2_failure() {
         let a = [1, 2];
         let b = [3, 4];

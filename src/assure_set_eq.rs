@@ -4,20 +4,15 @@
 ///
 /// * When false, return `Ok(false)`.
 ///
-/// * Otherwise, return [`Err`] with a message and the values of the
-///   expressions with their debug representations.
-///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// let x = assure_set_eq!([1, 2], [2, 1]);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assure_set_eq!([1, 2], [3, 4]);
 /// //-> Ok(false)
 /// # }

@@ -5,19 +5,16 @@
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let a = [1, 2];
 /// let b = [2, 1];
 /// assume_set_eq!(&a, &b);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// let a = [1, 2];
 /// let b = [3, 4];
 /// assume_set_eq!(&a, &b);
@@ -38,7 +35,7 @@ macro_rules! assume_set_eq {
                 if left_set == right_set {
                     Ok(true)
                 } else {
-                    Err(format!("assumption failed: `assume_set_eq(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right))
+                    Err(format!("assumption failed: `assume_set_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right))
                 }
             }
         }
@@ -79,7 +76,7 @@ mod tests {
         let x = assume_set_eq!(&a, &b);
         assert_eq!(
             x.unwrap_err(),
-            "assumption failed: `assume_set_eq(left, right)`\n  left: `[1, 2]`\n right: `[3, 4]`"
+            "assumption failed: `assume_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`"
         );
     }
 

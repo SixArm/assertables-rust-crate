@@ -1,23 +1,18 @@
-/// Assure one value is less than another value.
+/// Assure one value is less than anoter.
 ///
 /// * When true, return `Ok(true)`.
 ///
 /// * When false, return `Ok(false)`.
 ///
-/// * Otherwise, return [`Err`] with a message and the values of the
-///   expressions with their debug representations.
-///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// let x = assure_io_lt!(1, 2);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assure_io_lt!(2, 1);
 /// //-> Ok(false)
 /// # }

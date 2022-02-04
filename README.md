@@ -179,21 +179,21 @@ assert_bag_eq!([1, 1, 2], [2, 1, 1]); // assert bag {1, 1, 2} == bag {2, 1, 1}
 
 ### Macros for IO-related checking
 
-Compare IO-related values, such as comparison of files, streams, etc. These macros return a `Result` with `Ok(true)` or `Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, message))`.
+Compare two IO-related values, such as comparison of files, streams, etc. 
 
-* `assert_io!(a)`
+* `assert_io!(a)`: assert a is true
 
-* `assert_io_eq!(a, b)`
+* `assert_io_eq!(a, b)`: assert a == b
 
-* `assert_io_ne!(a, b)`
+* `assert_io_ne!(a, b)`: assert a != b
 
-* `assert_io_lt!(a, b)`
+* `assert_io_lt!(a, b)`: assert a < b
 
-* `assert_io_le!(a, b)`
+* `assert_io_le!(a, b)`: assert a <= b
 
-* `assert_io_gt!(a, b)`
+* `assert_io_gt!(a, b)`: assert a > b
 
-* `assert_io_ge!(a, b)`
+* `assert_io_ge!(a, b)`: assert a >= b
 
 
 Examples:
@@ -203,28 +203,17 @@ assert_io_lt!(1, 2);
 //-> ()
 ```
 
-```rust
-assert_io_lt!(2, 1);
-//-> Err(
-//       std::io::Error::new(
-//           std::io::ErrorKind::InvalidInput,
-//           "assumption failed: `assume_io_lt(left, right)`\n  left: `2`\n right: `1`")]
-//       )
-//   )
-```
-
-
 
 ## Advanced programming: assert, assume, assure
 
 
 For advanced programming, the macros have three forms that help with three kinds of checking:
 
-* The `assert` macros return `()` or call `panic!(…)`. 
+* The `assert` macros return `()` or call `panic!(…)`.
 
 * The `assume` macros return `Result` with `Ok(true)` or `Err(…)`.
 
-* The `assure` macros return `Result` with `Ok(true)` or `Ok(false)` or exceptional `Err(…)`.
+* The `assure` macros return `Result` with `Ok(true)` or `Ok(false)`.
 
 
 ### Assert
@@ -238,7 +227,7 @@ assert_lt!(1, 2); // assert 1 is less than 2
 
 ```rust
 assert_lt!(2, 1); // assert 2 is less than 1
-//-> panic!("assertion failed: `assert_lt(left, right)`\n  left: `2`,\n right: `1`")
+//-> panic!("assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`")
 ```
 
 
@@ -253,13 +242,13 @@ assume_lt!(1, 2);
 
 ```rust
 assume_lt!(2, 1);
-//-> Err("assumption failed: `assume_lt(left, right)`\n  left: `2`,\n right: `1`")
+//-> Err("assumption failed: `assume_lt!(left, right)`\n  left: `2`,\n right: `1`")
 ```
 
 
 ### Assure
 
-Example: assure that x is less than y; return `Result` with `Ok(true)` or `Ok(false)` or exceptional `Err(message)`.
+Example: assure that x is less than y; return `Result` with `Ok(true)` or `Ok(false)`.
 
 ```rust
 assure_lt!(1, 2);

@@ -5,17 +5,14 @@
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let x = assume_io!(true);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assume_io!(false);
 /// //-> Err(
 /// //       std::io::Error::new(

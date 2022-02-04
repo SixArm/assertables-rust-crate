@@ -1,4 +1,4 @@
-/// Assert two bags are equal.
+/// Assert a bag is equal to another.
 ///
 /// * When true, return `()`.
 ///
@@ -8,16 +8,18 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// assert_bag_eq!([1, 1], [1, 1]);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// // assert_bag_eq!([1, 1], [1, 1, 1]);
-/// //-> panic!("assertion failed: `assert_bag_eq(left, right)`\n  left: `[1, 1]`\n right: `[1, 1, 1]`")
+/// # let result = panic::catch_unwind(|| {
+/// assert_bag_eq!([1, 1], [1, 1, 1]);
+/// # });
+/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # assert_eq!(err, "assertion failed: `assert_bag_eq!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`");
+/// //-> panic!("assertion failed: `assert_bag_eq!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`");
 /// # }
 /// ```
 ///
@@ -42,7 +44,7 @@ macro_rules! assert_bag_eq {
                 if left_bag == right_bag {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_bag_eq(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right)
+                    panic!("assertion failed: `assert_bag_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right)
                 }
             }
         }
@@ -79,17 +81,17 @@ mod tests {
         let b = [1, 1];
         let x= assert_bag_eq!(&a, &b);
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_bag_eq(left, right)`\n  left: `[1, 1]`\n right: `[1, 1, 1]`")]
+    #[should_panic (expected = "assertion failed: `assert_bag_eq!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`")]
     fn test_assert_bag_eq_x_arity_2_failure() {
         let a = [1, 1];
         let b = [1, 1, 1];
-        let _ = assert_bag_eq!(&a, &b);
+        let _x = assert_bag_eq!(&a, &b);
     }
 
     #[test]
@@ -98,7 +100,7 @@ mod tests {
         let b = [1, 1];
         let x = assert_bag_eq!(&a, &b, "message");
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
@@ -108,7 +110,7 @@ mod tests {
     fn test_assert_bag_eq_x_arity_3_failure() {
         let a = [1, 1];
         let b = [1, 1, 1];
-        let _ = assert_bag_eq!(&a, &b, "message");
+        let _x = assert_bag_eq!(&a, &b, "message");
     }
 
 }

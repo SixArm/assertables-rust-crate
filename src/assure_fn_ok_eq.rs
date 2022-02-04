@@ -4,22 +4,17 @@
 ///
 /// * When false, return `Ok(false)`.
 ///
-/// * Otherwise, return [`Err`] with a message and the values of the
-///   expressions with their debug representations.
-///
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// # use std::str::FromStr;
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// use std::str::FromStr;
+/// 
+/// # fn main() {
 /// let x: Result<bool, &str> = assure_fn_ok_eq!(i32::from_str, "1", "1");
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// # use std::str::FromStr;
 /// let x: Result<bool, &str> = assure_fn_ok_eq!(i32::from_str, "1", "2");
 /// //-> Ok(false)
 /// # }

@@ -8,16 +8,18 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// assert_set_ne!([1, 2], [3, 4]);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// // assert_set_ne!([1, 2], [1, 2]);
-/// //-> panic!("assertion failed: `assert_set_ne(left, right)`\n  left: `[1, 2]`\n right: `[1, 2]`")
+/// # let result = panic::catch_unwind(|| {
+/// assert_set_ne!([1, 2], [1, 2]);
+/// # });
+/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # assert_eq!(err, "assertion failed: `assert_set_ne!(left, right)`\n  left: `[1, 2]`,\n right: `[1, 2]`");
+/// //-> panic!("assertion failed: `assert_set_ne!(left, right)`\n  left: `[1, 2]`,\n right: `[1, 2]`");
 /// # }
 /// ```
 ///
@@ -34,7 +36,7 @@ macro_rules! assert_set_ne {
                 if left_set != right_set {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_set_ne(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right)
+                    panic!("assertion failed: `assert_set_ne!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right)
                 }
             }
         }
@@ -63,13 +65,13 @@ mod tests {
         let b = [3, 4];
         let x = assert_set_ne!(&a, &b);
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_set_ne(left, right)`\n  left: `[1, 2]`\n right: `[1, 2]`")]
+    #[should_panic (expected = "assertion failed: `assert_set_ne!(left, right)`\n  left: `[1, 2]`,\n right: `[1, 2]`")]
     fn test_assert_set_ne_x_arity_2_failure() {
         let a = [1, 2];
         let b = [1, 2];
@@ -82,7 +84,7 @@ mod tests {
         let b = [3, 4];
         let x = assert_set_ne!(&a, &b, "message");
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }

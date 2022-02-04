@@ -5,17 +5,14 @@
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let x = assume_lt!(1, 2);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assume_lt!(2, 1);
 /// //-> Ok(false)
 /// # }
@@ -30,7 +27,7 @@ macro_rules! assume_eq {
                 if (left_val == right_val) {
                     Ok(true)
                 } else {
-                    Err(format!("assumption failed: `assume_eq(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right))
+                    Err(format!("assumption failed: `assume_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right))
                 }
             }
         }
@@ -69,7 +66,7 @@ mod tests {
         let x =  assume_eq!(a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assumption failed: `assume_eq(left, right)`\n  left: `1`\n right: `2`"
+            "assumption failed: `assume_eq!(left, right)`\n  left: `1`,\n right: `2`"
         );
     }
 

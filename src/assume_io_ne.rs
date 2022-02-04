@@ -2,27 +2,22 @@
 ///
 /// * When true, return `Ok(true)`.
 ///
-/// * When false, return `Ok(false)`.
-///
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let x = assume_io_ne!(1, 1);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assume_io_ne!(1, 2);
 /// //-> Err(
 /// //       std::io::Error::new(
 /// //           std::io::ErrorKind::InvalidInput,
-/// //           "assumption failed: `assume_io_ne(left, right)`\n  left: `1`\n right: `2`")]
+/// //           "assumption failed: `assume_io_ne!(left, right)`\n  left: `1`,\n right: `2`")]
 /// //       )
 /// //   )
 /// # }
@@ -40,7 +35,7 @@ macro_rules! assume_io_ne {
                     Err(
                         std::io::Error::new(
                             std::io::ErrorKind::InvalidInput,
-                            format!("assumption failed: `assume_io_ne(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right)
+                            format!("assumption failed: `assume_io_ne!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right)
                         )
                     )
                 }
@@ -86,7 +81,7 @@ mod tests {
         let x = assume_io_ne!(a, b);
         assert_eq!(
             x.unwrap_err().get_ref().unwrap().to_string(),
-            "assumption failed: `assume_io_ne(left, right)`\n  left: `1`\n right: `1`"
+            "assumption failed: `assume_io_ne!(left, right)`\n  left: `1`,\n right: `1`"
         );
     }
 

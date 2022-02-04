@@ -5,19 +5,16 @@
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let a = [1, 1];
 /// let b = [1, 1];
 /// let x = assume_bag_eq!(&a, &b);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// let a = [1, 1];
 /// let b = [3, 4];
 /// let x = assume_bag_eq!(&a, &b);
@@ -46,7 +43,7 @@ macro_rules! assume_bag_eq {
                 if left_bag == right_bag {
                     Ok(true)
                 } else {
-                    Err(format!("assumption failed: `assume_bag_eq(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right))
+                    Err(format!("assumption failed: `assume_bag_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right))
                 }
             }
         }
@@ -96,7 +93,7 @@ mod tests {
         let x = assume_bag_eq!(&a, &b);
         assert_eq!(
             x.unwrap_err(),
-            "assumption failed: `assume_bag_eq(left, right)`\n  left: `[1, 1]`\n right: `[1, 1, 1]`"
+            "assumption failed: `assume_bag_eq!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`"
         );
     }
 

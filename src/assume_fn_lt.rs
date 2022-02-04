@@ -1,23 +1,20 @@
-/// Assume one function output is less than another function output.
+/// Assume one function output is less than anoter.
 ///
 /// * When true, return `Ok(true)`.
 ///
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// assume_fn_lt!(i32::abs, 1 as i32, -2 as i32);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// assume_fn_lt!(i32::abs, -2 as i32, 1 as i32);
-/// //-> Err("assumption failed: `assume_fn_lt(left, right)`\n  left input: `-2`\n right input: `1`\n  left output: `2`\n right output: `1`")
+/// //-> Err("assumption failed: `assume_fn_lt!(left, right)`\n  left input: `-2`,\n right input: `1`,\n  left output: `2`,\n right output: `1`")
 /// # }
 /// ```
 ///
@@ -30,7 +27,7 @@ macro_rules! assume_fn_lt {
         if (left < right) {
             Ok(true)
         } else {
-            Err(format!("assumption failed: `assume_fn_lt(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output: `{:?}`\n right output: `{:?}`", $left, $right, left, right))
+            Err(format!("assumption failed: `assume_fn_lt!(fn, left, right)`\n  left input: `{:?}`,\n right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right))
         }
     });
     ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
@@ -65,7 +62,7 @@ mod tests {
         let x = assume_fn_lt!(i32::abs, a as i32, b as i32);
         assert_eq!(
             x.unwrap_err(),
-            "assumption failed: `assume_fn_lt(fn, left, right)`\n  left input: `1`\n right input: `-1`\n  left output: `1`\n right output: `1`"
+            "assumption failed: `assume_fn_lt!(fn, left, right)`\n  left input: `1`,\n right input: `-1`,\n  left output: `1`,\n right output: `1`"
         );
     }
 
@@ -76,7 +73,7 @@ mod tests {
         let x = assume_fn_lt!(i32::abs, a as i32, b as i32);
         assert_eq!(
             x.unwrap_err(),
-            "assumption failed: `assume_fn_lt(fn, left, right)`\n  left input: `-2`\n right input: `1`\n  left output: `2`\n right output: `1`"
+            "assumption failed: `assume_fn_lt!(fn, left, right)`\n  left input: `-2`,\n right input: `1`,\n  left output: `2`,\n right output: `1`"
         );
     }
 

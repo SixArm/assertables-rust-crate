@@ -4,20 +4,15 @@
 ///
 /// * When false, return `Ok(false)`.
 ///
-/// * Otherwise, return [`Err`] with a message and the values of the
-///   expressions with their debug representations.
-///
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// let x: Result<bool, &str> = assure_fn_ne!(i32::abs, 1 as i32, -2 as i32);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// let x: Result<bool, &str> = assure_fn_ne!(i32::abs, 1 as i32, -1 as i32);
 /// //-> Ok(false)
 /// # }

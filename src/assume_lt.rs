@@ -1,23 +1,20 @@
-/// Assume one value is less than another value.
+/// Assume one value is less than anoter.
 ///
 /// * When true, return `Ok(true)`.
 ///
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// let x = assume_lt!(1, 2);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// let x = assume_lt!(2, 1);
-/// //-> Err("assumption failed: `assume_lt(left, right)`\n  left: `2`\n right: `1`")
+/// //-> Err("assumption failed: `assume_lt!(left, right)`\n  left: `2`,\n right: `1`")
 /// # }
 /// ```
 ///
@@ -30,7 +27,7 @@ macro_rules! assume_lt {
                 if (left_val < right_val) {
                     Ok(true)
                 } else {
-                    Err(format!("assumption failed: `assume_lt(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right))
+                    Err(format!("assumption failed: `assume_lt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right))
                 }
             }
         }
@@ -69,7 +66,7 @@ mod tests {
         let x = assume_lt!(a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assumption failed: `assume_lt(left, right)`\n  left: `2`\n right: `1`"
+            "assumption failed: `assume_lt!(left, right)`\n  left: `2`,\n right: `1`"
         );
     }
 

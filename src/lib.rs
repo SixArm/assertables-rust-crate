@@ -24,7 +24,7 @@
 //!
 //! * The `assume` macros return `Result` with `Ok(true)` or `Err(…)`
 //!
-//! * The `assure` macros return `Result` with `Ok(true)` or `Ok(false)` or exceptional `Err(…)`.
+//! * The `assure` macros return `Result` with `Ok(true)` or `Ok(false)`.
 //!
 //!
 //! ### Assert
@@ -46,10 +46,9 @@
 //! # let result = panic::catch_unwind(|| {
 //! assert_lt!(2, 1);
 //! # });
-//! # assert!(result.is_err());
 //! # let s: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # assert_eq!(s, "assertion failed: `assert_lt(left, right)`\n  left: `2`\n right: `1`");
-//! //-> panic!("assertion failed: `assert_lt(left, right)`\n  left: `2`\n right: `1`")
+//! # assert_eq!(s, "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`");
+//! //-> panic!("assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`")
 //! # }
 //! ```
 //!
@@ -70,7 +69,7 @@
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
 //! let x = assume_lt!(2, 1);
-//! //-> Err("assumption failed: `assume_lt(left, right)`\n  left: `2`,\n right: `1`")
+//! //-> Err("assumption failed: `assume_lt!(left, right)`\n  left: `2`,\n right: `1`")
 //! # }
 //! ```
 //!
@@ -118,10 +117,9 @@
 //! # let result = panic::catch_unwind(|| {
 //! assert_lt!(2, 1);
 //! # });
-//! # assert!(result.is_err());
 //! # let s: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # assert_eq!(s, "assertion failed: `assert_lt(left, right)`\n  left: `2`\n right: `1`");
-//! //-> panic!("assertion failed: `assert_lt(left, right)`\n  left: `2`\n right: `1`")
+//! # assert_eq!(s, "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`");
+//! //-> panic!("assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`")
 //! # }
 //! ```
 //!
@@ -192,10 +190,9 @@
 //! # let result = panic::catch_unwind(|| {
 //! assert_set_eq!([1, 2], [3, 4]);
 //! # });
-//! # assert!(result.is_err());
 //! # let s: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # assert_eq!(s, "assertion failed: `assert_set_eq(left, right)`\n  left: `[1, 2]`\n right: `[3, 4]`");
-//! //-> Err("assertion failed: `assert_set_eq(left, right)`\n  left: `[1, 2]`\n right: `[3, 4]`")
+//! # assert_eq!(s, "assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`");
+//! //-> Err("assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`")
 //! # }
 //! ```
 //!
@@ -223,10 +220,9 @@
 //! # let result = panic::catch_unwind(|| {
 //! assert_bag_eq!([1, 1], [1, 1, 1]);
 //! # });
-//! # assert!(result.is_err());
 //! # let s: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # assert_eq!(s, "assertion failed: `assert_bag_eq(left, right)`\n  left: `[1, 1]`\n right: `[1, 1, 1]`");
-//! //-> Err("assertion failed: `assert_bag_eq(left, right)`\n  left: `[1, 1]`\n right: `[1, 1, 1]`")
+//! # assert_eq!(s, "assertion failed: `assert_bag_eq!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`");
+//! //-> Err("assertion failed: `assert_bag_eq!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`")
 //! # }
 //! ```
 //!
@@ -234,9 +230,8 @@
 //! ### Macros for IO-related checking
 //!
 //! These macros help with IO-related checking, such as comparison of files,
-//! streams, etc. These macros return a `Result` with `Ok(true)` or
-//! `Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, message))`.
-//!
+//! streams, etc.
+//! 
 //! Examples:
 //!
 //! ```rust
@@ -254,10 +249,9 @@
 //! # let result = panic::catch_unwind(|| {
 //! assert_io_lt!(2, 1);
 //! # });
-//! # assert!(result.is_err());
 //! # let s: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # assert_eq!(s, "assertion failed: `assert_io_lt(left, right)`\n  left: `2`\n right: `1`");
-//! //-> panic!("assertion failed: `assert_io_lt(left, right)`\n  left: `2`\n right: `1`")
+//! # assert_eq!(s, "assertion failed: `assert_io_lt!(left, right)`\n  left: `2`,\n right: `1`");
+//! //-> panic!("assertion failed: `assert_io_lt!(left, right)`\n  left: `2`,\n right: `1`")
 //! # }
 //! ```
 //!
@@ -270,13 +264,13 @@
 //! //-> Err(
 //! //       std::io::Error::new(
 //! //           std::io::ErrorKind::InvalidInput,
-//! //           "assumption failed: `assume_io_lt(left, right)`\n  left: `2`\n right: `1`")]
+//! //           "assumption failed: `assume_io_lt!(left, right)`\n  left: `2`,\n right: `1`")]
 //! //       )
 //! //   )
 //! # }
 //! ```
 //!
-//!
+//! 
 //! ## Extras
 //!
 //!
@@ -343,6 +337,14 @@ pub mod assert_io_le; // less than or equal to
 pub mod assert_io_gt; // greater than
 pub mod assert_io_ge; // greater than or equal to
 
+// Assert std::io::read comparison
+// pub mod assert_std_io_read_to_string_eq; // equal
+// pub mod assert_std_io_read_to_string_ne; // not equal
+// pub mod assert_std_io_read_to_string_lt; // less than
+// pub mod assert_std_io_read_to_string_le; // less than or equal to
+// pub mod assert_std_io_read_to_string_gt; // greater than
+// pub mod assert_std_io_read_to_string_ge; // greater than or equal to
+
 // Assume truth
 pub mod assume; // condition
 
@@ -371,12 +373,12 @@ pub mod assume_fn_ok_gt; // greater than
 pub mod assume_fn_ok_ge; // greater than or equal to
 
 // Assume function err().to_string() comparison
-pub mod assume_fn_err_string_eq; // equal
-pub mod assume_fn_err_string_ne; // not equal
-pub mod assume_fn_err_string_lt; // less than
-pub mod assume_fn_err_string_le; // less than or equal to
-pub mod assume_fn_err_string_gt; // greater than
-pub mod assume_fn_err_string_ge; // greater than or equal to
+// pub mod assume_fn_err_string_eq; // equal
+// pub mod assume_fn_err_string_ne; // not equal
+// pub mod assume_fn_err_string_lt; // less than
+// pub mod assume_fn_err_string_le; // less than or equal to
+// pub mod assume_fn_err_string_gt; // greater than
+// pub mod assume_fn_err_string_ge; // greater than or equal to
 
 // Assume iterator-related set-based comparison
 pub mod assume_set_eq; // equal
@@ -396,6 +398,14 @@ pub mod assume_io_lt; // less than
 pub mod assume_io_le; // less than or equal to
 pub mod assume_io_gt; // greater than
 pub mod assume_io_ge; // greater than or equal to
+
+// Assume std::io::read comparison
+// pub mod assume_std_io_read_to_string_eq; // equal
+// pub mod assume_std_io_read_to_string_ne; // not equal
+// pub mod assume_std_io_read_to_string_lt; // less than
+// pub mod assume_std_io_read_to_string_le; // less than or equal to
+// pub mod assume_std_io_read_to_string_gt; // greater than
+// pub mod assume_std_io_read_to_string_ge; // greater than or equal to
 
 // Assure truth
 pub mod assure; // condition
@@ -450,3 +460,11 @@ pub mod assure_io_lt; // less than
 pub mod assure_io_le; // less than or equal to
 pub mod assure_io_gt; // greater than
 pub mod assure_io_ge; // greater than or equal to
+
+// Assure std::io::read comparison
+// pub mod assure_std_io_read_to_string_eq; // equal
+// pub mod assure_std_io_read_to_string_ne; // not equal
+// pub mod assure_std_io_read_to_string_lt; // less than
+// pub mod assure_std_io_read_to_string_le; // less than or equal to
+// pub mod assure_std_io_read_to_string_gt; // greater than
+// pub mod assure_std_io_read_to_string_ge; // greater than or equal to

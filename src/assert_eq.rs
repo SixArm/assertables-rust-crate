@@ -1,4 +1,4 @@
-/// Assert two values are equal.
+/// Assert a value is equal to anoter.
 ///
 /// * When true, return `Ok(true)`.
 ///
@@ -8,16 +8,18 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// assert_eq!(1, 1);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// // assert_eq!(1, 2);
-/// //-> panic!("assertion failed: `(left == right)`\n  left: `1`,\n right: `2`")
+/// # let result = panic::catch_unwind(|| {
+/// assert_eq!(1, 2);
+/// # });
+/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # assert_eq!(err, "assertion failed: `(left == right)`\n  left: `1`,\n right: `2`");
+/// //-> panic!("assertion failed: `(left == right)`\n  left: `1`,\n right: `2`");
 /// # }
 /// ```
 ///
@@ -34,7 +36,7 @@ mod tests {
         let b = 1;
         let x = assert_eq!(a, b);
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
@@ -53,7 +55,7 @@ mod tests {
         let b = 1;
         let x = assert_eq!(a, b, "message");
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }

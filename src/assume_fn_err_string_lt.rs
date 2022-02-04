@@ -1,25 +1,22 @@
-/// Assume one function ok() is less than another function ok().
+/// Assume one function ok() is less than anoter.
 ///
 /// * When true, return `Ok(true)`.
 ///
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # fn main() {
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
 /// assume_fn_err_string_lt!(f, 1, 2);
 /// //-> Ok(true)
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
 /// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
 /// assume_fn_err_string_lt!(f, 2, 1);
-/// //-> Err("assumption failed: `assume_fn_err_string_lt(left, right)`\n  left input: `2`\n right input: `1`\n  left output: `\"2\"`\n right output: `\"1\"`")
+/// //-> Err("assumption failed: `assume_fn_err_string_lt!(left, right)`\n  left input: `2`,\n right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`")
 /// # }
 /// ```
 ///
@@ -30,7 +27,7 @@ macro_rules! assume_fn_err_string_lt {
         let left = $function($left);
         let right = $function($right);
         if !left.is_err() || !right.is_err() {
-            Err(format!("assumption failed: `assume_fn_err_string_lt(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output is_err(): `{:?}`\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err()))
+            Err(format!("assumption failed: `assume_fn_err_string_lt!(fn, left, right)`\n  left input: `{:?}`,\n right input: `{:?}`\n  left output is_err(): `{:?}`,\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err()))
         } else {
             let left = left.unwrap_err();
             let right = right.unwrap_err();
@@ -39,7 +36,7 @@ macro_rules! assume_fn_err_string_lt {
             if (left < right) {
                 Ok(true)
             } else {
-                Err(format!("assumption failed: `assume_fn_err_string_lt(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output: `{:?}`\n right output: `{:?}`", $left, $right, left, right))
+                Err(format!("assumption failed: `assume_fn_err_string_lt!(fn, left, right)`\n  left input: `{:?}`,\n right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right))
             }
         }
     });
@@ -85,7 +82,7 @@ mod tests {
         let x = assume_fn_err_string_lt!(f, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assumption failed: `assume_fn_err_string_lt(fn, left, right)`\n  left input: `1`\n right input: `1`\n  left output: `\"1\"`\n right output: `\"1\"`"
+            "assumption failed: `assume_fn_err_string_lt!(fn, left, right)`\n  left input: `1`,\n right input: `1`,\n  left output: `\"1\"`,\n right output: `\"1\"`"
         );
     }
 
@@ -96,7 +93,7 @@ mod tests {
         let x = assume_fn_err_string_lt!(f, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assumption failed: `assume_fn_err_string_lt(fn, left, right)`\n  left input: `2`\n right input: `1`\n  left output: `\"2\"`\n right output: `\"1\"`"
+            "assumption failed: `assume_fn_err_string_lt!(fn, left, right)`\n  left input: `2`,\n right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`"
         );
     }
 

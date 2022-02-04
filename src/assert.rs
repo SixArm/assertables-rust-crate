@@ -5,19 +5,21 @@
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// assert!(true);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// // assert!(false);
-/// //-> panic!("assertion failed: false")
+/// # let result = panic::catch_unwind(|| {
+/// assert!(false);
+/// # });
+/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # assert_eq!(err, "assertion failed: false");
+/// //-> panic!("assertion failed: false");
 /// # }
 /// ```
 ///
@@ -33,7 +35,7 @@ mod tests {
         let a = true;
         let x = assert!(a);
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
@@ -42,7 +44,7 @@ mod tests {
     #[should_panic (expected = "assertion failed: a")]
     fn test_assert_x_arity_2_failure() {
         let a = false;
-        let _ = assert!(a);
+        let _x = assert!(a);
     }
 
     #[test]
@@ -50,7 +52,7 @@ mod tests {
         let a = true;
         let x = assert!(a, "message");
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
@@ -59,7 +61,7 @@ mod tests {
     #[should_panic (expected = "message")]
     fn test_assert_x_arity_3_failure() {
         let a = false;
-        let _ = assert!(a, "message");
+        let _x = assert!(a, "message");
     }
 
 }

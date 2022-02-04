@@ -1,4 +1,4 @@
-/// Assert one value is less than or equal to another value.
+/// Assert a value is less than or equal to another.
 ///
 /// * When true, return `()`.
 ///
@@ -8,16 +8,18 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// assert_le!(1, 2);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// // assert_le!(2, 1);
-/// //-> panic!("assertion failed: `assert_le(left, right)`\n  left: `2`\n right: `1`")
+/// # let result = panic::catch_unwind(|| {
+/// assert_le!(2, 1);
+/// # });
+/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # assert_eq!(err, "assertion failed: `assert_le!(left, right)`\n  left: `2`,\n right: `1`");
+/// //-> panic!("assertion failed: `assert_le!(left, right)`\n  left: `2`,\n right: `1`");
 /// # }
 /// ```
 ///
@@ -30,7 +32,7 @@ macro_rules! assert_le {
                 if (left_val <= right_val) {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_le(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right);
+                    panic!("assertion failed: `assert_le!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right);
                 }
             }
         }
@@ -57,17 +59,17 @@ mod tests {
         let b = 2;
         let x = assert_le!(a, b);
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_le(left, right)`\n  left: `2`\n right: `1`")]
+    #[should_panic (expected = "assertion failed: `assert_le!(left, right)`\n  left: `2`,\n right: `1`")]
     fn test_assert_le_x_arity_2_failure() {
         let a = 2;
         let b = 1;
-        let _ = assert_le!(a, b);
+        let _x = assert_le!(a, b);
     }
 
     #[test]
@@ -76,7 +78,7 @@ mod tests {
         let b = 2;
         let x = assert_le!(a, b, "message");
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
@@ -86,7 +88,7 @@ mod tests {
     fn test_assert_le_x_arity_3_failure() {
         let a = 2;
         let b = 1;
-        let _ = assert_le!(a, b, "message");
+        let _x = assert_le!(a, b, "message");
     }
 
 }

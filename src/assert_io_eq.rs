@@ -1,6 +1,6 @@
-/// Assert two values are equal.
+/// Assert a value is equal to another.
 ///
-/// * When true, return `Ok(true)`.
+/// * When true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -8,16 +8,18 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// assert_io_eq!(1, 1);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// // assert_io_eq!(1, 2);
-/// //-> panic!("assertion failed: `assert_io_eq(left, right)`\n  left: `1`,\n right: `2`")
+/// # let result = panic::catch_unwind(|| {
+/// assert_io_eq!(1, 2);
+/// # });
+/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # assert_eq!(err, "assertion failed: `assert_io_eq!(left, right)`\n  left: `1`,\n right: `2`");
+/// //-> panic!("assertion failed: `assert_io_eq!(left, right)`\n  left: `1`,\n right: `2`");
 /// # }
 /// ```
 ///
@@ -30,7 +32,7 @@ macro_rules! assert_io_eq {
                 if (left_val == right_val) {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_io_eq(left, right)`\n  left: `{:?}`\n right: `{:?}`", $left, $right);
+                    panic!("assertion failed: `assert_io_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right);
                 }
             }
         }
@@ -57,13 +59,13 @@ mod tests {
         let b = 1;
         let x = assert_io_eq!(a, b);
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_io_eq(left, right)`\n  left: `1`\n right: `2`")]
+    #[should_panic (expected = "assertion failed: `assert_io_eq!(left, right)`\n  left: `1`,\n right: `2`")]
     fn test_assert_io_eq_x_arity_2_failure() {
         let a = 1;
         let b = 2;
@@ -76,7 +78,7 @@ mod tests {
         let b = 1;
         let x = assert_io_eq!(a, b, "message");
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }

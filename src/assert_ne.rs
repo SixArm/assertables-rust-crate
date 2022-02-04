@@ -5,19 +5,21 @@
 /// * When false, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn main() {
 /// assert_ne!(1, 2);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// // assert_ne!(1, 1);
-/// //-> panic!("assertion failed: `(left != right)`\n  left: `1`,\n right: `1`")
+/// # let result = panic::catch_unwind(|| {
+/// assert_ne!(1, 1);
+/// # });
+/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # assert_eq!(err, "assertion failed: `(left != right)`\n  left: `1`,\n right: `1`");
+/// //-> panic!("assertion failed: `(left != right)`\n  left: `1`,\n right: `1`");
 /// # }
 /// ```
 ///
@@ -34,7 +36,7 @@ mod tests {
         let b = 2;
         let x = assert_ne!(a, b);
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
@@ -53,7 +55,7 @@ mod tests {
         let b = 2;
         let x = assert_ne!(a, b, "message");
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }

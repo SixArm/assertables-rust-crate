@@ -1,25 +1,31 @@
-/// Assert one function ok() is not equal to another function ok().
+/// Assert a function err() is not equal to another.
 ///
 /// * When true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// # Example
+/// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// assert_fn_err_string_ne!(f, 1, 2);
-/// //-> ()
+/// # #[macro_use] extern crate assertables;
+/// # use std::panic;
+/// # fn digit_string(i: isize) -> Result<String, String> { 
+/// #     match i {
+/// #         0..=9 => Ok(format!("{}", i)),
+/// #         _ => Err(format!("{:?} is out of range", i)),
+/// #     }
 /// # }
-/// ```
+/// # fn main() {
+/// assert_fn_err_string_ne!(digit_string, 10, 20);
+/// //-> ()
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables; fn main() {
-/// // fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
-/// // assert_fn_err_string_ne!(f, 1, 1);
-/// //-> panic!("assertion failed: `assert_fn_err_string_ne(fn, left, right)`\n  left input: `1`\n right input: `2`\n  left output: `\"1\"`\n right output: `\"2\"`")
+/// # let result = panic::catch_unwind(|| {
+/// assert_fn_err_string_ne!(digit_string, 10, 10);
+/// # });
+/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # assert_eq!(err, "assertion failed: `assert_fn_err_string_ne!(fn, left, right)`\n  left input: `10`,\n right input: `10`,\n  left output: `\"10 is out of range\"`,\n right output: `\"10 is out of range\"`");
+/// //-> panic!("assertion failed: `assert_fn_err_string_ne!(fn, left, right)`\n  left input: `10`,\n right input: `10`,\n  left output: `\"10 is out of range\"`,\n right output: `\"10 is out of range\"`");
 /// # }
 /// ```
 ///
@@ -30,16 +36,14 @@ macro_rules! assert_fn_err_string_ne {
         let left = $function($left);
         let right = $function($right);
         if !left.is_err() || !right.is_err() {
-            panic!("assertion failed: `assert_fn_err_string_ne(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output is_err(): `{:?}`\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err());
+            panic!("assertion failed: `assert_fn_err_string_ne!(fn, left, right)`\n  left input: `{:?}`,\n right input: `{:?}`\n  left output is_err(): `{:?}`,\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err());
         } else {
-            let left = left.unwrap_err();
-            let right = right.unwrap_err();
-            let left = left.to_string();
-            let right = right.to_string();
+            let left = left.unwrap_err().to_string();
+            let right = right.unwrap_err().to_string();
             if (left != right) {
                 ()
             } else {
-                panic!("assertion failed: `assert_fn_err_string_ne(fn, left, right)`\n  left input: `{:?}`\n right input: `{:?}`\n  left output: `{:?}`\n right output: `{:?}`", $left, $right, left, right);
+                panic!("assertion failed: `assert_fn_err_string_ne!(fn, left, right)`\n  left input: `{:?}`,\n right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right);
             }
         }
     });
@@ -65,34 +69,40 @@ macro_rules! assert_fn_err_string_ne {
 #[cfg(test)]
 mod tests {
 
-    fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
+    // Replicate this function relevant tests in this crate.
+    fn digit_string(i: isize) -> Result<String, String> { 
+        match i {
+            0..=9 => Ok(format!("{}", i)),
+            _ => Err(format!("{:?} is out of range", i)),
+        }
+    }
 
     #[test]
     fn test_assert_fn_err_string_ne_x_arity_2_success() {
-        let a = 1;
-        let b = 2;
-        let x = assert_fn_err_string_ne!(f, a, b);
+        let a = 10;
+        let b = 20;
+        let x = assert_fn_err_string_ne!(digit_string, a, b);
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_err_string_ne(fn, left, right)`\n  left input: `1`\n right input: `1`\n  left output: `\"1\"`\n right output: `\"1\"`")]
+    #[should_panic (expected = "assertion failed: `assert_fn_err_string_ne!(fn, left, right)`\n  left input: `10`,\n right input: `10`,\n  left output: `\"10 is out of range\"`,\n right output: `\"10 is out of range\"`")]
     fn test_assert_fn_err_string_ne_x_arity_2_failure() {
-        let a = 1;
-        let b = 1;
-        let _ = assert_fn_err_string_ne!(f, a, b);
+        let a = 10;
+        let b = 10;
+        let _x = assert_fn_err_string_ne!(digit_string, a, b);
     }
 
     #[test]
     fn test_assert_fn_err_string_ne_x_arity_3_success() {
-        let a = 1;
-        let b = 2;
-        let x = assert_fn_err_string_ne!(f, a, b, "message");
+        let a = 10;
+        let b = 20;
+        let x = assert_fn_err_string_ne!(digit_string, a, b, "message");
         assert_eq!(
-            x,
+            x, 
             ()
         );
     }
@@ -100,9 +110,9 @@ mod tests {
     #[test]
     #[should_panic (expected = "message")]
     fn test_assert_fn_err_string_ne_x_arity_3_failure() {
-        let a = 1;
-        let b = 1;
-        let _ = assert_fn_err_string_ne!(f, a, b, "message");
+        let a = 10;
+        let b = 10;
+        let _x = assert_fn_err_string_ne!(digit_string, a, b, "message");
     }
 
 }
