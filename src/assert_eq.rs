@@ -9,23 +9,21 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
+/// # use std::panic;
 /// # fn main() {
 /// assert_eq!(1, 1);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_eq!(1, 2);
 /// # });
-/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # assert_eq!(err, "assertion failed: `(left == right)`\n  left: `1`,\n right: `2`");
-/// //-> panic!("assertion failed: `(left == right)`\n  left: `1`,\n right: `2`");
-/// # }
+/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = "assertion failed: `(left == right)`\n  left: `1`,\n right: `2`";
+/// # assert_eq!(err, );
+/// //-> panic!("…")
+/// // assertion failed: `(left == right)`
+/// //   left: `1`,
+/// //  right: `2`/// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
@@ -40,10 +38,7 @@ mod tests {
         let a = 1;
         let b = 1;
         let x = assert_eq!(a, b);
-        assert_eq!(
-            x, 
-            ()
-        );
+        assert_eq!(x, ());
     }
 
     #[test]
@@ -59,10 +54,7 @@ mod tests {
         let a = 1;
         let b = 1;
         let x = assert_eq!(a, b, "message");
-        assert_eq!(
-            x, 
-            ()
-        );
+        assert_eq!(x, ());
     }
 
     #[test]

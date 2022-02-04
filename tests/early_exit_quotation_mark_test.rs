@@ -1,7 +1,7 @@
 use ::assertables::*;
 
 fn foo_assure(a: i32, b: i32) -> Result<i32, String> {
-    assure_lt!(a, b)?;
+    assertable_lt!(a, b)?;
     Ok(a)
 }
 
@@ -24,6 +24,6 @@ fn test_x_failure() {
     let x = foo_assure(a, b);
     assert_eq!(
         x.unwrap_err(),
-        "assurance failed: `assure_lt!(left, right)`\n  left: `2`,\n right: `1`"
+        "assertable failed: `assertable_lt!(left, right)`\n  left: `2`,\n right: `1`"
     );
 }

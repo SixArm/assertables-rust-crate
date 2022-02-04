@@ -9,34 +9,30 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # fn digit_string(i: isize) -> Result<String, String> {
-/// #     match i {
-/// #         0..=9 => Ok(format!("{}", i)),
-/// #         _ => Err(format!("{:?} is out of range", i)),
-/// #     }
-/// # }
+/// # use std::panic;
+/// fn digit_string(i: isize) -> Result<String, String> {
+///     match i {
+///         0..=9 => Ok(format!("{}", i)),
+///         _ => Err(format!("{:?} is out of range", i)),
+///     }
+/// }
+//
 /// # fn main() {
 /// assert_fn_err_string_ge!(digit_string, 20, 10);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn digit_string(i: isize) -> Result<String, String> {
-/// #     match i {
-/// #         0..=9 => Ok(format!("{}", i)),
-/// #         _ => Err(format!("{:?} is out of range", i)),
-/// #     }
-/// # }
-/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_fn_err_string_ge!(digit_string, 10, 20);
+/// //-> panic!("…")
+/// // assertion failed: `assert_fn_err_string_ge!(fn, left, right)`
+/// //    left input: `10`,
+/// //   right input: `20`,
+/// //   left output: `\"10 is out of range\"`,
+/// //  right output: `\"20 is out of range\"
 /// # });
-/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # assert_eq!(err, "assertion failed: `assert_fn_err_string_ge!(fn, left, right)`\n  left input: `10`,\n right input: `20`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`");
-/// //-> panic!("assertion failed: `assert_fn_err_string_ge!(fn, left, right)`\n  left input: `10`,\n right input: `20`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`");
+/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = "assertion failed: `assert_fn_err_string_ge!(fn, left, right)`\n   left input: `10`,\n  right input: `20`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`";
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -47,14 +43,14 @@ macro_rules! assert_fn_err_string_ge {
         let left = $function($left);
         let right = $function($right);
         if !left.is_err() || !right.is_err() {
-            panic!("assertion failed: `assert_fn_err_string_ge!(fn, left, right)`\n  left input: `{:?}`,\n right input: `{:?}`\n  left output is_err(): `{:?}`,\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err());
+            panic!("assertion failed: `assert_fn_err_string_ge!(fn, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is_err(): `{:?}`,\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err());
         } else {
             let left = left.unwrap_err().to_string();
             let right = right.unwrap_err().to_string();
             if (left >= right) {
                 ()
             } else {
-                panic!("assertion failed: `assert_fn_err_string_ge!(fn, left, right)`\n  left input: `{:?}`,\n right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right);
+                panic!("assertion failed: `assert_fn_err_string_ge!(fn, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right);
             }
         }
     });
@@ -87,7 +83,7 @@ mod tests {
             _ => Err(format!("{:?} is out of range", i)),
         }
     }
-   
+ 
     #[test]
     fn test_assert_fn_err_string_ge_x_arity_2_gt_success() {
         let a = 20;
@@ -111,7 +107,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_err_string_ge!(fn, left, right)`\n  left input: `10`,\n right input: `20`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`")]
+    #[should_panic (expected = "assertion failed: `assert_fn_err_string_ge!(fn, left, right)`\n   left input: `10`,\n  right input: `20`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`")]
     fn test_assert_fn_err_string_ge_x_arity_2_lt_failure() {
         let a = 10;
         let b = 20;

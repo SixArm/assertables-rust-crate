@@ -5,7 +5,7 @@ fn foo_assert(a: i32, b: i32) -> () {
 }
 
 fn foo_assure(a: i32, b: i32) -> Result<(), String> {
-    assure_lt!(a, b, format!("message {} and {}", a, b))?;
+    assertable_lt!(a, b, format!("message {} and {}", a, b))?;
     Ok(())
 }
 
@@ -18,7 +18,7 @@ fn test_foo_assert_x_failure() {
 }
 
 #[test]
-fn test_foo_assure_x_failure() {
+fn test_foo_assertable_x_failure() {
     let a = 2;
     let b = 1;
     let x = foo_assure(a, b);

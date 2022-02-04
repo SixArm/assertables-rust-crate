@@ -2,7 +2,7 @@
 
 ## 4.0.0 summary
 
-Add capabilities for `assert_std_io_read_to_string_*` and `assure_std_io_read_to_string_*`.
+Add capabilities for `assert_read_to_string_*` and `assertable_read_to_string_*`.
 
 Add hundreds of doc tests.
 

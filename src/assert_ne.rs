@@ -9,22 +9,21 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
+/// # use std::panic;
 /// # fn main() {
 /// assert_ne!(1, 2);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_ne!(1, 1);
+/// //-> panic!
+/// // assertion failed: `(left != right)`
+/// //   left: `1`,
+/// //  right: `1`
 /// # });
-/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # assert_eq!(err, "assertion failed: `(left != right)`\n  left: `1`,\n right: `1`");
-/// //-> panic!("assertion failed: `(left != right)`\n  left: `1`,\n right: `1`");
+/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = "assertion failed: `(left != right)`\n  left: `1`,\n right: `1`";
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -40,10 +39,7 @@ mod tests {
         let a = 1;
         let b = 2;
         let x = assert_ne!(a, b);
-        assert_eq!(
-            x, 
-            ()
-        );
+        assert_eq!(x, ());
     }
 
     #[test]
@@ -59,10 +55,7 @@ mod tests {
         let a = 1;
         let b = 2;
         let x = assert_ne!(a, b, "message");
-        assert_eq!(
-            x, 
-            ()
-        );
+        assert_eq!(x, ());
     }
 
     #[test]

@@ -9,22 +9,21 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
+/// # use std::panic;
 /// # fn main() {
 /// assert_lt!(1, 2);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_lt!(2, 1);
+/// //-> panic!
+/// // assertion failed: `assert_lt!(left, right)`
+/// //   left: `2`,
+/// //  right: `1`
 /// # });
-/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # assert_eq!(err, "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`");
-/// //-> panic!("assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`");
+/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`";
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -63,10 +62,7 @@ mod tests {
         let a = 1;
         let b = 2;
         let x = assert_lt!(a, b);
-        assert_eq!(
-            x, 
-            ()
-        );
+        assert_eq!(x, ());
     }
 
     #[test]
@@ -82,10 +78,7 @@ mod tests {
         let a = 1;
         let b = 2;
         let x = assert_lt!(a, b, "message");
-        assert_eq!(
-            x, 
-            ()
-        );
+        assert_eq!(x, ());
     }
 
     #[test]

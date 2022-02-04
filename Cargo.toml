@@ -3,11 +3,11 @@ name = "assertables"
 version = "4.0.0"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2021"
-description = "Assertables: Rust crate of macros `assert…!`, `assume…!`, `assure…!`, all for runtime reliability checking. By SixArm.com."
+description = "Assertables: Rust crate of macros `assert…!` and `assertable…!`, for testing, quality assurance, and runtime reliability. By SixArm.com."
 readme = "README.md"
 repository = "https://github.com/joelparkerhenderson/assertable-rust-crate/"
 license = "MIT OR Apache-2.0 OR GPL-2.0-only"
-keywords = ["assert", "assume", "assure", "macro", "test"]
+keywords = ["assert", "assertable", "assertion", "macro", "qa", "quality", "test", "testing", "reliability"]
 categories = ["development-tools", "development-tools::testing", "rust-patterns"]
 
 [profile.dev]

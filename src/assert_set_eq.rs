@@ -9,22 +9,21 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
+/// # use std::panic;
 /// # fn main() {
 /// assert_set_eq!([1, 2], [2, 1]);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert_set_eq!([1, 2], [3, 4]);
+/// //-> panic!
+/// // assertion failed: `assert_set_eq!(left, right)`
+/// //   left: `[1, 2]`,
+/// //  right: `[3, 4]`
 /// # });
-/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # assert_eq!(err, "assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`");
-/// //-> panic!("assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`");
+/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = "assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`";
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -69,10 +68,7 @@ mod tests {
         let a = [1, 2];
         let b = [1, 2];
         let x = assert_set_eq!(&a, &b);
-        assert_eq!(
-            x, 
-            ()
-        );
+        assert_eq!(x, ());
     }
 
     #[test]

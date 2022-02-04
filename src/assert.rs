@@ -9,22 +9,19 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
+/// # use std::panic;
 /// # fn main() {
 /// assert!(true);
 /// //-> ()
-/// # }
-/// ```
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn main() {
 /// # let result = panic::catch_unwind(|| {
 /// assert!(false);
+/// //-> panic!
+/// // assertion failed: false
 /// # });
-/// # let err: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # assert_eq!(err, "assertion failed: false");
-/// //-> panic!("assertion failed: false");
+/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = "assertion failed: false";
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -39,10 +36,7 @@ mod tests {
     fn test_assert_x_arity_2_success() {
         let a = true;
         let x = assert!(a);
-        assert_eq!(
-            x, 
-            ()
-        );
+        assert_eq!(x, ());
     }
 
     #[test]
@@ -56,10 +50,7 @@ mod tests {
     fn test_assert_x_arity_3_success() {
         let a = true;
         let x = assert!(a, "message");
-        assert_eq!(
-            x, 
-            ()
-        );
+        assert_eq!(x, ());
     }
 
     #[test]
