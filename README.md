@@ -230,7 +230,7 @@ assert_set_eq!([1, 2], [3, 4]);
 ```
 
 
-### assert_bag_xx for bag cmparisons
+### assert_bag_xx for bag comparisons
 
 Thes macros help with comparison of bag parameters, such as comparison of
 two arrays or two vectors, where the item order does not matter, and the
