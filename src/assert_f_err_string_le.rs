@@ -29,7 +29,7 @@
 /// //   left output: `\"20 is out of range\"`,
 /// //  right output: `\"10 is out of range\"`"
 /// # });
-/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `assert_f_err_string_le!(fn, left, right)`\n   left input: `20`,\n  right input: `10`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
 /// # assert_eq!(actual, expect);
 /// # }

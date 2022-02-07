@@ -376,6 +376,8 @@ pub mod assert_set_disjoint; // set is disjoint with another set
 // Assert iterator-related bag-based comparison
 pub mod assert_bag_eq; // equal; bag a == bag b
 pub mod assert_bag_ne; // not equal; bag a != bag b
+pub mod assert_bag_subbag; // bag a ⊆ bag b
+pub mod assert_bag_superbag; // bag a ⊇ bag b
 
 // Assert IO-related truth, which can return Err(std:io:Error(…))
 //pub mod assert_io;
@@ -434,14 +436,16 @@ pub mod assertable_f_err_string_ge; // greater than or equal to
 // Assertable iterator-related set-based comparison
 pub mod assertable_set_eq; // equal
 pub mod assertable_set_ne; // not equal
-pub mod assertable_set_subset; // set is a subset of another set
-pub mod assertable_set_superset; // set is a superset of another set
+pub mod assertable_set_subset; // set a ⊆ set b
+pub mod assertable_set_superset; // set a ⊇ set b
 pub mod assertable_set_joint; // set is joint with another set
 pub mod assertable_set_disjoint; // set is disjoint with another set
 
 // Assertable iterator-related bag-based comparison
 pub mod assertable_bag_eq; // equal
 pub mod assertable_bag_ne; // not equal
+pub mod assertable_bag_subbag; // bag a ⊆ bag b
+pub mod assertable_bag_superbag; // bag a ⊇ bag b
 
 // Assertable IO-related truth, which can return Err(std:io:Error(…))
 pub mod assertable_io;

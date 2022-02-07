@@ -17,7 +17,7 @@
 /// # let result = panic::catch_unwind(|| {
 /// assert_eq!(1, 2);
 /// # });
-/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `(left == right)`\n  left: `1`,\n right: `2`";
 /// # assert_eq!(err, );
 /// //-> panic!("…")

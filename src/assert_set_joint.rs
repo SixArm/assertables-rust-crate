@@ -25,7 +25,7 @@
 /// //   left: `[1, 2]`,
 /// //  right: `[3, 4]`
 /// # });
-/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `assert_set_joint!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`";
 /// # assert_eq!(actual, expect);
 /// # }

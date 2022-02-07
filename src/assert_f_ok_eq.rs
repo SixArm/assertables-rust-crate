@@ -25,7 +25,7 @@
 /// //   left output: `1`,
 /// //  right output: `2`
 /// # });
-/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `assert_f_ok_eq!(fn, left, right)`\n   left input: `\"1\"`,\n  right input: `\"2\"`,\n  left output: `1`,\n right output: `2`";
 /// # assert_eq!(actual, expect);
 /// # }

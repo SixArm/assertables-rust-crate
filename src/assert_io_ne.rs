@@ -21,7 +21,7 @@
 /// //   left: `1`,
 /// //  right: `1`
 /// # });
-/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `assert_io_ne!(left, right)`\n  left: `1`,\n right: `1`";
 /// # assert_eq!(actual, expect);
 /// # }

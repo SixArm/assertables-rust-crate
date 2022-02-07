@@ -25,7 +25,7 @@
 /// //   left: `[1, 2]`,
 /// //  right: `[1, 2, 3]`
 /// # });
-/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `assert_set_superset!(left, right)`\n  left: `[1, 2]`,\n right: `[1, 2, 3]`";
 /// # assert_eq!(actual, expect);
 /// # }
