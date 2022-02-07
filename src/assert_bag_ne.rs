@@ -11,17 +11,21 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// assert_bag_ne!([1, 1], [1, 1, 1]);
+/// let a = [1, 1];
+/// let b = [1, 1, 1];
+/// assert_bag_ne!(&a, &b);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
-/// assert_bag_ne!([1, 1], [1, 1]);
+/// let a = [1, 1];
+/// let b = [1, 1];
+/// assert_bag_ne!(&a, &b);
 /// //-> panic!("…")
 /// // assertion failed: `assert_bag_ne!(left, right)`
 /// //   left: `[1, 1]`,
 /// //  right: `[1, 1]`
 /// # });
-/// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `assert_bag_ne!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1]`";
 /// # assert_eq!(actual, expect);
 /// # }
