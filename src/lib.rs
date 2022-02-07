@@ -288,7 +288,7 @@
 //!
 //! ### assert_bag_xx for bag comparisons
 //!
-//! Thes macros help with comparison of bag parameters, such as comparison of
+//! These macros help with comparison of bag parameters, such as comparison of
 //! two arrays or two vectors, where the item order does not matter, and the
 //! item count does matter. The macros convert inputs into HashMap iterators.
 //!
