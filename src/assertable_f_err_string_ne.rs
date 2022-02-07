@@ -17,12 +17,12 @@
 ///
 /// let x = assertable_f_err_string_ne!(f, 1, 1);
 /// //-> Err("…")
-/// // assertable failed: `assertable_f_err_string_ne!(fn, left, right)`
+/// // assertable failed: `assertable_f_err_string_ne!(function, left, right)`
 /// //    left input: `1`,
 /// //   right input: `1`,
 /// //   left output: `\"1\"`,
 /// //  right output: `\"1\"`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_err_string_ne!(fn, left, right)`\n   left input: `1`,\n  right input: `1`,\n  left output: `\"1\"`,\n right output: `\"1\"`".to_string());
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_err_string_ne!(function, left, right)`\n   left input: `1`,\n  right input: `1`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"1\"`,\n right output: `\"1\"`".to_string());
 /// # }
 /// ```
 ///
@@ -32,35 +32,27 @@ macro_rules! assertable_f_err_string_ne {
     ($function:path, $left:expr, $right:expr $(,)?) => ({
         let left = $function($left);
         let right = $function($right);
-        if !left.is_err() || !right.is_err() {
-            Err(format!("assertable failed: `assertable_f_err_string_ne!(fn, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is_err(): `{:?}`,\n right output is_err(): `{:?}`", $left, $right, left.is_err(), right.is_err()))
+        let left_is_err = left.is_err();
+        let right_is_err = right.is_err();
+        let left_string = if left_is_err { left.unwrap_err().to_string() } else { "".to_string() };
+        let right_string = if right_is_err { right.unwrap_err().to_string() } else { "".to_string() };
+        if left_is_err && right_is_err && left_string != right_string {
+            Ok(())
         } else {
-            let left = left.unwrap_err();
-            let right = right.unwrap_err();
-            let left = left.to_string();
-            let right = right.to_string();
-            if (left != right) {
-                Ok(())
-            } else {
-                Err(format!("assertable failed: `assertable_f_err_string_ne!(fn, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right))
-            }
+            Err(format!("assertable failed: `assertable_f_err_string_ne!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left_is_err, right_is_err, left_string, right_string))
         }
     });
     ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
         let left = $function($left);
         let right = $function($right);
-        if !left.is_err() || !right.is_err() {
-            Err($($arg)+)
+        let left_is_err = left.is_err();
+        let right_is_err = right.is_err();
+        let left_string = if left_is_err { left.unwrap_err().to_string() } else { "".to_string() };
+        let right_string = if right_is_err { right.unwrap_err().to_string() } else { "".to_string() };
+        if left_is_err && right_is_err && left_string != right_string {
+            Ok(())
         } else {
-            let left = left.unwrap_err();
-            let right = right.unwrap_err();
-            let left = left.to_string();
-            let right = right.to_string();
-            if (left != right) {
-                Ok(())
-            } else {
-                Err($($arg)+)
-            }
+            Err($($arg)+)
         }
     });
 }
@@ -88,7 +80,7 @@ mod tests {
         let x = assertable_f_err_string_ne!(f, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_f_err_string_ne!(fn, left, right)`\n   left input: `1`,\n  right input: `1`,\n  left output: `\"1\"`,\n right output: `\"1\"`"
+            "assertable failed: `assertable_f_err_string_ne!(function, left, right)`\n   left input: `1`,\n  right input: `1`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"1\"`,\n right output: `\"1\"`"
         );
     }
 
