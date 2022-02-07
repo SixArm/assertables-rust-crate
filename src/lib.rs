@@ -127,7 +127,7 @@
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
-//! assert_fn_eq!(i32::abs, 1, -1); // abs(1) == abs(-1)
+//! assert_f_eq!(i32::abs, 1, -1); // abs(1) == abs(-1)
 //! //-> ()
 //! # }
 //! ```
@@ -139,7 +139,7 @@
 //! use std::str::FromStr;
 //!
 //! # fn main() {
-//! assert_fn_ok_eq!(i32::from_str, "1", "1"); // i32::from_str("1").unwrap() == i32::from_str("1").unwrap()
+//! assert_f_ok_eq!(i32::from_str, "1", "1"); // i32::from_str("1").unwrap() == i32::from_str("1").unwrap()
 //! //-> Ok()
 //! # }
 //! ```
@@ -151,16 +151,16 @@
 //! use std::str::FromStr;
 //!
 //! # fn main() {
-//! assert_fn_err_string_eq!(i32::from_str, "foo", "goo"); // i32::from_str("foo").unwrap_err().to_string() == i32::from_str("goo").unwrap_err().to_string()
+//! assert_f_err_string_eq!(i32::from_str, "foo", "goo"); // i32::from_str("foo").unwrap_err().to_string() == i32::from_str("goo").unwrap_err().to_string()
 //! //-> ()
 //! # }
 //! ```
 //!
 //! Two functions that are our favorites to use in our tests:
 //!
-//!   * `assert_fn_ok_eq!(i32::from_str, str1, str2); // compare parsed numbers`
+//!   * `assert_f_ok_eq!(i32::from_str, str1, str2); // compare parsed numbers`
 //!
-//!   * `assert_fn_ok_eq!(::std::fs::read_to_string, file1, file2); // compare
+//!   * `assert_f_ok_eq!(::std::fs::read_to_string, file1, file2); // compare
 //!     file text`
 //!
 //!
@@ -342,36 +342,40 @@ pub mod assert_gt; // greater than
 pub mod assert_ge; // greater than or equal to
 
 // Assert function output comparison
-pub mod assert_fn_eq; // equal
-pub mod assert_fn_ne; // not equal
-pub mod assert_fn_lt; // less than
-pub mod assert_fn_le; // less than or equal to
-pub mod assert_fn_gt; // greater than
-pub mod assert_fn_ge; // greater than or equal to
+pub mod assert_f_eq; // equal
+pub mod assert_f_ne; // not equal
+pub mod assert_f_lt; // less than
+pub mod assert_f_le; // less than or equal to
+pub mod assert_f_gt; // greater than
+pub mod assert_f_ge; // greater than or equal to
 
 // Assert function ok() comparison
-pub mod assert_fn_ok_eq; // equal
-pub mod assert_fn_ok_ne; // not equal
-pub mod assert_fn_ok_lt; // less than
-pub mod assert_fn_ok_le; // less than or equal to
-pub mod assert_fn_ok_gt; // greater than
-pub mod assert_fn_ok_ge; // greater than or equal to
+pub mod assert_f_ok_eq; // equal
+pub mod assert_f_ok_ne; // not equal
+pub mod assert_f_ok_lt; // less than
+pub mod assert_f_ok_le; // less than or equal to
+pub mod assert_f_ok_gt; // greater than
+pub mod assert_f_ok_ge; // greater than or equal to
 
 // Assert function err() comparison
-pub mod assert_fn_err_string_eq; // equal
-pub mod assert_fn_err_string_ne; // not equal
-pub mod assert_fn_err_string_lt; // less than
-pub mod assert_fn_err_string_le; // less than or equal to
-pub mod assert_fn_err_string_gt; // greater than
-pub mod assert_fn_err_string_ge; // greater than or equal to
+pub mod assert_f_err_string_eq; // equal
+pub mod assert_f_err_string_ne; // not equal
+pub mod assert_f_err_string_lt; // less than
+pub mod assert_f_err_string_le; // less than or equal to
+pub mod assert_f_err_string_gt; // greater than
+pub mod assert_f_err_string_ge; // greater than or equal to
 
 // Assert iterator-related set-based comparison
-pub mod assert_set_eq; // equal
-pub mod assert_set_ne; // not equal
+pub mod assert_set_eq; // equal; set a == set b
+pub mod assert_set_ne; // not equal; set a != set b
+pub mod assert_set_subset; // set a ⊆ set b
+pub mod assert_set_superset; // set a ⊇ set b
+pub mod assert_set_joint; // set is joint with another set
+pub mod assert_set_disjoint; // set is disjoint with another set
 
 // Assert iterator-related bag-based comparison
-pub mod assert_bag_eq; // equal
-pub mod assert_bag_ne; // not equal
+pub mod assert_bag_eq; // equal; bag a == bag b
+pub mod assert_bag_ne; // not equal; bag a != bag b
 
 // Assert IO-related truth, which can return Err(std:io:Error(…))
 //pub mod assert_io;
@@ -404,32 +408,36 @@ pub mod assertable_gt; // greater than
 pub mod assertable_ge; // greater than or equal to
 
 // Assertable function output comparison
-pub mod assertable_fn_eq; // equal
-pub mod assertable_fn_ne; // not equal
-pub mod assertable_fn_lt; // less than
-pub mod assertable_fn_le; // less than or equal to
-pub mod assertable_fn_gt; // greater than
-pub mod assertable_fn_ge; // greater than or equal to
+pub mod assertable_f_eq; // equal
+pub mod assertable_f_ne; // not equal
+pub mod assertable_f_lt; // less than
+pub mod assertable_f_le; // less than or equal to
+pub mod assertable_f_gt; // greater than
+pub mod assertable_f_ge; // greater than or equal to
 
 // Assertable function ok() comparison
-pub mod assertable_fn_ok_eq; // equal
-pub mod assertable_fn_ok_ne; // not equal
-pub mod assertable_fn_ok_lt; // less than
-pub mod assertable_fn_ok_le; // less than or equal to
-pub mod assertable_fn_ok_gt; // greater than
-pub mod assertable_fn_ok_ge; // greater than or equal to
+pub mod assertable_f_ok_eq; // equal
+pub mod assertable_f_ok_ne; // not equal
+pub mod assertable_f_ok_lt; // less than
+pub mod assertable_f_ok_le; // less than or equal to
+pub mod assertable_f_ok_gt; // greater than
+pub mod assertable_f_ok_ge; // greater than or equal to
 
 // Assertable function err().to_string() comparison
-pub mod assertable_fn_err_string_eq; // equal
-pub mod assertable_fn_err_string_ne; // not equal
-pub mod assertable_fn_err_string_lt; // less than
-pub mod assertable_fn_err_string_le; // less than or equal to
-pub mod assertable_fn_err_string_gt; // greater than
-pub mod assertable_fn_err_string_ge; // greater than or equal to
+pub mod assertable_f_err_string_eq; // equal
+pub mod assertable_f_err_string_ne; // not equal
+pub mod assertable_f_err_string_lt; // less than
+pub mod assertable_f_err_string_le; // less than or equal to
+pub mod assertable_f_err_string_gt; // greater than
+pub mod assertable_f_err_string_ge; // greater than or equal to
 
 // Assertable iterator-related set-based comparison
 pub mod assertable_set_eq; // equal
 pub mod assertable_set_ne; // not equal
+pub mod assertable_set_subset; // set is a subset of another set
+pub mod assertable_set_superset; // set is a superset of another set
+pub mod assertable_set_joint; // set is joint with another set
+pub mod assertable_set_disjoint; // set is disjoint with another set
 
 // Assertable iterator-related bag-based comparison
 pub mod assertable_bag_eq; // equal

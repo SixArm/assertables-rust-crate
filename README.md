@@ -71,29 +71,29 @@ assert_eq!(1, 2);
 
 Compare function return values.
 
-* `assert_fn_eq!(f, a, b)`: f(a) == f(b)
+* `assert_f_eq!(f, a, b)`: f(a) == f(b)
 
-* `assert_fn_ne!(f, a, b)`: f(a) != f(b)
+* `assert_f_ne!(f, a, b)`: f(a) != f(b)
 
-* `assert_fn_lt!(f, a, b)`: f(a) < f(b)
+* `assert_f_lt!(f, a, b)`: f(a) < f(b)
 
-* `assert_fn_le!(f, a, b)`: f(a) <= f(b)
+* `assert_f_le!(f, a, b)`: f(a) <= f(b)
 
-* `assert_fn_gt!(f, a, b)`: f(a) > f(b)
+* `assert_f_gt!(f, a, b)`: f(a) > f(b)
 
-* `assert_fn_ge!(f, a, b)`: f(a) != f(b)
+* `assert_f_ge!(f, a, b)`: f(a) != f(b)
 
 Examples:
 
 ```rust
-assert_fn_eq!(i32::abs, 1, -1);
+assert_f_eq!(i32::abs, 1, -1);
 // ()
 ```
 
 ```rust
-assert_fn_eq!(i32::abs, 1, -2);
+assert_f_eq!(i32::abs, 1, -2);
 // panic!
-//   assertion failed: `assert_fn_eq!(fn, left, right)`
+//   assertion failed: `assert_f_eq!(fn, left, right)`
 //     left input: `1`,
 //    right input: `-2`,
 //     left output: `1`,
@@ -101,29 +101,29 @@ assert_fn_eq!(i32::abs, 1, -2);
 ```
 
 
-### assert_fn_ok
+### assert_f_ok
 
 Compare function `Ok` values.
 
-* `assert_fn_ok_eq!(f, a, b)`: f(a).unwrap() == f(b).unwrap()
+* `assert_f_ok_eq!(f, a, b)`: f(a).unwrap() == f(b).unwrap()
 
-* `assert_fn_ok_ne!(f, a, b)`: f(a).unwrap() != f(b).unwrap()
+* `assert_f_ok_ne!(f, a, b)`: f(a).unwrap() != f(b).unwrap()
 
-* `assert_fn_ok_lt!(f, a, b)`: f(a).unwrap() < f(b).unwrap()
+* `assert_f_ok_lt!(f, a, b)`: f(a).unwrap() < f(b).unwrap()
 
-* `assert_fn_ok_le!(f, a, b)`: f(a).unwrap() <= f(b).unwrap()
+* `assert_f_ok_le!(f, a, b)`: f(a).unwrap() <= f(b).unwrap()
 
-* `assert_fn_ok_gt!(f, a, b)`: f(a).unwrap() > f(b).unwrap()
+* `assert_f_ok_gt!(f, a, b)`: f(a).unwrap() > f(b).unwrap()
 
-* `assert_fn_ok_ge!(f, a, b)`: f(a).unwrap() >- f(b).unwrap()
+* `assert_f_ok_ge!(f, a, b)`: f(a).unwrap() >- f(b).unwrap()
 
 Examples:
 
 ```rust
 // Assert from_str("1").unwrap() == from_str("2").unwrap()
-assert_fn_ok_eq!(i32::from_str, "1", "2");
+assert_f_ok_eq!(i32::from_str, "1", "2");
 // panic!
-//   assertion failed: `assert_fn_ok_eq!(fn, left, right)`
+//   assertion failed: `assert_f_ok_eq!(fn, left, right)`
 //     left input: `\"1\"`,
 //    right input: `\"2\"`,
 //     left output: `1`,
@@ -132,9 +132,9 @@ assert_fn_ok_eq!(i32::from_str, "1", "2");
 
 ```rust
 // Assert from_str("1").unwrap() == from_str("2").unwrap()
-assert_fn_ok_eq!(i32::from_str, "1", "2");
+assert_f_ok_eq!(i32::from_str, "1", "2");
 // panic!
-//   assertion failed: `assert_fn_ok_eq!(fn, left, right)`
+//   assertion failed: `assert_f_ok_eq!(fn, left, right)`
 //     left input: `\"1\"`,
 //    right input: `\"2\"`,
 //     left output: `1`,
@@ -142,29 +142,29 @@ assert_fn_ok_eq!(i32::from_str, "1", "2");
 ```
 
 
-### assert_fn_err_string
+### assert_f_err_string
 
 Compare function `Err` `String` values.
 
-* `assert_fn_err_string_eq!(f, a, b)`: f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
+* `assert_f_err_string_eq!(f, a, b)`: f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
 
-* `assert_fn_err_string_ne!(f, a, b)`: f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()
+* `assert_f_err_string_ne!(f, a, b)`: f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()
 
-* `assert_fn_err_string_lt!(f, a, b)`: f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()
+* `assert_f_err_string_lt!(f, a, b)`: f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()
 
-* `assert_fn_err_string_le!(f, a, b)`: f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()
+* `assert_f_err_string_le!(f, a, b)`: f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()
 
-* `assert_fn_err_string_gt!(f, a, b)`: f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()
+* `assert_f_err_string_gt!(f, a, b)`: f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()
 
-* `assert_fn_err_string_ge!(f, a, b)`: f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()
+* `assert_f_err_string_ge!(f, a, b)`: f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()
 
 Example:
 
 ```rust
 // Assert from_str("foo").unwrap_err().to_string() == from_str("goo").unwrap_err().to_string()
-assert_fn_err_string_eq!(i32::from_str, "10", "20");
+assert_f_err_string_eq!(i32::from_str, "10", "20");
 // panic!
-//   assertion failed: `assert_fn_err_string_eq!(convert_number_to_one_digit_string, left, right)`
+//   assertion failed: `assert_f_err_string_eq!(convert_number_to_one_digit_string, left, right)`
 //     left input: `10`,
 //    right input: `20`,
 //     left is err: `true`,
@@ -182,6 +182,15 @@ Item order does not matter. Duplicate items do not matter.
 * `assert_set_eq!(a, b)`: set a == set b
 
 * `assert_set_ne!(a, b)`: set a != set b
+
+* `assert_set_subset!(a, b)`: set a ⊆ set b
+
+* `assert_set_superset!(a, b)`: set a ⊇ set b
+
+* `assert_set_joint!(a, b)`: set a is joint with set b
+
+* `assert_set_disjoint!(a, b)`: set a is disjoint with set b
+
 
 Example:
 

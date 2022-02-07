@@ -1,4 +1,4 @@
-/// Assert a set is not equal to another.
+/// Assert a set is a subset of another.
 ///
 /// * When true, return `Ok(())`.
 ///
@@ -12,21 +12,21 @@
 /// # use std::panic;
 /// # fn main() {
 /// let a = [1, 2];
-/// let b = [3, 4];
-/// assert_set_ne!(&a, &b);
+/// let b = [1, 2, 3];
+/// assert_set_subset!(&a, &b);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a = [1, 2];
-/// let b = [2, 1];
-/// assert_set_ne!(&a, &b);
+/// let a = [1, 2, 3];
+/// let b = [1, 2];
+/// assert_set_subset!(&a, &b);
 /// //-> panic!
-/// // assertion failed: `assert_set_ne!(left, right)`
-/// //   left: `[1, 2]`,
-/// //  right: `[2, 1]`
+/// // assertion failed: `assert_set_subset!(left, right)`
+/// //   left: `[1, 2, 3]`,
+/// //  right: `[1, 2]`
 /// # });
 /// # let actual: String = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_set_ne!(left, right)`\n  left: `[1, 2]`,\n right: `[2, 1]`";
+/// # let expect = "assertion failed: `assert_set_subset!(left, right)`\n  left: `[1, 2, 3]`,\n right: `[1, 2]`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -35,16 +35,16 @@
 ///
 /// This implementation uses [`HashSet`] to count items.
 #[macro_export]
-macro_rules! assert_set_ne {
+macro_rules! assert_set_subset {
     ($left:expr, $right:expr $(,)?) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
                 let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
                 let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
-                if left_set != right_set {
+                if left_set.is_subset(&right_set) {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_set_ne!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right)
+                    panic!("assertion failed: `assert_set_subset!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right)
                 }
             }
         }
@@ -54,7 +54,7 @@ macro_rules! assert_set_ne {
             (left_val, right_val) => {
                 let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
                 let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
-                if left_set != right_set {
+                if left_set.is_subset(&right_set) {
                     ()
                 } else {
                     panic!("{:?}", $($arg)+)
@@ -68,35 +68,35 @@ macro_rules! assert_set_ne {
 mod tests {
 
     #[test]
-    fn test_assert_set_ne_x_arity_2_success() {
+    fn test_assert_set_subset_x_arity_2_success() {
         let a = [1, 2];
-        let b = [3, 4];
-        let x = assert_set_ne!(&a, &b);
+        let b = [1, 2, 3];
+        let x = assert_set_subset!(&a, &b);
         assert_eq!(x, ());
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_set_ne!(left, right)`\n  left: `[1, 2]`,\n right: `[2, 1]`")]
-    fn test_assert_set_ne_x_arity_2_failure() {
-        let a = [1, 2];
-        let b = [2, 1];
-        assert_set_ne!(&a, &b);
+    #[should_panic (expected = "assertion failed: `assert_set_subset!(left, right)`\n  left: `[1, 2, 3]`,\n right: `[1, 2]`")]
+    fn test_assert_set_subset_x_arity_2_failure() {
+        let a = [1, 2, 3];
+        let b = [1, 2];
+        assert_set_subset!(&a, &b);
     }
 
     #[test]
-    fn test_assert_set_ne_x_arity_3_success() {
+    fn test_assert_set_subset_x_arity_3_success() {
         let a = [1, 2];
-        let b = [3, 4];
-        let x = assert_set_ne!(&a, &b, "message");
+        let b = [1, 2, 3];
+        let x = assert_set_subset!(&a, &b, "message");
         assert_eq!(x, ());
     }
 
     #[test]
     #[should_panic (expected = "message")]
-    fn test_assert_set_ne_x_arity_3_failure() {
-        let a = [1, 2];
-        let b = [2, 1];
-        assert_set_ne!(&a, &b, "message");
+    fn test_assert_set_subset_x_arity_3_failure() {
+        let a = [1, 2, 3];
+        let b = [1, 2];
+        assert_set_subset!(&a, &b, "message");
     }
 
 }

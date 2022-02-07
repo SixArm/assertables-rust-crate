@@ -11,11 +11,15 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// assert_set_eq!([1, 2], [2, 1]);
+/// let a = [1, 2];
+/// let b = [2, 1];
+/// assert_set_eq!(&a, &b);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
-/// assert_set_eq!([1, 2], [3, 4]);
+/// let a = [1, 2];
+/// let b = [3, 4];
+/// assert_set_eq!(&a, &b);
 /// //-> panic!
 /// // assertion failed: `assert_set_eq!(left, right)`
 /// //   left: `[1, 2]`,
@@ -66,7 +70,7 @@ mod tests {
     #[test]
     fn test_assert_set_eq_x_arity_2_success() {
         let a = [1, 2];
-        let b = [1, 2];
+        let b = [2, 1];
         let x = assert_set_eq!(&a, &b);
         assert_eq!(x, ());
     }
@@ -82,12 +86,9 @@ mod tests {
     #[test]
     fn test_assert_set_eq_x_arity_3_success() {
         let a = [1, 2];
-        let b = [1, 2];
+        let b = [2, 1];
         let x = assert_set_eq!(&a, &b, "message");
-        assert_eq!(
-            x,
-            ()
-        )
+        assert_eq!(x, ());
     }
 
     #[test]
