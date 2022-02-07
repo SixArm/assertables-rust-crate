@@ -19,14 +19,14 @@
 /// # let result = panic::catch_unwind(|| {
 /// assert_f_ok_eq!(i32::from_str, "1", "2");
 /// //-> panic!("…")
-/// // assertion failed: `assert_f_ok_eq!(fn, left, right)`
+/// // assertion failed: `assert_f_ok_eq!(function, left, right)`
 /// //    left input: `\"1\"`,
 /// //   right input: `\"2\"`,
 /// //   left output: `1`,
 /// //  right output: `2`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_f_ok_eq!(fn, left, right)`\n   left input: `\"1\"`,\n  right input: `\"2\"`,\n  left output: `1`,\n right output: `2`";
+/// # let expect = "assertion failed: `assert_f_ok_eq!(function, left, right)`\n   left input: `\"1\"`,\n  right input: `\"2\"`,\n  left output: `1`,\n right output: `2`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -38,14 +38,14 @@ macro_rules! assert_f_ok_eq {
         let left = $function($left);
         let right = $function($right);
         if !left.is_ok() || !right.is_ok() {
-            panic!("assertion failed: `assert_f_ok_eq!(fn, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is_ok(): `{:?}`,\n right output is_ok(): `{:?}`", $left, $right, left.is_ok(), right.is_ok());
+            panic!("assertion failed: `assert_f_ok_eq!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is_ok(): `{:?}`,\n right output is_ok(): `{:?}`", $left, $right, left.is_ok(), right.is_ok());
         } else {
             let left = left.unwrap();
             let right = right.unwrap();
             if (left == right) {
                 ()
             } else {
-                panic!("assertion failed: `assert_f_ok_eq!(fn, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right);
+                panic!("assertion failed: `assert_f_ok_eq!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right);
             }
         }
     });
@@ -79,7 +79,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_f_ok_eq!(fn, left, right)`\n   left input: `\"1\"`,\n  right input: `\"2\"`,\n  left output: `1`,\n right output: `2`")]
+    #[should_panic (expected = "assertion failed: `assert_f_ok_eq!(function, left, right)`\n   left input: `\"1\"`,\n  right input: `\"2\"`,\n  left output: `1`,\n right output: `2`")]
     fn test_assert_f_ok_eq_x_arity_2_ne_failure() {
         let a = "1";
         let b = "2";

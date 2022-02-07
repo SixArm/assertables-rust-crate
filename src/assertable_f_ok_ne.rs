@@ -17,12 +17,12 @@
 ///
 /// let x = assertable_f_ok_ne!(i32::from_str, "1", "1");
 /// //-> Err("…")
-/// // assertable failed: `assertable_f_ok_ne!(fn, left, right)`
+/// // assertable failed: `assertable_f_ok_ne!(function, left, right)`
 /// //    left input: `\"1\"`,
 /// //   right input: `\"1\"`,
 /// //   left output: `1`,
 /// //  right output: `1`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_ok_ne!(fn, left, right)`\n   left input: `\"1\"`,\n  right input: `\"1\"`,\n  left output: `1`,\n right output: `1`".to_string());
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_ok_ne!(function, left, right)`\n   left input: `\"1\"`,\n  right input: `\"1\"`,\n  left output: `1`,\n right output: `1`".to_string());
 /// # }
 /// ```
 ///
@@ -33,14 +33,14 @@ macro_rules! assertable_f_ok_ne {
         let left = $function($left);
         let right = $function($right);
         if !left.is_ok() || !right.is_ok() {
-            Err(format!("assertable failed: `assertable_f_ok_ne!(fn, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is_ok(): `{:?}`,\n right output is_ok(): `{:?}`", $left, $right, left.is_ok(), right.is_ok()))
+            Err(format!("assertable failed: `assertable_f_ok_ne!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is_ok(): `{:?}`,\n right output is_ok(): `{:?}`", $left, $right, left.is_ok(), right.is_ok()))
         } else {
             let left = left.unwrap();
             let right = right.unwrap();
             if (left != right) {
                 Ok(())
             } else {
-                Err(format!("assertable failed: `assertable_f_ok_ne!(fn, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right))
+                Err(format!("assertable failed: `assertable_f_ok_ne!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right))
             }
         }
     });
@@ -83,7 +83,7 @@ mod tests {
         let x = assertable_f_ok_ne!(i32::from_str, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_f_ok_ne!(fn, left, right)`\n   left input: `\"1\"`,\n  right input: `\"1\"`,\n  left output: `1`,\n right output: `1`"
+            "assertable failed: `assertable_f_ok_ne!(function, left, right)`\n   left input: `\"1\"`,\n  right input: `\"1\"`,\n  left output: `1`,\n right output: `1`"
         );
     }
 

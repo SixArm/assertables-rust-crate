@@ -17,12 +17,12 @@
 ///
 /// let x = assertable_f_ne!(i32::abs, 1 as i32, -1 as i32);
 /// //-> Err("…")
-/// // assertable failed: `assertable_f_ne!(fn, left, right)`
+/// // assertable failed: `assertable_f_ne!(function, left, right)`
 /// //    left input: `1`,
 /// //   right input: `-1`,
 /// //   left output: `1`,
 /// //  right output: `1`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_ne!(fn, left, right)`\n   left input: `1`,\n  right input: `-1`,\n  left output: `1`,\n right output: `1`".to_string());
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_ne!(function, left, right)`\n   left input: `1`,\n  right input: `-1`,\n  left output: `1`,\n right output: `1`".to_string());
 /// # }
 /// ```
 ///
@@ -35,7 +35,7 @@ macro_rules! assertable_f_ne {
         if (left != right) {
             Ok(())
         } else {
-            Err(format!("assertable failed: `assertable_f_ne!(fn, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right))
+            Err(format!("assertable failed: `assertable_f_ne!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right))
         }
     });
     ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
@@ -70,7 +70,7 @@ mod tests {
         let x = assertable_f_ne!(i32::abs, a as i32, b as i32);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_f_ne!(fn, left, right)`\n   left input: `1`,\n  right input: `-1`,\n  left output: `1`,\n right output: `1`"
+            "assertable failed: `assertable_f_ne!(function, left, right)`\n   left input: `1`,\n  right input: `-1`,\n  left output: `1`,\n right output: `1`"
         );
     }
 

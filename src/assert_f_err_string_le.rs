@@ -10,18 +10,18 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
-/// fn digit_to_string(i: isize) -> Result<String, String> {
+/// fn example_digit_to_string(i: isize) -> Result<String, String> {
 ///     match i {
 ///         0..=9 => Ok(format!("{}", i)),
 ///         _ => Err(format!("{:?} is out of range", i)),
 ///     }
 /// }
 /// # fn main() {
-/// assert_f_err_string_le!(digit_to_string, 10, 20);
+/// assert_f_err_string_le!(example_digit_to_string, 10, 20);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
-/// assert_f_err_string_le!(digit_to_string, 20, 10);
+/// assert_f_err_string_le!(example_digit_to_string, 20, 10);
 /// //-> panic!("…")
 /// // assertion failed: `assert_f_err_string_le!(function, left, right)`
 /// //    left input: `20`,
@@ -70,7 +70,7 @@ macro_rules! assert_f_err_string_le {
 mod tests {
 
     // Replicate this function relevant tests in this crate.
-    fn digit_to_string(i: isize) -> Result<String, String> {
+    fn example_digit_to_string(i: isize) -> Result<String, String> {
         match i {
             0..=9 => Ok(format!("{}", i)),
             _ => Err(format!("{:?} is out of range", i)),
@@ -81,7 +81,7 @@ mod tests {
     fn test_assert_f_err_string_le_x_arity_2_lt_success() {
         let a = 10;
         let b = 20;
-        let x = assert_f_err_string_le!(digit_to_string, a, b);
+        let x = assert_f_err_string_le!(example_digit_to_string, a, b);
         assert_eq!(x, ());
     }
 
@@ -89,7 +89,7 @@ mod tests {
     fn test_assert_f_err_string_le_x_arity_2_eq_success() {
         let a = 10;
         let b = 10;
-        let x = assert_f_err_string_le!(digit_to_string, a, b);
+        let x = assert_f_err_string_le!(example_digit_to_string, a, b);
         assert_eq!(x, ());
     }
 
@@ -98,14 +98,14 @@ mod tests {
     fn test_assert_f_err_string_le_x_arity_2_gt_failure() {
         let a = 20;
         let b = 10;
-        let _x = assert_f_err_string_le!(digit_to_string, a, b);
+        let _x = assert_f_err_string_le!(example_digit_to_string, a, b);
     }
 
     #[test]
     fn test_assert_f_err_string_le_x_arity_3_lt_success() {
         let a = 10;
         let b = 20;
-        let x = assert_f_err_string_le!(digit_to_string, a, b, "message");
+        let x = assert_f_err_string_le!(example_digit_to_string, a, b, "message");
         assert_eq!(x, ());
     }
 
@@ -113,7 +113,7 @@ mod tests {
     fn test_assert_f_err_string_le_x_arity_3_eq_success() {
         let a = 10;
         let b = 10;
-        let x = assert_f_err_string_le!(digit_to_string, a, b, "message");
+        let x = assert_f_err_string_le!(example_digit_to_string, a, b, "message");
         assert_eq!(x, ());
     }
 
@@ -122,7 +122,7 @@ mod tests {
     fn test_assert_f_err_string_le_x_arity_3_failure() {
         let a = 20;
         let b = 10;
-        let _x = assert_f_err_string_le!(digit_to_string, a, b, "message");
+        let _x = assert_f_err_string_le!(example_digit_to_string, a, b, "message");
     }
 
 }

@@ -7,73 +7,20 @@
 //! Crate:
 //! [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
 //!
-//! Docs: [https://docs.rs/assertables/](https://docs.rs/assertables/)
+//! Docs: 
+//! [https://docs.rs/assertables/](https://docs.rs/assertables/)
 //!
 //! Repo:
 //! [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
 //!
 //!
-//! ### assert and assertable
+//! ## assert vs. assertable
 //!
 //! These macros have two styles:
 //!
 //!   * `assert` macros return `()` or `panic!(…)`.
 //!
-//!   * `assertable` macros return `Ok(())` or `Err(…)`
-//!
-//! Example:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! # fn main() {
-//! assert_eq!(1, 1);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_eq!(1, 2);
-//! //-> panic!("…")
-//! // assertion failed: `(left == right)`
-//! //   left: `1`,
-//! //  right: `2`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `(left == right)`\n  left: `1`,\n right: `2`";
-//! # assert_eq!(actual, expect);
-//!
-//! let x = assertable_eq!(1, 1); 
-//! //-> Ok(())
-//! # assert_eq!(x.unwrap(), ());
-//!
-//! let x = assertable_eq!(1, 2); 
-//! //-> Err("…")
-//! // assertable failed: `assertable_eq!(left, right)`
-//! //   left: `1`,
-//! //  right: `2`
-//! # assert_eq!(x.unwrap_err(), "assertable failed: `assertable_eq!(left, right)`\n  left: `1`,\n right: `2`");
-//! # }
-//! ```
-//!
-//! These two styles are useful because the `assert` macros favor compile-time
-//! tests and diagnostics, whereas the `assertable` macros favor run-time
-//! reliability and tracing.
-//!
-//!
-//! ## assert_xx
-//!
-//! Compare values.
-//!
-//! * `assert_eq!(a, b)`: a == b
-//!
-//! * `assert_ne!(a, b)`: a !=b
-//!
-//! * `assert_lt!(a, b)`: a < b
-//!
-//! * `assert_le!(a, b)`: a <= b
-//!
-//! * `assert_gt!(a, b)`: a > b
-//!
-//! * `assert_ge!(a, b)`: a >= b
+//!   * `assertable` macros return `Ok(())` or `Err(…)`.
 //!
 //! Examples:
 //!
@@ -81,37 +28,77 @@
 //! # #[macro_use] extern crate assertables;
 //! # use std::panic;
 //! # fn main() {
-//! assert_eq!(1, 1);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_eq!(1, 2);
-//! //-> panic!("…")
-//! // assertion failed: `(left == right)`
-//! //   left: `1`
-//! // right: `2`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `(left == right)`\n  left: `1`,\n right: `2`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
-//!
-//! Examples:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! # fn main() {
-//! assert_lt!(1, 2); // check that 1 is less than 2
+//! assert_lt!(1, 2); // assert 1 is less than 2
 //! //-> ()
 //!
 //! # let result = panic::catch_unwind(|| {
 //! assert_lt!(2, 1);
-//! //-> panic!("…")
-//! // assertion failed: `assert_lt!(left, right)`
+//! //-> panic!
+//! // assertion failed: `(left == right)`
+//! //   left: `1`,
+//! //  right: `2`
+//! # });
+//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! # let expect = "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`";
+//! # assert_eq!(actual, expect);
+//!
+//! let x = assertable_lt!(1, 2); 
+//! //-> Ok(())
+//! # assert_eq!(x.unwrap(), ());
+//!
+//! let x = assertable_eq!(2, 1); 
+//! //-> Err("…")
+//! // assertable failed: `assertable_lt!(left, right)`
 //! //   left: `2`,
 //! //  right: `1`
+//! # assert_eq!(x.unwrap_err(), "assertable failed: `assertable_eq!(left, right)`\n  left: `2`,\n right: `1`");
+//! # }
+//! ```
+//!
+//! These two styles are useful because:
+//! 
+//! * `assert` macros favor compile-time tests and diagnostics.
+//! 
+//! * `assertable` macros favor run-time tracing and recoveries.
+//!
+//! The macros use abbreviations such as `eq` (equals), `ne` (not equals), 
+//! `lt` (less than), `le` (less than or equal to), `gt` (greater than), 
+//! `ge` (greater than or equals).
+//! 
+//! The macros have a second form where a custom error message can be provided.
+//!
+//! 
+//! ## assert_xx for comparing values
+//!
+//! Compare values.
+//!
+//! * `assert_eq!(a, b)` ~ a == b
+//!
+//! * `assert_ne!(a, b)` ~ a != b
+//!
+//! * `assert_lt!(a, b)` ~ a < b
+//!
+//! * `assert_le!(a, b)` ~ a <= b
+//!
+//! * `assert_gt!(a, b)` ~ a > b
+//!
+//! * `assert_ge!(a, b)` ~ a >= b
+//!
+//! Examples:
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! assert_lt!(1, 2);
+//! //-> ()
+//!
+//! # let result = panic::catch_unwind(|| {
+//! assert_lt!(2, 1);
+//! //-> panic!
+//! // assertion failed: `assert_lt!(left, right)`
+//! //   left: `2`
+//! // right: `1`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 //! # let expect = "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`";
@@ -119,57 +106,161 @@
 //! # }
 //! ```
 //!
-//!
-//! ### Macros for function checking
-//!
-//! Compare function return values:
-//!
+//! 
+//! ## assert_f_xx for comparing function return values
+//!   
+//! * `assert_f_eq!(f, a, b)` ~ f(a) == f(b)
+//!   
+//! * `assert_f_ne!(f, a, b)` ~ f(a) != f(b)
+//!   
+//! * `assert_f_lt!(f, a, b)` ~ f(a) < f(b)
+//!   
+//! * `assert_f_le!(f, a, b)` ~ f(a) <= f(b)
+//!   
+//! * `assert_f_gt!(f, a, b)` ~ f(a) > f(b)
+//!   
+//! * `assert_f_ge!(f, a, b)` ~ f(a) >= f(b)
+//!   
+//! Examples:
+//! 
 //! ```rust
 //! # #[macro_use] extern crate assertables;
+//! # use std::panic;
 //! # fn main() {
-//! assert_f_eq!(i32::abs, 1, -1); // abs(1) == abs(-1)
+//! assert_f_lt!(i32::abs, 1, -2);
 //! //-> ()
+//!
+//! # let result = panic::catch_unwind(|| {
+//! assert_f_lt!(i32::abs, -2, 1);
+//! //-> panic!
+//! // assertion failed: `assert_f_eq!(function, left, right)`
+//! //   left input: `-2`,
+//! //  right input: `1`,
+//! //  left output: `2`,
+//! // right output: `1`
+//! # });
+//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! # let expect = "assertion failed: `assert_f_lt!(function, left, right)`\n   left input: `-2`,\n  right input: `1`,\n  left output: `2`,\n right output: `1`";
+//! # assert_eq!(actual, expect);
 //! # }
 //! ```
 //!
-//! Compare function result Ok(…) values:
+//! 
+//! ## assert_f_ok_xx for comparing function Result Ok(…) values
+//!
+//! * `assert_f_ok_eq!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
+//! 
+//! * `assert_f_ok_ne!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
+//! 
+//! * `assert_f_ok_lt!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
+//! 
+//! * `assert_f_ok_le!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
+//! 
+//! * `assert_f_ok_gt!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
+//! 
+//! * `assert_f_ok_ge!(f, a, b)` ~ f(a).unwrap() >= f(b).unwrap()
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! use std::str::FromStr;
+//! # use std::panic;
+//! fn example_digit_to_string(i: isize) -> Result<String, String> {
+//!     match i {
+//!         0..=9 => Ok(format!("{}", i)),
+//!         _ => Err(format!("{:?} is out of range", i)),
+//!     }
+//! }
 //!
 //! # fn main() {
-//! assert_f_ok_eq!(i32::from_str, "1", "1"); // i32::from_str("1").unwrap() == i32::from_str("1").unwrap()
-//! //-> Ok()
-//! # }
-//! ```
-//!
-//! Compare function result Err(…) strings:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! use std::str::FromStr;
-//!
-//! # fn main() {
-//! assert_f_err_string_eq!(i32::from_str, "foo", "goo"); // i32::from_str("foo").unwrap_err().to_string() == i32::from_str("goo").unwrap_err().to_string()
+//! assert_f_ok_lt!(example_digit_to_string, 1, 2);
 //! //-> ()
+//! 
+//! # let result = panic::catch_unwind(|| {
+//! assert_f_ok_lt!(example_digit_to_string, 2, 1);
+//! //-> panic!("…")
+//! // assertion failed: `assert_f_eq!(function, left, right)`
+//! //    left input: `2`,
+//! //   right input: `1`,
+//! //   left output: `\"2\"`,
+//! //  right output: `\"1\"`
+//! # });
+//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! # let expect = "assertion failed: `assert_f_ok_lt!(function, left, right)`\n   left input: `2`,\n  right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`";
+//! # assert_eq!(actual, expect);
 //! # }
 //! ```
 //!
-//! Two functions that are our favorites to use in our tests:
+//! 
+//! ## assert_f_err_string_xx for comparing function Result Err(…) strings
 //!
-//!   * `assert_f_ok_eq!(i32::from_str, str1, str2); // compare parsed numbers`
+//! * `assert_f_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
+//! 
+//! * `assert_f_err_string_ne!(f, a, b)` ~ f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()
+//! 
+//! * `assert_f_err_string_lt!(f, a, b)` ~ f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()
+//! 
+//! * `assert_f_err_string_le!(f, a, b)` ~ f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()
+//! 
+//! * `assert_f_err_string_gt!(f, a, b)` ~ f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()
+//! 
+//! * `assert_f_err_string_ge!(f, a, b)`~ f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()
+//! 
+//! Examples:
+//! 
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! fn example_digit_to_string(i: isize) -> Result<String, String> {
+//!     match i {
+//!         0..=9 => Ok(format!("{}", i)),
+//!         _ => Err(format!("{:?} is out of range", i)),
+//!     }
+//! }
 //!
-//!   * `assert_f_ok_eq!(::std::fs::read_to_string, file1, file2); // compare
-//!     file text`
+//! # fn main() {
+//! assert_f_err_string_lt!(example_digit_to_string, 10, 20);
+//! //-> ()
+//!
+//! # let result = panic::catch_unwind(|| {
+//! assert_f_err_string_lt!(example_digit_to_string, 20, 10);
+//! //-> panic!
+//  // assertion failed: `assert_f_err_string_eq!(example_digit_to_string, left, right)`
+//  //    left input: `20`,
+//  //   right input: `10``,
+//  //   left is err: `true`,
+//  //  right is err: `true`,
+//  //   left output: `\"20 is out of range\"`,
+//  //  right output: `\"10 is out of range\"`
+//! # });
+//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! # let expect = "assertion failed: `assert_f_err_string_lt!(function, left, right)`\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
+//! # assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! Two functions that we use often:
+//!
+//!   * `assert_f_ok_eq!(i32::from_str, str1, str2); // compare parsing of numbers`
+//!
+//!   * `assert_f_ok_eq!(std::fs::read_to_string, file1, file2); // compare file text
 //!
 //!
-//!
-//! ### Macros for set checking
+//! ### assert_set_xx for set comparisons
 //!
 //! These macros help with comparison of set parameters, such as two arrays or
 //! two vectors. where the item order does not matter, and the item count does
-//! not matter.
+//! not matter. The macros convert inputs into HashSet iterators.
+//!
+//! * `assert_set_eq!(a, b)`: set a == set b
+//! 
+//! * `assert_set_ne!(a, b)`: set a != set b
+//! 
+//! * `assert_set_subset!(a, b)`: set a ⊆ set b
+//! 
+//! * `assert_set_superset!(a, b)`: set a ⊇ set b
+//! 
+//! * `assert_set_joint!(a, b)`: set a is joint with set b
+//! 
+//! * `assert_set_disjoint!(a, b)`: set a is disjoint with set b
 //!
 //! Examples:
 //!
@@ -182,6 +273,10 @@
 //!
 //! # let result = panic::catch_unwind(|| {
 //! assert_set_eq!([1, 2], [3, 4]);
+//! //-> panic
+//! // assertion failed: `assert_set_eq!(left, right)`
+//! //   left: `[1, 2]`,
+//! //  right: `[3, 4]`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 //! # let expect = "assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`";
@@ -191,11 +286,19 @@
 //! ```
 //!
 //!
-//! ### Macros for bag checking
+//! ### assert_bag_xx for bag cmparisons
 //!
 //! Thes macros help with comparison of bag parameters, such as comparison of
 //! two arrays or two vectors, where the item order does not matter, and the
-//! item count does matter.
+//! item count does matter. The macros convert inputs into HashMap iterators.
+//!
+//! * `assert_bag_eq(a, b)`: bag a == bag b
+//!
+//! * `assert_bag_ne(a, b)`: bag a != bag b
+//!
+//! * `assert_bag_subbag(a, b)`: bag a ⊆ bag b
+//!
+//! * `assert_bag_superbag(a, b)`: bag a ⊇ bag b
 //!
 //! Examples:
 //!
@@ -220,10 +323,24 @@
 //! ```
 //!
 //!
-//! ### Macros for IO-related checking
+//! ### assert_io_xx for input/output comparisons
 //!
-//! These macros help with IO-related checking, such as comparison of files,
-//! streams, etc.
+//! These macros help with input/output checking, 
+//! such as with comparison of disk files, IO streams, etc.
+//!
+//! * `assert_io!(a)`: a is true
+//! 
+//! * `assert_io_eq!(a, b)`: a == b
+//! 
+//! * `assert_io_ne!(a, b)`: a != b
+//! 
+//! * `assert_io_lt!(a, b)`: a < b
+//! 
+//! * `assert_io_le!(a, b)`: a <= b
+//! 
+//! * `assert_io_gt!(a, b)`: a > b
+//! 
+//! * `assert_io_ge!(a, b)`: a >= b
 //!
 //! Examples:
 //!
@@ -247,26 +364,23 @@
 //! # }
 //! ```
 //!
-//! The return is especially helpful for the macro `assure…` error:
 //!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # fn main() {
-//! let x = assertable_io_lt!(2, 1);
-//! //-> Err(
-//! //       std::io::Error::new(
-//! //           std::io::ErrorKind::InvalidInput,
-//! //           "assertable failed: `assertable_io_lt!(left, right)`\n  left: `2`,\n right: `1`")]
-//! //       )
-//! //   )
-//! # }
-//! ```
+//! ## assert_read_to_string_xx for std::io::Read comparisons
 //!
-//!
-//! ### Macros for read_to_string()
-//!
-//! These macros help with standard input/output read checking, such as
-//! comparison of files, streams, etc.
+//! These macros help with readers, such as file handles, byte
+//! arrays, input streams, and the trait std::io::Read.
+//! 
+//! * `assert_read_to_string_eq!(a, b)`: a.read_to_string() == b.read_to_string()
+//! 
+//! * `assert_read_to_string_ne!(a, b)`: a.read_to_string() != b.read_to_string()
+//! 
+//! * `assert_read_to_string_lt!(a, b)`: a.read_to_string() < b.read_to_string()
+//! 
+//! * `assert_read_to_string_le!(a, b)`: a.read_to_string() <= b.read_to_string()
+//! 
+//! * `assert_read_to_string_gt!(a, b)`: a.read_to_string() > b.read_to_string()
+//! 
+//! * `assert_read_to_string_ge!(a, b)`: a.read_to_string() >= b.read_to_string()
 //!
 //! Examples:
 //!
@@ -295,40 +409,7 @@
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```
-//!
-//! The return is especially helpful for the macro `assure…` error:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! use std::io::Read;
-//!
-//! # fn main() {
-//! let mut a = "a".as_bytes();
-//! let mut b = "b".as_bytes();
-//! let x = assertable_read_to_string_lt!(b, a);
-//! //-> Err(
-//! //       std::io::Error::new(
-//! //           std::io::ErrorKind::InvalidInput,
-//! //           "assertable failed: `assertable_read_to_string_lt!(left, right)`\n  left: `b`,\n right: `a`")]
-//! //       )
-//! //   )
-//! # }
-//! ```
-//!
-//!
-//! ## Extras
-//!
-//!
-//! ### Custom error messages
-//!
-//! The macros have a second form where a custom error message can be provided.
-//!
-//!
-//! ### Comparison abbreviations
-//!
-//! The comparison macros use abbreviations such as `eq` (equals), `ne` (not
-//! equals), `lt` (less than), `le` (less than or equal to), `gt` (greater
-//! than), `ge` (greater than or equals).
+
 
 // Assert truth
 pub mod assert; // condition (provided by Rust `std`)
