@@ -1,4 +1,4 @@
-//! Assertables: Rust crate of macros for assert and assertable
+//! Assertables: Rust crate of macros "assert" and "assertable"
 //!
 //! This `assertables` Rust crate provides macros for `assert…!` and
 //! `assertable…!`, which are useful for testing and also for runtime
@@ -14,7 +14,7 @@
 //! [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
 //!
 //!
-//! ## assert vs. assertable
+//! ## assert & assertable
 //!
 //! These macros have two styles:
 //!
@@ -22,21 +22,21 @@
 //!
 //!   * `assertable` macros return `Ok(())` or `Err(…)`.
 //!
-//! Examples:
+//! Examples of "assert less than" and "assertable less than":
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # use std::panic;
 //! # fn main() {
-//! assert_lt!(1, 2); // assert 1 is less than 2
+//! assert_lt!(1, 2);
 //! //-> ()
 //!
 //! # let result = panic::catch_unwind(|| {
 //! assert_lt!(2, 1);
 //! //-> panic!
-//! // assertion failed: `(left == right)`
-//! //   left: `1`,
-//! //  right: `2`
+//! // assertion failed: `assert_lt!(left, right)`
+//! //   left: `2`,
+//! //  right: `1`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 //! # let expect = "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`";
@@ -61,14 +61,14 @@
 //! 
 //! * `assertable` macros favor run-time tracing and recoveries.
 //!
-//! The macros use abbreviations such as `eq` (equals), `ne` (not equals), 
+//! The macros use abbreviations: `eq` (equals), `ne` (not equals), 
 //! `lt` (less than), `le` (less than or equal to), `gt` (greater than), 
 //! `ge` (greater than or equals).
 //! 
 //! The macros have a second form where a custom error message can be provided.
 //!
 //! 
-//! ## assert_xx for comparing values
+//! ## assert_xx for values
 //!
 //! Compare values.
 //!
@@ -98,7 +98,7 @@
 //! //-> panic!
 //! // assertion failed: `assert_lt!(left, right)`
 //! //   left: `2`
-//! // right: `1`
+//! //  right: `1`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 //! # let expect = "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`";
@@ -107,7 +107,7 @@
 //! ```
 //!
 //! 
-//! ## assert_f_xx for comparing function return values
+//! ## assert_f_xx for function returns
 //!   
 //! * `assert_f_eq!(f, a, b)` ~ f(a) == f(b)
 //!   
@@ -146,7 +146,7 @@
 //! ```
 //!
 //! 
-//! ## assert_f_ok_xx for comparing function Result Ok(…) values
+//! ## assert_f_ok_xx for function Result Ok values
 //!
 //! * `assert_f_ok_eq!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
 //! 
@@ -190,7 +190,7 @@
 //! ```
 //!
 //! 
-//! ## assert_f_err_string_xx for comparing function Result Err(…) strings
+//! ## assert_f_err_string_xx for function Err strings
 //!
 //! * `assert_f_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
 //! 
@@ -241,7 +241,7 @@
 //!
 //!   * `assert_f_ok_eq!(i32::from_str, str1, str2); // compare parsing of numbers`
 //!
-//!   * `assert_f_ok_eq!(std::fs::read_to_string, file1, file2); // compare file text
+//!   * `assert_f_ok_eq!(std::fs::read_to_string, file1, file2); // compare file text`
 //!
 //!
 //! ### assert_set_xx for set comparisons
@@ -250,17 +250,17 @@
 //! two vectors. where the item order does not matter, and the item count does
 //! not matter. The macros convert inputs into HashSet iterators.
 //!
-//! * `assert_set_eq!(a, b)`: set a == set b
+//! * `assert_set_eq!(a, b)` ~ set a == set b
 //! 
-//! * `assert_set_ne!(a, b)`: set a != set b
+//! * `assert_set_ne!(a, b)` ~ set a != set b
 //! 
-//! * `assert_set_subset!(a, b)`: set a ⊆ set b
+//! * `assert_set_subset!(a, b)` ~ set a ⊆ set b
 //! 
-//! * `assert_set_superset!(a, b)`: set a ⊇ set b
+//! * `assert_set_superset!(a, b)` ~ set a ⊇ set b
 //! 
-//! * `assert_set_joint!(a, b)`: set a is joint with set b
+//! * `assert_set_joint!(a, b)` ~ set a is joint with set b
 //! 
-//! * `assert_set_disjoint!(a, b)`: set a is disjoint with set b
+//! * `assert_set_disjoint!(a, b)` ~ set a is disjoint with set b
 //!
 //! Examples:
 //!
@@ -292,13 +292,13 @@
 //! two arrays or two vectors, where the item order does not matter, and the
 //! item count does matter. The macros convert inputs into HashMap iterators.
 //!
-//! * `assert_bag_eq(a, b)`: bag a == bag b
+//! * `assert_bag_eq(a, b)` ~ bag a == bag b
 //!
-//! * `assert_bag_ne(a, b)`: bag a != bag b
+//! * `assert_bag_ne(a, b)` ~ bag a != bag b
 //!
-//! * `assert_bag_subbag(a, b)`: bag a ⊆ bag b
+//! * `assert_bag_subbag(a, b)` ~ bag a ⊆ bag b
 //!
-//! * `assert_bag_superbag(a, b)`: bag a ⊇ bag b
+//! * `assert_bag_superbag(a, b)` ~ bag a ⊇ bag b
 //!
 //! Examples:
 //!
@@ -328,19 +328,19 @@
 //! These macros help with input/output checking, 
 //! such as with comparison of disk files, IO streams, etc.
 //!
-//! * `assert_io!(a)`: a is true
+//! * `assert_io!(a)` ~ a is true
 //! 
-//! * `assert_io_eq!(a, b)`: a == b
+//! * `assert_io_eq!(a, b)` ~ a == b
 //! 
-//! * `assert_io_ne!(a, b)`: a != b
+//! * `assert_io_ne!(a, b)` ~ a != b
 //! 
-//! * `assert_io_lt!(a, b)`: a < b
+//! * `assert_io_lt!(a, b)` ~ a < b
 //! 
-//! * `assert_io_le!(a, b)`: a <= b
+//! * `assert_io_le!(a, b)` ~ a <= b
 //! 
-//! * `assert_io_gt!(a, b)`: a > b
+//! * `assert_io_gt!(a, b)` ~ a > b
 //! 
-//! * `assert_io_ge!(a, b)`: a >= b
+//! * `assert_io_ge!(a, b)` ~ a >= b
 //!
 //! Examples:
 //!
@@ -370,17 +370,17 @@
 //! These macros help with readers, such as file handles, byte
 //! arrays, input streams, and the trait std::io::Read.
 //! 
-//! * `assert_read_to_string_eq!(a, b)`: a.read_to_string() == b.read_to_string()
+//! * `assert_read_to_string_eq!(a, b)` ~ a.read_to_string() == b.read_to_string()
 //! 
-//! * `assert_read_to_string_ne!(a, b)`: a.read_to_string() != b.read_to_string()
+//! * `assert_read_to_string_ne!(a, b)` ~ a.read_to_string() != b.read_to_string()
 //! 
-//! * `assert_read_to_string_lt!(a, b)`: a.read_to_string() < b.read_to_string()
+//! * `assert_read_to_string_lt!(a, b)` ~ a.read_to_string() < b.read_to_string()
 //! 
-//! * `assert_read_to_string_le!(a, b)`: a.read_to_string() <= b.read_to_string()
+//! * `assert_read_to_string_le!(a, b)` ~ a.read_to_string() <= b.read_to_string()
 //! 
-//! * `assert_read_to_string_gt!(a, b)`: a.read_to_string() > b.read_to_string()
+//! * `assert_read_to_string_gt!(a, b)` ~ a.read_to_string() > b.read_to_string()
 //! 
-//! * `assert_read_to_string_ge!(a, b)`: a.read_to_string() >= b.read_to_string()
+//! * `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b.read_to_string()
 //!
 //! Examples:
 //!
