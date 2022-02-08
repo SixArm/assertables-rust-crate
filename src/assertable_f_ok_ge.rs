@@ -9,20 +9,27 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// use std::str::FromStr;
+/// fn example_digit_to_string(i: isize) -> Result<String, String> {
+///     match i {
+///         0..=9 => Ok(format!("{}", i)),
+///         _ => Err(format!("{:?} is out of range", i)),
+///     }
+/// }
+/// 
 /// # fn main() {
-/// let x = assertable_f_ok_ge!(i32::from_str, "2", "1");
+/// let x = assertable_f_ok_ge!(example_digit_to_string, 2, 1);
 /// //-> Ok(())
 /// assert_eq!(x.unwrap(), ());
 ///
-/// let x = assertable_f_ok_ge!(i32::from_str, "1", "2");
+/// let x = assertable_f_ok_ge!(example_digit_to_string, 1, 2);
 /// //-> Err("…")
 /// // assertable failed: `assertable_f_ok_ge!(function, left, right)`
-/// //    left input: `\"1\"`,
-/// //   right input: `\"2\"`,
-/// //   left output: `1`,
-/// //  right output: `2`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_ok_ge!(function, left, right)`\n   left input: `\"1\"`,\n  right input: `\"2\"`,\n  left output: `1`,\n right output: `2`".to_string());
+/// //      function: `\"example_digit_to_string\"`,
+/// //    left input: `1`,
+/// //   right input: `2`,
+/// //   left output: `\"1\"`,
+/// //  right output: `\"2\"`
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_ok_ge!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `1`,\n  right input: `2`,\n  left output: `\"1\"`,\n right output: `\"2\"`".to_string());
 /// # }
 /// ```
 ///
@@ -33,14 +40,14 @@ macro_rules! assertable_f_ok_ge {
         let left = $function($left);
         let right = $function($right);
         if !left.is_ok() || !right.is_ok() {
-            Err(format!("assertable failed: `assertable_f_ok_ge!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is_ok(): `{:?}`,\n right output is_ok(): `{:?}`", $left, $right, left.is_ok(), right.is_ok()))
+            Err(format!("assertable failed: `assertable_f_ok_ge!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is ok: `{:?}`,\n right output is ok: `{:?}`", stringify!($function), $left, $right, left.is_ok(), right.is_ok()))
         } else {
             let left = left.unwrap();
             let right = right.unwrap();
             if (left >= right) {
                 Ok(())
             } else {
-                Err(format!("assertable failed: `assertable_f_ok_ge!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right))
+                Err(format!("assertable failed: `assertable_f_ok_ge!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left, right))
             }
         }
     });
@@ -63,13 +70,19 @@ macro_rules! assertable_f_ok_ge {
 
 #[cfg(test)]
 mod tests {
-    use std::str::FromStr;
+
+    fn example_digit_to_string(i: isize) -> Result<String, String> {
+        match i {
+            0..=9 => Ok(format!("{}", i)),
+            _ => Err(format!("{:?} is out of range", i)),
+        }
+    }
 
     #[test]
     fn test_assertable_f_ok_ge_x_arity_2_gt_success() {
-        let a = "2";
-        let b = "1";
-        let x = assertable_f_ok_ge!(i32::from_str, a, b);
+        let a = 2;
+        let b = 1;
+        let x = assertable_f_ok_ge!(example_digit_to_string, a, b);
         assert_eq!(
             x.unwrap(),
             ()
@@ -78,9 +91,9 @@ mod tests {
 
     #[test]
     fn test_assertable_f_ok_ge_x_arity_2_eq_success() {
-        let a = "1";
-        let b = "1";
-        let x = assertable_f_ok_ge!(i32::from_str, a, b);
+        let a = 1;
+        let b = 1;
+        let x = assertable_f_ok_ge!(example_digit_to_string, a, b);
         assert_eq!(
             x.unwrap(),
             ()
@@ -88,21 +101,21 @@ mod tests {
     }
 
     #[test]
-    fn test_assertable_f_ok_ge_x_arity_2_failure() {
-        let a = "1";
-        let b = "2";
-        let x = assertable_f_ok_ge!(i32::from_str, a, b);
+    fn test_assertable_f_ok_ge_x_arity_2_lt_failure() {
+        let a = 1;
+        let b = 2;
+        let x = assertable_f_ok_ge!(example_digit_to_string, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_f_ok_ge!(function, left, right)`\n   left input: `\"1\"`,\n  right input: `\"2\"`,\n  left output: `1`,\n right output: `2`"
+            "assertable failed: `assertable_f_ok_ge!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `1`,\n  right input: `2`,\n  left output: `\"1\"`,\n right output: `\"2\"`"
         );
     }
 
     #[test]
     fn test_assertable_f_ok_ge_x_arity_3_gt_success() {
-        let a = "2";
-        let b = "1";
-        let x = assertable_f_ok_ge!(i32::from_str, a, b, "message");
+        let a = 2;
+        let b = 1;
+        let x = assertable_f_ok_ge!(example_digit_to_string, a, b, "message");
         assert_eq!(
             x.unwrap(),
             ()
@@ -111,9 +124,9 @@ mod tests {
 
     #[test]
     fn test_assertable_f_ok_ge_x_arity_3_eq_success() {
-        let a = "1";
-        let b = "1";
-        let x = assertable_f_ok_ge!(i32::from_str, a, b, "message");
+        let a = 1;
+        let b = 1;
+        let x = assertable_f_ok_ge!(example_digit_to_string, a, b, "message");
         assert_eq!(
             x.unwrap(),
             ()
@@ -122,9 +135,9 @@ mod tests {
 
     #[test]
     fn test_assertable_f_ok_ge_x_arity_3_lt_failure() {
-        let a = "1";
-        let b = "2";
-        let x = assertable_f_ok_ge!(i32::from_str, a, b, "message");
+        let a = 1;
+        let b = 2;
+        let x = assertable_f_ok_ge!(example_digit_to_string, a, b, "message");
         assert_eq!(
             x.unwrap_err(),
             "message"

@@ -134,13 +134,14 @@
 //! assert_f_lt!(i32::abs, -2, 1);
 //! //-> panic!
 //! // assertion failed: `assert_f_eq!(function, left, right)`
-//! //   left input: `-2`,
-//! //  right input: `1`,
-//! //  left output: `2`,
-//! // right output: `1`
+//! //      function: `i32::abs`,
+//! //    left input: `-2`,
+//! //   right input: `1`,
+//! //   left output: `2`,
+//! //  right output: `1`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_f_lt!(function, left, right)`\n   left input: `-2`,\n  right input: `1`,\n  left output: `2`,\n right output: `1`";
+//! # let expect = "assertion failed: `assert_f_lt!(function, left, right)`\n     function: `\"i32::abs\"`,\n   left input: `-2`,\n  right input: `1`,\n  left output: `2`,\n right output: `1`";
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```
@@ -178,13 +179,14 @@
 //! assert_f_ok_lt!(example_digit_to_string, 2, 1);
 //! //-> panic!("…")
 //! // assertion failed: `assert_f_eq!(function, left, right)`
+//! //      function: `example_digit_to_string`,
 //! //    left input: `2`,
 //! //   right input: `1`,
 //! //   left output: `\"2\"`,
 //! //  right output: `\"1\"`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_f_ok_lt!(function, left, right)`\n   left input: `2`,\n  right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`";
+//! # let expect = "assertion failed: `assert_f_ok_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `2`,\n  right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`";
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```
@@ -223,16 +225,17 @@
 //! # let result = panic::catch_unwind(|| {
 //! assert_f_err_string_lt!(example_digit_to_string, 20, 10);
 //! //-> panic!
-//  // assertion failed: `assert_f_err_string_eq!(example_digit_to_string, left, right)`
-//  //    left input: `20`,
-//  //   right input: `10``,
-//  //   left is err: `true`,
-//  //  right is err: `true`,
-//  //   left output: `\"20 is out of range\"`,
-//  //  right output: `\"10 is out of range\"`
+//! // assertion failed: `assert_f_err_string_eq!(example_digit_to_string, left, right)`
+//! //      function: `example_digit_to_string`,
+//! //    left input: `20`,
+//! //   right input: `10``,
+//! //   left is err: `true`,
+//! //  right is err: `true`,
+//! //   left output: `\"20 is out of range\"`,
+//! //  right output: `\"10 is out of range\"`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_f_err_string_lt!(function, left, right)`\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
+//! # let expect = "assertion failed: `assert_f_err_string_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```

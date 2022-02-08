@@ -110,10 +110,11 @@ assert_f_lt!(i32::abs, 1, -2);
 assert_f_lt!(i32::abs, -2, 1);
 //-> panic!
 // assertion failed: `assert_f_eq!(function, left, right)`
-//   left input: `-2`,
-//  right input: `1`,
-//  left output: `2`,
-// right output: `1`
+//      function: `\"i32::abs\"`,
+//    left input: `-2`,
+//   right input: `1`,
+//   left output: `2`,
+//  right output: `1`
 ```
 
 
@@ -145,6 +146,7 @@ assert_f_ok_lt!(example_digit_to_string, 1, 2);
 assert_f_ok_lt!(example_digit_to_string, 2, 1);
 //-> panic!
 // assertion failed: `assert_f_eq!(function, left, right)`
+//      function: `\"example_digit_to_string\"`,
 //    left input: `2`,
 //   right input: `1`,
 //   left output: `\"2\"`,
@@ -181,13 +183,14 @@ assert_f_err_string_lt!(example_digit_to_string, 10, 20);
 
 assert_f_err_string_lt!(example_digit_to_string, 20, 10);
 //-> panic!
-//  // assertion failed: `assert_f_err_string_eq!(example_digit_to_string, left, right)`
-//  //    left input: `20`,
-//  //   right input: `10``,
-//  //   left is err: `true`,
-//  //  right is err: `true`,
-//  //   left output: `\"20 is out of range\"`,
-//  //  right output: `\"10 is out of range\"`
+// assertion failed: `assert_f_err_string_eq!(example_digit_to_string, left, right)`
+//      function: `\"example_digit_to_string\"`,
+//    left input: `20`,
+//   right input: `10``,
+//   left is err: `true`,
+//  right is err: `true`,
+//   left output: `\"20 is out of range\"`,
+//  right output: `\"10 is out of range\"`
 ```
 
 Two functions that we use often:

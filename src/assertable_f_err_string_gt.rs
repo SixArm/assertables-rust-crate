@@ -9,20 +9,27 @@
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
+/// fn example_digit_to_string(i: isize) -> Result<String, String> {
+///     match i {
+///         0..=9 => Ok(format!("{}", i)),
+///         _ => Err(format!("{:?} is out of range", i)),
+///     }
+/// }
+/// 
 /// # fn main() {
-/// let x = assertable_f_err_string_gt!(f, 2, 1);
+/// let x = assertable_f_err_string_gt!(example_digit_to_string, 20, 10);
 /// //-> Ok(())
 /// assert_eq!(x.unwrap(), ());
 ///
-/// let x = assertable_f_err_string_gt!(f, 1, 2);
+/// let x = assertable_f_err_string_gt!(example_digit_to_string, 10, 20);
 /// //-> Err("…")
 /// // assertable failed: `assertable_f_err_string_gt!(function, left, right)`
-/// //    left input: `1`,
-/// //   right input: `2`,
-/// //   left output: `\"1\"`,
-/// //  right output: `\"2\"`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_err_string_gt!(function, left, right)`\n   left input: `1`,\n  right input: `2`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"1\"`,\n right output: `\"2\"`".to_string());
+/// //      function: `\"example_digit_to_string\"`,
+/// //    left input: `10`,
+/// //   right input: `20`,
+/// //   left output: `\"10 is out of range\"`,
+/// //  right output: `\"20 is out of range\"`
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_err_string_gt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`".to_string());
 /// # }
 /// ```
 ///
@@ -39,7 +46,7 @@ macro_rules! assertable_f_err_string_gt {
         if left_is_err && right_is_err && left_string > right_string {
             Ok(())
         } else {
-            Err(format!("assertable failed: `assertable_f_err_string_gt!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left_is_err, right_is_err, left_string, right_string))
+            Err(format!("assertable failed: `assertable_f_err_string_gt!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err, left_string, right_string))
         }
     });
     ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
@@ -60,13 +67,18 @@ macro_rules! assertable_f_err_string_gt {
 #[cfg(test)]
 mod tests {
 
-    fn f(i: i32) -> Result<bool, String> { Err(format!("{:?}", i)) }
+    fn example_digit_to_string(i: isize) -> Result<String, String> {
+        match i {
+            0..=9 => Ok(format!("{}", i)),
+            _ => Err(format!("{:?} is out of range", i)),
+        }
+    }
 
     #[test]
     fn test_assertable_f_err_string_gt_x_arity_2_gt_success() {
-        let a = 2;
-        let b = 1;
-        let x = assertable_f_err_string_gt!(f, a, b);
+        let a = 20;
+        let b = 10;
+        let x = assertable_f_err_string_gt!(example_digit_to_string, a, b);
         assert_eq!(
             x.unwrap(),
             ()
@@ -75,31 +87,31 @@ mod tests {
 
     #[test]
     fn test_assertable_f_err_string_gt_x_arity_2_eq_failure() {
-        let a = 1;
-        let b = 1;
-        let x = assertable_f_err_string_gt!(f, a, b);
+        let a = 10;
+        let b = 10;
+        let x = assertable_f_err_string_gt!(example_digit_to_string, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_f_err_string_gt!(function, left, right)`\n   left input: `1`,\n  right input: `1`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"1\"`,\n right output: `\"1\"`"
+            "assertable failed: `assertable_f_err_string_gt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"10 is out of range\"`"
         );
     }
 
     #[test]
     fn test_assertable_f_err_string_gt_x_arity_2_lt_failure() {
-        let a = 1;
-        let b = 2;
-        let x = assertable_f_err_string_gt!(f, a, b);
+        let a = 10;
+        let b = 20;
+        let x = assertable_f_err_string_gt!(example_digit_to_string, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_f_err_string_gt!(function, left, right)`\n   left input: `1`,\n  right input: `2`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"1\"`,\n right output: `\"2\"`"
+            "assertable failed: `assertable_f_err_string_gt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`"
         );
     }
 
     #[test]
     fn test_assertable_f_err_string_gt_x_arity_3_gt_success() {
-        let a = 2;
-        let b = 1;
-        let x = assertable_f_err_string_gt!(f, a, b, "message");
+        let a = 20;
+        let b = 10;
+        let x = assertable_f_err_string_gt!(example_digit_to_string, a, b, "message");
         assert_eq!(
             x.unwrap(),
             ()
@@ -108,9 +120,9 @@ mod tests {
 
     #[test]
     fn test_assertable_f_err_string_gt_x_arity_3_eq_failure() {
-        let a = 1;
-        let b = 1;
-        let x = assertable_f_err_string_gt!(f, a, b, "message");
+        let a = 10;
+        let b = 10;
+        let x = assertable_f_err_string_gt!(example_digit_to_string, a, b, "message");
         assert_eq!(
             x.unwrap_err(),
             "message"
@@ -119,9 +131,9 @@ mod tests {
 
     #[test]
     fn test_assertable_f_err_string_gt_x_arity_3_lt_failure() {
-        let a = 1;
-        let b = 2;
-        let x = assertable_f_err_string_gt!(f, a, b, "message");
+        let a = 10;
+        let b = 20;
+        let x = assertable_f_err_string_gt!(example_digit_to_string, a, b, "message");
         assert_eq!(
             x.unwrap_err(),
             "message"

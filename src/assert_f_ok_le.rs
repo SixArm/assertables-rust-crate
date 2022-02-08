@@ -10,24 +10,31 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
-/// use std::str::FromStr;
+/// fn example_digit_to_string(i: isize) -> Result<String, String> {
+///     match i {
+///         0..=9 => Ok(format!("{}", i)),
+///         _ => Err(format!("{:?} is out of range", i)),
+///     }
+/// }
+/// 
 ///
 /// # fn main() {
-/// assert_f_ok_le!(i32::from_str, "1", "2");
+/// assert_f_ok_le!(example_digit_to_string, 1, 2);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
 /// use std::str::FromStr;
-/// assert_f_ok_le!(i32::from_str, "2", "1");
+/// assert_f_ok_le!(example_digit_to_string, 2, 1);
 /// //-> panic!("…")
 /// // assertion failed: `assert_f_ok_le!(function, left, right)`
-/// //    left input: `\"2\"`,
-/// //   right input: `\"1\"`,
-/// //   left output: `2`,
-/// //  right output: `1`
+/// //      function: `\"example_digit_to_string\"`,
+/// //    left input: `2`,
+/// //   right input: `1`,
+/// //   left output: `\"2\"`,
+/// //  right output: `\"1\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_f_ok_le!(function, left, right)`\n   left input: `\"2\"`,\n  right input: `\"1\"`,\n  left output: `2`,\n right output: `1`";
+/// # let expect = "assertion failed: `assert_f_ok_le!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `2`,\n  right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -39,14 +46,14 @@ macro_rules! assert_f_ok_le {
         let left = $function($left);
         let right = $function($right);
         if !left.is_ok() || !right.is_ok() {
-            panic!("assertion failed: `assert_f_ok_le!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is_ok(): `{:?}`,\n right output is_ok(): `{:?}`", $left, $right, left.is_ok(), right.is_ok());
+            panic!("assertion failed: `assert_f_ok_le!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is ok: `{:?}`,\n right output is ok: `{:?}`", stringify!($function), $left, $right, left.is_ok(), right.is_ok());
         } else {
             let left = left.unwrap();
             let right = right.unwrap();
             if (left <= right) {
                 ()
             } else {
-                panic!("assertion failed: `assert_f_ok_le!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right);
+                panic!("assertion failed: `assert_f_ok_le!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left, right);
             }
         }
     });
@@ -69,54 +76,60 @@ macro_rules! assert_f_ok_le {
 
 #[cfg(test)]
 mod tests {
-    use std::str::FromStr;
+
+    fn example_digit_to_string(i: isize) -> Result<String, String> {
+        match i {
+            0..=9 => Ok(format!("{}", i)),
+            _ => Err(format!("{:?} is out of range", i)),
+        }
+    }
 
     #[test]
     fn test_assert_f_ok_le_x_arity_2_lt_success() {
-        let a = "1";
-        let b = "2";
-        let x = assert_f_ok_le!(i32::from_str, a, b);
+        let a = 1;
+        let b = 2;
+        let x = assert_f_ok_le!(example_digit_to_string, a, b);
         assert_eq!(x, ());
     }
 
     #[test]
     fn test_assert_f_ok_le_x_arity_2_eq_success() {
-        let a = "1";
-        let b = "1";
-        let x = assert_f_ok_le!(i32::from_str, a, b);
+        let a = 1;
+        let b = 1;
+        let x = assert_f_ok_le!(example_digit_to_string, a, b);
         assert_eq!(x, ());
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_f_ok_le!(function, left, right)`\n   left input: `\"2\"`,\n  right input: `\"1\"`,\n  left output: `2`,\n right output: `1`")]
+    #[should_panic (expected = "assertion failed: `assert_f_ok_le!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `2`,\n  right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`")]
     fn test_assert_f_ok_le_x_arity_2_gt_failure() {
-        let a = "2";
-        let b = "1";
-        let _x = assert_f_ok_le!(i32::from_str, a, b);
+        let a = 2;
+        let b = 1;
+        let _x = assert_f_ok_le!(example_digit_to_string, a, b);
     }
 
     #[test]
     fn test_assert_f_ok_le_x_arity_3_lt_success() {
-        let a = "1";
-        let b = "2";
-        let x = assert_f_ok_le!(i32::from_str, a, b, "message");
+        let a = 1;
+        let b = 2;
+        let x = assert_f_ok_le!(example_digit_to_string, a, b, "message");
         assert_eq!(x, ());
     }
 
     #[test]
     fn test_assert_f_ok_le_x_arity_3_eq_success() {
-        let a = "1";
-        let b = "1";
-        let x = assert_f_ok_le!(i32::from_str, a, b, "message");
+        let a = 1;
+        let b = 1;
+        let x = assert_f_ok_le!(example_digit_to_string, a, b, "message");
         assert_eq!(x, ());
     }
 
     #[test]
     #[should_panic (expected = "message")]
     fn test_assert_f_ok_le_x_arity_3_failure() {
-        let a = "2";
-        let b = "1";
-        let _x = assert_f_ok_le!(i32::from_str, a, b, "message");
+        let a = 2;
+        let b = 1;
+        let _x = assert_f_ok_le!(example_digit_to_string, a, b, "message");
     }
 
 }

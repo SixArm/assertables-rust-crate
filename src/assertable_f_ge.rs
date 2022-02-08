@@ -18,11 +18,12 @@
 /// let x = assertable_f_ge!(i32::abs, 1 as i32, -2 as i32);
 /// //-> Err("…")
 /// // assertable failed: `assertable_f_ge!(function, left, right)`
+/// //      function: `\"i32::abs\"`,
 /// //    left input: `1`,
 /// //   right input: `-2`,
 /// //   left output: `1`,
 /// //  right output: `2`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_ge!(function, left, right)`\n   left input: `1`,\n  right input: `-2`,\n  left output: `1`,\n right output: `2`".to_string());
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_f_ge!(function, left, right)`\n     function: `\"i32::abs\"`,\n   left input: `1`,\n  right input: `-2`,\n  left output: `1`,\n right output: `2`".to_string());
 /// # }
 /// ```
 ///
@@ -35,7 +36,7 @@ macro_rules! assertable_f_ge {
         if (left >= right) {
             Ok(())
         } else {
-            Err(format!("assertable failed: `assertable_f_ge!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left, right))
+            Err(format!("assertable failed: `assertable_f_ge!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left, right))
         }
     });
     ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
@@ -81,7 +82,7 @@ mod tests {
         let x = assertable_f_ge!(i32::abs, a as i32, b as i32);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_f_ge!(function, left, right)`\n   left input: `1`,\n  right input: `-2`,\n  left output: `1`,\n right output: `2`"
+            "assertable failed: `assertable_f_ge!(function, left, right)`\n     function: `\"i32::abs\"`,\n   left input: `1`,\n  right input: `-2`,\n  left output: `1`,\n right output: `2`"
         );
     }
 

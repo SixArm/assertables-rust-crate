@@ -25,13 +25,14 @@
 /// assert_f_err_string_gt!(example_digit_to_string, 10, 20);
 /// //-> panic!("…")
 /// // assertion failed: `assert_f_err_string_gt!(function, left, right)`
+/// //      function: `\"example_digit_to_string\"`,
 /// //    left input: `10`,
 /// //   right input: `20`,
 /// //   left output: `\"10 is out of range\"`,
 /// //  right output: `\"20 is out of range\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_f_err_string_gt!(function, left, right)`\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`";
+/// # let expect = "assertion failed: `assert_f_err_string_gt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -49,7 +50,7 @@ macro_rules! assert_f_err_string_gt {
         if left_is_err && right_is_err && left_string > right_string {
             ()
         } else {
-            panic!("assertion failed: `assert_f_err_string_gt!(function, left, right)`\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left, $right, left_is_err, right_is_err, left_string, right_string);
+            panic!("assertion failed: `assert_f_err_string_gt!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err, left_string, right_string);
         }
     });
     ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
@@ -70,7 +71,6 @@ macro_rules! assert_f_err_string_gt {
 #[cfg(test)]
 mod tests {
 
-    // Replicate this function relevant tests in this crate.
     fn example_digit_to_string(i: isize) -> Result<String, String> {
         match i {
             0..=9 => Ok(format!("{}", i)),
@@ -87,7 +87,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_f_err_string_gt!(function, left, right)`\n   left input: `10`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"10 is out of range\"`")]
+    #[should_panic (expected = "assertion failed: `assert_f_err_string_gt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"10 is out of range\"`")]
     fn test_assert_f_err_string_gt_x_arity_2_eq_failure() {
         let a = 10;
         let b = 10;
@@ -95,7 +95,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_f_err_string_gt!(function, left, right)`\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`")]
+    #[should_panic (expected = "assertion failed: `assert_f_err_string_gt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`")]
     fn test_assert_f_err_string_gt_x_arity_2_lt_failure() {
         let a = 10;
         let b = 20;
