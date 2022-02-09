@@ -412,6 +412,46 @@
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```
+//! 
+//! ## assert_command_stdout_xx
+//! 
+//! * `assert_command_stdout_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stdout).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
+//! 
+//! * `assert_command_stdout_eq_str!(command, expect)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == expect
+//!
+//! Examples:
+//! 
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! use std::process::Command;
+//! 
+//! # fn main() {
+//! let mut a = Command::new("printf");
+//! a.args(["%s", "hello"]);
+//! let mut b = Command::new("printf");
+//! b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+//! assert_command_stdout_eq!(a, b);
+//! //-> ()
+//!
+//! # let result = panic::catch_unwind(|| {
+//! let mut a = Command::new("printf");
+//! a.args(["%s", "hello"]);
+//! let mut b = Command::new("printf");
+//! b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
+//! assert_command_stdout_eq!(a, b);
+//! //-> panic!("…")
+//! // assertion failed: `assert_command_stdout_eq(left_command, right_command)`
+//! //   left command program: `\"printf\"`,
+//! //  right command program: `\"printf\"`,
+//! //   left stdout: `\"hello\"`,
+//! //  right stdout: `\"world\"`
+//! # });
+//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! # let expect = "assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"hello\"`,\n right stdout: `\"world\"`";
+//! # assert_eq!(actual, expect);
+//! # }
+//! ```
 
 
 // Assert truth
@@ -482,6 +522,10 @@ pub mod assert_read_to_string_le; // less than or equal to
 pub mod assert_read_to_string_gt; // greater than
 pub mod assert_read_to_string_ge; // greater than or equal to
 
+// Assert Command
+pub mod assert_command_stdout_eq; // equal
+pub mod assert_command_stdout_eq_str; // equal to str
+
 // Assertable truth
 pub mod assertable; // condition
 
@@ -549,3 +593,7 @@ pub mod assertable_read_to_string_lt; // less than
 pub mod assertable_read_to_string_le; // less than or equal to
 pub mod assertable_read_to_string_gt; // greater than
 pub mod assertable_read_to_string_ge; // greater than or equal to
+
+// Assertable Command
+pub mod assertable_command_stdout_eq; // equal
+pub mod assertable_command_stdout_eq_str; // equal to str

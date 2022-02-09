@@ -329,3 +329,35 @@ assert_read_to_string_lt!(b, a);
 //   left: `\"b\"`,
 //  right: `\"a\"`
 ```
+
+
+## assert_command_stdout_xx
+
+* `assert_command_stdout_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stdout).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
+
+* `assert_command_stdout_eq_str!(command, expect)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == expect
+
+Examples:
+
+```rust
+use std::process::Command;
+
+let mut a = Command::new("printf");
+a.args(["%s", "hello"]);
+let mut b = Command::new("printf");
+b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+assert_command_stdout_eq!(a, b);
+//-> ()
+
+let mut a = Command::new("printf");
+a.args(["%s", "hello"]);
+let mut b = Command::new("printf");
+b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
+assert_command_stdout_eq!(a, b);
+//-> panic!("…")
+// assertion failed: `assert_command_stdout_eq!(left_command, right_command)`
+//   left command program: `\"printf\"`,
+//  right command program: `\"printf\"`,
+//   left stdout: `\"hello\"`,
+//  right stdout: `\"world\"`
+```
