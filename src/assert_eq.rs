@@ -19,7 +19,7 @@
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `(left == right)`\n  left: `1`,\n right: `2`";
-/// # assert_eq!(err, );
+/// # assert_eq!(actual, expect);
 /// //-> panic!("…")
 /// // assertion failed: `(left == right)`
 /// //   left: `1`,
