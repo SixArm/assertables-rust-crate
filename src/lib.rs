@@ -417,7 +417,9 @@
 //! 
 //! * `assert_command_stdout_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stdout).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
 //! 
-//! * `assert_command_stdout_eq_str!(command, expect)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == expect
+//! * `assert_command_stdout_eq_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == str
+//!
+//! * `assert_command_stdout_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(str)
 //!
 //! Examples:
 //! 
@@ -525,6 +527,7 @@ pub mod assert_read_to_string_ge; // greater than or equal to
 // Assert Command
 pub mod assert_command_stdout_eq; // equal
 pub mod assert_command_stdout_eq_str; // equal to str
+pub mod assert_command_stdout_contains_str; // contains str i.e. has substring
 
 // Assertable truth
 pub mod assertable; // condition
@@ -597,3 +600,4 @@ pub mod assertable_read_to_string_ge; // greater than or equal to
 // Assertable Command
 pub mod assertable_command_stdout_eq; // equal
 pub mod assertable_command_stdout_eq_str; // equal to str
+pub mod assertable_command_stdout_contains_str; // contains str i.e. has substring

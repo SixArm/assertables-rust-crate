@@ -335,7 +335,9 @@ assert_read_to_string_lt!(b, a);
 
 * `assert_command_stdout_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stdout).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
 
-* `assert_command_stdout_eq_str!(command, expect)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == expect
+* `assert_command_stdout_eq_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == str
+
+* `assert_command_stdout_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(str)
 
 Examples:
 
