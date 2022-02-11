@@ -1,4 +1,4 @@
-/// Assert a command stdout string is equal to a target string.
+/// Assert a command stdout string contains a given string.
 ///
 /// * When true, return `()`.
 ///
@@ -11,7 +11,7 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// use std::process::Command;
-/// 
+///
 /// # fn main() {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
@@ -21,15 +21,15 @@
 /// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
-/// assert_command_stdout_contains_str!(a, "xy");
+/// assert_command_stdout_contains_str!(a, "abc");
 /// //-> panic!("…")
-/// // assertion failed: `assert_command_stdout_contains_str!(command, substr)`
+/// // assertion failed: `assert_command_stdout_contains_str!(command, str)`
 /// //  command program: `\"printf\"`,
 /// //  stdout: `\"hello\"`,
-/// //  substr: `\"xy\"`
+/// //  substr: `\"abc\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_command_stdout_contains_str!(command, substr)`\n command program: `\"printf\"`,\n stdout: `\"hello\"`,\n substr: `\"xy\"`";
+/// # let expect = "assertion failed: `assert_command_stdout_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"abc\"`,\n stdout: `\"hello\"`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -37,32 +37,28 @@
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assert_command_stdout_contains_str {
-    ($command:expr, $substr:expr $(,)?) => ({
-        match $command.output() {
-            Ok(output) => {
-                let actual = String::from_utf8(output.stdout).unwrap();
-                if actual.contains($substr) {
-                    ()
-                } else {
-                    panic!("assertion failed: `assert_command_stdout_contains_str!(command, substr)`\n command program: `{:?}`,\n stdout: `{:?}`,\n substr: `{:?}`", $command.get_program(), actual, $substr)
-                }
-            }
-            Err(err) => {
-                panic!("assertion failed: `assert_command_stdout_contains_str!(command, substr)`\n command program: `{:?}`,\n substr: `{:?}`,\n err: {:?}", $command.get_program(), $substr, err)
+    ($command:expr, $str:expr $(,)?) => ({
+        let output = $command.output();
+        if output.is_err() {
+            panic!("assertion failed: `assert_command_stdout_contains_str!(command, str)`\n command program: `{:?}`,\n str: `{:?}`,\n output: {:?}", $command.get_program(), $str, output)
+        } else {
+            let actual = String::from_utf8(output.unwrap().stdout).unwrap();
+            if actual.contains($str) {
+                ()
+            } else {
+                panic!("assertion failed: `assert_command_stdout_contains_str!(command, str)`\n command program: `{:?}`,\n str: `{:?}`,\n stdout: `{:?}`", $command.get_program(), $str, actual)
             }
         }
     });
-    ($command:expr, $expect:expr, $($arg:tt)+) => ({
-        match $command.output() {
-            Ok(output) => {
-                let actual = String::from_utf8(output.stdout).unwrap();
-                if actual.contains($expect) {
-                    ()
-                } else {
-                    panic!("{:?}", $($arg)+)
-                }
-            }
-            Err(_) => {
+    ($command:expr, $str:expr, $($arg:tt)+) => ({
+        let output = $command.output();
+        if output.is_err() {
+            panic!("{:?}", $($arg)+)
+        } else {
+            let actual = String::from_utf8(output.unwrap().stdout).unwrap();
+            if actual.contains($str) {
+                ()
+            } else {
                 panic!("{:?}", $($arg)+)
             }
         }
@@ -78,26 +74,26 @@ mod tests {
     fn assert_command_stdout_contains_str_x_arity_2_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let substr = "a";
-        let x = assert_command_stdout_contains_str!(a, substr);
+        let str = "a";
+        let x = assert_command_stdout_contains_str!(a, str);
         assert_eq!(x, ());
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_command_stdout_contains_str!(command, substr)`\n command program: `\"printf\"`,\n stdout: `\"alpha\"`,\n substr: `\"z\"`")]
+    #[should_panic (expected = "assertion failed: `assert_command_stdout_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"z\"`,\n stdout: `\"alpha\"`")]
     fn assert_command_stdout_contains_str_x_arity_2_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let substr = "z";
-        let _x = assert_command_stdout_contains_str!(a, substr);
+        let str = "z";
+        let _x = assert_command_stdout_contains_str!(a, str);
     }
 
     #[test]
     fn assert_command_stdout_contains_str_x_arity_3_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let substr = "a";
-        let x = assert_command_stdout_contains_str!(a, substr, "message");
+        let str = "a";
+        let x = assert_command_stdout_contains_str!(a, str, "message");
         assert_eq!(x, ());
     }
 
@@ -106,8 +102,8 @@ mod tests {
     fn assert_command_stdout_contains_str_x_arity_3_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let substr = "z";
-        let _x = assert_command_stdout_contains_str!(a, substr, "message");
+        let str = "z";
+        let _x = assert_command_stdout_contains_str!(a, str, "message");
     }
 
 }

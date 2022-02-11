@@ -11,7 +11,7 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// use std::process::Command;
-/// 
+///
 /// # fn main() {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);

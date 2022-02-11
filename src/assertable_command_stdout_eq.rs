@@ -11,7 +11,7 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// use std::process::Command;
-/// 
+///
 /// # fn main() {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
@@ -32,7 +32,7 @@
 /// //  right command program: `\"printf\"`,
 /// //   left stdout: `\"hello\"`,
 /// //  right stdout: `\"world\"`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_eq!(left, right)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"hello\"`,\n right stdout: `\"world\"`");
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"hello\"`,\n right stdout: `\"world\"`");
 /// # }
 /// ```
 ///
@@ -43,14 +43,14 @@ macro_rules! assertable_command_stdout_eq {
         let left_output = $left_command.output();
         let right_output = $right_command.output();
         if left_output.is_err() || right_output.is_err() {
-            Err(format!("assertable failed: `assertable_command_stdout_eq!(left, right)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left_command.get_program(), $right_command.get_program(), left_output, right_output))
+            Err(format!("assertable failed: `assertable_command_stdout_eq!(left_command, right_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left_command.get_program(), $right_command.get_program(), left_output, right_output))
         } else {
             let left_string = String::from_utf8(left_output.unwrap().stdout).unwrap();
             let right_string = String::from_utf8(right_output.unwrap().stdout).unwrap();
             if left_string == right_string {
                 Ok(())
             } else {
-                Err(format!("assertable failed: `assertable_command_stdout_eq!(left, right)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left stdout: `{:?}`,\n right stdout: `{:?}`", $left_command.get_program(), $right_command.get_program(), left_string, right_string))
+                Err(format!("assertable failed: `assertable_command_stdout_eq!(left_command, right_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left stdout: `{:?}`,\n right stdout: `{:?}`", $left_command.get_program(), $right_command.get_program(), left_string, right_string))
             }
         }
     });
@@ -93,7 +93,7 @@ mod tests {
         let mut b = Command::new("printf");
         b.args(["%s%s%s%s%s", "b", "r", "a", "v", "o"]);
         let x = assertable_command_stdout_eq!(a, b);
-        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_eq!(left, right)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"alpha\"`,\n right stdout: `\"bravo\"`");
+        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"alpha\"`,\n right stdout: `\"bravo\"`");
     }
 
     #[test]
