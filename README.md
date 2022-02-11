@@ -34,10 +34,10 @@ assert_lt!(2, 1);
 //   left: `2`,
 //  right: `1`
 
-let x = assertable_lt!(1, 2); 
+let x = assertable_lt!(1, 2);
 //-> Ok(())
 
-let x = assertable_lt!(2, 1); 
+let x = assertable_lt!(2, 1);
 //-> Err("…")
 // assertable failed: `assertable_lt!(left, right)`
 //   left: `2`,
@@ -50,8 +50,8 @@ These two styles are useful because:
 
 * `assertable` macros favor run-time tracing and recoveries.
 
-The macros use abbreviations: `eq` (equals), `ne` (not equals), 
-`lt` (less than), `le` (less than or equal to), `gt` (greater than), 
+The macros use abbreviations: `eq` (equals), `ne` (not equals),
+`lt` (less than), `le` (less than or equal to), `gt` (greater than),
 `ge` (greater than or equals).
 
 The macros have a second form where a custom error message can be provided.
@@ -88,19 +88,19 @@ assert_lt!(2, 1);
 
 
 ## assert_f_xx for function returns
-  
+ 
 * `assert_f_eq!(f, a, b)` ~ f(a) == f(b)
-  
+ 
 * `assert_f_ne!(f, a, b)` ~ f(a) != f(b)
-  
+ 
 * `assert_f_lt!(f, a, b)` ~ f(a) < f(b)
-  
+ 
 * `assert_f_le!(f, a, b)` ~ f(a) <= f(b)
-  
+ 
 * `assert_f_gt!(f, a, b)` ~ f(a) > f(b)
-  
+ 
 * `assert_f_ge!(f, a, b)` ~ f(a) >= f(b)
-  
+ 
 Examples:
 
 ```rust
@@ -263,7 +263,7 @@ assert_bag_eq!([1, 1], [1, 1, 1]);
 
 ### assert_io_xx for input/output comparisons
 
-These macros help with input/output checking, 
+These macros help with input/output checking,
 such as with comparison of disk files, IO streams, etc.
 
 * `assert_io!(a)` ~ a is true
@@ -331,13 +331,20 @@ assert_read_to_string_lt!(b, a);
 ```
 
 
-## assert_command_stdout_xx
+## assert_command_stdout_xx & assert_command_stderr_xx
 
 * `assert_command_stdout_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stdout).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
 
 * `assert_command_stdout_eq_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == str
 
 * `assert_command_stdout_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(str)
+
+* `assert_command_stderr_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stderr).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
+
+* `assert_command_stderr_eq_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
+
+* `assert_command_stderr_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(str)
+
 
 Examples:
 

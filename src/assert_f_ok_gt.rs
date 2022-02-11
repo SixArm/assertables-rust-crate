@@ -16,7 +16,7 @@
 ///         _ => Err(format!("{:?} is out of range", i)),
 ///     }
 /// }
-/// 
+///
 ///
 /// # fn main() {
 /// assert_f_ok_gt!(example_digit_to_string, 2, 1);

@@ -15,7 +15,7 @@
 ///         _ => Err(format!("{:?} is out of range", i)),
 ///     }
 /// }
-/// 
+///
 /// use std::str::FromStr;
 /// # fn main() {
 /// let x = assertable_f_ok_gt!(example_digit_to_string, 2, 1);

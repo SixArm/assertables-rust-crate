@@ -15,7 +15,7 @@
 /// //-> Ok(())
 /// assert!(x.is_ok());
 ///
-/// let x = assertable_io!(false); 
+/// let x = assertable_io!(false);
 /// //-> Err(std::io::Error::new(std::io::ErrorKind::InvalidInput, "…");
 /// // assertable failed: `assertable_io(condition) condition: `false`
 /// assert_eq!(

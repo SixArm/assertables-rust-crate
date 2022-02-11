@@ -73,7 +73,7 @@ mod tests {
         let b = [1, 2];
         let x = assert_set_superset!(&a, &b);
         assert_eq!(
-            x, 
+            x,
             ()
         );
     }

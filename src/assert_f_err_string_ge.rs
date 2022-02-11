@@ -77,7 +77,7 @@ mod tests {
             _ => Err(format!("{:?} is out of range", i)),
         }
     }
- 
+
     #[test]
     fn test_assert_f_err_string_ge_x_arity_2_gt_success() {
         let a = 20;

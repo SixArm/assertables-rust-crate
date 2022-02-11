@@ -28,7 +28,7 @@
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `assert_bag_superbag!(left, right)`\n  left: `[1, 1]`,\n right: `[2, 2]`";
 /// # assert_eq!(actual, expect);
-/// 
+///
 /// # let result = panic::catch_unwind(|| {
 /// let a = [1, 1];
 /// let b = [1, 1, 1];

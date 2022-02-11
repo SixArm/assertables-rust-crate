@@ -15,7 +15,7 @@
 ///         _ => Err(format!("{:?} is out of range", i)),
 ///     }
 /// }
-/// 
+///
 /// # fn main() {
 /// let x = assertable_f_err_string_gt!(example_digit_to_string, 20, 10);
 /// //-> Ok(())
