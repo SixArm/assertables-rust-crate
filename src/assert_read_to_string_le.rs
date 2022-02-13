@@ -93,7 +93,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_assert_read_to_string_le_x_arity_3_success() {
+    fn test_assert_read_to_string_le_x_arity_3_success() {
         let mut a = "a".as_bytes();
         let mut b = "b".as_bytes();
         let x = assert_read_to_string_le!(a, b, "message");
@@ -102,7 +102,7 @@ mod tests {
 
     #[test]
     #[should_panic (expected = "message")]
-    fn test_assert_assert_read_to_string_le_x_arity_3_failure() {
+    fn test_assert_read_to_string_le_x_arity_3_failure() {
         let mut a = "a".as_bytes();
         let mut b = "b".as_bytes();
         let _x = assert_read_to_string_le!(b, a, "message");

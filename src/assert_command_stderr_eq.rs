@@ -77,7 +77,7 @@ mod tests {
 use std::process::Command;
 
     #[test]
-    fn assert_command_stderr_eq_x_arity_2_success() {
+    fn test_assert_command_stderr_eq_x_arity_2_success() {
         let mut a = Command::new("printf");
         let mut b = Command::new("printf");
         let x = assert_command_stderr_eq!(a, b);
@@ -86,7 +86,7 @@ use std::process::Command;
 
     #[test]
     #[should_panic (expected = "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stderr: `\"usage: printf format [arguments ...]\\n\"`,\n right stderr: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`")]
-    fn assert_command_stderr_eq_x_arity_2_failure() {
+    fn test_assert_command_stderr_eq_x_arity_2_failure() {
         let mut a = Command::new("printf");
         let mut b = Command::new("printf");
         b.arg("-v");
@@ -94,7 +94,7 @@ use std::process::Command;
     }
 
     #[test]
-    fn assert_command_stderr_eq_x_arity_3_success() {
+    fn test_assert_command_stderr_eq_x_arity_3_success() {
         let mut a = Command::new("printf");
         let mut b = Command::new("printf");
         let x = assert_command_stderr_eq!(a, b, "message");
@@ -103,7 +103,7 @@ use std::process::Command;
 
     #[test]
     #[should_panic (expected = "message")]
-    fn assert_command_stderr_eq_x_arity_3_failure() {
+    fn test_assert_command_stderr_eq_x_arity_3_failure() {
         let mut a = Command::new("printf");
         let mut b = Command::new("printf");
         b.arg("-v");

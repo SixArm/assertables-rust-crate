@@ -104,7 +104,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assertable_assertable_read_to_string_le_x_arity_3_success() {
+    fn test_assertable_read_to_string_le_x_arity_3_success() {
         let mut a = "a".as_bytes();
         let mut b = "b".as_bytes();
         let x = assertable_read_to_string_le!(a, b, "message");
@@ -115,7 +115,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assertable_assertable_read_to_string_le_x_arity_3_failure() {
+    fn test_assertable_read_to_string_le_x_arity_3_failure() {
         let mut a = "a".as_bytes();
         let mut b = "b".as_bytes();
         let x = assertable_read_to_string_le!(b, a, "message");

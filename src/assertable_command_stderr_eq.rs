@@ -74,7 +74,7 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn assertable_command_stderr_eq_x_arity_2_success() {
+    fn test_assertable_command_stderr_eq_x_arity_2_success() {
         let mut a = Command::new("printf");
         let mut b = Command::new("printf");
         let x = assertable_command_stderr_eq!(a, b);
@@ -82,7 +82,7 @@ mod tests {
     }
 
     #[test]
-    fn assertable_command_stderr_eq_x_arity_2_failure() {
+    fn test_assertable_command_stderr_eq_x_arity_2_failure() {
         let mut a = Command::new("printf");
         let mut b = Command::new("printf");
         b.arg("-v");
@@ -91,7 +91,7 @@ mod tests {
     }
 
     #[test]
-    fn assertable_command_stderr_eq_x_arity_3_success() {
+    fn test_assertable_command_stderr_eq_x_arity_3_success() {
         let mut a = Command::new("printf");
         let mut b = Command::new("printf");
         let x = assertable_command_stderr_eq!(a, b, "message");
@@ -99,7 +99,7 @@ mod tests {
     }
 
     #[test]
-    fn assertable_command_stderr_eq_x_arity_3_failure() {
+    fn test_assertable_command_stderr_eq_x_arity_3_failure() {
         let mut a = Command::new("printf");
         let mut b = Command::new("printf");
         b.arg("-v");

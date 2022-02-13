@@ -80,7 +80,7 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn assert_command_stdout_eq_x_arity_2_success() {
+    fn test_assert_command_stdout_eq_x_arity_2_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let mut b = Command::new("printf");
@@ -91,7 +91,7 @@ mod tests {
 
     #[test]
     #[should_panic (expected = "assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"alpha\"`,\n right stdout: `\"bravo\"`")]
-    fn assert_command_stdout_eq_x_arity_2_failure() {
+    fn test_assert_command_stdout_eq_x_arity_2_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let mut b = Command::new("printf");
@@ -100,7 +100,7 @@ mod tests {
     }
 
     #[test]
-    fn assert_command_stdout_eq_x_arity_3_success() {
+    fn test_assert_command_stdout_eq_x_arity_3_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let mut b = Command::new("printf");
@@ -111,7 +111,7 @@ mod tests {
 
     #[test]
     #[should_panic (expected = "message")]
-    fn assert_command_stdout_eq_x_arity_3_failure() {
+    fn test_assert_command_stdout_eq_x_arity_3_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let mut b = Command::new("printf");
