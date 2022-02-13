@@ -25,7 +25,7 @@
 /// //-> panic!
 /// // assertion failed: `assert_read_to_string_eq!(left, right)`
 /// //   left: `\"a\"`,
-/// //  right: `\"b`"
+/// //  right: `\"b\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = "assertion failed: `assert_read_to_string_eq!(left, right)`\n  left: `\"a\"`,\n right: `\"b\"`";

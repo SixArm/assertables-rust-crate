@@ -27,8 +27,4 @@
 
 * 4.4: Add macros for commands with output matching of patterns: `assert_command_stdout_regex`, `assert_command_stderr_regex`, etc.
 
-
-
-
-
-
+* 4.5: Add macros for readers with str: `assert_read_to_string_eq_str`, etc.

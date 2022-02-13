@@ -385,6 +385,8 @@
 //!
 //! * `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b.read_to_string()
 //!
+//! * `assert_read_to_string_eq_str!(a, str)` ~ a.read_to_string() == str
+//!
 //! Examples:
 //!
 //! ```rust
@@ -530,6 +532,7 @@ pub mod assert_read_to_string_lt; // less than
 pub mod assert_read_to_string_le; // less than or equal to
 pub mod assert_read_to_string_gt; // greater than
 pub mod assert_read_to_string_ge; // greater than or equal to
+pub mod assert_read_to_string_eq_str; // equal to str
 
 // Assert Command
 pub mod assert_command_stdout_eq; // equal
@@ -608,6 +611,7 @@ pub mod assertable_read_to_string_lt; // less than
 pub mod assertable_read_to_string_le; // less than or equal to
 pub mod assertable_read_to_string_gt; // greater than
 pub mod assertable_read_to_string_ge; // greater than or equal to
+pub mod assertable_read_to_string_eq_str; // equal to str
 
 // Assertable Command
 pub mod assertable_command_stdout_eq; // equal

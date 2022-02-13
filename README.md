@@ -311,6 +311,8 @@ arrays, input streams, and the trait std::io::Read.
 
 * `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b.read_to_string()
 
+* `assert_read_to_string_eq_str!(a, str)` ~ a.read_to_string() == str
+
 Examples:
 
 ```rust
