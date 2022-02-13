@@ -10,15 +10,15 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
-/// # fn main() {
 /// use std::io::Read;
+/// 
+/// # fn main() {
 /// let mut a = "a".as_bytes();
 /// let mut b = "b".as_bytes();
 /// assert_read_to_string_le!(a, b);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
-/// use std::io::Read;
 /// let mut a = "a".as_bytes();
 /// let mut b = "b".as_bytes();
 /// assert_read_to_string_le!(b, a);

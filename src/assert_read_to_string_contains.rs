@@ -10,15 +10,15 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
-/// # fn main() {
 /// use std::io::Read;
+///
+/// # fn main() {
 /// let mut readable = "hello".as_bytes();
 /// let pattern = "ell";
 /// assert_read_to_string_contains!(readable, pattern);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
-/// use std::io::Read;
 /// let mut readable = "hello".as_bytes();
 /// let pattern = "xyz";
 /// assert_read_to_string_contains!(readable, pattern);

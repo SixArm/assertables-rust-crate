@@ -10,17 +10,16 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
+/// use std::io::Read;
 /// use regex::Regex;
 /// 
 /// # fn main() {
-/// use std::io::Read;
 /// let mut readable = "hello".as_bytes();
 /// let matchable = Regex::new(r"ell").unwrap();
 /// assert_read_to_string_is_match!(readable, matchable);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
-/// use std::io::Read;
 /// let mut readable = "hello".as_bytes();
 /// let matchable = Regex::new(r"xyz").unwrap();
 /// assert_read_to_string_is_match!(readable, matchable);
