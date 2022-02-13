@@ -16,50 +16,50 @@
 /// # fn main() {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
-/// let regex = Regex::new(r"el").unwrap();
-/// assert_command_stdout_regex!(a, regex);
+/// let matchable = Regex::new(r"el").unwrap();
+/// assert_command_stdout_is_match!(a, matchable);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
-/// let regex = Regex::new(r"xyz").unwrap();
-/// assert_command_stdout_regex!(a, regex);
+/// let matchable = Regex::new(r"xyz").unwrap();
+/// assert_command_stdout_is_match!(a, matchable);
 /// //-> panic!("…")
-/// // assertion failed: `assert_command_stdout_regex!(command, regex)`
+/// // assertion failed: `assert_command_stdout_is_match!(command, regex)`
 /// //  command program: `\"printf\"`,
-/// //  regex: `xyz`,
+/// //  matchable: `xyz`,
 /// //  stdout: `\"hello\"`,
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_command_stdout_regex!(command, regex)`\n command program: `\"printf\"`,\n regex: `xyz`,\n stdout: `\"hello\"`";
+/// # let expect = "assertion failed: `assert_command_stdout_is_match!(command, regex)`\n command program: `\"printf\"`,\n matchable: `xyz`,\n stdout: `\"hello\"`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assert_command_stdout_regex {
-    ($ command:expr, $regex:expr $(,)?) => ({
+macro_rules! assert_command_stdout_is_match {
+    ($ command:expr, $matchable:expr $(,)?) => ({
         let output = $ command.output();
         if output.is_err() {
-            panic!("assertion failed: `assert_command_stdout_regex!(command, regex)`\n command program: `{:?}`,\n regex: `{:?}`,\n  output: `{:?}`", $ command.get_program(), $regex, output)
+            panic!("assertion failed: `assert_command_stdout_is_match!(command, regex)`\n command program: `{:?}`,\n matchable: `{:?}`,\n  output: `{:?}`", $ command.get_program(), $matchable, output)
         } else {
             let actual = String::from_utf8(output.unwrap().stdout).unwrap();
-            if $regex.is_match(&actual) {
+            if $matchable.is_match(&actual) {
                 ()
             } else {
-                panic!("assertion failed: `assert_command_stdout_regex!(command, regex)`\n command program: `{:?}`,\n regex: `{:?}`,\n stdout: `{:?}`", $ command.get_program(), $regex, actual)
+                panic!("assertion failed: `assert_command_stdout_is_match!(command, regex)`\n command program: `{:?}`,\n matchable: `{:?}`,\n stdout: `{:?}`", $ command.get_program(), $matchable, actual)
             }
         }
     });
-    ($ command:expr, $regex:expr, $($arg:tt)+) => ({
+    ($ command:expr, $matchable:expr, $($arg:tt)+) => ({
         let output = $ command.output();
         if output.is_err() {
             panic!("{:?}", $($arg)+)
         } else {
             let actual = String::from_utf8(output.unwrap().stdout).unwrap();
-            if $regex.is_match(&actual) {
+            if $matchable.is_match(&actual) {
                 ()
             } else {
                 panic!("{:?}", $($arg)+)
@@ -75,39 +75,39 @@ mod tests {
     use regex::Regex;
 
     #[test]
-    fn assert_command_stdout_regex_x_arity_2_success() {
+    fn test_assert_command_stdout_is_match_x_arity_2_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let regex = Regex::new(r"lph").unwrap();
-        let x = assert_command_stdout_regex!(a, regex);
+        let matchable = Regex::new(r"lph").unwrap();
+        let x = assert_command_stdout_is_match!(a, matchable);
         assert_eq!(x, ());
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_command_stdout_regex!(command, regex)`\n command program: `\"printf\"`,\n regex: `xyz`,\n stdout: `\"alpha\"`")]
-    fn assert_command_stdout_regex_x_arity_2_failure() {
+    #[should_panic (expected = "assertion failed: `assert_command_stdout_is_match!(command, regex)`\n command program: `\"printf\"`,\n matchable: `xyz`,\n stdout: `\"alpha\"`")]
+    fn test_assert_command_stdout_is_match_x_arity_2_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let regex = Regex::new(r"xyz").unwrap();
-        let _x = assert_command_stdout_regex!(a, regex);
+        let matchable = Regex::new(r"xyz").unwrap();
+        let _x = assert_command_stdout_is_match!(a, matchable);
     }
 
     #[test]
-    fn assert_command_stdout_regex_x_arity_3_success() {
+    fn test_assert_command_stdout_is_match_x_arity_3_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let regex = Regex::new(r"lph").unwrap();
-        let x = assert_command_stdout_regex!(a, regex, "message");
+        let matchable = Regex::new(r"lph").unwrap();
+        let x = assert_command_stdout_is_match!(a, matchable, "message");
         assert_eq!(x, ());
     }
 
     #[test]
     #[should_panic (expected = "message")]
-    fn assert_command_stdout_regex_x_arity_3_failure() {
+    fn test_assert_command_stdout_is_match_x_arity_3_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let regex = Regex::new(r"xyz").unwrap();
-        let _x = assert_command_stdout_regex!(a, regex, "message");
+        let matchable = Regex::new(r"xyz").unwrap();
+        let _x = assert_command_stdout_is_match!(a, matchable, "message");
     }
 
 }
