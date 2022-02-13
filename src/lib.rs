@@ -385,7 +385,7 @@
 //!
 //! * `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b.read_to_string()
 //!
-//! * `assert_read_to_string_eq_str!(a, str)` ~ a.read_to_string() == str
+//! * `assert_read_to_string_eq_string!(readable, string)` ~ a.read_to_string() == str
 //!
 //! Examples:
 //!
@@ -418,18 +418,26 @@
 //!
 //! ## assert_command_stdout_xx & assert_command_stderr_xx
 //!
+//! stdout:
+//! 
 //! * `assert_command_stdout_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stdout).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
 //!
+//! * `assert_command_stdout_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == String::from(string)
+//!
+//! * `assert_command_stdout_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(pattern)
+//!
+//! * `assert_command_stdout_is_match!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).unwrap())
+//!
+//! stderr:
+//! 
 //! * `assert_command_stderr_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stderr).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
 //!
-//! * `assert_command_stdout_eq_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == str
-//!
-//! * `assert_command_stderr_eq_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
-//!
-//! * `assert_command_stdout_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(str)
-//!
-//! * `assert_command_stderr_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(str)
-//!
+//! * `assert_command_stderr_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
+//! 
+//! * `assert_command_stderr_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(pattern)
+//! 
+//! * `assert_command_stderr_is_match!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).unwrap())
+//! 
 //! Examples:
 //!
 //! ```rust
@@ -532,17 +540,21 @@ pub mod assert_read_to_string_lt; // less than
 pub mod assert_read_to_string_le; // less than or equal to
 pub mod assert_read_to_string_gt; // greater than
 pub mod assert_read_to_string_ge; // greater than or equal to
-pub mod assert_read_to_string_eq_str; // equal to str
+pub mod assert_read_to_string_eq_string; // equal to string
+pub mod assert_read_to_string_contains; // contains pattern e.g. has substring
+pub mod assert_read_to_string_is_match; // matches e.g. regex is match
 
-// Assert Command
+// Assert command stdout
 pub mod assert_command_stdout_eq; // equal
-pub mod assert_command_stdout_eq_str; // equal to str
-pub mod assert_command_stdout_contains_str; // contains str i.e. has substring
-pub mod assert_command_stdout_regex; // matches regular expression
+pub mod assert_command_stdout_eq_string; // equal to string
+pub mod assert_command_stdout_contains; // contains pattern e.g. has substring
+pub mod assert_command_stdout_is_match; // matches e.g. regex is match
+
+// Assert command stderr
 pub mod assert_command_stderr_eq; // equal
-pub mod assert_command_stderr_eq_str; // equal to str
-pub mod assert_command_stderr_contains_str; // contains str i.e. has substring
-pub mod assert_command_stderr_regex; // matches regular expression
+pub mod assert_command_stderr_eq_string; // equal to string
+pub mod assert_command_stderr_contains; // contains pattern e.g. has substring
+pub mod assert_command_stderr_is_match; // matches e.g. regex is match
 
 // Assertable truth
 pub mod assertable; // condition
@@ -611,14 +623,18 @@ pub mod assertable_read_to_string_lt; // less than
 pub mod assertable_read_to_string_le; // less than or equal to
 pub mod assertable_read_to_string_gt; // greater than
 pub mod assertable_read_to_string_ge; // greater than or equal to
-pub mod assertable_read_to_string_eq_str; // equal to str
+pub mod assertable_read_to_string_eq_string; // equal to string
+pub mod assertable_read_to_string_contains; // contains pattern e.g. has substring
+pub mod assertable_read_to_string_is_match; // matches e.g. regex is match
 
-// Assertable Command
+// Assertable command stdout
 pub mod assertable_command_stdout_eq; // equal
-pub mod assertable_command_stdout_eq_str; // equal to str
-pub mod assertable_command_stdout_contains_str; // contains str i.e. has substring
-pub mod assertable_command_stdout_regex; // matches regular expression
+pub mod assertable_command_stdout_eq_string; // equal to string
+pub mod assertable_command_stdout_contains; // contains pattern e.g. has substring
+pub mod assertable_command_stdout_is_match; // matches e.g. regex is match
+
+// Assertable command stderr
 pub mod assertable_command_stderr_eq; // equal
-pub mod assertable_command_stderr_eq_str; // equal to str
-pub mod assertable_command_stderr_contains_str; // contains str i.e. has substring
-pub mod assertable_command_stderr_regex; // matches regular expression
+pub mod assertable_command_stderr_eq_string; // equal to string
+pub mod assertable_command_stderr_contains; // contains pattern e.g. has substring
+pub mod assertable_command_stderr_is_match; // matches e.g. regex is match

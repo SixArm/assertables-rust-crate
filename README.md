@@ -311,7 +311,11 @@ arrays, input streams, and the trait std::io::Read.
 
 * `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b.read_to_string()
 
-* `assert_read_to_string_eq_str!(a, str)` ~ a.read_to_string() == str
+* `assert_read_to_string_eq_string!(readable, string)` ~ readable.read_to_string() == str
+
+* `assert_read_to_string_contains!(readable, pattern)` ~ readable.read_to_string().contains(pattern)
+
+* `assert_read_to_string_is_match!(readable, matchable)` ~ matchable.is_match(readable.read_to_string())
 
 Examples:
 
@@ -335,21 +339,25 @@ assert_read_to_string_lt!(b, a);
 
 ## assert_command_stdout_xx & assert_command_stderr_xx
 
+stdout:
+
 * `assert_command_stdout_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stdout).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
 
-* `assert_command_stdout_eq_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == str
+* `assert_command_stdout_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == str
 
-* `assert_command_stdout_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(str)
+* `assert_command_stdout_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(pattern)
 
-* `assert_command_stdout_regex!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).unwrap())
+* `assert_command_stdout_is_match!(command, regex)` ~ matchable.is_match(String::from_utf8(command.output().unwrap().stdout).unwrap())
+
+stderr:
 
 * `assert_command_stderr_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stderr).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
 
-* `assert_command_stderr_eq_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
+* `assert_command_stderr_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
 
-* `assert_command_stderr_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(str)
+* `assert_command_stderr_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(pattern)
 
-* `assert_command_stderr_regex!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).unwrap())
+* `assert_command_stderr_is_match!(command, regex)` ~ matchable.is_match(String::from_utf8(command.output().unwrap().stderr).unwrap())
 
 Examples:
 
