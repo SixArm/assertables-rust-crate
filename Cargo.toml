@@ -1,6 +1,6 @@
 [package]
 name = "assertables"
-version = "4.2.0"
+version = "4.3.0"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2021"
 description = "Assertables: Rust crate of macros `assert…!` and `assertable…!`, for testing, quality assurance, and runtime reliability. By SixArm.com."
@@ -17,4 +17,4 @@ panic = "unwind"
 panic = "unwind"
 
 [dependencies]
-
+regex = "1.5.4" # Regular expressions parser, compiler, and executer

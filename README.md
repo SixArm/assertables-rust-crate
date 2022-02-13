@@ -339,12 +339,15 @@ assert_read_to_string_lt!(b, a);
 
 * `assert_command_stdout_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(str)
 
+* `assert_command_stdout_regex!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).unwrap())
+
 * `assert_command_stderr_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stderr).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
 
 * `assert_command_stderr_eq_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
 
 * `assert_command_stderr_contains_str!(command, str)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(str)
 
+* `assert_command_stderr_regex!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).unwrap())
 
 Examples:
 

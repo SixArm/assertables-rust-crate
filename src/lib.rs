@@ -535,9 +535,11 @@ pub mod assert_read_to_string_ge; // greater than or equal to
 pub mod assert_command_stdout_eq; // equal
 pub mod assert_command_stdout_eq_str; // equal to str
 pub mod assert_command_stdout_contains_str; // contains str i.e. has substring
+pub mod assert_command_stdout_regex; // matches regular expression
 pub mod assert_command_stderr_eq; // equal
 pub mod assert_command_stderr_eq_str; // equal to str
 pub mod assert_command_stderr_contains_str; // contains str i.e. has substring
+pub mod assert_command_stderr_regex; // matches regular expression
 
 // Assertable truth
 pub mod assertable; // condition
@@ -611,6 +613,8 @@ pub mod assertable_read_to_string_ge; // greater than or equal to
 pub mod assertable_command_stdout_eq; // equal
 pub mod assertable_command_stdout_eq_str; // equal to str
 pub mod assertable_command_stdout_contains_str; // contains str i.e. has substring
+pub mod assertable_command_stdout_regex; // matches regular expression
 pub mod assertable_command_stderr_eq; // equal
 pub mod assertable_command_stderr_eq_str; // equal to str
 pub mod assertable_command_stderr_contains_str; // contains str i.e. has substring
+pub mod assertable_command_stderr_regex; // matches regular expression
