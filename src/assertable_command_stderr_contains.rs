@@ -70,7 +70,7 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_asserterable_read_to_string_contains_x_arity_2_success() {
+    fn test_asserterable_command_stderr_contains_x_arity_2_success() {
         let mut a = Command::new("printf");
         let pattern = "usage";
         let x = assertable_command_stderr_contains!(a, pattern);
@@ -78,7 +78,7 @@ mod tests {
     }
 
     #[test]
-    fn test_asserterable_read_to_string_contains_x_arity_2_failure() {
+    fn test_asserterable_command_stderr_contains_x_arity_2_failure() {
         let mut a = Command::new("printf");
         let pattern = "xyz";
         let x = assertable_command_stderr_contains!(a, pattern);
@@ -86,7 +86,7 @@ mod tests {
     }
 
     #[test]
-    fn test_asserterable_read_to_string_contains_x_arity_3_success() {
+    fn test_asserterable_command_stderr_contains_x_arity_3_success() {
         let mut a = Command::new("printf");
         let pattern = "usage";
         let x = assertable_command_stderr_contains!(a, pattern, "message");
@@ -94,7 +94,7 @@ mod tests {
     }
 
     #[test]
-    fn test_asserterable_read_to_string_contains_x_arity_3_failure() {
+    fn test_asserterable_command_stderr_contains_x_arity_3_failure() {
         let mut a = Command::new("printf");
         let pattern = "xyz";
         let x = assertable_command_stderr_contains!(a, pattern, "message");
