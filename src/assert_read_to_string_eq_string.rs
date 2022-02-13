@@ -12,49 +12,51 @@
 /// # use std::panic;
 /// # fn main() {
 /// use std::io::Read;
-/// let mut a = "a".as_bytes();
-/// let str = "a";
-/// assert_read_to_string_eq_str!(a, str);
+/// let mut readable = "hello".as_bytes();
+/// let string = "hello";
+/// assert_read_to_string_eq_string!(readable, string);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
 /// use std::io::Read;
-/// let mut a = "a".as_bytes();
-/// let str = "b";
-/// assert_read_to_string_eq_str!(a, str);
+/// let mut readable = "hello".as_bytes();
+/// let string = "world";
+/// assert_read_to_string_eq_string!(readable, string);
 /// //-> panic!
-/// // assertion failed: `assert_read_to_string_eq_str!(left, str)`
-/// //  left: `\"a\"`,
-/// //   str: `\"b\"`
+/// // assertion failed: `assert_read_to_string_eq_string!(readable, string)`
+/// //  readable: `\"hello\"`,
+/// //    string: `\"world\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_read_to_string_eq_str!(left, str)`\n left: `\"a\"`,\n  str: `\"b\"`";
+/// # let expect = "assertion failed: `assert_read_to_string_eq_string!(readable, string)`\n readable: `\"hello\"`,\n   string: `\"world\"`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assert_read_to_string_eq_str {
-    ($left:expr, $str:expr $(,)?) => ({
-        let mut left_buffer = String::new();
-        let _left_size = match $left.read_to_string(&mut left_buffer) {
+macro_rules! assert_read_to_string_eq_string {
+    ($readable:expr, $string:expr $(,)?) => ({
+        let mut readable_buffer = String::new();
+        let _readable_size = match $readable.read_to_string(&mut readable_buffer) {
             Ok(size) => size,
-            Err(err) => panic!("assertion failed: `assert_read_to_string_eq_str!(left, str)`\n left read_to_string error: `{:?}`", err),
+            Err(err) => panic!("assertion failed: `assert_read_to_string_eq_string!(readable, string)`\n readable.read_to_string error: `{:?}`", err),
         };
-        if (left_buffer == $str) {
+        let expect = String::from($string);
+        if (readable_buffer == expect) {
             ()
         } else {
-            panic!("assertion failed: `assert_read_to_string_eq_str!(left, str)`\n left: `{:?}`,\n  str: `{:?}`", left_buffer, $str);
+            panic!("assertion failed: `assert_read_to_string_eq_string!(readable, string)`\n readable: `{:?}`,\n   string: `{:?}`", readable_buffer, $string);
         }
     });
-    ($left:expr, $str:expr, $($arg:tt)+) => ({
-        let mut left_buffer = String::new();
-        let _left_size = match $left.read_to_string(&mut left_buffer) {
+    ($readable:expr, $string:expr, $($arg:tt)+) => ({
+        let mut readable_buffer = String::new();
+        let _readable_size = match $readable.read_to_string(&mut readable_buffer) {
             Ok(size) => size,
             Err(_err) => panic!("{:?}", $($arg)+)
         };
-        if (left_buffer == $str) {
+        let expect = String::from($string);
+        if (readable_buffer == expect) {
             ()
         } else {
             panic!("{:?}", $($arg)+)
@@ -67,35 +69,35 @@ mod tests {
     use std::io::Read;
 
     #[test]
-    fn test_assert_read_to_string_eq_str_x_arity_2_success() {
-        let mut a = "a".as_bytes();
-        let str = "a";
-        let x = assert_read_to_string_eq_str!(a, str);
+    fn test_assert_read_to_string_eq_string_x_arity_2_success() {
+        let mut readable = "a".as_bytes();
+        let string = "a";
+        let x = assert_read_to_string_eq_string!(readable, string);
         assert_eq!(x, ());
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_read_to_string_eq_str!(left, str)`\n left: `\"a\"`,\n  str: `\"b\"`")]
-    fn test_assert_read_to_string_eq_str_x_arity_2_failure() {
-        let mut a = "a".as_bytes();
-        let str = "b";
-        let _x = assert_read_to_string_eq_str!(a, str);
+    #[should_panic (expected = "assertion failed: `assert_read_to_string_eq_string!(readable, string)`\n readable: `\"a\"`,\n   string: `\"b\"`")]
+    fn test_assert_read_to_string_eq_string_x_arity_2_failure() {
+        let mut readable = "a".as_bytes();
+        let string = "b";
+        let _x = assert_read_to_string_eq_string!(readable, string);
     }
 
     #[test]
-    fn test_assert_assert_read_to_string_eq_str_x_arity_3_success() {
-        let mut a = "a".as_bytes();
-        let str = "a";
-        let x = assert_read_to_string_eq_str!(a, str, "message");
+    fn test_assert_read_to_string_eq_string_x_arity_3_success() {
+        let mut readable = "a".as_bytes();
+        let string = "a";
+        let x = assert_read_to_string_eq_string!(readable, string, "message");
         assert_eq!(x, ());
     }
 
     #[test]
     #[should_panic (expected = "message")]
-    fn test_assert_assert_read_to_string_eq_str_x_arity_3_failure() {
-        let mut a = "a".as_bytes();
-        let str = "b";
-        let _x = assert_read_to_string_eq_str!(a, str, "message");
+    fn test_assert_read_to_string_eq_string_x_arity_3_failure() {
+        let mut readable = "a".as_bytes();
+        let string = "b";
+        let _x = assert_read_to_string_eq_string!(readable, string, "message");
     }
 
 }

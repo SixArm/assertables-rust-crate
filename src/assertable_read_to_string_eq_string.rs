@@ -12,48 +12,50 @@
 /// # #[allow(unused_imports)]
 /// use std::io::Read;
 /// # fn main() {
-/// let mut a = "a".as_bytes();
-/// let str = "a";
-/// let x = assertable_read_to_string_eq_str!(a, str);
+/// let mut readable = "hello".as_bytes();
+/// let string = "hello";
+/// let x = assertable_read_to_string_eq_string!(readable, string);
 /// //-> Ok(())
 /// assert_eq!(x.unwrap(), ());
 ///
-/// let mut a = "a".as_bytes();
-/// let str = "b";
-/// let x = assertable_read_to_string_eq_str!(a, str);
+/// let mut readable = "hello".as_bytes();
+/// let string = "world";
+/// let x = assertable_read_to_string_eq_string!(readable, string);
 /// //-> Err("…")
-/// // assertable failed: `assertable_read_to_string_eq_str!(left, str)`
-/// //  left: `\"a\"`,
-/// //   str: `\"b\"`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_read_to_string_eq_str!(left, str)`\n left: `\"a\"`,\n  str: `\"b\"`".to_string());
+/// // assertable failed: `assertable_read_to_string_eq_string!(readable, string)`
+/// //  readable: `\"hello\"`,
+/// //    string: `\"world\"`
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_read_to_string_eq_string!(readable, string)`\n readable: `\"hello\"`,\n   string: `\"world\"`".to_string());
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assertable_read_to_string_eq_str {
-    ($left:expr, $str:expr $(,)?) => ({
-        let mut left_buffer = String::new();
-        let left_result = $left.read_to_string(&mut left_buffer);
-        if let Err(err) = left_result {
-            Err(format!("assertable failed: `assertable_read_to_string_eq_str!(left, str)`\n  left read_to_string error: `{:?}`", err))
+macro_rules! assertable_read_to_string_eq_string {
+    ($readable:expr, $string:expr $(,)?) => ({
+        let mut readable_buffer = String::new();
+        let readable_result = $readable.read_to_string(&mut readable_buffer);
+        if let Err(err) = readable_result {
+            Err(format!("assertable failed: `assertable_read_to_string_eq_string!(readable, string)`\n read_to_string error: `{:?}`", err))
         } else {
-            let _left_size = left_result.unwrap();
-            if (left_buffer == $str) {
+            let _readable_size = readable_result.unwrap();
+            let expect = String::from($string);
+            if (readable_buffer == expect) {
                 Ok(())
             } else {
-                Err(format!("assertable failed: `assertable_read_to_string_eq_str!(left, str)`\n left: `{:?}`,\n  str: `{:?}`", left_buffer, $str))
+                Err(format!("assertable failed: `assertable_read_to_string_eq_string!(readable, string)`\n readable: `{:?}`,\n   string: `{:?}`", readable_buffer, $string))
             }
         }
     });
-    ($left:expr, $str:expr, $($arg:tt)+) => ({
-        let mut left_buffer = String::new();
-        let left_result = $left.read_to_string(&mut left_buffer);
-        if let Err(err) = left_result {
-            Err(format!("assertable failed: `assertable_read_to_string_eq_str!(left, str)`\n  left read_to_string error: `{:?}`", err))
+    ($readable:expr, $string:expr, $($arg:tt)+) => ({
+        let mut readable_buffer = String::new();
+        let readable_result = $readable.read_to_string(&mut readable_buffer);
+        if let Err(_err) = readable_result {
+            Err(format!("{}", $($arg)+))
         } else {
-            let _left_size = left_result.unwrap();
-            if (left_buffer == $str) {
+            let _readable_size = readable_result.unwrap();
+            let expect = String::from($string);
+            if (readable_buffer == expect) {
                 Ok(())
             } else {
                 Err(format!("{}", $($arg)+))
@@ -68,10 +70,10 @@ mod tests {
     use std::io::Read;
 
     #[test]
-    fn test_assertable_read_to_string_eq_str_x_arity_2_success() {
-        let mut a = "a".as_bytes();
-        let str = "a";
-        let x = assertable_read_to_string_eq_str!(a, str);
+    fn test_assertable_read_to_string_eq_string_x_arity_2_success() {
+        let mut readable = "a".as_bytes();
+        let string = "a";
+        let x = assertable_read_to_string_eq_string!(readable, string);
         assert_eq!(
             x.unwrap(),
             ()
@@ -79,21 +81,21 @@ mod tests {
     }
 
     #[test]
-    fn test_assertable_read_to_string_eq_str_x_arity_2_failure() {
-        let mut a = "a".as_bytes();
-        let str = "b";
-        let x = assertable_read_to_string_eq_str!(a, str);
+    fn test_assertable_read_to_string_eq_string_x_arity_2_failure() {
+        let mut readable = "a".as_bytes();
+        let string = "b";
+        let x = assertable_read_to_string_eq_string!(readable, string);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_read_to_string_eq_str!(left, str)`\n left: `\"a\"`,\n  str: `\"b\"`"
+            "assertable failed: `assertable_read_to_string_eq_string!(readable, string)`\n readable: `\"a\"`,\n   string: `\"b\"`"
         );
     }
 
     #[test]
-    fn test_assertable_assertable_read_to_string_eq_str_x_arity_3_success() {
-        let mut a = "a".as_bytes();
-        let str = "a";
-        let x = assertable_read_to_string_eq_str!(a, str, "message");
+    fn test_assertable_read_to_string_eq_string_x_arity_3_success() {
+        let mut readable = "a".as_bytes();
+        let string = "a";
+        let x = assertable_read_to_string_eq_string!(readable, string, "message");
         assert_eq!(
             x.unwrap(),
             ()
@@ -101,10 +103,10 @@ mod tests {
     }
 
     #[test]
-    fn test_assertable_assertable_read_to_string_eq_str_x_arity_3_failure() {
-        let mut a = "a".as_bytes();
-        let str = "b";
-        let x = assertable_read_to_string_eq_str!(a, str, "message");
+    fn test_assertable_read_to_string_eq_string_x_arity_3_failure() {
+        let mut readable = "a".as_bytes();
+        let string = "b";
+        let x = assertable_read_to_string_eq_string!(readable, string, "message");
         assert_eq!(
             x.unwrap_err(),
             "message"
