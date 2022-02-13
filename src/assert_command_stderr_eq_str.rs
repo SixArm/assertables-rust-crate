@@ -14,20 +14,22 @@
 ///
 /// # fn main() {
 /// let mut a = Command::new("printf");
-/// assert_command_stderr_eq_str!(a, "usage: printf format [arguments ...]\n");
+/// let str = "usage: printf format [arguments ...]\n";
+/// assert_command_stderr_eq_str!(a, str);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("printf");
-/// assert_command_stderr_eq_str!(a, "hello");
+/// let str = "xyz";
+/// assert_command_stderr_eq_str!(a, str);
 /// //-> panic!("…")
 /// // assertion failed: `assert_command_stderr_eq_str!(command, str)`
 /// //  command program: `\"printf\"`,
-/// //  str: `\"hello\"`
+/// //  str: `\"xyz\"`
 /// //  stderr: `\"usage: printf format [arguments ...]\n"`,
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_command_stderr_eq_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"hello\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`";
+/// # let expect = "assertion failed: `assert_command_stderr_eq_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"xyz\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```

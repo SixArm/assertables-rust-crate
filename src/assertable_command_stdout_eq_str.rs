@@ -14,13 +14,15 @@
 /// # fn main() {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
-/// let x = assertable_command_stdout_eq_str!(a, "hello");
+/// let str = "hello";
+/// let x = assertable_command_stdout_eq_str!(a, str);
 /// //-> Ok(())
 /// assert_eq!(x.unwrap(), ());
 ///
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
-/// let x = assertable_command_stdout_eq_str!(a, "world");
+/// let str = "world";
+/// let x = assertable_command_stdout_eq_str!(a, str);
 /// //-> Err!("…")
 /// // assertable failed: `assertable_command_stdout_eq_str!(command, str)`
 /// //  command program: `\"printf\"`,

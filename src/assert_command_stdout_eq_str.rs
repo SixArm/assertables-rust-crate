@@ -15,13 +15,15 @@
 /// # fn main() {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
-/// assert_command_stdout_eq_str!(a, "hello");
+/// let str = "hello";
+/// assert_command_stdout_eq_str!(a, str);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
-/// assert_command_stdout_eq_str!(a, "world");
+/// let str = "world";
+/// assert_command_stdout_eq_str!(a, str);
 /// //-> panic!("…")
 /// // assertion failed: `assert_command_stdout_eq_str!(command, str)`
 /// //  command program: `\"printf\"`,

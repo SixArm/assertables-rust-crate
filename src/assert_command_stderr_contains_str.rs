@@ -14,20 +14,22 @@
 ///
 /// # fn main() {
 /// let mut a = Command::new("printf");
-/// assert_command_stderr_contains_str!(a, "usage");
+/// let str = "usage";
+/// assert_command_stderr_contains_str!(a, str);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("printf");
-/// assert_command_stderr_contains_str!(a, "abc");
+/// let str = "xyz";
+/// assert_command_stderr_contains_str!(a, str);
 /// //-> panic!("…")
 /// // assertion failed: `assert_command_stderr_contains_str!(command, str)`
 /// //  command program: `\"printf\"`,
-/// //  str: `\"abc\"`
+/// //  str: `\"xyz\"`
 /// //  stderr: `\"usage: printf format [arguments ...]\\n\"`,
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_command_stderr_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"abc\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`";
+/// # let expect = "assertion failed: `assert_command_stderr_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"xyz\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -77,10 +79,10 @@ mod tests {
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_command_stderr_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"abc\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`")]
+    #[should_panic (expected = "assertion failed: `assert_command_stderr_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"xyz\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`")]
     fn assert_command_stderr_contains_str_x_arity_2_failure() {
         let mut a = Command::new("printf");
-        let str = "abc";
+        let str = "xyz";
         let _x = assert_command_stderr_contains_str!(a, str);
     }
 
@@ -96,7 +98,7 @@ mod tests {
     #[should_panic (expected = "message")]
     fn assert_command_stderr_contains_str_x_arity_3_failure() {
         let mut a = Command::new("printf");
-        let str = "abc";
+        let str = "xyz";
         let _x = assert_command_stderr_contains_str!(a, str, "message");
     }
 

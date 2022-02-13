@@ -18,13 +18,13 @@
 /// assert_eq!(x.unwrap(), ());
 ///
 /// let mut a = Command::new("printf");
-/// let x = assertable_command_stderr_contains_str!(a, "abc");
+/// let x = assertable_command_stderr_contains_str!(a, "xyz");
 /// //-> Err!("…")
 /// // assertable failed: `assertable_command_stderr_contains_str!(command, str)`
 /// //  command program: `\"printf\"`,
-/// //  str: `\"abc\"`
+/// //  str: `\"xyz\"`
 /// //  stderr: `\"usage: printf format [arguments ...]\\n\"`,
-/// # assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stderr_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"abc\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`");
+/// # assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stderr_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"xyz\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`");
 /// # }
 /// ```
 ///
@@ -75,9 +75,9 @@ mod tests {
     #[test]
     fn asserterable_command_stderr_contains_str_x_arity_2_failure() {
         let mut a = Command::new("printf");
-        let str = "abc";
+        let str = "xyz";
         let x = assertable_command_stderr_contains_str!(a, str);
-        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stderr_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"abc\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`");
+        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stderr_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"xyz\"`,\n stderr: `\"usage: printf format [arguments ...]\\n\"`");
     }
 
     #[test]
@@ -91,7 +91,7 @@ mod tests {
     #[test]
     fn asserterable_command_stderr_contains_str_x_arity_3_failure() {
         let mut a = Command::new("printf");
-        let str = "abc";
+        let str = "xyz";
         let x = assertable_command_stderr_contains_str!(a, str, "message");
         assert_eq!(x.unwrap_err(), "message");
     }

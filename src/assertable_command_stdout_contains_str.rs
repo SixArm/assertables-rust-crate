@@ -14,19 +14,21 @@
 /// # fn main() {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
-/// let x = assertable_command_stdout_contains_str!(a, "he");
+/// let str = "ell";
+/// let x = assertable_command_stdout_contains_str!(a, str);
 /// //-> Ok(())
 /// assert_eq!(x.unwrap(), ());
 ///
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
-/// let x = assertable_command_stdout_contains_str!(a, "abc");
+/// let str = "xyz";
+/// let x = assertable_command_stdout_contains_str!(a, str);
 /// //-> Err!("…")
 /// // assertable failed: `assertable_command_stdout_contains_str!(command, str)`
 /// //  command program: `\"printf\"`,
-/// //  str: `\"abc\"`
+/// //  str: `\"xyz\"`
 /// //  stdout: `\"hello\"`,
-/// # assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"abc\"`,\n stdout: `\"hello\"`");
+/// # assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"xyz\"`,\n stdout: `\"hello\"`");
 /// # }
 /// ```
 ///
@@ -70,7 +72,7 @@ mod tests {
     fn asserterable_command_stdout_contains_str_x_arity_2_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let str = "a";
+        let str = "lph";
         let x = assertable_command_stdout_contains_str!(a, str);
         assert_eq!(x.unwrap(), ());
     }
@@ -79,16 +81,16 @@ mod tests {
     fn asserterable_command_stdout_contains_str_x_arity_2_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let str = "z";
+        let str = "xyz";
         let x = assertable_command_stdout_contains_str!(a, str);
-        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"z\"`,\n stdout: `\"alpha\"`");
+        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_contains_str!(command, str)`\n command program: `\"printf\"`,\n str: `\"xyz\"`,\n stdout: `\"alpha\"`");
     }
 
     #[test]
     fn asserterable_command_stdout_contains_str_x_arity_3_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let str = "a";
+        let str = "lph";
         let x = assertable_command_stdout_contains_str!(a, str, "message");
         assert_eq!(x.unwrap(), ());
     }
@@ -97,7 +99,7 @@ mod tests {
     fn asserterable_command_stdout_contains_str_x_arity_3_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let str = "z";
+        let str = "xyz";
         let x = assertable_command_stdout_contains_str!(a, str, "message");
         assert_eq!(x.unwrap_err(), "message");
     }
