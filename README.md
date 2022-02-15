@@ -154,7 +154,47 @@ assert_f_ok_lt!(example_digit_to_string, 2, 1);
 ```
 
 
-## assert_f_err_string_xx for function Result Err strings
+## assert_f_err_xx for function Err() results
+
+* `assert_f_err_eq!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
+
+* `assert_f_err_ne!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
+
+* `assert_f_err_lt!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
+
+* `assert_f_err_le!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
+
+* `assert_f_err_gt!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
+
+* `assert_f_err_ge!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
+
+Examples:
+
+```rust
+fn example_digit_to_string(i: isize) -> Result<String, String> {
+    match i {
+        0..=9 => Ok(format!("{}", i)),
+        _ => Err(format!("{:?} is out of range", i)),
+    }
+}
+
+assert_f_err_lt!(example_digit_to_string, 10, 20);
+//-> ()
+
+assert_f_err_lt!(example_digit_to_string, 20, 10);
+//-> panic!
+// assertion failed: `assert_f_err_eq!(example_digit_to_string, left, right)`
+//      function: `example_digit_to_string`,
+//    left input: `20`,
+//   right input: `10``,
+//   left is err: `true`,
+//  right is err: `true`,
+//   left output: `\"20 is out of range\"`,
+//  right output: `\"10 is out of range\"`
+```
+
+
+## assert_f_err_string_xx for function Err() strings
 
 * `assert_f_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
 

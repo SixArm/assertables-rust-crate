@@ -16,37 +16,37 @@
 /// # fn main() {
 /// let mut readable = "hello".as_bytes();
 /// let matchable = Regex::new(r"ell").unwrap();
-/// assert_read_to_string_is_match!(readable, matchable);
+/// assert_read_to_string_matches!(readable, matchable);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut readable = "hello".as_bytes();
 /// let matchable = Regex::new(r"xyz").unwrap();
-/// assert_read_to_string_is_match!(readable, matchable);
+/// assert_read_to_string_matches!(readable, matchable);
 /// //-> panic!
-/// // assertion failed: `assert_read_to_string_is_match!(readable, matchable)`
+/// // assertion failed: `assert_read_to_string_matches!(readable, matchable)`
 /// //  readable: `\"hello\"`,
 /// //  matchable: `\"xyx\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_read_to_string_is_match!(readable, matchable)`\n readable: `\"hello\"`,\n matchable: `xyz`";
+/// # let expect = "assertion failed: `assert_read_to_string_matches!(readable, matchable)`\n readable: `\"hello\"`,\n matchable: `xyz`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assert_read_to_string_is_match {
+macro_rules! assert_read_to_string_matches {
     ($readable:expr, $matchable:expr $(,)?) => ({
         let mut readable_buffer = String::new();
         let _readable_size = match $readable.read_to_string(&mut readable_buffer) {
             Ok(size) => size,
-            Err(err) => panic!("assertion failed: `assert_read_to_string_is_match!(readable, matchable)`\n readable.read_to_string error: `{:?}`", err),
+            Err(err) => panic!("assertion failed: `assert_read_to_string_matches!(readable, matchable)`\n readable.read_to_string error: `{:?}`", err),
         };
         if $matchable.is_match(readable_buffer.as_str()) {
             ()
         } else {
-            panic!("assertion failed: `assert_read_to_string_is_match!(readable, matchable)`\n readable: `{:?}`,\n matchable: `{:?}`", readable_buffer, $matchable);
+            panic!("assertion failed: `assert_read_to_string_matches!(readable, matchable)`\n readable: `{:?}`,\n matchable: `{:?}`", readable_buffer, $matchable);
         }
     });
     ($readable:expr, $matchable:expr, $($arg:tt)+) => ({
@@ -69,35 +69,35 @@ mod tests {
     use regex::Regex;
 
     #[test]
-    fn test_assert_read_to_string_is_match_x_arity_2_success() {
+    fn test_assert_read_to_string_matches_x_arity_2_success() {
         let mut readable = "alpha".as_bytes();
         let matchable = Regex::new(r"lph").unwrap();
-        let x = assert_read_to_string_is_match!(readable, matchable);
+        let x = assert_read_to_string_matches!(readable, matchable);
         assert_eq!(x, ());
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_read_to_string_is_match!(readable, matchable)`\n readable: `\"alpha\"`,\n matchable: `xyz`")]
-    fn test_assert_read_to_string_is_match_x_arity_2_failure() {
+    #[should_panic (expected = "assertion failed: `assert_read_to_string_matches!(readable, matchable)`\n readable: `\"alpha\"`,\n matchable: `xyz`")]
+    fn test_assert_read_to_string_matches_x_arity_2_failure() {
         let mut readable = "alpha".as_bytes();
         let matchable = Regex::new(r"xyz").unwrap();
-        let _x = assert_read_to_string_is_match!(readable, matchable);
+        let _x = assert_read_to_string_matches!(readable, matchable);
     }
 
     #[test]
-    fn test_assert_read_to_string_is_match_x_arity_3_success() {
+    fn test_assert_read_to_string_matches_x_arity_3_success() {
         let mut readable = "alpha".as_bytes();
         let matchable = Regex::new(r"lph").unwrap();
-        let x = assert_read_to_string_is_match!(readable, matchable, "message");
+        let x = assert_read_to_string_matches!(readable, matchable, "message");
         assert_eq!(x, ());
     }
 
     #[test]
     #[should_panic (expected = "message")]
-    fn test_assert_read_to_string_is_match_x_arity_3_failure() {
+    fn test_assert_read_to_string_matches_x_arity_3_failure() {
         let mut readable = "alpha".as_bytes();
         let matchable = Regex::new(r"xyz").unwrap();
-        let _x = assert_read_to_string_is_match!(readable, matchable, "message");
+        let _x = assert_read_to_string_matches!(readable, matchable, "message");
     }
 
 }

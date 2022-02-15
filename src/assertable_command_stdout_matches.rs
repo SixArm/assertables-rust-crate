@@ -17,36 +17,36 @@
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
 /// let matchable = Regex::new(r"el").unwrap();
-/// let x = assertable_command_stdout_is_match!(a, matchable);
+/// let x = assertable_command_stdout_matches!(a, matchable);
 /// //-> Ok(())
 /// assert_eq!(x.unwrap(), ());
 ///
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
 /// let matchable = Regex::new(r"xyz").unwrap();
-/// let x = assertable_command_stdout_is_match!(a, matchable);
+/// let x = assertable_command_stdout_matches!(a, matchable);
 /// //-> Err("…")
-/// // assertable failed: `assertable_command_stdout_is_match!(command, regex)`
+/// // assertable failed: `assertable_command_stdout_matches!(command, regex)`
 /// //  command program: `\"printf\"`,
 /// //  matchable: `xyz`
 /// //  stdout: `\"hello\"`,
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_is_match!(command, regex)`\n command program: `\"printf\"`,\n matchable: `xyz`,\n stdout: `\"hello\"`");
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_matches!(command, regex)`\n command program: `\"printf\"`,\n matchable: `xyz`,\n stdout: `\"hello\"`");
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assertable_command_stdout_is_match {
+macro_rules! assertable_command_stdout_matches {
     ($command:expr, $matchable:expr $(,)?) => ({
         let output = $command.output();
         if output.is_err() {
-            Err(format!("assertable failed: `assertable_command_stdout_is_match!(command, regex)`\n command program: `{:?}`,\n matchable: `{:?}`,\n output: `{:?}`", $command.get_program(), $matchable, output))
+            Err(format!("assertable failed: `assertable_command_stdout_matches!(command, regex)`\n command program: `{:?}`,\n matchable: `{:?}`,\n output: `{:?}`", $command.get_program(), $matchable, output))
         } else {
             let actual = String::from_utf8(output.unwrap().stdout).unwrap();
             if $matchable.is_match(&actual) {
                 Ok(())
             } else {
-                Err(format!("assertable failed: `assertable_command_stdout_is_match!(command, regex)`\n command program: `{:?}`,\n matchable: `{:?}`,\n stdout: `{:?}`", $command.get_program(), $matchable, actual))
+                Err(format!("assertable failed: `assertable_command_stdout_matches!(command, regex)`\n command program: `{:?}`,\n matchable: `{:?}`,\n stdout: `{:?}`", $command.get_program(), $matchable, actual))
             }
         }
     });
@@ -72,38 +72,38 @@ mod tests {
     use regex::Regex;
 
     #[test]
-    fn test_assertable_command_stdout_is_match_x_arity_2_success() {
+    fn test_assertable_command_stdout_matches_x_arity_2_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let matchable = Regex::new(r"lph").unwrap();
-        let x = assertable_command_stdout_is_match!(a, matchable);
+        let x = assertable_command_stdout_matches!(a, matchable);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
-    fn test_assertable_command_stdout_is_match_x_arity_2_failure() {
+    fn test_assertable_command_stdout_matches_x_arity_2_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let matchable = Regex::new(r"xyz").unwrap();
-        let x = assertable_command_stdout_is_match!(a, matchable);
-        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_is_match!(command, regex)`\n command program: `\"printf\"`,\n matchable: `xyz`,\n stdout: `\"alpha\"`");
+        let x = assertable_command_stdout_matches!(a, matchable);
+        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_matches!(command, regex)`\n command program: `\"printf\"`,\n matchable: `xyz`,\n stdout: `\"alpha\"`");
     }
 
     #[test]
-    fn test_assertable_command_stdout_is_match_x_arity_3_success() {
+    fn test_assertable_command_stdout_matches_x_arity_3_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let matchable = Regex::new(r"lph").unwrap();
-        let x = assertable_command_stdout_is_match!(a, matchable, "message");
+        let x = assertable_command_stdout_matches!(a, matchable, "message");
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
-    fn test_assertable_command_stdout_is_match_x_arity_3_failure() {
+    fn test_assertable_command_stdout_matches_x_arity_3_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let matchable = Regex::new(r"xyz").unwrap();
-        let x = assertable_command_stdout_is_match!(a, matchable, "message");
+        let x = assertable_command_stdout_matches!(a, matchable, "message");
         assert_eq!(x.unwrap_err(), "message");
     }
 

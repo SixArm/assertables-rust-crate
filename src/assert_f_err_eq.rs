@@ -18,13 +18,13 @@
 /// }
 ///
 /// # fn main() {
-/// assert_f_err_string_eq!(example_digit_to_string, 10, 10);
+/// assert_f_err_eq!(example_digit_to_string, 10, 10);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
-/// assert_f_err_string_eq!(example_digit_to_string, 10, 20);
+/// assert_f_err_eq!(example_digit_to_string, 10, 20);
 /// //-> panic!("…")
-/// // assertion failed: `assert_f_err_string_eq!(function, left, right)`
+/// // assertion failed: `assert_f_err_eq!(function, left, right)`
 /// //      function: `\"example_digit_to_string\"`,
 /// //    left input: `10`,
 /// //   right input: `20`,
@@ -34,28 +34,28 @@
 /// //  right output: `\"20 is out of range\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_f_err_string_eq!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`";
+/// # let expect = "assertion failed: `assert_f_err_eq!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
-macro_rules! assert_f_err_string_eq {
+macro_rules! assert_f_err_eq {
     ($function:path, $left:expr, $right:expr $(,)?) => ({
         let left_output = $function($left);
         let right_output = $function($right);
         let left_is_err = left_output.is_err();
         let right_is_err = right_output.is_err();
         if !left_is_err || !right_is_err {
-            panic!("assertion failed: `assert_f_err_eq_string!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err);
+            panic!("assertion failed: `assert_f_err_eq!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err);
         } else {
-            let left_string = String::from(left_output.unwrap_err());
-            let right_string = String::from(right_output.unwrap_err());
-            if left_string == right_string {
+            let left_err = left_output.unwrap_err();
+            let right_err = right_output.unwrap_err();
+            if left_err == right_err {
                 ()
             } else {
-                panic!("assertion failed: `assert_f_err_string_eq!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err, left_string, right_string);
+                panic!("assertion failed: `assert_f_err_eq!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err, left_err, right_err);
             }
         }
     });
@@ -67,9 +67,9 @@ macro_rules! assert_f_err_string_eq {
         if !left_is_err || !right_is_err {
             panic!("{:?}", $($arg)+)
         } else {
-            let left_string = String::from(left_output.unwrap_err());
-            let right_string = String::from(right_output.unwrap_err());
-            if (left_string == right_string) {
+            let left_err = left_output.unwrap_err();
+            let right_err = right_output.unwrap_err();
+            if left_err == right_err {
                 ()
             } else {
                 panic!("{:?}", $($arg)+)
@@ -89,35 +89,35 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_f_err_string_eq_x_arity_2_eq_success() {
+    fn test_assert_f_err_eq_x_arity_2_eq_success() {
         let a = 10;
         let b = 10;
-        let x = assert_f_err_string_eq!(example_digit_to_string, a, b);
+        let x = assert_f_err_eq!(example_digit_to_string, a, b);
         assert_eq!(x, ());
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_f_err_string_eq!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`")]
-    fn test_assert_f_err_string_eq_x_arity_2_ne_failure() {
+    #[should_panic (expected = "assertion failed: `assert_f_err_eq!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `10`,\n  right input: `20`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"10 is out of range\"`,\n right output: `\"20 is out of range\"`")]
+    fn test_assert_f_err_eq_x_arity_2_ne_failure() {
         let a = 10;
         let b = 20;
-        let _x = assert_f_err_string_eq!(example_digit_to_string, a, b);
+        let _x = assert_f_err_eq!(example_digit_to_string, a, b);
     }
 
     #[test]
-    fn test_assert_f_err_string_eq_x_arity_3_eq_success() {
+    fn test_assert_f_err_eq_x_arity_3_eq_success() {
         let a = 10;
         let b = 10;
-        let x = assert_f_err_string_eq!(example_digit_to_string, a, b, "message");
+        let x = assert_f_err_eq!(example_digit_to_string, a, b, "message");
         assert_eq!(x, ());
     }
 
     #[test]
     #[should_panic (expected = "message")]
-    fn test_assert_f_err_string_eq_x_arity_3_ne_failure() {
+    fn test_assert_f_err_eq_x_arity_3_ne_failure() {
         let a = 10;
         let b = 20;
-        let _x = assert_f_err_string_eq!(example_digit_to_string, a, b, "message");
+        let _x = assert_f_err_eq!(example_digit_to_string, a, b, "message");
     }
 
 }

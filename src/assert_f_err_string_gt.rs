@@ -41,29 +41,37 @@
 #[macro_export]
 macro_rules! assert_f_err_string_gt {
     ($function:path, $left:expr, $right:expr $(,)?) => ({
-        let left = $function($left);
-        let right = $function($right);
-        let left_is_err = left.is_err();
-        let right_is_err = right.is_err();
-        let left_string = if left_is_err { left.unwrap_err().to_string() } else { "".to_string() };
-        let right_string = if right_is_err { right.unwrap_err().to_string() } else { "".to_string() };
-        if left_is_err && right_is_err && left_string > right_string {
-            ()
+        let left_output = $function($left);
+        let right_output = $function($right);
+        let left_is_err = left_output.is_err();
+        let right_is_err = right_output.is_err();
+        if !left_is_err || !right_is_err {
+            panic!("assertion failed: `assert_f_err_gt_string!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err);
         } else {
-            panic!("assertion failed: `assert_f_err_string_gt!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err, left_string, right_string);
+            let left_string = String::from(left_output.unwrap_err());
+            let right_string = String::from(right_output.unwrap_err());
+            if left_string > right_string {
+                ()
+            } else {
+                panic!("assertion failed: `assert_f_err_string_gt!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err, left_string, right_string);
+            }
         }
     });
     ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
-        let left = $function($left);
-        let right = $function($right);
-        let left_is_err = left.is_err();
-        let right_is_err = right.is_err();
-        let left_string = if left_is_err { left.unwrap_err().to_string() } else { "".to_string() };
-        let right_string = if right_is_err { right.unwrap_err().to_string() } else { "".to_string() };
-        if left_is_err && right_is_err && left_string > right_string {
-        ()
-        } else {
+        let left_output = $function($left);
+        let right_output = $function($right);
+        let left_is_err = left_output.is_err();
+        let right_is_err = right_output.is_err();
+        if !left_is_err || !right_is_err {
             panic!("{:?}", $($arg)+)
+        } else {
+            let left_string = String::from(left_output.unwrap_err());
+            let right_string = String::from(right_output.unwrap_err());
+            if left_is_err && right_is_err && left_string > right_string {
+            ()
+            } else {
+                panic!("{:?}", $($arg)+)
+            }
         }
     });
 }

@@ -37,29 +37,29 @@
 #[macro_export]
 macro_rules! assertable_f_ok_le {
     ($function:path, $left:expr, $right:expr $(,)?) => ({
-        let left = $function($left);
-        let right = $function($right);
-        if !left.is_ok() || !right.is_ok() {
-            Err(format!("assertable failed: `assertable_f_ok_le!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is ok: `{:?}`,\n right output is ok: `{:?}`", stringify!($function), $left, $right, left.is_ok(), right.is_ok()))
+        let left_output = $function($left);
+        let right_output = $function($right);
+        if !left_output.is_ok() || !right_output.is_ok() {
+            Err(format!("assertable failed: `assertable_f_ok_le!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is ok: `{:?}`,\n right output is ok: `{:?}`", stringify!($function), $left, $right, left_output.is_ok(), right_output.is_ok()))
         } else {
-            let left = left.unwrap();
-            let right = right.unwrap();
-            if (left <= right) {
+            let left_output = left_output.unwrap();
+            let right_output = right_output.unwrap();
+            if (left_output <= right_output) {
                 Ok(())
             } else {
-                Err(format!("assertable failed: `assertable_f_ok_le!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left, right))
+                Err(format!("assertable failed: `assertable_f_ok_le!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left_output, right_output))
             }
         }
     });
     ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
-        let left = $function($left);
-        let right = $function($right);
-        if !left.is_ok() || !right.is_ok() {
+        let left_output = $function($left);
+        let right_output = $function($right);
+        if !left_output.is_ok() || !right_output.is_ok() {
             Err($($arg)+)
         } else {
-            let left = left.unwrap();
-            let right = right.unwrap();
-            if (left <= right) {
+            let left_output = left_output.unwrap();
+            let right_output = right_output.unwrap();
+            if (left_output <= right_output) {
                 Ok(())
             } else {
                 Err($($arg)+)

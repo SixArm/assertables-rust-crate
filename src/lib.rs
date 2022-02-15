@@ -147,7 +147,7 @@
 //! ```
 //!
 //!
-//! ## assert_f_ok_xx for function Result Ok values
+//! ## assert_f_ok_xx for function Ok() results
 //!
 //! * `assert_f_ok_eq!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
 //!
@@ -192,7 +192,56 @@
 //! ```
 //!
 //!
-//! ## assert_f_err_string_xx for function Err strings
+//! ## assert_f_err_xx for function Err() results
+//!
+//! * `assert_f_err_eq!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
+//!
+//! * `assert_f_err_ne!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
+//!
+//! * `assert_f_err_lt!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
+//!
+//! * `assert_f_err_le!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
+//!
+//! * `assert_f_err_gt!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
+//!
+//! * `assert_f_err_ge!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
+//!
+//! Examples:
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! fn example_digit_to_string(i: isize) -> Result<String, String> {
+//!     match i {
+//!         0..=9 => Ok(format!("{}", i)),
+//!         _ => Err(format!("{:?} is out of range", i)),
+//!     }
+//! }
+//!
+//! # fn main() {
+//! assert_f_err_lt!(example_digit_to_string, 10, 20);
+//! //-> ()
+//!
+//! # let result = panic::catch_unwind(|| {
+//! assert_f_err_lt!(example_digit_to_string, 20, 10);
+//! //-> panic!
+//! // assertion failed: `assert_f_err_eq!(example_digit_to_string, left, right)`
+//! //      function: `example_digit_to_string`,
+//! //    left input: `20`,
+//! //   right input: `10``,
+//! //   left is err: `true`,
+//! //  right is err: `true`,
+//! //   left output: `\"20 is out of range\"`,
+//! //  right output: `\"10 is out of range\"`
+//! # });
+//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! # let expect = "assertion failed: `assert_f_err_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
+//! # assert_eq!(actual, expect);
+//! # }
+//! ```
+//! 
+//! 
+//! ## assert_f_err_string_xx for function Err() strings
 //!
 //! * `assert_f_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
 //!
@@ -426,7 +475,7 @@
 //!
 //! * `assert_command_stdout_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(pattern)
 //!
-//! * `assert_command_stdout_is_match!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).unwrap())
+//! * `assert_command_stdout_matches!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).unwrap())
 //!
 //! stderr:
 //! 
@@ -436,7 +485,7 @@
 //! 
 //! * `assert_command_stderr_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(pattern)
 //! 
-//! * `assert_command_stderr_is_match!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).unwrap())
+//! * `assert_command_stderr_matches!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).unwrap())
 //! 
 //! Examples:
 //!
@@ -492,13 +541,21 @@ pub mod assert_f_le; // less than or equal to
 pub mod assert_f_gt; // greater than
 pub mod assert_f_ge; // greater than or equal to
 
-// Assert function ok() comparison
+// Assert function Ok() comparison
 pub mod assert_f_ok_eq; // equal
 pub mod assert_f_ok_ne; // not equal
 pub mod assert_f_ok_lt; // less than
 pub mod assert_f_ok_le; // less than or equal to
 pub mod assert_f_ok_gt; // greater than
 pub mod assert_f_ok_ge; // greater than or equal to
+
+// Assert function Err() comparison
+pub mod assert_f_err_eq; // equal
+pub mod assert_f_err_ne; // not equal
+pub mod assert_f_err_lt; // less than
+pub mod assert_f_err_le; // less than or equal to
+pub mod assert_f_err_gt; // greater than
+pub mod assert_f_err_ge; // greater than or equal to
 
 // Assert function err() comparison
 pub mod assert_f_err_string_eq; // equal
@@ -542,19 +599,19 @@ pub mod assert_read_to_string_gt; // greater than
 pub mod assert_read_to_string_ge; // greater than or equal to
 pub mod assert_read_to_string_eq_string; // equal to string
 pub mod assert_read_to_string_contains; // contains pattern e.g. has substring
-pub mod assert_read_to_string_is_match; // matches e.g. regex is match
+pub mod assert_read_to_string_matches; // matches e.g. regex is match
 
 // Assert command stdout
 pub mod assert_command_stdout_eq; // equal
 pub mod assert_command_stdout_eq_string; // equal to string
 pub mod assert_command_stdout_contains; // contains pattern e.g. has substring
-pub mod assert_command_stdout_is_match; // matches e.g. regex is match
+pub mod assert_command_stdout_matches; // matches e.g. regex is match
 
 // Assert command stderr
 pub mod assert_command_stderr_eq; // equal
 pub mod assert_command_stderr_eq_string; // equal to string
 pub mod assert_command_stderr_contains; // contains pattern e.g. has substring
-pub mod assert_command_stderr_is_match; // matches e.g. regex is match
+pub mod assert_command_stderr_matches; // matches e.g. regex is match
 
 // Assertable truth
 pub mod assertable; // condition
@@ -625,16 +682,16 @@ pub mod assertable_read_to_string_gt; // greater than
 pub mod assertable_read_to_string_ge; // greater than or equal to
 pub mod assertable_read_to_string_eq_string; // equal to string
 pub mod assertable_read_to_string_contains; // contains pattern e.g. has substring
-pub mod assertable_read_to_string_is_match; // matches e.g. regex is match
+pub mod assertable_read_to_string_matches; // matches e.g. regex is match
 
 // Assertable command stdout
 pub mod assertable_command_stdout_eq; // equal
 pub mod assertable_command_stdout_eq_string; // equal to string
 pub mod assertable_command_stdout_contains; // contains pattern e.g. has substring
-pub mod assertable_command_stdout_is_match; // matches e.g. regex is match
+pub mod assertable_command_stdout_matches; // matches e.g. regex is match
 
 // Assertable command stderr
 pub mod assertable_command_stderr_eq; // equal
 pub mod assertable_command_stderr_eq_string; // equal to string
 pub mod assertable_command_stderr_contains; // contains pattern e.g. has substring
-pub mod assertable_command_stderr_is_match; // matches e.g. regex is match
+pub mod assertable_command_stderr_matches; // matches e.g. regex is match
