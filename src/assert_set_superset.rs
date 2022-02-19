@@ -1,6 +1,6 @@
 /// Assert a set is a superset of another.
 ///
-/// * When true, return `Ok(())`.
+/// * When true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

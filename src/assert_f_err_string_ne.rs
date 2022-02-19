@@ -48,9 +48,11 @@ macro_rules! assert_f_err_string_ne {
         if !left_is_err || !right_is_err {
             panic!("assertion failed: `assert_f_err_ne_string!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err);
         } else {
-            let left_string = String::from(left_output.unwrap_err());
-            let right_string = String::from(right_output.unwrap_err());
-            if left_is_err && right_is_err && left_string != right_string {
+            let left_err = left_output.unwrap_err();
+            let right_err = right_output.unwrap_err();
+            let left_string = String::from(left_err);
+            let right_string = String::from(right_err);
+            if left_string != right_string {
                 ()
             } else {
                 panic!("assertion failed: `assert_f_err_string_ne!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right,  left_is_err, right_is_err, left_string, right_string);
@@ -65,9 +67,11 @@ macro_rules! assert_f_err_string_ne {
         if !left_is_err || !right_is_err {
             panic!("{:?}", $($arg)+)
         } else {
-            let left_string = String::from(left_output.unwrap_err());
-            let right_string = String::from(right_output.unwrap_err());
-            if left_is_err && right_is_err && left_string != right_string {
+            let left_err = left_output.unwrap_err();
+            let right_err = right_output.unwrap_err();
+            let left_string = String::from(left_err);
+            let right_string = String::from(right_err);
+            if left_string != right_string {
                 ()
             } else {
                 panic!("{:?}", $($arg)+)

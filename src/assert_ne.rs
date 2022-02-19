@@ -1,6 +1,6 @@
 /// Assert a value is not equal to another.
 ///
-/// * When true, return `Ok(())`.
+/// * When true, return `()`.
 ///
 /// * When false, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
