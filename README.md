@@ -381,7 +381,7 @@ assert_read_to_string_lt!(b, a);
 
 stdout:
 
-* `assert_command_stdout_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stdout).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
+* `assert_command_stdout_eq!(a_command, b_command)` ~ String::from_utf8(a_command.output().unwrap().stdout).unwrap() == String::from_utf8(b_command.output().unwrap().stdout).unwrap()
 
 * `assert_command_stdout_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == str
 
@@ -391,7 +391,7 @@ stdout:
 
 stderr:
 
-* `assert_command_stderr_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stderr).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
+* `assert_command_stderr_eq!(a_command, b_command)` ~ String::from_utf8(a_command.output().unwrap().stderr).unwrap() == String::from_utf8(b_command.output().unwrap().stdout).unwrap()
 
 * `assert_command_stderr_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
 
@@ -417,7 +417,7 @@ let mut b = Command::new("printf");
 b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
 assert_command_stdout_eq!(a, b);
 //-> panic!("…")
-// assertion failed: `assert_command_stdout_eq!(left_command, right_command)`
+// assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
 //   left command program: `\"printf\"`,
 //  right command program: `\"printf\"`,
 //   left stdout: `\"hello\"`,

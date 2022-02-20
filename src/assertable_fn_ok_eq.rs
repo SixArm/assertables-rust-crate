@@ -36,30 +36,30 @@
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assertable_fn_ok_eq {
-    ($function:path, $left:expr, $right:expr $(,)?) => ({
-        let left_output = $function($left);
-        let right_output = $function($right);
-        if !left_output.is_ok() || !right_output.is_ok() {
-            Err(format!("assertable failed: `assertable_fn_ok_eq!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is ok: `{:?}`,\n right output is ok: `{:?}`", stringify!($function), $left, $right, left_output.is_ok(), right_output.is_ok()))
+    ($function:path, $a:expr, $b:expr $(,)?) => ({
+        let a_output = $function($a);
+        let b_output = $function($b);
+        if !a_output.is_ok() || !b_output.is_ok() {
+            Err(format!("assertable failed: `assertable_fn_ok_eq!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is ok: `{:?}`,\n right output is ok: `{:?}`", stringify!($function), $a, $b, a_output.is_ok(), b_output.is_ok()))
         } else {
-            let left_output = left_output.unwrap();
-            let right_output = right_output.unwrap();
-            if (left_output == right_output) {
+            let a_output = a_output.unwrap();
+            let b_output = b_output.unwrap();
+            if (a_output == b_output) {
                 Ok(())
             } else {
-                Err(format!("assertable failed: `assertable_fn_ok_eq!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left_output, right_output))
+                Err(format!("assertable failed: `assertable_fn_ok_eq!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $a, $b, a_output, b_output))
             }
         }
     });
-    ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
-        let left_output = $function($left);
-        let right_output = $function($right);
-        if !left_output.is_ok() || !right_output.is_ok() {
+    ($function:path, $a:expr, $b:expr, $($arg:tt)+) => ({
+        let a_output = $function($a);
+        let b_output = $function($b);
+        if !a_output.is_ok() || !b_output.is_ok() {
             Err($($arg)+)
         } else {
-            let left_output = left_output.unwrap();
-            let right_output = right_output.unwrap();
-            if (left_output == right_output) {
+            let a_output = a_output.unwrap();
+            let b_output = b_output.unwrap();
+            if (a_output == b_output) {
                 Ok(())
             } else {
                 Err($($arg)+)

@@ -49,51 +49,51 @@
 /// This implementation uses [`HashMap`] to count items.
 #[macro_export]
 macro_rules! assert_bag_subbag {
-    ($left:expr, $right:expr $(,)?) => ({
-        match (&$left, &$right) {
-            (left_val, right_val) => {
-                let mut left_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                let mut right_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                for x in left_val.into_iter() {
-                    let n = left_bag.entry(x).or_insert(0);
+    ($a:expr, $b:expr $(,)?) => ({
+        match (&$a, &$b) {
+            (a_val, b_val) => {
+                let mut a_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
+                let mut b_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
+                for x in a_val.into_iter() {
+                    let n = a_bag.entry(x).or_insert(0);
                     *n += 1;
                 }
-                for x in right_val.into_iter() {
-                    let n = right_bag.entry(x).or_insert(0);
+                for x in b_val.into_iter() {
+                    let n = b_bag.entry(x).or_insert(0);
                     *n += 1;
                 }
-                if left_bag.into_iter().all(|(&left_key, left_val)| {
-                    match right_bag.get(&left_key) {
-                        Some(&right_val) => {
-                            left_val <= right_val
+                if a_bag.into_iter().all(|(&a_key, a_val)| {
+                    match b_bag.get(&a_key) {
+                        Some(&b_val) => {
+                            a_val <= b_val
                         },
                         None => false,
                     }
                 }) {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_bag_subbag!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right)
+                    panic!("assertion failed: `assert_bag_subbag!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b)
                 }
             }
         }
     });
-    ($left:expr, $right:expr, $($arg:tt)+) => ({
-        match (&($left), &($right)) {
-            (left_val, right_val) => {
-                let mut left_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                let mut right_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                for x in left_val.into_iter() {
-                    let n = left_bag.entry(x).or_insert(0);
+    ($a:expr, $b:expr, $($arg:tt)+) => ({
+        match (&($a), &($b)) {
+            (a_val, b_val) => {
+                let mut a_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
+                let mut b_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
+                for x in a_val.into_iter() {
+                    let n = a_bag.entry(x).or_insert(0);
                     *n += 1;
                 }
-                for x in right_val.into_iter() {
-                    let n = right_bag.entry(x).or_insert(0);
+                for x in b_val.into_iter() {
+                    let n = b_bag.entry(x).or_insert(0);
                     *n += 1;
                 }
-                if left_bag.into_iter().all(|(&left_key, left_val)| {
-                    match right_bag.get(&left_key) {
-                        Some(&right_val) => {
-                            left_val <= right_val
+                if a_bag.into_iter().all(|(&a_key, a_val)| {
+                    match b_bag.get(&a_key) {
+                        Some(&b_val) => {
+                            a_val <= b_val
                         },
                         None => false,
                     }

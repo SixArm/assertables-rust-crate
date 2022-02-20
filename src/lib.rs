@@ -469,7 +469,7 @@
 //!
 //! stdout:
 //! 
-//! * `assert_command_stdout_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stdout).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
+//! * `assert_command_stdout_eq!(a_command, b_command)` ~ String::from_utf8(a_command.output().unwrap().stdout).unwrap() == String::from_utf8(b_command.output().unwrap().stdout).unwrap()
 //!
 //! * `assert_command_stdout_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == String::from(string)
 //!
@@ -479,7 +479,7 @@
 //!
 //! stderr:
 //! 
-//! * `assert_command_stderr_eq!(left_command, right_command)` ~ String::from_utf8(left_command.output().unwrap().stderr).unwrap() == String::from_utf8(right_command.output().unwrap().stdout).unwrap()
+//! * `assert_command_stderr_eq!(a_command, b_command)` ~ String::from_utf8(a_command.output().unwrap().stderr).unwrap() == String::from_utf8(b_command.output().unwrap().stdout).unwrap()
 //!
 //! * `assert_command_stderr_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
 //! 
@@ -509,14 +509,14 @@
 //! b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
 //! assert_command_stdout_eq!(a, b);
 //! //-> panic!("…")
-//! // assertion failed: `assert_command_stdout_eq(left_command, right_command)`
+//! // assertion failed: `assert_command_stdout_eq(a_command, b_command)`
 //! //   left command program: `\"printf\"`,
 //! //  right command program: `\"printf\"`,
 //! //   left stdout: `\"hello\"`,
 //! //  right stdout: `\"world\"`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"hello\"`,\n right stdout: `\"world\"`";
+//! # let expect = "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"hello\"`,\n right stdout: `\"world\"`";
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```

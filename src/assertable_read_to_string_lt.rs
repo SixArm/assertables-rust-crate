@@ -32,41 +32,41 @@
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assertable_read_to_string_lt {
-    ($left:expr, $right:expr $(,)?) => ({
-        let mut left_buffer = String::new();
-        let mut right_buffer = String::new();
-        let left_result = $left.read_to_string(&mut left_buffer);
-        let right_result = $right.read_to_string(&mut right_buffer);
-        if let Err(err) = left_result {
+    ($a:expr, $b:expr $(,)?) => ({
+        let mut a_buffer = String::new();
+        let mut b_buffer = String::new();
+        let a_result = $a.read_to_string(&mut a_buffer);
+        let b_result = $b.read_to_string(&mut b_buffer);
+        if let Err(err) = a_result {
             Err(format!("assertable failed: `assertable_read_to_string_lt!(left, right)`\n  left read_to_string error: `{:?}`", err))
         } else {
-            if let Err(err) = right_result {
+            if let Err(err) = b_result {
                 Err(format!("assertable failed: `assertable_read_to_string_lt!(left, right)`\n right read_to_string error: `{:?}`", err))
             } else {
-                let _left_size = left_result.unwrap();
-                let _right_size = right_result.unwrap();
-                if (left_buffer < right_buffer) {
+                let _a_size = a_result.unwrap();
+                let _b_size = b_result.unwrap();
+                if (a_buffer < b_buffer) {
                     Ok(())
                 } else {
-                    Err(format!("assertable failed: `assertable_read_to_string_lt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", left_buffer, right_buffer))
+                    Err(format!("assertable failed: `assertable_read_to_string_lt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", a_buffer, b_buffer))
                 }
             }
         }
     });
-    ($left:expr, $right:expr, $($arg:tt)+) => ({
-        let mut left_buffer = String::new();
-        let mut right_buffer = String::new();
-        let left_result = $left.read_to_string(&mut left_buffer);
-        let right_result = $right.read_to_string(&mut right_buffer);
-        if let Err(err) = left_result {
+    ($a:expr, $b:expr, $($arg:tt)+) => ({
+        let mut a_buffer = String::new();
+        let mut b_buffer = String::new();
+        let a_result = $a.read_to_string(&mut a_buffer);
+        let b_result = $b.read_to_string(&mut b_buffer);
+        if let Err(err) = a_result {
             Err(format!("assertable failed: `assertable_read_to_string_lt!(left, right)`\n  left read_to_string error: `{:?}`", err))
         } else {
-            if let Err(err) = right_result {
+            if let Err(err) = b_result {
                 Err(format!("assertable failed: `assertable_read_to_string_lt!(left, right)`\n right read_to_string error: `{:?}`", err))
             } else {
-                let _left_size = left_result.unwrap();
-                let _right_size = right_result.unwrap();
-                if (left_buffer < right_buffer) {
+                let _a_size = a_result.unwrap();
+                let _b_size = b_result.unwrap();
+                if (a_buffer < b_buffer) {
                     Ok(())
                 } else {
                     Err(format!("{}", $($arg)+))

@@ -40,34 +40,34 @@
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assert_fn_err_lt {
-    ($function:path, $left:expr, $right:expr $(,)?) => ({
-        let left_output = $function($left);
-        let right_output = $function($right);
-        let left_is_err = left_output.is_err();
-        let right_is_err = right_output.is_err();
-        if !left_is_err || !right_is_err {
-            panic!("assertion failed: `assert_fn_err_lt!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err);
+    ($function:path, $a:expr, $b:expr $(,)?) => ({
+        let a_output = $function($a);
+        let b_output = $function($b);
+        let a_is_err = a_output.is_err();
+        let b_is_err = b_output.is_err();
+        if !a_is_err || !b_is_err {
+            panic!("assertion failed: `assert_fn_err_lt!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`", stringify!($function), $a, $b, a_is_err, b_is_err);
         } else {
-            let left_err = left_output.unwrap_err();
-            let right_err = right_output.unwrap_err();
-            if left_err < right_err {
+            let a_err = a_output.unwrap_err();
+            let b_err = b_output.unwrap_err();
+            if a_err < b_err {
                 ()
             } else {
-                panic!("assertion failed: `assert_fn_err_lt!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $left, $right, left_is_err, right_is_err, left_err, right_err);
+                panic!("assertion failed: `assert_fn_err_lt!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left is err: `{:?}`,\n right is err: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $a, $b, a_is_err, b_is_err, a_err, b_err);
             }
         }
     });
-    ($function:path, $left:expr, $right:expr, $($arg:tt)+) => ({
-        let left_output = $function($left);
-        let right_output = $function($right);
-        let left_is_err = left_output.is_err();
-        let right_is_err = right_output.is_err();
-        if !left_is_err || !right_is_err {
+    ($function:path, $a:expr, $b:expr, $($arg:tt)+) => ({
+        let a_output = $function($a);
+        let b_output = $function($b);
+        let a_is_err = a_output.is_err();
+        let b_is_err = b_output.is_err();
+        if !a_is_err || !b_is_err {
             panic!("{:?}", $($arg)+)
         } else {
-            let left_err = left_output.unwrap_err();
-            let right_err = right_output.unwrap_err();
-            if left_err < right_err {
+            let a_err = a_output.unwrap_err();
+            let b_err = b_output.unwrap_err();
+            if a_err < b_err {
                 ()
             } else {
                 panic!("{:?}", $($arg)+)

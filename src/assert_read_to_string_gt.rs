@@ -36,35 +36,35 @@
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assert_read_to_string_gt {
-    ($left:expr, $right:expr $(,)?) => ({
-        let mut left_buffer = String::new();
-        let mut right_buffer = String::new();
-        let _left_size = match $left.read_to_string(&mut left_buffer) {
+    ($a:expr, $b:expr $(,)?) => ({
+        let mut a_buffer = String::new();
+        let mut b_buffer = String::new();
+        let _a_size = match $a.read_to_string(&mut a_buffer) {
             Ok(size) => size,
             Err(err) => panic!("assertion failed: `assert_read_to_string_gt!(left, right)`\n  left read_to_string error: `{:?}`", err),
         };
-        let _right_size = match $right.read_to_string(&mut right_buffer) {
+        let _b_size = match $b.read_to_string(&mut b_buffer) {
             Ok(size) => size,
             Err(err) => panic!("assertion failed: `assert_read_to_string_gt!(left, right)`\n right read_to_string error: `{:?}`", err),
         };
-        if (left_buffer > right_buffer) {
+        if (a_buffer > b_buffer) {
             ()
         } else {
-            panic!("assertion failed: `assert_read_to_string_gt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", left_buffer, right_buffer);
+            panic!("assertion failed: `assert_read_to_string_gt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", a_buffer, b_buffer);
         }
     });
-    ($left:expr, $right:expr, $($arg:tt)+) => ({
-        let mut left_buffer = String::new();
-        let mut right_buffer = String::new();
-        let _left_size = match $left.read_to_string(&mut left_buffer) {
+    ($a:expr, $b:expr, $($arg:tt)+) => ({
+        let mut a_buffer = String::new();
+        let mut b_buffer = String::new();
+        let _a_size = match $a.read_to_string(&mut a_buffer) {
             Ok(size) => size,
             Err(_err) => panic!("{:?}", $($arg)+)
         };
-        let _right_size = match $right.read_to_string(&mut right_buffer) {
+        let _b_size = match $b.read_to_string(&mut b_buffer) {
             Ok(size) => size,
             Err(err) => panic!("assertion failed: `assert_read_to_string_gt!(left, right)`\n right read_to_string error: `{:?}`", err),
         };
-        if (left_buffer > right_buffer) {
+        if (a_buffer > b_buffer) {
             ()
         } else {
             panic!("{:?}", $($arg)+)

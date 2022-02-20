@@ -27,42 +27,42 @@
 /// b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
 /// let x = assertable_command_stdout_eq!(a, b);
 /// //-> Err("…")
-/// // assertable failed: `assertable_command_stdout_eq!(left_command, right_command)`
+/// // assertable failed: `assertable_command_stdout_eq!(a_command, b_command)`
 /// //   left command program: `\"printf\"`,
 /// //  right command program: `\"printf\"`,
 /// //   left stdout: `\"hello\"`,
 /// //  right stdout: `\"world\"`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"hello\"`,\n right stdout: `\"world\"`");
+/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_eq!(a_command, b_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"hello\"`,\n right stdout: `\"world\"`");
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assertable_command_stdout_eq {
-    ($left_command:expr, $right_command:expr $(,)?) => ({
-        let left_output = $left_command.output();
-        let right_output = $right_command.output();
-        if left_output.is_err() || right_output.is_err() {
-            Err(format!("assertable failed: `assertable_command_stdout_eq!(left_command, right_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left_command.get_program(), $right_command.get_program(), left_output, right_output))
+    ($a_command:expr, $b_command:expr $(,)?) => ({
+        let a_output = $a_command.output();
+        let b_output = $b_command.output();
+        if a_output.is_err() || b_output.is_err() {
+            Err(format!("assertable failed: `assertable_command_stdout_eq!(a_command, b_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $a_command.get_program(), $b_command.get_program(), a_output, b_output))
         } else {
-            let left_string = String::from_utf8(left_output.unwrap().stdout).unwrap();
-            let right_string = String::from_utf8(right_output.unwrap().stdout).unwrap();
-            if left_string == right_string {
+            let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
+            let b_string = String::from_utf8(b_output.unwrap().stdout).unwrap();
+            if a_string == b_string {
                 Ok(())
             } else {
-                Err(format!("assertable failed: `assertable_command_stdout_eq!(left_command, right_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left stdout: `{:?}`,\n right stdout: `{:?}`", $left_command.get_program(), $right_command.get_program(), left_string, right_string))
+                Err(format!("assertable failed: `assertable_command_stdout_eq!(a_command, b_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left stdout: `{:?}`,\n right stdout: `{:?}`", $a_command.get_program(), $b_command.get_program(), a_string, b_string))
             }
         }
     });
-    ($left_command:expr, $right_command:expr, $($arg:tt)+) => ({
-        let left_output = $left_command.output();
-        let right_output = $right_command.output();
-        if left_output.is_err() || right_output.is_err() {
+    ($a_command:expr, $b_command:expr, $($arg:tt)+) => ({
+        let a_output = $a_command.output();
+        let b_output = $b_command.output();
+        if a_output.is_err() || b_output.is_err() {
             Err(format!("{}", $($arg)+))
         } else {
-            let left_string = String::from_utf8(left_output.unwrap().stdout).unwrap();
-            let right_string = String::from_utf8(right_output.unwrap().stdout).unwrap();
-            if left_string == right_string {
+            let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
+            let b_string = String::from_utf8(b_output.unwrap().stdout).unwrap();
+            if a_string == b_string {
                 Ok(())
             } else {
                 Err(format!("{}", $($arg)+))
@@ -93,7 +93,7 @@ mod tests {
         let mut b = Command::new("printf");
         b.args(["%s%s%s%s%s", "b", "r", "a", "v", "o"]);
         let x = assertable_command_stdout_eq!(a, b);
-        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"alpha\"`,\n right stdout: `\"bravo\"`");
+        assert_eq!(x.unwrap_err(), "assertable failed: `assertable_command_stdout_eq!(a_command, b_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"alpha\"`,\n right stdout: `\"bravo\"`");
     }
 
     #[test]

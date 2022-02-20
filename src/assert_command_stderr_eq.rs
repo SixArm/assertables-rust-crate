@@ -24,14 +24,14 @@
 /// b.args(["-v"]);
 /// assert_command_stderr_eq!(a, b);
 /// //-> panic!("…")
-/// // assertion failed: `assert_command_stderr_eq!(left_command, right_command)`
+/// // assertion failed: `assert_command_stderr_eq!(a_command, b_command)`
 /// //   left command program: `\"printf\"`,
 /// //  right command program: `\"printf\"`,
 /// //   left stderr: `\"usage: printf format [arguments ...]\\n\"`,
 /// //  right stderr: `\"printf: illegal option -- v\\n\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stderr: `\"usage: printf format [arguments ...]\\n\"`,\n right stderr: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`";
+/// # let expect = "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stderr: `\"usage: printf format [arguments ...]\\n\"`,\n right stderr: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -39,30 +39,30 @@
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assert_command_stderr_eq {
-    ($left_command:expr, $right_command:expr $(,)?) => ({
-        let left_output = $left_command.output();
-        let right_output = $right_command.output();
-        if left_output.is_err() || right_output.is_err() {
-            panic!("assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $left_command.get_program(), $right_command.get_program(), left_output, right_output)
+    ($a_command:expr, $b_command:expr $(,)?) => ({
+        let a_output = $a_command.output();
+        let b_output = $b_command.output();
+        if a_output.is_err() || b_output.is_err() {
+            panic!("assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", $a_command.get_program(), $b_command.get_program(), a_output, b_output)
         } else {
-            let left_actual = String::from_utf8(left_output.unwrap().stderr).unwrap();
-            let right_actual = String::from_utf8(right_output.unwrap().stderr).unwrap();
-            if left_actual == right_actual {
+            let a_actual = String::from_utf8(a_output.unwrap().stderr).unwrap();
+            let b_actual = String::from_utf8(b_output.unwrap().stderr).unwrap();
+            if a_actual == b_actual {
                 ()
             } else {
-                panic!("assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left stderr: `{:?}`,\n right stderr: `{:?}`", $left_command.get_program(), $right_command.get_program(), left_actual, right_actual)
+                panic!("assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n  left command program: `{:?}`,\n right command program: `{:?}`,\n  left stderr: `{:?}`,\n right stderr: `{:?}`", $a_command.get_program(), $b_command.get_program(), a_actual, b_actual)
             }
         }
     });
-    ($left_command:expr, $right_command:expr, $($arg:tt)+) => ({
-        let left_output = $left_command.output();
-        let right_output = $right_command.output();
-        if left_output.is_err() || right_output.is_err() {
+    ($a_command:expr, $b_command:expr, $($arg:tt)+) => ({
+        let a_output = $a_command.output();
+        let b_output = $b_command.output();
+        if a_output.is_err() || b_output.is_err() {
             panic!("{:?}", $($arg)+)
         } else {
-            let left_actual = String::from_utf8(left_output.unwrap().stderr).unwrap();
-            let right_actual = String::from_utf8(right_output.unwrap().stderr).unwrap();
-            if left_actual == right_actual {
+            let a_actual = String::from_utf8(a_output.unwrap().stderr).unwrap();
+            let b_actual = String::from_utf8(b_output.unwrap().stderr).unwrap();
+            if a_actual == b_actual {
                 ()
             } else {
                 panic!("{:?}", $($arg)+)
@@ -85,7 +85,7 @@ use std::process::Command;
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stderr: `\"usage: printf format [arguments ...]\\n\"`,\n right stderr: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`")]
+    #[should_panic (expected = "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stderr: `\"usage: printf format [arguments ...]\\n\"`,\n right stderr: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`")]
     fn test_assert_command_stderr_eq_x_arity_2_failure() {
         let mut a = Command::new("printf");
         let mut b = Command::new("printf");

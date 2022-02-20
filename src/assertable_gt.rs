@@ -27,21 +27,21 @@
 /// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assertable_gt {
-    ($left:expr, $right:expr $(,)?) => ({
-        match (&$left, &$right) {
-            (left_val, right_val) => {
-                if (left_val > right_val) {
+    ($a:expr, $b:expr $(,)?) => ({
+        match (&$a, &$b) {
+            (a_val, b_val) => {
+                if (a_val > b_val) {
                     Ok(())
                 } else {
-                    Err(format!("assertable failed: `assertable_gt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right))
+                    Err(format!("assertable failed: `assertable_gt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b))
                 }
             }
         }
     });
-    ($left:expr, $right:expr, $($arg:tt)+) => ({
-        match (&($left), &($right)) {
-            (left_val, right_val) => {
-                if (left_val > right_val) {
+    ($a:expr, $b:expr, $($arg:tt)+) => ({
+        match (&($a), &($b)) {
+            (a_val, b_val) => {
+                if (a_val > b_val) {
                     Ok(())
                 } else {
                     Err($($arg)+)

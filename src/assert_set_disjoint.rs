@@ -36,25 +36,25 @@
 /// This implementation uses [`HashSet`] to count items.
 #[macro_export]
 macro_rules! assert_set_disjoint {
-    ($left:expr, $right:expr $(,)?) => ({
-        match (&$left, &$right) {
-            (left_val, right_val) => {
-                let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
-                let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
-                if left_set.is_disjoint(&right_set) {
+    ($a:expr, $b:expr $(,)?) => ({
+        match (&$a, &$b) {
+            (a_val, b_val) => {
+                let a_set: ::std::collections::HashSet<_> = a_val.into_iter().collect();
+                let b_set: ::std::collections::HashSet<_> = b_val.into_iter().collect();
+                if a_set.is_disjoint(&b_set) {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_set_disjoint!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $left, $right)
+                    panic!("assertion failed: `assert_set_disjoint!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b)
                 }
             }
         }
     });
-    ($left:expr, $right:expr, $($arg:tt)+) => ({
-        match (&($left), &($right)) {
-            (left_val, right_val) => {
-                let left_set: ::std::collections::HashSet<_> = left_val.into_iter().collect();
-                let right_set: ::std::collections::HashSet<_> = right_val.into_iter().collect();
-                if left_set.is_disjoint(&right_set) {
+    ($a:expr, $b:expr, $($arg:tt)+) => ({
+        match (&($a), &($b)) {
+            (a_val, b_val) => {
+                let a_set: ::std::collections::HashSet<_> = a_val.into_iter().collect();
+                let b_set: ::std::collections::HashSet<_> = b_val.into_iter().collect();
+                if a_set.is_disjoint(&b_set) {
                     ()
                 } else {
                     panic!("{:?}", $($arg)+)
