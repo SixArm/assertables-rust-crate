@@ -121,6 +121,8 @@
 //!  
 //! * `assert_fn_ge!(f, a, b)` ~ f(a) >= f(b)
 //!  
+//! * `assert_fn_expect!(f, a, expect)` ~ f(a) == expect
+//!
 //! Examples:
 //!
 //! ```rust
@@ -485,6 +487,7 @@ pub mod assert_fn_lt; // less than
 pub mod assert_fn_le; // less than or equal to
 pub mod assert_fn_gt; // greater than
 pub mod assert_fn_ge; // greater than or equal to
+pub mod assert_fn_expect; // expect
 
 // Assert function Ok() comparison
 pub mod assert_fn_ok_eq; // equal
@@ -568,6 +571,7 @@ pub mod assertable_fn_lt; // less than
 pub mod assertable_fn_le; // less than or equal to
 pub mod assertable_fn_gt; // greater than
 pub mod assertable_fn_ge; // greater than or equal to
+pub mod assertable_fn_expect; // expect
 
 // Assertable function Ok() comparison
 pub mod assertable_fn_ok_eq; // equal

@@ -101,6 +101,8 @@ assert_lt!(2, 1);
  
 * `assert_fn_ge!(f, a, b)` ~ f(a) >= f(b)
  
+* `assert_fn_expect!(f, a, expect)` ~ f(a) == expect
+
 Examples:
 
 ```rust
