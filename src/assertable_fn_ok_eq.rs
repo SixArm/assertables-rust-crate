@@ -39,8 +39,10 @@ macro_rules! assertable_fn_ok_eq {
     ($function:path, $a:expr, $b:expr $(,)?) => ({
         let a_output = $function($a);
         let b_output = $function($b);
-        if !a_output.is_ok() || !b_output.is_ok() {
-            Err(format!("assertable failed: `assertable_fn_ok_eq!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is ok: `{:?}`,\n right output is ok: `{:?}`", stringify!($function), $a, $b, a_output.is_ok(), b_output.is_ok()))
+        let a_is_ok = a_output.is_ok();
+        let b_is_ok = b_output.is_ok();
+        if !a_is_ok || !b_is_ok {
+            Err(format!("assertable failed: `assertable_fn_ok_eq!(function, left, right)`\n     function: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`\n  left output is ok: `{:?}`,\n right output is ok: `{:?}`", stringify!($function), $a, $b, a_is_ok, b_is_ok))
         } else {
             let a_output = a_output.unwrap();
             let b_output = b_output.unwrap();
@@ -54,7 +56,9 @@ macro_rules! assertable_fn_ok_eq {
     ($function:path, $a:expr, $b:expr, $($arg:tt)+) => ({
         let a_output = $function($a);
         let b_output = $function($b);
-        if !a_output.is_ok() || !b_output.is_ok() {
+        let a_is_ok = a_output.is_ok();
+        let b_is_ok = b_output.is_ok();
+        if !a_is_ok || !b_is_ok {
             Err($($arg)+)
         } else {
             let a_output = a_output.unwrap();
