@@ -87,29 +87,29 @@ assert_lt!(2, 1);
 ```
 
 
-## assert_f_xx for function returns
+## assert_fn_xx for function returns
  
-* `assert_f_eq!(f, a, b)` ~ f(a) == f(b)
+* `assert_fn_eq!(f, a, b)` ~ f(a) == f(b)
  
-* `assert_f_ne!(f, a, b)` ~ f(a) != f(b)
+* `assert_fn_ne!(f, a, b)` ~ f(a) != f(b)
  
-* `assert_f_lt!(f, a, b)` ~ f(a) < f(b)
+* `assert_fn_lt!(f, a, b)` ~ f(a) < f(b)
  
-* `assert_f_le!(f, a, b)` ~ f(a) <= f(b)
+* `assert_fn_le!(f, a, b)` ~ f(a) <= f(b)
  
-* `assert_f_gt!(f, a, b)` ~ f(a) > f(b)
+* `assert_fn_gt!(f, a, b)` ~ f(a) > f(b)
  
-* `assert_f_ge!(f, a, b)` ~ f(a) >= f(b)
+* `assert_fn_ge!(f, a, b)` ~ f(a) >= f(b)
  
 Examples:
 
 ```rust
-assert_f_lt!(i32::abs, 1, -2);
+assert_fn_lt!(i32::abs, 1, -2);
 //-> ()
 
-assert_f_lt!(i32::abs, -2, 1);
+assert_fn_lt!(i32::abs, -2, 1);
 //-> panic!
-// assertion failed: `assert_f_eq!(function, left, right)`
+// assertion failed: `assert_fn_eq!(function, left, right)`
 //      function: `\"i32::abs\"`,
 //    left input: `-2`,
 //   right input: `1`,
@@ -118,19 +118,19 @@ assert_f_lt!(i32::abs, -2, 1);
 ```
 
 
-## assert_f_ok_xx for function Result Ok values
+## assert_fn_ok_xx for function Result Ok values
 
-* `assert_f_ok_eq!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
+* `assert_fn_ok_eq!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
 
-* `assert_f_ok_ne!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
+* `assert_fn_ok_ne!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
 
-* `assert_f_ok_lt!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
+* `assert_fn_ok_lt!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
 
-* `assert_f_ok_le!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
+* `assert_fn_ok_le!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
 
-* `assert_f_ok_gt!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
+* `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
 
-* `assert_f_ok_ge!(f, a, b)` ~ f(a).unwrap() >= f(b).unwrap()
+* `assert_fn_ok_ge!(f, a, b)` ~ f(a).unwrap() >= f(b).unwrap()
 
 ```rust
 fn example_digit_to_string(i: isize) -> Result<String, String> {
@@ -140,12 +140,12 @@ fn example_digit_to_string(i: isize) -> Result<String, String> {
     }
 }
 
-assert_f_ok_lt!(example_digit_to_string, 1, 2);
+assert_fn_ok_lt!(example_digit_to_string, 1, 2);
 //-> ()
 
-assert_f_ok_lt!(example_digit_to_string, 2, 1);
+assert_fn_ok_lt!(example_digit_to_string, 2, 1);
 //-> panic!
-// assertion failed: `assert_f_eq!(function, left, right)`
+// assertion failed: `assert_fn_eq!(function, left, right)`
 //      function: `\"example_digit_to_string\"`,
 //    left input: `2`,
 //   right input: `1`,
@@ -154,19 +154,19 @@ assert_f_ok_lt!(example_digit_to_string, 2, 1);
 ```
 
 
-## assert_f_err_xx for function Err() results
+## assert_fn_err_xx for function Err() results
 
-* `assert_f_err_eq!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
+* `assert_fn_err_eq!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
 
-* `assert_f_err_ne!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
+* `assert_fn_err_ne!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
 
-* `assert_f_err_lt!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
+* `assert_fn_err_lt!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
 
-* `assert_f_err_le!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
+* `assert_fn_err_le!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
 
-* `assert_f_err_gt!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
+* `assert_fn_err_gt!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
 
-* `assert_f_err_ge!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
+* `assert_fn_err_ge!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
 
 Examples:
 
@@ -178,12 +178,12 @@ fn example_digit_to_string(i: isize) -> Result<String, String> {
     }
 }
 
-assert_f_err_lt!(example_digit_to_string, 10, 20);
+assert_fn_err_lt!(example_digit_to_string, 10, 20);
 //-> ()
 
-assert_f_err_lt!(example_digit_to_string, 20, 10);
+assert_fn_err_lt!(example_digit_to_string, 20, 10);
 //-> panic!
-// assertion failed: `assert_f_err_eq!(example_digit_to_string, left, right)`
+// assertion failed: `assert_fn_err_eq!(example_digit_to_string, left, right)`
 //      function: `example_digit_to_string`,
 //    left input: `20`,
 //   right input: `10``,
@@ -194,19 +194,19 @@ assert_f_err_lt!(example_digit_to_string, 20, 10);
 ```
 
 
-## assert_f_err_string_xx for function Err() strings
+## assert_fn_err_string_xx for function Err() strings
 
-* `assert_f_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
+* `assert_fn_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
 
-* `assert_f_err_string_ne!(f, a, b)` ~ f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()
+* `assert_fn_err_string_ne!(f, a, b)` ~ f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()
 
-* `assert_f_err_string_lt!(f, a, b)` ~ f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()
+* `assert_fn_err_string_lt!(f, a, b)` ~ f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()
 
-* `assert_f_err_string_le!(f, a, b)` ~ f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()
+* `assert_fn_err_string_le!(f, a, b)` ~ f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()
 
-* `assert_f_err_string_gt!(f, a, b)` ~ f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()
+* `assert_fn_err_string_gt!(f, a, b)` ~ f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()
 
-* `assert_f_err_string_ge!(f, a, b)`~ f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()
+* `assert_fn_err_string_ge!(f, a, b)`~ f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()
 
 Examples:
 
@@ -218,12 +218,12 @@ fn example_digit_to_string(i: isize) -> Result<String, String> {
     }
 }
 
-assert_f_err_string_lt!(example_digit_to_string, 10, 20);
+assert_fn_err_string_lt!(example_digit_to_string, 10, 20);
 //-> ()
 
-assert_f_err_string_lt!(example_digit_to_string, 20, 10);
+assert_fn_err_string_lt!(example_digit_to_string, 20, 10);
 //-> panic!
-// assertion failed: `assert_f_err_string_eq!(example_digit_to_string, left, right)`
+// assertion failed: `assert_fn_err_string_eq!(example_digit_to_string, left, right)`
 //      function: `\"example_digit_to_string\"`,
 //    left input: `20`,
 //   right input: `10``,
@@ -235,9 +235,9 @@ assert_f_err_string_lt!(example_digit_to_string, 20, 10);
 
 Two functions that we use often:
 
-  * `assert_f_ok_eq!(i32::from_str, str1, str2); // compare parsing of numbers`
+  * `assert_fn_ok_eq!(i32::from_str, str1, str2); // compare parsing of numbers`
 
-  * `assert_f_ok_eq!(std::fs::read_to_string, file1, file2); // compare file text`
+  * `assert_fn_ok_eq!(std::fs::read_to_string, file1, file2); // compare file text`
 
 
 ### assert_set_xx for set comparisons

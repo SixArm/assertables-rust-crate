@@ -4,15 +4,17 @@
 # Changes
 
 
-## 5.x summary
+## 5.0 summary
 
-* 5.0: Add macros for `contains` with substring pattern; drop macros `contains_str`.
+* Add macros for `contains` with substring pattern; drop macros `contains_str`.
 
-* 5.0: Add macros for `matches` with regex pattern; drop macros `is_match`.
+* Add macros for `matches` with regex pattern; drop macros `is_match`.
 
-* 5.0: Add macros for `eq_string` with `String::from(string)`.
+* Add macros for `eq_string` with `String::from(string)`.
 
-* 5.0: Improve documentation and tests.
+* Rename function macros from `f` to `fn` in order to improve clarity.
+
+* Improve documentation and tests.
 
 
 ## 4.x summary

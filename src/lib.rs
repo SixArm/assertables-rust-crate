@@ -107,19 +107,19 @@
 //! ```
 //!
 //!
-//! ## assert_f_xx for function returns
+//! ## assert_fn_xx for function returns
 //!  
-//! * `assert_f_eq!(f, a, b)` ~ f(a) == f(b)
+//! * `assert_fn_eq!(f, a, b)` ~ f(a) == f(b)
 //!  
-//! * `assert_f_ne!(f, a, b)` ~ f(a) != f(b)
+//! * `assert_fn_ne!(f, a, b)` ~ f(a) != f(b)
 //!  
-//! * `assert_f_lt!(f, a, b)` ~ f(a) < f(b)
+//! * `assert_fn_lt!(f, a, b)` ~ f(a) < f(b)
 //!  
-//! * `assert_f_le!(f, a, b)` ~ f(a) <= f(b)
+//! * `assert_fn_le!(f, a, b)` ~ f(a) <= f(b)
 //!  
-//! * `assert_f_gt!(f, a, b)` ~ f(a) > f(b)
+//! * `assert_fn_gt!(f, a, b)` ~ f(a) > f(b)
 //!  
-//! * `assert_f_ge!(f, a, b)` ~ f(a) >= f(b)
+//! * `assert_fn_ge!(f, a, b)` ~ f(a) >= f(b)
 //!  
 //! Examples:
 //!
@@ -127,13 +127,13 @@
 //! # #[macro_use] extern crate assertables;
 //! # use std::panic;
 //! # fn main() {
-//! assert_f_lt!(i32::abs, 1, -2);
+//! assert_fn_lt!(i32::abs, 1, -2);
 //! //-> ()
 //!
 //! # let result = panic::catch_unwind(|| {
-//! assert_f_lt!(i32::abs, -2, 1);
+//! assert_fn_lt!(i32::abs, -2, 1);
 //! //-> panic!
-//! // assertion failed: `assert_f_eq!(function, left, right)`
+//! // assertion failed: `assert_fn_eq!(function, left, right)`
 //! //      function: `i32::abs`,
 //! //    left input: `-2`,
 //! //   right input: `1`,
@@ -141,25 +141,25 @@
 //! //  right output: `1`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_f_lt!(function, left, right)`\n     function: `\"i32::abs\"`,\n   left input: `-2`,\n  right input: `1`,\n  left output: `2`,\n right output: `1`";
+//! # let expect = "assertion failed: `assert_fn_lt!(function, left, right)`\n     function: `\"i32::abs\"`,\n   left input: `-2`,\n  right input: `1`,\n  left output: `2`,\n right output: `1`";
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```
 //!
 //!
-//! ## assert_f_ok_xx for function Ok() results
+//! ## assert_fn_ok_xx for function Ok() results
 //!
-//! * `assert_f_ok_eq!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
+//! * `assert_fn_ok_eq!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
 //!
-//! * `assert_f_ok_ne!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
+//! * `assert_fn_ok_ne!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
 //!
-//! * `assert_f_ok_lt!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
+//! * `assert_fn_ok_lt!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
 //!
-//! * `assert_f_ok_le!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
+//! * `assert_fn_ok_le!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
 //!
-//! * `assert_f_ok_gt!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
+//! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
 //!
-//! * `assert_f_ok_ge!(f, a, b)` ~ f(a).unwrap() >= f(b).unwrap()
+//! * `assert_fn_ok_ge!(f, a, b)` ~ f(a).unwrap() >= f(b).unwrap()
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
@@ -172,13 +172,13 @@
 //! }
 //!
 //! # fn main() {
-//! assert_f_ok_lt!(example_digit_to_string, 1, 2);
+//! assert_fn_ok_lt!(example_digit_to_string, 1, 2);
 //! //-> ()
 //!
 //! # let result = panic::catch_unwind(|| {
-//! assert_f_ok_lt!(example_digit_to_string, 2, 1);
+//! assert_fn_ok_lt!(example_digit_to_string, 2, 1);
 //! //-> panic!("…")
-//! // assertion failed: `assert_f_eq!(function, left, right)`
+//! // assertion failed: `assert_fn_eq!(function, left, right)`
 //! //      function: `example_digit_to_string`,
 //! //    left input: `2`,
 //! //   right input: `1`,
@@ -186,25 +186,25 @@
 //! //  right output: `\"1\"`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_f_ok_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `2`,\n  right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`";
+//! # let expect = "assertion failed: `assert_fn_ok_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `2`,\n  right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`";
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```
 //!
 //!
-//! ## assert_f_err_xx for function Err() results
+//! ## assert_fn_err_xx for function Err() results
 //!
-//! * `assert_f_err_eq!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
+//! * `assert_fn_err_eq!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
 //!
-//! * `assert_f_err_ne!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
+//! * `assert_fn_err_ne!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
 //!
-//! * `assert_f_err_lt!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
+//! * `assert_fn_err_lt!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
 //!
-//! * `assert_f_err_le!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
+//! * `assert_fn_err_le!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
 //!
-//! * `assert_f_err_gt!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
+//! * `assert_fn_err_gt!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
 //!
-//! * `assert_f_err_ge!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
+//! * `assert_fn_err_ge!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
 //!
 //! Examples:
 //!
@@ -219,13 +219,13 @@
 //! }
 //!
 //! # fn main() {
-//! assert_f_err_lt!(example_digit_to_string, 10, 20);
+//! assert_fn_err_lt!(example_digit_to_string, 10, 20);
 //! //-> ()
 //!
 //! # let result = panic::catch_unwind(|| {
-//! assert_f_err_lt!(example_digit_to_string, 20, 10);
+//! assert_fn_err_lt!(example_digit_to_string, 20, 10);
 //! //-> panic!
-//! // assertion failed: `assert_f_err_eq!(example_digit_to_string, left, right)`
+//! // assertion failed: `assert_fn_err_eq!(example_digit_to_string, left, right)`
 //! //      function: `example_digit_to_string`,
 //! //    left input: `20`,
 //! //   right input: `10``,
@@ -235,25 +235,25 @@
 //! //  right output: `\"10 is out of range\"`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_f_err_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
+//! # let expect = "assertion failed: `assert_fn_err_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```
 //! 
 //! 
-//! ## assert_f_err_string_xx for function Err() strings
+//! ## assert_fn_err_string_xx for function Err() strings
 //!
-//! * `assert_f_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
+//! * `assert_fn_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
 //!
-//! * `assert_f_err_string_ne!(f, a, b)` ~ f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()
+//! * `assert_fn_err_string_ne!(f, a, b)` ~ f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()
 //!
-//! * `assert_f_err_string_lt!(f, a, b)` ~ f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()
+//! * `assert_fn_err_string_lt!(f, a, b)` ~ f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()
 //!
-//! * `assert_f_err_string_le!(f, a, b)` ~ f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()
+//! * `assert_fn_err_string_le!(f, a, b)` ~ f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()
 //!
-//! * `assert_f_err_string_gt!(f, a, b)` ~ f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()
+//! * `assert_fn_err_string_gt!(f, a, b)` ~ f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()
 //!
-//! * `assert_f_err_string_ge!(f, a, b)`~ f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()
+//! * `assert_fn_err_string_ge!(f, a, b)`~ f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()
 //!
 //! Examples:
 //!
@@ -268,13 +268,13 @@
 //! }
 //!
 //! # fn main() {
-//! assert_f_err_string_lt!(example_digit_to_string, 10, 20);
+//! assert_fn_err_string_lt!(example_digit_to_string, 10, 20);
 //! //-> ()
 //!
 //! # let result = panic::catch_unwind(|| {
-//! assert_f_err_string_lt!(example_digit_to_string, 20, 10);
+//! assert_fn_err_string_lt!(example_digit_to_string, 20, 10);
 //! //-> panic!
-//! // assertion failed: `assert_f_err_string_eq!(example_digit_to_string, left, right)`
+//! // assertion failed: `assert_fn_err_string_eq!(example_digit_to_string, left, right)`
 //! //      function: `example_digit_to_string`,
 //! //    left input: `20`,
 //! //   right input: `10``,
@@ -284,16 +284,16 @@
 //! //  right output: `\"10 is out of range\"`
 //! # });
 //! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_f_err_string_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
+//! # let expect = "assertion failed: `assert_fn_err_string_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```
 //!
 //! Two functions that we use often:
 //!
-//!   * `assert_f_ok_eq!(i32::from_str, str1, str2); // compare parsing of numbers`
+//!   * `assert_fn_ok_eq!(i32::from_str, str1, str2); // compare parsing of numbers`
 //!
-//!   * `assert_f_ok_eq!(std::fs::read_to_string, file1, file2); // compare file text`
+//!   * `assert_fn_ok_eq!(std::fs::read_to_string, file1, file2); // compare file text`
 //!
 //!
 //! ### assert_set_xx for set comparisons
@@ -534,36 +534,36 @@ pub mod assert_gt; // greater than
 pub mod assert_ge; // greater than or equal to
 
 // Assert function output comparison
-pub mod assert_f_eq; // equal
-pub mod assert_f_ne; // not equal
-pub mod assert_f_lt; // less than
-pub mod assert_f_le; // less than or equal to
-pub mod assert_f_gt; // greater than
-pub mod assert_f_ge; // greater than or equal to
+pub mod assert_fn_eq; // equal
+pub mod assert_fn_ne; // not equal
+pub mod assert_fn_lt; // less than
+pub mod assert_fn_le; // less than or equal to
+pub mod assert_fn_gt; // greater than
+pub mod assert_fn_ge; // greater than or equal to
 
 // Assert function Ok() comparison
-pub mod assert_f_ok_eq; // equal
-pub mod assert_f_ok_ne; // not equal
-pub mod assert_f_ok_lt; // less than
-pub mod assert_f_ok_le; // less than or equal to
-pub mod assert_f_ok_gt; // greater than
-pub mod assert_f_ok_ge; // greater than or equal to
+pub mod assert_fn_ok_eq; // equal
+pub mod assert_fn_ok_ne; // not equal
+pub mod assert_fn_ok_lt; // less than
+pub mod assert_fn_ok_le; // less than or equal to
+pub mod assert_fn_ok_gt; // greater than
+pub mod assert_fn_ok_ge; // greater than or equal to
 
 // Assert function Err() comparison
-pub mod assert_f_err_eq; // equal
-pub mod assert_f_err_ne; // not equal
-pub mod assert_f_err_lt; // less than
-pub mod assert_f_err_le; // less than or equal to
-pub mod assert_f_err_gt; // greater than
-pub mod assert_f_err_ge; // greater than or equal to
+pub mod assert_fn_err_eq; // equal
+pub mod assert_fn_err_ne; // not equal
+pub mod assert_fn_err_lt; // less than
+pub mod assert_fn_err_le; // less than or equal to
+pub mod assert_fn_err_gt; // greater than
+pub mod assert_fn_err_ge; // greater than or equal to
 
 // Assert function err() comparison
-pub mod assert_f_err_string_eq; // equal
-pub mod assert_f_err_string_ne; // not equal
-pub mod assert_f_err_string_lt; // less than
-pub mod assert_f_err_string_le; // less than or equal to
-pub mod assert_f_err_string_gt; // greater than
-pub mod assert_f_err_string_ge; // greater than or equal to
+pub mod assert_fn_err_string_eq; // equal
+pub mod assert_fn_err_string_ne; // not equal
+pub mod assert_fn_err_string_lt; // less than
+pub mod assert_fn_err_string_le; // less than or equal to
+pub mod assert_fn_err_string_gt; // greater than
+pub mod assert_fn_err_string_ge; // greater than or equal to
 
 // Assert iterator-related set-based comparison
 pub mod assert_set_eq; // equal; set a == set b
@@ -625,28 +625,28 @@ pub mod assertable_gt; // greater than
 pub mod assertable_ge; // greater than or equal to
 
 // Assertable function output comparison
-pub mod assertable_f_eq; // equal
-pub mod assertable_f_ne; // not equal
-pub mod assertable_f_lt; // less than
-pub mod assertable_f_le; // less than or equal to
-pub mod assertable_f_gt; // greater than
-pub mod assertable_f_ge; // greater than or equal to
+pub mod assertable_fn_eq; // equal
+pub mod assertable_fn_ne; // not equal
+pub mod assertable_fn_lt; // less than
+pub mod assertable_fn_le; // less than or equal to
+pub mod assertable_fn_gt; // greater than
+pub mod assertable_fn_ge; // greater than or equal to
 
 // Assertable function ok() comparison
-pub mod assertable_f_ok_eq; // equal
-pub mod assertable_f_ok_ne; // not equal
-pub mod assertable_f_ok_lt; // less than
-pub mod assertable_f_ok_le; // less than or equal to
-pub mod assertable_f_ok_gt; // greater than
-pub mod assertable_f_ok_ge; // greater than or equal to
+pub mod assertable_fn_ok_eq; // equal
+pub mod assertable_fn_ok_ne; // not equal
+pub mod assertable_fn_ok_lt; // less than
+pub mod assertable_fn_ok_le; // less than or equal to
+pub mod assertable_fn_ok_gt; // greater than
+pub mod assertable_fn_ok_ge; // greater than or equal to
 
 // Assertable function err().to_string() comparison
-pub mod assertable_f_err_string_eq; // equal
-pub mod assertable_f_err_string_ne; // not equal
-pub mod assertable_f_err_string_lt; // less than
-pub mod assertable_f_err_string_le; // less than or equal to
-pub mod assertable_f_err_string_gt; // greater than
-pub mod assertable_f_err_string_ge; // greater than or equal to
+pub mod assertable_fn_err_string_eq; // equal
+pub mod assertable_fn_err_string_ne; // not equal
+pub mod assertable_fn_err_string_lt; // less than
+pub mod assertable_fn_err_string_le; // less than or equal to
+pub mod assertable_fn_err_string_gt; // greater than
+pub mod assertable_fn_err_string_ge; // greater than or equal to
 
 // Assertable iterator-related set-based comparison
 pub mod assertable_set_eq; // equal
