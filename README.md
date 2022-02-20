@@ -194,52 +194,6 @@ assert_fn_err_lt!(example_digit_to_string, 20, 10);
 ```
 
 
-## assert_fn_err_string_xx for function Err() strings
-
-* `assert_fn_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
-
-* `assert_fn_err_string_ne!(f, a, b)` ~ f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()
-
-* `assert_fn_err_string_lt!(f, a, b)` ~ f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()
-
-* `assert_fn_err_string_le!(f, a, b)` ~ f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()
-
-* `assert_fn_err_string_gt!(f, a, b)` ~ f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()
-
-* `assert_fn_err_string_ge!(f, a, b)`~ f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()
-
-Examples:
-
-```rust
-fn example_digit_to_string(i: isize) -> Result<String, String> {
-    match i {
-        0..=9 => Ok(format!("{}", i)),
-        _ => Err(format!("{:?} is out of range", i)),
-    }
-}
-
-assert_fn_err_string_lt!(example_digit_to_string, 10, 20);
-//-> ()
-
-assert_fn_err_string_lt!(example_digit_to_string, 20, 10);
-//-> panic!
-// assertion failed: `assert_fn_err_string_eq!(example_digit_to_string, left, right)`
-//      function: `\"example_digit_to_string\"`,
-//    left input: `20`,
-//   right input: `10``,
-//   left is err: `true`,
-//  right is err: `true`,
-//   left output: `\"20 is out of range\"`,
-//  right output: `\"10 is out of range\"`
-```
-
-Two functions that we use often:
-
-  * `assert_fn_ok_eq!(i32::from_str, str1, str2); // compare parsing of numbers`
-
-  * `assert_fn_ok_eq!(std::fs::read_to_string, file1, file2); // compare file text`
-
-
 ### assert_set_xx for set comparisons
 
 These macros help with comparison of set parameters, such as two arrays or

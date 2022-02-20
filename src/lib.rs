@@ -239,61 +239,6 @@
 //! # assert_eq!(actual, expect);
 //! # }
 //! ```
-//! 
-//! 
-//! ## assert_fn_err_string_xx for function Err() strings
-//!
-//! * `assert_fn_err_string_eq!(f, a, b)` ~ f(a).unwrap_err().to_string() == f(b).unwrap_err().to_string()
-//!
-//! * `assert_fn_err_string_ne!(f, a, b)` ~ f(a).unwrap_err().to_string() != f(b).unwrap_err().to_string()
-//!
-//! * `assert_fn_err_string_lt!(f, a, b)` ~ f(a).unwrap_err().to_string() < f(b).unwrap_err().to_string()
-//!
-//! * `assert_fn_err_string_le!(f, a, b)` ~ f(a).unwrap_err().to_string() <= f(b).unwrap_err().to_string()
-//!
-//! * `assert_fn_err_string_gt!(f, a, b)` ~ f(a).unwrap_err().to_string() > f(b).unwrap_err().to_string()
-//!
-//! * `assert_fn_err_string_ge!(f, a, b)`~ f(a).unwrap_err().to_string() >= f(b).unwrap_err().to_string()
-//!
-//! Examples:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! fn example_digit_to_string(i: isize) -> Result<String, String> {
-//!     match i {
-//!         0..=9 => Ok(format!("{}", i)),
-//!         _ => Err(format!("{:?} is out of range", i)),
-//!     }
-//! }
-//!
-//! # fn main() {
-//! assert_fn_err_string_lt!(example_digit_to_string, 10, 20);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_fn_err_string_lt!(example_digit_to_string, 20, 10);
-//! //-> panic!
-//! // assertion failed: `assert_fn_err_string_eq!(example_digit_to_string, left, right)`
-//! //      function: `example_digit_to_string`,
-//! //    left input: `20`,
-//! //   right input: `10``,
-//! //   left is err: `true`,
-//! //  right is err: `true`,
-//! //   left output: `\"20 is out of range\"`,
-//! //  right output: `\"10 is out of range\"`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_fn_err_string_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
-//!
-//! Two functions that we use often:
-//!
-//!   * `assert_fn_ok_eq!(i32::from_str, str1, str2); // compare parsing of numbers`
-//!
-//!   * `assert_fn_ok_eq!(std::fs::read_to_string, file1, file2); // compare file text`
 //!
 //!
 //! ### assert_set_xx for set comparisons
@@ -557,14 +502,6 @@ pub mod assert_fn_err_le; // less than or equal to
 pub mod assert_fn_err_gt; // greater than
 pub mod assert_fn_err_ge; // greater than or equal to
 
-// Assert function err() comparison
-pub mod assert_fn_err_string_eq; // equal
-pub mod assert_fn_err_string_ne; // not equal
-pub mod assert_fn_err_string_lt; // less than
-pub mod assert_fn_err_string_le; // less than or equal to
-pub mod assert_fn_err_string_gt; // greater than
-pub mod assert_fn_err_string_ge; // greater than or equal to
-
 // Assert iterator-related set-based comparison
 pub mod assert_set_eq; // equal; set a == set b
 pub mod assert_set_ne; // not equal; set a != set b
@@ -632,7 +569,7 @@ pub mod assertable_fn_le; // less than or equal to
 pub mod assertable_fn_gt; // greater than
 pub mod assertable_fn_ge; // greater than or equal to
 
-// Assertable function ok() comparison
+// Assertable function Ok() comparison
 pub mod assertable_fn_ok_eq; // equal
 pub mod assertable_fn_ok_ne; // not equal
 pub mod assertable_fn_ok_lt; // less than
@@ -640,13 +577,13 @@ pub mod assertable_fn_ok_le; // less than or equal to
 pub mod assertable_fn_ok_gt; // greater than
 pub mod assertable_fn_ok_ge; // greater than or equal to
 
-// Assertable function err().to_string() comparison
-pub mod assertable_fn_err_string_eq; // equal
-pub mod assertable_fn_err_string_ne; // not equal
-pub mod assertable_fn_err_string_lt; // less than
-pub mod assertable_fn_err_string_le; // less than or equal to
-pub mod assertable_fn_err_string_gt; // greater than
-pub mod assertable_fn_err_string_ge; // greater than or equal to
+// Assertable function Err() comparison
+pub mod assertable_fn_err_eq; // equal
+pub mod assertable_fn_err_ne; // not equal
+pub mod assertable_fn_err_lt; // less than
+pub mod assertable_fn_err_le; // less than or equal to
+pub mod assertable_fn_err_gt; // greater than
+pub mod assertable_fn_err_ge; // greater than or equal to
 
 // Assertable iterator-related set-based comparison
 pub mod assertable_set_eq; // equal
