@@ -15,33 +15,38 @@
 /// let b = [2, 1];
 /// let x = assertable_set_eq!(&a, &b);
 /// //-> Ok(())
-/// assert_eq!(x.unwrap(), ());
+/// # assert_eq!(x.unwrap(), ());
 ///
 /// let a = [1, 2];
 /// let b = [3, 4];
 /// let x = assertable_set_eq!(&a, &b);
 /// //-> Err("…")
-/// // assertable failed: `assertable_set_eq!(left, right)`
-/// //   left: `[1, 2]`,
-/// //  right: `[3, 4]`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`".to_string());
+/// // assertion failed: `assertable_set_eq!(left, right)`
+/// //   left: `{1, 2}`,
+/// //  right: `{3, 4}`
+/// # let expect = concat!(
+/// #     "assertion failed: `assertable_set_eq!(left, right)`\n",
+/// #     "  left: `{1, 2}`,\n",
+/// #     " right: `{3, 4}`"
+/// # );
+/// # assert_eq!(x.unwrap_err(), expect);
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 ///
-/// This implementation uses [`HashSet`] to count items.
+/// This implementation uses [`BTreeSet`] to count items and sort them.
 #[macro_export]
 macro_rules! assertable_set_eq {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
-                let a_set: ::std::collections::HashSet<_> = a_val.into_iter().collect();
-                let b_set: ::std::collections::HashSet<_> = b_val.into_iter().collect();
+                let a_set: ::std::collections::BTreeSet<_> = a_val.into_iter().collect();
+                let b_set: ::std::collections::BTreeSet<_> = b_val.into_iter().collect();
                 if a_set == b_set {
                     Ok(())
                 } else {
-                    Err(format!("assertable failed: `assertable_set_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b))
+                    Err(format!("assertion failed: `assertable_set_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", a_set, b_set))
                 }
             }
         }
@@ -49,8 +54,8 @@ macro_rules! assertable_set_eq {
     ($a:expr, $b:expr, $($arg:tt)+) => ({
         match (&($a), &($b)) {
             (a_val, b_val) => {
-                let a_set: ::std::collections::HashSet<_> = a_val.into_iter().collect();
-                let b_set: ::std::collections::HashSet<_> = b_val.into_iter().collect();
+                let a_set: ::std::collections::BTreeSet<_> = a_val.into_iter().collect();
+                let b_set: ::std::collections::BTreeSet<_> = b_val.into_iter().collect();
                 if a_set == b_set {
                     Ok(())
                 } else {
@@ -82,7 +87,7 @@ mod tests {
         let x = assertable_set_eq!(&a, &b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`"
+            "assertion failed: `assertable_set_eq!(left, right)`\n  left: `{1, 2}`,\n right: `{3, 4}`"
         );
     }
 

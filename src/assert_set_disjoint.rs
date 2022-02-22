@@ -22,29 +22,33 @@
 /// assert_set_disjoint!(&a, &b);
 /// //-> panic!
 /// // assertion failed: `assert_set_disjoint!(left, right)`
-/// //   left: `[1, 2]`,
-/// //  right: `[2, 3]`
+/// //   left: `{1, 2}`,
+/// //  right: `{2, 3}`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_set_disjoint!(left, right)`\n  left: `[1, 2]`,\n right: `[2, 3]`";
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_set_disjoint!(left, right)`\n",
+/// #     "  left: `{1, 2}`,\n",
+/// #     " right: `{2, 3}`"
+/// # );
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 ///
-/// This implementation uses [`HashSet`] to count items.
+/// This implementation uses [`BTreeSet`] to count items and sort them.
 #[macro_export]
 macro_rules! assert_set_disjoint {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
-                let a_set: ::std::collections::HashSet<_> = a_val.into_iter().collect();
-                let b_set: ::std::collections::HashSet<_> = b_val.into_iter().collect();
+                let a_set: ::std::collections::BTreeSet<_> = a_val.into_iter().collect();
+                let b_set: ::std::collections::BTreeSet<_> = b_val.into_iter().collect();
                 if a_set.is_disjoint(&b_set) {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_set_disjoint!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b)
+                    panic!("{}", msg_key_left_right!("assertion failed", "assert_set_disjoint!", a_set, b_set))
                 }
             }
         }
@@ -52,8 +56,8 @@ macro_rules! assert_set_disjoint {
     ($a:expr, $b:expr, $($arg:tt)+) => ({
         match (&($a), &($b)) {
             (a_val, b_val) => {
-                let a_set: ::std::collections::HashSet<_> = a_val.into_iter().collect();
-                let b_set: ::std::collections::HashSet<_> = b_val.into_iter().collect();
+                let a_set: ::std::collections::BTreeSet<_> = a_val.into_iter().collect();
+                let b_set: ::std::collections::BTreeSet<_> = b_val.into_iter().collect();
                 if a_set.is_disjoint(&b_set) {
                     ()
                 } else {
@@ -76,7 +80,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_set_disjoint!(left, right)`\n  left: `[1, 2]`,\n right: `[2, 3]`")]
+    #[should_panic (expected = "assertion failed: `assert_set_disjoint!(left, right)`\n  left: `{1, 2}`,\n right: `{2, 3}`")]
     fn test_assert_set_disjoint_x_arity_2_failure() {
         let a = [1, 2];
         let b = [2, 3];
