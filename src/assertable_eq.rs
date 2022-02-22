@@ -17,23 +17,29 @@
 ///
 /// let x = assertable_eq!(1, 2);
 /// //-> Err("…")
-/// // assertable failed: `assertable_eq!(left, right)`
+/// // assertion failed: `assertable_eq!(left, right)`
 /// //   left: `1`,
 /// //  right: `2`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_eq!(left, right)`\n  left: `1`,\n right: `2`".to_string());
+/// # let expect = concat!(
+/// #     "assertion failed: `assertable_eq!(left, right)`\n",
+/// #     "  left: `1`,\n",
+/// #     " right: `2`"
+/// # );
+/// # assert_eq!(x.unwrap_err(), expect);
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
+/// 
 #[macro_export]
 macro_rules! assertable_eq {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
-                if (a_val == b_val) {
+                if a_val == b_val {
                     Ok(())
                 } else {
-                    Err(format!("assertable failed: `assertable_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b))
+                    Err(msg_key_left_right!("assertion failed", "assertable_eq!", $a, $b))
                 }
             }
         }
@@ -41,7 +47,7 @@ macro_rules! assertable_eq {
     ($a:expr, $b:expr, $($arg:tt)+) => ({
         match (&($a), &($b)) {
             (a_val, b_val) => {
-                if (a_val == b_val) {
+                if a_val == b_val {
                     Ok(())
                 } else {
                     Err($($arg)+)
@@ -69,7 +75,7 @@ mod tests {
         let x =  assertable_eq!(a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_eq!(left, right)`\n  left: `1`,\n right: `2`"
+            "assertion failed: `assertable_eq!(left, right)`\n  left: `1`,\n right: `2`"
         );
     }
 

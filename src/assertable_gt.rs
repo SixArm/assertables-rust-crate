@@ -13,14 +13,19 @@
 /// # fn main() {
 /// let x = assertable_gt!(2, 1);
 /// //-> Ok(())
-/// assert_eq!(x.unwrap(), ());
+/// # assert_eq!(x.unwrap(), ());
 ///
 /// let x = assertable_gt!(1, 2);
 /// //-> Err("…")
-/// // assertable failed: `assertable_gt!(left, right)`
+/// // assertion failed: `assertable_gt!(left, right)`
 /// //   left: `1`,
 /// //  right: `2`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_gt!(left, right)`\n  left: `1`,\n right: `2`".to_string());
+/// # let expect = concat!(
+/// #     "assertion failed: `assertable_gt!(left, right)`\n",
+/// #     "  left: `1`,\n",
+/// #     " right: `2`"
+/// # );
+/// # assert_eq!(x.unwrap_err(), expect);
 /// # }
 /// ```
 ///
@@ -30,10 +35,10 @@ macro_rules! assertable_gt {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
-                if (a_val > b_val) {
+                if a_val > b_val {
                     Ok(())
                 } else {
-                    Err(format!("assertable failed: `assertable_gt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b))
+                    Err(msg_key_left_right!("assertion failed", "assertable_gt!", a_val, b_val))
                 }
             }
         }
@@ -41,7 +46,7 @@ macro_rules! assertable_gt {
     ($a:expr, $b:expr, $($arg:tt)+) => ({
         match (&($a), &($b)) {
             (a_val, b_val) => {
-                if (a_val > b_val) {
+                if a_val > b_val {
                     Ok(())
                 } else {
                     Err($($arg)+)
@@ -72,7 +77,7 @@ mod tests {
         let x = assertable_gt!(a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_gt!(left, right)`\n  left: `1`,\n right: `2`"
+            "assertion failed: `assertable_gt!(left, right)`\n  left: `1`,\n right: `2`"
         );
     }
 

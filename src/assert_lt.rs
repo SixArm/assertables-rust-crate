@@ -22,7 +22,11 @@
 /// //  right: `1`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`";
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_lt!(left, right)`\n",
+/// #     "  left: `2`,\n",
+/// #     " right: `1`"
+/// # );
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -33,10 +37,10 @@ macro_rules! assert_lt {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
-                if (a_val < b_val) {
+                if a_val < b_val {
                     ()
                 } else {
-                    panic!("assertion failed: `assert_lt!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b);
+                    panic!("{}", msg_key_left_right!("assertion failed", "assert_lt!", $a, $b))
                 }
             }
         }
@@ -44,7 +48,7 @@ macro_rules! assert_lt {
     ($a:expr, $b:expr, $($arg:tt)+) => ({
         match (&($a), &($b)) {
             (a_val, b_val) => {
-                if (a_val < b_val) {
+                if a_val < b_val {
                     ()
                 } else {
                     panic!("{:?}", $($arg)+)

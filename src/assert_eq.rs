@@ -16,14 +16,19 @@
 ///
 /// # let result = panic::catch_unwind(|| {
 /// assert_eq!(1, 2);
-/// # });
-/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `(left == right)`\n  left: `1`,\n right: `2`";
-/// # assert_eq!(actual, expect);
 /// //-> panic!("…")
 /// // assertion failed: `(left == right)`
 /// //   left: `1`,
-/// //  right: `2`/// # }
+/// //  right: `2`
+/// # });
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `(left == right)`\n",
+/// #     "  left: `1`,\n",
+/// #     " right: `2`"
+/// # );
+/// # assert_eq!(actual, expect);
+/// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.

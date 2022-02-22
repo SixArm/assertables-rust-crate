@@ -22,7 +22,11 @@
 /// //  right: `1`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `(left != right)`\n  left: `1`,\n right: `1`";
+/// # let expect = concat!(
+/// #     "assertion failed: `(left != right)`\n",
+/// #     "  left: `1`,\n",
+/// #     " right: `1`"
+/// # );
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
