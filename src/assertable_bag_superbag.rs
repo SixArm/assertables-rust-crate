@@ -15,38 +15,48 @@
 /// let b = [1, 1];
 /// let x = assertable_bag_superbag!(&a, &b);
 /// //-> Ok(())
-/// assert_eq!(x.unwrap(), ());
+/// # assert_eq!(x.unwrap(), ());
 ///
 /// let a = [1, 1];
 /// let b = [2, 2];
 /// let x = assertable_bag_superbag!(&a, &b);
 /// //-> Err("…")
-/// // assertable failed: `assertable_bag_superbag!(left, right)`
-/// //   left: `[1, 1]`,
-/// //  right: `[2, 2]`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_bag_superbag!(left, right)`\n  left: `[1, 1]`,\n right: `[2, 2]`".to_string());
+/// // assertion failed: `assertable_bag_superbag!(left, right)`
+/// //   left: `{1: 2}`,
+/// //  right: `{2: 2}`
+/// # let expect = concat!(
+/// #     "assertion failed: `assertable_bag_superbag!(left, right)`\n",
+/// #     "  left: `{1: 2}`,\n",
+/// #     " right: `{2: 2}`"
+/// # );
+/// # assert_eq!(x.unwrap_err(), expect);
 ///
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
 /// let x = assertable_bag_superbag!(&a, &b);
 /// //-> Err("…")
-/// // assertable failed: `assertable_bag_superbag!(left, right)`
-/// //   left: `[1, 1]`,
-/// //  right: `[1, 1, 1]`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_bag_superbag!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`".to_string());
+/// // assertion failed: `assertable_bag_superbag!(left, right)`
+/// //   left: `{1, 1}`,
+/// //  right: `{1, 1, 1}`
+/// # let expect = concat!(
+/// #     "assertion failed: `assertable_bag_superbag!(left, right)`\n",
+/// #     "  left: `{1: 2}`,\n",
+/// #     " right: `{1: 3}`"
+/// # );
+/// # assert_eq!(x.unwrap_err(), expect);
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 ///
-/// This implementation uses [`HashMap`] to count items.
+/// This implementation uses [`BTreeMap`] to count items and sort them.
 #[macro_export]
 macro_rules! assertable_bag_superbag {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
-                let mut a_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                let mut b_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
+                let mut a_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
+                let mut b_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
                 for x in a_val.into_iter() {
                     let n = a_bag.entry(x).or_insert(0);
                     *n += 1;
@@ -55,17 +65,13 @@ macro_rules! assertable_bag_superbag {
                     let n = b_bag.entry(x).or_insert(0);
                     *n += 1;
                 }
-                if b_bag.into_iter().all(|(&b_key, b_val)| {
-                    match a_bag.get(&b_key) {
-                        Some(&a_val) => {
-                            a_val >= b_val
-                        },
-                        None => false,
-                    }
+                if b_val.into_iter().all(|key| {
+                    a_bag.contains_key(&key) && b_bag.contains_key(&key) &&
+                    a_bag.get_key_value(&key) >= b_bag.get_key_value(&key)
                 }) {
                     Ok(())
                 } else {
-                    Err(format!("assertable failed: `assertable_bag_superbag!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b))
+                    Err(msg_key_left_right!("assertion failed", "assertable_bag_superbag!", &a_bag, &b_bag))
                 }
             }
         }
@@ -73,8 +79,8 @@ macro_rules! assertable_bag_superbag {
     ($a:expr, $b:expr, $($arg:tt)+) => ({
         match (&($a), &($b)) {
             (a_val, b_val) => {
-                let mut a_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                let mut b_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
+                let mut a_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
+                let mut b_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
                 for x in a_val.into_iter() {
                     let n = a_bag.entry(x).or_insert(0);
                     *n += 1;
@@ -121,7 +127,7 @@ mod tests {
         let x = assertable_bag_superbag!(&a, &b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_bag_superbag!(left, right)`\n  left: `[1, 1]`,\n right: `[2, 2]`"
+            "assertion failed: `assertable_bag_superbag!(left, right)`\n  left: `{1: 2}`,\n right: `{2: 2}`"
         );
     }
 
@@ -132,7 +138,7 @@ mod tests {
         let x = assertable_bag_superbag!(&a, &b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_bag_superbag!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`"
+            "assertion failed: `assertable_bag_superbag!(left, right)`\n  left: `{1: 2}`,\n right: `{1: 3}`"
         );
     }
 

@@ -15,29 +15,34 @@
 /// let b = [1, 1];
 /// let x = assertable_bag_eq!(&a, &b);
 /// //-> Ok(())
-/// assert_eq!(x.unwrap(), ());
+/// # assert_eq!(x.unwrap(), ());
 ///
 /// let a = [1, 1];
-/// let b = [3, 4];
+/// let b = [1, 1, 1];
 /// let x = assertable_bag_eq!(&a, &b);
 /// //-> Err("…")
-/// // assertable failed: `assertable_bag_eq!(left, right)`
-/// //   left: `[1, 1]`,
-/// //  right: `[3, 4]`
-/// assert_eq!(x.unwrap_err(), "assertable failed: `assertable_bag_eq!(left, right)`\n  left: `[1, 1]`,\n right: `[3, 4]`".to_string());
+/// // assertion failed: `assertable_bag_eq!(left, right)`
+/// //   left: `{1: 2}`,
+/// //  right: `{1: 3}`
+/// # let expect = concat!(
+/// #     "assertion failed: `assertable_bag_eq!(left, right)`\n",
+/// #     "  left: `{1: 2}`,\n",
+/// #     " right: `{1: 3}`"
+/// # );
+/// # assert_eq!(x.unwrap_err(), expect);
 /// # }
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
 ///
-/// This implementation uses [`HashMap`] to count items.
+/// This implementation uses [`BTreeMap`] to count items and sort them.
 #[macro_export]
 macro_rules! assertable_bag_eq {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
-                let mut a_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                let mut b_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
+                let mut a_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
+                let mut b_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
                 for x in a_val.into_iter() {
                     let n = a_bag.entry(x).or_insert(0);
                     *n += 1;
@@ -49,7 +54,7 @@ macro_rules! assertable_bag_eq {
                 if a_bag == b_bag {
                     Ok(())
                 } else {
-                    Err(format!("assertable failed: `assertable_bag_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", $a, $b))
+                    Err(msg_key_left_right!("assertion failed", "assertable_bag_eq!", &a_bag, &b_bag))
                 }
             }
         }
@@ -57,8 +62,8 @@ macro_rules! assertable_bag_eq {
     ($a:expr, $b:expr, $($arg:tt)+) => ({
         match (&($a), &($b)) {
             (a_val, b_val) => {
-                let mut a_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
-                let mut b_bag: ::std::collections::HashMap<_, usize> = ::std::collections::HashMap::new();
+                let mut a_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
+                let mut b_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
                 for x in a_val.into_iter() {
                     let n = a_bag.entry(x).or_insert(0);
                     *n += 1;
@@ -99,7 +104,7 @@ mod tests {
         let x = assertable_bag_eq!(&a, &b);
         assert_eq!(
             x.unwrap_err(),
-            "assertable failed: `assertable_bag_eq!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`"
+            "assertion failed: `assertable_bag_eq!(left, right)`\n  left: `{1: 2}`,\n right: `{1: 3}`"
         );
     }
 
