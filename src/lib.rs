@@ -1,4 +1,4 @@
-//! Assertables: Rust crate of "assert" macros for testing
+//! # Assertables: Rust crate of "assert" macros for testing
 //!
 //! The `assertables` Rust crate provides many "assert" macros
 //! to help with compile-time testing and run-time reliability
@@ -117,7 +117,7 @@
 //! * `assert_ge!(a, b)` ~ a >= b
 //!
 //!
-//! ### assert_set_* for set collection comparisons
+//! ## assert_set_* for set collection comparisons
 //!
 //! These macros help with comparison of set parameters, such as two arrays or
 //! two vectors. where the item order does not matter, and the item count does
@@ -136,7 +136,7 @@
 //! * `assert_set_disjoint!(a, b)` ~ set a is disjoint with set b
 //!
 //!
-//! ### assert_bag_* for bag collection comparisons
+//! ## assert_bag_* for bag collection comparisons
 //!
 //! These macros help with comparison of bag parameters, such as comparison of
 //! two arrays or two vectors, where the item order does not matter, and the
