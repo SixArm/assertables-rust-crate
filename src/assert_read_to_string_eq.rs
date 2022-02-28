@@ -1,3 +1,108 @@
+/// Assert a std::io::Read read_to_string() is equal to another.
+///
+/// * When true, return Result `Ok(())`.
+///
+/// * When true, return Result `Err` with a diagnostic message.
+///
+/// # Examples
+///
+/// ```rust
+/// # #[macro_use] extern crate assertables;
+/// # #[allow(unused_imports)]
+/// use std::io::Read;
+/// # fn main() {
+/// let mut reader = "alpha".as_bytes();
+/// let value = String::from("alpha");
+/// let x = assert_read_to_string_eq_as_result!(reader, value);
+/// //-> Ok(())
+/// let actual = x.unwrap();
+/// let expect = ();
+/// assert_eq!(actual, expect);
+///
+/// let mut reader = "alpha".as_bytes();
+/// let value = String::from("bravo");
+/// let x = assert_read_to_string_eq_as_result!(reader, value);
+/// //-> Err(…)
+/// let actual = x.unwrap_err();
+/// let expect = concat!(
+///     "assertion failed: `assert_read_to_string_eq!(left_reader, right_expr)`\n",
+///     " left reader name: `reader`,\n",
+///     "  right expr name: `value`,\n",
+///     " left reader size: `5`,\n",
+///     " left reader data: `\"alpha\"`,\n",
+///     "       right expr: `\"bravo\"`"
+/// );
+/// assert_eq!(actual, expect);
+/// # }
+/// ```
+///
+#[macro_export]
+macro_rules! assert_read_to_string_eq_as_result {
+    ($a_reader:expr, $b_expr:expr $(,)?) => ({
+        let mut a_data = String::new();
+        let a_result = $a_reader.read_to_string(&mut a_data);
+        if let Err(a_err) = a_result {
+            Err(msg_with_left_reader_and_right_reader_and_err!(
+                "assertion failed",
+                "assert_read_to_string_eq_other!",
+                stringify!($a_reader),
+                stringify!($b_reader),
+                a_err
+            ))
+        } else {
+            let a_size = a_result.unwrap();
+            if a_data == $b_expr {
+                Ok(())
+            } else {
+                Err(msg_with_left_reader_and_right_expr!(
+                    "assertion failed",
+                    "assert_read_to_string_eq!",
+                    stringify!($a_reader),
+                    stringify!($b_expr),
+                    a_size,
+                    a_data,
+                    $b_expr
+                ))
+            }
+        }
+    });
+}
+
+#[cfg(test)]
+mod test_x_result {
+    #[allow(unused_imports)]
+    use std::io::Read;
+
+    #[test]
+    fn test_assert_read_to_string_eq_as_result_x_arity_2_success() {
+        let mut reader = "alpha".as_bytes();
+        let value = String::from("alpha");
+        let x = assert_read_to_string_eq_as_result!(reader, value);
+        assert_eq!(
+            x.unwrap(),
+            ()
+        );
+    }
+
+    #[test]
+    fn test_assert_read_to_string_eq_as_result_x_arity_2_failure() {
+        let mut reader = "alpha".as_bytes();
+        let value = String::from("bravo");
+        let x = assert_read_to_string_eq_as_result!(reader, value);
+        assert_eq!(
+            x.unwrap_err(),
+            concat!(
+                "assertion failed: `assert_read_to_string_eq!(left_reader, right_expr)`\n",
+                " left reader name: `reader`,\n",
+                "  right expr name: `value`,\n",
+                " left reader size: `5`,\n",
+                " left reader data: `\"alpha\"`,\n",
+                "       right expr: `\"bravo\"`"
+            )
+        );
+    }
+}
+
 /// Assert a read_to_string() value is equal to another.
 ///
 /// * When true, return `()`.
@@ -11,101 +116,82 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// use std::io::Read;
-/// 
+///
 /// # fn main() {
-/// let mut a = "a".as_bytes();
-/// let mut b = "a".as_bytes();
-/// assert_read_to_string_eq!(a, b);
+/// let mut reader = "alpha".as_bytes();
+/// let value = String::from("alpha");
+/// assert_read_to_string_eq!(reader, value);
 /// //-> ()
 ///
-/// # let result = panic::catch_unwind(|| {
-/// let mut a = "a".as_bytes();
-/// let mut b = "b".as_bytes();
-/// assert_read_to_string_eq!(a, b);
+/// let result = panic::catch_unwind(|| {
+/// let mut reader = "alpha".as_bytes();
+/// let value = String::from("bravo");
+/// assert_read_to_string_eq!(reader, value);
 /// //-> panic!
-/// // assertion failed: `assert_read_to_string_eq!(left, right)`
-/// //   left: `\"a\"`,
-/// //  right: `\"b\"`
-/// # });
-/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_read_to_string_eq!(left, right)`\n  left: `\"a\"`,\n right: `\"b\"`";
-/// # assert_eq!(actual, expect);
+/// });
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = concat!(
+///     "assertion failed: `assert_read_to_string_eq!(left_reader, right_expr)`\n",
+///     " left reader name: `reader`,\n",
+///     "  right expr name: `value`,\n",
+///     " left reader size: `5`,\n",
+///     " left reader data: `\"alpha\"`,\n",
+///     "       right expr: `\"bravo\"`"
+/// );
+/// assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
-/// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assert_read_to_string_eq {
-    ($a:expr, $b:expr $(,)?) => ({
-        let mut a_buffer = String::new();
-        let mut b_buffer = String::new();
-        let _a_size = match $a.read_to_string(&mut a_buffer) {
-            Ok(size) => size,
-            Err(err) => panic!("assertion failed: `assert_read_to_string_eq!(left, right)`\n  left read_to_string error: `{:?}`", err),
-        };
-        let _b_size = match $b.read_to_string(&mut b_buffer) {
-            Ok(size) => size,
-            Err(err) => panic!("assertion failed: `assert_read_to_string_eq!(left, right)`\n right read_to_string error: `{:?}`", err),
-        };
-        if (a_buffer == b_buffer) {
-            ()
-        } else {
-            panic!("assertion failed: `assert_read_to_string_eq!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", a_buffer, b_buffer);
+    ($a_reader:expr, $b_expr:expr $(,)?) => ({
+        match assert_read_to_string_eq_as_result!($a_reader, $b_expr) {
+            Ok(()) => (),
+            Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $b:expr, $($arg:tt)+) => ({
-        let mut a_buffer = String::new();
-        let mut b_buffer = String::new();
-        let _a_size = match $a.read_to_string(&mut a_buffer) {
-            Ok(size) => size,
-            Err(_err) => panic!("{:?}", $($arg)+)
-        };
-        let _b_size = match $b.read_to_string(&mut b_buffer) {
-            Ok(size) => size,
-            Err(err) => panic!("assertion failed: `assert_read_to_string_eq!(left, right)`\n right read_to_string error: `{:?}`", err),
-        };
-        if (a_buffer == b_buffer) {
-            ()
-        } else {
-            panic!("{:?}", $($arg)+)
+    ($a_reader:expr, $b_expr:expr, $($arg:tt)+) => ({
+        match assert_read_to_string_eq_as_result!($a_reader, $b_expr) {
+            Ok(()) => (),
+            Err(_err) => panic!($($arg)+),
         }
     });
 }
 
 #[cfg(test)]
-mod tests {
+mod test_x_panic {
     use std::io::Read;
 
     #[test]
     fn test_assert_read_to_string_eq_x_arity_2_success() {
-        let mut a = "a".as_bytes();
-        let mut b = "a".as_bytes();
-        let x = assert_read_to_string_eq!(a, b);
+        let mut reader = "alpha".as_bytes();
+        let value = String::from("alpha");
+        let x = assert_read_to_string_eq!(reader, value);
         assert_eq!(x, ());
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_read_to_string_eq!(left, right)`\n  left: `\"a\"`,\n right: `\"b\"`")]
+    #[should_panic (expected = "assertion failed: `assert_read_to_string_eq!(left_reader, right_expr)`\n left reader name: `reader`,\n  right expr name: `value`,\n left reader size: `5`,\n left reader data: `\"alpha\"`,\n       right expr: `\"bravo\"`")]
     fn test_assert_read_to_string_eq_x_arity_2_failure() {
-        let mut a = "a".as_bytes();
-        let mut b = "b".as_bytes();
-        let _x = assert_read_to_string_eq!(a, b);
+        let mut reader = "alpha".as_bytes();
+        let value = String::from("bravo");
+        let _x = assert_read_to_string_eq!(reader, value);
     }
 
     #[test]
     fn test_assert_read_to_string_eq_x_arity_3_success() {
-        let mut a = "a".as_bytes();
-        let mut b = "a".as_bytes();
-        let x = assert_read_to_string_eq!(a, b, "message");
+        let mut reader = "alpha".as_bytes();
+        let value = String::from("alpha");
+        let x = assert_read_to_string_eq!(reader, value, "message");
         assert_eq!(x, ());
     }
 
     #[test]
     #[should_panic (expected = "message")]
     fn test_assert_read_to_string_eq_x_arity_3_failure() {
-        let mut a = "a".as_bytes();
-        let mut b = "b".as_bytes();
-        let _x = assert_read_to_string_eq!(a, b, "message");
+        let mut reader = "alpha".as_bytes();
+        let value = String::from("bravo");
+        let _x = assert_read_to_string_eq!(reader, value, "message");
     }
 
 }
