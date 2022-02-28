@@ -272,7 +272,7 @@
 //!
 //! * `assert_command_stdout_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(containee)
 //!
-//! * `assert_command_stdout_matches!(command, matcher)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).unwrap())
+//! * `assert_command_stdout_matches!(command, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stdout).unwrap())
 //!
 //! Using standard error a.k.a. stderr:
 //!
@@ -282,7 +282,7 @@
 //!
 //! * `assert_command_stderr_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(containee)
 //!
-//! * `assert_command_stderr_matches!(command, matcher)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).unwrap())
+//! * `assert_command_stderr_matches!(command, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stderr).unwrap())
 //!
 //!
 //! ## Tracking
