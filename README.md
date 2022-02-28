@@ -1,8 +1,7 @@
-# Assertables Rust crate of macros for "assert" and "assertable"
+Assertables: Rust crate of "assert" macros for testing
 
-This `assertables` Rust crate provides macros for `assert…!` and
-`assertable…!`, which are useful for testing and also for runtime
-reliability checking. By SixArm.com.
+The `assertables` Rust crate provides many "assert" macros 
+to help with compile-time testing and run-time reliability
 
 Crate:
 [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
@@ -14,50 +13,69 @@ Repo:
 [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
 
 
-## assert & assertable
+## Highlights
 
-These macros have two styles:
+* Value macros such as: `assert_gt!(value1, value2)` which means `value1 > value2`.
 
-  * `assert` macros return `()` or `panic!(…)`.
+* Set macros such as: `assert_set_subset!(set1, set2)` which means `set1 ⊆ set2`.
 
-  * `assertable` macros return `Ok(())` or `Err(…)`.
+* Function macros such as: `assert_fn_eq_other!(function, input1, input2)` which means `function(input1) == function(input2)
 
-Examples of "assert less than" and "assertable less than":
+* Reader macros such as: `assert_read_to_string_eq_other!(reader1, reader2)` which means reader1.read_to_string() == reader2._to_string()
 
-```rust
-assert_lt!(1, 2); // assert 1 is less than 2
-//-> ()
+* Commmand macros such as: `assert_command_stdout_eq!(command, substr)` which means `String::from_utf8(command.output().ap().stdout).unwrap() == string.
 
-assert_lt!(2, 1);
-//-> panic!
-// assertion failed: `assert_lt!(left, right)`
-//   left: `2`,
-//  right: `1`
+  
+## Naming conventions
 
-let x = assertable_lt!(1, 2);
-//-> Ok(())
+Abbreviations: 
 
-let x = assertable_lt!(2, 1);
-//-> Err("…")
-// assertable failed: `assertable_lt!(left, right)`
-//   left: `2`,
-//  right: `1`
-```
+*  `eq` (equals) and `ne` (not equals)
 
-These two styles are useful because:
+* `lt` (less than) and `le` (less than or equal to)
 
-* `assert` macros favor compile-time tests and diagnostics.
+* `gt` (greater than) and `ge` (greater than or equals).
 
-* `assertable` macros favor run-time tracing and recoveries.
+Shorthands: 
 
-The macros use abbreviations: `eq` (equals), `ne` (not equals),
-`lt` (less than), `le` (less than or equal to), `gt` (greater than),
-`ge` (greater than or equals).
+  * `reader` means implements `.read_to_string(…)` such as `std::io::Read`.
+  
+  * `matcher` means implements `.is_match(…)` such as `regex::Regex`.
+
+  * `containee` means usable inside `.contains(…)` such as a `std::string::String` substring.
+
+  * `set` means a collection such as `::std::collections::BTreeSet`.
+
+  * `bag` means a collection such as `::std::collections::BTreeMap` with key counts.
+
+
+## Flavors: do you prefer panic! or Err()?
+
+The macros have two flavors: 
+
+  * The "interrupt" flavor returns `()` or `panic!(…)`.
+
+  * The "result" flavor returns `Ok(())` or `Err(…)`.
+
+Example: 
+
+   * `assert_gt!(a, b)` returns `()` or `panic!(…)`
+
+   * `assert_gt_as_result!(a, b)` returns `Ok(())` or `Err(…)`
+
+
+## Error messages
 
 The macros have a second form where a custom error message can be provided.
 
+Example:
 
-## assert_xx for values
+   * `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")` 
+
+   * `assert_gt(1, 2, "lorem ipsum")` => `panic!("lorem ipsum")`
+
+
+## assert_* for values
 
 Compare values.
 
@@ -73,130 +91,8 @@ Compare values.
 
 * `assert_ge!(a, b)` ~ a >= b
 
-Examples:
 
-```rust
-assert_lt!(1, 2);
-//-> ()
-
-assert_lt!(2, 1);
-//-> panic!
-// assertion failed: `assert_lt!(left, right)`
-//   left: `2`
-//  right: `1`
-```
-
-
-## assert_fn_xx for function returns
- 
-* `assert_fn_eq!(f, a, b)` ~ f(a) == f(b)
- 
-* `assert_fn_ne!(f, a, b)` ~ f(a) != f(b)
- 
-* `assert_fn_lt!(f, a, b)` ~ f(a) < f(b)
- 
-* `assert_fn_le!(f, a, b)` ~ f(a) <= f(b)
- 
-* `assert_fn_gt!(f, a, b)` ~ f(a) > f(b)
- 
-* `assert_fn_ge!(f, a, b)` ~ f(a) >= f(b)
- 
-* `assert_fn_expect!(f, a, expect)` ~ f(a) == expect
-
-Examples:
-
-```rust
-assert_fn_lt!(i32::abs, 1, -2);
-//-> ()
-
-assert_fn_lt!(i32::abs, -2, 1);
-//-> panic!
-// assertion failed: `assert_fn_eq!(function, left, right)`
-//      function: `\"i32::abs\"`,
-//    left input: `-2`,
-//   right input: `1`,
-//   left output: `2`,
-//  right output: `1`
-```
-
-
-## assert_fn_ok_xx for function Result Ok values
-
-* `assert_fn_ok_eq!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
-
-* `assert_fn_ok_ne!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
-
-* `assert_fn_ok_lt!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
-
-* `assert_fn_ok_le!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
-
-* `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
-
-* `assert_fn_ok_ge!(f, a, b)` ~ f(a).unwrap() >= f(b).unwrap()
-
-```rust
-fn example_digit_to_string(i: isize) -> Result<String, String> {
-    match i {
-        0..=9 => Ok(format!("{}", i)),
-        _ => Err(format!("{:?} is out of range", i)),
-    }
-}
-
-assert_fn_ok_lt!(example_digit_to_string, 1, 2);
-//-> ()
-
-assert_fn_ok_lt!(example_digit_to_string, 2, 1);
-//-> panic!
-// assertion failed: `assert_fn_eq!(function, left, right)`
-//      function: `\"example_digit_to_string\"`,
-//    left input: `2`,
-//   right input: `1`,
-//   left output: `\"2\"`,
-//  right output: `\"1\"`
-```
-
-
-## assert_fn_err_xx for function Err() results
-
-* `assert_fn_err_eq!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
-
-* `assert_fn_err_ne!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
-
-* `assert_fn_err_lt!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
-
-* `assert_fn_err_le!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
-
-* `assert_fn_err_gt!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
-
-* `assert_fn_err_ge!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
-
-Examples:
-
-```rust
-fn example_digit_to_string(i: isize) -> Result<String, String> {
-    match i {
-        0..=9 => Ok(format!("{}", i)),
-        _ => Err(format!("{:?} is out of range", i)),
-    }
-}
-
-assert_fn_err_lt!(example_digit_to_string, 10, 20);
-//-> ()
-
-assert_fn_err_lt!(example_digit_to_string, 20, 10);
-//-> panic!
-// assertion failed: `assert_fn_err_eq!(example_digit_to_string, left, right)`
-//      function: `example_digit_to_string`,
-//    left input: `20`,
-//   right input: `10``,
-//   left is err: `true`,
-//  right is err: `true`,
-//   left output: `\"20 is out of range\"`,
-//  right output: `\"10 is out of range\"`
-```
-
-
-### assert_set_xx for set comparisons
+### assert_set_* for set collection comparisons
 
 These macros help with comparison of set parameters, such as two arrays or
 two vectors. where the item order does not matter, and the item count does
@@ -214,22 +110,8 @@ not matter. The macros convert inputs into HashSet iterators.
 
 * `assert_set_disjoint!(a, b)` ~ set a is disjoint with set b
 
-Examples:
 
-```rust
-assert_set_eq!([1, 2], [2, 1]);
-//-> ()
-
-assert_set_eq!([1, 2], [3, 4]);
-//-> panic
-// assertion failed: `assert_set_eq!(left, right)`
-//   left: `[1, 2]`,
-//  right: `[3, 4]`
-//-> panic!("assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`");
-```
-
-
-### assert_bag_xx for bag comparisons
+### assert_bag_* for bag collection comparisons
 
 These macros help with comparison of bag parameters, such as comparison of
 two arrays or two vectors, where the item order does not matter, and the
@@ -243,139 +125,146 @@ item count does matter. The macros convert inputs into HashMap iterators.
 
 * `assert_bag_superbag(a, b)` ~ bag a ⊇ bag b
 
-Examples:
 
-```rust
-assert_bag_eq!([1, 1], [1, 1]);
-//-> ()
+## assert_fn_* for function return comparisons
 
-assert_bag_eq!([1, 1], [1, 1, 1]);
-//-> panic!
-// assertion failed: `assert_bag_eq!(left, right)`
-//   left: `[1, 1]`,
-//  right: `[1, 1, 1]`
-```
+* `assert_fn_eq!(f, a, b)` ~ f(a) == b
 
+* `assert_fn_eq_other!(f, a, b)` ~ f(a) == f(b)
 
-### assert_io_xx for input/output comparisons
+* `assert_fn_ne!(f, a, b)` ~ f(a) != b
 
-These macros help with input/output checking,
-such as with comparison of disk files, IO streams, etc.
+* `assert_fn_ne_other!(f, a, b)` ~ f(a) != f(b)
 
-* `assert_io!(a)` ~ a is true
+* `assert_fn_lt!(f, a, b)` ~ f(a) < v
 
-* `assert_io_eq!(a, b)` ~ a == b
+* `assert_fn_lt_other!(f, a, b)` ~ f(a) < f(b)
 
-* `assert_io_ne!(a, b)` ~ a != b
+* `assert_fn_le!(f, a, b)` ~ f(a) <= b
 
-* `assert_io_lt!(a, b)` ~ a < b
+* `assert_fn_le_other!(f, a, b)` ~ f(a) <= f(b)
 
-* `assert_io_le!(a, b)` ~ a <= b
+* `assert_fn_gt!(f, a, b)` ~ f(a) > b
 
-* `assert_io_gt!(a, b)` ~ a > b
+* `assert_fn_gt_other!(f, a, b)` ~ f(a) > f(b)
 
-* `assert_io_ge!(a, b)` ~ a >= b
+* `assert_fn_ge!(f, a, b)` ~ f(a) >= b
 
-Examples:
-
-```rust
-assert_io_lt!(1, 2);
-//-> ()
-
-assert_io_lt!(2, 1);
-//-> panic!
-// assertion failed: `assert_io_lt!(left, right)`
-//   left: `2`,
-//  right: `1`
-```
+* `assert_fn_ge_other!(f, a, b)` ~ f(a) >= f(b)
 
 
-## assert_read_to_string_xx for std::io::Read comparisons
+## assert_fn_ok_* for function Ok() comparisons
+
+* `assert_fn_ok_eq!(f, a, b)` ~ f(a).unwrap() == b
+
+* `assert_fn_ok_eq_other!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
+
+* `assert_fn_ok_ne!(f, a, b)` ~ f(a).unwrap() != b
+
+* `assert_fn_ok_ne_other!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
+
+* `assert_fn_ok_lt!(f, a, b)` ~ f(a).unwrap() < b
+
+* `assert_fn_ok_lt_other!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
+
+* `assert_fn_ok_le!(f, a, b)` ~ f(a).unwrap() <= b
+
+* `assert_fn_ok_le_other!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
+
+* `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
+
+* `assert_fn_ok_gt_other!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
+
+* `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
+
+* `assert_fn_ok_gt_other!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
+
+
+## assert_fn_err_* for function Err() comparisons
+
+* `assert_fn_err_eq!(f, a, b)` ~ f(a).unwrap_err() == b
+
+* `assert_fn_err_eq_other!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
+
+* `assert_fn_err_ne!(f, a, b)` ~ f(a).unwrap_err() != b
+
+* `assert_fn_err_ne_other!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
+
+* `assert_fn_err_lt!(f, a, b)` ~ f(a).unwrap_err() < b
+
+* `assert_fn_err_lt_other!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
+
+* `assert_fn_err_le!(f, a, b)` ~ f(a).unwrap_err() <= b
+
+* `assert_fn_err_le_other!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
+
+* `assert_fn_err_gt!(f, a, b)` ~ f(a).unwrap_err() > b
+
+* `assert_fn_err_gt_other!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
+
+* `assert_fn_err_ge!(f, a, b)`~ f(a).unwrap_err() >= b
+
+* `assert_fn_err_ge_other!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
+
+
+## assert_read_to_string_* for std::io::Read comparisons
 
 These macros help with readers, such as file handles, byte
 arrays, input streams, and the trait std::io::Read.
 
-* `assert_read_to_string_eq!(a, b)` ~ a.read_to_string() == b.read_to_string()
+* `assert_read_to_string_eq!(a, b)` ~ a.read_to_string() == b
 
-* `assert_read_to_string_ne!(a, b)` ~ a.read_to_string() != b.read_to_string()
+* `assert_read_to_string_eq_other!(a, b)` ~ a.read_to_string() == b.read_to_string()
 
-* `assert_read_to_string_lt!(a, b)` ~ a.read_to_string() < b.read_to_string()
+* `assert_read_to_string_ne!(a, b)` ~ a.read_to_string() != b
 
-* `assert_read_to_string_le!(a, b)` ~ a.read_to_string() <= b.read_to_string()
+* `assert_read_to_string_ne_other!(a, b)` ~ a.read_to_string() != b.read_to_string()
 
-* `assert_read_to_string_gt!(a, b)` ~ a.read_to_string() > b.read_to_string()
+* `assert_read_to_string_lt!(a, b)` ~ a.read_to_string() < b
 
-* `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b.read_to_string()
+* `assert_read_to_string_lt_other!(a, b)` ~ a.read_to_string() < b.read_to_string()
 
-* `assert_read_to_string_eq_string!(readable, string)` ~ readable.read_to_string() == str
+* `assert_read_to_string_le!(a, b)` ~ a.read_to_string() <= b
 
-* `assert_read_to_string_contains!(readable, pattern)` ~ readable.read_to_string().contains(pattern)
+* `assert_read_to_string_le_other!(a, b)` ~ a.read_to_string() <= b.read_to_string()
 
-* `assert_read_to_string_is_match!(readable, matchable)` ~ matchable.is_match(readable.read_to_string())
+* `assert_read_to_string_gt!(a, b)` ~ a.read_to_string() > b
 
-Examples:
+* `assert_read_to_string_gt_other!(a, b)` ~ a.read_to_string() > b.read_to_string()
 
-```rust
-use std::io::Read;
+* `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b
 
-let mut a = "a".as_bytes();
-let mut b = "b".as_bytes();
-assert_read_to_string_lt!(a, b);
-//-> ()
-
-let mut a = "a".as_bytes();
-let mut b = "b".as_bytes();
-assert_read_to_string_lt!(b, a);
-//-> panic!
-// assertion failed: `assert_read_to_string_lt!(left, right)`
-//   left: `\"b\"`,
-//  right: `\"a\"`
-```
+* `assert_read_to_string_ge_other!(a, b)` ~ a.read_to_string() >= b.read_to_string()
 
 
-## assert_command_stdout_xx & assert_command_stderr_xx
+## assert_command_ for process command comparisons
 
-stdout:
+Using standard output a.k.a. stdout:
 
-* `assert_command_stdout_eq!(a_command, b_command)` ~ String::from_utf8(a_command.output().unwrap().stdout).unwrap() == String::from_utf8(b_command.output().unwrap().stdout).unwrap()
+* `assert_command_stdout_eq!(command, value)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == value
 
-* `assert_command_stdout_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == str
+* `assert_command_stdout_eq_other!(command, command)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == ng::from_utf8(command.output().unwrap().stdout).unwrap()
 
-* `assert_command_stdout_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(pattern)
+* `assert_command_stdout_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().containstainee)
 
-* `assert_command_stdout_is_match!(command, regex)` ~ matchable.is_match(String::from_utf8(command.output().unwrap().stdout).unwrap())
+* `assert_command_stdout_matches!(command, matcher)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).ap())
 
-stderr:
+Using standard error a.k.a. stderr:
 
-* `assert_command_stderr_eq!(a_command, b_command)` ~ String::from_utf8(a_command.output().unwrap().stderr).unwrap() == String::from_utf8(b_command.output().unwrap().stdout).unwrap()
+* `assert_command_stderr_eq!(command, value)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == value
 
-* `assert_command_stderr_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
+* `assert_command_stderr_eq_other!(command, command)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == ng::from_utf8(command.output().unwrap().stdout).unwrap()
 
-* `assert_command_stderr_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(pattern)
+* `assert_command_stderr_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().containstainee)
 
-* `assert_command_stderr_is_match!(command, regex)` ~ matchable.is_match(String::from_utf8(command.output().unwrap().stderr).unwrap())
+* `assert_command_stderr_matches!(command, matcher)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).ap())
 
-Examples:
 
-```rust
-use std::process::Command;
+## Tracking
 
-let mut a = Command::new("printf");
-a.args(["%s", "hello"]);
-let mut b = Command::new("printf");
-b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
-assert_command_stdout_eq!(a, b);
-//-> ()
-
-let mut a = Command::new("printf");
-a.args(["%s", "hello"]);
-let mut b = Command::new("printf");
-b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
-assert_command_stdout_eq!(a, b);
-//-> panic!("…")
-// assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
-//   left command program: `\"printf\"`,
-//  right command program: `\"printf\"`,
-//   left stdout: `\"hello\"`,
-//  right stdout: `\"world\"`
-```
+* Package: assertables-rust-crate
+* Version: 5.0.0
+* Created: 2021-03-30T15:47:49Z
+* Updated: 2022-02-28T15:45:38Z
+* License: GPL-2.0-or-later or contact us for custom license
+* Contact: Joel Parker Henderson (joel@sixarm.com)
