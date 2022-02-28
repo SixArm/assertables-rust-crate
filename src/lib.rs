@@ -1,74 +1,75 @@
-//! Assertables: Rust crate of macros "assert" and "assertable"
-//!
-//! This `assertables` Rust crate provides macros for `assert…!` and
-//! `assertable…!`, which are useful for testing and also for runtime
-//! reliability checking. By SixArm.com.
-//!
+//! Assertables: Rust crate of "assert" macros for testing
+//! 
+//! The `assertables` Rust crate provides many "assert" macros 
+//! to help with compile-time testing and run-time reliability
+//! 
 //! Crate:
 //! [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
-//!
+//! 
 //! Docs:
 //! [https://docs.rs/assertables/](https://docs.rs/assertables/)
-//!
+//! 
 //! Repo:
 //! [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
+//! 
+//! 
+//! ## Highlights
+//! 
+//! * Value macros such as: `assert_gt!(value1, value2)` which means `value1 > value2`.
+//! 
+//! * Set macros such as: `assert_set_subset!(set1, set2)` which means `set1 ⊆ set2`.
+//! 
+//! * Function macros such as: `assert_fn_eq_other!(function, input1, input2)` which means `function(input1) == function(input2)
+//! 
+//! * Reader macros such as: `assert_read_to_string_eq_other!(reader1, reader2)` which means reader1.read_to_string() == reader2._to_string()
+//! 
+//! * Commmand macros such as: `assert_command_stdout_eq!(command, substr)` which means `String::from_utf8(command.output().ap().stdout).unwrap() == string.
+//! 
+//!   
+//! ## Naming conventions
+//! 
+//! Abbreviations: 
+//! 
+//! *  `eq` (equals) and `ne` (not equals)
+//! 
+//! * `lt` (less than) and `le` (less than or equal to)
+//! 
+//! * `gt` (greater than) and `ge` (greater than or equals).
+//! 
+//! Shorthands: 
+//! 
+//!   * `reader` means implements `.read_to_string(…)` such as `std::io::Read`.
+//!   
+//!   * `matcher` means implements `.is_match(…)` such as `regex::Regex`.
+//! 
+//!   * `containee` means usable inside `.contains(…)` such as a `std::string::String` substring.
+//! 
+//!   * `set` means a collection such as `::std::collections::BTreeSet`.
+//! 
+//!   * `bag` means a collection such as `::std::collections::BTreeMap` with key counts.
+//! 
+//! 
+//! ## Forms for panic! or Result Err()
+//! 
+//! The macros have forms for immediate interrupts or returning results:
+//! 
+//!    * `assert_gt!(a, b)` => `()` or `panic!(…)`
+//! 
+//!    * `assert_gt_as_result!(a, b)` => `Result Ok(())` or `Result Err(…)`
+//! 
+//! 
+//! ## Forms for default messages or custom messages
+//! 
+//! The macros have forms for default messages or custom messages.
+//! 
+//! Example:
+//! 
+//!    * `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")` 
+//! 
+//!    * `assert_gt(1, 2, "lorem ipsum")` => `panic!("lorem ipsum")`
+//! 
 //!
-//!
-//! ## assert & assertable
-//!
-//! These macros have two styles:
-//!
-//!   * `assert` macros return `()` or `panic!(…)`.
-//!
-//!   * `assertable` macros return `Ok(())` or `Err(…)`.
-//!
-//! Examples of "assert less than" and "assertable less than":
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! # fn main() {
-//! assert_lt!(1, 2);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_lt!(2, 1);
-//! //-> panic!
-//! // assertion failed: `assert_lt!(left, right)`
-//! //   left: `2`,
-//! //  right: `1`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`";
-//! # assert_eq!(actual, expect);
-//!
-//! let x = assertable_lt!(1, 2);
-//! //-> Ok(())
-//! # assert_eq!(x.unwrap(), ());
-//!
-//! let x = assertable_eq!(2, 1);
-//! //-> Err("…")
-//! // assertable failed: `assertable_lt!(left, right)`
-//! //   left: `2`,
-//! //  right: `1`
-//! # assert_eq!(x.unwrap_err(), "assertable failed: `assertable_eq!(left, right)`\n  left: `2`,\n right: `1`");
-//! # }
-//! ```
-//!
-//! These two styles are useful because:
-//!
-//! * `assert` macros favor compile-time tests and diagnostics.
-//!
-//! * `assertable` macros favor run-time tracing and recoveries.
-//!
-//! The macros use abbreviations: `eq` (equals), `ne` (not equals),
-//! `lt` (less than), `le` (less than or equal to), `gt` (greater than),
-//! `ge` (greater than or equals).
-//!
-//! The macros have a second form where a custom error message can be provided.
-//!
-//!
-//! ## assert_xx for values
+//! ## assert_* for values
 //!
 //! Compare values.
 //!
@@ -84,166 +85,8 @@
 //!
 //! * `assert_ge!(a, b)` ~ a >= b
 //!
-//! Examples:
 //!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! # fn main() {
-//! assert_lt!(1, 2);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_lt!(2, 1);
-//! //-> panic!
-//! // assertion failed: `assert_lt!(left, right)`
-//! //   left: `2`
-//! //  right: `1`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_lt!(left, right)`\n  left: `2`,\n right: `1`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
-//!
-//!
-//! ## assert_fn_xx for function returns
-//!  
-//! * `assert_fn_eq!(f, a, b)` ~ f(a) == f(b)
-//!  
-//! * `assert_fn_ne!(f, a, b)` ~ f(a) != f(b)
-//!  
-//! * `assert_fn_lt!(f, a, b)` ~ f(a) < f(b)
-//!  
-//! * `assert_fn_le!(f, a, b)` ~ f(a) <= f(b)
-//!  
-//! * `assert_fn_gt!(f, a, b)` ~ f(a) > f(b)
-//!  
-//! * `assert_fn_ge!(f, a, b)` ~ f(a) >= f(b)
-//!  
-//! * `assert_fn_expect!(f, a, expect)` ~ f(a) == expect
-//!
-//! Examples:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! # fn main() {
-//! assert_fn_lt!(i32::abs, 1, -2);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_fn_lt!(i32::abs, -2, 1);
-//! //-> panic!
-//! // assertion failed: `assert_fn_eq!(function, left, right)`
-//! //      function: `i32::abs`,
-//! //    left input: `-2`,
-//! //   right input: `1`,
-//! //   left output: `2`,
-//! //  right output: `1`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_fn_lt!(function, left, right)`\n     function: `\"i32::abs\"`,\n   left input: `-2`,\n  right input: `1`,\n  left output: `2`,\n right output: `1`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
-//!
-//!
-//! ## assert_fn_ok_xx for function Ok() results
-//!
-//! * `assert_fn_ok_eq!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
-//!
-//! * `assert_fn_ok_ne!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
-//!
-//! * `assert_fn_ok_lt!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
-//!
-//! * `assert_fn_ok_le!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
-//!
-//! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
-//!
-//! * `assert_fn_ok_ge!(f, a, b)` ~ f(a).unwrap() >= f(b).unwrap()
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! fn example_digit_to_string(i: isize) -> Result<String, String> {
-//!     match i {
-//!         0..=9 => Ok(format!("{}", i)),
-//!         _ => Err(format!("{:?} is out of range", i)),
-//!     }
-//! }
-//!
-//! # fn main() {
-//! assert_fn_ok_lt!(example_digit_to_string, 1, 2);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_fn_ok_lt!(example_digit_to_string, 2, 1);
-//! //-> panic!("…")
-//! // assertion failed: `assert_fn_eq!(function, left, right)`
-//! //      function: `example_digit_to_string`,
-//! //    left input: `2`,
-//! //   right input: `1`,
-//! //   left output: `\"2\"`,
-//! //  right output: `\"1\"`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_fn_ok_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `2`,\n  right input: `1`,\n  left output: `\"2\"`,\n right output: `\"1\"`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
-//!
-//!
-//! ## assert_fn_err_xx for function Err() results
-//!
-//! * `assert_fn_err_eq!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
-//!
-//! * `assert_fn_err_ne!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
-//!
-//! * `assert_fn_err_lt!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
-//!
-//! * `assert_fn_err_le!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
-//!
-//! * `assert_fn_err_gt!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
-//!
-//! * `assert_fn_err_ge!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
-//!
-//! Examples:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! fn example_digit_to_string(i: isize) -> Result<String, String> {
-//!     match i {
-//!         0..=9 => Ok(format!("{}", i)),
-//!         _ => Err(format!("{:?} is out of range", i)),
-//!     }
-//! }
-//!
-//! # fn main() {
-//! assert_fn_err_lt!(example_digit_to_string, 10, 20);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_fn_err_lt!(example_digit_to_string, 20, 10);
-//! //-> panic!
-//! // assertion failed: `assert_fn_err_eq!(example_digit_to_string, left, right)`
-//! //      function: `example_digit_to_string`,
-//! //    left input: `20`,
-//! //   right input: `10``,
-//! //   left is err: `true`,
-//! //  right is err: `true`,
-//! //   left output: `\"20 is out of range\"`,
-//! //  right output: `\"10 is out of range\"`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_fn_err_lt!(function, left, right)`\n     function: `\"example_digit_to_string\"`,\n   left input: `20`,\n  right input: `10`,\n  left is err: `true`,\n right is err: `true`,\n  left output: `\"20 is out of range\"`,\n right output: `\"10 is out of range\"`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
-//!
-//!
-//! ### assert_set_xx for set comparisons
+//! ### assert_set_* for set collection comparisons
 //!
 //! These macros help with comparison of set parameters, such as two arrays or
 //! two vectors. where the item order does not matter, and the item count does
@@ -261,31 +104,8 @@
 //!
 //! * `assert_set_disjoint!(a, b)` ~ set a is disjoint with set b
 //!
-//! Examples:
 //!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! # fn main() {
-//! assert_set_eq!([1, 2], [2, 1]);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_set_eq!([1, 2], [3, 4]);
-//! //-> panic
-//! // assertion failed: `assert_set_eq!(left, right)`
-//! //   left: `[1, 2]`,
-//! //  right: `[3, 4]`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`";
-//! # assert_eq!(actual, expect);
-//! //-> panic!("assertion failed: `assert_set_eq!(left, right)`\n  left: `[1, 2]`,\n right: `[3, 4]`");
-//! # }
-//! ```
-//!
-//!
-//! ### assert_bag_xx for bag comparisons
+//! ### assert_bag_* for bag collection comparisons
 //!
 //! These macros help with comparison of bag parameters, such as comparison of
 //! two arrays or two vectors, where the item order does not matter, and the
@@ -299,340 +119,263 @@
 //!
 //! * `assert_bag_superbag(a, b)` ~ bag a ⊇ bag b
 //!
-//! Examples:
 //!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! # fn main() {
-//! assert_bag_eq!([1, 1], [1, 1]);
-//! //-> ()
+//! ## assert_fn_* for function return comparisons
 //!
-//! # let result = panic::catch_unwind(|| {
-//! assert_bag_eq!([1, 1], [1, 1, 1]);
-//! //-> panic!("…")
-//! // assertion failed: `assert_bag_eq!(left, right)`
-//! //   left: `[1, 1]`,
-//! //  right: `[1, 1, 1]`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_bag_eq!(left, right)`\n  left: `[1, 1]`,\n right: `[1, 1, 1]`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
+//! * `assert_fn_eq!(f, a, b)` ~ f(a) == b
 //!
+//! * `assert_fn_eq_other!(f, a, b)` ~ f(a) == f(b)
 //!
-//! ### assert_io_xx for input/output comparisons
+//! * `assert_fn_ne!(f, a, b)` ~ f(a) != b
 //!
-//! These macros help with input/output checking,
-//! such as with comparison of disk files, IO streams, etc.
+//! * `assert_fn_ne_other!(f, a, b)` ~ f(a) != f(b)
 //!
-//! * `assert_io!(a)` ~ a is true
+//! * `assert_fn_lt!(f, a, b)` ~ f(a) < v
 //!
-//! * `assert_io_eq!(a, b)` ~ a == b
+//! * `assert_fn_lt_other!(f, a, b)` ~ f(a) < f(b)
 //!
-//! * `assert_io_ne!(a, b)` ~ a != b
+//! * `assert_fn_le!(f, a, b)` ~ f(a) <= b
 //!
-//! * `assert_io_lt!(a, b)` ~ a < b
+//! * `assert_fn_le_other!(f, a, b)` ~ f(a) <= f(b)
 //!
-//! * `assert_io_le!(a, b)` ~ a <= b
+//! * `assert_fn_gt!(f, a, b)` ~ f(a) > b
 //!
-//! * `assert_io_gt!(a, b)` ~ a > b
+//! * `assert_fn_gt_other!(f, a, b)` ~ f(a) > f(b)
 //!
-//! * `assert_io_ge!(a, b)` ~ a >= b
+//! * `assert_fn_ge!(f, a, b)` ~ f(a) >= b
 //!
-//! Examples:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! # fn main() {
-//! assert_io_lt!(1, 2);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! assert_io_lt!(2, 1);
-//! //-> panic!("…")
-//! // assertion failed: `assert_io_lt!(left, right)`
-//! //   left: `2`,
-//! //  right: `1`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_io_lt!(left, right)`\n  left: `2`,\n right: `1`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
+//! * `assert_fn_ge_other!(f, a, b)` ~ f(a) >= f(b)
 //!
 //!
-//! ## assert_read_to_string_xx for std::io::Read comparisons
+//! ## assert_fn_ok_* for function Ok() comparisons
+//!
+//! * `assert_fn_ok_eq!(f, a, b)` ~ f(a).unwrap() == b
+//!
+//! * `assert_fn_ok_eq_other!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
+//!
+//! * `assert_fn_ok_ne!(f, a, b)` ~ f(a).unwrap() != b
+//!
+//! * `assert_fn_ok_ne_other!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
+//!
+//! * `assert_fn_ok_lt!(f, a, b)` ~ f(a).unwrap() < b
+//!
+//! * `assert_fn_ok_lt_other!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
+//!
+//! * `assert_fn_ok_le!(f, a, b)` ~ f(a).unwrap() <= b
+//!
+//! * `assert_fn_ok_le_other!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
+//!
+//! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
+//!
+//! * `assert_fn_ok_gt_other!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
+//!
+//! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
+//!
+//! * `assert_fn_ok_gt_other!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
+//!
+//!
+//! ## assert_fn_err_* for function Err() comparisons
+//!
+//! * `assert_fn_err_eq!(f, a, b)` ~ f(a).unwrap_err() == b
+//!
+//! * `assert_fn_err_eq_other!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
+//!
+//! * `assert_fn_err_ne!(f, a, b)` ~ f(a).unwrap_err() != b
+//!
+//! * `assert_fn_err_ne_other!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
+//!
+//! * `assert_fn_err_lt!(f, a, b)` ~ f(a).unwrap_err() < b
+//!
+//! * `assert_fn_err_lt_other!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
+//!
+//! * `assert_fn_err_le!(f, a, b)` ~ f(a).unwrap_err() <= b
+//!
+//! * `assert_fn_err_le_other!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
+//!
+//! * `assert_fn_err_gt!(f, a, b)` ~ f(a).unwrap_err() > b
+//!
+//! * `assert_fn_err_gt_other!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
+//!
+//! * `assert_fn_err_ge!(f, a, b)`~ f(a).unwrap_err() >= b
+//!
+//! * `assert_fn_err_ge_other!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
+//!
+//!
+//! ## assert_read_to_string_* for std::io::Read comparisons
 //!
 //! These macros help with readers, such as file handles, byte
 //! arrays, input streams, and the trait std::io::Read.
 //!
-//! * `assert_read_to_string_eq!(a, b)` ~ a.read_to_string() == b.read_to_string()
+//! * `assert_read_to_string_eq!(a, b)` ~ a.read_to_string() == b
 //!
-//! * `assert_read_to_string_ne!(a, b)` ~ a.read_to_string() != b.read_to_string()
+//! * `assert_read_to_string_eq_other!(a, b)` ~ a.read_to_string() == b.read_to_string()
 //!
-//! * `assert_read_to_string_lt!(a, b)` ~ a.read_to_string() < b.read_to_string()
+//! * `assert_read_to_string_ne!(a, b)` ~ a.read_to_string() != b
 //!
-//! * `assert_read_to_string_le!(a, b)` ~ a.read_to_string() <= b.read_to_string()
+//! * `assert_read_to_string_ne_other!(a, b)` ~ a.read_to_string() != b.read_to_string()
 //!
-//! * `assert_read_to_string_gt!(a, b)` ~ a.read_to_string() > b.read_to_string()
+//! * `assert_read_to_string_lt!(a, b)` ~ a.read_to_string() < b
 //!
-//! * `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b.read_to_string()
+//! * `assert_read_to_string_lt_other!(a, b)` ~ a.read_to_string() < b.read_to_string()
 //!
-//! * `assert_read_to_string_eq_string!(readable, string)` ~ a.read_to_string() == str
+//! * `assert_read_to_string_le!(a, b)` ~ a.read_to_string() <= b
 //!
-//! Examples:
+//! * `assert_read_to_string_le_other!(a, b)` ~ a.read_to_string() <= b.read_to_string()
 //!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! use std::io::Read;
+//! * `assert_read_to_string_gt!(a, b)` ~ a.read_to_string() > b
 //!
-//! # fn main() {
-//! let mut a = "a".as_bytes();
-//! let mut b = "b".as_bytes();
-//! assert_read_to_string_lt!(a, b);
-//! //-> ()
+//! * `assert_read_to_string_gt_other!(a, b)` ~ a.read_to_string() > b.read_to_string()
 //!
-//! # let result = panic::catch_unwind(|| {
-//! let mut a = "a".as_bytes();
-//! let mut b = "b".as_bytes();
-//! assert_read_to_string_lt!(b, a);
-//! //-> panic!("…")
-//! // assertion failed: `assert_read_to_string_lt!(left, right)`
-//! //   left: `\"b\"`,
-//! //  right: `\"a\"`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_read_to_string_lt!(left, right)`\n  left: `\"b\"`,\n right: `\"a\"`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
+//! * `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b
+//!
+//! * `assert_read_to_string_ge_other!(a, b)` ~ a.read_to_string() >= b.read_to_string()
 //!
 //!
-//! ## assert_command_stdout_xx & assert_command_stderr_xx
-//!
-//! stdout:
+//! ## assert_command_ for process command comparisons
 //! 
-//! * `assert_command_stdout_eq!(a_command, b_command)` ~ String::from_utf8(a_command.output().unwrap().stdout).unwrap() == String::from_utf8(b_command.output().unwrap().stdout).unwrap()
+//! Using standard output a.k.a. stdout:
 //!
-//! * `assert_command_stdout_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == String::from(string)
+//! * `assert_command_stdout_eq!(command, value)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == value
 //!
-//! * `assert_command_stdout_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(pattern)
+//! * `assert_command_stdout_eq_other!(command, command)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == String::from_utf8(command.output().unwrap().stdout).unwrap()
 //!
-//! * `assert_command_stdout_matches!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).unwrap())
+//! * `assert_command_stdout_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(containee)
 //!
-//! stderr:
+//! * `assert_command_stdout_matches!(command, matcher)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).unwrap())
+//!
+//! Using standard error a.k.a. stderr:
+//!
+//! * `assert_command_stderr_eq!(command, value)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == value
+//!
+//! * `assert_command_stderr_eq_other!(command, command)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == String::from_utf8(command.output().unwrap().stdout).unwrap()
+//!
+//! * `assert_command_stderr_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(containee)
+//!
+//! * `assert_command_stderr_matches!(command, matcher)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).unwrap())
+//!
 //! 
-//! * `assert_command_stderr_eq!(a_command, b_command)` ~ String::from_utf8(a_command.output().unwrap().stderr).unwrap() == String::from_utf8(b_command.output().unwrap().stdout).unwrap()
-//!
-//! * `assert_command_stderr_eq_string!(command, string)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == str
+//! ## Tracking
 //! 
-//! * `assert_command_stderr_contains!(command, pattern)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(pattern)
-//! 
-//! * `assert_command_stderr_matches!(command, regex)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).unwrap())
-//! 
-//! Examples:
+//! * Package: assertables-rust-crate
+//! * Version: 5.0.0
+//! * Created: 2021-03-30T15:47:49Z
+//! * Updated: 2022-02-28T15:45:38Z
+//! * License: GPL-2.0-or-later or contact us for custom license
+//! * Contact: Joel Parker Henderson (joel@sixarm.com)
 //!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! use std::process::Command;
-//!
-//! # fn main() {
-//! let mut a = Command::new("printf");
-//! a.args(["%s", "hello"]);
-//! let mut b = Command::new("printf");
-//! b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
-//! assert_command_stdout_eq!(a, b);
-//! //-> ()
-//!
-//! # let result = panic::catch_unwind(|| {
-//! let mut a = Command::new("printf");
-//! a.args(["%s", "hello"]);
-//! let mut b = Command::new("printf");
-//! b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
-//! assert_command_stdout_eq!(a, b);
-//! //-> panic!("…")
-//! // assertion failed: `assert_command_stdout_eq(a_command, b_command)`
-//! //   left command program: `\"printf\"`,
-//! //  right command program: `\"printf\"`,
-//! //   left stdout: `\"hello\"`,
-//! //  right stdout: `\"world\"`
-//! # });
-//! # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! # let expect = "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n  left command program: `\"printf\"`,\n right command program: `\"printf\"`,\n  left stdout: `\"hello\"`,\n right stdout: `\"world\"`";
-//! # assert_eq!(actual, expect);
-//! # }
-//! ```
 
+// Message macros such as for panic!(…) and Err(…).
+#[macro_use] mod msg_with_left_and_right;
+
+// Message macros for commands
+#[macro_use] mod msg_with_left_command_and_right_command;
+#[macro_use] mod msg_with_left_command_and_right_expr;
+
+// Message macros for functions
+#[macro_use] mod msg_with_pair_function_and_left_input_and_right_input;
+#[macro_use] mod msg_with_left_function_and_left_input_and_right_expr;
+
+// Message macros for readers
+#[macro_use] mod msg_with_left_reader_and_right_reader;
+#[macro_use] mod msg_with_left_reader_and_right_expr;
 
 // Assert truth
-pub mod assert; // condition (provided by Rust `std`)
+pub mod assert; // (provided by Rust `std`)
 
 // Assert value comparison
-pub mod assert_eq; // equal (provided by Rust `std`)
-pub mod assert_ne; // not equal (provided by Rust `std`)
-pub mod assert_lt; // less than
-pub mod assert_le; // less than or equal to
-pub mod assert_gt; // greater than
-pub mod assert_ge; // greater than or equal to
-
-// Assert function output comparison
-pub mod assert_fn_eq; // equal
-pub mod assert_fn_ne; // not equal
-pub mod assert_fn_lt; // less than
-pub mod assert_fn_le; // less than or equal to
-pub mod assert_fn_gt; // greater than
-pub mod assert_fn_ge; // greater than or equal to
-pub mod assert_fn_expect; // expect
-
-// Assert function Ok() comparison
-pub mod assert_fn_ok_eq; // equal
-pub mod assert_fn_ok_ne; // not equal
-pub mod assert_fn_ok_lt; // less than
-pub mod assert_fn_ok_le; // less than or equal to
-pub mod assert_fn_ok_gt; // greater than
-pub mod assert_fn_ok_ge; // greater than or equal to
-
-// Assert function Err() comparison
-pub mod assert_fn_err_eq; // equal
-pub mod assert_fn_err_ne; // not equal
-pub mod assert_fn_err_lt; // less than
-pub mod assert_fn_err_le; // less than or equal to
-pub mod assert_fn_err_gt; // greater than
-pub mod assert_fn_err_ge; // greater than or equal to
-
-// Assert iterator-related set-based comparison
-pub mod assert_set_eq; // equal; set a == set b
-pub mod assert_set_ne; // not equal; set a != set b
-pub mod assert_set_subset; // set a ⊆ set b
-pub mod assert_set_superset; // set a ⊇ set b
-pub mod assert_set_joint; // set is joint with another set
-pub mod assert_set_disjoint; // set is disjoint with another set
-
-// Assert iterator-related bag-based comparison
-pub mod assert_bag_eq; // equal; bag a == bag b
-pub mod assert_bag_ne; // not equal; bag a != bag b
-pub mod assert_bag_subbag; // bag a ⊆ bag b
-pub mod assert_bag_superbag; // bag a ⊇ bag b
-
-// Assert IO-related truth, which can return Err(std:io:Error(…))
-//pub mod assert_io;
-
-// Assert IO-related comparison, which can return Err(std:io:Error(…))
-pub mod assert_io_eq; // equal
-pub mod assert_io_ne; // not equal
-pub mod assert_io_lt; // less than
-pub mod assert_io_le; // less than or equal to
-pub mod assert_io_gt; // greater than
-pub mod assert_io_ge; // greater than or equal to
-
-// Assert std::io::read comparison
-pub mod assert_read_to_string_eq; // equal
-pub mod assert_read_to_string_ne; // not equal
-pub mod assert_read_to_string_lt; // less than
-pub mod assert_read_to_string_le; // less than or equal to
-pub mod assert_read_to_string_gt; // greater than
-pub mod assert_read_to_string_ge; // greater than or equal to
-pub mod assert_read_to_string_eq_string; // equal to string
-pub mod assert_read_to_string_contains; // contains pattern e.g. has substring
-pub mod assert_read_to_string_matches; // matches e.g. regex is match
-
-// Assert command stdout
-pub mod assert_command_stdout_eq; // equal
-pub mod assert_command_stdout_eq_string; // equal to string
-pub mod assert_command_stdout_contains; // contains pattern e.g. has substring
-pub mod assert_command_stdout_matches; // matches e.g. regex is match
-
-// Assert command stderr
-pub mod assert_command_stderr_eq; // equal
-pub mod assert_command_stderr_eq_string; // equal to string
-pub mod assert_command_stderr_contains; // contains pattern e.g. has substring
-pub mod assert_command_stderr_matches; // matches e.g. regex is match
-
-// Assertable truth
-pub mod assertable; // condition
-
-// Assertable value comparison
-pub mod assertable_eq; // equal
-pub mod assertable_ne; // not equal
-pub mod assertable_lt; // less than
-pub mod assertable_le; // less than or equal to
-pub mod assertable_gt; // greater than
-pub mod assertable_ge; // greater than or equal to
-
-// Assertable function output comparison
-pub mod assertable_fn_eq; // equal
-pub mod assertable_fn_ne; // not equal
-pub mod assertable_fn_lt; // less than
-pub mod assertable_fn_le; // less than or equal to
-pub mod assertable_fn_gt; // greater than
-pub mod assertable_fn_ge; // greater than or equal to
-pub mod assertable_fn_expect; // expect
-
-// Assertable function Ok() comparison
-pub mod assertable_fn_ok_eq; // equal
-pub mod assertable_fn_ok_ne; // not equal
-pub mod assertable_fn_ok_lt; // less than
-pub mod assertable_fn_ok_le; // less than or equal to
-pub mod assertable_fn_ok_gt; // greater than
-pub mod assertable_fn_ok_ge; // greater than or equal to
-
-// Assertable function Err() comparison
-pub mod assertable_fn_err_eq; // equal
-pub mod assertable_fn_err_ne; // not equal
-pub mod assertable_fn_err_lt; // less than
-pub mod assertable_fn_err_le; // less than or equal to
-pub mod assertable_fn_err_gt; // greater than
-pub mod assertable_fn_err_ge; // greater than or equal to
+pub mod assert_eq; // (provided by Rust `std`)
+pub mod assert_ne;
+pub mod assert_lt;
+pub mod assert_le;
+pub mod assert_gt;
+pub mod assert_ge;
 
 // Assertable iterator-related set-based comparison
-pub mod assertable_set_eq; // equal
-pub mod assertable_set_ne; // not equal
-pub mod assertable_set_subset; // set a ⊆ set b
-pub mod assertable_set_superset; // set a ⊇ set b
-pub mod assertable_set_joint; // set is joint with another set
-pub mod assertable_set_disjoint; // set is disjoint with another set
+pub mod assert_set_eq;
+pub mod assert_set_ne;
+pub mod assert_set_subset;
+pub mod assert_set_superset;
+pub mod assert_set_joint;
+pub mod assert_set_disjoint;
 
 // Assertable iterator-related bag-based comparison
-pub mod assertable_bag_eq; // equal
-pub mod assertable_bag_ne; // not equal
-pub mod assertable_bag_subbag; // bag a ⊆ bag b
-pub mod assertable_bag_superbag; // bag a ⊇ bag b
+pub mod assert_bag_eq;
+pub mod assert_bag_ne;
+pub mod assert_bag_subbag;
+pub mod assert_bag_superbag;
 
-// Assertable IO-related truth, which can return Err(std:io:Error(…))
-pub mod assertable_io;
+// Assert function return versus value
+pub mod assert_fn_eq;
+pub mod assert_fn_eq_other;
+pub mod assert_fn_ne;
+pub mod assert_fn_ne_other;
+// pub mod assert_fn_lt;
+pub mod assert_fn_lt_other;
+// pub mod assert_fn_le;
+pub mod assert_fn_le_other;
+// pub mod assert_fn_gt;
+pub mod assert_fn_gt_other;
+// pub mod assert_fn_ge;
+pub mod assert_fn_ge_other;
 
-// Assertable IO-related comparison, which can return Err(std:io:Error(…))
-pub mod assertable_io_eq; // equal
-pub mod assertable_io_ne; // not equal
-pub mod assertable_io_lt; // less than
-pub mod assertable_io_le; // less than or equal to
-pub mod assertable_io_gt; // greater than
-pub mod assertable_io_ge; // greater than or equal to
+// Assert function Ok() versus value
+pub mod assert_fn_ok_eq;
+pub mod assert_fn_ok_eq_other;
+pub mod assert_fn_ok_ne;
+pub mod assert_fn_ok_ne_other;
+pub mod assert_fn_ok_lt;
+pub mod assert_fn_ok_lt_other;
+pub mod assert_fn_ok_le;
+ pub mod assert_fn_ok_le_other;
+pub mod assert_fn_ok_gt;
+pub mod assert_fn_ok_gt_other;
+pub mod assert_fn_ok_ge;
+pub mod assert_fn_ok_ge_other;
 
-// Assertable std::io::read comparison
-pub mod assertable_read_to_string_eq; // equal
-pub mod assertable_read_to_string_ne; // not equal
-pub mod assertable_read_to_string_lt; // less than
-pub mod assertable_read_to_string_le; // less than or equal to
-pub mod assertable_read_to_string_gt; // greater than
-pub mod assertable_read_to_string_ge; // greater than or equal to
-pub mod assertable_read_to_string_eq_string; // equal to string
-pub mod assertable_read_to_string_contains; // contains pattern e.g. has substring
-pub mod assertable_read_to_string_matches; // matches e.g. regex is match
+// Assert function Err() versus value
+pub mod assert_fn_err_eq;
+pub mod assert_fn_err_eq_other;
+pub mod assert_fn_err_ne;
+pub mod assert_fn_err_ne_other;
+pub mod assert_fn_err_lt;
+pub mod assert_fn_err_lt_other;
+pub mod assert_fn_err_le;
+pub mod assert_fn_err_le_other;
+pub mod assert_fn_err_gt;
+pub mod assert_fn_err_gt_other;
+pub mod assert_fn_err_ge;
+pub mod assert_fn_err_ge_other;
 
-// Assertable command stdout
-pub mod assertable_command_stdout_eq; // equal
-pub mod assertable_command_stdout_eq_string; // equal to string
-pub mod assertable_command_stdout_contains; // contains pattern e.g. has substring
-pub mod assertable_command_stdout_matches; // matches e.g. regex is match
+// Assert std::io::read comparisons
+pub mod assert_read_to_string_eq;
+pub mod assert_read_to_string_eq_other;
+pub mod assert_read_to_string_ne;
+pub mod assert_read_to_string_ne_other;
+pub mod assert_read_to_string_lt;
+pub mod assert_read_to_string_lt_other;
+pub mod assert_read_to_string_le;
+pub mod assert_read_to_string_le_other;
+pub mod assert_read_to_string_gt;
+pub mod assert_read_to_string_gt_other;
+pub mod assert_read_to_string_ge;
+pub mod assert_read_to_string_ge_other;
 
-// Assertable command stderr
-pub mod assertable_command_stderr_eq; // equal
-pub mod assertable_command_stderr_eq_string; // equal to string
-pub mod assertable_command_stderr_contains; // contains pattern e.g. has substring
-pub mod assertable_command_stderr_matches; // matches e.g. regex is match
+// Assert std::io::read specializations
+pub mod assert_read_to_string_contains;
+pub mod assert_read_to_string_matches;
+
+// Assert command stdout
+pub mod assert_command_stdout_eq;
+pub mod assert_command_stdout_eq_other;
+
+// Assert command stdout specializations
+pub mod assert_command_stdout_contains;
+pub mod assert_command_stdout_matches;
+
+// Assert command stderr
+pub mod assert_command_stderr_eq;
+pub mod assert_command_stderr_eq_other;
+
+// Assert command stdett specializations
+pub mod assert_command_stderr_contains;
+pub mod assert_command_stderr_matches;
