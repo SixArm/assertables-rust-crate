@@ -29,32 +29,32 @@ Set macros:
 
 Function macros:
 
-  * Such as `assert_fn_eq_other!(function, input1, input2)`
+  * Such as `assert_fn_eq!(function, input, value)`
 
-  * Which means `function(input1) == function(input2)`
+  * Which means `function(input1) == value`
 
 Reader macros:
 
-  * Such as `assert_read_to_string_eq_other!(reader1, reader2)`
+  * Such as `assert_read_to_string_eq!(reader1, string)`
 
-  * This means `reader1.read_to_string() == reader2._to_string()`
+  * This means `reader1.read_to_string() == string`
 
 Commmand macros:
 
-  * Such as `assert_command_stdout_eq!(command, substr)`
+  * Such as `assert_command_stdout_eq!(command, string)`
 
-  * This means `String::from_utf8(command.output().ap().stdout).unwrap() == string`
+  * This means `String::from_utf8(command.output().unwrap().stdout).unwrap() == string`
 
 
 ## Naming conventions
 
 Abbreviations: 
 
-*  `eq` (equals) and `ne` (not equals)
+*  `eq` means equal; `ne` means not equal.
 
-* `lt` (less than) and `le` (less than or equal to)
+* `lt` means less than; `le` means less than or equal.
 
-* `gt` (greater than) and `ge` (greater than or equals).
+* `gt` means greater than; `ge` means greater than or equal.
 
 Shorthands: 
 
@@ -87,6 +87,16 @@ Example:
    * `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")` 
 
    * `assert_gt(1, 2, "lorem ipsum")` => `panic!("lorem ipsum")`
+
+## Forms for comparing an expression versus equivalent
+
+Some macros have forms for comparing to an expression (`expr`)  versus an equivalent (`other`):
+
+Example:
+
+   * `assert_read_to_string_eq!(reader, expr)` => `reader.read_to_string() == expr`
+
+   * `assert_read_to_string_eq_other!(reader1, reader2)` => `reader1.read_to_string() == reader2.read_to_string()`
 
 
 ## assert_* for values
