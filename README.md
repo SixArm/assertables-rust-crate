@@ -15,35 +15,35 @@ Repo:
 
 ## Highlights
 
-Value macros:
+Value macros such as:
 
-  * Such as `assert_gt!(value1, value2)`
+  * `assert_gt!(value1, value2)`
 
-  * Which means `value1 > value2`
+  * Means `value1 > value2`
 
-Set macros:
+Set macros such as:
 
-  * Such as `assert_set_subset!(set1, set2)`
+  * `assert_set_subset!(set1, set2)`
 
   * Which means `set1 ⊆ set2`
 
-Function macros:
+Function macros such as:
 
-  * Such as `assert_fn_eq!(function, input, value)`
+  * `assert_fn_eq!(function, input, output)`
 
-  * Which means `function(input1) == value`
+  * Means `function(input) == output`
 
-Reader macros:
+Reader macros such as:
 
-  * Such as `assert_read_to_string_eq!(reader1, string)`
+  * `assert_read_to_string_eq!(reader, string)`
 
-  * This means `reader1.read_to_string() == string`
+  * Means `reader.read_to_string() == string`
 
-Commmand macros:
+Commmand macros such as:
 
-  * Such as `assert_command_stdout_eq!(command, string)`
+  * `assert_command_stdout_eq!(command, expr)`
 
-  * This means `String::from_utf8(command.output().unwrap().stdout).unwrap() == string`
+  * Means `String::from_utf8(command.output().unwrap().stdout).unwrap() == expr`
 
 
 ## Naming conventions
@@ -87,6 +87,7 @@ Example:
    * `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")`
 
    * `assert_gt(1, 2, "lorem ipsum")` => `panic!("lorem ipsum")`
+
 
 ## Forms for comparing an expression versus equivalent
 
