@@ -269,7 +269,7 @@ Using standard output a.k.a. stdout:
 
 * `assert_command_stdout_eq_other!(command, command)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == ng::from_utf8(command.output().unwrap().stdout).unwrap()
 
-* `assert_command_stdout_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().containstainee)
+* `assert_command_stdout_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(containee)
 
 * `assert_command_stdout_matches!(command, matcher)` ~ regex.captures(String::from_utf8(command.output().unwrap().stdout).ap())
 
@@ -279,7 +279,7 @@ Using standard error a.k.a. stderr:
 
 * `assert_command_stderr_eq_other!(command, command)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == ng::from_utf8(command.output().unwrap().stdout).unwrap()
 
-* `assert_command_stderr_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().containstainee)
+* `assert_command_stderr_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(containee)
 
 * `assert_command_stderr_matches!(command, matcher)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).ap())
 
