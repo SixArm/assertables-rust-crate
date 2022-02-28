@@ -1,4 +1,4 @@
-Assertables: Rust crate of "assert" macros for testing
+# Assertables: Rust crate of "assert" macros for testing
 
 The `assertables` Rust crate provides many "assert" macros 
 to help with compile-time testing and run-time reliability
@@ -15,17 +15,37 @@ Repo:
 
 ## Highlights
 
-* Value macros such as: `assert_gt!(value1, value2)` which means `value1 > value2`.
+Value macros:
 
-* Set macros such as: `assert_set_subset!(set1, set2)` which means `set1 ⊆ set2`.
+  * Such as `assert_gt!(value1, value2)`
 
-* Function macros such as: `assert_fn_eq_other!(function, input1, input2)` which means `function(input1) == function(input2)
+  * Which means `value1 > value2`
 
-* Reader macros such as: `assert_read_to_string_eq_other!(reader1, reader2)` which means reader1.read_to_string() == reader2._to_string()
+Set macros:
 
-* Commmand macros such as: `assert_command_stdout_eq!(command, substr)` which means `String::from_utf8(command.output().ap().stdout).unwrap() == string.
+  * Such as `assert_set_subset!(set1, set2)`
 
-  
+  * Which means `set1 ⊆ set2`
+
+Function macros:
+
+  * Such as `assert_fn_eq_other!(function, input1, input2)`
+
+  * Which means `function(input1) == function(input2)`
+
+Reader macros:
+
+  * Such as `assert_read_to_string_eq_other!(reader1, reader2)`
+
+  * This means `reader1.read_to_string() == reader2._to_string()`
+
+Commmand macros:
+
+  * Such as `assert_command_stdout_eq!(command, substr)`
+
+  * This means `String::from_utf8(command.output().ap().stdout).unwrap() == string`
+
+
 ## Naming conventions
 
 Abbreviations: 
@@ -49,24 +69,18 @@ Shorthands:
   * `bag` means a collection such as `::std::collections::BTreeMap` with key counts.
 
 
-## Flavors: do you prefer panic! or Err()?
+## Forms for panic! or Result Err()
 
-The macros have two flavors: 
+The macros have forms for immediate interrupts or returning results:
 
-  * The "interrupt" flavor returns `()` or `panic!(…)`.
+   * `assert_gt!(a, b)` => `()` or `panic!(…)`
 
-  * The "result" flavor returns `Ok(())` or `Err(…)`.
-
-Example: 
-
-   * `assert_gt!(a, b)` returns `()` or `panic!(…)`
-
-   * `assert_gt_as_result!(a, b)` returns `Ok(())` or `Err(…)`
+   * `assert_gt_as_result!(a, b)` => `Result Ok(())` or `Result Err(…)`
 
 
-## Error messages
+## Forms for default messages or custom messages
 
-The macros have a second form where a custom error message can be provided.
+The macros have forms for default messages or custom messages.
 
 Example:
 
