@@ -39,8 +39,8 @@
 #[macro_export]
 macro_rules! assert_read_to_string_contains_as_result {
     ($reader:expr, $b_pattern:expr $(,)?) => ({
-        let mut a_data = String::new();
-        let a_result = $reader.read_to_string(&mut a_data);
+        let mut a_string = String::new();
+        let a_result = $reader.read_to_string(&mut a_string);
         if let Err(a_err) = a_result {
             Err(msg_with_left_reader_and_right_expr_and_err!(
                 "assertion failed",
@@ -50,7 +50,7 @@ macro_rules! assert_read_to_string_contains_as_result {
                 a_err
             ))
         } else {
-            if a_data.contains($b_pattern) {
+            if a_string.contains($b_pattern) {
                 Ok(())
             } else {
                 let a_size = a_result.unwrap();
@@ -60,7 +60,7 @@ macro_rules! assert_read_to_string_contains_as_result {
                     stringify!($reader),
                     stringify!($b_pattern),
                     a_size,
-                    a_data,
+                    a_string,
                     $b_pattern
                 ))
             }

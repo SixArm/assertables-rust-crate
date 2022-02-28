@@ -55,7 +55,8 @@ macro_rules! assert_command_stderr_eq_as_result {
             ))
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if a_string == $b_expr {
+            let b_string = String::from($b_expr);
+            if a_string == b_string {
                 Ok(())
             } else {
                 Err(msg_with_left_command_and_right_expr!(
@@ -66,7 +67,7 @@ macro_rules! assert_command_stderr_eq_as_result {
                     $a_command.get_program(), 
                     $b_expr,
                     a_string,
-                    $b_expr
+                    b_string
                 ))
             }
         }

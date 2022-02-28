@@ -40,10 +40,10 @@
 #[macro_export]
 macro_rules! assert_read_to_string_lt_other_as_result {
     ($a_reader:expr, $b_reader:expr $(,)?) => ({
-        let mut a_data = String::new();
-        let mut b_data = String::new();
-        let a_result = $a_reader.read_to_string(&mut a_data);
-        let b_result = $b_reader.read_to_string(&mut b_data);
+        let mut a_string = String::new();
+        let mut b_string = String::new();
+        let a_result = $a_reader.read_to_string(&mut a_string);
+        let b_result = $b_reader.read_to_string(&mut b_string);
         if let Err(a_err) = a_result {
             Err(msg_with_left_reader_and_right_reader_and_err!(
                 "assertion failed",
@@ -64,7 +64,7 @@ macro_rules! assert_read_to_string_lt_other_as_result {
             } else {
                 let a_size = a_result.unwrap();
                 let b_size = b_result.unwrap();
-                if a_data < b_data {
+                if a_string < b_string {
                     Ok(())
                 } else {
                     Err(msg_with_left_reader_and_right_reader!(
@@ -74,8 +74,8 @@ macro_rules! assert_read_to_string_lt_other_as_result {
                         stringify!($b_reader),
                         a_size,
                         b_size,
-                        a_data,
-                        b_data
+                        a_string,
+                        b_string
                     ))
                 }
             }

@@ -37,8 +37,8 @@
 #[macro_export]
 macro_rules! assert_read_to_string_matches_as_result {
     ($reader:expr, $matcher:expr $(,)?) => ({
-        let mut a_data = String::new();
-        let a_result = $reader.read_to_string(&mut a_data);
+        let mut a_string = String::new();
+        let a_result = $reader.read_to_string(&mut a_string);
         if let Err(a_err) = a_result {
             Err(msg_with_left_reader_and_right_expr_and_err!(
                 "assertion failed",
@@ -49,7 +49,7 @@ macro_rules! assert_read_to_string_matches_as_result {
             ))
         } else {
             let a_size = a_result.unwrap();
-            if $matcher.is_match(a_data.as_str()) {
+            if $matcher.is_match(a_string.as_str()) {
                 Ok(())
             } else {
                 Err(msg_with_left_reader_and_right_expr!(
@@ -58,7 +58,7 @@ macro_rules! assert_read_to_string_matches_as_result {
                     stringify!($reader),
                     stringify!($matcher),
                     a_size,
-                    a_data,
+                    a_string,
                     $matcher
                 ))
             }
