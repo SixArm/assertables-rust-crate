@@ -84,7 +84,7 @@
 //!
 //! Example:
 //!
-//!    * `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")`
+//!    * `assert_gt(1, 2)` => `panic!("assertion failed: assert_gt(1, 2)…")`
 //!
 //!    * `assert_gt(1, 2, "lorem ipsum")` => `panic!("lorem ipsum")`
 //!
