@@ -53,11 +53,11 @@ macro_rules! assert_command_stdout_eq_other_as_result {
             Err(msg_with_left_command_and_right_command!(
                 "assertion failed",
                 "assert_command_stdout_eq_other!",
-                stringify!($a_command), 
-                stringify!($b_command), 
-                $a_command.get_program(), 
-                $b_command.get_program(), 
-                a_output, 
+                stringify!($a_command),
+                stringify!($b_command),
+                $a_command.get_program(),
+                $b_command.get_program(),
+                a_output,
                 b_output
             ))
         } else {
@@ -69,11 +69,11 @@ macro_rules! assert_command_stdout_eq_other_as_result {
                 Err(msg_with_left_command_and_right_command!(
                     "assertion failed",
                     "assert_command_stdout_eq_other!",
-                    stringify!($a_command), 
-                    stringify!($b_command), 
-                    $a_command.get_program(), 
-                    $b_command.get_program(), 
-                    a_string, 
+                    stringify!($a_command),
+                    stringify!($b_command),
+                    $a_command.get_program(),
+                    $b_command.get_program(),
+                    a_string,
                     b_string
                 ))
             }
@@ -175,7 +175,7 @@ macro_rules! assert_command_stdout_eq_other {
             Ok(()) => (),
             Err(_err) => panic!($($arg)+),
         }
-    });    
+    });
 }
 
 #[cfg(test)]

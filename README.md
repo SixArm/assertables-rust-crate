@@ -1,6 +1,6 @@
 # Assertables: Rust crate of "assert" macros for testing
 
-The `assertables` Rust crate provides many "assert" macros 
+The `assertables` Rust crate provides many "assert" macros
 to help with compile-time testing and run-time reliability
 
 Crate:
@@ -48,7 +48,7 @@ Commmand macros:
 
 ## Naming conventions
 
-Abbreviations: 
+Abbreviations:
 
 *  `eq` means equal; `ne` means not equal.
 
@@ -56,10 +56,10 @@ Abbreviations:
 
 * `gt` means greater than; `ge` means greater than or equal.
 
-Shorthands: 
+Shorthands:
 
   * `reader` means implements `.read_to_string(…)` such as `std::io::Read`.
-  
+
   * `matcher` means implements `.is_match(…)` such as `regex::Regex`.
 
   * `containee` means usable inside `.contains(…)` such as a `std::string::String` substring.
@@ -84,7 +84,7 @@ The macros have forms for default messages or custom messages.
 
 Example:
 
-   * `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")` 
+   * `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")`
 
    * `assert_gt(1, 2, "lorem ipsum")` => `panic!("lorem ipsum")`
 

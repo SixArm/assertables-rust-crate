@@ -52,7 +52,7 @@ macro_rules! assert_command_stdout_eq_as_result {
                 stringify!($b_expr),
                 $a_command.get_program(),
                 $b_expr,
-                a_output, 
+                a_output,
                 $b_expr
             ))
         } else {
@@ -68,7 +68,7 @@ macro_rules! assert_command_stdout_eq_as_result {
                     stringify!($b_expr),
                     $a_command.get_program(),
                     $b_expr,
-                    a_string, 
+                    a_string,
                     b_string
                 ))
             }
@@ -165,7 +165,7 @@ macro_rules! assert_command_stdout_eq {
             Ok(()) => (),
             Err(_err) => panic!($($arg)+),
         }
-    });    
+    });
 }
 
 #[cfg(test)]

@@ -47,9 +47,9 @@ macro_rules! assert_command_stderr_matches_as_result {
             Err(msg_with_left_command_and_right_expr!(
                 "assertion failed",
                 "assert_command_stderr_matches!",
-                stringify!($a_command), 
-                stringify!($b_expr), 
-                $a_command.get_program(), 
+                stringify!($a_command),
+                stringify!($b_expr),
+                $a_command.get_program(),
                 $b_expr,
                 a_output,
                 $b_expr
@@ -62,12 +62,12 @@ macro_rules! assert_command_stderr_matches_as_result {
                 Err(msg_with_left_command_and_right_expr!(
                     "assertion failed",
                     "assert_command_stderr_matches!",
-                    stringify!($a_command), 
-                    stringify!($b_expr), 
-                    $a_command.get_program(), 
-                    $b_expr, 
+                    stringify!($a_command),
+                    stringify!($b_expr),
+                    $a_command.get_program(),
+                    $b_expr,
                     a_string,
-                    $b_expr 
+                    $b_expr
                 ))
             }
         }
@@ -161,7 +161,7 @@ macro_rules! assert_command_stderr_matches {
             Ok(()) => (),
             Err(_err) => panic!($($arg)+),
         }
-    });    
+    });
 }
 
 #[cfg(test)]

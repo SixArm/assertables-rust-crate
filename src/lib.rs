@@ -1,95 +1,104 @@
 //! Assertables: Rust crate of "assert" macros for testing
-//! 
-//! The `assertables` Rust crate provides many "assert" macros 
+//!
+//! The `assertables` Rust crate provides many "assert" macros
 //! to help with compile-time testing and run-time reliability
-//! 
+//!
 //! Crate:
 //! [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
-//! 
+//!
 //! Docs:
 //! [https://docs.rs/assertables/](https://docs.rs/assertables/)
-//! 
+//!
 //! Repo:
 //! [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
-//! 
-//! 
+//!
+//!
 //! ## Highlights
-//! 
+//!
 //! Value macros:
-//! 
+//!
 //!   * Such as `assert_gt!(value1, value2)`
-//! 
+//!
 //!   * Which means `value1 > value2`
-//! 
+//!
 //! Set macros:
-//! 
+//!
 //!   * Such as `assert_set_subset!(set1, set2)`
-//! 
+//!
 //!   * Which means `set1 ⊆ set2`
-//! 
+//!
 //! Function macros:
-//! 
+//!
 //!   * Such as `assert_fn_eq!(function, input, value)`
-//! 
+//!
 //!   * Which means `function(input) == value`
-//! 
+//!
 //! Reader macros:
-//! 
+//!
 //!   * Such as `assert_read_to_string_eq!(reader, string)`
-//! 
+//!
 //!   * This means `reader1.read_to_string() == string`
-//! 
+//!
 //! Commmand macros:
-//! 
+//!
 //!   * Such as `assert_command_stdout_eq!(command, string)`
-//! 
+//!
 //!   * This means `String::from_utf8(command.output().unwrap().stdout).unwrap() == string`
-//! 
-//!   
+//!
+//!
 //! ## Naming conventions
-//! 
-//! Abbreviations: 
-//! 
-//! * `eq` means equal to; `ne` means not equal to.
-//! 
-//! * `lt` means less than; `le` means less than or equal to.
-//! 
-//! * `gt` means greater than; `ge` means greater than or equal to.
-//! 
-//! Shorthands: 
-//! 
+//!
+//! Abbreviations:
+//!
+//! * `eq` means equal; `ne` means not equal.
+//!
+//! * `lt` means less than; `le` means less than or equal.
+//!
+//! * `gt` means greater than; `ge` means greater than or equal.
+//!
+//! Shorthands:
+//!
 //!   * `reader` means implements `.read_to_string(…)` such as `std::io::Read`.
-//!   
+//!
 //!   * `matcher` means implements `.is_match(…)` such as `regex::Regex`.
-//! 
+//!
 //!   * `containee` means usable inside `.contains(…)` such as a `std::string::String` substring.
-//! 
+//!
 //!   * `set` means a collection such as `::std::collections::BTreeSet`.
-//! 
+//!
 //!   * `bag` means a collection such as `::std::collections::BTreeMap` with key counts.
-//! 
-//!   * `other` means a comparison to another expression of the same type.
-//! 
-//! 
-//! ## Forms for panic! or Result Err()
-//! 
-//! The macros have forms for immediate interrupts or returning results:
-//! 
+//!
+//!
+//! ## Forms for panic! versus Err()
+//!
+//! The macros have two forms, for immediate interrupts versus returning results:
+//!
 //!    * `assert_gt!(a, b)` => `()` or `panic!(…)`
-//! 
+//!
 //!    * `assert_gt_as_result!(a, b)` => `Result Ok(())` or `Result Err(…)`
-//! 
-//! 
-//! ## Forms for default messages or custom messages
-//! 
-//! The macros have forms for default messages or custom messages.
-//! 
+//!
+//!
+//! ## Forms for default messages versus custom messages
+//!
+//! The macros have two forms, for default messages versus custom messages.
+//!
 //! Example:
-//! 
-//!    * `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")` 
-//! 
+//!
+//!    * `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")`
+//!
 //!    * `assert_gt(1, 2, "lorem ipsum")` => `panic!("lorem ipsum")`
-//! 
+//!
+//!
+//! ## Forms for comparing an expression versus equivalent
+//!
+//! Some macros have forms for comparing to an expression (`expr`)  versus an equivalent (`other`):
+//!
+//! Example:
+//!
+//!    * `assert_read_to_string_eq!(reader, expr)` => `reader.read_to_string() == expr`
+//!
+//!    * `assert_read_to_string_eq_other!(reader1, reader2)` => `reader1.read_to_string() == reader2.read_to_string()`
+//!
 //!
 //! ## assert_* for values
 //!
@@ -254,7 +263,7 @@
 //!
 //!
 //! ## assert_command_ for process command comparisons
-//! 
+//!
 //! Using standard output a.k.a. stdout:
 //!
 //! * `assert_command_stdout_eq!(command, value)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == value
@@ -275,9 +284,9 @@
 //!
 //! * `assert_command_stderr_matches!(command, matcher)` ~ regex.captures(String::from_utf8(command.output().unwrap().stderr).unwrap())
 //!
-//! 
+//!
 //! ## Tracking
-//! 
+//!
 //! * Package: assertables-rust-crate
 //! * Version: 5.0.0
 //! * Created: 2021-03-30T15:47:49Z
