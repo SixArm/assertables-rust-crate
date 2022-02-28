@@ -1,16 +1,28 @@
 # Changes
 
 
-## 5.0 summary
+## Version 5.0 summary
 
-* Add macros for `contains` with substring pattern; drop macros `contains_str`.
+Upgrades:
 
-* Add macros for `matches` with regex pattern; drop macros `is_match`.
+* Add many new macro names with `other` in order to compare two items of the same type.
 
-* Add macros for `eq_string` with `String::from(string)`.
+* Add many new macro parameters with `expr` in order to enable arbitratry expressions.
 
-* Revise function macros from `f` to `fn` in order to improve readability.
+* Improve messages for collection macros `bag` and `set` so they preserve insertion order.
 
-* Revise error macros from `err_string` with `err` in order to improve specificity.
+* Refactor code composability via new `msg` macros.
 
-* Improve documentation and tests.
+* Refactor code readability via new `concat` formats.
+
+* Refactor code maintainability via `assert` macros that call `assert…result` macros.
+
+Breakers:
+
+  * Rename result macros from `assertable` to `assert…result` in order to improve learnability.
+
+  * Rename function macros `f` to `fn` in order to improve learnability.
+
+  * Rename string macros from `contains_str` to `contains` in order to add new containee capabilties.
+
+  * Rename matcher macros from `is_match` to `matches` in order to add new matcher capabilties.
