@@ -7,15 +7,11 @@ Upgrades:
 
 * Add many new macro names with `other` in order to compare two items of the same type.
 
-* Add many new macro parameters with `expr` in order to enable arbitratry expressions.
+* Add many new macro parameters with `expr` in order to enable arbitrary expressions.
 
 * Improve messages for collection macros `bag` and `set` so they preserve insertion order.
 
-* Refactor code composability via new `msg` macros.
-
-* Refactor code readability via new `concat` formats.
-
-* Refactor code maintainability via `assert` macros that call `assert…result` macros.
+* Refactor for maintainability via `msg` macros, `concat` formats, and `assert…result` calls.
 
 Breakers:
 
