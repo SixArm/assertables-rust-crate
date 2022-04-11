@@ -285,12 +285,35 @@
 //! * `assert_command_stderr_matches!(command, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stderr).unwrap())
 //!
 //!
+//! ## assert_program_args_ for process command comparisons created via program name and args interator
+//!
+//! Using standard output a.k.a. stdout:
+//!
+//! * `assert_program_args_stdout_eq!(program, args, value)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == value
+//!
+//! * `assert_program_args_stdout_eq_other!(program, args, program, args)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap() == String::from_utf8(command.output().unwrap().stdout).unwrap()
+//!
+//! * `assert_program_args_stdout_contains!(program, args, containee)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(containee)
+//!
+//! * `assert_program_args_stdout_matches!(program, args, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stdout).unwrap())
+//!
+//! Using standard error a.k.a. stderr:
+//!
+//! * `assert_program_args_stderr_eq!(program, args, value)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == value
+//!
+//! * `assert_program_args_stderr_eq_other!(program, args, program, args)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap() == String::from_utf8(command.output().unwrap().stdout).unwrap()
+//!
+//! * `assert_program_args_stderr_contains!(program, args, containee)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(containee)
+//!
+//! * `assert_program_args_stderr_matches!(program, args, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stderr).unwrap())
+//!
+//!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 5.1.0
+//! * Version: 5.2.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2022-04-11T11:22:18Z
+//! * Updated: 2022-04-11T17:16:52Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or contact us for custom license
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -394,3 +417,19 @@ pub mod assert_command_stderr_eq_other;
 // Assert command stderr specializations
 pub mod assert_command_stderr_contains;
 pub mod assert_command_stderr_matches;
+
+// Assert program args stdout
+pub mod assert_program_args_stdout_eq;
+pub mod assert_program_args_stdout_eq_other;
+
+// Assert program args stdout specializations
+pub mod assert_program_args_stdout_contains;
+pub mod assert_program_args_stdout_matches;
+
+// Assert program args stderr
+pub mod assert_program_args_stderr_eq;
+pub mod assert_program_args_stderr_eq_other;
+
+// Assert program args stderr specializations
+pub mod assert_program_args_stderr_contains;
+pub mod assert_program_args_stderr_matches;
