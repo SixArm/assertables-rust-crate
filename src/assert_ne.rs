@@ -57,7 +57,7 @@ macro_rules! assert_ne_as_result {
                         ),
                         stringify!($a), $a,
                         stringify!($b), $b,
-                        a_val, 
+                        a_val,
                         b_val
                     ))
                 }

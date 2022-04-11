@@ -59,7 +59,7 @@ macro_rules! assert_command_stdout_eq_other_as_result {
                     " right_command debug: `{:?}`,\n",
                     "         left output: `{:?}`,\n",
                     "        right output: `{:?}`"
-                ),    
+                ),
                 stringify!($a_command), $a_command,
                 stringify!($b_command), $b_command,
                 a_output,
@@ -80,7 +80,7 @@ macro_rules! assert_command_stdout_eq_other_as_result {
                         " right_command debug: `{:?}`,\n",
                         "                left: `{:?}`,\n",
                         "               right: `{:?}`"
-                    ),    
+                    ),
                     stringify!($a_command), $a_command,
                     stringify!($b_command), $b_command,
                     a_string,

@@ -43,7 +43,7 @@ macro_rules! assert_read_to_string_ne_other_as_result {
         let mut a_string = String::new();
         let mut b_string = String::new();
         let a_result = $a_reader.read_to_string(&mut a_string);
-        let b_result = $b_reader.read_to_string(&mut b_string);        
+        let b_result = $b_reader.read_to_string(&mut b_string);
         if a_result.is_err() || b_result.is_err() {
             Err(format!(
                 concat!(

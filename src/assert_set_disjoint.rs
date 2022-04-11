@@ -60,7 +60,7 @@ macro_rules! assert_set_disjoint_as_result {
                         ),
                         stringify!($a), $a,
                         stringify!($b), $b,
-                        &a_set, 
+                        &a_set,
                         &b_set
                     ))
                 }

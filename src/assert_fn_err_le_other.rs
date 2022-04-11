@@ -155,7 +155,7 @@ mod test_x_result {
             concat!(
                 "assertion failed: `assert_fn_err_le_other!(pair_function, left_input, right_input)`\n",
                 " pair_function label: `example_digit_to_string`,\n",
-                "    left_input label: `a`,\n", 
+                "    left_input label: `a`,\n",
                 "    left_input debug: `20`,\n",
                 "   right_input label: `b`,\n",
                 "   right_input debug: `10`,\n",

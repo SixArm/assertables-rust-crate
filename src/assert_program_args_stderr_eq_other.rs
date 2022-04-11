@@ -69,7 +69,7 @@ macro_rules! assert_program_args_stderr_eq_other_as_result {
                     "    right_args debug: `{:?}`,\n",
                     "         left output: `{:?}`,\n",
                     "        right output: `{:?}`"
-                ),     
+                ),
                 stringify!($a_program), $a_program,
                 stringify!($a_args), $a_args,
                 stringify!($b_program), $b_program,
@@ -96,7 +96,7 @@ macro_rules! assert_program_args_stderr_eq_other_as_result {
                         "    right_args debug: `{:?}`,\n",
                         "                left: `{:?}`,\n",
                         "               right: `{:?}`"
-                    ),     
+                    ),
                     stringify!($a_program), $a_program,
                     stringify!($a_args), $a_args,
                     stringify!($b_program), $b_program,

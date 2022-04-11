@@ -184,7 +184,7 @@ mod test_x_result {
 ///     "            left: `{1: 2}`,\n",
 ///     "           right: `{2: 2}`"
 /// );
-/// 
+///
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
