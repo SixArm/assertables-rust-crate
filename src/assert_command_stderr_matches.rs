@@ -41,8 +41,8 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_matches_as_result {
-    ($command:expr, $b:expr $(,)?) => ({
-        let a_output = $command.output();
+    ($a_command:expr, $b_matcher:expr $(,)?) => ({
+        let a_output = $a_command.output();
         if a_output.is_err() {
             Err(format!(
                 concat!(
@@ -53,13 +53,13 @@ macro_rules! assert_command_stderr_matches_as_result {
                     "  right_matcher debug: `{:?}`,\n",
                     "        left output: `{:?}`"
                 ),
-                stringify!($command), $command,
-                stringify!($b), $b,
+                stringify!($a_command), $a_command,
+                stringify!($b_matcher), $b_matcher,
                 a_output
             ))
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if $b.is_match(&a_string) {
+            if $b_matcher.is_match(&a_string) {
                 Ok(())
             } else {
                 Err(format!(
@@ -72,10 +72,10 @@ macro_rules! assert_command_stderr_matches_as_result {
                         "               left: `{:?}`,\n",
                         "              right: `{:?}`"
                     ),
-                    stringify!($command), $command,
-                    stringify!($b), $b,
+                    stringify!($a_command), $a_command,
+                    stringify!($b_matcher), $b_matcher,
                     a_string,
-                    $b
+                    $b_matcher
                 ))
             }
         }
@@ -158,14 +158,14 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_matches {
-    ($command:expr, $b:expr $(,)?) => ({
-        match assert_command_stderr_matches_as_result!($command, $b) {
+    ($a_command:expr, $b_matcher:expr $(,)?) => ({
+        match assert_command_stderr_matches_as_result!($a_command, $b_matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($command:expr, $b:expr, $($arg:tt)+) => ({
-        match assert_command_stderr_matches_as_result!($command, $b) {
+    ($a_command:expr, $b_matcher:expr, $($arg:tt)+) => ({
+        match assert_command_stderr_matches_as_result!($a_command, $b_matcher) {
             Ok(()) => (),
             Err(_err) => panic!($($arg)+),
         }
