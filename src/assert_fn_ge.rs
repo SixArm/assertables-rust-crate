@@ -1,8 +1,8 @@
 /// Assert one function output is not equal to another function output.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -24,14 +24,14 @@
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ge_other!(function, left_input, right_input)`\n",
-///     "    function name: `i32::abs`,\n",
-///     "  left input name: `a`,\n",
-///     " right input name: `b`,\n",
-///     "       left input: `1`,\n",
-///     "      right input: `-2`,\n",
-///     "      left output: `1`,\n",
-///     "     right output: `2`"
+///     "assertion failed: `assert_fn_ge!(left_function, left_input, right_expr)`\n",
+///     " left_function label: `i32::abs`,\n",
+///     "   left_input label: `a`,\n",
+///     "   left_input debug: `1`,\n",
+///     "   right_expr label: `b`,\n",
+///     "   right_expr debug: `-2`,\n",
+///     "             left: `1`,\n",
+///     "            right: `2`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -44,18 +44,24 @@ macro_rules! assert_fn_ge_as_result {
         if a_output >= $b_expr {
             Ok(())
         } else {
-            Err(format!("assertion failed: `assert_fn_ge!(function, left_input, right_value)`
-
-    function name: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $a, $b, a_output, $b_expr))
-        }
-    });
-    ($function:path, $a_input:expr, $b_expr:expr, $($arg:tt)+) => ({
-        let a_output = $function($a_input);
-        if a_output >= $b_expr {
-            Ok(())
-        } else {
-            Err($($arg)+)
-        }
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_fn_ge!(left_function, left_input, right_expr)`\n",
+                    " left_function label: `{}`,\n",
+                    "    left_input label: `{}`,\n",
+                    "    left_input debug: `{:?}`,\n",
+                    "    right_expr label: `{}`,\n",
+                    "    right_expr debug: `{:?}`,\n",
+                    "                left: `{:?}`,\n",
+                    "               right: `{:?}`"
+                ),
+                stringify!($function),
+                stringify!($a_input), $a_input,
+                stringify!($b_expr), $b_expr,
+                a_output,
+                $b_expr
+            ))
+    }
     });
 }
 
@@ -91,7 +97,7 @@ mod test_x_result {
         let x = assert_fn_ge_as_result!(i32::abs, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertion failed: `assert_fn_ge!(function, left_input, right_value)`
+            "assertion failed: `assert_fn_ge!(left_function, left_input, right_value)`
 
     function name: `i32::abs`,\n   left input: `1`,\n  right input: `-2`,\n  left output: `1`,\n right output: `2`"
         );
@@ -134,7 +140,7 @@ mod test_x_result {
 
 /// Assert a function output is greater than or equal to another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -158,7 +164,7 @@ mod test_x_result {
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ge!(function, left_input, right_expr)`\n",
+///     "assertion failed: `assert_fn_ge!(left_function, left_input, right_expr)`\n",
 ///     "    function name: `i32::abs`,\n",
 ///     "   left input: `1`,\n",
 ///     "  right value: `-2`,\n",
@@ -177,32 +183,4 @@ macro_rules! assert_fn_ge {
             Err(err) => panic!("{}", err),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-
-    #[test]
-    fn test_assert_fn_ge_x_arity_2_gt_success() {
-        let a: i32 = -2;
-        let b: i32 = 1;
-        let x = assert_fn_ge!(i32::abs, a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    fn test_assert_fn_ge_x_arity_2_eq_success() {
-        let a: i32 = 1;
-        let b: i32 = -1;
-        let x = assert_fn_ge!(i32::abs, a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_ge!(function, left_input, right_expr)`\n    function name: `i32::abs`,\n   left input: `1`,\n  right value: `-2`,\n         left: `1`,\n        right: `2`")]
-    fn test_assert_fn_ge_x_arity_2_lt_failure() {
-        let a: i32 = 1;
-        let b: i32 = -2;
-        let _x = assert_fn_ge!(i32::abs, a, b);
-    }
 }

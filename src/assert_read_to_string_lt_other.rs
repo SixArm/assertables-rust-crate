@@ -1,8 +1,8 @@
 /// Assert one std::io::Read read_to_string() value is less than another.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -26,12 +26,12 @@
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_lt_other!(left_reader, right_reader)`\n",
-///     "  left reader name: `a`,\n",
-///     " right reader name: `b`,\n",
-///     "  left reader size: `5`,\n",
-///     " right reader size: `5`,\n",
-///     "  left reader data: `\"bravo\"`,\n",
-///     " right reader data: `\"alpha\"`"
+///     "  left_reader label: `a`,\n",
+///     "  left_reader debug: `[]`,\n",
+///     " right_reader label: `b`,\n",
+///     " right_reader debug: `[]`,\n",
+///     "               left: `\"bravo\"`,\n",
+///     "              right: `\"alpha\"`",
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -44,40 +44,43 @@ macro_rules! assert_read_to_string_lt_other_as_result {
         let mut b_string = String::new();
         let a_result = $a_reader.read_to_string(&mut a_string);
         let b_result = $b_reader.read_to_string(&mut b_string);
-        if let Err(a_err) = a_result {
-            Err(msg_with_left_reader_and_right_reader_and_err!(
-                "assertion failed",
-                "assert_read_to_string_lt_other!",
-                stringify!($a_reader),
-                stringify!($b_reader),
-                a_err
+        if a_result.is_err() || b_result.is_err() {
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_read_to_string_lt_other!(left_reader, right_reader)`\n",
+                    "  left_reader label: `{}`,\n",
+                    "  left_reader debug: `{:?}`,\n",
+                    " right_reader label: `{}`,\n",
+                    " right_reader debug: `{:?}`,\n",
+                    "        left result: `{:?}`,\n",
+                    "       right result: `{:?}`"
+                ),
+                stringify!($a_reader), $a_reader,
+                stringify!($b_reader), $b_reader,
+                a_result,
+                b_result
             ))
         } else {
-            if let Err(b_err) = b_result {
-                Err(msg_with_left_reader_and_right_reader_and_err!(
-                    "assertion failed",
-                    "assert_read_to_string_lt_other!",
-                    stringify!($a_reader),
-                    stringify!($b_reader),
-                    b_err
-                ))
+            let _a_size = a_result.unwrap();
+            let _b_size = b_result.unwrap();
+            if a_string < b_string {
+                Ok(())
             } else {
-                let a_size = a_result.unwrap();
-                let b_size = b_result.unwrap();
-                if a_string < b_string {
-                    Ok(())
-                } else {
-                    Err(msg_with_left_reader_and_right_reader!(
-                        "assertion failed",
-                        "assert_read_to_string_lt_other!",
-                        stringify!($a_reader),
-                        stringify!($b_reader),
-                        a_size,
-                        b_size,
-                        a_string,
-                        b_string
-                    ))
-                }
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_read_to_string_lt_other!(left_reader, right_reader)`\n",
+                        "  left_reader label: `{}`,\n",
+                        "  left_reader debug: `{:?}`,\n",
+                        " right_reader label: `{}`,\n",
+                        " right_reader debug: `{:?}`,\n",
+                        "               left: `{:?}`,\n",
+                        "              right: `{:?}`"
+                    ),
+                    stringify!($a_reader), $a_reader,
+                    stringify!($b_reader), $b_reader,
+                    a_string,
+                    b_string
+                ))
             }
         }
     });
@@ -108,12 +111,12 @@ mod test_x_result {
             x.unwrap_err(),
             concat!(
                 "assertion failed: `assert_read_to_string_lt_other!(left_reader, right_reader)`\n",
-                "  left reader name: `a`,\n",
-                " right reader name: `b`,\n",
-                "  left reader size: `5`,\n",
-                " right reader size: `5`,\n",
-                "  left reader data: `\"bravo\"`,\n",
-                " right reader data: `\"alpha\"`"
+                "  left_reader label: `a`,\n",
+                "  left_reader debug: `[]`,\n",
+                " right_reader label: `b`,\n",
+                " right_reader debug: `[]`,\n",
+                "               left: `\"bravo\"`,\n",
+                "              right: `\"alpha\"`"
             )
         );
     }
@@ -121,7 +124,7 @@ mod test_x_result {
 
 /// Assert a std::io::Read read_to_string() value is less than another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -148,12 +151,12 @@ mod test_x_result {
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_lt_other!(left_reader, right_reader)`\n",
-///     "  left reader name: `a`,\n",
-///     " right reader name: `b`,\n",
-///     "  left reader size: `5`,\n",
-///     " right reader size: `5`,\n",
-///     "  left reader data: `\"bravo\"`,\n",
-///     " right reader data: `\"alpha\"`"
+///     "  left_reader label: `a`,\n",
+///     "  left_reader debug: `[]`,\n",
+///     " right_reader label: `b`,\n",
+///     " right_reader debug: `[]`,\n",
+///     "               left: `\"bravo\"`,\n",
+///     "              right: `\"alpha\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -173,42 +176,4 @@ macro_rules! assert_read_to_string_lt_other {
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-    use std::io::Read;
-
-    #[test]
-    fn test_assert_read_to_string_lt_other_x_arity_2_success() {
-        let mut a = "alpha".as_bytes();
-        let mut b = "bravo".as_bytes();
-        let x = assert_read_to_string_lt_other!(a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_read_to_string_lt_other!(left_reader, right_reader)`\n  left reader name: `a`,\n right reader name: `b`,\n  left reader size: `5`,\n right reader size: `5`,\n  left reader data: `\"bravo\"`,\n right reader data: `\"alpha\"`")]
-    fn test_assert_read_to_string_lt_other_x_arity_2_failure() {
-        let mut a = "bravo".as_bytes();
-        let mut b = "alpha".as_bytes();
-        let _x = assert_read_to_string_lt_other!(a, b);
-    }
-
-    #[test]
-    fn test_assert_read_to_string_lt_other_x_arity_3_success() {
-        let mut a = "alpha".as_bytes();
-        let mut b = "bravo".as_bytes();
-        let x = assert_read_to_string_lt_other!(a, b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_read_to_string_lt_other_x_arity_3_failure() {
-        let mut a = "bravo".as_bytes();
-        let mut b = "alpha".as_bytes();
-        let _x = assert_read_to_string_lt_other!(a, b, "message");
-    }
-
 }

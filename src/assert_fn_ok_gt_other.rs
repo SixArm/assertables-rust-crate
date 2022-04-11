@@ -1,8 +1,8 @@
 /// Assert one function ok() is greater than another.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -30,14 +30,14 @@
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_gt_other!(function, left_input, right_input)`\n",
-///     "    function name: `example_digit_to_string`,\n",
-///     "  left input name: `a`,\n",
-///     " right input name: `b`,\n",
-///     "       left input: `1`,\n",
-///     "      right input: `2`,\n",
-///     "      left output: `\"1\"`,\n",
-///     "     right output: `\"2\"`"
+///     "assertion failed: `assert_fn_ok_gt_other!(pair_function, left_input, right_input)`\n",
+///     " pair_function label: `example_digit_to_string`,\n",
+///     "    left_input label: `a`,\n",
+///     "    left_input debug: `1`,\n",
+///     "   right_input label: `b`,\n",
+///     "   right_input debug: `2`,\n",
+///     "                left: `\"1\"`,\n",
+///     "               right: `\"2\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -51,14 +51,20 @@ macro_rules! assert_fn_ok_gt_other_as_result {
         let a_is_ok = a_result.is_ok();
         let b_is_ok = b_result.is_ok();
         if !a_is_ok || !b_is_ok {
-            Err(msg_with_pair_function_and_left_input_and_right_input!(
-                "assertion failed",
-                "assert_fn_ok_gt_other!",
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_fn_err_gt_other!(pair_function, left_input, right_input)`\n",
+                    " pair_function label: `{}`,\n",
+                    "    left_input label: `{}`,\n",
+                    "    left_input debug: `{:?}`,\n",
+                    "   right_input label: `{}`,\n",
+                    "   right_input debug: `{:?}`,\n",
+                    "         left result: `{:?}`,\n",
+                    "        right result: `{:?}`"
+                ),
                 stringify!($function),
-                stringify!($a_input),
-                stringify!($b_input),
-                $a_input,
-                $b_input,
+                stringify!($a_input), $a_input,
+                stringify!($b_input), $b_input,
                 a_result,
                 b_result
             ))
@@ -68,14 +74,20 @@ macro_rules! assert_fn_ok_gt_other_as_result {
             if a_ok > b_ok {
                 Ok(())
             } else {
-                Err(msg_with_pair_function_and_left_input_and_right_input!(
-                    "assertion failed",
-                    "assert_fn_ok_gt_other!",
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_fn_ok_gt_other!(pair_function, left_input, right_input)`\n",
+                        " pair_function label: `{}`,\n",
+                        "    left_input label: `{}`,\n",
+                        "    left_input debug: `{:?}`,\n",
+                        "   right_input label: `{}`,\n",
+                        "   right_input debug: `{:?}`,\n",
+                        "                left: `{:?}`,\n",
+                        "               right: `{:?}`"
+                    ),
                     stringify!($function),
-                    stringify!($a_input),
-                    stringify!($b_input),
-                    $a_input,
-                    $b_input,
+                    stringify!($a_input), $a_input,
+                    stringify!($b_input), $b_input,
                     a_ok,
                     b_ok
                 ))
@@ -113,14 +125,14 @@ mod test_x_result {
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_fn_ok_gt_other!(function, left_input, right_input)`\n",
-                "    function name: `example_digit_to_string`,\n",
-                "  left input name: `a`,\n",
-                " right input name: `b`,\n",
-                "       left input: `1`,\n",
-                "      right input: `1`,\n",
-                "      left output: `\"1\"`,\n",
-                "     right output: `\"1\"`"
+                "assertion failed: `assert_fn_ok_gt_other!(pair_function, left_input, right_input)`\n",
+                " pair_function label: `example_digit_to_string`,\n",
+                "    left_input label: `a`,\n",
+                "    left_input debug: `1`,\n",
+                "   right_input label: `b`,\n",
+                "   right_input debug: `1`,\n",
+                "                left: `\"1\"`,\n",
+                "               right: `\"1\"`"
             )
         );
     }
@@ -133,14 +145,14 @@ mod test_x_result {
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_fn_ok_gt_other!(function, left_input, right_input)`\n",
-                "    function name: `example_digit_to_string`,\n",
-                "  left input name: `a`,\n",
-                " right input name: `b`,\n",
-                "       left input: `1`,\n",
-                "      right input: `2`,\n",
-                "      left output: `\"1\"`,\n",
-                "     right output: `\"2\"`"
+                "assertion failed: `assert_fn_ok_gt_other!(pair_function, left_input, right_input)`\n",
+                " pair_function label: `example_digit_to_string`,\n",
+                "    left_input label: `a`,\n",
+                "    left_input debug: `1`,\n",
+                "   right_input label: `b`,\n",
+                "   right_input debug: `2`,\n",
+                "                left: `\"1\"`,\n",
+                "               right: `\"2\"`"
             )
         );
     }
@@ -148,7 +160,7 @@ mod test_x_result {
 
 /// Assert a function ok() is greater than another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -179,14 +191,14 @@ mod test_x_result {
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_gt_other!(function, left_input, right_input)`\n",
-///     "    function name: `example_digit_to_string`,\n",
-///     "  left input name: `a`,\n",
-///     " right input name: `b`,\n",
-///     "       left input: `1`,\n",
-///     "      right input: `2`,\n",
-///     "      left output: `\"1\"`,\n",
-///     "     right output: `\"2\"`"
+///     "assertion failed: `assert_fn_ok_gt_other!(pair_function, left_input, right_input)`\n",
+///     " pair_function label: `example_digit_to_string`,\n",
+///     "    left_input label: `a`,\n",
+///     "    left_input debug: `1`,\n",
+///     "   right_input label: `b`,\n",
+///     "   right_input debug: `2`,\n",
+///     "                left: `\"1\"`,\n",
+///     "               right: `\"2\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -206,64 +218,4 @@ macro_rules! assert_fn_ok_gt_other {
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-
-    fn example_digit_to_string(i: i32) -> Result<String, String> {
-        match i {
-            0..=9 => Ok(format!("{}", i)),
-            _ => Err(format!("{:?} is out of range", i)),
-        }
-    }
-
-    #[test]
-    fn test_assert_fn_ok_gt_other_x_arity_2_gt_success() {
-        let a: i32 = 2;
-        let b: i32 = 1;
-        let x = assert_fn_ok_gt_other!(example_digit_to_string, a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_ok_gt_other!(function, left_input, right_input)`\n    function name: `example_digit_to_string`,\n  left input name: `a`,\n right input name: `b`,\n       left input: `1`,\n      right input: `1`,\n      left output: `\"1\"`,\n     right output: `\"1\"`")]
-    fn test_assert_fn_ok_gt_other_x_arity_2_eq_failure() {
-        let a: i32 = 1;
-        let b: i32 = 1;
-        let _x = assert_fn_ok_gt_other!(example_digit_to_string, a, b);
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_ok_gt_other!(function, left_input, right_input)`\n    function name: `example_digit_to_string`,\n  left input name: `a`,\n right input name: `b`,\n       left input: `1`,\n      right input: `2`,\n      left output: `\"1\"`,\n     right output: `\"2\"`")]
-    fn test_assert_fn_ok_gt_other_x_arity_2_lt_failure() {
-        let a: i32 = 1;
-        let b: i32 = 2;
-        let _x = assert_fn_ok_gt_other!(example_digit_to_string, a, b);
-    }
-
-    #[test]
-    fn test_assert_fn_ok_gt_other_x_arity_3_gt_success() {
-        let a: i32 = 2;
-        let b: i32 = 1;
-        let x = assert_fn_ok_gt_other!(example_digit_to_string, a, b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_fn_ok_gt_other_x_arity_3_eq_failure() {
-        let a: i32 = 1;
-        let b: i32 = 1;
-        let _x = assert_fn_ok_gt_other!(example_digit_to_string, a, b, "message");
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_fn_ok_gt_other_x_arity_3_failure() {
-        let a: i32 = 1;
-        let b: i32 = 2;
-        let _x = assert_fn_ok_gt_other!(example_digit_to_string, a, b, "message");
-    }
-
 }

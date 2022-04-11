@@ -1,8 +1,8 @@
 /// Assert one std::io::Read read_to_string() value is less than another.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -13,7 +13,7 @@
 /// # fn main() {
 /// let mut reader = "alpha".as_bytes();
 /// let value = String::from("bravo");
-/// let x = assert_read_to_string_lt_as_result!(reader, value);
+/// let x = assert_read_to_string_lt_as_result!(reader, &value);
 /// //-> Ok(())
 /// let actual = x.unwrap();
 /// let expect = ();
@@ -21,16 +21,17 @@
 ///
 /// let mut reader = "bravo".as_bytes();
 /// let value = String::from("alpha");
-/// let x = assert_read_to_string_lt_as_result!(reader, value);
+/// let x = assert_read_to_string_lt_as_result!(reader, &value);
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_lt!(left_reader, right_expr)`\n",
-///     " left reader name: `reader`,\n",
-///     "  right expr name: `value`,\n",
-///     " left reader size: `5`,\n",
-///     " left reader data: `\"bravo\"`,\n",
-///     "       right expr: `\"alpha\"`"
+///     " left_reader label: `reader`,\n",
+///     " left_reader debug: `[]`,\n",
+///     "  right_expr label: `&value`,\n",
+///     "  right_expr debug: `\"alpha\"`,\n",
+///     "              left: `\"bravo\"`,\n",
+///     "             right: `\"alpha\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -42,25 +43,37 @@ macro_rules! assert_read_to_string_lt_as_result {
         let mut a_string = String::new();
         let a_result = $a_reader.read_to_string(&mut a_string);
         if let Err(a_err) = a_result {
-            Err(msg_with_left_reader_and_right_reader_and_err!(
-                "assertion failed",
-                "assert_read_to_string_gt_other!",
-                stringify!($a_reader),
-                stringify!($b_reader),
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_read_to_string_lt!(left_reader, right_expr)`\n",
+                    " left_reader label: `{}`,\n",
+                    " left_reader debug: `{:?}`,\n",
+                    "  right_expr label: `{}`,\n",
+                    "  right_expr debug: `{:?}`,\n",
+                    "          left err: `{:?}`"
+                ),
+                stringify!($a_reader), $a_reader,
+                stringify!($b_expr), $b_expr,
                 a_err
             ))
         } else {
-            let a_size = a_result.unwrap();
+            let _a_size = a_result.unwrap();
             let b_string = String::from($b_expr);
             if a_string < b_string {
                 Ok(())
             } else {
-                Err(msg_with_left_reader_and_right_expr!(
-                    "assertion failed",
-                    "assert_read_to_string_lt!",
-                    stringify!($a_reader),
-                    stringify!($b_expr),
-                    a_size,
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_read_to_string_lt!(left_reader, right_expr)`\n",
+                        " left_reader label: `{}`,\n",
+                        " left_reader debug: `{:?}`,\n",
+                        "  right_expr label: `{}`,\n",
+                        "  right_expr debug: `{:?}`,\n",
+                        "              left: `{:?}`,\n",
+                        "             right: `{:?}`",
+                    ),
+                    stringify!($a_reader), $a_reader,
+                    stringify!($b_expr), $b_expr,
                     a_string,
                     b_string
                 ))
@@ -78,7 +91,7 @@ mod test_x_result {
     fn test_assert_read_to_string_lt_as_result_x_arity_2_success() {
         let mut reader = "alpha".as_bytes();
         let value = String::from("bravo");
-        let x = assert_read_to_string_lt_as_result!(reader, value);
+        let x = assert_read_to_string_lt_as_result!(reader, &value);
         assert_eq!(
             x.unwrap(),
             ()
@@ -89,16 +102,17 @@ mod test_x_result {
     fn test_assert_read_to_string_lt_as_result_x_arity_2_failure() {
         let mut reader = "bravo".as_bytes();
         let value = String::from("alpha");
-        let x = assert_read_to_string_lt_as_result!(reader, value);
+        let x = assert_read_to_string_lt_as_result!(reader, &value);
         assert_eq!(
             x.unwrap_err(),
             concat!(
                 "assertion failed: `assert_read_to_string_lt!(left_reader, right_expr)`\n",
-                " left reader name: `reader`,\n",
-                "  right expr name: `value`,\n",
-                " left reader size: `5`,\n",
-                " left reader data: `\"bravo\"`,\n",
-                "       right expr: `\"alpha\"`"
+                " left_reader label: `reader`,\n",
+                " left_reader debug: `[]`,\n",
+                "  right_expr label: `&value`,\n",
+                "  right_expr debug: `\"alpha\"`,\n",
+                "              left: `\"bravo\"`,\n",
+                "             right: `\"alpha\"`"
             )
         );
     }
@@ -106,7 +120,7 @@ mod test_x_result {
 
 /// Assert a std::io::Read read_to_string() value is less than another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -121,23 +135,24 @@ mod test_x_result {
 /// # fn main() {
 /// let mut reader = "alpha".as_bytes();
 /// let value = String::from("bravo");
-/// assert_read_to_string_lt!(reader, value);
+/// assert_read_to_string_lt!(reader, &value);
 /// //-> ()
 ///
 /// let result = panic::catch_unwind(|| {
 /// let mut reader = "bravo".as_bytes();
 /// let value = String::from("alpha");
-/// assert_read_to_string_lt!(reader, value);
+/// assert_read_to_string_lt!(reader, &value);
 /// //-> panic!
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_lt!(left_reader, right_expr)`\n",
-///     " left reader name: `reader`,\n",
-///     "  right expr name: `value`,\n",
-///     " left reader size: `5`,\n",
-///     " left reader data: `\"bravo\"`,\n",
-///     "       right expr: `\"alpha\"`"
+///     " left_reader label: `reader`,\n",
+///     " left_reader debug: `[]`,\n",
+///     "  right_expr label: `&value`,\n",
+///     "  right_expr debug: `\"alpha\"`,\n",
+///     "              left: `\"bravo\"`,\n",
+///     "             right: `\"alpha\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -157,42 +172,4 @@ macro_rules! assert_read_to_string_lt {
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-    use std::io::Read;
-
-    #[test]
-    fn test_assert_read_to_string_lt_x_arity_2_success() {
-        let mut reader = "alpha".as_bytes();
-        let value = String::from("bravo");
-        let x = assert_read_to_string_lt!(reader, value);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_read_to_string_lt!(left_reader, right_expr)`\n left reader name: `reader`,\n  right expr name: `value`,\n left reader size: `5`,\n left reader data: `\"bravo\"`,\n       right expr: `\"alpha\"`")]
-    fn test_assert_read_to_string_lt_x_arity_2_failure() {
-        let mut reader = "bravo".as_bytes();
-        let value = String::from("alpha");
-        let _x = assert_read_to_string_lt!(reader, value);
-    }
-
-    #[test]
-    fn test_assert_read_to_string_lt_x_arity_3_success() {
-        let mut reader = "alpha".as_bytes();
-        let value = String::from("bravo");
-        let x = assert_read_to_string_lt!(reader, value, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_read_to_string_lt_x_arity_3_failure() {
-        let mut reader = "bravo".as_bytes();
-        let value = String::from("alpha");
-        let _x = assert_read_to_string_lt!(reader, value, "message");
-    }
-
 }

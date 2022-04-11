@@ -1,13 +1,13 @@
 /// Assert a command stdout string contains a given containee.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// This uses [`std::String`] method `contains`.
 ///
 /// * The containee can be a &str, char, a slice of chars, or a function or
-/// closure that determines if a character matches.
+/// closure that determines if a character contains.
 ///
 /// # Examples
 ///
@@ -32,13 +32,13 @@
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stdout_contains!(left_command, right_expr)`\n",
-///     "  left command name: `command`,\n",
-///     "    right expr name: `containee`,\n",
-///     "       left command: `\"printf\"`,\n",
-///     "         right expr: `\"xyz\"`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `\"xyz\"`"
+///     "assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n",
+///     "    left_command label: `command`,\n",
+///     "    left_command debug: `\"printf\" \"%s\" \"hello\"`,\n",
+///     " right_containee label: `containee`,\n",
+///     " right_containee debug: `\"xyz\"`,\n",
+///     "                  left: `\"hello\"`,\n",
+///     "                 right: `\"xyz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -46,33 +46,41 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_contains_as_result {
-    ($a_command:expr, $b_expr:expr $(,)?) => ({
+    ($a_command:expr, $b_containee:expr $(,)?) => ({
         let a_output = $a_command.output();
         if a_output.is_err() {
-            Err(msg_with_left_command_and_right_expr!(
-                "assertion failed",
-                "assert_command_stdout_contains!",
-                stringify!($a_command),
-                stringify!($b_expr),
-                $a_command.get_program(),
-                $b_expr,
-                a_output,
-                $b_expr
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n",
+                    "    left_command label: `{}`,\n",
+                    "    left_command debug: `{:?}`,\n",
+                    " right_containee label: `{}`,\n",
+                    " right_containee debug: `{:?}`,\n",
+                    "           left output: `{:?}`"
+                ),
+                stringify!($a_command), $a_command,
+                stringify!($b_containee), $b_containee,
+                a_output
             ))
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            if a_string.contains($b_expr) {
+            if a_string.contains($b_containee) {
                 Ok(())
             } else {
-                Err(msg_with_left_command_and_right_expr!(
-                    "assertion failed",
-                    "assert_command_stdout_contains!",
-                    stringify!($a_command),
-                    stringify!($b_expr),
-                    $a_command.get_program(),
-                    $b_expr,
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n",
+                        "    left_command label: `{}`,\n",
+                        "    left_command debug: `{:?}`,\n",
+                        " right_containee label: `{}`,\n",
+                        " right_containee debug: `{:?}`,\n",
+                        "                  left: `{:?}`,\n",
+                        "                 right: `{:?}`"
+                    ),
+                    stringify!($a_command), $a_command,
+                    stringify!($b_containee), $b_containee,
                     a_string,
-                    $b_expr
+                    $b_containee
                 ))
             }
         }
@@ -101,13 +109,13 @@ mod test_x_result {
         let x = assert_command_stdout_contains_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stdout_contains!(left_command, right_expr)`\n",
-            "  left command name: `a`,\n",
-            "    right expr name: `b`,\n",
-            "       left command: `\"printf\"`,\n",
-            "         right expr: `\"xyz\"`,\n",
-            "               left: `\"alpha\"`,\n",
-            "              right: `\"xyz\"`"
+            "assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n",
+            "    left_command label: `a`,\n",
+            "    left_command debug: `\"printf\" \"%s\" \"alpha\"`,\n",
+            " right_containee label: `b`,\n",
+            " right_containee debug: `\"xyz\"`,\n",
+            "                  left: `\"alpha\"`,\n",
+            "                 right: `\"xyz\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -116,7 +124,7 @@ mod test_x_result {
 
 /// Assert a command stdout string contains a given containee.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -124,7 +132,7 @@ mod test_x_result {
 /// This uses [`std::String`] method `contains`.
 ///
 /// * The containee can be a &str, char, a slice of chars, or a function or
-/// closure that determines if a character matches.
+/// closure that determines if a character contains.
 ///
 /// # Examples
 ///
@@ -149,13 +157,13 @@ mod test_x_result {
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stdout_contains!(left_command, right_expr)`\n",
-///     "  left command name: `command`,\n",
-///     "    right expr name: `containee`,\n",
-///     "       left command: `\"printf\"`,\n",
-///     "         right expr: `\"xyz\"`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `\"xyz\"`"
+///     "assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n",
+///     "    left_command label: `command`,\n",
+///     "    left_command debug: `\"printf\" \"%s\" \"hello\"`,\n",
+///     " right_containee label: `containee`,\n",
+///     " right_containee debug: `\"xyz\"`,\n",
+///     "                  left: `\"hello\"`,\n",
+///     "                 right: `\"xyz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -163,59 +171,16 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_contains {
-    ($a_command:expr, $b_expr:expr $(,)?) => ({
-        match assert_command_stdout_contains_as_result!($a_command, $b_expr) {
+    ($a_command:expr, $b:expr $(,)?) => ({
+        match assert_command_stdout_contains_as_result!($a_command, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_command:expr, $b_expr:expr, $($arg:tt)+) => ({
-        match assert_command_stdout_contains_as_result!($a_command, $b_expr) {
+    ($a_command:expr, $b:expr, $($arg:tt)+) => ({
+        match assert_command_stdout_contains_as_result!($a_command, $b) {
             Ok(()) => (),
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-
-    use std::process::Command;
-
-    #[test]
-    fn test_assert_command_stdout_contains_x_arity_2_success() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let b = "lph";
-        let x = assert_command_stdout_contains!(a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assert_command_stdout_contains!(left_command, right_expr)`\n  left command name: `a`,\n    right expr name: `b`,\n       left command: `\"printf\"`,\n         right expr: `\"xyz\"`,\n               left: `\"alpha\"`,\n              right: `\"xyz\"`")]
-    fn test_assert_command_stdout_contains_x_arity_2_failure() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let b = "xyz";
-        let _x = assert_command_stdout_contains!(a, b);
-    }
-
-    #[test]
-    fn test_assert_command_stdout_contains_x_arity_3_success() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let b = "lph";
-        let x = assert_command_stdout_contains!(a, b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_command_stdout_contains_x_arity_3_failure() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let b = "xyz";
-        let _x = assert_command_stdout_contains!(a, b, "message");
-    }
-
 }

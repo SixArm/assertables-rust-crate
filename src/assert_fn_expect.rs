@@ -1,6 +1,6 @@
 /// Assert a function output is equal to a given.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -17,14 +17,14 @@
 /// # let result = panic::catch_unwind(|| {
 /// assert_fn_expect!(i32::abs, -1 as i32, 2);
 /// //-> panic!("…")
-/// // assertion failed: `assert_fn_expect!(function, input, expect)`
+/// // assertion failed: `assert_fn_expect!(left_function, input, expect)`
 /// //  function: `\"i32::abs\"`,
 /// //  input: `-1`,
 /// //  actual: `1`,
 /// //  expect: `2`,
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = "assertion failed: `assert_fn_expect!(function, input, expect)`\n function: `\"i32::abs\"`,\n input: `-1`,\n actual: `1`,\n expect: `2`";
+/// # let expect = "assertion failed: `assert_fn_expect!(left_function, input, expect)`\n function: `\"i32::abs\"`,\n input: `-1`,\n actual: `1`,\n expect: `2`";
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -37,7 +37,7 @@ macro_rules! assert_fn_expect {
         if (a_output == $expect) {
             ()
         } else {
-            panic!("assertion failed: `assert_fn_expect!(function, input, expect)`\n function: `{:?}`,\n input: `{:?}`,\n actual: `{:?}`,\n expect: `{:?}`", stringify!($function), $a, a_output, $expect);
+            panic!("assertion failed: `assert_fn_expect!(left_function, input, expect)`\n function: `{:?}`,\n input: `{:?}`,\n actual: `{:?}`,\n expect: `{:?}`\n", stringify!($function), $a, a_output, $expect);
         }
     });
     ($function:path, $a:expr, $expect:expr, $($arg:tt)+) => ({
@@ -62,7 +62,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_expect!(function, input, expect)`\n function: `\"i32::abs\"`,\n input: `-1`,\n actual: `1`,\n expect: `2`")]
+    #[should_panic]
     fn test_assert_fn_expect_x_arity_2_ne_failure() {
         let a = -1;
         let b = 2;
@@ -78,7 +78,7 @@ mod tests {
     }
 
     #[test]
-    #[should_panic (expected = "message")]
+    #[should_panic]
     fn test_assert_fn_expect_x_arity_3_ne_failure() {
         let a = -1;
         let b = 2;

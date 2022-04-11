@@ -1,8 +1,8 @@
 /// Assert a values is equal to another.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -10,23 +10,30 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// let x = assert_eq_as_result!(1, 1);
+/// let a = 1;
+/// let b = 1;
+/// let x = assert_eq_as_result!(a, b);
 /// //-> Ok(())
 /// assert!(x.is_ok());
 ///
-/// let x = assert_eq_as_result!(1, 2);
+/// let a = 1;
+/// let b = 2;
+/// let x = assert_eq_as_result!(a, b);
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_eq!(left, right)`\n",
-///     "  left: `1`,\n",
-///     " right: `2`"
+///     "  left label: `a`,\n",
+///     "  left debug: `1`,\n",
+///     " right label: `b`,\n",
+///     " right debug: `2`,\n",
+///     "        left: `1`,\n",
+///     "       right: `2`",
 /// );
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
 
-///
 #[macro_export]
 macro_rules! assert_eq_as_result {
     ($a:expr, $b:expr $(,)?) => ({
@@ -35,7 +42,21 @@ macro_rules! assert_eq_as_result {
                 if a_val == b_val {
                     Ok(())
                 } else {
-                    Err(msg_with_left_and_right!("assertion failed", "assert_eq!", $a, $b))
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_eq!(left, right)`\n",
+                            "  left label: `{}`,\n",
+                            "  left debug: `{:?}`,\n",
+                            " right label: `{}`,\n",
+                            " right debug: `{:?}`,\n",
+                            "        left: `{:?}`,\n",
+                            "       right: `{:?}`"
+                        ),
+                        stringify!($a), $a,
+                        stringify!($b), $b,
+                        a_val, 
+                        b_val
+                    ))
                 }
             }
         }
@@ -62,79 +83,13 @@ mod test_x_result {
             x.unwrap_err(),
             concat!(
                 "assertion failed: `assert_eq!(left, right)`\n",
-                "  left: `1`,\n",
-                " right: `2`"
+                "  left label: `a`,\n",
+                "  left debug: `1`,\n",
+                " right label: `b`,\n",
+                " right debug: `2`,\n",
+                "        left: `1`,\n",
+                "       right: `2`"
             )
         );
     }
-}
-
-/// Assert a value is equal to another.
-///
-/// * When true, return `()`.
-///
-/// * Otherwise, call [`panic!`] with a message and the values of the
-///   expressions with their debug representations.
-///
-/// # Examples
-///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn main() {
-/// assert_eq!(1, 1);
-/// //-> ()
-///
-/// let result = panic::catch_unwind(|| {
-/// assert_eq!(1, 2);
-/// //-> panic!
-/// });
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `(left == right)`\n",
-///     "  left: `1`,\n",
-///     " right: `2`"
-/// );
-/// assert_eq!(actual, expect);
-/// # }
-/// ```
-
-
-// `assert_eq` macro is provided by Rust `std`.
-
-#[cfg(test)]
-mod test_x_panic {
-
-    #[test]
-    fn test_assert_eq_x_arity_2_success() {
-        let a: i32 = 1;
-        let b: i32 = 1;
-        let x = assert_eq!(a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `(left == right)`\n  left: `1`,\n right: `2`")]
-    fn test_assert_eq_x_arity_2_failure() {
-        let a: i32 = 1;
-        let b: i32 = 2;
-        assert_eq!(a, b);
-    }
-
-    #[test]
-    fn test_assert_eq_x_arity_3_success() {
-        let a: i32 = 1;
-        let b: i32 = 1;
-        let x = assert_eq!(a, b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_eq_x_arity_3_failure() {
-        let a: i32 = 1;
-        let b: i32 = 2;
-        assert_eq!(a, b, "message");
-    }
-
 }

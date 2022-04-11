@@ -1,8 +1,8 @@
 /// Assert one function output is less than another.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -25,15 +25,14 @@
 /// assert_eq!(actual, expect);
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_lt!(function, left_input, right_expr)`\n",
-///     "    function name: `i32::abs`,\n",
-///     "  left input name: `a`,\n",
-///     "  right expr name: `b`,\n",
-///     "       left input: `-2`,\n",
-///     "       right expr: `1`,\n",
-///     "      left output: `2`,\n",
-///     "             left: `2`,\n",
-///     "            right: `1`"
+///     "assertion failed: `assert_fn_lt!(left_function, left_input, right_expr)`\n",
+///     " left_function label: `i32::abs`,\n",
+///     "   left_input label: `a`,\n",
+///     "   left_input debug: `-2`,\n",
+///     "   right_expr label: `b`,\n",
+///     "   right_expr debug: `1`,\n",
+///     "               left: `2`,\n",
+///     "              right: `1`"
 /// )
 /// # }
 /// ```
@@ -45,10 +44,24 @@ macro_rules! assert_fn_lt_as_result {
         if a_output < $b_expr {
             Ok(())
         } else {
-            Err(format!("assertion failed: `assert_fn_lt!(function, left_input, right_value)`
-
-    function name: `{:?}`,\n   left input: `{:?}`,\n  right input: `{:?}`,\n  left output: `{:?}`,\n right output: `{:?}`", stringify!($function), $a, $b, a_output, $b_expr))
-        }
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_fn_lt!(left_function, left_input, right_expr)`\n",
+                    " left_function label: `{}`,\n",
+                    "    left_input label: `{}`,\n",
+                    "    left_input debug: `{:?}`,\n",
+                    "    right_expr label: `{}`,\n",
+                    "    right_expr debug: `{:?}`,\n",
+                    "                left: `{:?}`,\n",
+                    "               right: `{:?}`"
+                ),
+                stringify!($function),
+                stringify!($a_input), $a_input,
+                stringify!($b_expr), $b_expr,
+                a_output,
+                $b_expr
+            ))
+    }
     });
 }
 
@@ -73,7 +86,7 @@ mod test_x_result {
         let x = assert_fn_lt_as_result!(i32::abs, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertion failed: `assert_fn_lt!(function, left_input, right_value)`
+            "assertion failed: `assert_fn_lt!(left_function, left_input, right_value)`
 
     function name: `i32::abs`,\n   left input: `1`,\n  right input: `-1`,\n  left output: `1`,\n right output: `1`"
         );
@@ -86,7 +99,7 @@ mod test_x_result {
         let x = assert_fn_lt_as_result!(i32::abs, a, b);
         assert_eq!(
             x.unwrap_err(),
-            "assertion failed: `assert_fn_lt!(function, left_input, right_value)`
+            "assertion failed: `assert_fn_lt!(left_function, left_input, right_value)`
 
     function name: `i32::abs`,\n   left input: `-2`,\n  right input: `1`,\n  left output: `2`,\n right output: `1`"
         );
@@ -95,7 +108,7 @@ mod test_x_result {
 
 /// Assert a function output is less than another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -119,15 +132,14 @@ mod test_x_result {
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_lt!(function, left_input, right_expr)`\n",
-///     "    function name: `i32::abs`,\n",
-///     "  left input name: `a`,\n",
-///     "  right expr name: `b`,\n",
-///     "       left input: `-2`,\n",
-///     "       right expr: `1`,\n",
-///     "      left output: `2`,\n",
-///     "             left: `2`,\n",
-///     "            right: `1`"
+///     "assertion failed: `assert_fn_lt!(left_function, left_input, right_expr)`\n",
+///     " left_function label: `i32::abs`,\n",
+///     "   left_input label: `a`,\n",
+///     "   left_input debug: `-2`,\n",
+///     "   right_expr label: `b`,\n",
+///     "   right_expr debug: `1`,\n",
+///     "               left: `2`,\n",
+///     "              right: `1`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -147,61 +159,4 @@ macro_rules! assert_fn_lt {
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-
-    #[test]
-    fn test_assert_fn_lt_x_arity_2_lt_success() {
-        let a: i32 = 1;
-        let b: i32 = -2;
-        let x = assert_fn_lt!(i32::abs, a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_lt!(function, left_input, right_value)`
-
-    function name: `i32::abs`,\n   left input: `1`,\n  right input: `-1`,\n  left output: `1`,\n right output: `1`")]
-    fn test_assert_fn_lt_x_arity_2_eq_failure() {
-        let a: i32 = 1;
-        let b: i32 = -1;
-        let _x = assert_fn_lt!(i32::abs, a, b);
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_lt!(function, left_input, right_value)`
-
-    function name: `i32::abs`,\n   left input: `2`,\n  right input: `-1`,\n  left output: `2`,\n right output: `1`")]
-    fn test_assert_fn_lt_x_arity_2_gt_failure() {
-        let a: i32 = 2;
-        let b: i32 = -1;
-        let _x = assert_fn_lt!(i32::abs, a, b);
-    }
-
-    #[test]
-    fn test_assert_fn_lt_x_arity_3_lt_success() {
-        let a: i32 = 1;
-        let b: i32 = -2;
-        let x = assert_fn_lt!(i32::abs, a, b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_fn_lt_x_arity_3_eq_failure() {
-        let a: i32 = 1;
-        let b: i32 = -1;
-        let _x = assert_fn_lt!(i32::abs, a, b, "message");
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_fn_lt_x_arity_3_gt_failure() {
-        let a: i32 = -2;
-        let b: i32 = 1;
-        let _x = assert_fn_lt!(i32::abs, a, b, "message");
-    }
-
 }

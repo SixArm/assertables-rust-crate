@@ -1,8 +1,8 @@
 /// Assert a command stdout string is a match to a given regex.
 ///
-/// * When true, return `()`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -29,13 +29,13 @@
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stdout_matches!(left_command, right_expr)`\n",
-///     "  left command name: `command`,\n",
-///     "    right expr name: `matcher`,\n",
-///     "       left command: `\"printf\"`,\n",
-///     "         right expr: `xyz`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `xyz`"
+///     "assertion failed: `assert_command_stdout_matches!(left_command, right_matcher)`\n",
+///     "  left_command label: `command`,\n",
+///     "  left_command debug: `\"printf\" \"%s\" \"hello\"`,\n",
+///     " right_matcher label: `matcher`,\n",
+///     " right_matcher debug: `xyz`,\n",
+///     "                left: `\"hello\"`,\n",
+///     "               right: `xyz`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -43,33 +43,41 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_matches_as_result {
-    ($a_command:expr, $b_expr:expr $(,)?) => ({
-        let a_output = $a_command.output();
+    ($command:expr, $b:expr $(,)?) => ({
+        let a_output = $command.output();
         if a_output.is_err() {
-            Err(msg_with_left_command_and_right_expr!(
-                "assertion failed",
-                "assert_command_stdout_matches!",
-                stringify!($a_command),
-                stringify!($b_expr),
-                $a_command.get_program(),
-                $b_expr,
-                a_output,
-                $b_expr
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_command_stdout_matches!(left_command, right_matcher)`\n",
+                    "  left_command label: `{}`,\n",
+                    "  left_command debug: `{:?}`,\n",
+                    " right_matcher label: `{}`,\n",
+                    " right_matcher debug: `{:?}`,\n",
+                    "         left output: `{:?}`"
+                ),
+                stringify!($command), $command,
+                stringify!($b), $b,
+                a_output
             ))
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            if $b_expr.is_match(&a_string) {
+            if $b.is_match(&a_string) {
                 Ok(())
             } else {
-                Err(msg_with_left_command_and_right_expr!(
-                    "assertion failed",
-                    "assert_command_stdout_matches!",
-                    stringify!($a_command),
-                    stringify!($b_expr),
-                    $a_command.get_program(),
-                    $b_expr,
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_command_stdout_matches!(left_command, right_matcher)`\n",
+                        "  left_command label: `{}`,\n",
+                        "  left_command debug: `{:?}`,\n",
+                        " right_matcher label: `{}`,\n",
+                        " right_matcher debug: `{:?}`,\n",
+                        "                left: `{:?}`,\n",
+                        "               right: `{:?}`"
+                    ),
+                    stringify!($command), $command,
+                    stringify!($b), $b,
                     a_string,
-                    $b_expr
+                    $b
                 ))
             }
         }
@@ -86,8 +94,8 @@ mod test_x_result {
     fn test_assert_command_stdout_matches_as_result_x_arity_2_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
-        let matcher = Regex::new(r"lph").unwrap();
-        let x = assert_command_stdout_matches_as_result!(a, matcher);
+        let b = Regex::new(r"lph").unwrap();
+        let x = assert_command_stdout_matches_as_result!(a, b);
         assert_eq!(x.unwrap(), ());
     }
 
@@ -99,13 +107,13 @@ mod test_x_result {
         let x = assert_command_stdout_matches_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stdout_matches!(left_command, right_expr)`\n",
-            "  left command name: `a`,\n",
-            "    right expr name: `b`,\n",
-            "       left command: `\"printf\"`,\n",
-            "         right expr: `xyz`,\n",
-            "               left: `\"alpha\"`,\n",
-            "              right: `xyz`"
+            "assertion failed: `assert_command_stdout_matches!(left_command, right_matcher)`\n",
+            "  left_command label: `a`,\n",
+            "  left_command debug: `\"printf\" \"%s\" \"alpha\"`,\n",
+            " right_matcher label: `b`,\n",
+            " right_matcher debug: `xyz`,\n",
+            "                left: `\"alpha\"`,\n",
+            "               right: `xyz`"
         );
         assert_eq!(actual, expect);
     }
@@ -113,7 +121,7 @@ mod test_x_result {
 
 /// Assert a command stdout string is a match to a given regex.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -142,13 +150,13 @@ mod test_x_result {
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stdout_matches!(left_command, right_expr)`\n",
-///     "  left command name: `command`,\n",
-///     "    right expr name: `matcher`,\n",
-///     "       left command: `\"printf\"`,\n",
-///     "         right expr: `xyz`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `xyz`"
+///     "assertion failed: `assert_command_stdout_matches!(left_command, right_matcher)`\n",
+///     "  left_command label: `command`,\n",
+///     "  left_command debug: `\"printf\" \"%s\" \"hello\"`,\n",
+///     " right_matcher label: `matcher`,\n",
+///     " right_matcher debug: `xyz`,\n",
+///     "                left: `\"hello\"`,\n",
+///     "               right: `xyz`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -156,60 +164,16 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_matches {
-    ($a_command:expr, $b_expr:expr $(,)?) => ({
-        match assert_command_stdout_matches_as_result!($a_command, $b_expr) {
+    ($command:expr, $b:expr $(,)?) => ({
+        match assert_command_stdout_matches_as_result!($command, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_command:expr, $b_expr:expr, $($arg:tt)+) => ({
-        match assert_command_stdout_matches_as_result!($a_command, $b_expr) {
+    ($command:expr, $b:expr, $($arg:tt)+) => ({
+        match assert_command_stdout_matches_as_result!($command, $b) {
             Ok(()) => (),
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-
-    use std::process::Command;
-    use regex::Regex;
-
-    #[test]
-    fn test_assert_command_stdout_matches_x_arity_2_success() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let b = Regex::new(r"lph").unwrap();
-        let x = assert_command_stdout_matches!(a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_command_stdout_matches!(left_command, right_expr)`\n  left command name: `a`,\n    right expr name: `b`,\n       left command: `\"printf\"`,\n         right expr: `xyz`,\n               left: `\"alpha\"`,\n              right: `xyz`")]
-    fn test_assert_command_stdout_matches_x_arity_2_failure() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let b = Regex::new(r"xyz").unwrap();
-        let _x = assert_command_stdout_matches!(a, b);
-    }
-
-    #[test]
-    fn test_assert_command_stdout_matches_x_arity_3_success() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let b = Regex::new(r"lph").unwrap();
-        let x = assert_command_stdout_matches!(a, b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_command_stdout_matches_x_arity_3_failure() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let b = Regex::new(r"xyz").unwrap();
-        let _x = assert_command_stdout_matches!(a, b, "message");
-    }
-
 }

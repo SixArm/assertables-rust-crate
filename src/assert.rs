@@ -1,8 +1,8 @@
 /// Assert a condition is true.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -61,7 +61,7 @@ mod test_x_result {
 
 /// Assert a condition is true.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -101,7 +101,7 @@ mod test_assert_x_result {
     }
 
     #[test]
-    #[should_panic (expected = "assertion failed: a")]
+    #[should_panic]
     fn test_assert_x_arity_2_failure() {
         let a = false;
         let _x = assert!(a);
@@ -115,7 +115,7 @@ mod test_assert_x_result {
     }
 
     #[test]
-    #[should_panic (expected = "message")]
+    #[should_panic]
     fn test_assert_x_arity_3_failure() {
         let a = false;
         let _x = assert!(a, "message");

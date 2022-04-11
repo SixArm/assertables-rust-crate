@@ -1,15 +1,13 @@
-/// Assert a bag is equal to another, and return a result.
+/// Assert a bag is equal to another.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a message and the values of the
-///   expressions with their debug representations.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
 /// ```rust
 /// # #[macro_use] extern crate assertables;
-/// # use std::panic;
 /// # fn main() {
 /// let a = [1, 1];
 /// let b = [1, 1];
@@ -25,14 +23,17 @@
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_bag_eq!(left, right)`\n",
-///     "  left: `{1: 2}`,\n",
-///     " right: `{1: 3}`"
+///     "assertion failed: `assert_bag_eq!(left_bag, right_bag)`\n",
+///     "  left_bag label: `&a`,\n",
+///     "  left_bag debug: `[1, 1]`,\n",
+///     " right_bag label: `&b`,\n",
+///     " right_bag debug: `[1, 1, 1]`,\n",
+///     "            left: `{1: 2}`,\n",
+///     "           right: `{1: 3}`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-
 ///
 /// This implementation uses [`BTreeMap`] to count items and sort them.
 ///
@@ -54,7 +55,21 @@ macro_rules! assert_bag_eq_as_result {
                 if a_bag == b_bag {
                     Ok(())
                 } else {
-                    Err(msg_with_left_and_right!("assertion failed", "assert_bag_eq!", &a_bag, &b_bag))
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_bag_eq!(left_bag, right_bag)`\n",
+                            "  left_bag label: `{}`,\n",
+                            "  left_bag debug: `{:?}`,\n",
+                            " right_bag label: `{}`,\n",
+                            " right_bag debug: `{:?}`,\n",
+                            "            left: `{:?}`,\n",
+                            "           right: `{:?}`"
+                        ),
+                        stringify!($a), $a,
+                        stringify!($b), $b,
+                        &a_bag,
+                        &b_bag
+                    ))
                 }
             }
         }
@@ -83,9 +98,13 @@ mod test_as_result {
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_bag_eq!(left, right)`\n",
-                "  left: `{1: 2}`,\n",
-                " right: `{1: 3}`"
+                "assertion failed: `assert_bag_eq!(left_bag, right_bag)`\n",
+                "  left_bag label: `&a`,\n",
+                "  left_bag debug: `[1, 1]`,\n",
+                " right_bag label: `&b`,\n",
+                " right_bag debug: `[1, 1, 1]`,\n",
+                "            left: `{1: 2}`,\n",
+                "           right: `{1: 3}`"
             )
         );
     }
@@ -94,7 +113,7 @@ mod test_as_result {
 
 /// Assert a bag is equal to another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] in order to print the values of the
 ///   expressions with their debug representations.
@@ -118,14 +137,17 @@ mod test_as_result {
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_bag_eq!(left, right)`\n",
-///     "  left: `{1: 2}`,\n",
-///     " right: `{1: 3}`"
+///     "assertion failed: `assert_bag_eq!(left_bag, right_bag)`\n",
+///     "  left_bag label: `&a`,\n",
+///     "  left_bag debug: `[1, 1]`,\n",
+///     " right_bag label: `&b`,\n",
+///     " right_bag debug: `[1, 1, 1]`,\n",
+///     "            left: `{1: 2}`,\n",
+///     "           right: `{1: 3}`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-
 ///
 /// This implementation uses [`BTreeMap`] to count items and sort them.
 ///
@@ -143,41 +165,4 @@ macro_rules! assert_bag_eq {
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_assert_as_panic {
-
-    #[test]
-    fn test_assert_bag_eq_x_arity_2_success() {
-        let a = [1, 1];
-        let b = [1, 1];
-        let x= assert_bag_eq!(&a, &b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_bag_eq!(left, right)`\n  left: `{1: 2}`,\n right: `{1: 3}`")]
-    fn test_assert_bag_eq_x_arity_2_failure() {
-        let a = [1, 1];
-        let b = [1, 1, 1];
-        let _x = assert_bag_eq!(&a, &b);
-    }
-
-    #[test]
-    fn test_assert_bag_eq_x_arity_3_success() {
-        let a = [1, 1];
-        let b = [1, 1];
-        let x = assert_bag_eq!(&a, &b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_bag_eq_x_arity_3_failure() {
-        let a = [1, 1];
-        let b = [1, 1, 1];
-        let _x = assert_bag_eq!(&a, &b, "message");
-    }
-
 }

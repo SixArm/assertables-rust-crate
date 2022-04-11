@@ -1,8 +1,8 @@
 /// Assert a command stdout string is equal to another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
-/// * When true, return Result `Err` with a message and the values of the
+/// * If true, return Result `Err` with a message and the values of the
 ///   expressions with their debug representations.
 ///
 /// # Examples
@@ -32,12 +32,12 @@
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stdout_eq_other!(left_command, right_command)`\n",
-///     "  left command name: `a`,\n",
-///     " right command name: `b`,\n",
-///     "       left command: `\"printf\"`,\n",
-///     "      right command: `\"printf\"`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `\"world\"`"
+///     "  left_command label: `a`,\n",
+///     "  left_command debug: `\"printf\" \"%s\" \"hello\"`,\n",
+///     " right_command label: `b`,\n",
+///     " right_command debug: `\"printf\" \"%s%s%s%s%s\" \"w\" \"o\" \"r\" \"l\" \"d\"`,\n",
+///     "                left: `\"hello\"`,\n",
+///     "               right: `\"world\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -50,13 +50,18 @@ macro_rules! assert_command_stdout_eq_other_as_result {
         let a_output = $a_command.output();
         let b_output = $b_command.output();
         if a_output.is_err() || b_output.is_err() {
-            Err(msg_with_left_command_and_right_command!(
-                "assertion failed",
-                "assert_command_stdout_eq_other!",
-                stringify!($a_command),
-                stringify!($b_command),
-                $a_command.get_program(),
-                $b_command.get_program(),
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_command_stdout_eq_other!(left_command, right_command)`\n",
+                    "  left_command label: `{}`,\n",
+                    "  left_command debug: `{:?}`,\n",
+                    " right_command label: `{}`,\n",
+                    " right_command debug: `{:?}`,\n",
+                    "         left output: `{:?}`,\n",
+                    "        right output: `{:?}`"
+                ),    
+                stringify!($a_command), $a_command,
+                stringify!($b_command), $b_command,
                 a_output,
                 b_output
             ))
@@ -66,13 +71,18 @@ macro_rules! assert_command_stdout_eq_other_as_result {
             if a_string == b_string {
                 Ok(())
             } else {
-                Err(msg_with_left_command_and_right_command!(
-                    "assertion failed",
-                    "assert_command_stdout_eq_other!",
-                    stringify!($a_command),
-                    stringify!($b_command),
-                    $a_command.get_program(),
-                    $b_command.get_program(),
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_command_stdout_eq_other!(left_command, right_command)`\n",
+                        "  left_command label: `{}`,\n",
+                        "  left_command debug: `{:?}`,\n",
+                        " right_command label: `{}`,\n",
+                        " right_command debug: `{:?}`,\n",
+                        "                left: `{:?}`,\n",
+                        "               right: `{:?}`"
+                    ),    
+                    stringify!($a_command), $a_command,
+                    stringify!($b_command), $b_command,
                     a_string,
                     b_string
                 ))
@@ -106,12 +116,12 @@ mod assert_tests_as_result {
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_eq_other!(left_command, right_command)`\n",
-            "  left command name: `a`,\n",
-            " right command name: `b`,\n",
-            "       left command: `\"printf\"`,\n",
-            "      right command: `\"printf\"`,\n",
-            "               left: `\"alpha\"`,\n",
-            "              right: `\"bravo\"`"
+            "  left_command label: `a`,\n",
+            "  left_command debug: `\"printf\" \"%s\" \"alpha\"`,\n",
+            " right_command label: `b`,\n",
+            " right_command debug: `\"printf\" \"%s%s%s%s%s\" \"b\" \"r\" \"a\" \"v\" \"o\"`,\n",
+            "                left: `\"alpha\"`,\n",
+            "               right: `\"bravo\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -119,7 +129,7 @@ mod assert_tests_as_result {
 
 /// Assert a command stdout string is equal to another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -150,12 +160,12 @@ mod assert_tests_as_result {
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stdout_eq_other!(left_command, right_command)`\n",
-///     "  left command name: `a`,\n",
-///     " right command name: `b`,\n",
-///     "       left command: `\"printf\"`,\n",
-///     "      right command: `\"printf\"`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `\"world\"`"
+///     "  left_command label: `a`,\n",
+///     "  left_command debug: `\"printf\" \"%s\" \"hello\"`,\n",
+///     " right_command label: `b`,\n",
+///     " right_command debug: `\"printf\" \"%s%s%s%s%s\" \"w\" \"o\" \"r\" \"l\" \"d\"`,\n",
+///     "                left: `\"hello\"`,\n",
+///     "               right: `\"world\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -176,51 +186,4 @@ macro_rules! assert_command_stdout_eq_other {
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod tests {
-
-    use std::process::Command;
-
-    #[test]
-    fn test_assert_command_stdout_eq_other_x_arity_2_success() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let mut b = Command::new("printf");
-        b.args(["%s%s%s%s%s", "a", "l", "p", "h", "a"]);
-        let x = assert_command_stdout_eq_other!(a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_command_stdout_eq_other!(left_command, right_command)`\n  left command name: `a`,\n right command name: `b`,\n       left command: `\"printf\"`,\n      right command: `\"printf\"`,\n               left: `\"alpha\"`,\n              right: `\"bravo\"`")]
-    fn test_assert_command_stdout_eq_other_x_arity_2_failure() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let mut b = Command::new("printf");
-        b.args(["%s%s%s%s%s", "b", "r", "a", "v", "o"]);
-        let _x = assert_command_stdout_eq_other!(a, b);
-    }
-
-    #[test]
-    fn test_assert_command_stdout_eq_other_x_arity_3_success() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let mut b = Command::new("printf");
-        b.args(["%s%s%s%s%s", "a", "l", "p", "h", "a"]);
-        let x = assert_command_stdout_eq_other!(a, b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_command_stdout_eq_other_x_arity_3_failure() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let mut b = Command::new("printf");
-        b.args(["%s%s%s%s%s", "b", "r", "a", "v", "o"]);
-        let _x = assert_command_stdout_eq_other!(a, b, "message");
-    }
-
 }

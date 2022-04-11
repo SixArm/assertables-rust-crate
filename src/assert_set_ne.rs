@@ -1,8 +1,8 @@
 /// Assert a set is not equal to another.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -24,9 +24,13 @@
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-/// #    "assertion failed: `assert_set_ne!(left, right)`\n",
-/// #    "  left: `{1, 2}`,\n",
-/// #    " right: `{1, 2}`"
+/// #    "assertion failed: `assert_set_ne!(left_set, right_set)`\n",
+/// #    "  left_set label: `&a`,\n",
+/// #    "  left_set debug: `[1, 2]`,\n",
+/// #    " right_set label: `&b`,\n",
+/// #    " right_set debug: `[1, 2]`,\n",
+/// #    "            left: `{1, 2}`,\n",
+/// #    "           right: `{1, 2}`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -45,7 +49,21 @@ macro_rules! assert_set_ne_as_result {
                 if a_set != b_set {
                     Ok(())
                 } else {
-                    Err(format!("assertion failed: `assert_set_ne!(left, right)`\n  left: `{:?}`,\n right: `{:?}`", &a_set, &b_set))
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_set_ne!(left_set, right_set)`\n",
+                            "  left_set label: `{}`,\n",
+                            "  left_set debug: `{:?}`,\n",
+                            " right_set label: `{}`,\n",
+                            " right_set debug: `{:?}`,\n",
+                            "            left: `{:?}`,\n",
+                            "           right: `{:?}`"
+                        ),
+                        stringify!($a), $a,
+                        stringify!($b), $b,
+                        &a_set, 
+                        &b_set
+                    ))
                 }
             }
         }
@@ -74,9 +92,13 @@ mod test_x_result {
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_set_ne!(left, right)`\n",
-                "  left: `{1, 2}`,\n",
-                " right: `{1, 2}`"
+                "assertion failed: `assert_set_ne!(left_set, right_set)`\n",
+                "  left_set label: `&a`,\n",
+                "  left_set debug: `[1, 2]`,\n",
+                " right_set label: `&b`,\n",
+                " right_set debug: `[1, 2]`,\n",
+                "            left: `{1, 2}`,\n",
+                "           right: `{1, 2}`"
             )
         );
     }
@@ -85,7 +107,7 @@ mod test_x_result {
 
 /// Assert a set is not equal to another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -103,15 +125,19 @@ mod test_x_result {
 ///
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 2];
-/// let b = [2, 1];
+/// let b = [1, 2];
 /// assert_set_ne!(&a, &b);
 /// //-> panic!
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_set_ne!(left, right)`\n",
-///     "  left: `{1, 2}`,\n",
-///     " right: `{1, 2}`"
+///     "assertion failed: `assert_set_ne!(left_set, right_set)`\n",
+/// #    "  left_set label: `&a`,\n",
+/// #    "  left_set debug: `[1, 2]`,\n",
+/// #    " right_set label: `&b`,\n",
+/// #    " right_set debug: `[1, 2]`,\n",
+/// #    "            left: `{1, 2}`,\n",
+/// #    "           right: `{1, 2}`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -134,41 +160,4 @@ macro_rules! assert_set_ne {
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-
-    #[test]
-    fn test_assert_set_ne_x_arity_2_success() {
-        let a = [1, 2];
-        let b = [3, 4];
-        let x = assert_set_ne!(&a, &b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_set_ne!(left, right)`\n  left: `{1, 2}`,\n right: `{1, 2}`")]
-    fn test_assert_set_ne_x_arity_2_failure() {
-        let a = [1, 2];
-        let b = [2, 1];
-        assert_set_ne!(&a, &b);
-    }
-
-    #[test]
-    fn test_assert_set_ne_x_arity_3_success() {
-        let a = [1, 2];
-        let b = [3, 4];
-        let x = assert_set_ne!(&a, &b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_set_ne_x_arity_3_failure() {
-        let a = [1, 2];
-        let b = [2, 1];
-        assert_set_ne!(&a, &b, "message");
-    }
-
 }

@@ -288,27 +288,12 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 5.0.0
+//! * Version: 5.2.0
 //! * Created: 2021-03-30T15:47:49Z
 //! * Updated: 2022-02-28T15:45:38Z
 //! * License: GPL-2.0-or-later or contact us for custom license
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 //!
-
-// Message macros such as for panic!(…) and Err(…).
-#[macro_use] mod msg_with_left_and_right;
-
-// Message macros for commands
-#[macro_use] mod msg_with_left_command_and_right_command;
-#[macro_use] mod msg_with_left_command_and_right_expr;
-
-// Message macros for functions
-#[macro_use] mod msg_with_pair_function_and_left_input_and_right_input;
-#[macro_use] mod msg_with_left_function_and_left_input_and_right_expr;
-
-// Message macros for readers
-#[macro_use] mod msg_with_left_reader_and_right_reader;
-#[macro_use] mod msg_with_left_reader_and_right_expr;
 
 // Assert truth
 pub mod assert; // (provided by Rust `std`)
@@ -407,6 +392,6 @@ pub mod assert_command_stdout_matches;
 pub mod assert_command_stderr_eq;
 pub mod assert_command_stderr_eq_other;
 
-// Assert command stdett specializations
+// Assert command stderr specializations
 pub mod assert_command_stderr_contains;
 pub mod assert_command_stderr_matches;

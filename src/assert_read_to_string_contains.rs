@@ -1,8 +1,8 @@
 /// Assert a std::io::Read read_to_string() contains a pattern.
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -25,12 +25,13 @@
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_read_to_string_contains!(left_reader, right_expr)`\n",
-///     " left reader name: `reader`,\n",
-///     "  right expr name: `containee`,\n",
-///     " left reader size: `5`,\n",
-///     " left reader data: `\"hello\"`,\n",
-///     "       right expr: `\"xyz\"`"
+///     "assertion failed: `assert_read_to_string_contains!(left_reader, right_containee)`\n",
+///     "     left_reader label: `reader`,\n",
+///     "     left_reader debug: `[]`,\n",
+///     " right_containee label: `containee`,\n",
+///     " right_containee debug: `\"xyz\"`,\n",
+///     "                  left: `\"hello\"`,\n",
+///     "                 right: `\"xyz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -38,30 +39,42 @@
 ///
 #[macro_export]
 macro_rules! assert_read_to_string_contains_as_result {
-    ($reader:expr, $b_pattern:expr $(,)?) => ({
+    ($a_reader:expr, $b_containee:expr $(,)?) => ({
         let mut a_string = String::new();
-        let a_result = $reader.read_to_string(&mut a_string);
+        let a_result = $a_reader.read_to_string(&mut a_string);
         if let Err(a_err) = a_result {
-            Err(msg_with_left_reader_and_right_expr_and_err!(
-                "assertion failed",
-                "assert_read_to_string_contains!",
-                stringify!($reader),
-                stringify!($b_pattern),
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_read_to_string_contains!(left_reader, right_containee)`\n",
+                    "     left_reader label: `{}`,\n",
+                    "     left_reader debug: `{:?}`,\n",
+                    " right_containee label: `{}`,\n",
+                    " right_containee debug: `{:?}`,\n",
+                    "              left err: `{:?}`"
+                ),
+                stringify!($a_reader), $a_reader,
+                stringify!($b_containee), $b_containee,
                 a_err
             ))
         } else {
-            if a_string.contains($b_pattern) {
+            if a_string.contains($b_containee) {
                 Ok(())
             } else {
-                let a_size = a_result.unwrap();
-                Err(msg_with_left_reader_and_right_expr!(
-                    "assertion failed",
-                    "assert_read_to_string_contains!",
-                    stringify!($reader),
-                    stringify!($b_pattern),
-                    a_size,
+                let _a_size = a_result.unwrap();
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_read_to_string_contains!(left_reader, right_containee)`\n",
+                        "     left_reader label: `{}`,\n",
+                        "     left_reader debug: `{:?}`,\n",
+                        " right_containee label: `{}`,\n",
+                        " right_containee debug: `{:?}`,\n",
+                        "                  left: `{:?}`,\n",
+                        "                 right: `{:?}`",
+                    ),
+                    stringify!($a_reader), $a_reader,
+                    stringify!($b_containee), $b_containee,
                     a_string,
-                    $b_pattern
+                    $b_containee
                 ))
             }
         }
@@ -92,12 +105,13 @@ mod test_x_result {
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_read_to_string_contains!(left_reader, right_expr)`\n",
-                " left reader name: `reader`,\n",
-                "  right expr name: `containee`,\n",
-                " left reader size: `5`,\n",
-                " left reader data: `\"alpha\"`,\n",
-                "       right expr: `\"xyz\"`"
+                "assertion failed: `assert_read_to_string_contains!(left_reader, right_containee)`\n",
+                "     left_reader label: `reader`,\n",
+                "     left_reader debug: `[]`,\n",
+                " right_containee label: `containee`,\n",
+                " right_containee debug: `\"xyz\"`,\n",
+                "                  left: `\"alpha\"`,\n",
+                "                 right: `\"xyz\"`"
             )
         );
     }
@@ -105,7 +119,7 @@ mod test_x_result {
 
 /// Assert a a std::io::Read read_to_string() contains a pattern.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -131,12 +145,13 @@ mod test_x_result {
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_read_to_string_contains!(left_reader, right_expr)`\n",
-///     " left reader name: `reader`,\n",
-///     "  right expr name: `containee`,\n",
-///     " left reader size: `5`,\n",
-///     " left reader data: `\"hello\"`,\n",
-///     "       right expr: `\"xyz\"`"
+///     "assertion failed: `assert_read_to_string_contains!(left_reader, right_containee)`\n",
+///     "     left_reader label: `reader`,\n",
+///     "     left_reader debug: `[]`,\n",
+///     " right_containee label: `containee`,\n",
+///     " right_containee debug: `\"xyz\"`,\n",
+///     "                  left: `\"hello\"`,\n",
+///     "                 right: `\"xyz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -144,54 +159,16 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_read_to_string_contains {
-    ($a_reader:expr, $b_pattern:expr $(,)?) => ({
-        match assert_read_to_string_contains_as_result!($a_reader, $b_pattern) {
+    ($a_reader:expr, $b:expr $(,)?) => ({
+        match assert_read_to_string_contains_as_result!($a_reader, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_reader:expr, $b_pattern:expr, $($arg:tt)+) => ({
-        match assert_read_to_string_contains_as_result!($a_reader, $b_pattern) {
+    ($a_reader:expr, $b:expr, $($arg:tt)+) => ({
+        match assert_read_to_string_contains_as_result!($a_reader, $b) {
             Ok(()) => (),
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-    use std::io::Read;
-
-    #[test]
-    fn test_assert_read_to_string_contains_x_arity_2_success() {
-        let mut reader = "alpha".as_bytes();
-        let containee = "lph";
-        let x = assert_read_to_string_contains!(reader, containee);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_read_to_string_contains!(left_reader, right_expr)`\n left reader name: `reader`,\n  right expr name: `containee`,\n left reader size: `5`,\n left reader data: `\"alpha\"`,\n       right expr: `\"xyz\"")]
-    fn test_assert_read_to_string_contains_x_arity_2_failure() {
-        let mut reader = "alpha".as_bytes();
-        let containee = "xyz";
-        let _x = assert_read_to_string_contains!(reader, containee);
-    }
-
-    #[test]
-    fn test_assert_read_to_string_contains_x_arity_3_success() {
-        let mut reader = "alpha".as_bytes();
-        let containee = "lph";
-        let x = assert_read_to_string_contains!(reader, containee, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_read_to_string_contains_x_arity_3_failure() {
-        let mut reader = "alpha".as_bytes();
-        let containee = "xyz";
-        let _x = assert_read_to_string_contains!(reader, containee, "message");
-    }
-
 }

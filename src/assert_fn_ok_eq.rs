@@ -1,8 +1,8 @@
 /// Assert one function ok() is equal to another function ok().
 ///
-/// * When true, return Result `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * When true, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -30,15 +30,14 @@
 /// //-> Err(…)
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_eq!(function, left_input, right_expr)`\n",
-///     "    function name: `example_digit_to_string`,\n",
-///     "  left input name: `a`,\n",
-///     "  right expr name: `b`,\n",
-///     "       left input: `1`,\n",
-///     "       right expr: `\"2\"`,\n",
-///     "      left output: `\"1\"`,\n",
-///     "             left: `\"1\"`,\n",
-///     "            right: `\"2\"`"
+///     "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_expr)`\n",
+///     " left_function label: `example_digit_to_string`,\n",
+///     "    left_input label: `a`,\n",
+///     "    left_input debug: `1`,\n",
+///     "    right_expr label: `b`,\n",
+///     "    right_expr debug: `\"2\"`,\n",
+///     "                left: `\"1\"`,\n",
+///     "               right: `\"2\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -50,14 +49,19 @@ macro_rules! assert_fn_ok_eq_as_result {
         let a_result = $function($a_input);
         let a_is_ok = a_result.is_ok();
         if !a_is_ok {
-            Err(msg_with_left_function_and_left_input_and_right_expr!(
-                "assertion failed",
-                "assert_fn_ok_eq!",
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_expr)`\n",
+                    " left_function label: `{}`,\n",
+                    "    left_input label: `{}`,\n",
+                    "    left_input debug: `{:?}`,\n",
+                    "    right_expr label: `{}`,\n",
+                    "    right_expr debug: `{:?}`,\n",
+                    "         left result: `{:?}`",
+                ),
                 stringify!($function),
-                stringify!($a_input),
-                stringify!($b_expr),
-                $a_input,
-                $b_expr,
+                stringify!($a_input), $a_input,
+                stringify!($b_expr), $b_expr,
                 a_result
             ))
         } else {
@@ -65,15 +69,22 @@ macro_rules! assert_fn_ok_eq_as_result {
             if a_ok == $b_expr {
                 Ok(())
             } else {
-                Err(msg_with_left_function_and_left_input_and_right_expr!(
-                    "assertion failed",
-                    "assert_fn_ok_eq!",
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_expr)`\n",
+                        " left_function label: `{}`,\n",
+                        "    left_input label: `{}`,\n",
+                        "    left_input debug: `{:?}`,\n",
+                        "    right_expr label: `{}`,\n",
+                        "    right_expr debug: `{:?}`,\n",
+                        "                left: `{:?}`,\n",
+                        "               right: `{:?}`",
+                    ),
                     stringify!($function),
-                    stringify!($a_input),
-                    stringify!($b_expr),
-                    $a_input,
-                    $b_expr,
-                    a_ok
+                    stringify!($a_input), $a_input,
+                    stringify!($b_expr), $b_expr,
+                    a_ok,
+                    $b_expr
                 ))
             }
         }
@@ -109,15 +120,14 @@ mod test_x_result {
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_fn_ok_eq!(function, left_input, right_expr)`\n",
-                "    function name: `example_digit_to_string`,\n",
-                "  left input name: `a`,\n",
-                "  right expr name: `b`,\n",
-                "       left input: `1`,\n",
-                "       right expr: `\"2\"`,\n",
-                "      left output: `\"1\"`,\n",
-                "             left: `\"1\"`,\n",
-                "            right: `\"2\"`"
+                "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_expr)`\n",
+                " left_function label: `example_digit_to_string`,\n",
+                "    left_input label: `a`,\n",
+                "    left_input debug: `1`,\n",
+                "    right_expr label: `b`,\n",
+                "    right_expr debug: `\"2\"`,\n",
+                "                left: `\"1\"`,\n",
+                "               right: `\"2\"`"
             )
         );
     }
@@ -125,7 +135,7 @@ mod test_x_result {
 
 /// Assert a function ok() is equal to another.
 ///
-/// * When true, return `()`.
+/// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -156,15 +166,14 @@ mod test_x_result {
 /// });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_eq!(function, left_input, right_expr)`\n",
-///     "    function name: `example_digit_to_string`,\n",
-///     "  left input name: `a`,\n",
-///     "  right expr name: `b`,\n",
-///     "       left input: `1`,\n",
-///     "       right expr: `\"2\"`,\n",
-///     "      left output: `\"1\"`,\n",
-///     "             left: `\"1\"`,\n",
-///     "            right: `\"2\"`"
+///     "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_expr)`\n",
+///     " left_function label: `example_digit_to_string`,\n",
+///     "    left_input label: `a`,\n",
+///     "    left_input debug: `1`,\n",
+///     "    right_expr label: `b`,\n",
+///     "    right_expr debug: `\"2\"`,\n",
+///     "                left: `\"1\"`,\n",
+///     "               right: `\"2\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -184,48 +193,4 @@ macro_rules! assert_fn_ok_eq {
             Err(_err) => panic!($($arg)+),
         }
     });
-}
-
-#[cfg(test)]
-mod test_x_panic {
-
-    fn example_digit_to_string(i: i32) -> Result<String, String> {
-        match i {
-            0..=9 => Ok(format!("{}", i)),
-            _ => Err(format!("{:?} is out of range", i)),
-        }
-    }
-
-    #[test]
-    fn test_assert_fn_ok_eq_x_arity_2_eq_success() {
-        let a: i32 = 1;
-        let b = String::from("1");
-        let x = assert_fn_ok_eq!(example_digit_to_string, a, b);
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "assertion failed: `assert_fn_ok_eq!(function, left_input, right_expr)`\n    function name: `example_digit_to_string`,\n  left input name: `a`,\n  right expr name: `b`,\n       left input: `1`,\n       right expr: `\"2\"`,\n      left output: `\"1\"`,\n             left: `\"1\"`,\n            right: `\"2\"`")]
-    fn test_assert_fn_ok_eq_x_arity_2_ne_failure() {
-        let a: i32 = 1;
-        let b = String::from("2");
-        let _x = assert_fn_ok_eq!(example_digit_to_string, a, b);
-    }
-
-    #[test]
-    fn test_assert_fn_ok_eq_x_arity_3_eq_success() {
-        let a: i32 = 1;
-        let b = String::from("1");
-        let x = assert_fn_ok_eq!(example_digit_to_string, a, b, "message");
-        assert_eq!(x, ());
-    }
-
-    #[test]
-    #[should_panic (expected = "message")]
-    fn test_assert_fn_ok_eq_x_arity_3_ne_failure() {
-        let a: i32 = 1;
-        let b = String::from("2");
-        let _x = assert_fn_ok_eq!(example_digit_to_string, a, b, "message");
-    }
-
 }
