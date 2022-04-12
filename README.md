@@ -17,33 +17,33 @@ Repo:
 
 Value macros such as:
 
-* `assert_gt!(value1, value2)`
-
-* Means `value1 > value2`
+```
+assert_gt!(value1, value2); // value1 > value2
+```
 
 Set macros such as:
 
-* `assert_set_subset!(set1, set2)`
-
-* Which means `set1 ⊆ set2`
+```
+assert_set_subset!(set1, set2); // set1 is a subset of set2
+```
 
 Function macros such as:
 
-* `assert_fn_eq!(function, input, output)`
-
-* Means `function(input) == output`
+```
+assert_fn_eq!(function, input, output); // function(input) == output
+```
 
 Reader macros such as:
 
-* `assert_read_to_string_eq!(reader, string)`
+```
+assert_read_to_string_eq!(reader, string); // reader read to string == string
+```
 
-* Means `reader.read_to_string() == string`
+Command macros such as:
 
-Commmand macros such as:
-
-* `assert_command_stdout_eq!(command, expr)`
-
-* Means `String::from_utf8(command.output().unwrap().stdout).unwrap() == expr`
+```
+assert_command_stdout_eq!(command, string); // command standard output == string
+```
 
 
 ## Naming conventions
@@ -73,31 +73,33 @@ Shorthands:
 
 The macros have forms for immediate interrupts or returning results:
 
-* `assert_gt!(a, b)` => `()` or `panic!(…)`
+```
+assert_gt!(a, b); // return () or panic!(…)
 
-* `assert_gt_as_result!(a, b)` => `Result Ok(())` or `Result Err(…)`
+assert_gt_as_result!(a, b); // return Result Ok(()) or Err(…)
+```
 
 
 ## Forms for default messages or custom messages
 
 The macros have forms for default messages or custom messages.
 
-Example:
+```
+assert_gt!(1, 2); // panic!("assertion failed: `assert_gt(1, 2)`…")
 
-* `assert_gt(1, 2)` => `panic!("assertion failed: `assert_gt(1, 2)`…")`
-
-* `assert_gt(1, 2, "lorem ipsum")` => `panic!("lorem ipsum")`
+assert_gt!(1, 2, "lorem ipsum"); // panic!("lorem ipsum")
+```
 
 
 ## Forms for comparing an expression versus equivalent
 
 Some macros have forms for comparing to an expression (`expr`)  versus an equivalent (`other`):
 
-Example:
+```
+assert_read_to_string_eq!(reader, expr); // reader.read_to_string() == expr
 
-* `assert_read_to_string_eq!(reader, expr)` => `reader.read_to_string() == expr`
-
-* `assert_read_to_string_eq_other!(reader1, reader2)` => `reader1.read_to_string() == reader2.read_to_string()`
+assert_read_to_string_eq_other!(reader1, reader2); // reader1.read_to_string() == reader2.read_to_string()
+```
 
 
 ## assert_* for values
