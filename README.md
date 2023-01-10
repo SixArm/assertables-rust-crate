@@ -46,6 +46,16 @@ assert_command_stdout_eq!(command, string); // command standard output == string
 ```
 
 
+## Version 6 major improvements
+
+* Add debug_assert_* macros everywhere.
+
+* Add many documentation examples.
+
+* Add GPL3 license.
+  
+
+
 ## Naming conventions
 
 Abbreviations:
@@ -100,7 +110,7 @@ assert_read_to_string_eq!(reader, expr); // reader.read_to_string() == expr
 
 assert_read_to_string_eq_other!(reader1, reader2); // reader1.read_to_string() == reader2.read_to_string()
 ```
-
+  
 
 ## assert_* for values
 

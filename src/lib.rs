@@ -46,6 +46,15 @@
 //! ```
 //! 
 //!
+//! ## Version 6 major improvements
+//!
+//! * Add debug_assert_* macros everywhere.
+//!
+//! * Add many documentation examples.
+//!
+//! * Add GPL3 license.
+//!
+//! 
 //! ## Naming conventions
 //!
 //! Abbreviations:
