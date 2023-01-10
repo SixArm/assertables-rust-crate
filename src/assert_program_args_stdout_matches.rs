@@ -1,4 +1,4 @@
-/// Assert a command (built with program and args) stdout string is a match to a given regex.
+/// Assert a command (built with program and args) stdout string is a match to a regex.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -12,11 +12,13 @@
 /// use regex::Regex;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let program = "printf";
 /// let args = ["%s", "hello"];
 /// let matcher = Regex::new(r"el").unwrap();
 /// let x = assert_program_args_stdout_matches_as_result!(&program, &args, matcher);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -26,6 +28,7 @@
 /// let matcher = Regex::new(r"xyz").unwrap();
 /// let x = assert_program_args_stdout_matches_as_result!(&program, &args, matcher);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stdout_matches!(left_program, right_matcher)`\n",
@@ -99,7 +102,7 @@ mod test_x_result {
     use regex::Regex;
 
     #[test]
-    fn test_assert_program_args_stdout_matches_as_result_x_arity_2_success() {
+    fn test_assert_program_args_stdout_matches_as_result_x_success() {
         let a_program = "printf";
         let a_args = ["%s", "alpha"];
         let b = Regex::new(r"lph").unwrap();
@@ -108,7 +111,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_program_args_stdout_matches_as_result_x_arity_2_failure() {
+    fn test_assert_program_args_stdout_matches_as_result_x_failure() {
         let a_program = "printf";
         let a_args = ["%s", "alpha"];
         let b = Regex::new(r"xyz").unwrap();
@@ -129,7 +132,7 @@ mod test_x_result {
     }
 }
 
-/// Assert a command (built with program and args) stdout string is a match to a given regex.
+/// Assert a command (built with program and args) stdout string is a match to a regex.
 ///
 /// * If true, return `()`.
 ///
@@ -144,12 +147,14 @@ mod test_x_result {
 /// use regex::Regex;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let program = "printf";
 /// let args = ["%s", "hello"];
 /// let matcher = Regex::new(r"el").unwrap();
 /// assert_program_args_stdout_matches!(&program, &args, matcher);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let program = "printf";
 /// let args = ["%s", "hello"];
@@ -157,6 +162,7 @@ mod test_x_result {
 /// assert_program_args_stdout_matches!(&program, &args, matcher);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stdout_matches!(left_program, right_matcher)`\n",
@@ -181,10 +187,10 @@ macro_rules! assert_program_args_stdout_matches {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_program:expr, $a_args:expr, $b_matcher:expr, $($arg:tt)+) => ({
+    ($a_program:expr, $a_args:expr, $b_matcher:expr, $($message:tt)+) => ({
         match assert_program_args_stdout_matches_as_result!($a_program, $a_args, $b_matcher) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

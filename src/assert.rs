@@ -10,14 +10,17 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let x = assert_as_result!(true);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
 ///
 /// let x = assert_as_result!(false);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 /// #    "assertion failed: `assertable!(condition)`\n",
@@ -48,13 +51,11 @@ macro_rules! assert_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_x_arity_2_success_as_result() {
+    fn test_assert_x_success_as_result() {
         let a = true;
         let x = assert_as_result!(a);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
 }
@@ -72,13 +73,16 @@ mod test_x_result {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// assert!(true);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// assert!(false);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: false"
@@ -94,7 +98,7 @@ mod test_x_result {
 mod test_assert_x_result {
 
     #[test]
-    fn test_assert_x_arity_2_success() {
+    fn test_assert_x_success() {
         let a = true;
         let x = assert!(a);
         assert_eq!(x, ());
@@ -102,7 +106,7 @@ mod test_assert_x_result {
 
     #[test]
     #[should_panic]
-    fn test_assert_x_arity_2_failure() {
+    fn test_assert_x_failure() {
         let a = false;
         let _x = assert!(a);
     }

@@ -1,4 +1,4 @@
-/// Assert one function output is equal to another function output.
+/// Assert a function output is equal to another function output.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -10,24 +10,27 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// let a: i32 = 1;
-/// let b: i32 = -1;
+/// // Return Ok
+/// let a: i32 = -1;
+/// let b: i32 = 1;
 /// let x = assert_fn_eq_other_as_result!(i32::abs, a, b);
 /// //-> Ok(())
-/// assert!(x.is_ok());
+/// assert_eq!(x, Ok(()));
+/// assert_eq!(x.unwrap(), ());
 ///
-/// let a: i32 = 1;
-/// let b: i32 = -2;
+/// let a: i32 = -1;
+/// let b: i32 = 2;
 /// let x = assert_fn_eq_other_as_result!(i32::abs, a, b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_eq_other!(pair_function, left_input, right_input)`\n",
 ///     " pair_function label: `i32::abs`,\n",
 ///     "    left_input label: `a`,\n",
-///     "    left_input debug: `1`,\n",
+///     "    left_input debug: `-1`,\n",
 ///     "   right_input label: `b`,\n",
-///     "   right_input debug: `-2`,\n",
+///     "   right_input debug: `2`,\n",
 ///     "                left: `1`,\n",
 ///     "               right: `2`"
 /// );
@@ -68,27 +71,29 @@ macro_rules! assert_fn_eq_other_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_fn_eq_other_as_result_x_arity_2_success() {
-        let a: i32 = 1;
-        let b: i32 = -1;
+    fn test_assert_fn_eq_other_as_result_x_success() {
+        let a: i32 = -1;
+        let b: i32 = 1;
         let x = assert_fn_eq_other_as_result!(i32::abs, a, b);
         assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_fn_eq_other_as_result_x_arity_2_failure() {
-        let a: i32 = 1;
-        let b: i32 = -2;
+    fn test_assert_fn_eq_other_as_result_x_failure() {
+        let a: i32 = -1;
+        let b: i32 = 2;
         let x = assert_fn_eq_other_as_result!(i32::abs, a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
                 "assertion failed: `assert_fn_eq_other!(pair_function, left_input, right_input)`\n",
                 " pair_function label: `i32::abs`,\n",
                 "    left_input label: `a`,\n",
-                "    left_input debug: `1`,\n",
+                "    left_input debug: `-1`,\n",
                 "   right_input label: `b`,\n",
-                "   right_input debug: `-2`,\n",
+                "   right_input debug: `2`,\n",
                 "                left: `1`,\n",
                 "               right: `2`"
             )
@@ -109,28 +114,43 @@ mod test_x_result {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a: i32 = -1;
 /// let b: i32 = 1;
 /// assert_fn_eq_other!(i32::abs, a, b);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a: i32 = 1;
-/// let b: i32 = -2;
+/// let a: i32 = -1;
+/// let b: i32 = 2;
 /// assert_fn_eq_other!(i32::abs, a, b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_eq_other!(pair_function, left_input, right_input)`\n",
 ///     " pair_function label: `i32::abs`,\n",
 ///     "    left_input label: `a`,\n",
-///     "    left_input debug: `1`,\n",
+///     "    left_input debug: `-1`,\n",
 ///     "   right_input label: `b`,\n",
-///     "   right_input debug: `-2`,\n",
+///     "   right_input debug: `2`,\n",
 ///     "                left: `1`,\n",
 ///     "               right: `2`"
 /// );
+/// assert_eq!(actual, expect);
+///
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
+/// let a: i32 = -1;
+/// let b: i32 = 2;
+/// assert_fn_eq_other!(i32::abs, a, b, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -143,10 +163,10 @@ macro_rules! assert_fn_eq_other {
             Err(err) => panic!("{}", err),
         }
     });
-    ($function:path, $a_input:expr, $b_input:expr, $($arg:tt)+) => ({
+    ($function:path, $a_input:expr, $b_input:expr, $($message:tt)+) => ({
         match assert_fn_eq_other_as_result!($function, $a_input, $b_input) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

@@ -10,21 +10,24 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a = [1, 2];
 /// let b = [3, 4];
-/// let x = assert_set_ne_as_result!(&a, &b);
+/// let x = assert_set_ne_other_as_result!(&a, &b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
 ///
 /// let a = [1, 2];
 /// let b = [1, 2];
-/// let x = assert_set_ne_as_result!(&a, &b);
+/// let x = assert_set_ne_other_as_result!(&a, &b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-/// #    "assertion failed: `assert_set_ne!(left_set, right_set)`\n",
+/// #    "assertion failed: `assert_set_ne_other!(left_set, right_set)`\n",
 /// #    "  left_set label: `&a`,\n",
 /// #    "  left_set debug: `[1, 2]`,\n",
 /// #    " right_set label: `&b`,\n",
@@ -40,7 +43,7 @@
 /// This implementation uses [`BTreeSet`] to count items and sort them.
 ///
 #[macro_export]
-macro_rules! assert_set_ne_as_result {
+macro_rules! assert_set_ne_other_as_result {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
@@ -51,7 +54,7 @@ macro_rules! assert_set_ne_as_result {
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_set_ne!(left_set, right_set)`\n",
+                            "assertion failed: `assert_set_ne_other!(left_set, right_set)`\n",
                             "  left_set label: `{}`,\n",
                             "  left_set debug: `{:?}`,\n",
                             " right_set label: `{}`,\n",
@@ -74,25 +77,24 @@ macro_rules! assert_set_ne_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_set_ne_as_result_x_arity_2_success() {
+    fn test_assert_set_ne_other_as_result_x_success() {
         let a = [1, 2];
         let b = [3, 4];
-        let x = assert_set_ne_as_result!(&a, &b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        let x = assert_set_ne_other_as_result!(&a, &b);
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_set_ne_as_result_x_arity_2_failure() {
+    fn test_assert_set_ne_other_as_result_x_failure() {
         let a = [1, 2];
         let b = [1, 2];
-        let x = assert_set_ne_as_result!(&a, &b);
+        let x = assert_set_ne_other_as_result!(&a, &b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_set_ne!(left_set, right_set)`\n",
+                "assertion failed: `assert_set_ne_other!(left_set, right_set)`\n",
                 "  left_set label: `&a`,\n",
                 "  left_set debug: `[1, 2]`,\n",
                 " right_set label: `&b`,\n",
@@ -118,20 +120,23 @@ mod test_x_result {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a = [1, 2];
 /// let b = [3, 4];
-/// assert_set_ne!(&a, &b);
+/// assert_set_ne_other!(&a, &b);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 2];
 /// let b = [1, 2];
-/// assert_set_ne!(&a, &b);
+/// assert_set_ne_other!(&a, &b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_set_ne!(left_set, right_set)`\n",
+///     "assertion failed: `assert_set_ne_other!(left_set, right_set)`\n",
 /// #    "  left_set label: `&a`,\n",
 /// #    "  left_set debug: `[1, 2]`,\n",
 /// #    " right_set label: `&b`,\n",
@@ -147,17 +152,17 @@ mod test_x_result {
 /// This implementation uses [`BTreeSet`] to count items and sort them.
 ///
 #[macro_export]
-macro_rules! assert_set_ne {
+macro_rules! assert_set_ne_other {
     ($a:expr, $b:expr $(,)?) => ({
-        match assert_set_ne_as_result!($a, $b) {
+        match assert_set_ne_other_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $b:expr, $($arg:tt)+) => ({
-        match assert_set_ne_as_result!($a, $b) {
+    ($a:expr, $b:expr, $($message:tt)+) => ({
+        match assert_set_ne_other_as_result!($a, $b) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

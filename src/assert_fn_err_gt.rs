@@ -16,10 +16,12 @@
 /// }
 ///
 /// # fn main() {
+/// // Return Ok
 /// let a = 20;
 /// let b = String::from("10 is out of range");
 /// let x = assert_fn_err_gt_as_result!(example_digit_to_string, a, b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -28,6 +30,7 @@
 /// let b = String::from("20 is out of range");
 /// let x = assert_fn_err_gt_as_result!(example_digit_to_string, a, b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_err_gt!(left_function, left_input, right_expr)`\n",
@@ -102,21 +105,20 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_err_gt_as_result_x_arity_2_gt_success() {
+    fn test_assert_fn_err_gt_as_result_x_success() {
         let a: i32 = 20;
         let b = String::from("10 is out of range");
         let x = assert_fn_err_gt_as_result!(example_digit_to_string, a, b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_fn_err_gt_as_result_x_arity_2_eq_failure() {
+    fn test_assert_fn_err_gt_as_result_x_failure_because_eq() {
         let a: i32 = 10;
         let b = String::from("10 is out of range");
         let x = assert_fn_err_gt_as_result!(example_digit_to_string, a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -133,10 +135,11 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_err_gt_as_result_x_arity_2_lt_failure() {
+    fn test_assert_fn_err_gt_as_result_x_failure_because_lt() {
         let a: i32 = 10;
         let b = String::from("20 is out of range");
         let x = assert_fn_err_gt_as_result!(example_digit_to_string, a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -173,17 +176,20 @@ mod test_x_result {
 /// }
 ///
 /// # fn main() {
+/// // Return Ok
 /// let a = 20;
 /// let b = String::from("10 is out of range");
 /// assert_fn_err_gt!(example_digit_to_string, a, b);
 /// //-> ()
 ///
-/// let result = panic::catch_unwind(|| {
 /// let a = 10;
 /// let b = String::from("20 is out of range");
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
 /// assert_fn_err_gt!(example_digit_to_string, a, b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_err_gt!(left_function, left_input, right_expr)`\n",
@@ -196,6 +202,16 @@ mod test_x_result {
 ///     "               right: `\"20 is out of range\"`"
 /// );
 /// assert_eq!(actual, expect);
+/// 
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
+/// assert_fn_err_gt!(example_digit_to_string, a, b, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
+/// assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -207,10 +223,10 @@ macro_rules! assert_fn_err_gt {
             Err(err) => panic!("{}", err),
         }
     });
-    ($function:path, $a_input:expr, $b_expr:expr, $($arg:tt)+) => ({
+    ($function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
         match assert_fn_err_gt_as_result!($function, $a_input, $b_expr) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

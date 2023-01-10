@@ -13,12 +13,14 @@
 /// use std::process::Command;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
 /// let mut b = Command::new("printf");
 /// b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
 /// let x = assert_command_stdout_eq_other_as_result!(a, b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -29,6 +31,7 @@
 /// b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
 /// let x = assert_command_stdout_eq_other_as_result!(a, b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stdout_eq_other!(left_command, right_command)`\n",
@@ -42,8 +45,7 @@
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-///
-/// This macro has a second form where a custom message can be provided.
+/// 
 #[macro_export]
 macro_rules! assert_command_stdout_eq_other_as_result {
     ($a_command:expr, $b_command:expr $(,)?) => ({
@@ -97,7 +99,7 @@ mod assert_tests_as_result {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stdout_eq_other_as_result_x_arity_2_success() {
+    fn test_assert_command_stdout_eq_other_as_result_x_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let mut b = Command::new("printf");
@@ -107,7 +109,7 @@ mod assert_tests_as_result {
     }
 
     #[test]
-    fn test_assert_command_stdout_eq_other_as_result_x_arity_2_failure() {
+    fn test_assert_command_stdout_eq_other_as_result_x_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let mut b = Command::new("printf");
@@ -142,6 +144,7 @@ mod assert_tests_as_result {
 /// use std::process::Command;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
 /// let mut b = Command::new("printf");
@@ -149,6 +152,7 @@ mod assert_tests_as_result {
 /// assert_command_stdout_eq_other!(a, b);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("printf");
 /// a.args(["%s", "hello"]);
@@ -157,6 +161,7 @@ mod assert_tests_as_result {
 /// assert_command_stdout_eq_other!(a, b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stdout_eq_other!(left_command, right_command)`\n",
@@ -168,10 +173,23 @@ mod assert_tests_as_result {
 ///     "               right: `\"world\"`"
 /// );
 /// assert_eq!(actual, expect);
+/// 
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
+/// let mut a = Command::new("printf");
+/// a.args(["%s", "hello"]);
+/// let mut b = Command::new("printf");
+/// b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
+/// assert_command_stdout_eq_other!(a, b, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
+/// assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
-/// This macro has a second form where a custom message can be provided.
 #[macro_export]
 macro_rules! assert_command_stdout_eq_other {
     ($a_command:expr, $b_command:expr $(,)?) => ({
@@ -180,10 +198,10 @@ macro_rules! assert_command_stdout_eq_other {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_command:expr, $b_command:expr, $($arg:tt)+) => ({
+    ($a_command:expr, $b_command:expr, $($message:tt)+) => ({
         match assert_command_stdout_eq_other_as_result!($a_command, $b_command) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

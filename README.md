@@ -50,7 +50,7 @@ assert_command_stdout_eq!(command, string); // command standard output == string
 
 Abbreviations:
 
-*  `eq` means equal; `ne` means not equal.
+* `eq` means equal; `ne` means not equal.
 
 * `lt` means less than; `le` means less than or equal.
 
@@ -87,7 +87,7 @@ The macros have forms for default messages or custom messages.
 ```
 assert_gt!(1, 2); // panic!("assertion failed: `assert_gt(1, 2)`…")
 
-assert_gt!(1, 2, "lorem ipsum"); // panic!("lorem ipsum")
+assert_gt!(1, 2, "message"); // panic!("message")
 ```
 
 
@@ -125,9 +125,9 @@ These macros help with comparison of set parameters, such as two arrays or
 two vectors. where the item order does not matter, and the item count does
 not matter. The macros convert inputs into HashSet iterators.
 
-* `assert_set_eq!(a, b)` ~ set a == set b
+* `assert_set_eq_other!(a, b)` ~ set a == set b
 
-* `assert_set_ne!(a, b)` ~ set a != set b
+* `assert_set_ne_other!(a, b)` ~ set a != set b
 
 * `assert_set_subset!(a, b)` ~ set a ⊆ set b
 
@@ -144,9 +144,9 @@ These macros help with comparison of bag parameters, such as comparison of
 two arrays or two vectors, where the item order does not matter, and the
 item count does matter. The macros convert inputs into HashMap iterators.
 
-* `assert_bag_eq(a, b)` ~ bag a == bag b
+* `assert_bag_eq_other(a, b)` ~ bag a == bag b
 
-* `assert_bag_ne(a, b)` ~ bag a != bag b
+* `assert_bag_ne_other(a, b)` ~ bag a != bag b
 
 * `assert_bag_subbag(a, b)` ~ bag a ⊆ bag b
 

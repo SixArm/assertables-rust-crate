@@ -1,6 +1,6 @@
-//! # Assertables: Rust crate of "assert" macros for testing
+//! # Assertables: Rust crate of assert macros for testing
 //!
-//! The `assertables` Rust crate provides many "assert" macros
+//! The `assertables` Rust crate provides many assert macros
 //! to help with compile-time testing and run-time reliability
 //!
 //! Crate:
@@ -15,33 +15,33 @@
 //!
 //! ## Highlights
 //!
-//! Value macros such as:
+//! Macros for values such as:
 //!
-//! ```
+//! ```ignore
 //! assert_gt!(value1, value2); // value1 > value2
 //! ```
 //!
-//! Set macros such as:
+//! Macros for arrays, vectors, sets, bags, etc., such as:
 //!
-//! ```
+//! ```ignore
 //! assert_set_subset!(set1, set2); // set1 is a a subset of set2
 //! ```
 //!
-//! Function macros such as:
+//! Macros for functions such as:
 //!
-//! ```
+//! ```ignore
 //! assert_fn_eq!(function, input, output); // function(input) == output
 //! ```
 //!
-//! Reader macros such as:
+//! Macros for readers such as:
 //!
-//! ```
+//! ```ignore
 //! assert_read_to_string_eq!(reader, string); // reader read to string == string
 //! ```
 //!
-//! Command macros such as:
+//! Macros for commands such as:
 //!
-//! ```
+//! ```ignore
 //! assert_command_stdout_eq!(command, expr); // command standard output == expression
 //! ```
 //! 
@@ -66,35 +66,46 @@
 //!
 //! * `set` means a collection such as `::std::collections::BTreeSet`.
 //!
-//! * `bag` means a collection such as `::std::collections::BTreeMap` with key counts.
+//! * `bag` means a collection such as `::std::collections::BTreeMap` which has key counts.
 //!
 //!
 //! ## Forms for panic! versus Err()
 //!
-//! The macros have two forms, for immediate interrupts versus returning results:
+//! The macros have forms for immediate interrupts versus returning results:
 //!
-//! ```
+//! ```ignore
 //! assert_gt!(a, b); // return () or panic!(…)
 //!
 //! assert_gt_as_result!(a, b); // return Result Ok(()) or Err(…)
 //! ```
 //!
+//! 
 //! ## Forms for default messages versus custom messages
 //!
-//! The macros have two forms, for default messages versus custom messages.
+//! The macros have forms for default messages versus custom messages.
 //!
-//! ```
+//! Examples with panics:
+//! 
+//! ```ignore
 //! assert_gt!(1, 2); // panic!("assertion failed: assert_gt(1, 2)…")
+//! 
+//! assert_gt!(1, 2, "message"); // panic!("message")
+//! ```
+//! 
+//! Examples with errors:
+//! 
+//! ```ignore
+//! assert_gt_as_result!(1, 2); // return Err("assertion failed: assert_gt(1, 2)…")
 //!
-//! assert_gt!(1, 2, "lorem ipsum"); // panic!("lorem ipsum")
+//! assert_gt_as_result!(1, 2, "message"); // return Err("message")
 //! ```
 //!
 //!
-//! ## Forms for comparing an expression versus equivalent
+//! ## Forms for comparing an expression versus an equivalent
 //!
-//! Some macros have forms for comparing to an expression (`expr`)  versus an equivalent (`other`):
+//! Some macros have forms for comparing to an expression (`expr`) versus an equivalent (`other`):
 //!
-//! ```
+//! ```ignore
 //! assert_read_to_string_eq!(reader, expr); // reader.read_to_string() == expr
 //!
 //! assert_read_to_string_eq_other!(reader1, reader2); // reader1.read_to_string() == reader2.read_to_string()
@@ -124,9 +135,9 @@
 //! two vectors. where the item order does not matter, and the item count does
 //! not matter. The macros convert inputs into HashSet iterators.
 //!
-//! * `assert_set_eq!(a, b)` ~ set a == set b
+//! * `assert_set_eq_other!(a, b)` ~ set a == set b
 //!
-//! * `assert_set_ne!(a, b)` ~ set a != set b
+//! * `assert_set_ne_other!(a, b)` ~ set a != set b
 //!
 //! * `assert_set_subset!(a, b)` ~ set a ⊆ set b
 //!
@@ -143,9 +154,9 @@
 //! two arrays or two vectors, where the item order does not matter, and the
 //! item count does matter. The macros convert inputs into HashMap iterators.
 //!
-//! * `assert_bag_eq(a, b)` ~ bag a == bag b
+//! * `assert_bag_eq_other(a, b)` ~ bag a == bag b
 //!
-//! * `assert_bag_ne(a, b)` ~ bag a != bag b
+//! * `assert_bag_ne_other(a, b)` ~ bag a != bag b
 //!
 //! * `assert_bag_subbag(a, b)` ~ bag a ⊆ bag b
 //!
@@ -181,54 +192,63 @@
 //!
 //! ## assert_fn_ok_* for function Ok() comparisons
 //!
+//! ### Compare with expr
+//! 
 //! * `assert_fn_ok_eq!(f, a, b)` ~ f(a).unwrap() == b
 //!
-//! * `assert_fn_ok_eq_other!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
-//!
 //! * `assert_fn_ok_ne!(f, a, b)` ~ f(a).unwrap() != b
+//! 
+//! * `assert_fn_ok_lt!(f, a, b)` ~ f(a).unwrap() < b
+//!
+//! * `assert_fn_ok_le!(f, a, b)` ~ f(a).unwrap() <= b
+//! 
+//! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
+//! 
+//! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
+//!
+//! ### Compare with other
+//! 
+//! * `assert_fn_ok_eq_other!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
 //!
 //! * `assert_fn_ok_ne_other!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
 //!
-//! * `assert_fn_ok_lt!(f, a, b)` ~ f(a).unwrap() < b
-//!
 //! * `assert_fn_ok_lt_other!(f, a, b)` ~ f(a).unwrap() < f(b).unwrap()
-//!
-//! * `assert_fn_ok_le!(f, a, b)` ~ f(a).unwrap() <= b
 //!
 //! * `assert_fn_ok_le_other!(f, a, b)` ~ f(a).unwrap() <= f(b).unwrap()
 //!
-//! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
-//!
 //! * `assert_fn_ok_gt_other!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
-//!
-//! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
 //!
 //! * `assert_fn_ok_gt_other!(f, a, b)` ~ f(a).unwrap() > f(b).unwrap()
 //!
 //!
 //! ## assert_fn_err_* for function Err() comparisons
+//! 
+//! ### with expr
 //!
 //! * `assert_fn_err_eq!(f, a, b)` ~ f(a).unwrap_err() == b
 //!
-//! * `assert_fn_err_eq_other!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
-//!
 //! * `assert_fn_err_ne!(f, a, b)` ~ f(a).unwrap_err() != b
-//!
-//! * `assert_fn_err_ne_other!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
 //!
 //! * `assert_fn_err_lt!(f, a, b)` ~ f(a).unwrap_err() < b
 //!
-//! * `assert_fn_err_lt_other!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
-//!
 //! * `assert_fn_err_le!(f, a, b)` ~ f(a).unwrap_err() <= b
-//!
-//! * `assert_fn_err_le_other!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
 //!
 //! * `assert_fn_err_gt!(f, a, b)` ~ f(a).unwrap_err() > b
 //!
-//! * `assert_fn_err_gt_other!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
-//!
 //! * `assert_fn_err_ge!(f, a, b)`~ f(a).unwrap_err() >= b
+//!
+//! 
+//! ### with other
+//! 
+//! * `assert_fn_err_eq_other!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
+//!
+//! * `assert_fn_err_ne_other!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
+//!
+//! * `assert_fn_err_lt_other!(f, a, b)` ~ f(a).unwrap_err() < f(b).unwrap_err()
+//!
+//! * `assert_fn_err_le_other!(f, a, b)` ~ f(a).unwrap_err() <= f(b).unwrap_err()
+//!
+//! * `assert_fn_err_gt_other!(f, a, b)` ~ f(a).unwrap_err() > f(b).unwrap_err()
 //!
 //! * `assert_fn_err_ge_other!(f, a, b)`~ f(a).unwrap_err() >= f(b).unwrap_err()
 //!
@@ -240,25 +260,25 @@
 //!
 //! * `assert_read_to_string_eq!(a, b)` ~ a.read_to_string() == b
 //!
-//! * `assert_read_to_string_eq_other!(a, b)` ~ a.read_to_string() == b.read_to_string()
-//!
 //! * `assert_read_to_string_ne!(a, b)` ~ a.read_to_string() != b
-//!
-//! * `assert_read_to_string_ne_other!(a, b)` ~ a.read_to_string() != b.read_to_string()
 //!
 //! * `assert_read_to_string_lt!(a, b)` ~ a.read_to_string() < b
 //!
-//! * `assert_read_to_string_lt_other!(a, b)` ~ a.read_to_string() < b.read_to_string()
-//!
 //! * `assert_read_to_string_le!(a, b)` ~ a.read_to_string() <= b
-//!
-//! * `assert_read_to_string_le_other!(a, b)` ~ a.read_to_string() <= b.read_to_string()
 //!
 //! * `assert_read_to_string_gt!(a, b)` ~ a.read_to_string() > b
 //!
-//! * `assert_read_to_string_gt_other!(a, b)` ~ a.read_to_string() > b.read_to_string()
-//!
 //! * `assert_read_to_string_ge!(a, b)` ~ a.read_to_string() >= b
+//!
+//! * `assert_read_to_string_eq_other!(a, b)` ~ a.read_to_string() == b.read_to_string()
+//!
+//! * `assert_read_to_string_ne_other!(a, b)` ~ a.read_to_string() != b.read_to_string()
+//!
+//! * `assert_read_to_string_lt_other!(a, b)` ~ a.read_to_string() < b.read_to_string()
+//!
+//! * `assert_read_to_string_le_other!(a, b)` ~ a.read_to_string() <= b.read_to_string()
+//!
+//! * `assert_read_to_string_gt_other!(a, b)` ~ a.read_to_string() > b.read_to_string()
 //!
 //! * `assert_read_to_string_ge_other!(a, b)` ~ a.read_to_string() >= b.read_to_string()
 //!
@@ -312,10 +332,10 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 5.2.0
+//! * Version: 6.0.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2022-04-11T17:16:52Z
-//! * License: MIT or Apache-2.0 or GPL-2.0 or contact us for custom license
+//! * Updated: 2023-01-09T20:14:12Z
+//! * License: MIT or Apache-2.0 or GPL-2.0-or-later or contact us for custom license
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
 // Assert truth
@@ -330,73 +350,81 @@ pub mod assert_gt;
 pub mod assert_ge;
 
 // Assertable iterator-related set-based comparison
-pub mod assert_set_eq;
-pub mod assert_set_ne;
+pub mod assert_set_eq_other;
+pub mod assert_set_ne_other;
 pub mod assert_set_subset;
 pub mod assert_set_superset;
 pub mod assert_set_joint;
 pub mod assert_set_disjoint;
 
 // Assertable iterator-related bag-based comparison
-pub mod assert_bag_eq;
-pub mod assert_bag_ne;
+pub mod assert_bag_eq_other;
+pub mod assert_bag_ne_other;
 pub mod assert_bag_subbag;
 pub mod assert_bag_superbag;
 
 // Assert function return versus value
 pub mod assert_fn_eq;
-pub mod assert_fn_eq_other;
 pub mod assert_fn_ne;
+pub mod assert_fn_lt;
+pub mod assert_fn_le;
+pub mod assert_fn_gt;
+pub mod assert_fn_ge;
+
+// Assert function return versus other
+pub mod assert_fn_eq_other;
 pub mod assert_fn_ne_other;
-// pub mod assert_fn_lt;
 pub mod assert_fn_lt_other;
-// pub mod assert_fn_le;
 pub mod assert_fn_le_other;
-// pub mod assert_fn_gt;
 pub mod assert_fn_gt_other;
-// pub mod assert_fn_ge;
 pub mod assert_fn_ge_other;
 
 // Assert function Ok() versus value
 pub mod assert_fn_ok_eq;
-pub mod assert_fn_ok_eq_other;
 pub mod assert_fn_ok_ne;
-pub mod assert_fn_ok_ne_other;
 pub mod assert_fn_ok_lt;
-pub mod assert_fn_ok_lt_other;
 pub mod assert_fn_ok_le;
- pub mod assert_fn_ok_le_other;
 pub mod assert_fn_ok_gt;
-pub mod assert_fn_ok_gt_other;
 pub mod assert_fn_ok_ge;
+
+// Assert function Ok() versus other
+pub mod assert_fn_ok_eq_other;
+pub mod assert_fn_ok_ne_other;
+pub mod assert_fn_ok_lt_other;
+pub mod assert_fn_ok_le_other;
+pub mod assert_fn_ok_gt_other;
 pub mod assert_fn_ok_ge_other;
 
 // Assert function Err() versus value
 pub mod assert_fn_err_eq;
-pub mod assert_fn_err_eq_other;
 pub mod assert_fn_err_ne;
-pub mod assert_fn_err_ne_other;
 pub mod assert_fn_err_lt;
-pub mod assert_fn_err_lt_other;
 pub mod assert_fn_err_le;
-pub mod assert_fn_err_le_other;
 pub mod assert_fn_err_gt;
+pub mod assert_fn_err_ge_expr;
+
+// Assert function Err() versus other
+pub mod assert_fn_err_eq_other;
+pub mod assert_fn_err_ne_other;
+pub mod assert_fn_err_lt_other;
+pub mod assert_fn_err_le_other;
 pub mod assert_fn_err_gt_other;
-pub mod assert_fn_err_ge;
 pub mod assert_fn_err_ge_other;
 
-// Assert std::io::read comparisons
+// Assert std::io::read comparisons versus value
 pub mod assert_read_to_string_eq;
-pub mod assert_read_to_string_eq_other;
 pub mod assert_read_to_string_ne;
-pub mod assert_read_to_string_ne_other;
 pub mod assert_read_to_string_lt;
-pub mod assert_read_to_string_lt_other;
 pub mod assert_read_to_string_le;
-pub mod assert_read_to_string_le_other;
 pub mod assert_read_to_string_gt;
-pub mod assert_read_to_string_gt_other;
 pub mod assert_read_to_string_ge;
+
+// Assert std::io::read comparisons versus other
+pub mod assert_read_to_string_eq_other;
+pub mod assert_read_to_string_ne_other;
+pub mod assert_read_to_string_lt_other;
+pub mod assert_read_to_string_le_other;
+pub mod assert_read_to_string_gt_other;
 pub mod assert_read_to_string_ge_other;
 
 // Assert std::io::read specializations

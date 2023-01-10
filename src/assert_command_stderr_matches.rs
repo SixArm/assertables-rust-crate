@@ -1,4 +1,4 @@
-/// Assert a command stderr string is a match to a given regex.
+/// Assert a command stderr string is a match to a regex.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -13,10 +13,12 @@
 /// use regex::Regex;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut command = Command::new("printf");
 /// let matcher = Regex::new(r"usage").unwrap();
 /// let x = assert_command_stderr_matches_as_result!(command, matcher);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -25,6 +27,7 @@
 /// let matcher = Regex::new(r"xyz").unwrap();
 /// let x = assert_command_stderr_matches_as_result!(command, matcher);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stderr_matches!(left_command, right_matcher)`\n",
@@ -89,7 +92,7 @@ mod test_x_result {
     use regex::Regex;
 
     #[test]
-    fn test_assert_command_stderr_matches_as_result_x_arity_2_success() {
+    fn test_assert_command_stderr_matches_as_result_x_success() {
         let mut a = Command::new("printf");
         let b = Regex::new(r"usage").unwrap();
         let x = assert_command_stderr_matches_as_result!(a, b);
@@ -97,7 +100,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_command_stderr_matches_as_result_x_arity_2_failure() {
+    fn test_assert_command_stderr_matches_as_result_x_failure() {
         let mut a = Command::new("printf");
         let b = Regex::new(r"xyz").unwrap();
         let x = assert_command_stderr_matches_as_result!(a, b);
@@ -115,7 +118,7 @@ mod test_x_result {
     }
 }
 
-/// Assert a command stderr string is a match to a given regex.
+/// Assert a command stderr string is a match to a regex.
 ///
 /// * If true, return `()`.
 ///
@@ -131,17 +134,20 @@ mod test_x_result {
 /// use regex::Regex;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut command = Command::new("printf");
 /// let matcher = Regex::new(r"usage").unwrap();
 /// assert_command_stderr_matches!(command, matcher);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("printf");
 /// let matcher = Regex::new(r"xyz").unwrap();
 /// assert_command_stderr_matches!(command, matcher);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stderr_matches!(left_command, right_matcher)`\n",
@@ -152,6 +158,18 @@ mod test_x_result {
 ///     "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
 ///     "              right: `xyz`"
 /// );
+/// assert_eq!(actual, expect);
+///
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
+/// let mut command = Command::new("printf");
+/// let matcher = Regex::new(r"xyz").unwrap();
+/// assert_command_stderr_matches!(command, matcher, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -164,10 +182,10 @@ macro_rules! assert_command_stderr_matches {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_command:expr, $b_matcher:expr, $($arg:tt)+) => ({
+    ($a_command:expr, $b_matcher:expr, $($message:tt)+) => ({
         match assert_command_stderr_matches_as_result!($a_command, $b_matcher) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

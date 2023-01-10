@@ -11,12 +11,14 @@
 /// # use std::panic;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let a_program = "printf";
 /// let a_args: [&str; 0] = [];
 /// let b_program = "printf";
 /// let b_args: [&str; 0] = [];
 /// let x = assert_program_args_stderr_eq_other_as_result!(&a_program, &a_args, &b_program, &b_args);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -27,6 +29,7 @@
 /// let b_args = ["-v"];
 /// let x = assert_program_args_stderr_eq_other_as_result!(&a_program, &a_args, &b_program, &b_args);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stderr_eq_other!(left_program, left_args, right_program, right_args)`\n",
@@ -113,7 +116,7 @@ macro_rules! assert_program_args_stderr_eq_other_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_program_args_stderr_eq_other_as_result_x_arity_2_success() {
+    fn test_assert_program_args_stderr_eq_other_as_result_x_success() {
         let a_program = "printf";
         let a_args: [&str; 0] = [];
         let b_program = "printf";
@@ -123,7 +126,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_program_args_stderr_eq_other_as_result_x_arity_2_failure() {
+    fn test_assert_program_args_stderr_eq_other_as_result_x_failure() {
         let a_program = "printf";
         let a_args: [&str; 0] = [];
         let b_program = "printf";
@@ -161,6 +164,7 @@ mod test_x_result {
 /// # use std::panic;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let a_program = "printf";
 /// let a_args: [&str; 0] = [];
 /// let b_program = "printf";
@@ -203,10 +207,10 @@ macro_rules! assert_program_args_stderr_eq_other {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_program:expr, $a_args:expr, $b_program:expr, $($arg:tt)+) => ({
+    ($a_program:expr, $a_args:expr, $b_program:expr, $($message:tt)+) => ({
         match assert_program_args_stderr_eq_other_as_result!($a_program, $a_args, $b_program, $b_args) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

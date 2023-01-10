@@ -11,11 +11,13 @@
 /// # use std::panic;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let program = "printf";
 /// let args: [&str; 0] = [];
 /// let s = "usage: printf format [arguments ...]\n";
 /// let x = assert_program_args_stderr_eq_as_result!(&program, &args, s);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -25,6 +27,7 @@
 /// let s = "hello";
 /// let x = assert_program_args_stderr_eq_as_result!(&program, &args, s);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stderr_eq!(left_program, left_args, right_expr)`\n",
@@ -96,7 +99,7 @@ macro_rules! assert_program_args_stderr_eq_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_program_args_stderr_eq_as_result_x_arity_2_success() {
+    fn test_assert_program_args_stderr_eq_as_result_x_success() {
         let a_program = "printf";
         let a_args: [&str; 0] = [];
         let b = "usage: printf format [arguments ...]\n";
@@ -105,7 +108,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_program_args_stderr_eq_as_result_x_arity_2_failure() {
+    fn test_assert_program_args_stderr_eq_as_result_x_failure() {
         let a_program = "printf";
         let a_args: [&str; 0] = [];
         let b = "hello";
@@ -139,12 +142,14 @@ mod test_x_result {
 /// # use std::panic;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let program = "printf";
 /// let args: [&str; 0] = [];
 /// let s = "usage: printf format [arguments ...]\n";
 /// assert_program_args_stderr_eq!(&program, &args, s);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let program = "printf";
 /// let args: [&str; 0] = [];
@@ -152,6 +157,7 @@ mod test_x_result {
 /// assert_program_args_stderr_eq!(&program, &args, s);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stderr_eq!(left_program, left_args, right_expr)`\n",
@@ -176,10 +182,10 @@ macro_rules! assert_program_args_stderr_eq {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_program:expr, $a_args:expr, $b_expr:expr, $($arg:tt)+) => ({
+    ($a_program:expr, $a_args:expr, $b_expr:expr, $($message:tt)+) => ({
         match assert_program_args_stderr_eq_as_result!($a_program, $a_args, $b_expr) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

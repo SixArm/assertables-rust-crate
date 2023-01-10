@@ -11,10 +11,12 @@
 /// # #[allow(unused_imports)]
 /// use std::io::Read;
 /// # fn main() {
+/// // Return Ok
 /// let mut reader = "bravo".as_bytes();
 /// let value = String::from("alpha");
 /// let x = assert_read_to_string_ge_as_result!(reader, &value);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -23,6 +25,7 @@
 /// let value = String::from("bravo");
 /// let x = assert_read_to_string_ge_as_result!(reader, &value);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_ge!(left_reader, right_expr)`\n",
@@ -88,21 +91,20 @@ mod test_x_result {
     use std::io::Read;
 
     #[test]
-    fn test_assert_read_to_string_ge_as_result_x_arity_2_success() {
+    fn test_assert_read_to_string_ge_as_result_x_success() {
         let mut reader = "bravo".as_bytes();
         let value = String::from("alpha");
         let x = assert_read_to_string_ge_as_result!(reader, &value);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_read_to_string_ge_as_result_x_arity_2_failure() {
+    fn test_assert_read_to_string_ge_as_result_x_failure() {
         let mut reader = "alpha".as_bytes();
         let value = String::from("bravo");
         let x = assert_read_to_string_ge_as_result!(reader, &value);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -133,17 +135,20 @@ mod test_x_result {
 /// use std::io::Read;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut reader = "bravo".as_bytes();
 /// let value = String::from("alpha");
 /// assert_read_to_string_ge!(reader, &value);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut reader = "alpha".as_bytes();
 /// let value = String::from("bravo");
 /// assert_read_to_string_ge!(reader, &value);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_ge!(left_reader, right_expr)`\n",
@@ -166,10 +171,10 @@ macro_rules! assert_read_to_string_ge {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_reader:expr, $b_expr:expr, $($arg:tt)+) => ({
+    ($a_reader:expr, $b_expr:expr, $($message:tt)+) => ({
         match assert_read_to_string_ge_as_result!($a_reader, $b_expr) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

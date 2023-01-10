@@ -1,4 +1,4 @@
-/// Assert a value is not equal to another.
+/// Assert an expression is not equal to another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -11,10 +11,12 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a = 1;
 /// let b = 2;
 /// let x = assert_ne_as_result!(a, b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -23,6 +25,7 @@
 /// let b = 1;
 /// let x = assert_ne_as_result!(a, b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_ne!(left, right)`\n",
@@ -70,21 +73,20 @@ macro_rules! assert_ne_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_ne_as_result_x_arity_2_success() {
+    fn test_assert_ne_as_result_x_success() {
         let a: i32 = 1;
         let b: i32 = 2;
         let x = assert_ne_as_result!(a, b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_ne_as_result_x_arity_2_failure() {
+    fn test_assert_ne_as_result_x_failure() {
         let a: i32 = 1;
         let b: i32 = 1;
         let x = assert_ne_as_result!(a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -99,3 +101,5 @@ mod test_x_result {
         );
     }
 }
+
+//TODO

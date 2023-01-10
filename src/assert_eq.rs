@@ -1,4 +1,4 @@
-/// Assert a values is equal to another.
+/// Assert an expression is equal to another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -10,16 +10,19 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a = 1;
 /// let b = 1;
 /// let x = assert_eq_as_result!(a, b);
 /// //-> Ok(())
-/// assert!(x.is_ok());
+/// assert_eq!(x, Ok(()));
+/// assert_eq!(x.unwrap(), ());
 ///
 /// let a = 1;
 /// let b = 2;
 /// let x = assert_eq_as_result!(a, b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_eq!(left, right)`\n",
@@ -67,18 +70,20 @@ macro_rules! assert_eq_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_eq_as_result_x_arity_2_success() {
+    fn test_assert_eq_as_result_x_success() {
         let a: i32 = 1;
         let b: i32 = 1;
         let x = assert_eq_as_result!(a, b);
         assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_eq_as_result_x_arity_2_failure() {
+    fn test_assert_eq_as_result_x_failure() {
         let a: i32 = 1;
         let b: i32 = 2;
         let x =  assert_eq_as_result!(a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(

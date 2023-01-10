@@ -15,11 +15,13 @@
 /// # #[macro_use] extern crate assertables;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let program = "printf";
 /// let args = ["%s", "hello"];
 /// let containee = "ell";
 /// let x = assert_program_args_stdout_contains_as_result!(&program, &args, containee);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -29,6 +31,7 @@
 /// let containee = "xyz";
 /// let x = assert_program_args_stdout_contains_as_result!(&program, &args, containee);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stdout_contains!(left_program, left_args, right_containee)`\n",
@@ -100,7 +103,7 @@ macro_rules! assert_program_args_stdout_contains_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_asserterable_command_stdout_contains_x_arity_2_success() {
+    fn test_asserterable_command_stdout_contains_x_success() {
         let a_program = "printf";
         let a_args = ["%s", "alpha"];
         let b = "lph";
@@ -109,7 +112,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_asserterable_command_stdout_contains_x_arity_2_failure() {
+    fn test_asserterable_command_stdout_contains_x_failure() {
         let a_program = "printf";
         let a_args = ["%s", "alpha"];
         let b = "xyz";
@@ -150,12 +153,14 @@ mod test_x_result {
 /// # use std::panic;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let program = "printf";
 /// let args = ["%s", "hello"];
 /// let containee = "ell";
 /// assert_program_args_stdout_contains!(&program, &args, containee);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let program = "printf";
 /// let args = ["%s", "hello"];
@@ -163,6 +168,7 @@ mod test_x_result {
 /// assert_program_args_stdout_contains!(&program, &args, containee);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stdout_contains!(left_program, left_args, right_containee)`\n",
@@ -187,10 +193,10 @@ macro_rules! assert_program_args_stdout_contains {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_program:expr, $a_args:expr, $b_containee:expr, $($arg:tt)+) => ({
+    ($a_program:expr, $a_args:expr, $b_containee:expr, $($message:tt)+) => ({
         match assert_program_args_stdout_contains_as_result!($a_program, $a_args, $b_containee) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

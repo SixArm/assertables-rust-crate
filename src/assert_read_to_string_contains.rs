@@ -11,10 +11,12 @@
 /// # #[allow(unused_imports)]
 /// use std::io::Read;
 /// # fn main() {
+/// // Return Ok
 /// let mut reader = "hello".as_bytes();
 /// let containee = "ell";
 /// let x = assert_read_to_string_contains_as_result!(reader, containee);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -23,6 +25,7 @@
 /// let containee = "xyz";
 /// let x = assert_read_to_string_contains_as_result!(reader, containee);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_contains!(left_reader, right_containee)`\n",
@@ -87,21 +90,20 @@ mod test_x_result {
     use std::io::Read;
 
     #[test]
-    fn test_assert_read_to_string_contains_as_result_x_arity_2_success() {
+    fn test_assert_read_to_string_contains_as_result_x_success() {
         let mut reader = "alpha".as_bytes();
         let containee = "lph";
         let x = assert_read_to_string_contains_as_result!(reader, containee);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_read_to_string_contains_as_result_x_arity_2_failure() {
+    fn test_assert_read_to_string_contains_as_result_x_failure() {
         let mut reader = "alpha".as_bytes();
         let containee = "xyz";
         let x = assert_read_to_string_contains_as_result!(reader, containee);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -132,17 +134,20 @@ mod test_x_result {
 /// use std::io::Read;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut reader = "hello".as_bytes();
 /// let containee = "ell";
 /// assert_read_to_string_contains!(reader, containee);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut reader = "hello".as_bytes();
 /// let containee = "xyz";
 /// assert_read_to_string_contains!(reader, containee);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_contains!(left_reader, right_containee)`\n",
@@ -165,10 +170,10 @@ macro_rules! assert_read_to_string_contains {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_reader:expr, $b:expr, $($arg:tt)+) => ({
+    ($a_reader:expr, $b:expr, $($message:tt)+) => ({
         match assert_read_to_string_contains_as_result!($a_reader, $b) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

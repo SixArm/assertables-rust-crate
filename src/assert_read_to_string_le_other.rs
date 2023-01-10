@@ -11,10 +11,12 @@
 /// # #[allow(unused_imports)]
 /// use std::io::Read;
 /// # fn main() {
+/// // Return Ok
 /// let mut a = "alpha".as_bytes();
 /// let mut b = "bravo".as_bytes();
 /// let x = assert_read_to_string_le_other_as_result!(a, b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -23,6 +25,7 @@
 /// let mut b = "alpha".as_bytes();
 /// let x = assert_read_to_string_le_other_as_result!(a, b);
 /// /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_le_other!(left_reader, right_reader)`\n",
@@ -93,21 +96,20 @@ mod test_x_result {
     use std::io::Read;
 
     #[test]
-    fn test_assert_read_to_string_le_other_as_result_x_arity_2_success() {
+    fn test_assert_read_to_string_le_other_as_result_x_success() {
         let mut a = "alpha".as_bytes();
         let mut b = "bravo".as_bytes();
         let x = assert_read_to_string_le_other_as_result!(a, b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_read_to_string_le_other_as_result_x_arity_2_failure() {
+    fn test_assert_read_to_string_le_other_as_result_x_failure() {
         let mut a = "bravo".as_bytes();
         let mut b = "alpha".as_bytes();
         let x = assert_read_to_string_le_other_as_result!(a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -138,17 +140,20 @@ mod test_x_result {
 /// use std::io::Read;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut a = "alpha".as_bytes();
 /// let mut b = "bravo".as_bytes();
 /// assert_read_to_string_le_other!(a, b);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut a = "bravo".as_bytes();
 /// let mut b = "alpha".as_bytes();
 /// assert_read_to_string_le_other!(a, b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_read_to_string_le_other!(left_reader, right_reader)`\n",
@@ -171,10 +176,10 @@ macro_rules! assert_read_to_string_le_other {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_reader:expr, $b_reader:expr, $($arg:tt)+) => ({
+    ($a_reader:expr, $b_reader:expr, $($message:tt)+) => ({
         match assert_read_to_string_le_other_as_result!($a_reader, $b_reader) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

@@ -16,10 +16,12 @@
 /// }
 ///
 /// # fn main() {
+/// // Return Ok
 /// let a: i32 = 10;
 /// let b: i32 = 20;
 /// let x = assert_fn_err_le_other_as_result!(example_digit_to_string, a, b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -28,6 +30,7 @@
 /// let b: i32 = 10;
 /// let x = assert_fn_err_le_other_as_result!(example_digit_to_string, a, b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_err_le_other!(pair_function, left_input, right_input)`\n",
@@ -94,7 +97,7 @@ macro_rules! assert_fn_err_le_other_as_result {
             }
         }
     });
-    ($function:path, $a_input:expr, $b_input:expr, $($arg:tt)+) => ({
+    ($function:path, $a_input:expr, $b_input:expr, $($message:tt)+) => ({
         let a_result = $function($a_input);
         let b_result = $function($b_input);
         let a_is_err = a_result.is_err();
@@ -124,32 +127,29 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_err_le_other_as_result_x_arity_2_lt_success() {
+    fn test_assert_fn_err_le_other_as_result_x_success_because_lt() {
         let a: i32 = 10;
         let b: i32 = 20;
         let x = assert_fn_err_le_other_as_result!(example_digit_to_string, a, b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_fn_err_le_other_as_result_x_arity_2_eq_success() {
+    fn test_assert_fn_err_le_other_as_result_x_success_because_eq() {
         let a: i32 = 10;
         let b: i32 = 10;
         let x = assert_fn_err_le_other_as_result!(example_digit_to_string, a, b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_fn_err_le_other_as_result_x_arity_2_gt_failure() {
+    fn test_assert_fn_err_le_other_as_result_x_failure_because_gt() {
         let a: i32 = 20;
         let b: i32 = 10;
         let x = assert_fn_err_le_other_as_result!(example_digit_to_string, a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -162,39 +162,6 @@ mod test_x_result {
                 "                left: `\"20 is out of range\"`,\n",
                 "               right: `\"10 is out of range\"`"
             )
-        );
-    }
-
-    #[test]
-    fn test_assert_fn_err_le_other_as_result_x_arity_3_lt_success() {
-        let a: i32 = 10;
-        let b: i32 = 20;
-        let x = assert_fn_err_le_other_as_result!(example_digit_to_string, a, b, "message");
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
-    }
-
-    #[test]
-    fn test_assert_fn_err_le_other_as_result_x_arity_3_eq_success() {
-        let a: i32 = 10;
-        let b: i32 = 10;
-        let x = assert_fn_err_le_other_as_result!(example_digit_to_string, a, b, "message");
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
-    }
-
-    #[test]
-    fn test_assert_fn_err_le_other_as_result_x_arity_3_gt_failure() {
-        let a: i32 = 20;
-        let b: i32 = 10;
-        let x = assert_fn_err_le_other_as_result!(example_digit_to_string, a, b, "message");
-        assert_eq!(
-            x.unwrap_err(),
-            "message"
         );
     }
 
@@ -220,6 +187,7 @@ mod test_x_result {
 /// }
 ///
 /// # fn main() {
+/// // Return Ok
 /// let a: i32 = 10;
 /// let b: i32 = 20;
 /// assert_fn_err_le_other!(example_digit_to_string, a, b);
@@ -227,10 +195,12 @@ mod test_x_result {
 ///
 /// let a: i32 = 20;
 /// let b: i32 = 10;
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// assert_fn_err_le_other!(example_digit_to_string, a, b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_err_le_other!(pair_function, left_input, right_input)`\n",
@@ -243,6 +213,16 @@ mod test_x_result {
 ///     "               right: `\"10 is out of range\"`"
 /// );
 /// assert_eq!(actual, expect);
+/// 
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
+/// assert_fn_err_le_other!(example_digit_to_string, a, b, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
+/// assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -252,6 +232,12 @@ macro_rules! assert_fn_err_le_other {
         match assert_fn_err_le_other_as_result!($function, $a_input, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
+        }
+    });
+    ($function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
+        match assert_fn_err_le_other_as_result!($function, $a_input, $b_expr) {
+            Ok(()) => (),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

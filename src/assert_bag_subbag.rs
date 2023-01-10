@@ -9,18 +9,22 @@
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # fn main() {
+/// // Return Ok
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
 /// let x = assert_bag_subbag_as_result!(&a, &b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
 ///
+/// // Return Err
 /// let a = [1, 1];
 /// let b = [2, 2];
 /// let x = assert_bag_subbag_as_result!(&a, &b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
@@ -33,10 +37,12 @@
 /// );
 /// assert_eq!(actual, expect);
 ///
+/// // Return Err
 /// let a = [1, 1, 1];
 /// let b = [1, 1];
 /// let x = assert_bag_subbag_as_result!(&a, &b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
@@ -99,21 +105,20 @@ macro_rules! assert_bag_subbag_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_bag_subbag_as_result_x_arity_2_success() {
+    fn test_assert_bag_subbag_as_result_x_success() {
         let a = [1, 1];
         let b = [1, 1, 1];
         let x = assert_bag_subbag_as_result!(&a, &b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_bag_subbag_as_result_x_arity_2_failure_because_key_is_missing() {
+    fn test_assert_bag_subbag_as_result_x_failure_because_key_is_missing() {
         let a = [1, 1];
         let b = [2, 2];
         let x = assert_bag_subbag_as_result!(&a, &b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -129,10 +134,11 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_bag_subbag_as_result_x_arity_2_failure_because_val_count_is_excessive() {
+    fn test_assert_bag_subbag_as_result_x_failure_because_val_count_is_excessive() {
         let a = [1, 1, 1];
         let b = [1, 1];
         let x = assert_bag_subbag_as_result!(&a, &b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -161,17 +167,20 @@ mod test_x_result {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
 /// assert_bag_subbag!(&a, &b);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 1];
 /// let b = [2, 2];
 /// assert_bag_subbag!(&a, &b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
@@ -184,12 +193,27 @@ mod test_x_result {
 /// );
 /// assert_eq!(actual, expect);
 ///
+/// // Panic with custom message
 /// let result = panic::catch_unwind(|| {
+/// let a = [1, 1];
+/// let b = [2, 2];
+/// assert_bag_subbag!(&a, &b, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
+/// assert_eq!(actual, expect);
+//
+/// // Panic with error message
 /// let a = [1, 1, 1];
 /// let b = [1, 1];
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
 /// assert_bag_subbag!(&a, &b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
@@ -200,6 +224,18 @@ mod test_x_result {
 ///     "            left: `{1: 3}`,\n",
 ///     "           right: `{1: 2}`"
 /// );
+/// assert_eq!(actual, expect);
+/// 
+/// // Panic with custom message
+/// let result = panic::catch_unwind(|| {
+/// let a = [1, 1, 1];
+/// let b = [1, 1];
+/// assert_bag_subbag!(&a, &b, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -214,10 +250,10 @@ macro_rules! assert_bag_subbag {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $b:expr, $($arg:tt)+) => ({
+    ($a:expr, $b:expr, $($message:tt)+) => ({
         match assert_bag_subbag_as_result!($a, $b) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

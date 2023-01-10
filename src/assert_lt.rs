@@ -1,4 +1,4 @@
-/// Assert one value is less than another.
+/// Assert an expression is less than another.
 ///
 /// * If true, return `Ok(())`.
 ///
@@ -11,10 +11,12 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a = 1;
 /// let b = 2;
 /// let x = assert_lt_as_result!(a, b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -23,6 +25,7 @@
 /// let b = 1;
 /// let x = assert_lt_as_result!(a, b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_lt!(left, right)`\n",
@@ -70,21 +73,20 @@ macro_rules! assert_lt_as_result {
 mod test_assert_x_result {
 
     #[test]
-    fn test_assert_lt_as_result_x_arity_2_success() {
+    fn test_assert_lt_as_result_x_success() {
         let a: i32 = 1;
         let b: i32 = 2;
         let x = assert_lt_as_result!(a, b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_lt_as_result_x_arity_2_failure() {
+    fn test_assert_lt_as_result_x_failure() {
         let a: i32 = 2;
         let b: i32 = 1;
         let x = assert_lt_as_result!(a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -113,17 +115,20 @@ mod test_assert_x_result {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a = 1;
 /// let b = 2;
 /// assert_lt!(a, b);
 /// //-> ()
 ///
-/// let result = panic::catch_unwind(|| {
 /// let a = 2;
 /// let b = 1;
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
 /// assert_lt!(a, b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_lt!(left, right)`\n",
@@ -134,6 +139,16 @@ mod test_assert_x_result {
 ///     "        left: `2`,\n",
 ///     "       right: `1`"
 /// );
+/// assert_eq!(actual, expect);
+/// 
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
+/// assert_lt!(a, b, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -146,10 +161,10 @@ macro_rules! assert_lt {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $b:expr, $($arg:tt)+) => ({
+    ($a:expr, $b:expr, $($message:tt)+) => ({
         match assert_lt_as_result!($a, $b) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

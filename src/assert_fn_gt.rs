@@ -10,30 +10,31 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a: i32 = -2;
-/// let b: i32 = -1;
+/// let b: i32 = 1;
 /// let x = assert_fn_gt_as_result!(i32::abs, a, b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
 ///
-/// let a: i32 = 1;
-/// let b: i32 = -2;
+/// let a: i32 = -1;
+/// let b: i32 = 2;
 /// let x = assert_fn_gt_as_result!(i32::abs, a, b);
 /// //-> Err(…)
-/// assert_eq!(actual, expect);
-
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_gt!(left_function, left_input, right_expr)`\n",
 ///     " left_function label: `i32::abs`,\n",
-///     "   left_input label: `a`,\n",
-///     "   left_input debug: `1`,\n",
-///     "   right_expr label: `b`,\n",
-///     "   right_expr debug: `-2`,\n",
-///     "               left: `1`,\n",
-///     "              right: `-2`"
+///     "    left_input label: `a`,\n",
+///     "    left_input debug: `-1`,\n",
+///     "    right_expr label: `b`,\n",
+///     "    right_expr debug: `2`,\n",
+///     "                left: `1`,\n",
+///     "               right: `2`"
 /// );
 /// # }
 /// ```
@@ -70,70 +71,53 @@ macro_rules! assert_fn_gt_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_fn_gt_as_result_x_arity_2_gt_success() {
+    fn test_assert_fn_gt_as_result_x_success_because_gt() {
         let a: i32 = -2;
         let b: i32 = 1;
         let x = assert_fn_gt_as_result!(i32::abs, a, b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_fn_gt_as_result_x_arity_2_eq_failure() {
-        let a: i32 = 1;
-        let b: i32 = -1;
-        let x = assert_fn_gt_as_result!(i32::abs, a, b);
-        assert_eq!(
-            x.unwrap_err(),
-            "assertion failed: `assert_fn_gt!(left_function, left_input, right_value)`left_function label: `i32::abs`,\n   left_input label: `a`,\n   left_input debug: `1`,\n   right_expr label: `b`,\n   right_expr label: `-1`,\n        left: `1`,\n       output: `1`"
-        );
-    }
-
-    #[test]
-    fn test_assert_fn_gt_as_result_x_arity_2_lt_failure() {
-        let a: i32 = 1;
-        let b: i32 = -2;
-        let x = assert_fn_gt_as_result!(i32::abs, a, b);
-        assert_eq!(
-            x.unwrap_err(),
-            "assertion failed: `assert_fn_gt!(left_function, left_input, right_value)`
-
-    function name: `i32::abs`,\n   left input: `1`,\n  right input: `-2`,\n  left output: `1`,\n right output: `2`"
-        );
-    }
-
-    #[test]
-    fn test_assert_fn_gt_as_result_x_arity_3_gt_success() {
-        let a: i32 = -2;
+    fn test_assert_fn_gt_as_result_x_failure_because_eq() {
+        let a: i32 = -1;
         let b: i32 = 1;
-        let x = assert_fn_gt_as_result!(i32::abs, a, b, "message");
+        let x = assert_fn_gt_as_result!(i32::abs, a, b);
+        assert!(x.is_err());
         assert_eq!(
-            x.unwrap(),
-            ()
+            x.unwrap_err(),
+            concat!(
+                "assertion failed: `assert_fn_gt!(left_function, left_input, right_expr)`\n",
+                " left_function label: `i32::abs`,\n",
+                "    left_input label: `a`,\n",
+                "    left_input debug: `-1`,\n",
+                "    right_expr label: `b`,\n",
+                "    right_expr debug: `1`,\n",
+                "                left: `1`,\n",
+                "               right: `1`"
+            )
         );
     }
 
     #[test]
-    fn test_assert_fn_gt_as_result_x_arity_3_eq_failure() {
-        let a: i32 = 1;
-        let b: i32 = -1;
-        let x = assert_fn_gt_as_result!(i32::abs, a, b, "message");
+    fn test_assert_fn_gt_as_result_x_failure_because_lt() {
+        let a: i32 = -1;
+        let b: i32 = 2;
+        let x = assert_fn_gt_as_result!(i32::abs, a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
-            "message"
-        );
-    }
-
-    #[test]
-    fn test_assert_fn_gt_as_result_x_arity_3_lt_failure() {
-        let a: i32 = 1;
-        let b: i32 = -2;
-        let x = assert_fn_gt_as_result!(i32::abs, a, b, "message");
-        assert_eq!(
-            x.unwrap_err(),
-            "message"
+            concat!(
+                "assertion failed: `assert_fn_gt!(left_function, left_input, right_expr)`\n",
+                " left_function label: `i32::abs`,\n",
+                "    left_input label: `a`,\n",
+                "    left_input debug: `-1`,\n",
+                "    right_expr label: `b`,\n",
+                "    right_expr debug: `2`,\n",
+                "                left: `1`,\n",
+                "               right: `2`"
+            )
         );
     }
 
@@ -152,27 +136,30 @@ mod test_x_result {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
+/// // Return Ok
 /// let a: i32 = -2;
 /// let b: i32 = 1;
 /// assert_fn_gt!(i32::abs, a, b);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a: i32 = 1;
-/// let b: i32 = -2;
+/// let a: i32 = -1;
+/// let b: i32 = 2;
 /// assert_fn_gt!(i32::abs, a, b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_gt!(left_function, left_input, right_expr)`\n",
 ///     " left_function label: `i32::abs`,\n",
-///     "   left_input label: `a`,\n",
-///     "   left_input debug: `1`,\n",
-///     "   right_expr label: `b`,\n",
-///     "   right_expr debug: `-2`,\n",
-///     "               left: `1`,\n",
-///     "              right: `2`"
+///     "    left_input label: `a`,\n",
+///     "    left_input debug: `-1`,\n",
+///     "    right_expr label: `b`,\n",
+///     "    right_expr debug: `2`,\n",
+///     "                left: `1`,\n",
+///     "               right: `2`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -181,9 +168,15 @@ mod test_x_result {
 #[macro_export]
 macro_rules! assert_fn_gt {
     ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        match assert_fn_eq_as_result!($function, $a_input, $b_expr) {
+        match assert_fn_gt_as_result!($function, $a_input, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
+        }
+    });
+    ($function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
+        match assert_fn_gt_as_result!($function, $a_input, $b_expr) {
+            Ok(()) => (),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

@@ -16,10 +16,12 @@
 /// }
 ///
 /// # fn main() {
+/// // Return Ok
 /// let a: i32 = 1;
 /// let b: i32 = 2;
 /// let x = assert_fn_ok_ne_other_as_result!(example_digit_to_string, a, b);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -28,6 +30,7 @@
 /// let b: i32 = 1;
 /// let x = assert_fn_ok_ne_other_as_result!(example_digit_to_string, a, b);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_ok_ne_other!(pair_function, left_input, right_input)`\n",
@@ -107,21 +110,20 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_ok_ne_other_as_result_x_arity_2_success() {
+    fn test_assert_fn_ok_ne_other_as_result_x_success() {
         let a: i32 = 1;
         let b: i32 = 2;
         let x = assert_fn_ok_ne_other_as_result!(example_digit_to_string, a, b);
-        assert_eq!(
-            x.unwrap(),
-            ()
-        );
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_fn_ok_ne_other_as_result_x_arity_2_failure() {
+    fn test_assert_fn_ok_ne_other_as_result_x_failure() {
         let a: i32 = 1;
         let b: i32 = 1;
         let x = assert_fn_ok_ne_other_as_result!(example_digit_to_string, a, b);
+        assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
@@ -158,17 +160,20 @@ mod test_x_result {
 /// }
 ///
 /// # fn main() {
+/// // Return Ok
 /// let a: i32 = 1;
 /// let b: i32 = 2;
 /// assert_fn_ok_ne_other!(example_digit_to_string, a, b);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let a: i32 = 1;
 /// let b: i32 = 1;
 /// assert_fn_ok_ne_other!(example_digit_to_string, a, b);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fn_ok_ne_other!(pair_function, left_input, right_input)`\n",
@@ -192,10 +197,10 @@ macro_rules! assert_fn_ok_ne_other {
             Err(err) => panic!("{}", err),
         }
     });
-    ($function:path, $a_input:expr, $b_input:expr, $($arg:tt)+) => ({
+    ($function:path, $a_input:expr, $b_input:expr, $($message:tt)+) => ({
         match assert_fn_ok_ne_other_as_result!($function, $a_input, $b_input) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

@@ -16,11 +16,13 @@
 /// use std::process::Command;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut command = Command::new("printf");
 /// command.args(["%s", "hello"]);
 /// let containee = "ell";
 /// let x = assert_command_stdout_contains_as_result!(command, containee);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -30,6 +32,7 @@
 /// let containee = "xyz";
 /// let x = assert_command_stdout_contains_as_result!(command, containee);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n",
@@ -93,7 +96,7 @@ mod test_x_result {
     use std::process::Command;
 
     #[test]
-    fn test_asserterable_command_stdout_contains_x_arity_2_success() {
+    fn test_asserterable_command_stdout_contains_x_success() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let b = "lph";
@@ -102,7 +105,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_asserterable_command_stdout_contains_x_arity_2_failure() {
+    fn test_asserterable_command_stdout_contains_x_failure() {
         let mut a = Command::new("printf");
         a.args(["%s", "alpha"]);
         let b = "xyz";
@@ -142,12 +145,14 @@ mod test_x_result {
 /// use std::process::Command;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut command = Command::new("printf");
 /// command.args(["%s", "hello"]);
 /// let containee = "ell";
 /// assert_command_stdout_contains!(command, containee);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("printf");
 /// command.args(["%s", "hello"]);
@@ -155,6 +160,7 @@ mod test_x_result {
 /// assert_command_stdout_contains!(command, containee);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n",
@@ -165,6 +171,19 @@ mod test_x_result {
 ///     "                  left: `\"hello\"`,\n",
 ///     "                 right: `\"xyz\"`"
 /// );
+/// assert_eq!(actual, expect);
+///
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
+/// let mut command = Command::new("printf");
+/// command.args(["%s", "hello"]);
+/// let containee = "xyz";
+/// assert_command_stdout_contains!(command, containee, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -177,10 +196,10 @@ macro_rules! assert_command_stdout_contains {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_command:expr, $b:expr, $($arg:tt)+) => ({
+    ($a_command:expr, $b:expr, $($message:tt)+) => ({
         match assert_command_stdout_contains_as_result!($a_command, $b) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }

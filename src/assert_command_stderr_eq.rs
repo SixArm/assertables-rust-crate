@@ -12,10 +12,12 @@
 /// use std::process::Command;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut command = Command::new("printf");
 /// let s = "usage: printf format [arguments ...]\n";
 /// let x = assert_command_stderr_eq_as_result!(command, s);
 /// //-> Ok(())
+/// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
 /// let expect = ();
 /// assert_eq!(actual, expect);
@@ -24,6 +26,7 @@
 /// let s = "hello";
 /// let x = assert_command_stderr_eq_as_result!(command, s);
 /// //-> Err(…)
+/// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stderr_eq!(left_command, right_expr)`\n",
@@ -87,7 +90,7 @@ mod test_x_result {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stderr_eq_as_result_x_arity_2_success() {
+    fn test_assert_command_stderr_eq_as_result_x_success() {
         let mut a = Command::new("printf");
         let b = "usage: printf format [arguments ...]\n";
         let x = assert_command_stderr_eq_as_result!(a, b);
@@ -95,7 +98,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_command_stderr_eq_as_result_x_arity_2_failure() {
+    fn test_assert_command_stderr_eq_as_result_x_failure() {
         let mut a = Command::new("printf");
         let b = "hello";
         let x = assert_command_stderr_eq_as_result!(a, b);
@@ -127,17 +130,20 @@ mod test_x_result {
 /// use std::process::Command;
 ///
 /// # fn main() {
+/// // Return Ok
 /// let mut command = Command::new("printf");
 /// let s = "usage: printf format [arguments ...]\n";
 /// assert_command_stderr_eq!(command, s);
 /// //-> ()
 ///
+/// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("printf");
 /// let s = "hello";
 /// assert_command_stderr_eq!(command, s);
 /// //-> panic!
 /// });
+/// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stderr_eq!(left_command, right_expr)`\n",
@@ -148,6 +154,18 @@ mod test_x_result {
 ///     "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
 ///     "              right: `\"hello\"`"
 /// );
+/// assert_eq!(actual, expect);
+///
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
+/// let mut command = Command::new("printf");
+/// let s = "hello";
+/// assert_command_stderr_eq!(command, s, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
@@ -160,10 +178,10 @@ macro_rules! assert_command_stderr_eq {
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_command:expr, $b_expr:expr, $($arg:tt)+) => ({
+    ($a_command:expr, $b_expr:expr, $($message:tt)+) => ({
         match assert_command_stderr_eq_as_result!($a_command, $b_expr) {
             Ok(()) => (),
-            Err(_err) => panic!($($arg)+),
+            Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
