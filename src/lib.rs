@@ -46,7 +46,7 @@
 //! ```
 //! 
 //!
-//! ## Version 6 major improvements
+//! ## Version 6 notable improvements
 //!
 //! * Add debug_assert_* macros everywhere.
 //!

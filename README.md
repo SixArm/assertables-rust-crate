@@ -46,7 +46,7 @@ assert_command_stdout_eq!(command, string); // command standard output == string
 ```
 
 
-## Version 6 major improvements
+## Version 6 notable improvements
 
 * Add debug_assert_* macros everywhere.
 
