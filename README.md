@@ -24,7 +24,7 @@ assert_gt!(value1, value2); // value1 > value2
 Set macros such as:
 
 ```
-assert_set_subset!(set1, set2); // set1 is a subset of set2
+assert_set_subset_other!(set1, set2); // set1 is a subset of set2
 ```
 
 Function macros such as:
@@ -129,9 +129,9 @@ not matter. The macros convert inputs into HashSet iterators.
 
 * `assert_set_ne_other!(a, b)` ~ set a != set b
 
-* `assert_set_subset!(a, b)` ~ set a ⊆ set b
+* `assert_set_subset_other!(a, b)` ~ set a ⊆ set b
 
-* `assert_set_superset!(a, b)` ~ set a ⊇ set b
+* `assert_set_superset_other!(a, b)` ~ set a ⊇ set b
 
 * `assert_set_joint!(a, b)` ~ set a is joint with set b
 

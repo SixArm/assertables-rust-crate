@@ -12,7 +12,7 @@
 /// // Return Ok
 /// let a = [1, 1, 1];
 /// let b = [1, 1];
-/// let x = assert_bag_superbag_as_result!(&a, &b);
+/// let x = assert_bag_superbag_other_as_result!(&a, &b);
 /// //-> Ok(())
 /// assert_eq!(x, Ok(()));
 /// let actual = x.unwrap();
@@ -22,12 +22,12 @@
 /// // Return Err
 /// let a = [1, 1];
 /// let b = [2, 2];
-/// let x = assert_bag_superbag_as_result!(&a, &b);
+/// let x = assert_bag_superbag_other_as_result!(&a, &b);
 /// //-> Err(…)
 /// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_bag_superbag!(left_bag, right_bag)`\n",
+///     "assertion failed: `assert_bag_superbag_other!(left_bag, right_bag)`\n",
 ///     "  left_bag label: `&a`,\n",
 ///     "  left_bag debug: `[1, 1]`,\n",
 ///     " right_bag label: `&b`,\n",
@@ -40,12 +40,12 @@
 /// // Return Err
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
-/// let x = assert_bag_superbag_as_result!(&a, &b);
+/// let x = assert_bag_superbag_other_as_result!(&a, &b);
 /// //-> Err(…)
 /// assert!(x.is_err());
 /// let actual = x.unwrap_err();
 /// let expect = concat!(
-///     "assertion failed: `assert_bag_superbag!(left_bag, right_bag)`\n",
+///     "assertion failed: `assert_bag_superbag_other!(left_bag, right_bag)`\n",
 ///     "  left_bag label: `&a`,\n",
 ///     "  left_bag debug: `[1, 1]`,\n",
 ///     " right_bag label: `&b`,\n",
@@ -62,11 +62,11 @@
 /// # Related
 /// 
 /// * [`assert_bag_superbag`]
-/// * [`assert_bag_superbag_as_result`]
+/// * [`assert_bag_superbag_other_as_result`]
 /// * [`debug_assert_bag_superbag`]
 ///
 #[macro_export]
-macro_rules! assert_bag_superbag_as_result {
+macro_rules! assert_bag_superbag_other_as_result {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
@@ -88,7 +88,7 @@ macro_rules! assert_bag_superbag_as_result {
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_bag_superbag!(left_bag, right_bag)`\n",
+                            "assertion failed: `assert_bag_superbag_other!(left_bag, right_bag)`\n",
                             "  left_bag label: `{}`,\n",
                             "  left_bag debug: `{:?}`,\n",
                             " right_bag label: `{}`,\n",
@@ -111,24 +111,24 @@ macro_rules! assert_bag_superbag_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_bag_superbag_as_result_x_success() {
+    fn test_assert_bag_superbag_other_as_result_x_success() {
         let a = [1, 1, 1];
         let b = [1, 1];
-        let x = assert_bag_superbag_as_result!(&a, &b);
+        let x = assert_bag_superbag_other_as_result!(&a, &b);
         assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_bag_superbag_as_result_x_failure_because_key_is_missing() {
+    fn test_assert_bag_superbag_other_as_result_x_failure_because_key_is_missing() {
         let a = [1, 1];
         let b = [2, 2];
-        let x = assert_bag_superbag_as_result!(&a, &b);
+        let x = assert_bag_superbag_other_as_result!(&a, &b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_bag_superbag!(left_bag, right_bag)`\n",
+                "assertion failed: `assert_bag_superbag_other!(left_bag, right_bag)`\n",
                 "  left_bag label: `&a`,\n",
                 "  left_bag debug: `[1, 1]`,\n",
                 " right_bag label: `&b`,\n",
@@ -140,15 +140,15 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_bag_superbag_as_result_x_failure_because_val_count_is_excessive() {
+    fn test_assert_bag_superbag_other_as_result_x_failure_because_val_count_is_excessive() {
         let a = [1, 1];
         let b = [1, 1, 1];
-        let x = assert_bag_superbag_as_result!(&a, &b);
+        let x = assert_bag_superbag_other_as_result!(&a, &b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_bag_superbag!(left_bag, right_bag)`\n",
+                "assertion failed: `assert_bag_superbag_other!(left_bag, right_bag)`\n",
                 "  left_bag label: `&a`,\n",
                 "  left_bag debug: `[1, 1]`,\n",
                 " right_bag label: `&b`,\n",
@@ -176,20 +176,20 @@ mod test_x_result {
 /// // Return Ok
 /// let a = [1, 1, 1];
 /// let b = [1, 1];
-/// assert_bag_superbag!(&a, &b);
+/// assert_bag_superbag_other!(&a, &b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 1];
 /// let b = [2, 2];
-/// assert_bag_superbag!(&a, &b);
+/// assert_bag_superbag_other!(&a, &b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_bag_superbag!(left_bag, right_bag)`\n",
+///     "assertion failed: `assert_bag_superbag_other!(left_bag, right_bag)`\n",
 ///     "  left_bag label: `&a`,\n",
 ///     "  left_bag debug: `[1, 1]`,\n",
 ///     " right_bag label: `&b`,\n",
@@ -202,7 +202,7 @@ mod test_x_result {
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 1];
 /// let b = [2, 2];
-/// assert_bag_superbag!(&a, &b, "message");
+/// assert_bag_superbag_other!(&a, &b, "message");
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
@@ -214,13 +214,13 @@ mod test_x_result {
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
 /// let result = panic::catch_unwind(|| {
-/// assert_bag_superbag!(&a, &b);
+/// assert_bag_superbag_other!(&a, &b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_bag_superbag!(left_bag, right_bag)`\n",
+///     "assertion failed: `assert_bag_superbag_other!(left_bag, right_bag)`\n",
 ///     "  left_bag label: `&a`,\n",
 ///     "  left_bag debug: `[1, 1]`,\n",
 ///     " right_bag label: `&b`,\n",
@@ -234,7 +234,7 @@ mod test_x_result {
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
-/// assert_bag_superbag!(&a, &b, "message");
+/// assert_bag_superbag_other!(&a, &b, "message");
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
@@ -249,21 +249,58 @@ mod test_x_result {
 /// # Related
 /// 
 /// * [`assert_bag_superbag`]
-/// * [`assert_bag_superbag_as_result`]
+/// * [`assert_bag_superbag_other_as_result`]
 /// * [`debug_assert_bag_superbag`]
 ///
 #[macro_export]
-macro_rules! assert_bag_superbag {
+macro_rules! assert_bag_superbag_other {
     ($a:expr, $b:expr $(,)?) => ({
-        match assert_bag_superbag_as_result!($a, $b) {
+        match assert_bag_superbag_other_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a:expr, $b:expr, $($message:tt)+) => ({
-        match assert_bag_superbag_as_result!($a, $b) {
+        match assert_bag_superbag_other_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
+}
+
+/// Assert a bag is a superbag of another.
+///
+/// This macro provides the same statements as [`assert_bag_superbag`],
+/// except this macro's statements are only enabled in non-optimized
+/// builds by default. An optimized build will not execute this macro's
+/// statements unless `-C debug-assertions` is passed to the compiler. 
+/// 
+/// This macro is useful for checks that are too expensive to be present 
+/// in a release build but may be helpful during development.
+/// 
+/// The result of expanding this macro is always type checked.
+/// 
+/// An unchecked assertion allows a program in an inconsistent state to 
+/// keep running, which might have unexpected consequences but does not 
+/// introduce unsafety as long as this only happens in safe code. The 
+/// performance cost of assertions, however, is not measurable in general.
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// after thorough profiling, and more importantly, only in safe code!
+/// 
+/// This macro is intendend to work in a similar way to
+/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+///
+/// # Related
+/// 
+/// * [`assert_bag_superbag`]
+/// * [`assert_bag_superbag`]
+/// * [`debug_assert_bag_superbag`]
+/// 
+#[macro_export]
+macro_rules! debug_assert_bag_superbag_other {
+    ($($arg:tt)*) => {
+        if $crate::cfg!(debug_assertions) {
+            $crate::assert_bag_superbag_other!($($arg)*);
+        }
+    };
 }

@@ -125,7 +125,7 @@ mod test_x_result {
     }
 }
 
-/// Assert a a std::io::Read read_to_string() contains a pattern.
+/// Assert a std::io::Read read_to_string() contains a pattern.
 ///
 /// * If true, return `()`.
 ///
@@ -188,4 +188,41 @@ macro_rules! assert_read_to_string_contains {
             Err(_err) => panic!("{}", $($message)+),
         }
     });
+}
+
+/// Assert a std::io::Read read_to_string() contains a pattern.
+///
+/// This macro provides the same statements as [`assert_read_to_string_contains`],
+/// except this macro's statements are only enabled in non-optimized
+/// builds by default. An optimized build will not execute this macro's
+/// statements unless `-C debug-assertions` is passed to the compiler. 
+/// 
+/// This macro is useful for checks that are too expensive to be present 
+/// in a release build but may be helpful during development.
+/// 
+/// The result of expanding this macro is always type checked.
+/// 
+/// An unchecked assertion allows a program in an inconsistent state to 
+/// keep running, which might have unexpected consequences but does not 
+/// introduce unsafety as long as this only happens in safe code. The 
+/// performance cost of assertions, however, is not measurable in general.
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// after thorough profiling, and more importantly, only in safe code!
+/// 
+/// This macro is intendend to work in a similar way to
+/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+///
+/// # Related
+/// 
+/// * [`assert_read_to_string_contains`]
+/// * [`assert_read_to_string_contains`]
+/// * [`debug_assert_read_to_string_contains`]
+/// 
+#[macro_export]
+macro_rules! debug_assert_read_to_string_contains {
+    ($($arg:tt)*) => {
+        if $crate::cfg!(debug_assertions) {
+            $crate::assert_read_to_string_contains!($($arg)*);
+        }
+    };
 }

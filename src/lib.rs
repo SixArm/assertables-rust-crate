@@ -24,7 +24,7 @@
 //! Macros for arrays, vectors, sets, bags, etc., such as:
 //!
 //! ```ignore
-//! assert_set_subset!(set1, set2); // set1 is a a subset of set2
+//! assert_set_subset_other!(set1, set2); // set1 is a subset of set2
 //! ```
 //!
 //! Macros for functions such as:
@@ -139,9 +139,9 @@
 //!
 //! * `assert_set_ne_other!(a, b)` ~ set a != set b
 //!
-//! * `assert_set_subset!(a, b)` ~ set a ⊆ set b
+//! * `assert_set_subset_other!(a, b)` ~ set a ⊆ set b
 //!
-//! * `assert_set_superset!(a, b)` ~ set a ⊇ set b
+//! * `assert_set_superset_other!(a, b)` ~ set a ⊇ set b
 //!
 //! * `assert_set_joint!(a, b)` ~ set a is joint with set b
 //!
@@ -352,16 +352,16 @@ pub mod assert_ge;
 // Assertable iterator-related set-based comparison
 pub mod assert_set_eq_other;
 pub mod assert_set_ne_other;
-pub mod assert_set_subset;
-pub mod assert_set_superset;
+pub mod assert_set_subset_other; 
+pub mod assert_set_superset_other; 
 pub mod assert_set_joint;
 pub mod assert_set_disjoint;
 
 // Assertable iterator-related bag-based comparison
 pub mod assert_bag_eq_other;
 pub mod assert_bag_ne_other;
-pub mod assert_bag_subbag;
-pub mod assert_bag_superbag;
+pub mod assert_bag_subbag_other; 
+pub mod assert_bag_superbag_other; 
 
 // Assert function return versus value
 pub mod assert_fn_eq;

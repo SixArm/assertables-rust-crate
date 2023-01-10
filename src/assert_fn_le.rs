@@ -1,4 +1,4 @@
-/// Assert one function output is less than or equal to another function output.
+/// Assert a function output is less than or equal to an expression.
 ///
 /// * If true, return `Ok(())`.
 ///
@@ -118,7 +118,7 @@ mod test_assert_x_result {
     }
 }
 
-/// Assert a function output is less than or equal to another.
+/// Assert a function output is less than or equal to an expression.
 ///
 /// * If true, return `()`.
 ///
@@ -180,4 +180,41 @@ macro_rules! assert_fn_le {
             Err(_err) => panic!("{}", $($message)+),
         }
     });
+}
+
+/// Assert a function output is less than or equal to an expression.
+///
+/// This macro provides the same statements as [`assert_fn_le`],
+/// except this macro's statements are only enabled in non-optimized
+/// builds by default. An optimized build will not execute this macro's
+/// statements unless `-C debug-assertions` is passed to the compiler. 
+/// 
+/// This macro is useful for checks that are too expensive to be present 
+/// in a release build but may be helpful during development.
+/// 
+/// The result of expanding this macro is always type checked.
+/// 
+/// An unchecked assertion allows a program in an inconsistent state to 
+/// keep running, which might have unexpected consequences but does not 
+/// introduce unsafety as long as this only happens in safe code. The 
+/// performance cost of assertions, however, is not measurable in general.
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// after thorough profiling, and more importantly, only in safe code!
+/// 
+/// This macro is intendend to work in a similar way to
+/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+///
+/// # Related
+/// 
+/// * [`assert_fn_le`]
+/// * [`assert_fn_le`]
+/// * [`debug_assert_fn_le`]
+/// 
+#[macro_export]
+macro_rules! debug_assert_fn_le {
+    ($($arg:tt)*) => {
+        if $crate::cfg!(debug_assertions) {
+            $crate::assert_fn_le!($($arg)*);
+        }
+    };
 }

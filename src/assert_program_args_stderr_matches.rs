@@ -206,3 +206,40 @@ macro_rules! assert_program_args_stderr_matches {
         }
     });
 }
+
+/// Assert a command (built with program and args) stderr string is a match to a regex.
+///
+/// This macro provides the same statements as [`assert_program_args_stderr_matches`],
+/// except this macro's statements are only enabled in non-optimized
+/// builds by default. An optimized build will not execute this macro's
+/// statements unless `-C debug-assertions` is passed to the compiler. 
+/// 
+/// This macro is useful for checks that are too expensive to be present 
+/// in a release build but may be helpful during development.
+/// 
+/// The result of expanding this macro is always type checked.
+/// 
+/// An unchecked assertion allows a program in an inconsistent state to 
+/// keep running, which might have unexpected consequences but does not 
+/// introduce unsafety as long as this only happens in safe code. The 
+/// performance cost of assertions, however, is not measurable in general.
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// after thorough profiling, and more importantly, only in safe code!
+/// 
+/// This macro is intendend to work in a similar way to
+/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+///
+/// # Related
+/// 
+/// * [`assert_program_args_stderr_matches`]
+/// * [`assert_program_args_stderr_matches`]
+/// * [`debug_assert_program_args_stderr_matches`]
+/// 
+#[macro_export]
+macro_rules! debug_assert_program_args_stderr_matches {
+    ($($arg:tt)*) => {
+        if $crate::cfg!(debug_assertions) {
+            $crate::assert_program_args_stderr_matches!($($arg)*);
+        }
+    };
+}
