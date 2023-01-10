@@ -36,7 +36,13 @@
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-
+/// 
+/// # Related
+/// 
+/// * [`assert_eq`]
+/// * [`assert_eq_as_result`]
+/// * [`debug_assert_eq`]
+///
 #[macro_export]
 macro_rules! assert_eq_as_result {
     ($a:expr, $b:expr $(,)?) => ({

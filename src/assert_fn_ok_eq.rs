@@ -46,6 +46,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_fn_ok_eq`]
+/// * [`assert_fn_ok_eq_as_result`]
+/// * [`debug_assert_fn_ok_eq`]
+///
 #[macro_export]
 macro_rules! assert_fn_ok_eq_as_result {
     ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
@@ -183,6 +189,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_fn_ok_eq`]
+/// * [`assert_fn_ok_eq_as_result`]
+/// * [`debug_assert_fn_ok_eq`]
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_eq {

@@ -39,6 +39,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_ge`]
+/// * [`assert_ge_as_result`]
+/// * [`debug_assert_ge`]
+///
 #[macro_export]
 macro_rules! assert_ge_as_result {
     ($a:expr, $b:expr $(,)?) => ({
@@ -151,6 +157,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_ge`]
+/// * [`assert_ge_as_result`]
+/// * [`debug_assert_ge`]
 ///
 #[macro_export]
 macro_rules! assert_ge {

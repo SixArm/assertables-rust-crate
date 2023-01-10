@@ -40,6 +40,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_read_to_string_contains`]
+/// * [`assert_read_to_string_contains_as_result`]
+/// * [`debug_assert_read_to_string_contains`]
+///
 #[macro_export]
 macro_rules! assert_read_to_string_contains_as_result {
     ($a_reader:expr, $b_containee:expr $(,)?) => ({
@@ -161,6 +167,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_read_to_string_contains`]
+/// * [`assert_read_to_string_contains_as_result`]
+/// * [`debug_assert_read_to_string_contains`]
 ///
 #[macro_export]
 macro_rules! assert_read_to_string_contains {

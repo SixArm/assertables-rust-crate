@@ -41,6 +41,12 @@
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
 ///
+/// # Related
+/// 
+/// * [`assert_set_eq_other`]
+/// * [`assert_set_eq_other_as_result`]
+/// * [`debug_assert_set_eq_other`]
+///
 #[macro_export]
 macro_rules! assert_set_eq_other_as_result {
     ($a:expr, $b:expr $(,)?) => ({
@@ -147,6 +153,12 @@ mod test_x_result {
 /// ```
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
+///
+/// # Related
+/// 
+/// * [`assert_set_eq_other`]
+/// * [`assert_set_eq_other_as_result`]
+/// * [`debug_assert_set_eq_other`]
 ///
 #[macro_export]
 macro_rules! assert_set_eq_other {

@@ -38,8 +38,13 @@
 /// );
 /// assert_eq!(actual, expect);
 /// # }
-
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_read_to_string_le_other`]
+/// * [`assert_read_to_string_le_other_as_result`]
+/// * [`debug_assert_read_to_string_le_other`]
 ///
 #[macro_export]
 macro_rules! assert_read_to_string_le_other_as_result {
@@ -167,6 +172,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_read_to_string_le_other`]
+/// * [`assert_read_to_string_le_other_as_result`]
+/// * [`debug_assert_read_to_string_le_other`]
 ///
 #[macro_export]
 macro_rules! assert_read_to_string_le_other {

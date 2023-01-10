@@ -38,9 +38,14 @@
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
+///
+/// # Related
+/// 
+/// * [`assert_set_ne_other`]
+/// * [`assert_set_ne_other_as_result`]
+/// * [`debug_assert_set_ne_other`]
 ///
 #[macro_export]
 macro_rules! assert_set_ne_other_as_result {
@@ -147,9 +152,14 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
+///
+/// # Related
+/// 
+/// * [`assert_set_ne_other`]
+/// * [`assert_set_ne_other_as_result`]
+/// * [`debug_assert_set_ne_other`]
 ///
 #[macro_export]
 macro_rules! assert_set_ne_other {

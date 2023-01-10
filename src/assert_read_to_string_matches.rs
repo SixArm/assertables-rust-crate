@@ -37,6 +37,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_read_to_string_matches`]
+/// * [`assert_read_to_string_matches_as_result`]
+/// * [`debug_assert_read_to_string_matches`]
+///
 #[macro_export]
 macro_rules! assert_read_to_string_matches_as_result {
     ($a_reader:expr, $b_matcher:expr $(,)?) => ({
@@ -159,6 +165,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_read_to_string_matches`]
+/// * [`assert_read_to_string_matches_as_result`]
+/// * [`debug_assert_read_to_string_matches`]
 ///
 #[macro_export]
 macro_rules! assert_read_to_string_matches {

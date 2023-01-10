@@ -59,6 +59,12 @@
 ///
 /// This implementation uses [`BTreeMap`] to count items and sort them.
 ///
+/// # Related
+/// 
+/// * [`assert_bag_superbag`]
+/// * [`assert_bag_superbag_as_result`]
+/// * [`debug_assert_bag_superbag`]
+///
 #[macro_export]
 macro_rules! assert_bag_superbag_as_result {
     ($a:expr, $b:expr $(,)?) => ({
@@ -239,6 +245,12 @@ mod test_x_result {
 /// ```
 ///
 /// This implementation uses [`BTreeMap`] to count items and sort them.
+///
+/// # Related
+/// 
+/// * [`assert_bag_superbag`]
+/// * [`assert_bag_superbag_as_result`]
+/// * [`debug_assert_bag_superbag`]
 ///
 #[macro_export]
 macro_rules! assert_bag_superbag {

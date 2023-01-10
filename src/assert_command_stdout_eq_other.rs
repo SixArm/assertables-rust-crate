@@ -46,6 +46,12 @@
 /// # }
 /// ```
 /// 
+/// # Related
+/// 
+/// * [`assert_command_stdout_eq_other`]
+/// * [`assert_command_stdout_eq_other_as_result`]
+/// * [`debug_assert_command_stdout_eq_other`]
+///
 #[macro_export]
 macro_rules! assert_command_stdout_eq_other_as_result {
     ($a_command:expr, $b_command:expr $(,)?) => ({
@@ -189,6 +195,12 @@ mod assert_tests_as_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_command_stdout_eq_other`]
+/// * [`assert_command_stdout_eq_other_as_result`]
+/// * [`debug_assert_command_stdout_eq_other`]
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_eq_other {

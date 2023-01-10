@@ -40,6 +40,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_read_to_string_lt`]
+/// * [`assert_read_to_string_lt_as_result`]
+/// * [`debug_assert_read_to_string_lt`]
+///
 #[macro_export]
 macro_rules! assert_read_to_string_lt_as_result {
     ($a_reader:expr, $b_expr:expr $(,)?) => ({
@@ -162,6 +168,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_read_to_string_lt`]
+/// * [`assert_read_to_string_lt_as_result`]
+/// * [`debug_assert_read_to_string_lt`]
 ///
 #[macro_export]
 macro_rules! assert_read_to_string_lt {

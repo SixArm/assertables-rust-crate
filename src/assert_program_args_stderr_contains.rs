@@ -48,6 +48,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_program_args_stderr_contains`]
+/// * [`assert_program_args_stderr_contains_as_result`]
+/// * [`debug_assert_program_args_stderr_contains`]
+///
 #[macro_export]
 macro_rules! assert_program_args_stderr_contains_as_result {
     ($a_program:expr, $a_args:expr, $b_containee:expr $(,)?) => ({
@@ -183,6 +189,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_program_args_stderr_contains`]
+/// * [`assert_program_args_stderr_contains_as_result`]
+/// * [`debug_assert_program_args_stderr_contains`]
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_contains {

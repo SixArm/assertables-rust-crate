@@ -45,6 +45,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_program_args_stdout_matches`]
+/// * [`assert_program_args_stdout_matches_as_result`]
+/// * [`debug_assert_program_args_stdout_matches`]
+///
 #[macro_export]
 macro_rules! assert_program_args_stdout_matches_as_result {
     ($a_program:expr, $a_args:expr, $b_matcher:expr $(,)?) => ({
@@ -178,6 +184,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_program_args_stdout_matches`]
+/// * [`assert_program_args_stdout_matches_as_result`]
+/// * [`debug_assert_program_args_stdout_matches`]
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_matches {

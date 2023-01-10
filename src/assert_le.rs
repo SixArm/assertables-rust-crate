@@ -39,6 +39,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_le`]
+/// * [`assert_le_as_result`]
+/// * [`debug_assert_le`]
+///
 #[macro_export]
 macro_rules! assert_le_as_result {
     ($a:expr, $b:expr $(,)?) => ({
@@ -151,6 +157,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_le`]
+/// * [`assert_le_as_result`]
+/// * [`debug_assert_le`]
 ///
 #[macro_export]
 macro_rules! assert_le {

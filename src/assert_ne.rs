@@ -40,6 +40,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_ne`]
+/// * [`assert_ne_as_result`]
+/// * [`debug_assert_ne`]
+///
 #[macro_export]
 macro_rules! assert_ne_as_result {
     ($a:expr, $b:expr $(,)?) => ({
@@ -101,5 +107,3 @@ mod test_x_result {
         );
     }
 }
-
-//TODO

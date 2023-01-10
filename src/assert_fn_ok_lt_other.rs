@@ -46,6 +46,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_fn_ok_lt_other`]
+/// * [`assert_fn_ok_lt_other_as_result`]
+/// * [`debug_assert_fn_ok_lt_other`]
+///
 #[macro_export]
 macro_rules! assert_fn_ok_lt_other_as_result {
     ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({
@@ -209,6 +215,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_fn_ok_lt_other`]
+/// * [`assert_fn_ok_lt_other_as_result`]
+/// * [`debug_assert_fn_ok_lt_other`]
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_lt_other {

@@ -401,7 +401,7 @@ pub mod assert_fn_err_ne;
 pub mod assert_fn_err_lt;
 pub mod assert_fn_err_le;
 pub mod assert_fn_err_gt;
-pub mod assert_fn_err_ge_expr;
+pub mod assert_fn_err_ge;
 
 // Assert function Err() versus other
 pub mod assert_fn_err_eq_other;

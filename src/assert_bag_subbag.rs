@@ -56,8 +56,14 @@
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-///
+/// 
 /// This implementation uses [`BTreeMap`] to count items and sort them.
+/// 
+/// # Related
+/// 
+/// * [`assert_bag_subbag`]
+/// * [`assert_bag_subbag_as_result`]
+/// * [`debug_assert_bag_subbag`]
 ///
 #[macro_export]
 macro_rules! assert_bag_subbag_as_result {
@@ -242,6 +248,12 @@ mod test_x_result {
 ///
 /// This implementation uses [`BTreeMap`] to count items and sort them.
 ///
+/// # Related
+/// 
+/// * [`assert_bag_subbag`]
+/// * [`assert_bag_subbag_as_result`]
+/// * [`debug_assert_bag_subbag`]
+/// 
 #[macro_export]
 macro_rules! assert_bag_subbag {
     ($a:expr, $b:expr $(,)?) => ({

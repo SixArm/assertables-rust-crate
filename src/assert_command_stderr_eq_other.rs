@@ -42,7 +42,12 @@
 /// # }
 /// ```
 ///
-/// This macro has a second form where a custom message can be provided.
+/// # Related
+/// 
+/// * [`assert_command_stderr_eq_other`]
+/// * [`assert_command_stderr_eq_other_as_result`]
+/// * [`debug_assert_command_stderr_eq_other`]
+///
 #[macro_export]
 macro_rules! assert_command_stderr_eq_other_as_result {
     ($a_command:expr, $b_command:expr $(,)?) => ({
@@ -178,6 +183,12 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_command_stderr_eq_other`]
+/// * [`assert_command_stderr_eq_other_as_result`]
+/// * [`debug_assert_command_stderr_eq_other`]
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_eq_other {

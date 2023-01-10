@@ -46,6 +46,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_fn_ok_ge_other`]
+/// * [`assert_fn_ok_ge_other_as_result`]
+/// * [`debug_assert_fn_ok_ge_other`]
+///
 #[macro_export]
 macro_rules! assert_fn_ok_ge_other_as_result {
     ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({
@@ -198,6 +204,13 @@ mod test_x_result {
 /// # }
 /// ```
 ///
+/// /// # Related
+/// 
+/// * [`assert_fn_ok_ge_other`]
+/// * [`assert_fn_ok_ge_other_as_result`]
+/// * [`debug_assert_fn_ok_ge_other`]
+///
+
 #[macro_export]
 macro_rules! assert_fn_ok_ge_other {
     ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({

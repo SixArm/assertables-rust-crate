@@ -38,9 +38,14 @@
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
+///
+/// # Related
+/// 
+/// * [`assert_set_subset`]
+/// * [`assert_set_subset_as_result`]
+/// * [`debug_assert_set_subset`]
 ///
 #[macro_export]
 macro_rules! assert_set_subset_as_result {
@@ -147,9 +152,14 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
+///
+/// # Related
+/// 
+/// * [`assert_set_subset`]
+/// * [`assert_set_subset_as_result`]
+/// * [`debug_assert_set_subset`]
 ///
 #[macro_export]
 macro_rules! assert_set_subset {

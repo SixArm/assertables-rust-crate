@@ -41,6 +41,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert_fn_le`]
+/// * [`assert_fn_le_as_result`]
+/// * [`debug_assert_fn_le`]
+///
 #[macro_export]
 macro_rules! assert_fn_le_as_result {
     ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
@@ -153,6 +159,12 @@ mod test_assert_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
+///
+/// # Related
+/// 
+/// * [`assert_fn_le`]
+/// * [`assert_fn_le_as_result`]
+/// * [`debug_assert_fn_le`]
 ///
 #[macro_export]
 macro_rules! assert_fn_le {

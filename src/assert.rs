@@ -30,6 +30,12 @@
 /// # }
 /// ```
 ///
+/// # Related
+/// 
+/// * [`assert`]
+/// * [`assert_as_result`]
+/// * [`debug_assert`]
+///
 #[macro_export]
 macro_rules! assert_as_result {
     ($x:expr $(,)?) => ({
@@ -90,7 +96,6 @@ mod test_x_result {
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-
 
 // `assert_eq` macro is provided by Rust `std`.
 

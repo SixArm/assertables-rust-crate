@@ -49,6 +49,13 @@
 /// ```
 ///
 /// This macro has a second form where a custom message can be provided.
+/// 
+/// # Related
+/// 
+/// * [`assert_program_args_stderr_eq_other`]
+/// * [`assert_program_args_stderr_eq_other_as_result`]
+/// * [`debug_assert_program_args_stderr_eq_other`]
+///
 #[macro_export]
 macro_rules! assert_program_args_stderr_eq_other_as_result {
     ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => ({
@@ -198,7 +205,12 @@ mod test_x_result {
 /// # }
 /// ```
 ///
-/// This macro has a second form where a custom message can be provided.
+/// /// # Related
+/// 
+/// * [`assert_program_args_stderr_eq_other`]
+/// * [`assert_program_args_stderr_eq_other_as_result`]
+/// * [`debug_assert_program_args_stderr_eq_other`]
+///
 #[macro_export]
 macro_rules! assert_program_args_stderr_eq_other {
     ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => ({
