@@ -4,66 +4,17 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// # Examples
+/// This macro provides the same statements as [`assert_bag_subbag_other`],
+/// except this macro returns a Result, rather than doing a panic.
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # fn main() {
-/// // Return Ok
-/// let a = [1, 1];
-/// let b = [1, 1, 1];
-/// let x = assert_bag_subbag_other_as_result!(&a, &b);
-/// //-> Ok(())
-/// assert_eq!(x, Ok(()));
-/// let actual = x.unwrap();
-/// let expect = ();
-/// assert_eq!(actual, expect);
+/// This macro is useful for runtime checks, such as checking parameters,
+/// or santizing inputs, or handling different results in different ways.
 ///
-/// // Return Err
-/// let a = [1, 1];
-/// let b = [2, 2];
-/// let x = assert_bag_subbag_other_as_result!(&a, &b);
-/// //-> Err(…)
-/// assert!(x.is_err());
-/// let actual = x.unwrap_err();
-/// let expect = concat!(
-///     "assertion failed: `assert_bag_subbag_other!(left_bag, right_bag)`\n",
-///     "  left_bag label: `&a`,\n",
-///     "  left_bag debug: `[1, 1]`,\n",
-///     " right_bag label: `&b`,\n",
-///     " right_bag debug: `[2, 2]`,\n",
-///     "            left: `{1: 2}`,\n",
-///     "           right: `{2: 2}`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Return Err
-/// let a = [1, 1, 1];
-/// let b = [1, 1];
-/// let x = assert_bag_subbag_other_as_result!(&a, &b);
-/// //-> Err(…)
-/// assert!(x.is_err());
-/// let actual = x.unwrap_err();
-/// let expect = concat!(
-///     "assertion failed: `assert_bag_subbag_other!(left_bag, right_bag)`\n",
-///     "  left_bag label: `&a`,\n",
-///     "  left_bag debug: `[1, 1, 1]`,\n",
-///     " right_bag label: `&b`,\n",
-///     " right_bag debug: `[1, 1]`,\n",
-///     "            left: `{1: 3}`,\n",
-///     "           right: `{1: 2}`"
-/// );
-/// assert_eq!(actual, expect);
-/// # }
-/// ```
-/// 
-/// This implementation uses [`BTreeMap`] to count items and sort them.
-/// 
 /// # Related
-/// 
-/// * [`assert_bag_subbag`]
+///
+/// * [`assert_bag_subbag_other`]
 /// * [`assert_bag_subbag_other_as_result`]
-/// * [`debug_assert_bag_subbag`]
+/// * [`debug_assert_bag_subbag_other`]
 ///
 #[macro_export]
 macro_rules! assert_bag_subbag_other_as_result {
@@ -231,7 +182,7 @@ mod test_x_result {
 ///     "           right: `{1: 2}`"
 /// );
 /// assert_eq!(actual, expect);
-/// 
+///
 /// // Panic with custom message
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 1, 1];
@@ -249,11 +200,11 @@ mod test_x_result {
 /// This implementation uses [`BTreeMap`] to count items and sort them.
 ///
 /// # Related
-/// 
-/// * [`assert_bag_subbag`]
+///
+/// * [`assert_bag_subbag_other`]
 /// * [`assert_bag_subbag_other_as_result`]
-/// * [`debug_assert_bag_subbag`]
-/// 
+/// * [`debug_assert_bag_subbag_other`]
+///
 #[macro_export]
 macro_rules! assert_bag_subbag_other {
     ($a:expr, $b:expr $(,)?) => ({
@@ -275,29 +226,29 @@ macro_rules! assert_bag_subbag_other {
 /// This macro provides the same statements as [`assert_bag_subbag`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
-/// statements unless `-C debug-assertions` is passed to the compiler. 
-/// 
-/// This macro is useful for checks that are too expensive to be present 
+/// statements unless `-C debug-assertions` is passed to the compiler.
+///
+/// This macro is useful for checks that are too expensive to be present
 /// in a release build but may be helpful during development.
-/// 
+///
 /// The result of expanding this macro is always type checked.
-/// 
-/// An unchecked assertion allows a program in an inconsistent state to 
-/// keep running, which might have unexpected consequences but does not 
-/// introduce unsafety as long as this only happens in safe code. The 
+///
+/// An unchecked assertion allows a program in an inconsistent state to
+/// keep running, which might have unexpected consequences but does not
+/// introduce unsafety as long as this only happens in safe code. The
 /// performance cost of assertions, however, is not measurable in general.
-/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
-/// 
+///
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Related
-/// 
-/// * [`assert_bag_subbag`]
-/// * [`assert_bag_subbag`]
-/// * [`debug_assert_bag_subbag`]
-/// 
+///
+/// * [`assert_bag_subbag_other`]
+/// * [`assert_bag_subbag_other`]
+/// * [`debug_assert_bag_subbag_other`]
+///
 #[macro_export]
 macro_rules! debug_assert_bag_subbag_other {
     ($($arg:tt)*) => {

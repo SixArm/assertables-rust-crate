@@ -4,50 +4,14 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// # Examples
+/// This macro provides the same statements as [`assert_`],
+/// except this macro returns a Result, rather than doing a panic.
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// fn example_digit_to_string(i: i32) -> Result<String, String> {
-///     match i {
-///         0..=9 => Ok(format!("{}", i)),
-///         _ => Err(format!("{:?} is out of range", i)),
-///     }
-/// }
-///
-/// # fn main() {
-/// // Return Ok
-/// let a = 10;
-/// let b = String::from("20 is out of range");
-/// let x = assert_fn_err_lt_as_result!(example_digit_to_string, a, b);
-/// //-> Ok(())
-/// assert_eq!(x, Ok(()));
-/// let actual = x.unwrap();
-/// let expect = ();
-/// assert_eq!(actual, expect);
-///
-/// let a = 20;
-/// let b = String::from("10 is out of range");
-/// let x = assert_fn_err_lt_as_result!(example_digit_to_string, a, b);
-/// //-> Err(…)
-/// assert!(x.is_err());
-/// let actual = x.unwrap_err();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_err_lt!(left_function, left_input, right_expr)`\n",
-///     " left_function label: `example_digit_to_string`,\n",
-///     "    left_input label: `a`,\n",
-///     "    left_input debug: `20`,\n",
-///     "    right_expr label: `b`,\n",
-///     "    right_expr debug: `\"10 is out of range\"`,\n",
-///     "                left: `\"20 is out of range\"`,\n",
-///     "               right: `\"10 is out of range\"`"
-/// );
-/// assert_eq!(actual, expect);
-/// # }
-/// ```
+/// This macro is useful for runtime checks, such as checking parameters,
+/// or santizing inputs, or handling different results in different ways.
 ///
 /// # Related
-/// 
+///
 /// * [`assert_fn_err_lt`]
 /// * [`assert_fn_err_lt_as_result`]
 /// * [`debug_assert_fn_err_lt`]
@@ -208,7 +172,7 @@ mod test_x_result {
 ///     "               right: `\"10 is out of range\"`"
 /// );
 /// assert_eq!(actual, expect);
-/// 
+///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// assert_fn_err_lt!(example_digit_to_string, a, b, "message");
@@ -222,7 +186,7 @@ mod test_x_result {
 /// ```
 ///
 /// # Related
-/// 
+///
 /// * [`assert_fn_err_lt`]
 /// * [`assert_fn_err_lt_as_result`]
 /// * [`debug_assert_fn_err_lt`]
@@ -248,29 +212,29 @@ macro_rules! assert_fn_err_lt {
 /// This macro provides the same statements as [`assert_fn_err_lt`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
-/// statements unless `-C debug-assertions` is passed to the compiler. 
-/// 
-/// This macro is useful for checks that are too expensive to be present 
+/// statements unless `-C debug-assertions` is passed to the compiler.
+///
+/// This macro is useful for checks that are too expensive to be present
 /// in a release build but may be helpful during development.
-/// 
+///
 /// The result of expanding this macro is always type checked.
-/// 
-/// An unchecked assertion allows a program in an inconsistent state to 
-/// keep running, which might have unexpected consequences but does not 
-/// introduce unsafety as long as this only happens in safe code. The 
+///
+/// An unchecked assertion allows a program in an inconsistent state to
+/// keep running, which might have unexpected consequences but does not
+/// introduce unsafety as long as this only happens in safe code. The
 /// performance cost of assertions, however, is not measurable in general.
-/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
-/// 
+///
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Related
-/// 
+///
 /// * [`assert_fn_err_lt`]
 /// * [`assert_fn_err_lt`]
 /// * [`debug_assert_fn_err_lt`]
-/// 
+///
 #[macro_export]
 macro_rules! debug_assert_fn_err_lt {
     ($($arg:tt)*) => {

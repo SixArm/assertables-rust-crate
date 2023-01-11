@@ -18,7 +18,13 @@
 //! Macros for values such as:
 //!
 //! ```ignore
-//! assert_gt!(value1, value2); // value1 > value2
+//! assert_gt!(value1, value2); // value1 is greater than value2
+//! ```
+//!
+//! Macros for strings, matchers, patterns, etc. such as:
+//!
+//! ```ignore
+//! assert_starts_with!(string, substring); // string starts with substring
 //! ```
 //!
 //! Macros for arrays, vectors, sets, bags, etc., such as:
@@ -33,7 +39,7 @@
 //! assert_fn_eq!(function, input, output); // function(input) == output
 //! ```
 //!
-//! Macros for readers such as:
+//! Macros for readers, streams, etc. such as:
 //!
 //! ```ignore
 //! assert_read_to_string_eq!(reader, string); // reader read to string == string
@@ -44,26 +50,34 @@
 //! ```ignore
 //! assert_command_stdout_eq!(command, expr); // command standard output == expression
 //! ```
-//! 
 //!
-//! ## Version 6 notable improvements
 //!
-//! * Add debug_assert_* macros everywhere.
+//! ## Version 6.x notable improvements
+//!
+//! * Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`.
+//!
+//! * Add `debug_assert_*` macros everywhere.
 //!
 //! * Add many documentation examples.
 //!
 //! * Add GPL3 license.
 //!
-//! 
+//!
 //! ## Naming conventions
 //!
 //! Abbreviations:
 //!
-//! * `eq` means equal; `ne` means not equal.
+//! * `eq` means equal
 //!
-//! * `lt` means less than; `le` means less than or equal.
+//! * `ne` means not equal.
 //!
-//! * `gt` means greater than; `ge` means greater than or equal.
+//! * `lt` means less than
+//!
+//! * `le` means less than or equal.
+//!
+//! * `gt` means greater than
+//!
+//! * `ge` means greater than or equal.
 //!
 //! Shorthands:
 //!
@@ -88,21 +102,21 @@
 //! assert_gt_as_result!(a, b); // return Result Ok(()) or Err(…)
 //! ```
 //!
-//! 
+//!
 //! ## Forms for default messages versus custom messages
 //!
 //! The macros have forms for default messages versus custom messages.
 //!
 //! Examples with panics:
-//! 
+//!
 //! ```ignore
 //! assert_gt!(1, 2); // panic!("assertion failed: assert_gt(1, 2)…")
-//! 
+//!
 //! assert_gt!(1, 2, "message"); // panic!("message")
 //! ```
-//! 
+//!
 //! Examples with errors:
-//! 
+//!
 //! ```ignore
 //! assert_gt_as_result!(1, 2); // return Err("assertion failed: assert_gt(1, 2)…")
 //!
@@ -136,6 +150,18 @@
 //! * `assert_gt!(a, b)` ~ a > b
 //!
 //! * `assert_ge!(a, b)` ~ a >= b
+//!
+//!
+//! ## assert_* for strings and matchers
+//!
+//! These macros help with strings and also other structures that
+//! provide matchers such as starts_with, ends_width, and is_match.
+//!
+//! * `assert_start_with(a, b) => a.start_with(b)
+//!
+//! * `assert_end_with(a, b) => a.end_with(b)
+//!
+//! * `assert_is_match(a, b) => a.is_match(b)
 //!
 //!
 //! ## assert_set_* for set collection comparisons
@@ -202,21 +228,21 @@
 //! ## assert_fn_ok_* for function Ok() comparisons
 //!
 //! ### Compare with expr
-//! 
+//!
 //! * `assert_fn_ok_eq!(f, a, b)` ~ f(a).unwrap() == b
 //!
 //! * `assert_fn_ok_ne!(f, a, b)` ~ f(a).unwrap() != b
-//! 
+//!
 //! * `assert_fn_ok_lt!(f, a, b)` ~ f(a).unwrap() < b
 //!
 //! * `assert_fn_ok_le!(f, a, b)` ~ f(a).unwrap() <= b
-//! 
+//!
 //! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
-//! 
+//!
 //! * `assert_fn_ok_gt!(f, a, b)` ~ f(a).unwrap() > b
 //!
 //! ### Compare with other
-//! 
+//!
 //! * `assert_fn_ok_eq_other!(f, a, b)` ~ f(a).unwrap() == f(b).unwrap()
 //!
 //! * `assert_fn_ok_ne_other!(f, a, b)` ~ f(a).unwrap() != f(b).unwrap()
@@ -231,7 +257,7 @@
 //!
 //!
 //! ## assert_fn_err_* for function Err() comparisons
-//! 
+//!
 //! ### with expr
 //!
 //! * `assert_fn_err_eq!(f, a, b)` ~ f(a).unwrap_err() == b
@@ -246,9 +272,9 @@
 //!
 //! * `assert_fn_err_ge!(f, a, b)`~ f(a).unwrap_err() >= b
 //!
-//! 
+//!
 //! ### with other
-//! 
+//!
 //! * `assert_fn_err_eq_other!(f, a, b)` ~ f(a).unwrap_err() == f(b).unwrap_err()
 //!
 //! * `assert_fn_err_ne_other!(f, a, b)` ~ f(a).unwrap_err() != f(b).unwrap_err()
@@ -358,19 +384,24 @@ pub mod assert_le;
 pub mod assert_gt;
 pub mod assert_ge;
 
+// Assert value matching
+pub mod assert_starts_with;
+pub mod assert_ends_with;
+pub mod assert_is_match;
+
 // Assertable iterator-related set-based comparison
 pub mod assert_set_eq_other;
 pub mod assert_set_ne_other;
-pub mod assert_set_subset_other; 
-pub mod assert_set_superset_other; 
+pub mod assert_set_subset_other;
+pub mod assert_set_superset_other;
 pub mod assert_set_joint;
 pub mod assert_set_disjoint;
 
 // Assertable iterator-related bag-based comparison
 pub mod assert_bag_eq_other;
 pub mod assert_bag_ne_other;
-pub mod assert_bag_subbag_other; 
-pub mod assert_bag_superbag_other; 
+pub mod assert_bag_subbag_other;
+pub mod assert_bag_superbag_other;
 
 // Assert function return versus value
 pub mod assert_fn_eq;

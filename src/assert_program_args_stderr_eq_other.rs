@@ -4,54 +4,14 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// # Examples
+/// This macro provides the same statements as [`assert_`],
+/// except this macro returns a Result, rather than doing a panic.
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
+/// This macro is useful for runtime checks, such as checking parameters,
+/// or santizing inputs, or handling different results in different ways.
 ///
-/// # fn main() {
-/// // Return Ok
-/// let a_program = "printf";
-/// let a_args: [&str; 0] = [];
-/// let b_program = "printf";
-/// let b_args: [&str; 0] = [];
-/// let x = assert_program_args_stderr_eq_other_as_result!(&a_program, &a_args, &b_program, &b_args);
-/// //-> Ok(())
-/// assert_eq!(x, Ok(()));
-/// let actual = x.unwrap();
-/// let expect = ();
-/// assert_eq!(actual, expect);
-///
-/// let a_program = "printf";
-/// let a_args: [&str; 0] = [];
-/// let b_program = "printf";
-/// let b_args = ["-v"];
-/// let x = assert_program_args_stderr_eq_other_as_result!(&a_program, &a_args, &b_program, &b_args);
-/// //-> Err(…)
-/// assert!(x.is_err());
-/// let actual = x.unwrap_err();
-/// let expect = concat!(
-///     "assertion failed: `assert_program_args_stderr_eq_other!(left_program, left_args, right_program, right_args)`\n",
-///     "  left_program label: `&a_program`,\n",
-///     "  left_program debug: `\"printf\"`,\n",
-///     "     left_args label: `&a_args`,\n",
-///     "     left_args debug: `[]`,\n",
-///     " right_program label: `&b_program`,\n",
-///     " right_program debug: `\"printf\"`,\n",
-///     "    right_args label: `&b_args`,\n",
-///     "    right_args debug: `[\"-v\"]`,\n",
-///     "                left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-///     "               right: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`"
-/// );
-/// assert_eq!(actual, expect);
-/// # }
-/// ```
-///
-/// This macro has a second form where a custom message can be provided.
-/// 
 /// # Related
-/// 
+///
 /// * [`assert_program_args_stderr_eq_other`]
 /// * [`assert_program_args_stderr_eq_other_as_result`]
 /// * [`debug_assert_program_args_stderr_eq_other`]
@@ -206,7 +166,7 @@ mod test_x_result {
 /// ```
 ///
 /// /// # Related
-/// 
+///
 /// * [`assert_program_args_stderr_eq_other`]
 /// * [`assert_program_args_stderr_eq_other_as_result`]
 /// * [`debug_assert_program_args_stderr_eq_other`]
@@ -232,29 +192,29 @@ macro_rules! assert_program_args_stderr_eq_other {
 /// This macro provides the same statements as [`assert_program_args_stderr_eq_other`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
-/// statements unless `-C debug-assertions` is passed to the compiler. 
-/// 
-/// This macro is useful for checks that are too expensive to be present 
+/// statements unless `-C debug-assertions` is passed to the compiler.
+///
+/// This macro is useful for checks that are too expensive to be present
 /// in a release build but may be helpful during development.
-/// 
+///
 /// The result of expanding this macro is always type checked.
-/// 
-/// An unchecked assertion allows a program in an inconsistent state to 
-/// keep running, which might have unexpected consequences but does not 
-/// introduce unsafety as long as this only happens in safe code. The 
+///
+/// An unchecked assertion allows a program in an inconsistent state to
+/// keep running, which might have unexpected consequences but does not
+/// introduce unsafety as long as this only happens in safe code. The
 /// performance cost of assertions, however, is not measurable in general.
-/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
-/// 
+///
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Related
-/// 
+///
 /// * [`assert_program_args_stderr_eq_other`]
 /// * [`assert_program_args_stderr_eq_other`]
 /// * [`debug_assert_program_args_stderr_eq_other`]
-/// 
+///
 #[macro_export]
 macro_rules! debug_assert_program_args_stderr_eq_other {
     ($($arg:tt)*) => {

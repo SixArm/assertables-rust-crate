@@ -15,56 +15,70 @@ Repo:
 
 ## Highlights
 
-Value macros such as:
+Macros for values such as:
 
 ```
-assert_gt!(value1, value2); // value1 > value2
+assert_gt!(value1, value2); // value1 is greater than value2
 ```
 
-Set macros such as:
+Macros for strings, matchers, patterns, etc. such as:
+
+```
+assert_starts_with!(string, substring); // string starts with substring
+```
+
+Macros for arrays, vectors, sets, bags, etc. such as:
 
 ```
 assert_set_subset_other!(set1, set2); // set1 is a subset of set2
 ```
 
-Function macros such as:
+Macros for functions such as:
 
 ```
 assert_fn_eq!(function, input, output); // function(input) == output
 ```
 
-Reader macros such as:
+Macros for readers, streams, etc. such as:
 
 ```
 assert_read_to_string_eq!(reader, string); // reader read to string == string
 ```
 
-Command macros such as:
+Macros for commands such as:
 
 ```
 assert_command_stdout_eq!(command, string); // command standard output == string
 ```
 
 
-## Version 6 notable improvements
+## Version 6.x notable improvements
 
-* Add debug_assert_* macros everywhere.
+* Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`.
+ 
+* Add `debug_assert_*` macros everywhere.
 
 * Add many documentation examples.
 
 * Add GPL3 license.
-  
+ 
 
 
 ## Naming conventions
 
 Abbreviations:
 
-* `eq` means equal; `ne` means not equal.
+* `eq` means equal;
 
-* `lt` means less than; `le` means less than or equal.
+*  `ne` means not equal.
 
-* `gt` means greater than; `ge` means greater than or equal.
+* `lt` means less than
+ 
+* `le` means less than or equal.
+
+* `gt` means greater than
+ 
+* `ge` means greater than or equal.
 
 Shorthands:
 
@@ -110,7 +124,7 @@ assert_read_to_string_eq!(reader, expr); // reader.read_to_string() == expr
 
 assert_read_to_string_eq_other!(reader1, reader2); // reader1.read_to_string() == reader2.read_to_string()
 ```
-  
+ 
 
 ## assert_* for values
 

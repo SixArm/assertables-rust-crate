@@ -4,44 +4,14 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// # Examples
+/// This macro provides the same statements as [`assert_`],
+/// except this macro returns a Result, rather than doing a panic.
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # #[allow(unused_imports)]
-/// use std::io::Read;
-/// # fn main() {
-/// // Return Ok
-/// let mut a = "alpha".as_bytes();
-/// let mut b = "bravo".as_bytes();
-/// let x = assert_read_to_string_lt_other_as_result!(a, b);
-/// //-> Ok(())
-/// assert_eq!(x, Ok(()));
-/// let actual = x.unwrap();
-/// let expect = ();
-/// assert_eq!(actual, expect);
-///
-/// let mut a = "bravo".as_bytes();
-/// let mut b = "alpha".as_bytes();
-/// let x = assert_read_to_string_lt_other_as_result!(a, b);
-/// //-> Err(…)
-/// assert!(x.is_err());
-/// let actual = x.unwrap_err();
-/// let expect = concat!(
-///     "assertion failed: `assert_read_to_string_lt_other!(left_reader, right_reader)`\n",
-///     "  left_reader label: `a`,\n",
-///     "  left_reader debug: `[]`,\n",
-///     " right_reader label: `b`,\n",
-///     " right_reader debug: `[]`,\n",
-///     "               left: `\"bravo\"`,\n",
-///     "              right: `\"alpha\"`",
-/// );
-/// assert_eq!(actual, expect);
-/// # }
-/// ```
+/// This macro is useful for runtime checks, such as checking parameters,
+/// or santizing inputs, or handling different results in different ways.
 ///
 /// # Related
-/// 
+///
 /// * [`assert_read_to_string_lt_other`]
 /// * [`assert_read_to_string_lt_other_as_result`]
 /// * [`debug_assert_read_to_string_lt_other`]
@@ -174,7 +144,7 @@ mod test_x_result {
 /// ```
 ///
 /// # Related
-/// 
+///
 /// * [`assert_read_to_string_lt_other`]
 /// * [`assert_read_to_string_lt_other_as_result`]
 /// * [`debug_assert_read_to_string_lt_other`]
@@ -200,29 +170,29 @@ macro_rules! assert_read_to_string_lt_other {
 /// This macro provides the same statements as [`assert_read_to_string_lt_other`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
-/// statements unless `-C debug-assertions` is passed to the compiler. 
-/// 
-/// This macro is useful for checks that are too expensive to be present 
+/// statements unless `-C debug-assertions` is passed to the compiler.
+///
+/// This macro is useful for checks that are too expensive to be present
 /// in a release build but may be helpful during development.
-/// 
+///
 /// The result of expanding this macro is always type checked.
-/// 
-/// An unchecked assertion allows a program in an inconsistent state to 
-/// keep running, which might have unexpected consequences but does not 
-/// introduce unsafety as long as this only happens in safe code. The 
+///
+/// An unchecked assertion allows a program in an inconsistent state to
+/// keep running, which might have unexpected consequences but does not
+/// introduce unsafety as long as this only happens in safe code. The
 /// performance cost of assertions, however, is not measurable in general.
-/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
-/// 
+///
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Related
-/// 
+///
 /// * [`assert_read_to_string_lt_other`]
 /// * [`assert_read_to_string_lt_other`]
 /// * [`debug_assert_read_to_string_lt_other`]
-/// 
+///
 #[macro_export]
 macro_rules! debug_assert_read_to_string_lt_other {
     ($($arg:tt)*) => {

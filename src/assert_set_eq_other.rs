@@ -4,45 +4,16 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// # Examples
+/// This macro provides the same statements as [`assert_`],
+/// except this macro returns a Result, rather than doing a panic.
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn main() {
-/// // Return Ok
-/// let a = [1, 2];
-/// let b = [2, 1];
-/// let x = assert_set_eq_other_as_result!(&a, &b);
-/// //-> Ok(())
-/// assert_eq!(x, Ok(()));
-/// let actual = x.unwrap();
-/// let expect = ();
-/// assert_eq!(actual, expect);
-///
-/// let a = [1, 2];
-/// let b = [3, 4];
-/// let x = assert_set_eq_other_as_result!(&a, &b);
-/// //-> Err(…)
-/// assert!(x.is_err());
-/// let actual = x.unwrap_err();
-/// let expect = concat!(
-///     "assertion failed: `assert_set_eq_other!(left_set, right_set)`\n",
-///     "  left_set label: `&a`,\n",
-///     "  left_set debug: `[1, 2]`,\n",
-///     " right_set label: `&b`,\n",
-///     " right_set debug: `[3, 4]`,\n",
-///     "            left: `{1, 2}`,\n",
-///     "           right: `{3, 4}`"
-/// );
-/// assert_eq!(actual, expect);
-/// # }
-/// ```
+/// This macro is useful for runtime checks, such as checking parameters,
+/// or santizing inputs, or handling different results in different ways.
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
 ///
 /// # Related
-/// 
+///
 /// * [`assert_set_eq_other`]
 /// * [`assert_set_eq_other_as_result`]
 /// * [`debug_assert_set_eq_other`]
@@ -155,7 +126,7 @@ mod test_x_result {
 /// This implementation uses [`BTreeSet`] to count items and sort them.
 ///
 /// # Related
-/// 
+///
 /// * [`assert_set_eq_other`]
 /// * [`assert_set_eq_other_as_result`]
 /// * [`debug_assert_set_eq_other`]
@@ -181,29 +152,29 @@ macro_rules! assert_set_eq_other {
 /// This macro provides the same statements as [`assert_set_eq_other`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
-/// statements unless `-C debug-assertions` is passed to the compiler. 
-/// 
-/// This macro is useful for checks that are too expensive to be present 
+/// statements unless `-C debug-assertions` is passed to the compiler.
+///
+/// This macro is useful for checks that are too expensive to be present
 /// in a release build but may be helpful during development.
-/// 
+///
 /// The result of expanding this macro is always type checked.
-/// 
-/// An unchecked assertion allows a program in an inconsistent state to 
-/// keep running, which might have unexpected consequences but does not 
-/// introduce unsafety as long as this only happens in safe code. The 
+///
+/// An unchecked assertion allows a program in an inconsistent state to
+/// keep running, which might have unexpected consequences but does not
+/// introduce unsafety as long as this only happens in safe code. The
 /// performance cost of assertions, however, is not measurable in general.
-/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
-/// 
+///
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Related
-/// 
+///
 /// * [`assert_set_eq_other`]
 /// * [`assert_set_eq_other`]
 /// * [`debug_assert_set_eq_other`]
-/// 
+///
 #[macro_export]
 macro_rules! debug_assert_set_eq_other {
     ($($arg:tt)*) => {

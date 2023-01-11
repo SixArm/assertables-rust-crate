@@ -4,42 +4,14 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// # Examples
+/// This macro provides the same statements as [`assert_`],
+/// except this macro returns a Result, rather than doing a panic.
 ///
-/// ```rust
-/// # #[macro_use] extern crate assertables;
-/// # use std::panic;
-/// # fn main() {
-/// // Return Ok
-/// let a: i32 = -1;
-/// let b: i32 = 1;
-/// let x = assert_fn_eq_as_result!(i32::abs, a, b);
-/// //-> Ok(())
-/// assert_eq!(x, Ok(()));
-/// assert_eq!(x.unwrap(), ());
-///
-/// let a: i32 = -1;
-/// let b: i32 = 2;
-/// let x = assert_fn_eq_as_result!(i32::abs, a, b);
-/// //-> Err(…)
-/// assert!(x.is_err());
-/// let actual = x.unwrap_err();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_eq!(left_function, left_input, right_expr)`\n",
-///     " left_function label: `i32::abs`,\n",
-///     "    left_input label: `a`,\n",
-///     "    left_input debug: `-1`,\n",
-///     "    right_expr label: `b`,\n",
-///     "    right_expr debug: `2`,\n",
-///     "                left: `1`,\n",
-///     "               right: `2`"
-/// );
-/// assert_eq!(actual, expect);
-/// # }
-/// ```
+/// This macro is useful for runtime checks, such as checking parameters,
+/// or santizing inputs, or handling different results in different ways.
 ///
 /// # Related
-/// 
+///
 /// * [`assert_fn_eq`]
 /// * [`assert_fn_eq_as_result`]
 /// * [`debug_assert_fn_eq`]
@@ -164,7 +136,7 @@ mod test_x_result {
 /// ```
 ///
 /// # Related
-/// 
+///
 /// * [`assert_fn_eq`]
 /// * [`assert_fn_eq_as_result`]
 /// * [`debug_assert_fn_eq`]
@@ -190,29 +162,29 @@ macro_rules! assert_fn_eq {
 /// This macro provides the same statements as [`assert_fn_eq`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
-/// statements unless `-C debug-assertions` is passed to the compiler. 
-/// 
-/// This macro is useful for checks that are too expensive to be present 
+/// statements unless `-C debug-assertions` is passed to the compiler.
+///
+/// This macro is useful for checks that are too expensive to be present
 /// in a release build but may be helpful during development.
-/// 
+///
 /// The result of expanding this macro is always type checked.
-/// 
-/// An unchecked assertion allows a program in an inconsistent state to 
-/// keep running, which might have unexpected consequences but does not 
-/// introduce unsafety as long as this only happens in safe code. The 
+///
+/// An unchecked assertion allows a program in an inconsistent state to
+/// keep running, which might have unexpected consequences but does not
+/// introduce unsafety as long as this only happens in safe code. The
 /// performance cost of assertions, however, is not measurable in general.
-/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
-/// 
+///
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Related
-/// 
+///
 /// * [`assert_fn_eq`]
 /// * [`assert_fn_eq`]
 /// * [`debug_assert_fn_eq`]
-/// 
+///
 #[macro_export]
 macro_rules! debug_assert_fn_eq {
     ($($arg:tt)*) => {

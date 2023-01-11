@@ -6,12 +6,12 @@
 ///
 /// This macro provides the same statements as [`assert_is_match`],
 /// except this macro returns a Result, rather than doing a panic.
-/// 
+///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or santizing inputs, or handling different results in different ways.
 ///
 /// # Related
-/// 
+///
 /// * [`assert_is_match`]
 /// * [`assert_is_match_as_result`]
 /// * [`debug_assert_is_match`]
@@ -110,7 +110,7 @@ mod test_x_result {
 /// ```
 ///
 /// # Related
-/// 
+///
 /// * [`assert_is_match`]
 /// * [`assert_is_match_as_result`]
 /// * [`debug_assert_is_match`]
@@ -136,29 +136,29 @@ macro_rules! assert_is_match {
 /// This macro provides the same statements as [`assert_is_match`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
-/// statements unless `-C debug-assertions` is passed to the compiler. 
-/// 
-/// This macro is useful for checks that are too expensive to be present 
+/// statements unless `-C debug-assertions` is passed to the compiler.
+///
+/// This macro is useful for checks that are too expensive to be present
 /// in a release build but may be helpful during development.
-/// 
+///
 /// The result of expanding this macro is always type checked.
-/// 
-/// An unchecked assertion allows a program in an inconsistent state to 
-/// keep running, which might have unexpected consequences but does not 
-/// introduce unsafety as long as this only happens in safe code. The 
+///
+/// An unchecked assertion allows a program in an inconsistent state to
+/// keep running, which might have unexpected consequences but does not
+/// introduce unsafety as long as this only happens in safe code. The
 /// performance cost of assertions, however, is not measurable in general.
-/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged 
+/// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
-/// 
+///
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Related
-/// 
+///
 /// * [`assert_is_match`]
 /// * [`assert_is_match`]
 /// * [`debug_assert_is_match`]
-/// 
+///
 #[macro_export]
 macro_rules! debug_assert_is_match {
     ($($arg:tt)*) => {
