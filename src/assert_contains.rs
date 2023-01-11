@@ -50,7 +50,7 @@ mod test_x_result {
 
     #[test]
     fn test_assert_contains_as_result_x_failure() {
-        let a = Regex::new(r"foogoo").unwrap();
+        let a = "foogoo";
         let b = "zz";
         let x = assert_contains_as_result!(a, b);
         let actual = x.unwrap_err();

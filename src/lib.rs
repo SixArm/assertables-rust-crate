@@ -367,9 +367,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 6.0.1
+//! * Version: 6.1.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2023-01-10T21:34:22Z
+//! * Updated: 2023-01-11T17:57:42Z
 //! * License: MIT or Apache-2.0 or GPL-2.0-or-later or contact us for custom license
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -387,6 +387,7 @@ pub mod assert_ge;
 // Assert value matching
 pub mod assert_starts_with;
 pub mod assert_ends_with;
+pub mod assert_contains;
 pub mod assert_is_match;
 
 // Assertable iterator-related set-based comparison
