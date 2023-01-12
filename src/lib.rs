@@ -18,37 +18,50 @@
 //! Macros for values such as:
 //!
 //! ```ignore
-//! assert_gt!(value1, value2); // value1 is greater than value2
+//! let x = 1;
+//! let y = 2;
+//! assert_gt!(x, y); // x is greater than y
 //! ```
 //!
 //! Macros for strings, matchers, patterns, etc. such as:
 //!
 //! ```ignore
-//! assert_starts_with!(string, substring); // string starts with substring
+//! let x = "example";
+//! let y = "ex"
+//! assert_starts_with!(x, y); // x starts with y
 //! ```
 //!
 //! Macros for arrays, vectors, sets, bags, etc., such as:
 //!
 //! ```ignore
-//! assert_set_subset_other!(set1, set2); // set1 is a subset of set2
+//! let x = [1, 2];
+//! let y = [1, 2, 3];
+//! assert_set_subset_other!(x, y); // x is a subset of y
 //! ```
 //!
 //! Macros for functions such as:
 //!
 //! ```ignore
-//! assert_fn_eq!(function, input, output); // function(input) == output
+//! let x = -1;
+//! let y = 1;
+//! assert_fn_eq!(abs, x, y); // function(input) == output
 //! ```
 //!
 //! Macros for readers, streams, etc. such as:
 //!
 //! ```ignore
-//! assert_read_to_string_eq!(reader, string); // reader read to string == string
+//! let mut reader = "alpha".as_bytes();
+//! let expect = String::from("alpha");
+//! assert_read_to_string_eq!(reader, expect); // reader read to string == expect
 //! ```
 //!
-//! Macros for commands such as:
+//! Macros for commands, arguments, and CLIs, such as:
 //!
 //! ```ignore
-//! assert_command_stdout_eq!(command, expr); // command standard output == expression
+//! let mut command = Command::new("printf");
+//! command.args(["%s", "hello"]);
+//! let expect = "hello";
+//! assert_command_stdout_eq!(command, expect); // command standard output == expect
 //! ```
 //!
 //!
