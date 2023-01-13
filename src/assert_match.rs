@@ -4,7 +4,7 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_is_match`],
+/// This macro provides the same statements as [`assert_match`],
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -12,19 +12,19 @@
 ///
 /// # Related
 ///
-/// * [`assert_is_match`]
-/// * [`assert_is_match_as_result`]
-/// * [`debug_assert_is_match`]
+/// * [`assert_match`]
+/// * [`assert_match_as_result`]
+/// * [`debug_assert_match`]
 ///
 #[macro_export]
-macro_rules! assert_is_match_as_result {
+macro_rules! assert_match_as_result {
     ($matcher:expr, $matchee:expr $(,)?) => ({
         if $matcher.is_match($matchee) {
             Ok(())
         } else {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_is_match!(matcher, matchee)`\n",
+                    "assertion failed: `assert_match!(matcher, matchee)`\n",
                     " matcher label: `{}`,\n",
                     " matcher debug: `{:?}`,\n",
                     " matchee label: `{}`,\n",
@@ -43,21 +43,21 @@ mod test_x_result {
     use regex::Regex;
 
     #[test]
-    fn test_assert_is_match_as_result_x_success() {
+    fn test_assert_match_as_result_x_success() {
         let a = Regex::new(r"foo").unwrap();
         let b = "foogoo";
-        let x = assert_is_match_as_result!(a, b);
+        let x = assert_match_as_result!(a, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_is_match_as_result_x_failure() {
+    fn test_assert_match_as_result_x_failure() {
         let a = Regex::new(r"foo").unwrap();
         let b = "yoohoo";
-        let x = assert_is_match_as_result!(a, b);
+        let x = assert_match_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_is_match!(matcher, matchee)`\n",
+            "assertion failed: `assert_match!(matcher, matchee)`\n",
             " matcher label: `a`,\n",
             " matcher debug: `foo`,\n",
             " matchee label: `b`,\n",
@@ -86,20 +86,20 @@ mod test_x_result {
 /// // Return Ok
 /// let a = Regex::new(r"foo").unwrap();
 /// let b = "foogoo";
-/// assert_is_match!(a, b);
+/// assert_match!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let a = Regex::new(r"foo").unwrap();
 /// let b = "yoohoo";
-/// assert_is_match!(a, b);
+/// assert_match!(a, b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_is_match!(matcher, matchee)`\n",
+///     "assertion failed: `assert_match!(matcher, matchee)`\n",
 ///     " matcher label: `a`,\n",
 ///     " matcher debug: `foo`,\n",
 ///     " matchee label: `b`,\n",
@@ -111,20 +111,20 @@ mod test_x_result {
 ///
 /// # Related
 ///
-/// * [`assert_is_match`]
-/// * [`assert_is_match_as_result`]
-/// * [`debug_assert_is_match`]
+/// * [`assert_match`]
+/// * [`assert_match_as_result`]
+/// * [`debug_assert_match`]
 ///
 #[macro_export]
-macro_rules! assert_is_match {
+macro_rules! assert_match {
     ($matcher:expr, $matchee:expr $(,)?) => ({
-        match assert_is_match_as_result!($matcher, $matchee) {
+        match assert_match_as_result!($matcher, $matchee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($matcher:expr, $matchee:expr, $($message:tt)+) => ({
-        match assert_is_match_as_result!($matcher, $matchee) {
+        match assert_match_as_result!($matcher, $matchee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -133,7 +133,7 @@ macro_rules! assert_is_match {
 
 /// Assert a matcher is a match for an expression.
 ///
-/// This macro provides the same statements as [`assert_is_match`],
+/// This macro provides the same statements as [`assert_match`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -155,15 +155,15 @@ macro_rules! assert_is_match {
 ///
 /// # Related
 ///
-/// * [`assert_is_match`]
-/// * [`assert_is_match`]
-/// * [`debug_assert_is_match`]
+/// * [`assert_match`]
+/// * [`assert_match`]
+/// * [`debug_assert_match`]
 ///
 #[macro_export]
-macro_rules! debug_assert_is_match {
+macro_rules! debug_assert_match {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_is_match!($($arg)*);
+            $crate::assert_match!($($arg)*);
         }
     };
 }
