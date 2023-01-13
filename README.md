@@ -67,7 +67,7 @@ assert_command_stdout_eq!(command, expect); // command standard output == expect
 
 ## Version 6.x notable improvements
 
-* Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`.
+* Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_match`.
  
 * Add `debug_assert_*` macros everywhere.
 
@@ -83,7 +83,7 @@ Abbreviations:
 
 * `eq` means equal;
 
-*  `ne` means not equal.
+* `ne` means not equal.
 
 * `lt` means less than
  

@@ -67,7 +67,7 @@
 //!
 //! ## Version 6.x notable improvements
 //!
-//! * Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`.
+//! * Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_match`.
 //!
 //! * Add `debug_assert_*` macros everywhere.
 //!
@@ -170,13 +170,23 @@
 //! These macros help with strings and also other structures that
 //! provide matchers such as starts_with, ends_width, and is_match.
 //!
-//! * `assert_start_with(a, b) => a.start_with(b)
+//! * `assert_starts_with(a, b) => a.starts_with(b)
 //!
-//! * `assert_end_with(a, b) => a.end_with(b)
+//! * `assert_not_starts_with(a, b) => !a.starts_with(b)
+//! 
+//! * `assert_ends_with(a, b) => a.ende_with(b)
 //!
-//! * `assert_is_match(a, b) => a.is_match(b)
+//! * `assert_not_ends_with(a, b) => !a.ende_with(b)
+//! 
+//! * `assert_contains(a, b) => a.contains(b)
 //!
+//! * `assert_not_contains(a, b) => !a.not_contains(b)
+//! 
+//! * `assert_match(a, b) => a.is_match(b)
 //!
+//! * `assert_match(a, b) => !a.is_match(b)
+//!
+//! 
 //! ## assert_set_* for set collection comparisons
 //!
 //! These macros help with comparison of set parameters, such as two arrays or
@@ -398,10 +408,10 @@ pub mod assert_gt;
 pub mod assert_ge;
 
 // Assert value matching
-pub mod assert_starts_with;
-pub mod assert_ends_with;
-pub mod assert_contains;
-pub mod assert_is_match;
+pub mod assert_starts_with; pub mod assert_not_starts_with;
+pub mod assert_ends_with; pub mod assert_not_ends_with;
+pub mod assert_contains; pub mod assert_not_contains;
+pub mod assert_match; pub mod assert_not_match;
 
 // Assertable iterator-related set-based comparison
 pub mod assert_set_eq_other;
