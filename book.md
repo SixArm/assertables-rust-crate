@@ -539,15 +539,17 @@ Rust `assertables` provides these macros for program args and standard error:
 * `assert_program_args_stderr_matches!`
 
 
-## How we develop our test macros
+## Developers: how we write our test macros
 
-We develop each our test macros in three flavors:
+We write each our test macros in three flavors:
 
 * `assert_gt_as_result` returns a `Result` as `Ok` or `Err`. This macro contains all the logic, all the error formatting, etc. This macro is called by the other flavors below. This macros is also useful for runtime checks, such as when you want to know success or failure, yet you don't want to panic.
 
 * `assert_gt` returns `()` or panics. This is the typical macro that most developers will use for testing. This macro wraps `assert_gt_as_result`. This macro provides two arms: one arm is for returning the error messsage as is, and one arm is for returning a developer's custom error message.
 
 * `debug_assert_gt` return `()` or panics. This macro's statements are only enabled in non-optimized builds by default. An optimized build will not execute this macro's statements unless `-C debug-assertions` is passed to the compiler.
+
+The sections below show each of the three flavors, using our simplest macro group: `assert_gt_as_result`, `assert_gt`, `debug_assert_gt`.
 
 
 ### assert_gt_as_result
