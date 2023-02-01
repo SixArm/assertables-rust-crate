@@ -65,18 +65,6 @@ assert_command_stdout_eq!(command, expect); // command standard output == expect
 ```
 
 
-## Version 6.x notable improvements
-
-* Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_match`.
- 
-* Add `debug_assert_*` macros everywhere.
-
-* Add many documentation examples.
-
-* Add GPL3 license.
- 
-
-
 ## Naming conventions
 
 Abbreviations:
@@ -108,12 +96,14 @@ Shorthands:
 
 ## Forms for panic! or Result Err()
 
-The macros have forms for immediate interrupts or returning results:
+The macros have forms for immediate interrupts, or returning results, or debug:
 
 ```
 assert_gt!(a, b); // return () or panic!(…)
 
 assert_gt_as_result!(a, b); // return Result Ok(()) or Err(…)
+
+debug_assert_gt_as_result!(a, b); // runs during debugging, not during production
 ```
 
 

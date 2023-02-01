@@ -1,6 +1,6 @@
 [package]
 name = "assertables"
-version = "6.0.1"
+version = "7.0.0"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2021"
 description = "Assertables: Rust crate of macros `assert…!` for better testing, quality assurance, and runtime reliability."
