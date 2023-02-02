@@ -1,10 +1,10 @@
-/// Assert a bag is equal to another.
+/// Assert a bag is a subbag of another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_bag_eq_other`],
+/// This macro provides the same statements as [`assert_bag_subbag`],
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -12,12 +12,12 @@
 ///
 /// # Related
 ///
-/// * [`assert_bag_eq_other`]
-/// * [`assert_bag_eq_other_as_result`]
-/// * [`debug_assert_bag_eq_other`]
+/// * [`assert_bag_subbag`]
+/// * [`assert_bag_subbag_as_result`]
+/// * [`debug_assert_bag_subbag`]
 ///
 #[macro_export]
-macro_rules! assert_bag_eq_other_as_result {
+macro_rules! assert_bag_subbag_as_result {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
             (a_val, b_val) => {
@@ -31,12 +31,15 @@ macro_rules! assert_bag_eq_other_as_result {
                     let n = b_bag.entry(x).or_insert(0);
                     *n += 1;
                 }
-                if a_bag == b_bag {
+                if a_val.into_iter().all(|key| {
+                    a_bag.contains_key(&key) && b_bag.contains_key(&key) &&
+                    a_bag.get_key_value(&key) <= b_bag.get_key_value(&key)
+                }) {
                     Ok(())
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_bag_eq_other!(left_bag, right_bag)`\n",
+                            "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
                             "  left_bag label: `{}`,\n",
                             "  left_bag debug: `{:?}`,\n",
                             " right_bag label: `{}`,\n",
@@ -56,40 +59,59 @@ macro_rules! assert_bag_eq_other_as_result {
 }
 
 #[cfg(test)]
-mod test_as_result {
+mod test_x_result {
 
     #[test]
-    fn test_assert_bag_eq_other_as_result_x_success() {
+    fn test_assert_bag_subbag_as_result_x_success() {
         let a = [1, 1];
-        let b = [1, 1];
-        let x = assert_bag_eq_other_as_result!(&a, &b);
+        let b = [1, 1, 1];
+        let x = assert_bag_subbag_as_result!(&a, &b);
         assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_bag_eq_other_as_result_x_failure() {
+    fn test_assert_bag_subbag_as_result_x_failure_because_key_is_missing() {
         let a = [1, 1];
-        let b = [1, 1, 1];
-        let x = assert_bag_eq_other_as_result!(&a, &b);
+        let b = [2, 2];
+        let x = assert_bag_subbag_as_result!(&a, &b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_bag_eq_other!(left_bag, right_bag)`\n",
+                "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
                 "  left_bag label: `&a`,\n",
                 "  left_bag debug: `[1, 1]`,\n",
                 " right_bag label: `&b`,\n",
-                " right_bag debug: `[1, 1, 1]`,\n",
+                " right_bag debug: `[2, 2]`,\n",
                 "            left: `{1: 2}`,\n",
-                "           right: `{1: 3}`"
+                "           right: `{2: 2}`"
             )
         );
     }
 
+    #[test]
+    fn test_assert_bag_subbag_as_result_x_failure_because_val_count_is_excessive() {
+        let a = [1, 1, 1];
+        let b = [1, 1];
+        let x = assert_bag_subbag_as_result!(&a, &b);
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(),
+            concat!(
+                "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
+                "  left_bag label: `&a`,\n",
+                "  left_bag debug: `[1, 1, 1]`,\n",
+                " right_bag label: `&b`,\n",
+                " right_bag debug: `[1, 1]`,\n",
+                "            left: `{1: 3}`,\n",
+                "           right: `{1: 2}`"
+            )
+        );
+    }
 }
 
-/// Assert a bag is equal to another.
+/// Assert a bag is a subbag of another.
 ///
 /// * If true, return `()`.
 ///
@@ -104,35 +126,68 @@ mod test_as_result {
 /// # fn main() {
 /// // Return Ok
 /// let a = [1, 1];
-/// let b = [1, 1];
-/// assert_bag_eq_other!(&a, &b);
+/// let b = [1, 1, 1];
+/// assert_bag_subbag!(&a, &b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 1];
-/// let b = [1, 1, 1];
-/// assert_bag_eq_other!(&a, &b);
+/// let b = [2, 2];
+/// assert_bag_subbag!(&a, &b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_bag_eq_other!(left_bag, right_bag)`\n",
+///     "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
 ///     "  left_bag label: `&a`,\n",
 ///     "  left_bag debug: `[1, 1]`,\n",
 ///     " right_bag label: `&b`,\n",
-///     " right_bag debug: `[1, 1, 1]`,\n",
+///     " right_bag debug: `[2, 2]`,\n",
 ///     "            left: `{1: 2}`,\n",
-///     "           right: `{1: 3}`"
+///     "           right: `{2: 2}`"
 /// );
 /// assert_eq!(actual, expect);
 ///
 /// // Panic with custom message
 /// let result = panic::catch_unwind(|| {
 /// let a = [1, 1];
-/// let b = [1, 1, 1];
-/// assert_bag_eq_other!(&a, &b, "message");
+/// let b = [2, 2];
+/// assert_bag_subbag!(&a, &b, "message");
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = "message";
+/// assert_eq!(actual, expect);
+//
+/// // Panic with error message
+/// let a = [1, 1, 1];
+/// let b = [1, 1];
+/// // Panic with error message
+/// let result = panic::catch_unwind(|| {
+/// assert_bag_subbag!(&a, &b);
+/// //-> panic!
+/// });
+/// assert!(result.is_err());
+/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// let expect = concat!(
+///     "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
+///     "  left_bag label: `&a`,\n",
+///     "  left_bag debug: `[1, 1, 1]`,\n",
+///     " right_bag label: `&b`,\n",
+///     " right_bag debug: `[1, 1]`,\n",
+///     "            left: `{1: 3}`,\n",
+///     "           right: `{1: 2}`"
+/// );
+/// assert_eq!(actual, expect);
+///
+/// // Panic with custom message
+/// let result = panic::catch_unwind(|| {
+/// let a = [1, 1, 1];
+/// let b = [1, 1];
+/// assert_bag_subbag!(&a, &b, "message");
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
@@ -146,29 +201,29 @@ mod test_as_result {
 ///
 /// # Related
 ///
-/// * [`assert_bag_eq_other`]
-/// * [`assert_bag_eq_other_as_result`]
-/// * [`debug_assert_bag_eq_other`]
+/// * [`assert_bag_subbag`]
+/// * [`assert_bag_subbag_as_result`]
+/// * [`debug_assert_bag_subbag`]
 ///
 #[macro_export]
-macro_rules! assert_bag_eq_other {
+macro_rules! assert_bag_subbag {
     ($a:expr, $b:expr $(,)?) => ({
-        match assert_bag_eq_other_as_result!($a, $b) {
+        match assert_bag_subbag_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a:expr, $b:expr, $($message:tt)+) => ({
-        match assert_bag_eq_other_as_result!($a, $b) {
+        match assert_bag_subbag_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a bag is equal to another.
+/// Assert a bag is a subbag of another.
 ///
-/// This macro provides the same statements as [`assert_bag_eq`],
+/// This macro provides the same statements as [`assert_bag_subbag`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -190,15 +245,15 @@ macro_rules! assert_bag_eq_other {
 ///
 /// # Related
 ///
-/// * [`assert_bag_eq_other`]
-/// * [`assert_bag_eq_other_as_result`]
-/// * [`debug_assert_bag_eq_other`]
+/// * [`assert_bag_subbag`]
+/// * [`assert_bag_subbag`]
+/// * [`debug_assert_bag_subbag`]
 ///
 #[macro_export]
-macro_rules! debug_assert_bag_eq_other {
+macro_rules! debug_assert_bag_subbag {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_bag_eq_other!($($arg)*);
+            $crate::assert_bag_subbag!($($arg)*);
         }
     };
 }

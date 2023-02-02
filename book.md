@@ -241,7 +241,7 @@ assert_set_eq!(array1, array2);
 The `assertables` message looks like:
 
 ```text
-assertion failed: `assert_set_eq_other!(left_set, right_set)`
+assertion failed: `assert_set_eq!(left_set, right_set)`
   left_set label: `&array1`,
   left_set debug: `[1, 2]`,
  right_set label: `&array2`,
@@ -336,7 +336,7 @@ assert_bag_eq!(array1, array2);
 The `aasertables` message looks like:
 
 ```text
-assertion failed: `assert_bag_eq_other!(left_bag, right_bag)`
+assertion failed: `assert_bag_eq!(left_bag, right_bag)`
   left_bag label: `&array1`,
   left_bag debug: `[1, 1]`,
  right_bag label: `&array2`,

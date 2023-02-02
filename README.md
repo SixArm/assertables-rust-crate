@@ -36,7 +36,7 @@ Macros for arrays, vectors, sets, bags, etc., such as:
 ```rust
 let x = [1, 2];
 let y = [1, 2, 3];
-assert_set_subset_other!(x, y); // x is a subset of y
+assert_set_subset!(x, y); // x is a subset of y
 ```
 
 Macros for functions such as:
@@ -152,13 +152,13 @@ These macros help with comparison of set parameters, such as two arrays or
 two vectors. where the item order does not matter, and the item count does
 not matter. The macros convert inputs into HashSet iterators.
 
-* `assert_set_eq_other!(a, b)` ~ set a == set b
+* `assert_set_eq!(a, b)` ~ set a == set b
 
-* `assert_set_ne_other!(a, b)` ~ set a != set b
+* `assert_set_ne!(a, b)` ~ set a != set b
 
-* `assert_set_subset_other!(a, b)` ~ set a ⊆ set b
+* `assert_set_subset!(a, b)` ~ set a ⊆ set b
 
-* `assert_set_superset_other!(a, b)` ~ set a ⊇ set b
+* `assert_set_superset!(a, b)` ~ set a ⊇ set b
 
 * `assert_set_joint!(a, b)` ~ set a is joint with set b
 
@@ -171,9 +171,9 @@ These macros help with comparison of bag parameters, such as comparison of
 two arrays or two vectors, where the item order does not matter, and the
 item count does matter. The macros convert inputs into HashMap iterators.
 
-* `assert_bag_eq_other(a, b)` ~ bag a == bag b
+* `assert_bag_eq(a, b)` ~ bag a == bag b
 
-* `assert_bag_ne_other(a, b)` ~ bag a != bag b
+* `assert_bag_ne(a, b)` ~ bag a != bag b
 
 * `assert_bag_subbag(a, b)` ~ bag a ⊆ bag b
 

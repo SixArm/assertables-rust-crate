@@ -36,7 +36,7 @@
 //! ```ignore
 //! let x = [1, 2];
 //! let y = [1, 2, 3];
-//! assert_set_subset_other!(x, y); // x is a subset of y
+//! assert_set_subset!(x, y); // x is a subset of y
 //! ```
 //!
 //! Macros for functions such as:
@@ -193,13 +193,13 @@
 //! two vectors. where the item order does not matter, and the item count does
 //! not matter. The macros convert inputs into HashSet iterators.
 //!
-//! * `assert_set_eq_other!(a, b)` ~ set a == set b
+//! * `assert_set_eq!(a, b)` ~ set a == set b
 //!
-//! * `assert_set_ne_other!(a, b)` ~ set a != set b
+//! * `assert_set_ne!(a, b)` ~ set a != set b
 //!
-//! * `assert_set_subset_other!(a, b)` ~ set a ⊆ set b
+//! * `assert_set_subset!(a, b)` ~ set a ⊆ set b
 //!
-//! * `assert_set_superset_other!(a, b)` ~ set a ⊇ set b
+//! * `assert_set_superset!(a, b)` ~ set a ⊇ set b
 //!
 //! * `assert_set_joint!(a, b)` ~ set a is joint with set b
 //!
@@ -212,9 +212,9 @@
 //! two arrays or two vectors, where the item order does not matter, and the
 //! item count does matter. The macros convert inputs into HashMap iterators.
 //!
-//! * `assert_bag_eq_other(a, b)` ~ bag a == bag b
+//! * `assert_bag_eq(a, b)` ~ bag a == bag b
 //!
-//! * `assert_bag_ne_other(a, b)` ~ bag a != bag b
+//! * `assert_bag_ne(a, b)` ~ bag a != bag b
 //!
 //! * `assert_bag_subbag(a, b)` ~ bag a ⊆ bag b
 //!
@@ -414,18 +414,18 @@ pub mod assert_contains; pub mod assert_not_contains;
 pub mod assert_match; pub mod assert_not_match;
 
 // Assertable iterator-related set-based comparison
-pub mod assert_set_eq_other;
-pub mod assert_set_ne_other;
-pub mod assert_set_subset_other;
-pub mod assert_set_superset_other;
+pub mod assert_set_eq;
+pub mod assert_set_ne;
+pub mod assert_set_subset;
+pub mod assert_set_superset;
 pub mod assert_set_joint;
 pub mod assert_set_disjoint;
 
 // Assertable iterator-related bag-based comparison
-pub mod assert_bag_eq_other;
-pub mod assert_bag_ne_other;
-pub mod assert_bag_subbag_other;
-pub mod assert_bag_superbag_other;
+pub mod assert_bag_eq;
+pub mod assert_bag_ne;
+pub mod assert_bag_subbag;
+pub mod assert_bag_superbag;
 
 // Assert function return versus value
 pub mod assert_fn_eq;
