@@ -1,4 +1,4 @@
-/// Assert a command stderr string is equal to an expression.
+/// Assert a command stderr string is equal to another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -18,41 +18,45 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_eq_as_result {
-    ($a_command:expr, $b_expr:expr $(,)?) => ({
+    ($a_command:expr, $b_command:expr $(,)?) => ({
         let a_output = $a_command.output();
-        if a_output.is_err() {
+        let b_output = $b_command.output();
+        if a_output.is_err() || b_output.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_command_stderr_eq!(left_command, right_expr)`\n",
-                    " left_command label: `{}`,\n",
-                    " left_command debug: `{:?}`,\n",
-                    "   right_expr label: `{}`,\n",
-                    "   right_expr debug: `{:?}`,\n",
-                    "        left output: `{:?}`"
+                    "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n",
+                    "  left_command label: `{}`,\n",
+                    "  left_command debug: `{:?}`,\n",
+                    " right_command label: `{}`,\n",
+                    " right_command debug: `{:?}`,\n",
+                    "         left output: `{:?}`,\n",
+                    "        right output: `{:?}`"
                 ),
                 stringify!($a_command), $a_command,
-                stringify!($b_expr), $b_expr,
-                a_output
+                stringify!($b_command), $b_command,
+                a_output,
+                b_output
             ))
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if a_string == $b_expr {
+            let b_string = String::from_utf8(b_output.unwrap().stderr).unwrap();
+            if a_string == b_string {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_command_stderr_eq!(left_command, right_expr)`\n",
-                        " left_command label: `{}`,\n",
-                        " left_command debug: `{:?}`,\n",
-                        "   right_expr label: `{}`,\n",
-                        "   right_expr debug: `{:?}`,\n",
-                        "               left: `{:?}`,\n",
-                        "              right: `{:?}`"
+                        "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n",
+                        "  left_command label: `{}`,\n",
+                        "  left_command debug: `{:?}`,\n",
+                        " right_command label: `{}`,\n",
+                        " right_command debug: `{:?}`,\n",
+                        "                left: `{:?}`,\n",
+                        "               right: `{:?}`"
                     ),
                     stringify!($a_command), $a_command,
-                    stringify!($b_expr), $b_expr,
+                    stringify!($b_command), $b_command,
                     a_string,
-                    $b_expr
+                    b_string
                 ))
             }
         }
@@ -67,7 +71,7 @@ mod test_x_result {
     #[test]
     fn test_assert_command_stderr_eq_as_result_x_success() {
         let mut a = Command::new("printf");
-        let b = "usage: printf format [arguments ...]\n";
+        let mut b = Command::new("printf");
         let x = assert_command_stderr_eq_as_result!(a, b);
         assert_eq!(x.unwrap(), ());
     }
@@ -75,22 +79,24 @@ mod test_x_result {
     #[test]
     fn test_assert_command_stderr_eq_as_result_x_failure() {
         let mut a = Command::new("printf");
-        let b = "hello";
+        let mut b = Command::new("printf");
+        b.arg("-v");
         let x = assert_command_stderr_eq_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stderr_eq!(left_command, right_expr)`\n",
-            " left_command label: `a`,\n",
-            " left_command debug: `\"printf\"`,\n",
-            "   right_expr label: `b`,\n",
-            "   right_expr debug: `\"hello\"`,\n",
-            "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-            "              right: `\"hello\"`");
+            "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n",
+            "  left_command label: `a`,\n",
+            "  left_command debug: `\"printf\"`,\n",
+            " right_command label: `b`,\n",
+            " right_command debug: `\"printf\" \"-v\"`,\n",
+            "                left: `\"usage: printf format [arguments ...]\\n\"`,\n",
+            "               right: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`"
+        );
         assert_eq!(actual, expect);
     }
 }
 
-/// Assert a command stderr string is equal to an expression.
+/// Assert a command stderr string is equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -106,37 +112,38 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let mut command = Command::new("printf");
-/// let s = "usage: printf format [arguments ...]\n";
-/// assert_command_stderr_eq!(command, s);
+/// let mut a = Command::new("printf");
+/// let mut b = Command::new("printf");
+/// assert_command_stderr_eq!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let mut command = Command::new("printf");
-/// let s = "hello";
-/// assert_command_stderr_eq!(command, s);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
+/// let mut a = Command::new("printf");
+/// let mut b = Command::new("printf");
+/// b.arg("-v");
+/// assert_command_stderr_eq!(a, b);
+/// //-> panic!("…")
+/// # });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stderr_eq!(left_command, right_expr)`\n",
-///     " left_command label: `command`,\n",
-///     " left_command debug: `\"printf\"`,\n",
-///     "   right_expr label: `s`,\n",
-///     "   right_expr debug: `\"hello\"`,\n",
-///     "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-///     "              right: `\"hello\"`"
+///     "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n",
+///     "  left_command label: `a`,\n",
+///     "  left_command debug: `\"printf\"`,\n",
+///     " right_command label: `b`,\n",
+///     " right_command debug: `\"printf\" \"-v\"`,\n",
+///     "                left: `\"usage: printf format [arguments ...]\\n\"`,\n",
+///     "               right: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`"
 /// );
 /// assert_eq!(actual, expect);
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let mut command = Command::new("printf");
-/// let s = "hello";
-/// assert_command_stderr_eq!(command, s, "message");
-/// //-> panic!
+/// let mut a = Command::new("printf");
+/// let mut b = Command::new("printf");
+/// b.arg("-v");
+/// assert_command_stderr_eq!(a, b, "message");
+/// //-> panic!("…")
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -153,23 +160,23 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_eq {
-    ($a_command:expr, $b_expr:expr $(,)?) => ({
-        match assert_command_stderr_eq_as_result!($a_command, $b_expr) {
+    ($a_command:expr, $b_command:expr $(,)?) => ({
+        match assert_command_stderr_eq_as_result!($a_command, $b_command) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_command:expr, $b_expr:expr, $($message:tt)+) => ({
-        match assert_command_stderr_eq_as_result!($a_command, $b_expr) {
+    ($a_command:expr, $b_command:expr, $($message:tt)+) => ({
+        match assert_command_stderr_eq_as_result!($a_command, $b_command) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a command stderr string is equal to an expression.
+/// Assert a command stderr string is equal to another.
 ///
-/// This macro provides the same statements as [`assert_command_stderr_eq`],
+/// This macro provides the same statements as [`assert_command_stderr_eq {`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -191,9 +198,9 @@ macro_rules! assert_command_stderr_eq {
 ///
 /// # Related
 ///
-/// * [`assert_command_stderr_eq`]
-/// * [`assert_command_stderr_eq`]
-/// * [`debug_assert_command_stderr_eq`]
+/// * [`assert_command_stderr_eq {`]
+/// * [`assert_command_stderr_eq {`]
+/// * [`debug_assert_command_stderr_eq {`]
 ///
 #[macro_export]
 macro_rules! debug_assert_command_stderr_eq {

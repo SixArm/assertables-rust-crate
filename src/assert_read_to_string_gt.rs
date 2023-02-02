@@ -1,4 +1,4 @@
-/// Assert a std::io::Read read_to_string() value is greater than an expression.
+/// Assert a std::io::Read read_to_string() value is greater than another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -18,41 +18,45 @@
 ///
 #[macro_export]
 macro_rules! assert_read_to_string_gt_as_result {
-    ($a_reader:expr, $b_expr:expr $(,)?) => ({
+    ($a_reader:expr, $b_reader:expr $(,)?) => ({
         let mut a_string = String::new();
+        let mut b_string = String::new();
         let a_result = $a_reader.read_to_string(&mut a_string);
-        if let Err(a_err) = a_result {
+        let b_result = $b_reader.read_to_string(&mut b_string);
+        if a_result.is_err() || b_result.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_read_to_string_gt!(left_reader, right_expr)`\n",
-                    " left_reader label: `{}`,\n",
-                    " left_reader debug: `{:?}`,\n",
-                    "  right_expr label: `{}`,\n",
-                    "  right_expr debug: `{:?}`,\n",
-                    "          left err: `{:?}`"
+                    "assertion failed: `assert_read_to_string_gt!(left_reader, right_reader)`\n",
+                    "  left_reader label: `{}`,\n",
+                    "  left_reader debug: `{:?}`,\n",
+                    " right_reader label: `{}`,\n",
+                    " right_reader debug: `{:?}`,\n",
+                    "        left result: `{:?}`,\n",
+                    "       right result: `{:?}`"
                 ),
                 stringify!($a_reader), $a_reader,
-                stringify!($b_expr), $b_expr,
-                a_err
+                stringify!($b_reader), $b_reader,
+                a_result,
+                b_result
             ))
         } else {
             let _a_size = a_result.unwrap();
-            let b_string = String::from($b_expr);
+            let _b_size = b_result.unwrap();
             if a_string > b_string {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_read_to_string_gt!(left_reader, right_expr)`\n",
-                        " left_reader label: `{}`,\n",
-                        " left_reader debug: `{:?}`,\n",
-                        "  right_expr label: `{}`,\n",
-                        "  right_expr debug: `{:?}`,\n",
-                        "              left: `{:?}`,\n",
-                        "             right: `{:?}`",
+                        "assertion failed: `assert_read_to_string_gt!(left_reader, right_reader)`\n",
+                        "  left_reader label: `{}`,\n",
+                        "  left_reader debug: `{:?}`,\n",
+                        " right_reader label: `{}`,\n",
+                        " right_reader debug: `{:?}`,\n",
+                        "               left: `{:?}`,\n",
+                        "              right: `{:?}`"
                     ),
                     stringify!($a_reader), $a_reader,
-                    stringify!($b_expr), $b_expr,
+                    stringify!($b_reader), $b_reader,
                     a_string,
                     b_string
                 ))
@@ -68,35 +72,35 @@ mod test_x_result {
 
     #[test]
     fn test_assert_read_to_string_gt_as_result_x_success() {
-        let mut reader = "bravo".as_bytes();
-        let value = String::from("alpha");
-        let x = assert_read_to_string_gt_as_result!(reader, &value);
+        let mut a = "bravo".as_bytes();
+        let mut b = "alpha".as_bytes();
+        let x = assert_read_to_string_gt_as_result!(a, b);
         assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 
     #[test]
     fn test_assert_read_to_string_gt_as_result_x_failure() {
-        let mut reader = "alpha".as_bytes();
-        let value = String::from("bravo");
-        let x = assert_read_to_string_gt_as_result!(reader, &value);
+        let mut a = "alpha".as_bytes();
+        let mut b = "bravo".as_bytes();
+        let x = assert_read_to_string_gt_as_result!(a, b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_read_to_string_gt!(left_reader, right_expr)`\n",
-                " left_reader label: `reader`,\n",
-                " left_reader debug: `[]`,\n",
-                "  right_expr label: `&value`,\n",
-                "  right_expr debug: `\"bravo\"`,\n",
-                "              left: `\"alpha\"`,\n",
-                "             right: `\"bravo\"`"
+                "assertion failed: `assert_read_to_string_gt!(left_reader, right_reader)`\n",
+                "  left_reader label: `a`,\n",
+                "  left_reader debug: `[]`,\n",
+                " right_reader label: `b`,\n",
+                " right_reader debug: `[]`,\n",
+                "               left: `\"alpha\"`,\n",
+                "              right: `\"bravo\"`"
             )
         );
     }
 }
 
-/// Assert a std::io::Read read_to_string() value is greater than an expression.
+/// Assert a std::io::Read read_to_string() value is greater than another.
 ///
 /// * If true, return `()`.
 ///
@@ -112,28 +116,28 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let mut reader = "bravo".as_bytes();
-/// let value = String::from("alpha");
-/// assert_read_to_string_gt!(reader, &value);
+/// let mut a = "alpha".as_bytes();
+/// let mut b = "bravo".as_bytes();
+/// assert_read_to_string_gt!(b, a);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let mut reader = "alpha".as_bytes();
-/// let value = String::from("bravo");
-/// assert_read_to_string_gt!(reader, &value);
+/// let mut a = "alpha".as_bytes();
+/// let mut b = "bravo".as_bytes();
+/// assert_read_to_string_gt!(a, b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_read_to_string_gt!(left_reader, right_expr)`\n",
-///     " left_reader label: `reader`,\n",
-///     " left_reader debug: `[]`,\n",
-///     "  right_expr label: `&value`,\n",
-///     "  right_expr debug: `\"bravo\"`,\n",
-///     "              left: `\"alpha\"`,\n",
-///     "             right: `\"bravo\"`"
+///     "assertion failed: `assert_read_to_string_gt!(left_reader, right_reader)`\n",
+///     "  left_reader label: `a`,\n",
+///     "  left_reader debug: `[]`,\n",
+///     " right_reader label: `b`,\n",
+///     " right_reader debug: `[]`,\n",
+///     "               left: `\"alpha\"`,\n",
+///     "              right: `\"bravo\"`",
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -147,21 +151,21 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_read_to_string_gt {
-    ($a_reader:expr,  $b_expr:expr $(,)?) => ({
-        match assert_read_to_string_gt_as_result!($a_reader, $b_expr) {
+    ($a_reader:expr, $b_reader:expr $(,)?) => ({
+        match assert_read_to_string_gt_as_result!($a_reader, $b_reader) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_reader:expr, $b_expr:expr, $($message:tt)+) => ({
-        match assert_read_to_string_gt_as_result!($a_reader, $b_expr) {
+    ($a_reader:expr, $b_reader:expr, $($message:tt)+) => ({
+        match assert_read_to_string_gt_as_result!($a_reader, $b_reader) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a std::io::Read read_to_string() value is greater than an expression.
+/// Assert a std::io::Read read_to_string() value is greater than another.
 ///
 /// This macro provides the same statements as [`assert_read_to_string_gt`],
 /// except this macro's statements are only enabled in non-optimized

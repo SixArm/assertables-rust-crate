@@ -1,4 +1,4 @@
-/// Assert a function err() is less than an expression.
+/// Assert a function err() is less than another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -18,46 +18,51 @@
 ///
 #[macro_export]
 macro_rules! assert_fn_err_lt_as_result {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
+    ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({
         let a_result = $function($a_input);
+        let b_result = $function($b_input);
         let a_is_err = a_result.is_err();
-        if !a_is_err {
+        let b_is_err = b_result.is_err();
+        if !a_is_err || !b_is_err {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fn_err_lt!(left_function, left_input, right_expr)`\n",
-                    " left_function label: `{}`,\n",
+                    "assertion failed: `assert_fn_err_lt!(pair_function, left_input, right_input)`\n",
+                    " pair_function label: `{}`,\n",
                     "    left_input label: `{}`,\n",
                     "    left_input debug: `{:?}`,\n",
-                    "    right_expr label: `{}`,\n",
-                    "    right_expr debug: `{:?}`,\n",
-                    "         left result: `{:?}`",
+                    "   right_input label: `{}`,\n",
+                    "   right_input debug: `{:?}`,\n",
+                    "         left result: `{:?}`,\n",
+                    "        right result: `{:?}`"
                 ),
                 stringify!($function),
                 stringify!($a_input), $a_input,
-                stringify!($b_expr), $b_expr,
-                a_result
+                stringify!($b_input), $b_input,
+                a_result,
+                b_result
             ))
         } else {
             let a_err = a_result.unwrap_err();
-            if a_err < $b_expr {
+            let b_err = b_result.unwrap_err();
+            if a_err < b_err {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_fn_err_lt!(left_function, left_input, right_expr)`\n",
-                        " left_function label: `{}`,\n",
+                        "assertion failed: `assert_fn_err_lt!(pair_function, left_input, right_input)`\n",
+                        " pair_function label: `{}`,\n",
                         "    left_input label: `{}`,\n",
                         "    left_input debug: `{:?}`,\n",
-                        "    right_expr label: `{}`,\n",
-                        "    right_expr debug: `{:?}`,\n",
+                        "   right_input label: `{}`,\n",
+                        "   right_input debug: `{:?}`,\n",
                         "                left: `{:?}`,\n",
-                        "               right: `{:?}`",
+                        "               right: `{:?}`"
                     ),
                     stringify!($function),
                     stringify!($a_input), $a_input,
-                    stringify!($b_expr), $b_expr,
+                    stringify!($b_input), $b_input,
                     a_err,
-                    $b_expr
+                    b_err
                 ))
             }
         }
@@ -77,7 +82,7 @@ mod test_x_result {
     #[test]
     fn test_assert_fn_err_lt_as_result_x_success_because_lt() {
         let a: i32 = 10;
-        let b = String::from("20 is out of range");
+        let b: i32 = 20;
         let x = assert_fn_err_lt_as_result!(example_digit_to_string, a, b);
         assert!(x.is_ok());
         assert_eq!(x, Ok(()));
@@ -86,18 +91,18 @@ mod test_x_result {
     #[test]
     fn test_assert_fn_err_lt_as_result_x_failure_because_eq() {
         let a: i32 = 10;
-        let b = String::from("10 is out of range");
+        let b: i32 = 10;
         let x = assert_fn_err_lt_as_result!(example_digit_to_string, a, b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_fn_err_lt!(left_function, left_input, right_expr)`\n",
-                " left_function label: `example_digit_to_string`,\n",
+                "assertion failed: `assert_fn_err_lt!(pair_function, left_input, right_input)`\n",
+                " pair_function label: `example_digit_to_string`,\n",
                 "    left_input label: `a`,\n",
                 "    left_input debug: `10`,\n",
-                "    right_expr label: `b`,\n",
-                "    right_expr debug: `\"10 is out of range\"`,\n",
+                "   right_input label: `b`,\n",
+                "   right_input debug: `10`,\n",
                 "                left: `\"10 is out of range\"`,\n",
                 "               right: `\"10 is out of range\"`"
             )
@@ -107,18 +112,18 @@ mod test_x_result {
     #[test]
     fn test_assert_fn_err_lt_as_result_x_failure_because_gt() {
         let a: i32 = 20;
-        let b = String::from("10 is out of range");
+        let b: i32 = 10;
         let x = assert_fn_err_lt_as_result!(example_digit_to_string, a, b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_fn_err_lt!(left_function, left_input, right_expr)`\n",
-                " left_function label: `example_digit_to_string`,\n",
+                "assertion failed: `assert_fn_err_lt!(pair_function, left_input, right_input)`\n",
+                " pair_function label: `example_digit_to_string`,\n",
                 "    left_input label: `a`,\n",
                 "    left_input debug: `20`,\n",
-                "    right_expr label: `b`,\n",
-                "    right_expr debug: `\"10 is out of range\"`,\n",
+                "   right_input label: `b`,\n",
+                "   right_input debug: `10`,\n",
                 "                left: `\"20 is out of range\"`,\n",
                 "               right: `\"10 is out of range\"`"
             )
@@ -126,7 +131,7 @@ mod test_x_result {
     }
 }
 
-/// Assert a function err() is less than an expression.
+/// Assert a function err() is less than another.
 ///
 /// * If true, return `()`.
 ///
@@ -147,13 +152,13 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let a = 10;
-/// let b = String::from("20 is out of range");
+/// let a: i32 = 10;
+/// let b: i32 = 20;
 /// assert_fn_err_lt!(example_digit_to_string, a, b);
 /// //-> ()
 ///
-/// let a = 20;
-/// let b = String::from("10 is out of range");
+/// let a: i32 = 20;
+/// let b: i32 = 10;
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// assert_fn_err_lt!(example_digit_to_string, a, b);
@@ -162,12 +167,12 @@ mod test_x_result {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_err_lt!(left_function, left_input, right_expr)`\n",
-///     " left_function label: `example_digit_to_string`,\n",
+///     "assertion failed: `assert_fn_err_lt!(pair_function, left_input, right_input)`\n",
+///     " pair_function label: `example_digit_to_string`,\n",
 ///     "    left_input label: `a`,\n",
 ///     "    left_input debug: `20`,\n",
-///     "    right_expr label: `b`,\n",
-///     "    right_expr debug: `\"10 is out of range\"`,\n",
+///     "   right_input label: `b`,\n",
+///     "   right_input debug: `10`,\n",
 ///     "                left: `\"20 is out of range\"`,\n",
 ///     "               right: `\"10 is out of range\"`"
 /// );
@@ -207,7 +212,7 @@ macro_rules! assert_fn_err_lt {
     });
 }
 
-/// Assert a function err() is less than an expression.
+/// Assert a function err() is less than another.
 ///
 /// This macro provides the same statements as [`assert_fn_err_lt`],
 /// except this macro's statements are only enabled in non-optimized

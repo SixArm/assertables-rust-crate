@@ -427,101 +427,66 @@ pub mod assert_bag_ne;
 pub mod assert_bag_subbag;
 pub mod assert_bag_superbag;
 
-// Assert function return versus value
-pub mod assert_fn_eq;
-pub mod assert_fn_ne;
-pub mod assert_fn_lt;
-pub mod assert_fn_le;
-pub mod assert_fn_gt;
-pub mod assert_fn_ge;
+// Assert function return
+pub mod assert_fn_eq; pub mod assert_fn_eq_expr;
+pub mod assert_fn_ne; pub mod assert_fn_ne_expr;
+pub mod assert_fn_lt; pub mod assert_fn_lt_expr;
+pub mod assert_fn_le; pub mod assert_fn_le_expr;
+pub mod assert_fn_gt; pub mod assert_fn_gt_expr;
+pub mod assert_fn_ge; pub mod assert_fn_ge_expr;
 
-// Assert function return versus other
-pub mod assert_fn_eq_other;
-pub mod assert_fn_ne_other;
-pub mod assert_fn_lt_other;
-pub mod assert_fn_le_other;
-pub mod assert_fn_gt_other;
-pub mod assert_fn_ge_other;
+// Assert function Ok()
+pub mod assert_fn_ok_eq; pub mod assert_fn_ok_eq_expr;
+pub mod assert_fn_ok_ne; pub mod assert_fn_ok_ne_expr;
+pub mod assert_fn_ok_lt; pub mod assert_fn_ok_lt_expr;
+pub mod assert_fn_ok_le; pub mod assert_fn_ok_le_expr;
+pub mod assert_fn_ok_gt; pub mod assert_fn_ok_ge_expr;
+pub mod assert_fn_ok_ge; pub mod assert_fn_ok_gt_expr;
 
-// Assert function Ok() versus value
-pub mod assert_fn_ok_eq;
-pub mod assert_fn_ok_ne;
-pub mod assert_fn_ok_lt;
-pub mod assert_fn_ok_le;
-pub mod assert_fn_ok_gt;
-pub mod assert_fn_ok_ge;
+// Assert function Err() 
+pub mod assert_fn_err_eq; pub mod assert_fn_err_eq_expr;
+pub mod assert_fn_err_ne; pub mod assert_fn_err_ne_expr;
+pub mod assert_fn_err_lt; pub mod assert_fn_err_lt_expr;
+pub mod assert_fn_err_le; pub mod assert_fn_err_le_expr;
+pub mod assert_fn_err_gt; pub mod assert_fn_err_gt_expr;
+pub mod assert_fn_err_ge; pub mod assert_fn_err_ge_expr;
 
-// Assert function Ok() versus other
-pub mod assert_fn_ok_eq_other;
-pub mod assert_fn_ok_ne_other;
-pub mod assert_fn_ok_lt_other;
-pub mod assert_fn_ok_le_other;
-pub mod assert_fn_ok_gt_other;
-pub mod assert_fn_ok_ge_other;
+// Assert std::io::read comparisons
+pub mod assert_read_to_string_eq; pub mod assert_read_to_string_eq_expr;
+pub mod assert_read_to_string_ne; pub mod assert_read_to_string_ne_expr;
+pub mod assert_read_to_string_lt; pub mod assert_read_to_string_lt_expr;
+pub mod assert_read_to_string_le; pub mod assert_read_to_string_le_expr;
+pub mod assert_read_to_string_gt; pub mod assert_read_to_string_gt_expr;
+pub mod assert_read_to_string_ge; pub mod assert_read_to_string_ge_expr;
 
-// Assert function Err() versus value
-pub mod assert_fn_err_eq;
-pub mod assert_fn_err_ne;
-pub mod assert_fn_err_lt;
-pub mod assert_fn_err_le;
-pub mod assert_fn_err_gt;
-pub mod assert_fn_err_ge;
-
-// Assert function Err() versus other
-pub mod assert_fn_err_eq_other;
-pub mod assert_fn_err_ne_other;
-pub mod assert_fn_err_lt_other;
-pub mod assert_fn_err_le_other;
-pub mod assert_fn_err_gt_other;
-pub mod assert_fn_err_ge_other;
-
-// Assert std::io::read comparisons versus value
-pub mod assert_read_to_string_eq;
-pub mod assert_read_to_string_ne;
-pub mod assert_read_to_string_lt;
-pub mod assert_read_to_string_le;
-pub mod assert_read_to_string_gt;
-pub mod assert_read_to_string_ge;
-
-// Assert std::io::read comparisons versus other
-pub mod assert_read_to_string_eq_other;
-pub mod assert_read_to_string_ne_other;
-pub mod assert_read_to_string_lt_other;
-pub mod assert_read_to_string_le_other;
-pub mod assert_read_to_string_gt_other;
-pub mod assert_read_to_string_ge_other;
 
 // Assert std::io::read specializations
 pub mod assert_read_to_string_contains;
 pub mod assert_read_to_string_matches;
 
 // Assert command stdout
-pub mod assert_command_stdout_eq;
-pub mod assert_command_stdout_eq_other;
+pub mod assert_command_stdout_eq; pub mod assert_command_stdout_eq_expr;
 
 // Assert command stdout specializations
 pub mod assert_command_stdout_contains;
 pub mod assert_command_stdout_matches;
 
 // Assert command stderr
-pub mod assert_command_stderr_eq;
-pub mod assert_command_stderr_eq_other;
+pub mod assert_command_stderr_eq; pub mod assert_command_stderr_eq_expr;
 
 // Assert command stderr specializations
-pub mod assert_command_stderr_contains;
-pub mod assert_command_stderr_matches;
+pub mod assert_command_stderr_contains; 
+pub mod assert_command_stderr_matches; 
 
 // Assert program args stdout
-pub mod assert_program_args_stdout_eq;
-pub mod assert_program_args_stdout_eq_other;
+pub mod assert_program_args_stdout_eq; pub mod assert_program_args_stdout_eq_expr;
 
 // Assert program args stdout specializations
 pub mod assert_program_args_stdout_contains;
 pub mod assert_program_args_stdout_matches;
 
 // Assert program args stderr
-pub mod assert_program_args_stderr_eq;
-pub mod assert_program_args_stderr_eq_other;
+pub mod assert_program_args_stderr_eq; pub mod assert_program_args_stderr_eq_expr;
 
 // Assert program args stderr specializations
 pub mod assert_program_args_stderr_contains;

@@ -1,4 +1,4 @@
-/// Assert a function ok() is equal to an expression.
+/// Assert a function ok() is equal to another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -18,46 +18,51 @@
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_eq_as_result {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
+    ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({
         let a_result = $function($a_input);
+        let b_result = $function($b_input);
         let a_is_ok = a_result.is_ok();
-        if !a_is_ok {
+        let b_is_ok = b_result.is_ok();
+        if !a_is_ok || !b_is_ok {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_expr)`\n",
-                    " left_function label: `{}`,\n",
+                    "assertion failed: `assert_fn_ok_eq!(pair_function, left_input, right_input)`\n",
+                    " pair_function label: `{}`,\n",
                     "    left_input label: `{}`,\n",
                     "    left_input debug: `{:?}`,\n",
-                    "    right_expr label: `{}`,\n",
-                    "    right_expr debug: `{:?}`,\n",
-                    "         left result: `{:?}`",
+                    "   right_input label: `{}`,\n",
+                    "   right_input debug: `{:?}`,\n",
+                    "         left result: `{:?}`,\n",
+                    "        right result: `{:?}`"
                 ),
                 stringify!($function),
                 stringify!($a_input), $a_input,
-                stringify!($b_expr), $b_expr,
-                a_result
+                stringify!($b_input), $b_input,
+                a_result,
+                b_result
             ))
         } else {
             let a_ok = a_result.unwrap();
-            if a_ok == $b_expr {
+            let b_ok = b_result.unwrap();
+            if a_ok == b_ok {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_expr)`\n",
-                        " left_function label: `{}`,\n",
+                        "assertion failed: `assert_fn_ok_eq!(pair_function, left_input, right_input)`\n",
+                        " pair_function label: `{}`,\n",
                         "    left_input label: `{}`,\n",
                         "    left_input debug: `{:?}`,\n",
-                        "    right_expr label: `{}`,\n",
-                        "    right_expr debug: `{:?}`,\n",
+                        "   right_input label: `{}`,\n",
+                        "   right_input debug: `{:?}`,\n",
                         "                left: `{:?}`,\n",
-                        "               right: `{:?}`",
+                        "               right: `{:?}`"
                     ),
                     stringify!($function),
                     stringify!($a_input), $a_input,
-                    stringify!($b_expr), $b_expr,
+                    stringify!($b_input), $b_input,
                     a_ok,
-                    $b_expr
+                    b_ok
                 ))
             }
         }
@@ -77,7 +82,7 @@ mod test_x_result {
     #[test]
     fn test_assert_fn_ok_eq_as_result_x_success() {
         let a: i32 = 1;
-        let b = String::from("1");
+        let b: i32 = 1;
         let x = assert_fn_ok_eq_as_result!(example_digit_to_string, a, b);
         assert!(x.is_ok());
         assert_eq!(x, Ok(()));
@@ -86,18 +91,18 @@ mod test_x_result {
     #[test]
     fn test_assert_fn_ok_eq_as_result_x_failure() {
         let a: i32 = 1;
-        let b = String::from("2");
+        let b: i32 = 2;
         let x = assert_fn_ok_eq_as_result!(example_digit_to_string, a, b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_expr)`\n",
-                " left_function label: `example_digit_to_string`,\n",
+                "assertion failed: `assert_fn_ok_eq!(pair_function, left_input, right_input)`\n",
+                " pair_function label: `example_digit_to_string`,\n",
                 "    left_input label: `a`,\n",
                 "    left_input debug: `1`,\n",
-                "    right_expr label: `b`,\n",
-                "    right_expr debug: `\"2\"`,\n",
+                "   right_input label: `b`,\n",
+                "   right_input debug: `2`,\n",
                 "                left: `\"1\"`,\n",
                 "               right: `\"2\"`"
             )
@@ -105,7 +110,7 @@ mod test_x_result {
     }
 }
 
-/// Assert a function ok() is equal to an expression.
+/// Assert a function ok() is equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -126,27 +131,27 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let a = 1;
-/// let b = String::from("1");
+/// let a: i32 = 1;
+/// let b: i32 = 1;
 /// assert_fn_ok_eq!(example_digit_to_string, a, b);
 /// //-> ()
 ///
-/// let a = 1;
-/// let b = String::from("2");
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
+/// let a: i32 = 1;
+/// let b: i32 = 2;
 /// assert_fn_ok_eq!(example_digit_to_string, a, b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_expr)`\n",
-///     " left_function label: `example_digit_to_string`,\n",
+///     "assertion failed: `assert_fn_ok_eq!(pair_function, left_input, right_input)`\n",
+///     " pair_function label: `example_digit_to_string`,\n",
 ///     "    left_input label: `a`,\n",
 ///     "    left_input debug: `1`,\n",
-///     "    right_expr label: `b`,\n",
-///     "    right_expr debug: `\"2\"`,\n",
+///     "   right_input label: `b`,\n",
+///     "   right_input debug: `2`,\n",
 ///     "                left: `\"1\"`,\n",
 ///     "               right: `\"2\"`"
 /// );
@@ -162,21 +167,21 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_eq {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        match assert_fn_ok_eq_as_result!($function, $a_input, $b_expr) {
+    ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({
+        match assert_fn_ok_eq_as_result!($function, $a_input, $b_input) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
-        match assert_fn_ok_eq_as_result!($function, $a_input, $b_expr) {
+    ($function:path, $a_input:expr, $b_input:expr, $($message:tt)+) => ({
+        match assert_fn_ok_eq_as_result!($function, $a_input, $b_input) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a function ok() is equal to an expression.
+/// Assert a function ok() is equal to another.
 ///
 /// This macro provides the same statements as [`assert_fn_ok_eq`],
 /// except this macro's statements are only enabled in non-optimized

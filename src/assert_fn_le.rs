@@ -1,9 +1,8 @@
-/// Assert a function output is less than or equal to an expression.
+/// Assert a function output is less than or equal to another.
 ///
-/// * If true, return `Ok(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return [`Err`] with a message and the values of the
-///   expressions with their debug representations.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// # Examples
 ///
@@ -21,39 +20,40 @@
 ///
 #[macro_export]
 macro_rules! assert_fn_le_as_result {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
+    ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({
         let a_output = $function($a_input);
-        if a_output <= $b_expr {
+        let b_output = $function($b_input);
+        if a_output <= b_output {
             Ok(())
         } else {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fn_le!(left_function, left_input, right_expr)`\n",
-                    " left_function label: `{}`,\n",
+                    "assertion failed: `assert_fn_le!(pair_function, left_input, right_input)`\n",
+                    " pair_function label: `{}`,\n",
                     "    left_input label: `{}`,\n",
                     "    left_input debug: `{:?}`,\n",
-                    "    right_expr label: `{}`,\n",
-                    "    right_expr debug: `{:?}`,\n",
+                    "   right_input label: `{}`,\n",
+                    "   right_input debug: `{:?}`,\n",
                     "                left: `{:?}`,\n",
                     "               right: `{:?}`"
                 ),
                 stringify!($function),
                 stringify!($a_input), $a_input,
-                stringify!($b_expr), $b_expr,
+                stringify!($b_input), $b_input,
                 a_output,
-                $b_expr
+                b_output
             ))
-    }
+        }
     });
 }
 
 #[cfg(test)]
-mod test_assert_x_result {
+mod test_x_result {
 
     #[test]
     fn test_assert_fn_le_as_result_x_success_because_lt() {
-        let a: i32 = -1;
-        let b: i32 = 2;
+        let a: i32 = 1;
+        let b: i32 = -2;
         let x = assert_fn_le_as_result!(i32::abs, a, b);
         assert!(x.is_ok());
         assert_eq!(x, Ok(()));
@@ -61,8 +61,8 @@ mod test_assert_x_result {
 
     #[test]
     fn test_assert_fn_le_as_result_x_success_because_eq() {
-        let a: i32 = -1;
-        let b: i32 = 1;
+        let a: i32 = 1;
+        let b: i32 = -1;
         let x = assert_fn_le_as_result!(i32::abs, a, b);
         assert!(x.is_ok());
         assert_eq!(x, Ok(()));
@@ -77,12 +77,12 @@ mod test_assert_x_result {
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_fn_le!(left_function, left_input, right_expr)`\n",
-                " left_function label: `i32::abs`,\n",
+                "assertion failed: `assert_fn_le!(pair_function, left_input, right_input)`\n",
+                " pair_function label: `i32::abs`,\n",
                 "    left_input label: `a`,\n",
                 "    left_input debug: `-2`,\n",
-                "    right_expr label: `b`,\n",
-                "    right_expr debug: `1`,\n",
+                "   right_input label: `b`,\n",
+                "   right_input debug: `1`,\n",
                 "                left: `2`,\n",
                 "               right: `1`"
             )
@@ -90,7 +90,7 @@ mod test_assert_x_result {
     }
 }
 
-/// Assert a function output is less than or equal to an expression.
+/// Assert a function output is less than or equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -104,8 +104,8 @@ mod test_assert_x_result {
 /// # use std::panic;
 /// # fn main() {
 /// // Return Ok
-/// let a: i32 = -1;
-/// let b: i32 = 2;
+/// let a: i32 = 1;
+/// let b: i32 = -2;
 /// assert_fn_le!(i32::abs, a, b);
 /// //-> ()
 ///
@@ -119,12 +119,12 @@ mod test_assert_x_result {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_le!(left_function, left_input, right_expr)`\n",
-///     " left_function label: `i32::abs`,\n",
+///     "assertion failed: `assert_fn_le!(pair_function, left_input, right_input)`\n",
+///     " pair_function label: `i32::abs`,\n",
 ///     "    left_input label: `a`,\n",
 ///     "    left_input debug: `-2`,\n",
-///     "    right_expr label: `b`,\n",
-///     "    right_expr debug: `1`,\n",
+///     "   right_input label: `b`,\n",
+///     "   right_input debug: `1`,\n",
 ///     "                left: `2`,\n",
 ///     "               right: `1`"
 /// );
@@ -140,21 +140,21 @@ mod test_assert_x_result {
 ///
 #[macro_export]
 macro_rules! assert_fn_le {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        match assert_fn_le_as_result!($function, $a_input, $b_expr) {
+    ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({
+        match assert_fn_le_as_result!($function, $a_input, $b_input) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
-        match assert_fn_le_as_result!($function, $a_input, $b_expr) {
+    ($function:path, $a_input:expr, $b_input:expr, $($message:tt)+) => ({
+        match assert_fn_le_as_result!($function, $a_input, $b_input) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a function output is less than or equal to an expression.
+/// Assert a function output is less than or equal to another.
 ///
 /// This macro provides the same statements as [`assert_fn_le`],
 /// except this macro's statements are only enabled in non-optimized

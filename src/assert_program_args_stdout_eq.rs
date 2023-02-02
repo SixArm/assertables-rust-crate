@@ -1,8 +1,9 @@
-/// Assert a command (built with program and args) stdout string is equal to an expression.
+/// Assert a command (built with program and args) stdout string is equal to another.
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return `()`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * If true, return Result `Err` with a message and the values of the
+///   expressions with their debug representations.
 ///
 /// This macro provides the same statements as [`assert_`],
 /// except this macro returns a Result, rather than doing a panic.
@@ -18,49 +19,61 @@
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_eq_as_result {
-    ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => ({
+    ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => ({
         let mut a_command = ::std::process::Command::new($a_program);
+        let mut b_command = ::std::process::Command::new($b_program);
         a_command.args($a_args);
+        b_command.args($b_args);
         let a_output = a_command.output();
-        if a_output.is_err() {
+        let b_output = b_command.output();
+        if a_output.is_err() || b_output.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_program_args_stdout_eq!(left_program, left_args, right_expr)`\n",
-                    " left_program label: `{}`,\n",
-                    " left_program debug: `{:?}`,\n",
-                    "    left_args label: `{}`,\n",
-                    "    left_args debug: `{:?}`,\n",
-                    "   right_expr label: `{}`,\n",
-                    "   right_expr debug: `{:?}`,\n",
-                    "        left output: `{:?}`"
+                    "assertion failed: `assert_program_args_stdout_eq!(left_program, left_args, right_program, right_args)`\n",
+                    "  left_program label: `{}`,\n",
+                    "  left_program debug: `{:?}`,\n",
+                    "     left_args label: `{}`,\n",
+                    "     left_args debug: `{:?}`,\n",
+                    " right_program label: `{}`,\n",
+                    " right_program debug: `{:?}`,\n",
+                    "    right_args label: `{}`,\n",
+                    "    right_args debug: `{:?}`,\n",
+                    "         left output: `{:?}`,\n",
+                    "        right output: `{:?}`"
                 ),
                 stringify!($a_program), $a_program,
                 stringify!($a_args), $a_args,
-                stringify!($b_expr), $b_expr,
-                a_output
+                stringify!($b_program), $b_program,
+                stringify!($b_args), $b_args,
+                a_output,
+                b_output
             ))
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            if a_string == $b_expr {
+            let b_string = String::from_utf8(b_output.unwrap().stdout).unwrap();
+            if a_string == b_string {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_program_args_stdout_eq!(left_program, left_args, right_expr)`\n",
-                        " left_program label: `{}`,\n",
-                        " left_program debug: `{:?}`,\n",
-                        "    left_args label: `{}`,\n",
-                        "    left_args debug: `{:?}`,\n",
-                        "   right_expr label: `{}`,\n",
-                        "   right_expr debug: `{:?}`,\n",
-                        "               left: `{:?}`,\n",
-                        "              right: `{:?}`"
+                        "assertion failed: `assert_program_args_stdout_eq!(left_program, left_args, right_program, right_args)`\n",
+                    "  left_program label: `{}`,\n",
+                    "  left_program debug: `{:?}`,\n",
+                        "     left_args label: `{}`,\n",
+                        "     left_args debug: `{:?}`,\n",
+                        " right_program label: `{}`,\n",
+                        " right_program debug: `{:?}`,\n",
+                        "    right_args label: `{}`,\n",
+                        "    right_args debug: `{:?}`,\n",
+                        "                left: `{:?}`,\n",
+                        "               right: `{:?}`"
                     ),
                     stringify!($a_program), $a_program,
                     stringify!($a_args), $a_args,
-                    stringify!($b_expr), $b_expr,
+                    stringify!($b_program), $b_program,
+                    stringify!($b_args), $b_args,
                     a_string,
-                    $b_expr
+                    b_string
                 ))
             }
         }
@@ -68,14 +81,15 @@ macro_rules! assert_program_args_stdout_eq_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod assert_tests_as_result {
 
     #[test]
     fn test_assert_program_args_stdout_eq_as_result_x_success() {
         let a_program = "printf";
         let a_args = ["%s", "alpha"];
-        let b = "alpha";
-        let x = assert_program_args_stdout_eq_as_result!(&a_program, &a_args, b);
+        let b_program = "printf";
+        let b_args = ["%s%s%s%s%s", "a", "l", "p", "h", "a"];
+        let x = assert_program_args_stdout_eq_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(x.unwrap(), ());
     }
 
@@ -83,25 +97,28 @@ mod test_x_result {
     fn test_assert_program_args_stdout_eq_as_result_x_failure() {
         let a_program = "printf";
         let a_args = ["%s", "alpha"];
-        let b = "bravo";
-        let x = assert_program_args_stdout_eq_as_result!(&a_program, &a_args, b);
+        let b_program = "printf";
+        let b_args = ["%s%s%s%s%s", "b", "r", "a", "v", "o"];
+        let x = assert_program_args_stdout_eq_as_result!(&a_program, &a_args, &b_program, &b_args);
         let actual = x.unwrap_err();
         let expect = concat!(
-          "assertion failed: `assert_program_args_stdout_eq!(left_program, left_args, right_expr)`\n",
-          " left_program label: `&a_program`,\n",
-          " left_program debug: `\"printf\"`,\n",
-          "    left_args label: `&a_args`,\n",
-          "    left_args debug: `[\"%s\", \"alpha\"]`,\n",
-          "   right_expr label: `b`,\n",
-          "   right_expr debug: `\"bravo\"`,\n",
-          "               left: `\"alpha\"`,\n",
-          "              right: `\"bravo\"`"
+            "assertion failed: `assert_program_args_stdout_eq!(left_program, left_args, right_program, right_args)`\n",
+            "  left_program label: `&a_program`,\n",
+            "  left_program debug: `\"printf\"`,\n",
+            "     left_args label: `&a_args`,\n",
+            "     left_args debug: `[\"%s\", \"alpha\"]`,\n",
+            " right_program label: `&b_program`,\n",
+            " right_program debug: `\"printf\"`,\n",
+            "    right_args label: `&b_args`,\n",
+            "    right_args debug: `[\"%s%s%s%s%s\", \"b\", \"r\", \"a\", \"v\", \"o\"]`,\n",
+            "                left: `\"alpha\"`,\n",
+            "               right: `\"bravo\"`"
         );
         assert_eq!(actual, expect);
     }
 }
 
-/// Assert a command (built with program and args) stdout string is equal to an expression.
+/// Assert a command (built with program and args) stdout string is equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -116,32 +133,36 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let program = "printf";
-/// let args = ["%s", "hello"];
-/// let s = "hello";
-/// assert_program_args_stdout_eq!(&program, &args, s);
+/// let a_program = "printf";
+/// let a_args = ["%s", "hello"];
+/// let b_program = "printf";
+/// let b_args = ["%s%s%s%s%s", "h", "e", "l", "l", "o"];
+/// assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let program = "printf";
-/// let args = ["%s", "hello"];
-/// let s = "world";
-/// assert_program_args_stdout_eq!(&program, &args, s);
+/// let a_program = "printf";
+/// let a_args = ["%s", "hello"];
+/// let b_program = "printf";
+/// let b_args = ["%s%s%s%s%s", "w", "o", "r", "l", "d"];
+/// assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_eq!(left_program, left_args, right_expr)`\n",
-///     " left_program label: `&program`,\n",
-///     " left_program debug: `\"printf\"`,\n",
-///     "    left_args label: `&args`,\n",
-///     "    left_args debug: `[\"%s\", \"hello\"]`,\n",
-///     "   right_expr label: `s`,\n",
-///     "   right_expr debug: `\"world\"`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `\"world\"`"
+///     "assertion failed: `assert_program_args_stdout_eq!(left_program, left_args, right_program, right_args)`\n",
+///     "  left_program label: `&a_program`,\n",
+///     "  left_program debug: `\"printf\"`,\n",
+///     "     left_args label: `&a_args`,\n",
+///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
+///     " right_program label: `&b_program`,\n",
+///     " right_program debug: `\"printf\"`,\n",
+///     "    right_args label: `&b_args`,\n",
+///     "    right_args debug: `[\"%s%s%s%s%s\", \"w\", \"o\", \"r\", \"l\", \"d\"]`,\n",
+///     "                left: `\"hello\"`,\n",
+///     "               right: `\"world\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -155,21 +176,21 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_eq {
-    ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => ({
-        match assert_program_args_stdout_eq_as_result!($a_program, $a_args, $b_expr) {
+    ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => ({
+        match assert_program_args_stdout_eq_as_result!($a_program, $a_args, $b_program, $b_args) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_program:expr, $a_args:expr, $b_expr:expr, $($message:tt)+) => ({
-        match assert_program_args_stdout_eq_as_result!($a_program, $a_args, $b_expr) {
+    ($a_program:expr, $a_args:expr, $b_program:expr, $($message:tt)+) => ({
+        match assert_program_args_stdout_eq_as_result!($a_program, $a_args, $b_program, $b_args) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a command (built with program and args) stdout string is equal to an expression.
+/// Assert a command (built with program and args) stdout string is equal to another.
 ///
 /// This macro provides the same statements as [`assert_program_args_stdout_eq`],
 /// except this macro's statements are only enabled in non-optimized
