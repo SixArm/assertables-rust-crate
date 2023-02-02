@@ -390,9 +390,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 6.1.0
+//! * Version: 7.0.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2023-01-11T17:57:42Z
+//! * Updated: 2023-02-02T12:17:12Z
 //! * License: MIT or Apache-2.0 or GPL-2.0-or-later or contact us for custom license
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -480,6 +480,11 @@ pub mod assert_command_stderr_matches;
 
 // Assert program args stdout
 pub mod assert_program_args_stdout_eq; pub mod assert_program_args_stdout_eq_expr;
+pub mod assert_program_args_stdout_ne; pub mod assert_program_args_stdout_ne_expr;
+pub mod assert_program_args_stdout_lt; pub mod assert_program_args_stdout_lt_expr;
+pub mod assert_program_args_stdout_le; pub mod assert_program_args_stdout_le_expr;
+pub mod assert_program_args_stdout_gt; pub mod assert_program_args_stdout_gt_expr;
+pub mod assert_program_args_stdout_ge; pub mod assert_program_args_stdout_ge_expr;
 
 // Assert program args stdout specializations
 pub mod assert_program_args_stdout_contains;
@@ -487,6 +492,11 @@ pub mod assert_program_args_stdout_matches;
 
 // Assert program args stderr
 pub mod assert_program_args_stderr_eq; pub mod assert_program_args_stderr_eq_expr;
+pub mod assert_program_args_stderr_ne; pub mod assert_program_args_stderr_ne_expr;
+pub mod assert_program_args_stderr_lt; pub mod assert_program_args_stderr_lt_expr;
+pub mod assert_program_args_stderr_le; pub mod assert_program_args_stderr_le_expr;
+pub mod assert_program_args_stderr_gt; pub mod assert_program_args_stderr_gt_expr;
+pub mod assert_program_args_stderr_ge; pub mod assert_program_args_stderr_ge_expr;
 
 // Assert program args stderr specializations
 pub mod assert_program_args_stderr_contains;
