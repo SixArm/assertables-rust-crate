@@ -77,7 +77,7 @@ mod test_x_result {
     #[test]
     fn test_assert_read_to_string_contains_as_result_x_failure() {
         let mut reader = "alpha".as_bytes();
-        let containee = "xyz";
+        let containee = "zzz";
         let x = assert_read_to_string_contains_as_result!(reader, containee);
         assert!(x.is_err());
         assert_eq!(
@@ -87,9 +87,9 @@ mod test_x_result {
                 "     left_reader label: `reader`,\n",
                 "     left_reader debug: `[]`,\n",
                 " right_containee label: `containee`,\n",
-                " right_containee debug: `\"xyz\"`,\n",
+                " right_containee debug: `\"zzz\"`,\n",
                 "                  left: `\"alpha\"`,\n",
-                "                 right: `\"xyz\"`"
+                "                 right: `\"zzz\"`"
             )
         );
     }
@@ -119,7 +119,7 @@ mod test_x_result {
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut reader = "hello".as_bytes();
-/// let containee = "xyz";
+/// let containee = "zzz";
 /// assert_read_to_string_contains!(reader, containee);
 /// //-> panic!
 /// });
@@ -130,9 +130,9 @@ mod test_x_result {
 ///     "     left_reader label: `reader`,\n",
 ///     "     left_reader debug: `[]`,\n",
 ///     " right_containee label: `containee`,\n",
-///     " right_containee debug: `\"xyz\"`,\n",
+///     " right_containee debug: `\"zzz\"`,\n",
 ///     "                  left: `\"hello\"`,\n",
-///     "                 right: `\"xyz\"`"
+///     "                 right: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

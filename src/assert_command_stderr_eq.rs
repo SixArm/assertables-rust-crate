@@ -70,27 +70,30 @@ mod test_x_result {
 
     #[test]
     fn test_assert_command_stderr_eq_as_result_x_success() {
-        let mut a = Command::new("printf");
-        let mut b = Command::new("printf");
+        let mut a = Command::new("bin/printf-stderr");
+        a.args(["%s", "hello"]);
+        let mut b = Command::new("bin/printf-stderr");
+        b.args(["%s", "hello"]);
         let x = assert_command_stderr_eq_as_result!(a, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_assert_command_stderr_eq_as_result_x_failure() {
-        let mut a = Command::new("printf");
-        let mut b = Command::new("printf");
-        b.arg("-v");
+        let mut a = Command::new("bin/printf-stderr");
+        a.args(["%s", "hello"]);
+        let mut b = Command::new("bin/printf-stderr");
+        b.args(["%s", "zzz"]);
         let x = assert_command_stderr_eq_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n",
             "  left_command label: `a`,\n",
-            "  left_command debug: `\"printf\"`,\n",
+            "  left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
             " right_command label: `b`,\n",
-            " right_command debug: `\"printf\" \"-v\"`,\n",
-            "                left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-            "               right: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`"
+            " right_command debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
+            "                left: `\"hello\"`,\n",
+            "               right: `\"zzz\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -112,16 +115,19 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let mut a = Command::new("printf");
-/// let mut b = Command::new("printf");
+/// let mut a = Command::new("bin/printf-stderr");
+/// a.args(["%s", "hello"]);
+/// let mut b = Command::new("bin/printf-stderr");
+/// b.args(["%s", "hello"]);
 /// assert_command_stderr_eq!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let mut a = Command::new("printf");
-/// let mut b = Command::new("printf");
-/// b.arg("-v");
+/// let mut a = Command::new("bin/printf-stderr");
+/// a.args(["%s", "hello"]);
+/// let mut b = Command::new("bin/printf-stderr");
+/// b.args(["%s", "zzz"]);
 /// assert_command_stderr_eq!(a, b);
 /// //-> panic!("…")
 /// # });
@@ -129,19 +135,20 @@ mod test_x_result {
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n",
 ///     "  left_command label: `a`,\n",
-///     "  left_command debug: `\"printf\"`,\n",
+///     "  left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
 ///     " right_command label: `b`,\n",
-///     " right_command debug: `\"printf\" \"-v\"`,\n",
-///     "                left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-///     "               right: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`"
+///     " right_command debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
+///     "                left: `\"hello\"`,\n",
+///     "               right: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 ///
-/// // Panic with error message
+/// // Panic with custom message
 /// let result = panic::catch_unwind(|| {
-/// let mut a = Command::new("printf");
-/// let mut b = Command::new("printf");
-/// b.arg("-v");
+/// let mut a = Command::new("bin/printf-stderr");
+/// a.args(["%s", "hello"]);
+/// let mut b = Command::new("bin/printf-stderr");
+/// b.args(["%s", "zzz"]);
 /// assert_command_stderr_eq!(a, b, "message");
 /// //-> panic!("…")
 /// });

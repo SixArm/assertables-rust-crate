@@ -72,30 +72,30 @@ mod test_x_result {
 
     #[test]
     fn test_assert_program_args_stderr_eq_expr_as_result_x_success() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b = "usage: printf format [arguments ...]\n";
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b = String::from("hello");
         let x = assert_program_args_stderr_eq_expr_as_result!(&a_program, &a_args, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_assert_program_args_stderr_eq_expr_as_result_x_failure() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b = "hello";
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b = String::from("zzz");
         let x = assert_program_args_stderr_eq_expr_as_result!(&a_program, &a_args, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_eq_expr!(left_program, left_args, right_expr)`\n",
             " left_program label: `&a_program`,\n",
-            " left_program debug: `\"printf\"`,\n",
+            " left_program debug: `\"bin/printf-stderr\"`,\n",
             "    left_args label: `&a_args`,\n",
-            "    left_args debug: `[]`,\n",
+            "    left_args debug: `[\"%s\", \"hello\"]`,\n",
             "   right_expr label: `b`,\n",
-            "   right_expr debug: `\"hello\"`,\n",
-            "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-            "              right: `\"hello\"`");
+            "   right_expr debug: `\"zzz\"`,\n",
+            "               left: `\"hello\"`,\n",
+            "              right: `\"zzz\"`");
         assert_eq!(actual, expect);
     }
 }
@@ -115,17 +115,17 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let program = "printf";
-/// let args: [&str; 0] = [];
-/// let s = "usage: printf format [arguments ...]\n";
+/// let program = "bin/printf-stderr";
+/// let args = ["%s", "hello"];
+/// let s = String::from("hello");
 /// assert_program_args_stderr_eq_expr!(&program, &args, s);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let program = "printf";
-/// let args: [&str; 0] = [];
-/// let s = "hello";
+/// let program = "bin/printf-stderr";
+/// let args = ["%s", "hello"];
+/// let s = String::from("zzz");
 /// assert_program_args_stderr_eq_expr!(&program, &args, s);
 /// //-> panic!
 /// });
@@ -134,13 +134,13 @@ mod test_x_result {
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stderr_eq_expr!(left_program, left_args, right_expr)`\n",
 ///     " left_program label: `&program`,\n",
-///     " left_program debug: `\"printf\"`,\n",
+///     " left_program debug: `\"bin/printf-stderr\"`,\n",
 ///     "    left_args label: `&args`,\n",
-///     "    left_args debug: `[]`,\n",
+///     "    left_args debug: `[\"%s\", \"hello\"]`,\n",
 ///     "   right_expr label: `s`,\n",
-///     "   right_expr debug: `\"hello\"`,\n",
-///     "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-///     "              right: `\"hello\"`"
+///     "   right_expr debug: `\"zzz\"`,\n",
+///     "               left: `\"hello\"`,\n",
+///     "              right: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

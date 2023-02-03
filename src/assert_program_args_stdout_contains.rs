@@ -72,30 +72,30 @@ mod test_x_result {
 
     #[test]
     fn test_asserterable_command_stdout_contains_x_success() {
-        let a_program = "printf";
-        let a_args = ["%s", "alpha"];
-        let b = "lph";
+        let a_program = "bin/printf-stdout";
+        let a_args = ["%s", "hello"];
+        let b = "ell";
         let x = assert_program_args_stdout_contains_as_result!(&a_program, &a_args, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_asserterable_command_stdout_contains_x_failure() {
-        let a_program = "printf";
-        let a_args = ["%s", "alpha"];
-        let b = "xyz";
+        let a_program = "bin/printf-stdout";
+        let a_args = ["%s", "hello"];
+        let b = "zzz";
         let x = assert_program_args_stdout_contains_as_result!(&a_program, &a_args, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stdout_contains!(left_program, left_args, right_containee)`\n",
             "    left_program label: `&a_program`,\n",
-            "    left_program debug: `\"printf\"`,\n",
+            "    left_program debug: `\"bin/printf-stdout\"`,\n",
             "       left_args label: `&a_args`,\n",
-            "       left_args debug: `[\"%s\", \"alpha\"]`,\n",
+            "       left_args debug: `[\"%s\", \"hello\"]`,\n",
             " right_containee label: `b`,\n",
-            " right_containee debug: `\"xyz\"`,\n",
-            "                  left: `\"alpha\"`,\n",
-            "                 right: `\"xyz\"`"
+            " right_containee debug: `\"zzz\"`,\n",
+            "                  left: `\"hello\"`,\n",
+            "                 right: `\"zzz\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -122,7 +122,7 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let program = "printf";
+/// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
 /// let containee = "ell";
 /// assert_program_args_stdout_contains!(&program, &args, containee);
@@ -130,9 +130,9 @@ mod test_x_result {
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let program = "printf";
+/// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
-/// let containee = "xyz";
+/// let containee = "zzz";
 /// assert_program_args_stdout_contains!(&program, &args, containee);
 /// //-> panic!
 /// });
@@ -141,13 +141,13 @@ mod test_x_result {
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stdout_contains!(left_program, left_args, right_containee)`\n",
 ///     "    left_program label: `&program`,\n",
-///     "    left_program debug: `\"printf\"`,\n",
+///     "    left_program debug: `\"bin/printf-stdout\"`,\n",
 ///     "       left_args label: `&args`,\n",
 ///     "       left_args debug: `[\"%s\", \"hello\"]`,\n",
 ///     " right_containee label: `containee`,\n",
-///     " right_containee debug: `\"xyz\"`,\n",
+///     " right_containee debug: `\"zzz\"`,\n",
 ///     "                  left: `\"hello\"`,\n",
-///     "                 right: `\"xyz\"`"
+///     "                 right: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

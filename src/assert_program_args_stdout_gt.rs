@@ -51,7 +51,7 @@ macro_rules! assert_program_args_stdout_gt_as_result {
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
             let b_string = String::from_utf8(b_output.unwrap().stdout).unwrap();
-            if a_string == b_string {
+            if a_string > b_string {
                 Ok(())
             } else {
                 Err(format!(
@@ -85,40 +85,41 @@ mod assert_tests_as_result {
 
     #[test]
     fn test_assert_program_args_stdout_gt_as_result_x_success() {
-        let a_program = "printf";
-        let a_args = ["%s", "alpha"];
-        let b_program = "printf";
-        let b_args = ["%s%s%s%s%s", "a", "l", "p", "h", "a"];
+        let a_program = "bin/printf-stdout";
+        let a_args = ["%s", "hello"];
+        let b_program = "bin/printf-stdout";
+        let b_args = ["%s%s%s%s%s", "h", "a", "l", "l", "o"];
         let x = assert_program_args_stdout_gt_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_assert_program_args_stdout_gt_as_result_x_failure() {
-        let a_program = "printf";
-        let a_args = ["%s", "alpha"];
-        let b_program = "printf";
-        let b_args = ["%s%s%s%s%s", "b", "r", "a", "v", "o"];
+        let a_program = "bin/printf-stdout";
+        let a_args = ["%s", "hello"];
+        let b_program = "bin/printf-stdout";
+        let b_args = ["%s%s%s%s%s", "h", "u", "l", "l", "o"];
         let x = assert_program_args_stdout_gt_as_result!(&a_program, &a_args, &b_program, &b_args);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stdout_gt!(left_program, left_args, right_program, right_args)`\n",
             "  left_program label: `&a_program`,\n",
-            "  left_program debug: `\"printf\"`,\n",
+            "  left_program debug: `\"bin/printf-stdout\"`,\n",
             "     left_args label: `&a_args`,\n",
-            "     left_args debug: `[\"%s\", \"alpha\"]`,\n",
+            "     left_args debug: `[\"%s\", \"hello\"]`,\n",
             " right_program label: `&b_program`,\n",
-            " right_program debug: `\"printf\"`,\n",
+            " right_program debug: `\"bin/printf-stdout\"`,\n",
             "    right_args label: `&b_args`,\n",
-            "    right_args debug: `[\"%s%s%s%s%s\", \"b\", \"r\", \"a\", \"v\", \"o\"]`,\n",
-            "                left: `\"alpha\"`,\n",
-            "               right: `\"bravo\"`"
+            "    right_args debug: `[\"%s%s%s%s%s\", \"h\", \"u\", \"l\", \"l\", \"o\"]`,\n",
+            "                left: `\"hello\"`,\n",
+            "               right: `\"hullo\"`"
         );
         assert_eq!(actual, expect);
     }
+
 }
 
-/// Assert a command (built with program and args) stdout string is equal to another.
+/// Assert a command (built with program and args) stdout string is greater than another.
 ///
 /// * If true, return `()`.
 ///
@@ -133,19 +134,19 @@ mod assert_tests_as_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let a_program = "printf";
+/// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "hello"];
-/// let b_program = "printf";
-/// let b_args = ["%s%s%s%s%s", "h", "e", "l", "l", "o"];
+/// let b_program = "bin/printf-stdout";
+/// let b_args = ["%s%s%s%s%s", "h", "a", "l", "l", "o"];
 /// assert_program_args_stdout_gt!(&a_program, &a_args, &b_program, &b_args);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a_program = "printf";
+/// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "hello"];
-/// let b_program = "printf";
-/// let b_args = ["%s%s%s%s%s", "w", "o", "r", "l", "d"];
+/// let b_program = "bin/printf-stdout";
+/// let b_args = ["%s%s%s%s%s", "h", "u", "l", "l", "o"];
 /// assert_program_args_stdout_gt!(&a_program, &a_args, &b_program, &b_args);
 /// //-> panic!
 /// });
@@ -154,15 +155,15 @@ mod assert_tests_as_result {
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stdout_gt!(left_program, left_args, right_program, right_args)`\n",
 ///     "  left_program label: `&a_program`,\n",
-///     "  left_program debug: `\"printf\"`,\n",
+///     "  left_program debug: `\"bin/printf-stdout\"`,\n",
 ///     "     left_args label: `&a_args`,\n",
 ///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
 ///     " right_program label: `&b_program`,\n",
-///     " right_program debug: `\"printf\"`,\n",
+///     " right_program debug: `\"bin/printf-stdout\"`,\n",
 ///     "    right_args label: `&b_args`,\n",
-///     "    right_args debug: `[\"%s%s%s%s%s\", \"w\", \"o\", \"r\", \"l\", \"d\"]`,\n",
+///     "    right_args debug: `[\"%s%s%s%s%s\", \"h\", \"u\", \"l\", \"l\", \"o\"]`,\n",
 ///     "                left: `\"hello\"`,\n",
-///     "               right: `\"world\"`"
+///     "               right: `\"hullo\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -190,7 +191,7 @@ macro_rules! assert_program_args_stdout_gt {
     });
 }
 
-/// Assert a command (built with program and args) stdout string is equal to another.
+/// Assert a command (built with program and args) stdout string is greater than another.
 ///
 /// This macro provides the same statements as [`assert_program_args_stdout_gt`],
 /// except this macro's statements are only enabled in non-optimized

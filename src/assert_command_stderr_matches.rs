@@ -42,12 +42,12 @@ macro_rules! assert_command_stderr_matches_as_result {
                 Err(format!(
                     concat!(
                         "assertion failed: `assert_command_stderr_matches!(left_command, right_matcher)`\n",
-                        " left_command label: `{}`,\n",
-                        " left_command debug: `{:?}`,\n",
-                        "  right_matcher label: `{}`,\n",
-                        "  right_matcher debug: `{:?}`,\n",
-                        "               left: `{:?}`,\n",
-                        "              right: `{:?}`"
+                        "  left_command label: `{}`,\n",
+                        "  left_command debug: `{:?}`,\n",
+                        " right_matcher label: `{}`,\n",
+                        " right_matcher debug: `{:?}`,\n",
+                        "                left: `{:?}`,\n",
+                        "               right: `{:?}`"
                     ),
                     stringify!($a_command), $a_command,
                     stringify!($b_matcher), $b_matcher,
@@ -67,26 +67,28 @@ mod test_x_result {
 
     #[test]
     fn test_assert_command_stderr_matches_as_result_x_success() {
-        let mut a = Command::new("printf");
-        let b = Regex::new(r"usage").unwrap();
+        let mut a = Command::new("bin/printf-stderr");
+        a.args(["%s", "hello"]);
+        let b = Regex::new(r"ell").unwrap();
         let x = assert_command_stderr_matches_as_result!(a, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_assert_command_stderr_matches_as_result_x_failure() {
-        let mut a = Command::new("printf");
-        let b = Regex::new(r"xyz").unwrap();
+        let mut a = Command::new("bin/printf-stderr");
+        a.args(["%s", "hello"]);
+        let b = Regex::new(r"zzz").unwrap();
         let x = assert_command_stderr_matches_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_matches!(left_command, right_matcher)`\n",
-            " left_command label: `a`,\n",
-            " left_command debug: `\"printf\"`,\n",
-            "  right_matcher label: `b`,\n",
-            "  right_matcher debug: `xyz`,\n",
-            "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-            "              right: `xyz`"
+            "  left_command label: `a`,\n",
+            "  left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+            " right_matcher label: `b`,\n",
+            " right_matcher debug: `zzz`,\n",
+            "                left: `\"hello\"`,\n",
+            "               right: `zzz`"
         );
         assert_eq!(actual, expect);
     }
@@ -109,15 +111,17 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let mut command = Command::new("printf");
-/// let matcher = Regex::new(r"usage").unwrap();
+/// let mut command = Command::new("bin/printf-stderr");
+/// command.args(["%s", "hello"]);
+/// let matcher = Regex::new(r"ell").unwrap();
 /// assert_command_stderr_matches!(command, matcher);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let mut command = Command::new("printf");
-/// let matcher = Regex::new(r"xyz").unwrap();
+/// let mut command = Command::new("bin/printf-stderr");
+/// command.args(["%s", "hello"]);
+/// let matcher = Regex::new(r"zzz").unwrap();
 /// assert_command_stderr_matches!(command, matcher);
 /// //-> panic!
 /// });
@@ -125,19 +129,19 @@ mod test_x_result {
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stderr_matches!(left_command, right_matcher)`\n",
-///     " left_command label: `command`,\n",
-///     " left_command debug: `\"printf\"`,\n",
-///     "  right_matcher label: `matcher`,\n",
-///     "  right_matcher debug: `xyz`,\n",
-///     "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-///     "              right: `xyz`"
+///     "  left_command label: `command`,\n",
+///     "  left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+///     " right_matcher label: `matcher`,\n",
+///     " right_matcher debug: `zzz`,\n",
+///     "                left: `\"hello\"`,\n",
+///     "               right: `zzz`"
 /// );
 /// assert_eq!(actual, expect);
 ///
-/// // Panic with error message
+/// // Panic with custom message
 /// let result = panic::catch_unwind(|| {
-/// let mut command = Command::new("printf");
-/// let matcher = Regex::new(r"xyz").unwrap();
+/// let mut command = Command::new("bin/printf-stderr");
+/// let matcher = Regex::new(r"zzz").unwrap();
 /// assert_command_stderr_matches!(command, matcher, "message");
 /// //-> panic!
 /// });

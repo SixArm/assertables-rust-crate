@@ -77,7 +77,7 @@ mod test_x_result {
     #[test]
     fn test_assert_read_to_string_matches_as_result_x_failure() {
         let mut reader = "alpha".as_bytes();
-        let matcher = Regex::new(r"xyz").unwrap();
+        let matcher = Regex::new(r"zzz").unwrap();
         let x = assert_read_to_string_matches_as_result!(reader, matcher);
         assert!(x.is_err());
         assert_eq!(
@@ -87,9 +87,9 @@ mod test_x_result {
                 "   left_reader label: `reader`,\n",
                 "   left_reader debug: `[]`,\n",
                 " right_matcher label: `matcher`,\n",
-                " right_matcher debug: `xyz`,\n",
+                " right_matcher debug: `zzz`,\n",
                 "                left: `\"alpha\"`,\n",
-                "               right: `xyz`"
+                "               right: `zzz`"
             )
         );
     }
@@ -120,7 +120,7 @@ mod test_x_result {
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut reader = "hello".as_bytes();
-/// let matcher = Regex::new(r"xyz").unwrap();
+/// let matcher = Regex::new(r"zzz").unwrap();
 /// assert_read_to_string_matches!(reader, matcher);
 /// //-> panic!
 /// });
@@ -131,9 +131,9 @@ mod test_x_result {
 ///     "   left_reader label: `reader`,\n",
 ///     "   left_reader debug: `[]`,\n",
 ///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `xyz`,\n",
+///     " right_matcher debug: `zzz`,\n",
 ///     "                left: `\"hello\"`,\n",
-///     "               right: `xyz`"
+///     "               right: `zzz`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

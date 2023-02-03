@@ -71,30 +71,30 @@ mod assert_tests_as_result {
 
     #[test]
     fn test_assert_command_stdout_eq_as_result_x_success() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let mut b = Command::new("printf");
-        b.args(["%s%s%s%s%s", "a", "l", "p", "h", "a"]);
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "hello"]);
+        let mut b = Command::new("bin/printf-stdout");
+        b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
         let x = assert_command_stdout_eq_as_result!(a, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_assert_command_stdout_eq_as_result_x_failure() {
-        let mut a = Command::new("printf");
-        a.args(["%s", "alpha"]);
-        let mut b = Command::new("printf");
-        b.args(["%s%s%s%s%s", "b", "r", "a", "v", "o"]);
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "hello"]);
+        let mut b = Command::new("bin/printf-stdout");
+        b.args(["%s%s%s", "z", "z", "z"]);
         let x = assert_command_stdout_eq_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n",
             "  left_command label: `a`,\n",
-            "  left_command debug: `\"printf\" \"%s\" \"alpha\"`,\n",
+            "  left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
             " right_command label: `b`,\n",
-            " right_command debug: `\"printf\" \"%s%s%s%s%s\" \"b\" \"r\" \"a\" \"v\" \"o\"`,\n",
-            "                left: `\"alpha\"`,\n",
-            "               right: `\"bravo\"`"
+            " right_command debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
+            "                left: `\"hello\"`,\n",
+            "               right: `\"zzz\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -116,19 +116,19 @@ mod assert_tests_as_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let mut a = Command::new("printf");
+/// let mut a = Command::new("bin/printf-stdout");
 /// a.args(["%s", "hello"]);
-/// let mut b = Command::new("printf");
+/// let mut b = Command::new("bin/printf-stdout");
 /// b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
 /// assert_command_stdout_eq!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let mut a = Command::new("printf");
+/// let mut a = Command::new("bin/printf-stdout");
 /// a.args(["%s", "hello"]);
-/// let mut b = Command::new("printf");
-/// b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
+/// let mut b = Command::new("bin/printf-stdout");
+/// b.args(["%s%s%s", "z", "z", "z"]);
 /// assert_command_stdout_eq!(a, b);
 /// //-> panic!
 /// });
@@ -137,20 +137,20 @@ mod assert_tests_as_result {
 /// let expect = concat!(
 ///     "assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n",
 ///     "  left_command label: `a`,\n",
-///     "  left_command debug: `\"printf\" \"%s\" \"hello\"`,\n",
+///     "  left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
 ///     " right_command label: `b`,\n",
-///     " right_command debug: `\"printf\" \"%s%s%s%s%s\" \"w\" \"o\" \"r\" \"l\" \"d\"`,\n",
+///     " right_command debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
 ///     "                left: `\"hello\"`,\n",
-///     "               right: `\"world\"`"
+///     "               right: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 ///
-/// // Panic with error message
+/// // Panic with custom message
 /// let result = panic::catch_unwind(|| {
-/// let mut a = Command::new("printf");
+/// let mut a = Command::new("bin/printf-stdout");
 /// a.args(["%s", "hello"]);
-/// let mut b = Command::new("printf");
-/// b.args(["%s%s%s%s%s", "w", "o", "r", "l", "d"]);
+/// let mut b = Command::new("bin/printf-stdout");
+/// b.args(["%s%s%s", "z", "z", "z"]);
 /// assert_command_stdout_eq!(a, b, "message");
 /// //-> panic!
 /// });

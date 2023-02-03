@@ -161,7 +161,7 @@ macro_rules! assert_read_to_string_ge_expr {
     });
 }
 
-/// Assert xxx.
+/// Assert zzz.
 ///
 /// This macro provides the same statements as [`assert_read_to_string_ge_expr`],
 /// except this macro's statements are only enabled in non-optimized

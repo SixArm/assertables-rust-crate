@@ -83,41 +83,51 @@ macro_rules! assert_program_args_stderr_ge_as_result {
 mod test_x_result {
 
     #[test]
-    fn test_assert_program_args_stderr_ge_as_result_x_success() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b_program = "printf";
-        let b_args: [&str; 0] = [];
+    fn test_assert_program_args_stderr_ge_as_result_x_success_because_gt() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b_program = "bin/printf-stderr";
+        let b_args = ["%s", "hallo"];
         let x = assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_program_args_stderr_ge_as_result_x_failure() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b_program = "printf";
-        let b_args = ["-v"];
+    fn test_assert_program_args_stderr_ge_as_result_x_success_because_eq() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b_program = "bin/printf-stderr";
+        let b_args = ["%s", "hello"];
+        let x = assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
+        assert_eq!(x.unwrap(), ());
+    }
+
+    #[test]
+    fn test_assert_program_args_stderr_ge_as_result_x_failure_because_lt() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b_program = "bin/printf-stderr";
+        let b_args = ["%s", "hullo"];
         let x = assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_ge!(left_program, left_args, right_program, right_args)`\n",
             "  left_program label: `&a_program`,\n",
-            "  left_program debug: `\"printf\"`,\n",
+            "  left_program debug: `\"bin/printf-stderr\"`,\n",
             "     left_args label: `&a_args`,\n",
-            "     left_args debug: `[]`,\n",
+            "     left_args debug: `[\"%s\", \"hello\"]`,\n",
             " right_program label: `&b_program`,\n",
-            " right_program debug: `\"printf\"`,\n",
+            " right_program debug: `\"bin/printf-stderr\"`,\n",
             "    right_args label: `&b_args`,\n",
-            "    right_args debug: `[\"-v\"]`,\n",
-            "                left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-            "               right: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`"
+            "    right_args debug: `[\"%s\", \"hullo\"]`,\n",
+            "                left: `\"hello\"`,\n",
+            "               right: `\"hullo\"`"
         );
         assert_eq!(actual, expect);
     }
 }
 
-/// Assert a command (built with program and args) stderr string is equal to another.
+/// Assert a command (built with program and args) stderr string is greater than or equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -132,18 +142,18 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let a_program = "printf";
-/// let a_args: [&str; 0] = [];
-/// let b_program = "printf";
-/// let b_args: [&str; 0] = [];
+/// let a_program = "bin/printf-stderr";
+/// let a_args = ["%s", "hello"];
+/// let b_program = "bin/printf-stderr";
+/// let b_args = ["%s", "hallo"];
 /// assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, &b_args);
 /// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a_program = "printf";
-/// let a_args: [&str; 0] = [];
-/// let b_program = "printf";
-/// let b_args = ["-v"];
+/// let a_program = "bin/printf-stderr";
+/// let a_args = ["%s", "hello"];
+/// let b_program = "bin/printf-stderr";
+/// let b_args = ["%s", "hullo"];
 /// assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, &b_args);
 /// //-> panic!("…")
 /// # });
@@ -151,15 +161,15 @@ mod test_x_result {
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stderr_ge!(left_program, left_args, right_program, right_args)`\n",
 ///     "  left_program label: `&a_program`,\n",
-///     "  left_program debug: `\"printf\"`,\n",
+///     "  left_program debug: `\"bin/printf-stderr\"`,\n",
 ///     "     left_args label: `&a_args`,\n",
-///     "     left_args debug: `[]`,\n",
+///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
 ///     " right_program label: `&b_program`,\n",
-///     " right_program debug: `\"printf\"`,\n",
+///     " right_program debug: `\"bin/printf-stderr\"`,\n",
 ///     "    right_args label: `&b_args`,\n",
-///     "    right_args debug: `[\"-v\"]`,\n",
-///     "                left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-///     "               right: `\"printf: illegal option -- v\\nusage: printf format [arguments ...]\\n\"`"
+///     "    right_args debug: `[\"%s\", \"hullo\"]`,\n",
+///     "                left: `\"hello\"`,\n",
+///     "               right: `\"hullo\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -187,7 +197,7 @@ macro_rules! assert_program_args_stderr_ge {
     });
 }
 
-/// Assert a command (built with program and args) stderr string is equal to another.
+/// Assert a command (built with program and args) stderr string greater than or equal to another.
 ///
 /// This macro provides the same statements as [`assert_program_args_stderr_ge`],
 /// except this macro's statements are only enabled in non-optimized

@@ -74,30 +74,30 @@ mod test_x_result {
 
     #[test]
     fn test_assert_program_args_stderr_matches_as_result_x_success() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b = Regex::new(r"usage").unwrap();
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b = Regex::new(r"ell").unwrap();
         let x = assert_program_args_stderr_matches_as_result!(&a_program, &a_args, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_assert_program_args_stderr_matches_as_result_x_failure() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b = Regex::new(r"xyz").unwrap();
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b = Regex::new(r"zzz").unwrap();
         let x = assert_program_args_stderr_matches_as_result!(&a_program, &a_args, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_matches!(left_program, right_matcher)`\n",
             "  left_program label: `&a_program`,\n",
-            "  left_program debug: `\"printf\"`,\n",
+            "  left_program debug: `\"bin/printf-stderr\"`,\n",
             "     left_args label: `&a_args`,\n",
-            "     left_args debug: `[]`,\n",
+            "     left_args debug: `[\"%s\", \"hello\"]`,\n",
             " right_matcher label: `b`,\n",
-            " right_matcher debug: `xyz`,\n",
-            "                left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-            "               right: `xyz`"
+            " right_matcher debug: `zzz`,\n",
+            "                left: `\"hello\"`,\n",
+            "               right: `zzz`"
         );
         assert_eq!(actual, expect);
     }
@@ -119,17 +119,17 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let program = "printf";
-/// let args: [&str; 0] = [];
-/// let matcher = Regex::new(r"usage").unwrap();
+/// let program = "bin/printf-stderr";
+/// let args = ["%s", "hello"];
+/// let matcher = Regex::new(r"ell").unwrap();
 /// assert_program_args_stderr_matches!(&program, &args, matcher);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let program = "printf";
-/// let args: [&str; 0] = [];
-/// let matcher = Regex::new(r"xyz").unwrap();
+/// let program = "bin/printf-stderr";
+/// let args = ["%s", "hello"];
+/// let matcher = Regex::new(r"zzz").unwrap();
 /// assert_program_args_stderr_matches!(&program, &args, matcher);
 /// //-> panic!
 /// });
@@ -138,13 +138,13 @@ mod test_x_result {
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stderr_matches!(left_program, right_matcher)`\n",
 ///     "  left_program label: `&program`,\n",
-///     "  left_program debug: `\"printf\"`,\n",
+///     "  left_program debug: `\"bin/printf-stderr\"`,\n",
 ///     "     left_args label: `&args`,\n",
-///     "     left_args debug: `[]`,\n",
+///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
 ///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `xyz`,\n",
-///     "                left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-///     "               right: `xyz`"
+///     " right_matcher debug: `zzz`,\n",
+///     "                left: `\"hello\"`,\n",
+///     "               right: `zzz`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

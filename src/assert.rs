@@ -112,9 +112,9 @@ mod test_assert_x_result {
 
 }
 
-/// Assert xxx.
+/// Assert zzz.
 ///
-/// This macro provides the same statements as [`assert_xxx`],
+/// This macro provides the same statements as [`assert_zzz`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -136,15 +136,15 @@ mod test_assert_x_result {
 ///
 /// # Related
 ///
-/// * [`assert_xxx`]
-/// * [`assert_xxx`]
-/// * [`debug_assert_xxx`]
+/// * [`assert_zzz`]
+/// * [`assert_zzz`]
+/// * [`debug_assert_zzz`]
 ///
 #[macro_export]
-macro_rules! debug_assert_xxx {
+macro_rules! debug_assert_zzz {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_xxx!($($arg)*);
+            $crate::assert_zzz!($($arg)*);
         }
     };
 }

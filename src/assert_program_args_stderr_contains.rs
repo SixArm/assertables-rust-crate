@@ -72,30 +72,30 @@ mod test_x_result {
 
     #[test]
     fn test_asserterable_command_stderr_contains_x_success() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b = "usage";
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b = "ell";
         let x = assert_program_args_stderr_contains_as_result!(&a_program, &a_args, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_asserterable_command_stderr_contains_x_failure() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b = "xyz";
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b = "zzz";
         let x = assert_program_args_stderr_contains_as_result!(&a_program, &a_args, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_contains!(left_program, left_args, right_containee)`\n",
             "    left_program label: `&a_program`,\n",
-            "    left_program debug: `\"printf\"`,\n",
+            "    left_program debug: `\"bin/printf-stderr\"`,\n",
             "       left_args label: `&a_args`,\n",
-            "       left_args debug: `[]`,\n",
+            "       left_args debug: `[\"%s\", \"hello\"]`,\n",
             " right_containee label: `b`,\n",
-            " right_containee debug: `\"xyz\"`,\n",
-            "                  left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-            "                 right: `\"xyz\"`"
+            " right_containee debug: `\"zzz\"`,\n",
+            "                  left: `\"hello\"`,\n",
+            "                 right: `\"zzz\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -121,17 +121,17 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let program = "printf";
-/// let args: [&str; 0] = [];
-/// let containee = "usage";
+/// let program = "bin/printf-stderr";
+/// let args = ["%s", "hello"];
+/// let containee = "ell";
 /// assert_program_args_stderr_contains!(&program, &args, containee);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let program = "printf";
-/// let args: [&str; 0] = [];
-/// let containee = "xyz";
+/// let program = "bin/printf-stderr";
+/// let args = ["%s", "hello"];
+/// let containee = "zzz";
 /// assert_program_args_stderr_contains!(&program, &args, containee);
 /// //-> panic!
 /// });
@@ -140,13 +140,13 @@ mod test_x_result {
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stderr_contains!(left_program, left_args, right_containee)`\n",
 ///     "    left_program label: `&program`,\n",
-///     "    left_program debug: `\"printf\"`,\n",
+///     "    left_program debug: `\"bin/printf-stderr\"`,\n",
 ///     "       left_args label: `&args`,\n",
-///     "       left_args debug: `[]`,\n",
+///     "       left_args debug: `[\"%s\", \"hello\"]`,\n",
 ///     " right_containee label: `containee`,\n",
-///     " right_containee debug: `\"xyz\"`,\n",
-///     "                  left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-///     "                 right: `\"xyz\"`"
+///     " right_containee debug: `\"zzz\"`,\n",
+///     "                  left: `\"hello\"`,\n",
+///     "                 right: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

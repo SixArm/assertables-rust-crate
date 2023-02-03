@@ -41,7 +41,7 @@ macro_rules! assert_program_args_stderr_ge_expr_as_result {
             ))
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if a_string == $b_expr {
+            if a_string >= $b_expr {
                 Ok(())
             } else {
                 Err(format!(
@@ -67,40 +67,7 @@ macro_rules! assert_program_args_stderr_ge_expr_as_result {
     });
 }
 
-#[cfg(test)]
-mod test_x_result {
-
-    #[test]
-    fn test_assert_program_args_stderr_ge_expr_as_result_x_success() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b = "usage: printf format [arguments ...]\n";
-        let x = assert_program_args_stderr_ge_expr_as_result!(&a_program, &a_args, b);
-        assert_eq!(x.unwrap(), ());
-    }
-
-    #[test]
-    fn test_assert_program_args_stderr_ge_expr_as_result_x_failure() {
-        let a_program = "printf";
-        let a_args: [&str; 0] = [];
-        let b = "hello";
-        let x = assert_program_args_stderr_ge_expr_as_result!(&a_program, &a_args, b);
-        let actual = x.unwrap_err();
-        let expect = concat!(
-            "assertion failed: `assert_program_args_stderr_ge_expr!(left_program, left_args, right_expr)`\n",
-            " left_program label: `&a_program`,\n",
-            " left_program debug: `\"printf\"`,\n",
-            "    left_args label: `&a_args`,\n",
-            "    left_args debug: `[]`,\n",
-            "   right_expr label: `b`,\n",
-            "   right_expr debug: `\"hello\"`,\n",
-            "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-            "              right: `\"hello\"`");
-        assert_eq!(actual, expect);
-    }
-}
-
-/// Assert a command (built with program and args) stderr string is equal to an expression.
+/// Assert a command (built with program and args) stderr string is greater than or equal to an expression.
 ///
 /// * If true, return `()`.
 ///
@@ -114,18 +81,25 @@ mod test_x_result {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// // Return Ok
-/// let program = "printf";
-/// let args: [&str; 0] = [];
-/// let s = "usage: printf format [arguments ...]\n";
+/// // Return Ok because a > b
+/// let program = "bin/printf-stderr";
+/// let args = ["%s", "hello"];
+/// let s = String::from("hallo");
+/// assert_program_args_stderr_ge_expr!(&program, &args, s);
+/// //-> ()
+///
+/// // Return Ok because a == b
+/// let program = "bin/printf-stderr";
+/// let args = ["%s", "hello"];
+/// let s = String::from("hello");
 /// assert_program_args_stderr_ge_expr!(&program, &args, s);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let program = "printf";
-/// let args: [&str; 0] = [];
-/// let s = "hello";
+/// let program = "bin/printf-stderr";
+/// let args = ["%s", "hello"];
+/// let s = String::from("hullo");
 /// assert_program_args_stderr_ge_expr!(&program, &args, s);
 /// //-> panic!
 /// });
@@ -134,13 +108,13 @@ mod test_x_result {
 /// let expect = concat!(
 ///     "assertion failed: `assert_program_args_stderr_ge_expr!(left_program, left_args, right_expr)`\n",
 ///     " left_program label: `&program`,\n",
-///     " left_program debug: `\"printf\"`,\n",
+///     " left_program debug: `\"bin/printf-stderr\"`,\n",
 ///     "    left_args label: `&args`,\n",
-///     "    left_args debug: `[]`,\n",
+///     "    left_args debug: `[\"%s\", \"hello\"]`,\n",
 ///     "   right_expr label: `s`,\n",
-///     "   right_expr debug: `\"hello\"`,\n",
-///     "               left: `\"usage: printf format [arguments ...]\\n\"`,\n",
-///     "              right: `\"hello\"`"
+///     "   right_expr debug: `\"hullo\"`,\n",
+///     "               left: `\"hello\"`,\n",
+///     "              right: `\"hullo\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -168,7 +142,7 @@ macro_rules! assert_program_args_stderr_ge_expr {
     });
 }
 
-/// Assert a command (built with program and args) stderr string is equal to an expression.
+/// Assert a command (built with program and args) stderr string is greater than or equal to an expression.
 ///
 /// This macro provides the same statements as [`assert_program_args_stderr_ge_expr`],
 /// except this macro's statements are only enabled in non-optimized
