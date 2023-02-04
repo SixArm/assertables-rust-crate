@@ -301,7 +301,7 @@ Using standard output a.k.a. stdout:
 
 * `assert_command_stdout_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(containee)
 
-* `assert_command_stdout_matches!(command, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stdout).ap())
+* `assert_command_stdout_is_match!(command, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stdout).ap())
 
 Using standard error a.k.a. stderr:
 
@@ -311,7 +311,7 @@ Using standard error a.k.a. stderr:
 
 * `assert_command_stderr_contains!(command, containee)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(containee)
 
-* `assert_command_stderr_matches!(command, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stderr).ap())
+* `assert_command_stderr_is_match!(command, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stderr).ap())
 
 
 ## assert_program_args_ for process command comparisons created via program name and args interator
@@ -324,7 +324,7 @@ Using standard output a.k.a. stdout:
 
 * `assert_program_args_stdout_contains!(program, args, containee)` ~ String::from_utf8(command.output().unwrap().stdout).unwrap().contains(containee)
 
-* `assert_program_args_stdout_matches!(program, args, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stdout).unwrap())
+* `assert_program_args_stdout_is_match!(program, args, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stdout).unwrap())
 
 Using standard error a.k.a. stderr:
 
@@ -334,7 +334,7 @@ Using standard error a.k.a. stderr:
 
 * `assert_program_args_stderr_contains!(program, args, containee)` ~ String::from_utf8(command.output().unwrap().stderr).unwrap().contains(containee)
 
-* `assert_program_args_stderr_matches!(program, args, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stderr).unwrap())
+* `assert_program_args_stderr_is_match!(program, args, matcher)` ~ regex.is_match(String::from_utf8(command.output().unwrap().stderr).unwrap())
 
 
 ## Tracking

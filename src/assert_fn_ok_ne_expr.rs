@@ -18,8 +18,8 @@
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_ne_expr_as_result {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        let a_result = $function($a_input);
+    ($a_function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
+        let a_result = $a_function($a_input);
         let a_is_ok = a_result.is_ok();
         if !a_is_ok {
             Err(format!(
@@ -32,7 +32,7 @@ macro_rules! assert_fn_ok_ne_expr_as_result {
                     "    right_expr debug: `{:?}`,\n",
                     "         left result: `{:?}`",
                 ),
-                stringify!($function),
+                stringify!($a_function),
                 stringify!($a_input), $a_input,
                 stringify!($b_expr), $b_expr,
                 a_result
@@ -53,7 +53,7 @@ macro_rules! assert_fn_ok_ne_expr_as_result {
                         "                left: `{:?}`,\n",
                         "               right: `{:?}`",
                     ),
-                    stringify!($function),
+                    stringify!($a_function),
                     stringify!($a_input), $a_input,
                     stringify!($b_expr), $b_expr,
                     a_ok,
@@ -162,14 +162,14 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_ne_expr {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        match assert_fn_ok_ne_expr_as_result!($function, $a_input, $b_expr) {
+    ($a_function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
+        match assert_fn_ok_ne_expr_as_result!($a_function, $a_input, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
-        match assert_fn_ok_ne_expr_as_result!($function, $a_input, $b_expr) {
+    ($a_function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
+        match assert_fn_ok_ne_expr_as_result!($a_function, $a_input, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

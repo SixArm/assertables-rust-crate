@@ -26,7 +26,7 @@ Work in progress...
 
 * `assert_contains!` and `assert_not_contains!`
 
-* `assert_match!` and `assert_not_match!`
+* `assert_is_match!` and `assert_not_match!`
 
 
 ### Macros for functions
@@ -481,14 +481,14 @@ Rust `assertables` provides these macros for commands and standard output:
 * assert_command_stdout_eq.rs
 * assert_command_stdout_eq_other.rs
 * assert_command_stdout_contains.rs
-* assert_command_stdout_matches.rs
+* assert_command_stdout_is_match.rs
 
 Rust `assertables` provides these macros for commands and standard error:
 
 * assert_command_stderr_eq.rs
 * assert_command_stderr_eq_other.rs
 * assert_command_stderr_contains.rs
-* assert_command_stderr_matches.rs
+* assert_command_stderr_is_match.rs
 
 
 ### Macros for commands created via program and args
@@ -526,7 +526,7 @@ Rust `assertables` provides these macros for program args and standard output:
 
 * `assert_program_args_stdout_contains!`
 
-* `assert_program_args_stdout_matches!`
+* `assert_program_args_stdout_is_match!`
 
 Rust `assertables` provides these macros for program args and standard error:
 
@@ -536,7 +536,7 @@ Rust `assertables` provides these macros for program args and standard error:
 
 * `assert_program_args_stderr_contains!`
 
-* `assert_program_args_stderr_matches!`
+* `assert_program_args_stderr_is_match!`
 
 
 ## Developers: how we write our test macros

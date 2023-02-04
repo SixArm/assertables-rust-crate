@@ -18,25 +18,74 @@
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_eq_as_result {
-    ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({
-        let a_result = $function($a_input);
-        let b_result = $function($b_input);
+
+    //// Arity 0
+
+    ($a_function:path, $b_function:path $(,)?) => ({
+        let a_result = $a_function();
+        let b_result = $a_function();
         let a_is_ok = a_result.is_ok();
         let b_is_ok = b_result.is_ok();
         if !a_is_ok || !b_is_ok {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fn_ok_eq!(pair_function, left_input, right_input)`\n",
-                    " pair_function label: `{}`,\n",
-                    "    left_input label: `{}`,\n",
-                    "    left_input debug: `{:?}`,\n",
-                    "   right_input label: `{}`,\n",
-                    "   right_input debug: `{:?}`,\n",
-                    "         left result: `{:?}`,\n",
-                    "        right result: `{:?}`"
+                    "assertion failed: `assert_fn_ok_eq!(left_function, right_function)`\n",
+                    "  left_function label: `{}`,\n",
+                    " right_function label: `{}`,\n",
+                    "                 left: `{:?}`,\n",
+                    "                right: `{:?}`"
                 ),
-                stringify!($function),
+                stringify!($a_function),
+                stringify!($b_function),
+                a_result,
+                b_result
+            ))
+        } else {
+            let a_ok = a_result.unwrap();
+            let b_ok = b_result.unwrap();
+            if a_ok == b_ok {
+                Ok(())
+            } else {
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_fn_ok_eq!(left_function, right_function)`\n",
+                        "  left_function label: `{}`,\n",
+                        " right_function label: `{}`,\n",
+                        "                 left: `{:?}`,\n",
+                        "                right: `{:?}`"
+                    ),
+                    stringify!($a_function),
+                    stringify!($b_function),
+                    a_ok,
+                    b_ok
+                ))
+            }
+        }
+    });
+    
+    //// Arity 1
+    
+    ($a_function:path, $a_input:expr, $b_function:path, $b_input:expr $(,)?) => ({
+        let a_result = $a_function($a_input);
+        let b_result = $a_function($b_input);
+        let a_is_ok = a_result.is_ok();
+        let b_is_ok = b_result.is_ok();
+        if !a_is_ok || !b_is_ok {
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_function, right_input)`\n",
+                    "  left_function label: `{}`,\n",
+                    "     left_input label: `{}`,\n",
+                    "     left_input debug: `{:?}`,\n",
+                    " right_function label: `{}`,\n",
+                    "    right_input label: `{}`,\n",
+                    "    right_input debug: `{:?}`,\n",
+                    "                 left: `{:?}`,\n",
+                    "                right: `{:?}`"
+                ),
+                stringify!($a_function),
                 stringify!($a_input), $a_input,
+                stringify!($b_function),
                 stringify!($b_input), $b_input,
                 a_result,
                 b_result
@@ -49,17 +98,19 @@ macro_rules! assert_fn_ok_eq_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_fn_ok_eq!(pair_function, left_input, right_input)`\n",
-                        " pair_function label: `{}`,\n",
-                        "    left_input label: `{}`,\n",
-                        "    left_input debug: `{:?}`,\n",
-                        "   right_input label: `{}`,\n",
-                        "   right_input debug: `{:?}`,\n",
-                        "                left: `{:?}`,\n",
-                        "               right: `{:?}`"
+                        "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_function, right_input)`\n",
+                        "  left_function label: `{}`,\n",
+                        "     left_input label: `{}`,\n",
+                        "     left_input debug: `{:?}`,\n",
+                        " right_function label: `{}`,\n",
+                        "    right_input label: `{}`,\n",
+                        "    right_input debug: `{:?}`,\n",
+                        "                 left: `{:?}`,\n",
+                        "                right: `{:?}`"
                     ),
-                    stringify!($function),
+                    stringify!($a_function),
                     stringify!($a_input), $a_input,
+                    stringify!($b_function),
                     stringify!($b_input), $b_input,
                     a_ok,
                     b_ok
@@ -67,10 +118,46 @@ macro_rules! assert_fn_ok_eq_as_result {
             }
         }
     });
+
 }
 
 #[cfg(test)]
 mod test_x_result {
+
+    //// Arity 0
+
+    fn one() -> Result<i8, i8> {
+        return Ok(1);
+    }
+
+    fn two() -> Result<i8, i8> {
+        return Ok(2);
+    }
+
+    #[test]
+    fn test_assert_fn_ok_eq_as_result_x_arity_0_x_success_because_eq() {
+        let x = assert_fn_ok_eq_as_result!(one, one);
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
+    }
+
+    #[test]
+    fn test_assert_fn_ok_eq_as_result_x_arity_0_x_failure_because_ne() {
+        let x = assert_fn_ok_eq_as_result!(one, two);
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(),
+            concat!(
+                "assertion failed: `assert_fn_ok_eq!(left_function, right_function)`\n",
+                "  left_function label: `one`,\n",
+                " right_function label: `two`,\n",
+                "                 left: `\"1\"`,\n",
+                "                right: `\"2\"`"
+            )
+        );
+    }
+
+    //// Arity 1
 
     fn example_digit_to_string(i: i32) -> Result<String, String> {
         match i {
@@ -80,34 +167,36 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_ok_eq_as_result_x_success() {
+    fn test_assert_fn_ok_eq_as_result_x_arity_1_x_success_because_eq() {
         let a: i32 = 1;
         let b: i32 = 1;
-        let x = assert_fn_ok_eq_as_result!(example_digit_to_string, a, b);
+        let x = assert_fn_ok_eq_as_result!(example_digit_to_string, a, example_digit_to_string, b);
         assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_fn_ok_eq_as_result_x_failure() {
+    fn test_assert_fn_ok_eq_as_result_x_arity_1_x_failure_because_ne() {
         let a: i32 = 1;
         let b: i32 = 2;
-        let x = assert_fn_ok_eq_as_result!(example_digit_to_string, a, b);
+        let x = assert_fn_ok_eq_as_result!(example_digit_to_string, a, example_digit_to_string, b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_fn_ok_eq!(pair_function, left_input, right_input)`\n",
-                " pair_function label: `example_digit_to_string`,\n",
-                "    left_input label: `a`,\n",
-                "    left_input debug: `1`,\n",
-                "   right_input label: `b`,\n",
-                "   right_input debug: `2`,\n",
-                "                left: `\"1\"`,\n",
-                "               right: `\"2\"`"
+                "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_function, right_input)`\n",
+                "  left_function label: `example_digit_to_string`,\n",
+                "     left_input label: `a`,\n",
+                "     left_input debug: `1`,\n",
+                " right_function label: `example_digit_to_string`,\n",
+                "    right_input label: `b`,\n",
+                "    right_input debug: `2`,\n",
+                "                 left: `\"1\"`,\n",
+                "                right: `\"2\"`"
             )
         );
     }
+
 }
 
 /// Assert a function ok() is equal to another.
@@ -146,14 +235,15 @@ mod test_x_result {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_eq!(pair_function, left_input, right_input)`\n",
-///     " pair_function label: `example_digit_to_string`,\n",
-///     "    left_input label: `a`,\n",
-///     "    left_input debug: `1`,\n",
-///     "   right_input label: `b`,\n",
-///     "   right_input debug: `2`,\n",
-///     "                left: `\"1\"`,\n",
-///     "               right: `\"2\"`"
+///     "assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_function, right_input)`\n",
+///     "  left_function label: `example_digit_to_string`,\n",
+///     "     left_input label: `a`,\n",
+///     "     left_input debug: `1`,\n",
+///     " right_function label: `example_digit_to_string`,\n",
+///     "    right_input label: `b`,\n",
+///     "    right_input debug: `2`,\n",
+///     "                 left: `\"1\"`,\n",
+///     "                right: `\"2\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -167,18 +257,39 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_eq {
-    ($function:path, $a_input:expr, $b_input:expr $(,)?) => ({
-        match assert_fn_ok_eq_as_result!($function, $a_input, $b_input) {
+
+    //// Arity 0
+
+    ($a_function:path, $b_function:path $(,)?) => ({
+        match assert_fn_ok_eq_as_result!($a_function, $b_function) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($function:path, $a_input:expr, $b_input:expr, $($message:tt)+) => ({
-        match assert_fn_ok_eq_as_result!($function, $a_input, $b_input) {
+
+    ($a_function:path, $b_function:path, $($message:tt)+) => ({
+        match assert_fn_ok_eq_as_result!($a_function, $b_function) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
+    
+    //// Arity 1
+
+    ($a_function:path, $a_input:expr, $b_function:path, $b_input:expr $(,)?) => ({
+        match assert_fn_ok_eq_as_result!($a_function, $a_input, $b_function, $b_input) {
+            Ok(()) => (),
+            Err(err) => panic!("{}", err),
+        }
+    });
+
+    ($a_function:path, $a_input:expr, $b_function:path, $b_input:expr, $($message:tt)+) => ({
+        match assert_fn_ok_eq_as_result!($a_function, $a_input, $b_function, $b_input) {
+            Ok(()) => (),
+            Err(_err) => panic!("{}", $($message)+),
+        }
+    });
+
 }
 
 /// Assert a function ok() is equal to another.

@@ -77,7 +77,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_ok_lt_expr_as_result_x_success_because_lt_expr() {
+    fn test_assert_fn_ok_lt_expr_as_result_x_success_because_lt() {
         let a: i32 = 1;
         let b = String::from("2");
         let x = assert_fn_ok_lt_expr_as_result!(example_digit_to_string, a, b);
@@ -86,7 +86,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_ok_lt_expr_as_result_x_failure_because_eq_expr() {
+    fn test_assert_fn_ok_lt_expr_as_result_x_failure_because_eq() {
         let a: i32 = 1;
         let b = String::from("1");
         let x = assert_fn_ok_lt_expr_as_result!(example_digit_to_string, a, b);

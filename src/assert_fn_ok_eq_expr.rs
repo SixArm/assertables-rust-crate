@@ -18,8 +18,52 @@
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_eq_expr_as_result {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        let a_result = $function($a_input);
+
+    //// Arity 0
+
+    ($a_function:path, $b_expr:expr $(,)?) => ({
+        let a_result = $a_function();
+        let a_is_ok = a_result.is_ok();
+        if !a_is_ok {
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_fn_ok_eq_expr!(left_function, right_expr)`\n",
+                    " left_function label: `{}`,\n",
+                    "    right_expr label: `{}`,\n",
+                    "    right_expr debug: `{:?}`,\n",
+                    "         left result: `{:?}`",
+                ),
+                stringify!($a_function),
+                stringify!($b_expr), $b_expr,
+                a_result
+            ))
+        } else {
+            let a_ok = a_result.unwrap();
+            if a_ok == $b_expr {
+                Ok(())
+            } else {
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_fn_ok_eq_expr!(left_function, right_expr)`\n",
+                        " left_function label: `{}`,\n",
+                        "    right_expr label: `{}`,\n",
+                        "    right_expr debug: `{:?}`,\n",
+                        "                left: `{:?}`,\n",
+                        "               right: `{:?}`",
+                    ),
+                    stringify!($a_function),
+                    stringify!($b_expr), $b_expr,
+                    a_ok,
+                    $b_expr
+                ))
+            }
+        }
+    });
+    
+    //// Arity 1
+
+    ($a_function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
+        let a_result = $a_function($a_input);
         let a_is_ok = a_result.is_ok();
         if !a_is_ok {
             Err(format!(
@@ -32,7 +76,7 @@ macro_rules! assert_fn_ok_eq_expr_as_result {
                     "    right_expr debug: `{:?}`,\n",
                     "         left result: `{:?}`",
                 ),
-                stringify!($function),
+                stringify!($a_function),
                 stringify!($a_input), $a_input,
                 stringify!($b_expr), $b_expr,
                 a_result
@@ -53,7 +97,7 @@ macro_rules! assert_fn_ok_eq_expr_as_result {
                         "                left: `{:?}`,\n",
                         "               right: `{:?}`",
                     ),
-                    stringify!($function),
+                    stringify!($a_function),
                     stringify!($a_input), $a_input,
                     stringify!($b_expr), $b_expr,
                     a_ok,
@@ -62,10 +106,45 @@ macro_rules! assert_fn_ok_eq_expr_as_result {
             }
         }
     });
+
 }
 
 #[cfg(test)]
 mod test_x_result {
+
+    //// Arity 0
+
+    fn one() -> Result<i8, i8> {
+        return Ok(1);
+    }
+
+    #[test]
+    fn test_assert_fn_ok_eq_expr_as_result_x_arity_0_x_success_because_eq() {
+        let b: i8 = 1;
+        let x = assert_fn_ok_eq_expr_as_result!(one, b);
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
+    }
+
+    #[test]
+    fn test_assert_fn_ok_eq_expr_as_result_x_arity_0_x_failure_because_ne() {
+        let b: i8 = 2;
+        let x = assert_fn_ok_eq_expr_as_result!(one, b);
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(),
+            concat!(
+                "assertion failed: `assert_fn_ok_eq_expr!(left_function, right_expr)`\n",
+                " left_function label: `one`,\n",
+                "    right_expr label: `b`,\n",
+                "    right_expr debug: `\"2\"`,\n",
+                "                left: `\"1\"`,\n",
+                "               right: `\"2\"`"
+            )
+        );
+    }
+
+    //// Arity 1
 
     fn example_digit_to_string(i: i32) -> Result<String, String> {
         match i {
@@ -75,7 +154,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_ok_eq_expr_as_result_x_success() {
+    fn test_assert_fn_ok_eq_expr_as_result_x_arity_1_x_success_because_eq() {
         let a: i32 = 1;
         let b = String::from("1");
         let x = assert_fn_ok_eq_expr_as_result!(example_digit_to_string, a, b);
@@ -84,7 +163,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_ok_eq_expr_as_result_x_failure() {
+    fn test_assert_fn_ok_eq_expr_as_result_x_arity_1_x_failure_because_ne() {
         let a: i32 = 1;
         let b = String::from("2");
         let x = assert_fn_ok_eq_expr_as_result!(example_digit_to_string, a, b);
@@ -103,6 +182,7 @@ mod test_x_result {
             )
         );
     }
+
 }
 
 /// Assert a function ok() is equal to an expression.
@@ -162,18 +242,39 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_eq_expr {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        match assert_fn_ok_eq_expr_as_result!($function, $a_input, $b_expr) {
+
+    //// Arity 0
+
+    ($a_function:path, $b_expr:expr $(,)?) => ({
+        match assert_fn_ok_eq_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
-        match assert_fn_ok_eq_expr_as_result!($function, $a_input, $b_expr) {
+
+    ($a_function:path, $b_expr:expr, $($message:tt)+) => ({
+        match assert_fn_ok_eq_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
+
+    //// Arity 1
+
+    ($a_function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
+        match assert_fn_ok_eq_expr_as_result!($a_function, $a_input, $b_expr) {
+            Ok(()) => (),
+            Err(err) => panic!("{}", err),
+        }
+    });
+
+    ($a_function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
+        match assert_fn_ok_eq_expr_as_result!($a_function, $a_input, $b_expr) {
+            Ok(()) => (),
+            Err(_err) => panic!("{}", $($message)+),
+        }
+    });
+
 }
 
 /// Assert a function ok() is equal to an expression.

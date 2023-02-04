@@ -18,8 +18,35 @@
 ///
 #[macro_export]
 macro_rules! assert_fn_lt_expr_as_result {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        let a_output = $function($a_input);
+
+    //// Arity 0
+
+    ($a_function:path, $b_expr:expr $(,)?) => ({
+        let a_output = $a_function();
+        if a_output < $b_expr {
+            Ok(())
+        } else {
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_fn_lt_expr!(left_function, right_expr)`\n",
+                    " left_function label: `{}`,\n",
+                    "    right_expr label: `{}`,\n",
+                    "    right_expr debug: `{:?}`,\n",
+                    "                left: `{:?}`,\n",
+                    "               right: `{:?}`"
+                ),
+                stringify!($a_function),
+                stringify!($b_expr), $b_expr,
+                a_output,
+                $b_expr
+            ))
+    }
+    });
+    
+    //// Arity 1
+
+    ($a_function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
+        let a_output = $a_function($a_input);
         if a_output < $b_expr {
             Ok(())
         } else {
@@ -34,7 +61,7 @@ macro_rules! assert_fn_lt_expr_as_result {
                     "                left: `{:?}`,\n",
                     "               right: `{:?}`"
                 ),
-                stringify!($function),
+                stringify!($a_function),
                 stringify!($a_input), $a_input,
                 stringify!($b_expr), $b_expr,
                 a_output,
@@ -42,13 +69,70 @@ macro_rules! assert_fn_lt_expr_as_result {
             ))
     }
     });
+
 }
 
 #[cfg(test)]
 mod test_x_result {
 
+    //// Arity 0
+    
+    fn one() -> i8 {
+        return 1;
+    }
+
+    fn two() -> i8 {
+        return 2;
+    }
+
     #[test]
-    fn test_assert_fn_lt_expr_as_result_x_success_because_lt_expr() {
+    fn test_assert_fn_lt_expr_as_result_x_arity_0_x_success_because_lt() {
+        let b: i8 = 2;
+        let x = assert_fn_lt_expr_as_result!(one, b);
+        assert!(x.is_ok());
+        assert_eq!(x, Ok(()));
+    }
+
+    #[test]
+    fn test_assert_fn_lt_expr_as_result_x_arity_0_x_failure_because_eq() {
+        let b: i8 = 1;
+        let x = assert_fn_lt_expr_as_result!(one, b);
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(),
+            concat!(
+                "assertion failed: `assert_fn_lt_expr!(left_function, right_expr)`\n",
+                " left_function label: `one`,\n",
+                "    right_expr label: `b`,\n",
+                "    right_expr debug: `1`,\n",
+                "                left: `1`,\n",
+                "               right: `1`"
+            )
+        );
+    }
+
+    #[test]
+    fn test_assert_fn_lt_expr_as_result_x_arity_0_x_failure_because_gt() {
+        let b: i8 = 1;
+        let x = assert_fn_lt_expr_as_result!(two, b);
+        assert!(x.is_err());
+        assert_eq!(
+            x.unwrap_err(),
+            concat!(
+                "assertion failed: `assert_fn_lt_expr!(left_function, right_expr)`\n",
+                " left_function label: `two`,\n",
+                "    right_expr label: `b`,\n",
+                "    right_expr debug: `1`,\n",
+                "                left: `2`,\n",
+                "               right: `1`"
+            )
+        );
+    }
+
+    //// Arity 1
+    
+    #[test]
+    fn test_assert_fn_lt_expr_as_result_x_arity_1_x_success_because_lt() {
         let a: i32 = -1;
         let b: i32 = 2;
         let x = assert_fn_lt_expr_as_result!(i32::abs, a, b);
@@ -57,7 +141,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_lt_expr_as_result_x_failure_because_eq_expr() {
+    fn test_assert_fn_lt_expr_as_result_x_arity_1_x_failure_because_eq() {
         let a: i32 = -1;
         let b: i32 = 1;
         let x = assert_fn_lt_expr_as_result!(i32::abs, a, b);
@@ -78,7 +162,7 @@ mod test_x_result {
     }
 
     #[test]
-    fn test_assert_fn_lt_expr_as_result_x_failure_because_gt_expr() {
+    fn test_assert_fn_lt_expr_as_result_x_arity_1_x_failure_because_gt() {
         let a: i32 = -2;
         let b: i32 = 1;
         let x = assert_fn_lt_expr_as_result!(i32::abs, a, b);
@@ -97,6 +181,7 @@ mod test_x_result {
             )
         );
     }
+
 }
 
 /// Assert a function output is less than an expression.
@@ -149,18 +234,39 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_fn_lt_expr {
-    ($function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        match assert_fn_lt_expr_as_result!($function, $a_input, $b_expr) {
+
+    //// Arity 0
+
+    ($a_function:path, $b_expr:expr $(,)?) => ({
+        match assert_fn_lt_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
-        match assert_fn_lt_expr_as_result!($function, $a_input, $b_expr) {
+
+    ($a_function:path, $b_expr:expr, $($message:tt)+) => ({
+        match assert_fn_lt_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
+    
+    //// Arity 1
+    
+    ($a_function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
+        match assert_fn_lt_expr_as_result!($a_function, $a_input, $b_expr) {
+            Ok(()) => (),
+            Err(err) => panic!("{}", err),
+        }
+    });
+
+    ($a_function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
+        match assert_fn_lt_expr_as_result!($a_function, $a_input, $b_expr) {
+            Ok(()) => (),
+            Err(_err) => panic!("{}", $($message)+),
+        }
+    });
+
 }
 
 /// Assert a function output is less than an expression.
