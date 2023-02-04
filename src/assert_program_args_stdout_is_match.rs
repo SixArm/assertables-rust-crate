@@ -1,4 +1,4 @@
-/// Assert a command (built with program and args) stderr string is a match to a regex.
+/// Assert a command (built with program and args) stdout string is a match to a regex.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -12,12 +12,12 @@
 ///
 /// # Related
 ///
-/// * [`assert_program_args_stderr_matches`]
-/// * [`assert_program_args_stderr_matches_as_result`]
-/// * [`debug_assert_program_args_stderr_matches`]
+/// * [`assert_program_args_stdout_is_match`]
+/// * [`assert_program_args_stdout_is_match_as_result`]
+/// * [`debug_assert_program_args_stdout_is_match`]
 ///
 #[macro_export]
-macro_rules! assert_program_args_stderr_matches_as_result {
+macro_rules! assert_program_args_stdout_is_match_as_result {
     ($a_program:expr, $a_args:expr, $b_matcher:expr $(,)?) => ({
         let mut a_command = ::std::process::Command::new($a_program);
         a_command.args($a_args);
@@ -25,7 +25,7 @@ macro_rules! assert_program_args_stderr_matches_as_result {
         if a_output.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_program_args_stderr_matches!(left_program, right_matcher)`\n",
+                    "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
                     "  left_program label: `{}`,\n",
                     "  left_program debug: `{:?}`,\n",
                     "     left_args label: `{}`,\n",
@@ -40,13 +40,13 @@ macro_rules! assert_program_args_stderr_matches_as_result {
                 a_output
             ))
         } else {
-            let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
+            let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
             if $b_matcher.is_match(&a_string) {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_program_args_stderr_matches!(left_program, right_matcher)`\n",
+                        "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
                         "  left_program label: `{}`,\n",
                         "  left_program debug: `{:?}`,\n",
                         "     left_args label: `{}`,\n",
@@ -73,25 +73,25 @@ mod test_x_result {
     use regex::Regex;
 
     #[test]
-    fn test_assert_program_args_stderr_matches_as_result_x_success() {
-        let a_program = "bin/printf-stderr";
+    fn test_assert_program_args_stdout_is_match_as_result_x_success() {
+        let a_program = "bin/printf-stdout";
         let a_args = ["%s", "hello"];
         let b = Regex::new(r"ell").unwrap();
-        let x = assert_program_args_stderr_matches_as_result!(&a_program, &a_args, b);
+        let x = assert_program_args_stdout_is_match_as_result!(&a_program, &a_args, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_program_args_stderr_matches_as_result_x_failure() {
-        let a_program = "bin/printf-stderr";
+    fn test_assert_program_args_stdout_is_match_as_result_x_failure() {
+        let a_program = "bin/printf-stdout";
         let a_args = ["%s", "hello"];
         let b = Regex::new(r"zzz").unwrap();
-        let x = assert_program_args_stderr_matches_as_result!(&a_program, &a_args, b);
+        let x = assert_program_args_stdout_is_match_as_result!(&a_program, &a_args, b);
         let actual = x.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_program_args_stderr_matches!(left_program, right_matcher)`\n",
+            "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
             "  left_program label: `&a_program`,\n",
-            "  left_program debug: `\"bin/printf-stderr\"`,\n",
+            "  left_program debug: `\"bin/printf-stdout\"`,\n",
             "     left_args label: `&a_args`,\n",
             "     left_args debug: `[\"%s\", \"hello\"]`,\n",
             " right_matcher label: `b`,\n",
@@ -103,7 +103,7 @@ mod test_x_result {
     }
 }
 
-/// Assert a command (built with program and args) stderr string is a match to a regex.
+/// Assert a command (built with program and args) stdout string is a match to a regex.
 ///
 /// * If true, return `()`.
 ///
@@ -119,26 +119,26 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let program = "bin/printf-stderr";
+/// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
-/// let matcher = Regex::new(r"ell").unwrap();
-/// assert_program_args_stderr_matches!(&program, &args, matcher);
+/// let matcher = Regex::new(r"el").unwrap();
+/// assert_program_args_stdout_is_match!(&program, &args, matcher);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let program = "bin/printf-stderr";
+/// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
 /// let matcher = Regex::new(r"zzz").unwrap();
-/// assert_program_args_stderr_matches!(&program, &args, matcher);
+/// assert_program_args_stdout_is_match!(&program, &args, matcher);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_program_args_stderr_matches!(left_program, right_matcher)`\n",
+///     "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
 ///     "  left_program label: `&program`,\n",
-///     "  left_program debug: `\"bin/printf-stderr\"`,\n",
+///     "  left_program debug: `\"bin/printf-stdout\"`,\n",
 ///     "     left_args label: `&args`,\n",
 ///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
 ///     " right_matcher label: `matcher`,\n",
@@ -152,29 +152,29 @@ mod test_x_result {
 ///
 /// # Related
 ///
-/// * [`assert_program_args_stderr_matches`]
-/// * [`assert_program_args_stderr_matches_as_result`]
-/// * [`debug_assert_program_args_stderr_matches`]
+/// * [`assert_program_args_stdout_is_match`]
+/// * [`assert_program_args_stdout_is_match_as_result`]
+/// * [`debug_assert_program_args_stdout_is_match`]
 ///
 #[macro_export]
-macro_rules! assert_program_args_stderr_matches {
+macro_rules! assert_program_args_stdout_is_match {
     ($a_program:expr, $a_args:expr, $b_matcher:expr $(,)?) => ({
-        match assert_program_args_stderr_matches_as_result!($a_program, $a_args, $b_matcher) {
+        match assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $b_matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a_program:expr, $a_args:expr, $b_matcher:expr, $($message:tt)+) => ({
-        match assert_program_args_stderr_matches_as_result!($a_program, $a_args, $b_matcher) {
+        match assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $b_matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a command (built with program and args) stderr string is a match to a regex.
+/// Assert a command (built with program and args) stdout string is a match to a regex.
 ///
-/// This macro provides the same statements as [`assert_program_args_stderr_matches`],
+/// This macro provides the same statements as [`assert_program_args_stdout_is_match`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -196,15 +196,15 @@ macro_rules! assert_program_args_stderr_matches {
 ///
 /// # Related
 ///
-/// * [`assert_program_args_stderr_matches`]
-/// * [`assert_program_args_stderr_matches`]
-/// * [`debug_assert_program_args_stderr_matches`]
+/// * [`assert_program_args_stdout_is_match`]
+/// * [`assert_program_args_stdout_is_match`]
+/// * [`debug_assert_program_args_stdout_is_match`]
 ///
 #[macro_export]
-macro_rules! debug_assert_program_args_stderr_matches {
+macro_rules! debug_assert_program_args_stdout_is_match {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_program_args_stderr_matches!($($arg)*);
+            $crate::assert_program_args_stdout_is_match!($($arg)*);
         }
     };
 }
