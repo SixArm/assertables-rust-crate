@@ -62,7 +62,7 @@ macro_rules! assert_read_to_string_eq_expr_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
     #[allow(unused_imports)]
     use std::io::Read;
 
@@ -71,7 +71,6 @@ mod test_x_result {
         let mut reader = "alpha".as_bytes();
         let value = String::from("alpha");
         let x = assert_read_to_string_eq_expr_as_result!(reader, &value);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

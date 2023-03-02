@@ -68,7 +68,7 @@ macro_rules! assert_program_args_stdout_contains_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
     #[test]
     fn test_asserterable_command_stdout_contains_x_success() {

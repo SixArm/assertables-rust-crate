@@ -38,7 +38,7 @@ macro_rules! assert_not_starts_with_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
     #[test]
     fn test_assert_not_starts_with_as_result_x_success() {

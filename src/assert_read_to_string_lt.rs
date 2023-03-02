@@ -66,7 +66,7 @@ macro_rules! assert_read_to_string_lt_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
     #[allow(unused_imports)]
     use std::io::Read;
 
@@ -75,7 +75,6 @@ mod test_x_result {
         let mut a = "alpha".as_bytes();
         let mut b = "bravo".as_bytes();
         let x = assert_read_to_string_lt_as_result!(a, b);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

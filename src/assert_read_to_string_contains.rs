@@ -61,7 +61,7 @@ macro_rules! assert_read_to_string_contains_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
     #[allow(unused_imports)]
     use std::io::Read;
 
@@ -70,7 +70,6 @@ mod test_x_result {
         let mut reader = "alpha".as_bytes();
         let containee = "lph";
         let x = assert_read_to_string_contains_as_result!(reader, containee);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

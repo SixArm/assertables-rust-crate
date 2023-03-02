@@ -19,9 +19,39 @@
 #[macro_export]
 macro_rules! assert_fn_gt_as_result {
 
+    //// Arity 1
+
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr) => ({
+        let a_output = $a_function($a_param);
+        let b_output = $b_function($b_param);
+        if a_output > b_output {
+            Ok(())
+        } else {
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_fn_gt!(left_function, left_param, right_function, right_param)`\n",
+                    "  left_function label: `{}`,\n",
+                    "     left_param label: `{}`,\n",
+                    "     left_param debug: `{:?}`,\n",
+                    " right_function label: `{}`,\n",
+                    "    right_param label: `{}`,\n",
+                    "    right_param debug: `{:?}`,\n",
+                    "                 left: `{:?}`,\n",
+                    "                right: `{:?}`"
+                ),
+                stringify!($a_function),
+                stringify!($a_param), $a_param,
+                stringify!($b_function),
+                stringify!($b_param), $b_param,
+                a_output,
+                b_output
+            ))
+        }
+    });
+
     //// Arity 0
 
-    ($a_function:path, $b_function:path $(,)?) => ({
+    ($a_function:path, $b_function:path) => ({
         let a_output = $a_function();
         let b_output = $b_function();
         if a_output > b_output {
@@ -43,143 +73,127 @@ macro_rules! assert_fn_gt_as_result {
         }
     });
 
-    //// Arity 1
-
-    ($a_function:path, $a_input:expr, $b_function:path, $b_input:expr $(,)?) => ({
-        let a_output = $a_function($a_input);
-        let b_output = $b_function($b_input);
-        if a_output > b_output {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fn_gt!(left_function, left_input, right_function, right_input)`\n",
-                    "  left_function label: `{}`,\n",
-                    "     left_input label: `{}`,\n",
-                    "     left_input debug: `{:?}`,\n",
-                    " right_function label: `{}`,\n",
-                    "    right_input label: `{}`,\n",
-                    "    right_input debug: `{:?}`,\n",
-                    "                 left: `{:?}`,\n",
-                    "                right: `{:?}`"
-                ),
-                stringify!($a_function),
-                stringify!($a_input), $a_input,
-                stringify!($b_function),
-                stringify!($b_input), $b_input,
-                a_output,
-                b_output
-            ))
-        }
-    });
-
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
-    //// Arity 0
+    mod assert_fn_gt_as_result {
+        
+        mod arity_1 {
+            
+            fn f(i: i8) -> i8 {
+                return i;
+            }
 
-    fn one() -> i8 {
-        return 1;
-    }
+            fn g(i: i8) -> i8 {
+                return i;
+            }
 
-    fn two() -> i8 {
-        return 2;
-    }
+            #[test]
+            fn test_gt() {
+                let a: i8 = 2;
+                let b: i8 = 1;
+                let x = assert_fn_gt_as_result!(f, a, g, b);
+                assert_eq!(x, Ok(()));
+            }
 
-    #[test]
-    fn test_assert_fn_gt_as_result_x_arity_0_x_success_because_gt() {
-        let x = assert_fn_gt_as_result!(two, one);
-        assert!(x.is_ok());
-        assert_eq!(x, Ok(()));
-    }
+            #[test]
+            fn test_eq() {
+                let a: i8 = 1;
+                let b: i8 = 1;
+                let x = assert_fn_gt_as_result!(f, a, g, b);
+                assert!(x.is_err());
+                assert_eq!(
+                    x.unwrap_err(),
+                    concat!(
+                        "assertion failed: `assert_fn_gt!(left_function, left_param, right_function, right_param)`\n",
+                        "  left_function label: `f`,\n",
+                        "     left_param label: `a`,\n",
+                        "     left_param debug: `1`,\n",
+                        " right_function label: `g`,\n",
+                        "    right_param label: `b`,\n",
+                        "    right_param debug: `1`,\n",
+                        "                 left: `1`,\n",
+                        "                right: `1`"
+                    )
+                );
+            }
 
-    #[test]
-    fn test_assert_fn_gt_as_result_x_arity_0_x_failure_because_eq() {
-        let x = assert_fn_gt_as_result!(one, one);
-        assert!(x.is_err());
-        assert_eq!(
-            x.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_fn_gt!(left_function, right_function)`\n",
-                "  left_function label: `one`,\n",
-                " right_function label: `one`,\n",
-                "                 left: `1`,\n",
-                "                right: `1`"
-            )
-        );
-    }
+            #[test]
+            fn test_lt() {
+                let a: i8 = 1;
+                let b: i8 = 2;
+                let x = assert_fn_gt_as_result!(f, a, g, b);
+                assert!(x.is_err());
+                assert_eq!(
+                    x.unwrap_err(),
+                    concat!(
+                        "assertion failed: `assert_fn_gt!(left_function, left_param, right_function, right_param)`\n",
+                        "  left_function label: `f`,\n",
+                        "     left_param label: `a`,\n",
+                        "     left_param debug: `1`,\n",
+                        " right_function label: `g`,\n",
+                        "    right_param label: `b`,\n",
+                        "    right_param debug: `2`,\n",
+                        "                 left: `1`,\n",
+                        "                right: `2`"
+                    )
+                );
+            }
 
-    #[test]
-    fn test_assert_fn_gt_as_result_x_arity_0_x_failure_because_lt() {
-        let x = assert_fn_gt_as_result!(one, two);
-        assert!(x.is_err());
-        assert_eq!(
-            x.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_fn_gt!(left_function, right_function)`\n",
-                "  left_function label: `one`,\n",
-                " right_function label: `two`,\n",
-                "                 left: `1`,\n",
-                "                right: `2`"
-            )
-        );
-    }
-    
-    //// Arity 1
+        }
 
-    #[test]
-    fn test_assert_fn_gt_as_result_x_arity_1_x_success_because_gt() {
-        let a: i32 = -2;
-        let b: i32 = 1;
-        let x = assert_fn_gt_as_result!(i32::abs, a, i32::abs, b);
-        assert!(x.is_ok());
-        assert_eq!(x, Ok(()));
-    }
+        mod arity_0 {
 
-    #[test]
-    fn test_assert_fn_gt_as_result_x_arity_1_x_failure_because_eq() {
-        let a: i32 = 1;
-        let b: i32 = -1;
-        let x = assert_fn_gt_as_result!(i32::abs, a, i32::abs, b);
-        assert!(x.is_err());
-        assert_eq!(
-            x.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_fn_gt!(left_function, left_input, right_function, right_input)`\n",
-                "  left_function label: `i32::abs`,\n",
-                "     left_input label: `a`,\n",
-                "     left_input debug: `1`,\n",
-                " right_function label: `i32::abs`,\n",
-                "    right_input label: `b`,\n",
-                "    right_input debug: `-1`,\n",
-                "                 left: `1`,\n",
-                "                right: `1`"
-            )
-        );
-    }
+            fn f() -> i8 {
+                return 1;
+            }
 
-    #[test]
-    fn test_assert_fn_gt_as_result_x_arity_1_x_failure_because_lt() {
-        let a: i32 = 1;
-        let b: i32 = -2;
-        let x = assert_fn_gt_as_result!(i32::abs, a, i32::abs, b);
-        assert!(x.is_err());
-        assert_eq!(
-            x.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_fn_gt!(left_function, left_input, right_function, right_input)`\n",
-                "  left_function label: `i32::abs`,\n",
-                "     left_input label: `a`,\n",
-                "     left_input debug: `1`,\n",
-                " right_function label: `i32::abs`,\n",
-                "    right_input label: `b`,\n",
-                "    right_input debug: `-2`,\n",
-                "                 left: `1`,\n",
-                "                right: `2`"
-            )
-        );
+            fn g() -> i8 {
+                return 2;
+            }
+
+            #[test]
+            fn test_gt() {
+                let x = assert_fn_gt_as_result!(g, f);
+                assert_eq!(x, Ok(()));
+            }
+
+            #[test]
+            fn test_eq() {
+                let x = assert_fn_gt_as_result!(f, f);
+                assert!(x.is_err());
+                assert_eq!(
+                    x.unwrap_err(),
+                    concat!(
+                        "assertion failed: `assert_fn_gt!(left_function, right_function)`\n",
+                        "  left_function label: `f`,\n",
+                        " right_function label: `f`,\n",
+                        "                 left: `1`,\n",
+                        "                right: `1`"
+                    )
+                );
+            }
+
+            #[test]
+            fn test_lt() {
+                let x = assert_fn_gt_as_result!(f, g);
+                assert!(x.is_err());
+                assert_eq!(
+                    x.unwrap_err(),
+                    concat!(
+                        "assertion failed: `assert_fn_gt!(left_function, right_function)`\n",
+                        "  left_function label: `f`,\n",
+                        " right_function label: `g`,\n",
+                        "                 left: `1`,\n",
+                        "                right: `2`"
+                    )
+                );
+            }
+
+        }
+
     }
 
 }
@@ -198,28 +212,28 @@ mod test_x_result {
 /// # use std::panic;
 /// # fn main() {
 /// // Return Ok
-/// let a: i32 = -2;
-/// let b: i32 = 1;
-/// assert_fn_gt!(i32::abs, a, i32::abs, b);
+/// let a: i8 = -2;
+/// let b: i8 = 1;
+/// assert_fn_gt!(i8::abs, a, i8::abs, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a: i32 = 1;
-/// let b: i32 = -2;
-/// assert_fn_gt!(i32::abs, a, i32::abs, b);
+/// let a: i8 = 1;
+/// let b: i8 = -2;
+/// assert_fn_gt!(i8::abs, a, i8::abs, b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_gt!(left_function, left_input, right_function, right_input)`\n",
-///     "  left_function label: `i32::abs`,\n",
-///     "     left_input label: `a`,\n",
-///     "     left_input debug: `1`,\n",
-///     " right_function label: `i32::abs`,\n",
-///     "    right_input label: `b`,\n",
-///     "    right_input debug: `-2`,\n",
+///     "assertion failed: `assert_fn_gt!(left_function, left_param, right_function, right_param)`\n",
+///     "  left_function label: `i8::abs`,\n",
+///     "     left_param label: `a`,\n",
+///     "     left_param debug: `1`,\n",
+///     " right_function label: `i8::abs`,\n",
+///     "    right_param label: `b`,\n",
+///     "    right_param debug: `-2`,\n",
 ///     "                 left: `1`,\n",
 ///     "                right: `2`"
 /// );
@@ -236,9 +250,25 @@ mod test_x_result {
 #[macro_export]
 macro_rules! assert_fn_gt {
 
+    //// Arity 1
+
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr) => ({
+        match assert_fn_gt_as_result!($a_function, $a_param, $b_function, $b_param) {
+            Ok(()) => (),
+            Err(err) => panic!("{}", err),
+        }
+    });
+
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => ({
+        match assert_fn_gt_as_result!($a_function, $a_param, $b_function, $b_param) {
+            Ok(()) => (),
+            Err(_err) => panic!("{}", $($message)+),
+        }
+    });
+
     //// Arity 0
 
-    ($a_function:path, $b_function:path $(,)?) => ({
+    ($a_function:path, $b_function:path) => ({
         match assert_fn_gt_as_result!($a_function, $b_function) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
@@ -252,22 +282,6 @@ macro_rules! assert_fn_gt {
         }
     });
     
-    //// Arity 1
-
-    ($a_function:path, $a_input:expr, $b_function:path, $b_input:expr $(,)?) => ({
-        match assert_fn_gt_as_result!($a_function, $a_input, $b_function, $b_input) {
-            Ok(()) => (),
-            Err(err) => panic!("{}", err),
-        }
-    });
-
-    ($a_function:path, $a_input:expr, $b_function:path, $b_input:expr, $($message:tt)+) => ({
-        match assert_fn_gt_as_result!($a_function, $a_input, $b_function, $b_input) {
-            Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
-        }
-    });
-
 }
 
 /// Assert a function output is greater than another.

@@ -46,14 +46,13 @@ macro_rules! assert_gt_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
     #[test]
     fn test_assert_gt_as_result_x_success() {
         let a: i32 = 2;
         let b: i32 = 1;
         let x = assert_gt_as_result!(a, b);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

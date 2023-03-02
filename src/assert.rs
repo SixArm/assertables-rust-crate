@@ -34,13 +34,12 @@ macro_rules! assert_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
     #[test]
     fn test_assert_x_success_as_result() {
         let a = true;
         let x = assert_as_result!(a);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

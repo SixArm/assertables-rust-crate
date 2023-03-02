@@ -54,7 +54,6 @@ mod test_assert_x_result {
         let a: i32 = 1;
         let b: i32 = 2;
         let x = assert_lt_as_result!(a, b);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

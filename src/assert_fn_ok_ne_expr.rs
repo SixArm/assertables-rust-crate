@@ -18,22 +18,25 @@
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_ne_expr_as_result {
-    ($a_function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        let a_result = $a_function($a_input);
+
+    //// Arity 1
+
+    ($a_function:path, $a_param:expr, $b_expr:expr) => ({
+        let a_result = $a_function($a_param);
         let a_is_ok = a_result.is_ok();
         if !a_is_ok {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fn_ok_ne_expr!(left_function, left_input, right_expr)`\n",
+                    "assertion failed: `assert_fn_ok_ne_expr!(left_function, left_param, right_expr)`\n",
                     " left_function label: `{}`,\n",
-                    "    left_input label: `{}`,\n",
-                    "    left_input debug: `{:?}`,\n",
+                    "    left_param label: `{}`,\n",
+                    "    left_param debug: `{:?}`,\n",
                     "    right_expr label: `{}`,\n",
                     "    right_expr debug: `{:?}`,\n",
                     "         left result: `{:?}`",
                 ),
                 stringify!($a_function),
-                stringify!($a_input), $a_input,
+                stringify!($a_param), $a_param,
                 stringify!($b_expr), $b_expr,
                 a_result
             ))
@@ -44,17 +47,17 @@ macro_rules! assert_fn_ok_ne_expr_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_fn_ok_ne_expr!(left_function, left_input, right_expr)`\n",
+                        "assertion failed: `assert_fn_ok_ne_expr!(left_function, left_param, right_expr)`\n",
                         " left_function label: `{}`,\n",
-                        "    left_input label: `{}`,\n",
-                        "    left_input debug: `{:?}`,\n",
+                        "    left_param label: `{}`,\n",
+                        "    left_param debug: `{:?}`,\n",
                         "    right_expr label: `{}`,\n",
                         "    right_expr debug: `{:?}`,\n",
                         "                left: `{:?}`,\n",
                         "               right: `{:?}`",
                     ),
                     stringify!($a_function),
-                    stringify!($a_input), $a_input,
+                    stringify!($a_param), $a_param,
                     stringify!($b_expr), $b_expr,
                     a_ok,
                     $b_expr
@@ -62,47 +65,127 @@ macro_rules! assert_fn_ok_ne_expr_as_result {
             }
         }
     });
+
+    //// Arity 0
+
+    ($a_function:path, $b_expr:expr) => ({
+        let a_result = $a_function();
+        let a_is_ok = a_result.is_ok();
+        if !a_is_ok {
+            Err(format!(
+                concat!(
+                    "assertion failed: `assert_fn_ok_ne_expr!(left_function, right_expr)`\n",
+                    " left_function label: `{}`,\n",
+                    "    right_expr label: `{}`,\n",
+                    "    right_expr debug: `{:?}`,\n",
+                    "         left result: `{:?}`",
+                ),
+                stringify!($a_function),
+                stringify!($b_expr), $b_expr,
+                a_result
+            ))
+        } else {
+            let a_ok = a_result.unwrap();
+            if a_ok != $b_expr {
+                Ok(())
+            } else {
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_fn_ok_ne_expr!(left_function, right_expr)`\n",
+                        " left_function label: `{}`,\n",
+                        "    right_expr label: `{}`,\n",
+                        "    right_expr debug: `{:?}`,\n",
+                        "                left: `{:?}`,\n",
+                        "               right: `{:?}`",
+                    ),
+                    stringify!($a_function),
+                    stringify!($b_expr), $b_expr,
+                    a_ok,
+                    $b_expr
+                ))
+            }
+        }
+    });
+
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
-    fn example_digit_to_string(i: i32) -> Result<String, String> {
-        match i {
-            0..=9 => Ok(format!("{}", i)),
-            _ => Err(format!("{:?} is out of range", i)),
+    mod assert_fn_ok_ne_expr_as_result {
+
+        mod arity_1 {
+
+            fn f(i: i8) -> Result<i8, i8> {
+                return Ok(i);
+            }
+
+            #[test]
+            fn test_ne() {
+                let a: i8 = 1;
+                let b: i8 = 2;
+                let x = assert_fn_ok_ne_expr_as_result!(f, a, b);
+                assert_eq!(x, Ok(()));
+            }
+
+            #[test]
+            fn test_eq() {
+                let a: i8 = 1;
+                let b: i8 = 1;
+                let x = assert_fn_ok_ne_expr_as_result!(f, a, b);
+                assert!(x.is_err());
+                assert_eq!(
+                    x.unwrap_err(),
+                    concat!(
+                        "assertion failed: `assert_fn_ok_ne_expr!(left_function, left_param, right_expr)`\n",
+                        " left_function label: `f`,\n",
+                        "    left_param label: `a`,\n",
+                        "    left_param debug: `1`,\n",
+                        "    right_expr label: `b`,\n",
+                        "    right_expr debug: `1`,\n",
+                        "                left: `1`,\n",
+                        "               right: `1`"
+                    )
+                );
+            }
+
         }
+
+        mod arity_0 {
+
+            fn f() -> Result<i8, i8> {
+                return Ok(1);
+            }
+
+            #[test]
+            fn test_ne() {
+                let b: i8 = 2;
+                let x = assert_fn_ok_ne_expr_as_result!(f, b);
+                assert_eq!(x, Ok(()));
+            }
+
+            #[test]
+            fn test_eq() {
+                let b: i8 = 1;
+                let x = assert_fn_ok_ne_expr_as_result!(f, b);
+                assert!(x.is_err());
+                assert_eq!(
+                    x.unwrap_err(),
+                    concat!(
+                        "assertion failed: `assert_fn_ok_ne_expr!(left_function, right_expr)`\n",
+                        " left_function label: `f`,\n",
+                        "    right_expr label: `b`,\n",
+                        "    right_expr debug: `1`,\n",
+                        "                left: `1`,\n",
+                        "               right: `1`"
+                    )
+                );
+            }
+
+        }
+
     }
 
-    #[test]
-    fn test_assert_fn_ok_ne_expr_as_result_x_success() {
-        let a: i32 = 1;
-        let b = String::from("2");
-        let x = assert_fn_ok_ne_expr_as_result!(example_digit_to_string, a, b);
-        assert!(x.is_ok());
-        assert_eq!(x, Ok(()));
-    }
-
-    #[test]
-    fn test_assert_fn_ok_ne_expr_as_result_x_failure() {
-        let a: i32 = 1;
-        let b = String::from("1");
-        let x = assert_fn_ok_ne_expr_as_result!(example_digit_to_string, a, b);
-        assert!(x.is_err());
-        assert_eq!(
-            x.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_fn_ok_ne_expr!(left_function, left_input, right_expr)`\n",
-                " left_function label: `example_digit_to_string`,\n",
-                "    left_input label: `a`,\n",
-                "    left_input debug: `1`,\n",
-                "    right_expr label: `b`,\n",
-                "    right_expr debug: `\"1\"`,\n",
-                "                left: `\"1\"`,\n",
-                "               right: `\"1\"`"
-            )
-        );
-    }
 }
 
 /// Assert a function ok() is not equal to an expression.
@@ -117,7 +200,7 @@ mod test_x_result {
 /// ```rust
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
-/// fn example_digit_to_string(i: i32) -> Result<String, String> {
+/// fn f(i: i8) -> Result<String, String> {
 ///     match i {
 ///         0..=9 => Ok(format!("{}", i)),
 ///         _ => Err(format!("{:?} is out of range", i)),
@@ -126,25 +209,25 @@ mod test_x_result {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let a: i32 = 1;
+/// let a: i8 = 1;
 /// let b = String::from("2");
-/// assert_fn_ok_ne_expr!(example_digit_to_string, a, b);
+/// assert_fn_ok_ne_expr!(f, a, b);
 /// //-> ()
 ///
+/// let a: i8 = 1;
+/// let b = String::from("1");
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a: i32 = 1;
-/// let b = String::from("1");
-/// assert_fn_ok_ne_expr!(example_digit_to_string, a, b);
+/// assert_fn_ok_ne_expr!(f, a, b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_ne_expr!(left_function, left_input, right_expr)`\n",
-///     " left_function label: `example_digit_to_string`,\n",
-///     "    left_input label: `a`,\n",
-///     "    left_input debug: `1`,\n",
+///     "assertion failed: `assert_fn_ok_ne_expr!(left_function, left_param, right_expr)`\n",
+///     " left_function label: `f`,\n",
+///     "    left_param label: `a`,\n",
+///     "    left_param debug: `1`,\n",
 ///     "    right_expr label: `b`,\n",
 ///     "    right_expr debug: `\"1\"`,\n",
 ///     "                left: `\"1\"`,\n",
@@ -162,18 +245,39 @@ mod test_x_result {
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_ne_expr {
-    ($a_function:path, $a_input:expr, $b_expr:expr $(,)?) => ({
-        match assert_fn_ok_ne_expr_as_result!($a_function, $a_input, $b_expr) {
+
+    //// Arity 1
+
+    ($a_function:path, $a_param:expr, $b_expr:expr) => ({
+        match assert_fn_ok_ne_expr_as_result!($a_function, $a_param, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_function:path, $a_input:expr, $b_expr:expr, $($message:tt)+) => ({
-        match assert_fn_ok_ne_expr_as_result!($a_function, $a_input, $b_expr) {
+
+    ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => ({
+        match assert_fn_ok_ne_expr_as_result!($a_function, $a_param, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
+
+    //// Arity 0
+
+    ($a_function:path, $b_expr:expr) => ({
+        match assert_fn_ok_ne_expr_as_result!($a_function, $b_expr) {
+            Ok(()) => (),
+            Err(err) => panic!("{}", err),
+        }
+    });
+
+    ($a_function:path, $b_expr:expr, $($message:tt)+) => ({
+        match assert_fn_ok_ne_expr_as_result!($a_function, $b_expr) {
+            Ok(()) => (),
+            Err(_err) => panic!("{}", $($message)+),
+        }
+    });
+
 }
 
 /// Assert a function ok() is not equal to an expression.

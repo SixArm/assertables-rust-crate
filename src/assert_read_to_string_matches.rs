@@ -61,7 +61,7 @@ macro_rules! assert_read_to_string_matches_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
     use std::io::Read;
     use regex::Regex;
 
@@ -70,7 +70,6 @@ mod test_x_result {
         let mut reader = "alpha".as_bytes();
         let matcher = Regex::new(r"lph").unwrap();
         let x = assert_read_to_string_matches_as_result!(reader, matcher);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

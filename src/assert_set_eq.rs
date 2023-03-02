@@ -50,14 +50,13 @@ macro_rules! assert_set_eq_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
     #[test]
     fn test_assert_set_eq_as_result_x_success() {
         let a = [1, 2];
         let b = [1, 2];
         let x = assert_set_eq_as_result!(&a, &b);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

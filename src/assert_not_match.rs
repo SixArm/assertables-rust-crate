@@ -38,7 +38,7 @@ macro_rules! assert_not_match_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
     use regex::Regex;
 

@@ -63,7 +63,6 @@ mod test_as_result {
         let a = [1, 1];
         let b = [1, 1];
         let x = assert_bag_eq_as_result!(&a, &b);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

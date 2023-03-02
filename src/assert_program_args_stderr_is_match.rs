@@ -68,7 +68,7 @@ macro_rules! assert_program_args_stderr_is_match_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
     use regex::Regex;
 

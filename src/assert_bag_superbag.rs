@@ -59,14 +59,13 @@ macro_rules! assert_bag_superbag_as_result {
 }
 
 #[cfg(test)]
-mod test_x_result {
+mod tests {
 
     #[test]
     fn test_assert_bag_superbag_as_result_x_success() {
         let a = [1, 1, 1];
         let b = [1, 1];
         let x = assert_bag_superbag_as_result!(&a, &b);
-        assert!(x.is_ok());
         assert_eq!(x, Ok(()));
     }
 

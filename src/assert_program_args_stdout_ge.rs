@@ -81,7 +81,7 @@ macro_rules! assert_program_args_stdout_ge_as_result {
 }
 
 #[cfg(test)]
-mod assert_tests_as_result {
+mod tests {
 
     #[test]
     fn test_assert_program_args_stdout_ge_as_result_x_success_because_gt() {

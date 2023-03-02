@@ -65,7 +65,7 @@ macro_rules! assert_command_stdout_eq_as_result {
 }
 
 #[cfg(test)]
-mod assert_tests_as_result {
+mod tests {
 
     use std::process::Command;
 
