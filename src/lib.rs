@@ -18,17 +18,17 @@
 //! Macros for values such as:
 //!
 //! ```ignore
-//! let x = 1;
-//! let y = 2;
-//! assert_gt!(x, y); // x is greater than y
+//! assert_ne!(value1, value2); // value1 is not equal to value2
+//! assert_gt!(value1, value2); // value1 is greater than value2
+//! assert_lt!(value1, value2); // value1 is less than value2
 //! ```
 //!
 //! Macros for strings, matchers, patterns, etc. such as:
 //!
 //! ```ignore
-//! let x = "example";
-//! let y = "ex"
-//! assert_starts_with!(x, y); // x starts with y
+//! assert_starts_with!(string1, string2); // string1 starts with string2
+//! assert_ends_with!(string1, string2); // string1 ends with string2
+//! assert_contains!(string1, string2); // string1 contains string2
 //! ```
 //!
 //! Macros for arrays, vectors, sets, bags, etc., such as:
@@ -37,14 +37,18 @@
 //! let x = [1, 2];
 //! let y = [1, 2, 3];
 //! assert_set_subset!(x, y); // x is a subset of y
+//! assert_set_superset!(x, y); // x is a superset of y
+//! assert_set_disjoint!(x, y); // x is disjoint with y
 //! ```
 //!
 //! Macros for functions such as:
 //!
 //! ```ignore
-//! let x = -1;
-//! let y = 1;
-//! assert_fn_eq!(abs, x, y); // function(input) = output
+//! fn f() … { … }
+//! fn g() … { … }
+//! assert_fn_eq!(f, g); // f() = g()
+//! assert_fn_ok_eq!(f, g); // f().ok().unwrap() = g().ok().unwrap()
+//! assert_fn_err_eq!(f, g); // f().err().unwrap() = g().err().unwrap()
 //! ```
 //!
 //! Macros for readers, streams, etc. such as:
@@ -164,27 +168,29 @@
 //!
 //! * `assert_ge!(a, b)` means a ≥ b
 //!
+//! * `assert_in_delta!(a, b, delta)` means | a - b | ≤ delta
 //!
+//! 
 //! ## assert_* for strings and matchers
 //!
 //! These macros help with strings and also other structures that
 //! provide matchers such as starts_with, ends_width, and is_match.
 //!
-//! * `assert_starts_with(a, b) means a.starts_with(b)
+//! * `assert_starts_with(a, b)` means a.starts_with(b)
 //!
-//! * `assert_not_starts_with(a, b) means !a.starts_with(b)
+//! * `assert_not_starts_with(a, b)` means !a.starts_with(b)
 //! 
-//! * `assert_ends_with(a, b) means a.ende_with(b)
+//! * `assert_ends_with(a, b)` means a.ends_with(b)
 //!
-//! * `assert_not_ends_with(a, b) means !a.ende_with(b)
+//! * `assert_not_ends_with(a, b)` means !a.ends_with(b)
 //! 
-//! * `assert_contains(a, b) means a.contains(b)
+//! * `assert_contains(a, b)` means a.contains(b)
 //!
-//! * `assert_not_contains(a, b) means !a.not_contains(b)
+//! * `assert_not_contains(a, b)` means !a.contains(b)
 //! 
-//! * `assert_is_match(a, b) means a.is_match(b)
+//! * `assert_is_match(a, b)` means a.is_match(b)
 //!
-//! * `assert_is_match(a, b) means !a.is_match(b)
+//! * `assert_is_match(a, b)` means !a.is_match(b)
 //!
 //! 
 //! ## assert_set_* for set collection comparisons
@@ -201,9 +207,9 @@
 //!
 //! * `assert_set_superset!(a, b)` means set a ⊇ set b
 //!
-//! * `assert_set_joint!(a, b)` means set a is joint with set b
+//! * `assert_set_joint!(a, b)` means set a ∩ set b ≠ ∅
 //!
-//! * `assert_set_disjoint!(a, b)` means set a is disjoint with set b
+//! * `assert_set_disjoint!(a, b)` means set a ∩ set b = ∅
 //!
 //!
 //! ## assert_bag_* for bag collection comparisons
@@ -413,6 +419,9 @@ pub mod assert_lt;
 pub mod assert_le;
 pub mod assert_gt;
 pub mod assert_ge;
+
+// Assert value nearness
+pub mod assert_in_delta;
 
 // Assert value matching
 pub mod assert_starts_with; pub mod assert_not_starts_with;
