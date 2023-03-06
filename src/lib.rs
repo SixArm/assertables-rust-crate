@@ -170,6 +170,8 @@
 //!
 //! * `assert_in_delta!(a, b, delta)` means | a - b | ≤ delta
 //!
+//! * `assert_in_epsilon(a, b, epsilon)` means | a - b | ≤ epsilon * min(a, b) 
+//! 
 //! 
 //! ## assert_* for strings and matchers
 //!
@@ -422,6 +424,7 @@ pub mod assert_ge;
 
 // Assert value nearness
 pub mod assert_in_delta;
+pub mod assert_in_epsilon;
 
 // Assert value matching
 pub mod assert_starts_with; pub mod assert_not_starts_with;
