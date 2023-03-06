@@ -5,11 +5,11 @@
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// This macro provides the same statements as [`assert_`],
-/// except this macro returns a Result, rather than doing a panic.
+/// This macro provides the same statements as [`assert_`], except this macro
+/// returns a Result, rather than doing a panic.
 ///
-/// This macro is useful for runtime checks, such as checking parameters,
-/// or santizing inputs, or handling different results in different ways.
+/// This macro is useful for runtime checks, such as checking parameters, or
+/// santizing inputs, or handling different results in different ways.
 ///
 /// # Related
 ///
@@ -143,6 +143,24 @@ mod tests {
 /// # }
 /// ```
 ///
+/// The macros `assert_in_delta` and `assert_in_epsilon` can test
+/// approximations:
+/// 
+/// * For an approximation, the absolute error (i.e. delta) is the magnitude of
+///   the difference between the exact value and the approximation. For this,
+///  use the macro
+///
+/// * For an approximation, the relative error (i.e. epsilon) is the absolute
+///   error divided by the magnitude of the exact value. This can be used to
+///   compare approximations of numbers of wildly differing size.
+/// 
+/// * For example, approximating the number 1,000 with an absolute error of 3
+///   is, in most applications, much worse than approximating the number
+///   1,000,000 with an absolute error of 3; in the first case the relative
+///   error is 0.003 and in the second it is only 0.000003.
+///
+/// * Thanks to Ruby minitest for the example and documentation.
+/// 
 /// # Related
 ///
 /// * [`assert_in_delta`]
