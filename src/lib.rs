@@ -396,7 +396,7 @@
 //!
 //! * Add `debug_assert_*` macros everywhere.
 //!
-//! * Add GPL-3.0 license.
+//! * Add `GPL-3.0` license.
 //!
 //!
 //! ## Tracking
