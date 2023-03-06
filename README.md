@@ -20,7 +20,7 @@ When you write Rust tests, then you can use Rust assert macros, such as:
 assert_eq!(value1, value2)
 ```
 
-The assertables crate provides many more assert macros for values,
+The assertables Rust crate provides many more assert macros for values,
 strings, vectors, readers, commands, and more, such as:
 
 ```rust
@@ -396,7 +396,7 @@ assert_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = expr
 
 * Add `debug_assert_*` macros everywhere.
 
-* Add GPL-3.0 license.
+* Add `GPL-3.0` license.
 
 
 ## Tracking

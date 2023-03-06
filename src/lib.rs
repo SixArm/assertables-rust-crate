@@ -20,7 +20,7 @@
 //! assert_eq!(value1, value2)
 //! ```
 //! 
-//! The assertables crate provides many more assert macros for values,
+//! The assertables Rust crate provides many more assert macros for values,
 //! strings, vectors, readers, commands, and more, such as:
 //! 
 //! ```ignore
