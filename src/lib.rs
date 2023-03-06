@@ -105,7 +105,7 @@
 //!
 //! These macros help with comparison of set parameters, such as two arrays or
 //! two vectors. where the item order does not matter, and the item count does
-//! not matter. The macros convert inputs into HashSet iterators.
+//! not matter. These macros convert their inputs into HashSet iterators.
 //!
 //! * `assert_set_eq!(a, b)` ≈ set a = set b
 //!
@@ -124,7 +124,7 @@
 //!
 //! These macros help with comparison of bag parameters, such as comparison of
 //! two arrays or two vectors, where the item order does not matter, and the
-//! item count does matter. The macros convert inputs into HashMap iterators.
+//! item count does matter. These macros convert their inputs into HashMap iterators.
 //!
 //! * `assert_bag_eq(a, b)` ≈ bag a = bag b
 //!
