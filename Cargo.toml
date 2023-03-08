@@ -1,6 +1,6 @@
 [package]
 name = "assertables"
-version = "7.0.0"
+version = "7.0.1"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2021"
 description = "Assertables: Rust crate of macros `assert…!` for better testing, quality assurance, and runtime reliability."
@@ -25,5 +25,5 @@ split-debuginfo = "packed"
 [dependencies]
 
 [dev-dependencies]
-cargo-dist = "0.0.2" # Cargo distribution builder for release engineering
+cargo-dist = "0.0.4" # Cargo distribution builder for release engineering
 regex = "1.7.1" # Regular expressions parser, compiler, and executer
