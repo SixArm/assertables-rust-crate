@@ -48,7 +48,7 @@
 //! 
 //! * Easy to use: each macro is well-documented with runnable examples and tests.
 //! 
-//! * Zero overhead: if you don't use a macro, then it's never compilted into your code.
+//! * Zero overhead: if you don't use a macro, then it's never compiled into your code.
 //! 
 //! * Three forms: `assert_*` for development, `debug_assert_*` for debugging, and `assert_*_as_result` for production.
 //! 
