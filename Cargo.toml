@@ -26,5 +26,5 @@ split-debuginfo = "packed"
 
 [dev-dependencies]
 cargo-dist = "0.0.4" # Cargo distribution builder for release engineering
-cargo-release = "0.24.5" # Cargo release automation
-regex = "1.7.1" # Regular expressions parser, compiler, and executer
+cargo-release = "0.24.12" # Cargo release automation
+regex = "1.9.5" # Regular expressions parser, compiler, and executer

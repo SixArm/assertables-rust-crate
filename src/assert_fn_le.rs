@@ -10,7 +10,7 @@
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
-/// or santizing inputs, or handling different results in different ways.
+/// or sanitizing inputs, or handling different results in different ways.
 ///
 /// # Related
 ///
