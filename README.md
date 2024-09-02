@@ -375,7 +375,9 @@ Abbreviations:
 
 Shorthands:
 
-* `reader` ≈ implements `.read_to_string(…)` such as `std::io::Read`.
+* `path` ≈ implements `AsRef<Path>` such as `std::path::PathBuf`.
+
+* `reader` ≈ implements method `.read_to_string()` such as `std::io::Read`.
 
 * `matcher` ≈ implements `.is_match(…)` such as `regex::Regex`.
 
