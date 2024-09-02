@@ -67,15 +67,15 @@ mod tests {
 
     #[test]
     fn test_assert_io_read_to_string_contains_as_result_x_success() {
-        let mut reader = "alpha".as_bytes();
-        let containee = "lph";
+        let mut reader = "alfa".as_bytes();
+        let containee = "alfa";
         let x = assert_io_read_to_string_contains_as_result!(reader, containee);
         assert_eq!(x, Ok(()));
     }
 
     #[test]
     fn test_assert_io_read_to_string_contains_as_result_x_failure() {
-        let mut reader = "alpha".as_bytes();
+        let mut reader = "alfa".as_bytes();
         let containee = "zzz";
         let x = assert_io_read_to_string_contains_as_result!(reader, containee);
         assert!(x.is_err());
@@ -87,7 +87,7 @@ mod tests {
                 "     left_reader debug: `[]`,\n",
                 " right_containee label: `containee`,\n",
                 " right_containee debug: `\"zzz\"`,\n",
-                "                  left: `\"alpha\"`,\n",
+                "                  left: `\"alfa\"`,\n",
                 "                 right: `\"zzz\"`"
             )
         );

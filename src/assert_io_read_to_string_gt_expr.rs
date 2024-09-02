@@ -69,14 +69,14 @@ mod tests {
     #[test]
     fn test_assert_io_read_to_string_gt_expr_as_result_x_success() {
         let mut reader = "bravo".as_bytes();
-        let value = String::from("alpha");
+        let value = String::from("alfa");
         let x = assert_io_read_to_string_gt_expr_as_result!(reader, &value);
         assert_eq!(x, Ok(()));
     }
 
     #[test]
     fn test_assert_io_read_to_string_gt_expr_as_result_x_failure() {
-        let mut reader = "alpha".as_bytes();
+        let mut reader = "alfa".as_bytes();
         let value = String::from("bravo");
         let x = assert_io_read_to_string_gt_expr_as_result!(reader, &value);
         assert!(x.is_err());
@@ -88,7 +88,7 @@ mod tests {
                 " left_reader debug: `[]`,\n",
                 "  right_expr label: `&value`,\n",
                 "  right_expr debug: `\"bravo\"`,\n",
-                "              left: `\"alpha\"`,\n",
+                "              left: `\"alfa\"`,\n",
                 "             right: `\"bravo\"`"
             )
         );
@@ -112,13 +112,13 @@ mod tests {
 /// # fn main() {
 /// // Return Ok
 /// let mut reader = "bravo".as_bytes();
-/// let value = String::from("alpha");
+/// let value = String::from("alfa");
 /// assert_io_read_to_string_gt_expr!(reader, &value);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let mut reader = "alpha".as_bytes();
+/// let mut reader = "alfa".as_bytes();
 /// let value = String::from("bravo");
 /// assert_io_read_to_string_gt_expr!(reader, &value);
 /// //-> panic!
@@ -131,7 +131,7 @@ mod tests {
 ///     " left_reader debug: `[]`,\n",
 ///     "  right_expr label: `&value`,\n",
 ///     "  right_expr debug: `\"bravo\"`,\n",
-///     "              left: `\"alpha\"`,\n",
+///     "              left: `\"alfa\"`,\n",
 ///     "             right: `\"bravo\"`"
 /// );
 /// assert_eq!(actual, expect);

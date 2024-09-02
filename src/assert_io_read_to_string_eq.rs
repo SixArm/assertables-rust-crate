@@ -72,15 +72,15 @@ mod tests {
 
     #[test]
     fn test_assert_io_read_to_string_eq_as_result_x_success() {
-        let mut a = "alpha".as_bytes();
-        let mut b = "alpha".as_bytes();
+        let mut a = "alfa".as_bytes();
+        let mut b = "alfa".as_bytes();
         let x = assert_io_read_to_string_eq_as_result!(a, b);
         assert_eq!(x, Ok(()));
     }
 
     #[test]
     fn test_assert_io_read_to_string_eq_as_result_x_failure() {
-        let mut a = "alpha".as_bytes();
+        let mut a = "alfa".as_bytes();
         let mut b = "bravo".as_bytes();
         let x = assert_io_read_to_string_eq_as_result!(a, b);
         assert!(x.is_err());
@@ -92,7 +92,7 @@ mod tests {
                 "  left_reader debug: `[]`,\n",
                 " right_reader label: `b`,\n",
                 " right_reader debug: `[]`,\n",
-                "               left: `\"alpha\"`,\n",
+                "               left: `\"alfa\"`,\n",
                 "              right: `\"bravo\"`"
             )
         );
@@ -115,14 +115,14 @@ mod tests {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let mut a = "alpha".as_bytes();
-/// let mut b = "alpha".as_bytes();
+/// let mut a = "alfa".as_bytes();
+/// let mut b = "alfa".as_bytes();
 /// assert_io_read_to_string_eq!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let mut a = "alpha".as_bytes();
+/// let mut a = "alfa".as_bytes();
 /// let mut b = "bravo".as_bytes();
 /// assert_io_read_to_string_eq!(a, b);
 /// //-> panic!
@@ -135,7 +135,7 @@ mod tests {
 ///     "  left_reader debug: `[]`,\n",
 ///     " right_reader label: `b`,\n",
 ///     " right_reader debug: `[]`,\n",
-///     "               left: `\"alpha\"`,\n",
+///     "               left: `\"alfa\"`,\n",
 ///     "              right: `\"bravo\"`"
 /// );
 /// assert_eq!(actual, expect);

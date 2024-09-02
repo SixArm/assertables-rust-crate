@@ -67,15 +67,15 @@ mod tests {
 
     #[test]
     fn test_assert_io_read_to_string_matches_as_result_x_success() {
-        let mut reader = "alpha".as_bytes();
-        let matcher = Regex::new(r"lph").unwrap();
+        let mut reader = "alfa".as_bytes();
+        let matcher = Regex::new(r"alfa").unwrap();
         let x = assert_io_read_to_string_matches_as_result!(reader, matcher);
         assert_eq!(x, Ok(()));
     }
 
     #[test]
     fn test_assert_io_read_to_string_matches_as_result_x_failure() {
-        let mut reader = "alpha".as_bytes();
+        let mut reader = "alfa".as_bytes();
         let matcher = Regex::new(r"zzz").unwrap();
         let x = assert_io_read_to_string_matches_as_result!(reader, matcher);
         assert!(x.is_err());
@@ -87,7 +87,7 @@ mod tests {
                 "   left_reader debug: `[]`,\n",
                 " right_matcher label: `matcher`,\n",
                 " right_matcher debug: `Regex(\"zzz\")`,\n",
-                "                left: `\"alpha\"`,\n",
+                "                left: `\"alfa\"`,\n",
                 "               right: `Regex(\"zzz\")`"
             )
         );

@@ -72,7 +72,7 @@ mod tests {
 
     #[test]
     fn test_assert_io_read_to_string_ne_as_result_x_success() {
-        let mut a = "alpha".as_bytes();
+        let mut a = "alfa".as_bytes();
         let mut b = "bravo".as_bytes();
         let x = assert_io_read_to_string_ne_as_result!(a, b);
         assert_eq!(x, Ok(()));
@@ -80,8 +80,8 @@ mod tests {
 
     #[test]
     fn test_assert_io_read_to_string_ne_as_result_x_failure() {
-        let mut a = "alpha".as_bytes();
-        let mut b = "alpha".as_bytes();
+        let mut a = "alfa".as_bytes();
+        let mut b = "alfa".as_bytes();
         let x = assert_io_read_to_string_ne_as_result!(a, b);
         assert!(x.is_err());
         assert_eq!(
@@ -92,8 +92,8 @@ mod tests {
                 "  left_reader debug: `[]`,\n",
                 " right_reader label: `b`,\n",
                 " right_reader debug: `[]`,\n",
-                "               left: `\"alpha\"`,\n",
-                "              right: `\"alpha\"`"
+                "               left: `\"alfa\"`,\n",
+                "              right: `\"alfa\"`"
             )
         );
     }
@@ -115,15 +115,15 @@ mod tests {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let mut a = "alpha".as_bytes();
+/// let mut a = "alfa".as_bytes();
 /// let mut b = "bravo".as_bytes();
 /// assert_io_read_to_string_ne!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let mut a = "alpha".as_bytes();
-/// let mut b = "alpha".as_bytes();
+/// let mut a = "alfa".as_bytes();
+/// let mut b = "alfa".as_bytes();
 /// assert_io_read_to_string_ne!(a, b);
 /// //-> panic!
 /// });
@@ -135,8 +135,8 @@ mod tests {
 ///     "  left_reader debug: `[]`,\n",
 ///     " right_reader label: `b`,\n",
 ///     " right_reader debug: `[]`,\n",
-///     "               left: `\"alpha\"`,\n",
-///     "              right: `\"alpha\"`"
+///     "               left: `\"alfa\"`,\n",
+///     "              right: `\"alfa\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
