@@ -24,7 +24,7 @@
 //! strings, vectors, readers, commands, and more, such as:
 //! 
 //! ```ignore
-//! assert_gt!(value1, value2); // value1 ≥ value2
+//! assert_gt!(value1, value2); // value1 greater than value2
 //! assert_starts_with!(string1, string2); // string1 starts with string2
 //! assert_is_match!(regex, string); // regex is match of string
 //! assert_set_subset!(vector1, vector2); // vector1 as set ⊆ vector2 as set
@@ -467,18 +467,25 @@ pub mod assert_fn_err_le; pub mod assert_fn_err_le_expr;
 pub mod assert_fn_err_gt; pub mod assert_fn_err_gt_expr;
 pub mod assert_fn_err_ge; pub mod assert_fn_err_ge_expr;
 
-// Assert std::io::read comparisons
+// Assert std::io read_to_string comparisons
 pub mod assert_read_to_string_eq; pub mod assert_read_to_string_eq_expr;
 pub mod assert_read_to_string_ne; pub mod assert_read_to_string_ne_expr;
 pub mod assert_read_to_string_lt; pub mod assert_read_to_string_lt_expr;
 pub mod assert_read_to_string_le; pub mod assert_read_to_string_le_expr;
 pub mod assert_read_to_string_gt; pub mod assert_read_to_string_gt_expr;
 pub mod assert_read_to_string_ge; pub mod assert_read_to_string_ge_expr;
-
-
-// Assert std::io::read specializations
 pub mod assert_read_to_string_contains;
 pub mod assert_read_to_string_matches;
+
+// Assert std::fs read_to_string comparisons
+pub mod assert_fs_read_to_string_eq; pub mod assert_fs_read_to_string_eq_expr;
+pub mod assert_fs_read_to_string_ne; pub mod assert_fs_read_to_string_ne_expr;
+pub mod assert_fs_read_to_string_lt; pub mod assert_fs_read_to_string_lt_expr;
+pub mod assert_fs_read_to_string_le; pub mod assert_fs_read_to_string_le_expr;
+pub mod assert_fs_read_to_string_gt; pub mod assert_fs_read_to_string_gt_expr;
+pub mod assert_fs_read_to_string_ge; pub mod assert_fs_read_to_string_ge_expr;
+pub mod assert_fs_read_to_string_contains; 
+pub mod assert_fs_read_to_string_matches;
 
 // Assert command stdout
 pub mod assert_command_stdout_eq; pub mod assert_command_stdout_eq_expr;

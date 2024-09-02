@@ -24,7 +24,7 @@ The assertables Rust crate provides many more assert macros for values,
 strings, vectors, readers, commands, and more, such as:
 
 ```rust
-assert_gt!(value1, value2); // value1 ≥ value2
+assert_gt!(value1, value2); // value1 greater than value2
 assert_starts_with!(string1, string2); // string1 starts with string2
 assert_is_match!(regex, string); // regex is match of string
 assert_set_subset!(vector1, vector2); // vector1 as set ⊆ vector2 as set
@@ -260,6 +260,39 @@ Compare a reader with an expression:
 * `assert_read_to_string_le_expr(reader, expr)` ≈ reader.read_to_string() ≤ expr
 
 * `assert_read_to_string_lt_expr(reader, expr)` ≈ reader.read_to_string() < expr
+
+
+### assert_fs_read_to_string_* for path comparisons
+
+These macros help with file system paths and std::fs::read_to_string comparisons, such as with a `Path`, `PathBuf`, `AsRef<Path>`, etc.`
+
+Compare a path with another path:
+
+* `assert_fs_read_to_string_eq!(path1, path2)` ≈ std::fs::read_to_string(path1) = std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_ne!(path1, path2)` ≈ std::fs::read_to_string(path1) ≠ std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_ge!(path1, path2)` ≈ std::fs::read_to_string(path1) ≥ std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_gt!(path1, path2)` ≈ std::fs::read_to_string(path1) > std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_le!(path1, path2)` ≈ std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_lt!(path1, path2)` ≈ std::fs::read_to_string(path1) < std::fs::read_to_string(path2)
+
+Compare a path with an expression:
+
+* `assert_fs_read_to_string_eq_expr(path, expr)` ≈ std::fs::read_to_string(path) = expr
+
+* `assert_fs_read_to_string_ne_expr(path, expr)` ≈ std::fs::read_to_string(path) ≠ expr
+
+* `assert_fs_read_to_string_ge_expr(path, expr)` ≈ std::fs::read_to_string(path) ≥ expr
+
+* `assert_fs_read_to_string_gt_expr(path, expr)` ≈ std::fs::read_to_string(path) > expr
+
+* `assert_fs_read_to_string_le_expr(path, expr)` ≈ std::fs::read_to_string(path) ≤ expr
+
+* `assert_fs_read_to_string_lt_expr(path, expr)` ≈ std::fs::read_to_string(path) < expr
 
 
 ### assert_command_* for process command comparisons
