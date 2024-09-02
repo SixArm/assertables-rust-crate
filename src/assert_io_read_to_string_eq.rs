@@ -1,4 +1,4 @@
-/// Assert a std::io::Read read_to_string() value is greater than another.
+/// Assert a std::io::Read read_to_string() is equal to another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -12,12 +12,12 @@
 ///
 /// # Related
 ///
-/// * [`assert_read_to_string_gt`]
-/// * [`assert_read_to_string_gt_as_result`]
-/// * [`debug_assert_read_to_string_gt`]
+/// * [`assert_io_read_to_string_eq`]
+/// * [`assert_io_read_to_string_eq_as_result`]
+/// * [`debug_assert_io_read_to_string_eq`]
 ///
 #[macro_export]
-macro_rules! assert_read_to_string_gt_as_result {
+macro_rules! assert_io_read_to_string_eq_as_result {
     ($a_reader:expr, $b_reader:expr $(,)?) => ({
         let mut a_string = String::new();
         let mut b_string = String::new();
@@ -26,7 +26,7 @@ macro_rules! assert_read_to_string_gt_as_result {
         if a_result.is_err() || b_result.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_read_to_string_gt!(left_reader, right_reader)`\n",
+                    "assertion failed: `assert_io_read_to_string_eq!(left_reader, right_reader)`\n",
                     "  left_reader label: `{}`,\n",
                     "  left_reader debug: `{:?}`,\n",
                     " right_reader label: `{}`,\n",
@@ -42,12 +42,12 @@ macro_rules! assert_read_to_string_gt_as_result {
         } else {
             let _a_size = a_result.unwrap();
             let _b_size = b_result.unwrap();
-            if a_string > b_string {
+            if a_string == b_string {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_read_to_string_gt!(left_reader, right_reader)`\n",
+                        "assertion failed: `assert_io_read_to_string_eq!(left_reader, right_reader)`\n",
                         "  left_reader label: `{}`,\n",
                         "  left_reader debug: `{:?}`,\n",
                         " right_reader label: `{}`,\n",
@@ -71,23 +71,23 @@ mod tests {
     use std::io::Read;
 
     #[test]
-    fn test_assert_read_to_string_gt_as_result_x_success() {
-        let mut a = "bravo".as_bytes();
+    fn test_assert_io_read_to_string_eq_as_result_x_success() {
+        let mut a = "alpha".as_bytes();
         let mut b = "alpha".as_bytes();
-        let x = assert_read_to_string_gt_as_result!(a, b);
+        let x = assert_io_read_to_string_eq_as_result!(a, b);
         assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_read_to_string_gt_as_result_x_failure() {
+    fn test_assert_io_read_to_string_eq_as_result_x_failure() {
         let mut a = "alpha".as_bytes();
         let mut b = "bravo".as_bytes();
-        let x = assert_read_to_string_gt_as_result!(a, b);
+        let x = assert_io_read_to_string_eq_as_result!(a, b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_read_to_string_gt!(left_reader, right_reader)`\n",
+                "assertion failed: `assert_io_read_to_string_eq!(left_reader, right_reader)`\n",
                 "  left_reader label: `a`,\n",
                 "  left_reader debug: `[]`,\n",
                 " right_reader label: `b`,\n",
@@ -99,7 +99,7 @@ mod tests {
     }
 }
 
-/// Assert a std::io::Read read_to_string() value is greater than another.
+/// Assert a std::io::Read read_to_string() value is equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -116,27 +116,27 @@ mod tests {
 /// # fn main() {
 /// // Return Ok
 /// let mut a = "alpha".as_bytes();
-/// let mut b = "bravo".as_bytes();
-/// assert_read_to_string_gt!(b, a);
+/// let mut b = "alpha".as_bytes();
+/// assert_io_read_to_string_eq!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut a = "alpha".as_bytes();
 /// let mut b = "bravo".as_bytes();
-/// assert_read_to_string_gt!(a, b);
+/// assert_io_read_to_string_eq!(a, b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_read_to_string_gt!(left_reader, right_reader)`\n",
+///     "assertion failed: `assert_io_read_to_string_eq!(left_reader, right_reader)`\n",
 ///     "  left_reader label: `a`,\n",
 ///     "  left_reader debug: `[]`,\n",
 ///     " right_reader label: `b`,\n",
 ///     " right_reader debug: `[]`,\n",
 ///     "               left: `\"alpha\"`,\n",
-///     "              right: `\"bravo\"`",
+///     "              right: `\"bravo\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -144,29 +144,29 @@ mod tests {
 ///
 /// # Related
 ///
-/// * [`assert_read_to_string_gt`]
-/// * [`assert_read_to_string_gt_as_result`]
-/// * [`debug_assert_read_to_string_gt`]
+/// * [`assert_io_read_to_string_eq`]
+/// * [`assert_io_read_to_string_eq_as_result`]
+/// * [`debug_assert_io_read_to_string_eq`]
 ///
 #[macro_export]
-macro_rules! assert_read_to_string_gt {
+macro_rules! assert_io_read_to_string_eq {
     ($a_reader:expr, $b_reader:expr $(,)?) => ({
-        match assert_read_to_string_gt_as_result!($a_reader, $b_reader) {
+        match assert_io_read_to_string_eq_as_result!($a_reader, $b_reader) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a_reader:expr, $b_reader:expr, $($message:tt)+) => ({
-        match assert_read_to_string_gt_as_result!($a_reader, $b_reader) {
+        match assert_io_read_to_string_eq_as_result!($a_reader, $b_reader) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a std::io::Read read_to_string() value is greater than another.
+/// Assert a std::io::Read read_to_string() value is equal to another.
 ///
-/// This macro provides the same statements as [`assert_read_to_string_gt`],
+/// This macro provides the same statements as [`assert_io_read_to_string_eq`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -188,15 +188,15 @@ macro_rules! assert_read_to_string_gt {
 ///
 /// # Related
 ///
-/// * [`assert_read_to_string_gt`]
-/// * [`assert_read_to_string_gt`]
-/// * [`debug_assert_read_to_string_gt`]
+/// * [`assert_io_read_to_string_eq`]
+/// * [`assert_io_read_to_string_eq`]
+/// * [`debug_assert_io_read_to_string_eq`]
 ///
 #[macro_export]
-macro_rules! debug_assert_read_to_string_gt {
+macro_rules! debug_assert_io_read_to_string_eq {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_read_to_string_gt!($($arg)*);
+            $crate::assert_io_read_to_string_eq!($($arg)*);
         }
     };
 }

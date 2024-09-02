@@ -12,19 +12,19 @@
 ///
 /// # Related
 ///
-/// * [`assert_read_to_string_matches`]
-/// * [`assert_read_to_string_matches_as_result`]
-/// * [`debug_assert_read_to_string_matches`]
+/// * [`assert_io_read_to_string_matches`]
+/// * [`assert_io_read_to_string_matches_as_result`]
+/// * [`debug_assert_io_read_to_string_matches`]
 ///
 #[macro_export]
-macro_rules! assert_read_to_string_matches_as_result {
+macro_rules! assert_io_read_to_string_matches_as_result {
     ($a_reader:expr, $b_matcher:expr $(,)?) => ({
         let mut a_string = String::new();
         let a_result = $a_reader.read_to_string(&mut a_string);
         if let Err(a_err) = a_result {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_read_to_string_matches!(left_reader, right_matcher)`\n",
+                    "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
                     "   left_reader label: `{}`,\n",
                     "   left_reader debug: `{:?}`,\n",
                     " right_matcher label: `{}`,\n",
@@ -42,7 +42,7 @@ macro_rules! assert_read_to_string_matches_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_read_to_string_matches!(left_reader, right_matcher)`\n",
+                        "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
                         "   left_reader label: `{}`,\n",
                         "   left_reader debug: `{:?}`,\n",
                         " right_matcher label: `{}`,\n",
@@ -66,29 +66,29 @@ mod tests {
     use regex::Regex;
 
     #[test]
-    fn test_assert_read_to_string_matches_as_result_x_success() {
+    fn test_assert_io_read_to_string_matches_as_result_x_success() {
         let mut reader = "alpha".as_bytes();
         let matcher = Regex::new(r"lph").unwrap();
-        let x = assert_read_to_string_matches_as_result!(reader, matcher);
+        let x = assert_io_read_to_string_matches_as_result!(reader, matcher);
         assert_eq!(x, Ok(()));
     }
 
     #[test]
-    fn test_assert_read_to_string_matches_as_result_x_failure() {
+    fn test_assert_io_read_to_string_matches_as_result_x_failure() {
         let mut reader = "alpha".as_bytes();
         let matcher = Regex::new(r"zzz").unwrap();
-        let x = assert_read_to_string_matches_as_result!(reader, matcher);
+        let x = assert_io_read_to_string_matches_as_result!(reader, matcher);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
             concat!(
-                "assertion failed: `assert_read_to_string_matches!(left_reader, right_matcher)`\n",
+                "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
                 "   left_reader label: `reader`,\n",
                 "   left_reader debug: `[]`,\n",
                 " right_matcher label: `matcher`,\n",
-                " right_matcher debug: `zzz`,\n",
+                " right_matcher debug: `Regex(\"zzz\")`,\n",
                 "                left: `\"alpha\"`,\n",
-                "               right: `zzz`"
+                "               right: `Regex(\"zzz\")`"
             )
         );
     }
@@ -113,26 +113,26 @@ mod tests {
 /// // Return Ok
 /// let mut reader = "hello".as_bytes();
 /// let matcher = Regex::new(r"ell").unwrap();
-/// assert_read_to_string_matches!(reader, matcher);
+/// assert_io_read_to_string_matches!(reader, matcher);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
 /// let mut reader = "hello".as_bytes();
 /// let matcher = Regex::new(r"zzz").unwrap();
-/// assert_read_to_string_matches!(reader, matcher);
+/// assert_io_read_to_string_matches!(reader, matcher);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_read_to_string_matches!(left_reader, right_matcher)`\n",
+///     "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
 ///     "   left_reader label: `reader`,\n",
 ///     "   left_reader debug: `[]`,\n",
 ///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `zzz`,\n",
+///     " right_matcher debug: `Regex(\"zzz\")`,\n",
 ///     "                left: `\"hello\"`,\n",
-///     "               right: `zzz`"
+///     "               right: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -140,20 +140,20 @@ mod tests {
 ///
 /// # Related
 ///
-/// * [`assert_read_to_string_matches`]
-/// * [`assert_read_to_string_matches_as_result`]
-/// * [`debug_assert_read_to_string_matches`]
+/// * [`assert_io_read_to_string_matches`]
+/// * [`assert_io_read_to_string_matches_as_result`]
+/// * [`debug_assert_io_read_to_string_matches`]
 ///
 #[macro_export]
-macro_rules! assert_read_to_string_matches {
+macro_rules! assert_io_read_to_string_matches {
     ($a_reader:expr, $b_matcher:expr $(,)?) => ({
-        match assert_read_to_string_matches_as_result!($a_reader, $b_matcher) {
+        match assert_io_read_to_string_matches_as_result!($a_reader, $b_matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a_reader:expr, $b_matcher:expr, $($message:tt)+) => ({
-        match assert_read_to_string_matches_as_result!($a_reader, $b_matcher) {
+        match assert_io_read_to_string_matches_as_result!($a_reader, $b_matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -162,7 +162,7 @@ macro_rules! assert_read_to_string_matches {
 
 /// Assert a std::io::Read read_to_string() is a match to a regex.
 ///
-/// This macro provides the same statements as [`assert_read_to_string_matches`],
+/// This macro provides the same statements as [`assert_io_read_to_string_matches`],
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -184,15 +184,15 @@ macro_rules! assert_read_to_string_matches {
 ///
 /// # Related
 ///
-/// * [`assert_read_to_string_matches`]
-/// * [`assert_read_to_string_matches`]
-/// * [`debug_assert_read_to_string_matches`]
+/// * [`assert_io_read_to_string_matches`]
+/// * [`assert_io_read_to_string_matches`]
+/// * [`debug_assert_io_read_to_string_matches`]
 ///
 #[macro_export]
-macro_rules! debug_assert_read_to_string_matches {
+macro_rules! debug_assert_io_read_to_string_matches {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_read_to_string_matches!($($arg)*);
+            $crate::assert_io_read_to_string_matches!($($arg)*);
         }
     };
 }

@@ -29,7 +29,7 @@ assert_starts_with!(string1, string2); // string1 starts with string2
 assert_is_match!(regex, string); // regex is match of string
 assert_set_subset!(vector1, vector2); // vector1 as set ⊆ vector2 as set
 assert_fn_ok_eq!(function1, function2); // function1 ok = function2 ok
-assert_read_to_string_eq!(reader1, reader2); // reader1 as string = reader2 as string
+assert_io_read_to_string_eq!(reader1, reader2); // reader1 as string = reader2 as string
 assert_command_stdout_eq!(command1, command2); // command1 standard output = command2 standard output
 ```
 
@@ -228,38 +228,38 @@ Compare a function Err() with an expression:
 * `assert_fn_err_lt!(function, expr)` ≈ function().unwrap_err() < expr
 
 
-### assert_read_to_string_* for std::io::Read comparisons
+### assert_io_read_to_string_* for std::io::Read comparisons
 
 These macros help with readers, such as file handles, byte arrays, input
 streams, and the trait std::io::Read.
 
 Compare a reader with another reader:
 
-* `assert_read_to_string_eq!(reader1, reader2)` ≈ reader1.read_to_string() = reader2.read_to_string()
+* `assert_io_read_to_string_eq!(reader1, reader2)` ≈ reader1.read_to_string() = reader2.read_to_string()
 
-* `assert_read_to_string_ne!(reader1, reader2)` ≈ reader1.read_to_string() ≠ reader2.read_to_string()
+* `assert_io_read_to_string_ne!(reader1, reader2)` ≈ reader1.read_to_string() ≠ reader2.read_to_string()
 
-* `assert_read_to_string_ge!(reader1, reader2)` ≈ reader1.read_to_string() ≥ reader2.read_to_string()
+* `assert_io_read_to_string_ge!(reader1, reader2)` ≈ reader1.read_to_string() ≥ reader2.read_to_string()
 
-* `assert_read_to_string_gt!(reader1, reader2)` ≈ reader1.read_to_string() > reader2.read_to_string()
+* `assert_io_read_to_string_gt!(reader1, reader2)` ≈ reader1.read_to_string() > reader2.read_to_string()
 
-* `assert_read_to_string_le!(reader1, reader2)` ≈ reader1.read_to_string() ≤ reader2.read_to_string()
+* `assert_io_read_to_string_le!(reader1, reader2)` ≈ reader1.read_to_string() ≤ reader2.read_to_string()
 
-* `assert_read_to_string_lt!(reader1, reader2)` ≈ reader1.read_to_string() < reader2.read_to_string()
+* `assert_io_read_to_string_lt!(reader1, reader2)` ≈ reader1.read_to_string() < reader2.read_to_string()
 
 Compare a reader with an expression:
 
-* `assert_read_to_string_eq_expr(reader, expr)` ≈ reader.read_to_string() = expr
+* `assert_io_read_to_string_eq_expr(reader, expr)` ≈ reader.read_to_string() = expr
 
-* `assert_read_to_string_ne_expr(reader, expr)` ≈ reader.read_to_string() ≠ expr
+* `assert_io_read_to_string_ne_expr(reader, expr)` ≈ reader.read_to_string() ≠ expr
 
-* `assert_read_to_string_ge_expr(reader, expr)` ≈ reader.read_to_string() ≥ expr
+* `assert_io_read_to_string_ge_expr(reader, expr)` ≈ reader.read_to_string() ≥ expr
 
-* `assert_read_to_string_gt_expr(reader, expr)` ≈ reader.read_to_string() > expr
+* `assert_io_read_to_string_gt_expr(reader, expr)` ≈ reader.read_to_string() > expr
 
-* `assert_read_to_string_le_expr(reader, expr)` ≈ reader.read_to_string() ≤ expr
+* `assert_io_read_to_string_le_expr(reader, expr)` ≈ reader.read_to_string() ≤ expr
 
-* `assert_read_to_string_lt_expr(reader, expr)` ≈ reader.read_to_string() < expr
+* `assert_io_read_to_string_lt_expr(reader, expr)` ≈ reader.read_to_string() < expr
 
 
 ### assert_fs_read_to_string_* for path comparisons
@@ -405,9 +405,9 @@ assert_gt!(1, 2, "message"); // panic!("message")
 Some assert macros have forms for comparing an other versus an expression:
 
 ```rust
-assert_read_to_string_eq!(reader1, reader2); // reader1.read_to_string() = reader2.read_to_string()
+assert_io_read_to_string_eq!(reader1, reader2); // reader1.read_to_string() = reader2.read_to_string()
 
-assert_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = expr
+assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = expr
 ```
 
 

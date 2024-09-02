@@ -31,7 +31,7 @@ assert_gt!(1, 2, "message"); // panic!("message")
 Some assert macros have forms for comparing an other versus an expression:
 
 ```rust
-assert_read_to_string_eq!(reader1, reader2); // reader1.read_to_string() = reader2.read_to_string()
+assert_io_read_to_string_eq!(reader1, reader2); // reader1.read_to_string() = reader2.read_to_string()
 
-assert_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = expr
+assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = expr
 ```

@@ -389,41 +389,41 @@ let result2 = reader2.read_to_string(&mut string2);
 assert_eq!(string1, string2);
 ```
 
-Rust `assertables` provides the macro `assert_read_to_string_eq!` that does the same kind of processing, by automatically calling `read_to_string()`, then comparing the outputs as strings:
+Rust `assertables` provides the macro `assert_io_read_to_string_eq!` that does the same kind of processing, by automatically calling `read_to_string()`, then comparing the outputs as strings:
 
 ```rust
-assert_read_to_string_eq!(reader1, reader2); 
+assert_io_read_to_string_eq!(reader1, reader2); 
 ```
 
 Rust `assertables` provides these macros for readers:
 
-* `assert_read_to_string_eq!`
+* `assert_io_read_to_string_eq!`
 
-* `assert_read_to_string_eq_other!`
+* `assert_io_read_to_string_eq_other!`
 
-* `assert_read_to_string_ne!`
+* `assert_io_read_to_string_ne!`
 
-* `assert_read_to_string_ne_other!`
+* `assert_io_read_to_string_ne_other!`
 
-* `assert_read_to_string_lt!`
+* `assert_io_read_to_string_lt!`
 
-* `assert_read_to_string_lt_other!`
+* `assert_io_read_to_string_lt_other!`
 
-* `assert_read_to_string_le!`
+* `assert_io_read_to_string_le!`
 
-* `assert_read_to_string_le_other!`
+* `assert_io_read_to_string_le_other!`
 
-* `assert_read_to_string_gt!`
+* `assert_io_read_to_string_gt!`
 
-* `assert_read_to_string_gt_other!`
+* `assert_io_read_to_string_gt_other!`
 
-* `assert_read_to_string_ge!`
+* `assert_io_read_to_string_ge!`
 
-* `assert_read_to_string_ge_other!`
+* `assert_io_read_to_string_ge_other!`
 
-* `assert_read_to_string_contains!`
+* `assert_io_read_to_string_contains!`
 
-* `assert_read_to_string_matches!`
+* `assert_io_read_to_string_matches!`
 
 
 ### Macros for commands
