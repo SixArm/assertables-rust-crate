@@ -18,7 +18,7 @@
 ///
 #[macro_export]
 macro_rules! assert_set_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a_val, b_val) => {
                 let a_set: ::std::collections::BTreeSet<_> = a_val.into_iter().collect();
@@ -36,15 +36,17 @@ macro_rules! assert_set_ne_as_result {
                             "            left: `{:?}`,\n",
                             "           right: `{:?}`"
                         ),
-                        stringify!($a), $a,
-                        stringify!($b), $b,
+                        stringify!($a),
+                        $a,
+                        stringify!($b),
+                        $b,
                         &a_set,
                         &b_set
                     ))
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -77,7 +79,6 @@ mod tests {
             )
         );
     }
-
 }
 
 /// Assert a set is not equal to another.

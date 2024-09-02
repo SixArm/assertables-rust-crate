@@ -18,7 +18,7 @@
 ///
 #[macro_export]
 macro_rules! assert_not_contains_as_result {
-    ($container:expr, $containee:expr $(,)?) => ({
+    ($container:expr, $containee:expr $(,)?) => {{
         if !($container.contains($containee)) {
             Ok(())
         } else {
@@ -30,11 +30,13 @@ macro_rules! assert_not_contains_as_result {
                     " containee label: `{}`,\n",
                     " containee debug: `{:?}`",
                 ),
-                stringify!($container), $container,
-                stringify!($containee), $containee,
+                stringify!($container),
+                $container,
+                stringify!($containee),
+                $containee,
             ))
         }
-    });
+    }};
 }
 
 #[cfg(test)]

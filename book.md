@@ -392,7 +392,7 @@ assert_eq!(string1, string2);
 Rust `assertables` provides the macro `assert_io_read_to_string_eq!` that does the same kind of processing, by automatically calling `read_to_string()`, then comparing the outputs as strings:
 
 ```rust
-assert_io_read_to_string_eq!(reader1, reader2); 
+assert_io_read_to_string_eq!(reader1, reader2);
 ```
 
 Rust `assertables` provides these macros for readers:
@@ -473,7 +473,7 @@ assert_eq!(string1, string2);
 Rust `assertables` provides the macro `assert_command_stdout_eq!` that does the same kind of processing, by automatically converting commands into standard outputs, then into UTF-8 strings, then comparing them as strings:
 
 ```rust
-assert_command_eq!(command1, command2); 
+assert_command_eq!(command1, command2);
 ```
 
 Rust `assertables` provides these macros for commands and standard output:
@@ -509,7 +509,7 @@ let mut command1 = Command::new("printf");
 command1.args(["%s", "hello"]);
 let mut command2 = Command::new("printf");
 command2.args(["%s", "hello"]);
-assert_command_eq!(string1, string2); 
+assert_command_eq!(string1, string2);
 ```
 
 Rust `assertables` provides the macro `assert_program_args_eq` that does the same kind of processing, by automatically converting programs and args into commands, then to standard outputs, then into UTF-8 stringss, then comparing them as strings:
@@ -554,9 +554,9 @@ The sections below show each of the three flavors, using our simplest macro grou
 
 ### assert_gt_as_result
 
-The macro `assert_gt_as_result` returns a `Result` as `Ok` or `Err`. 
+The macro `assert_gt_as_result` returns a `Result` as `Ok` or `Err`.
 
-The macro contains all the logic and all the error formatting. 
+The macro contains all the logic and all the error formatting.
 
 The macro is called by the other flavors: directly by `assert_gt` and indirectly by `debug_assert_gt`.
 
@@ -598,11 +598,11 @@ macro_rules! assert_gt_as_result {
 
 ### assert_gt
 
-The macro `assert_gt` returns `()` or panics. 
+The macro `assert_gt` returns `()` or panics.
 
-The macro is the typical macro that most developers will use for testing. 
+The macro is the typical macro that most developers will use for testing.
 
-The macro wraps `assert_gt_as_result`. 
+The macro wraps `assert_gt_as_result`.
 
 The macro provides two arms: one arm is for returning the error messsage as is, and one arm is for returning a developer's custom error message.
 
@@ -635,7 +635,7 @@ The macro is the typical macro that most developers will use for runtime debuggi
 
 The macro's statements are only enabled in non-optimized builds by default. An optimized build will not execute this macro's statements unless `-C debug-assertions` is passed to the compiler.
 
-The macro wraps `assert_gt`. 
+The macro wraps `assert_gt`.
 
 Code:
 

@@ -81,13 +81,13 @@ mod tests {
         let x = assert_command_stdout_eq_expr_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
-          "assertion failed: `assert_command_stdout_eq_expr!(left_command, right_expr)`\n",
-          " left_command label: `a`,\n",
-          " left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-          "   right_expr label: `b`,\n",
-          "   right_expr debug: `\"zzz\"`,\n",
-          "               left: `\"hello\"`,\n",
-          "              right: `\"zzz\"`"
+            "assertion failed: `assert_command_stdout_eq_expr!(left_command, right_expr)`\n",
+            " left_command label: `a`,\n",
+            " left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+            "   right_expr label: `b`,\n",
+            "   right_expr debug: `\"zzz\"`,\n",
+            "               left: `\"hello\"`,\n",
+            "              right: `\"zzz\"`"
         );
         assert_eq!(actual, expect);
     }

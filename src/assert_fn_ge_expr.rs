@@ -20,7 +20,7 @@
 macro_rules! assert_fn_ge_expr_as_result {
 
     //// Arity 1
-    
+
     ($a_function:path, $a_param:expr, $b_expr:expr) => ({
         let a_output = $a_function($a_param);
         if a_output >= $b_expr {
@@ -69,14 +69,14 @@ macro_rules! assert_fn_ge_expr_as_result {
             ))
     }
     });
-    
+
 }
 
 #[cfg(test)]
 mod tests {
 
     mod assert_fn_ge_expr_as_result {
-        
+
         mod arity_1 {
 
             fn f(i: i8) -> i8 {
@@ -119,7 +119,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -163,11 +162,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function output is greater than or equal to an expression.
@@ -222,7 +218,7 @@ mod tests {
 macro_rules! assert_fn_ge_expr {
 
     //// Arity 1
-    
+
     ($a_function:path, $a_param:expr, $b_expr:expr) => ({
         match assert_fn_ge_expr_as_result!($a_function, $a_param, $b_expr) {
             Ok(()) => (),
@@ -238,7 +234,7 @@ macro_rules! assert_fn_ge_expr {
     });
 
     //// Arity 0
-    
+
     ($a_function:path, $b_expr:expr) => ({
         match assert_fn_ge_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),

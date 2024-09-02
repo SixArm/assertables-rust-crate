@@ -18,7 +18,7 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_ne_as_result {
-    ($a_path:expr, $b_path:expr $(,)?) => ({
+    ($a_path:expr, $b_path:expr $(,)?) => {{
         let a_result = ::std::fs::read_to_string($a_path);
         let b_result = ::std::fs::read_to_string($b_path);
         if a_result.is_err() || b_result.is_err() {
@@ -32,8 +32,10 @@ macro_rules! assert_fs_read_to_string_ne_as_result {
                     "      left result: `{:?}`,\n",
                     "     right result: `{:?}`"
                 ),
-                stringify!($a_path), $a_path,
-                stringify!($b_path), $b_path,
+                stringify!($a_path),
+                $a_path,
+                stringify!($b_path),
+                $b_path,
                 a_result,
                 b_result
             ))
@@ -53,30 +55,32 @@ macro_rules! assert_fs_read_to_string_ne_as_result {
                         "             left: `{:?}`,\n",
                         "            right: `{:?}`"
                     ),
-                    stringify!($a_path), $a_path,
-                    stringify!($b_path), $b_path,
+                    stringify!($a_path),
+                    $a_path,
+                    stringify!($b_path),
+                    $b_path,
                     a_string,
                     b_string
                 ))
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
 mod tests {
+    use once_cell::sync::Lazy;
     #[allow(unused_imports)]
     use std::io::Read;
     use std::path::PathBuf;
-    use once_cell::sync::Lazy;
 
-    pub static DIR: Lazy<PathBuf> = Lazy::new(||
+    pub static DIR: Lazy<PathBuf> = Lazy::new(|| {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("tests")
-        .join("src")
-        .join("std")
-        .join("fs")
-    );
+            .join("tests")
+            .join("src")
+            .join("std")
+            .join("fs")
+    });
 
     #[test]
     fn test_read_to_string_ne_as_result_x_success() {
@@ -94,12 +98,17 @@ mod tests {
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
-            format!("{}{}{}{}{}{}{}{}{}{}{}",
+            format!(
+                "{}{}{}{}{}{}{}{}{}{}{}",
                 "assertion failed: `assert_fs_read_to_string_ne!(left_path, right_path)`\n",
                 "  left_path label: `&a`,\n",
-                "  left_path debug: `\"", a.to_string_lossy(), "\"`,\n",
+                "  left_path debug: `\"",
+                a.to_string_lossy(),
+                "\"`,\n",
                 " right_path label: `&b`,\n",
-                " right_path debug: `\"", b.to_string_lossy(), "\"`,\n",
+                " right_path debug: `\"",
+                b.to_string_lossy(),
+                "\"`,\n",
                 "             left: `\"alfa\\n\"`,\n",
                 "            right: `\"alfa\\n\"`"
             )

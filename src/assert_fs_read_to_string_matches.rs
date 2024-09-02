@@ -61,18 +61,17 @@ macro_rules! assert_fs_read_to_string_matches_as_result {
 
 #[cfg(test)]
 mod tests {
-    use std::io::Read;
+    use once_cell::sync::Lazy;
     use regex::Regex;
     use std::path::PathBuf;
-    use once_cell::sync::Lazy;
 
-    pub static DIR: Lazy<PathBuf> = Lazy::new(||
+    pub static DIR: Lazy<PathBuf> = Lazy::new(|| {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("tests")
-        .join("src")
-        .join("std")
-        .join("fs")
-    );
+            .join("tests")
+            .join("src")
+            .join("std")
+            .join("fs")
+    });
 
     #[test]
     fn test_read_to_string_matches_as_result_x_success() {
@@ -90,10 +89,13 @@ mod tests {
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),
-            format!("{}{}{}{}{}{}{}{}{}",
+            format!(
+                "{}{}{}{}{}{}{}{}{}",
                 "assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n",
                 "     left_path label: `&path`,\n",
-                "     left_path debug: `\"", path.to_string_lossy(), "\"`,\n",
+                "     left_path debug: `\"",
+                path.to_string_lossy(),
+                "\"`,\n",
                 " right_matcher label: `matcher`,\n",
                 " right_matcher debug: `Regex(\"zzz\")`,\n",
                 "                left: `\"alfa\\n\"`,\n",

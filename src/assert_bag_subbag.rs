@@ -18,11 +18,13 @@
 ///
 #[macro_export]
 macro_rules! assert_bag_subbag_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a_val, b_val) => {
-                let mut a_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
-                let mut b_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
+                let mut a_bag: ::std::collections::BTreeMap<_, usize> =
+                    ::std::collections::BTreeMap::new();
+                let mut b_bag: ::std::collections::BTreeMap<_, usize> =
+                    ::std::collections::BTreeMap::new();
                 for x in a_val.into_iter() {
                     let n = a_bag.entry(x).or_insert(0);
                     *n += 1;
@@ -32,8 +34,9 @@ macro_rules! assert_bag_subbag_as_result {
                     *n += 1;
                 }
                 if a_val.into_iter().all(|key| {
-                    a_bag.contains_key(&key) && b_bag.contains_key(&key) &&
-                    a_bag.get_key_value(&key) <= b_bag.get_key_value(&key)
+                    a_bag.contains_key(&key)
+                        && b_bag.contains_key(&key)
+                        && a_bag.get_key_value(&key) <= b_bag.get_key_value(&key)
                 }) {
                     Ok(())
                 } else {
@@ -47,15 +50,17 @@ macro_rules! assert_bag_subbag_as_result {
                             "            left: `{:?}`,\n",
                             "           right: `{:?}`"
                         ),
-                        stringify!($a), $a,
-                        stringify!($b), $b,
+                        stringify!($a),
+                        $a,
+                        stringify!($b),
+                        $b,
                         &a_bag,
                         &b_bag
                     ))
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]

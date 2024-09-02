@@ -87,7 +87,8 @@ mod tests {
             "   right_expr label: `b`,\n",
             "   right_expr debug: `\"zzz\"`,\n",
             "               left: `\"hello\"`,\n",
-            "              right: `\"zzz\"`");
+            "              right: `\"zzz\"`"
+        );
         assert_eq!(actual, expect);
     }
 }

@@ -18,7 +18,7 @@
 ///
 #[macro_export]
 macro_rules! assert_not_starts_with_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         if !($a.starts_with($b)) {
             Ok(())
         } else {
@@ -30,11 +30,13 @@ macro_rules! assert_not_starts_with_as_result {
                     " b label: `{}`,\n",
                     " b debug: `{:?}`",
                 ),
-                stringify!($a), $a,
-                stringify!($b), $b,
+                stringify!($a),
+                $a,
+                stringify!($b),
+                $b,
             ))
         }
-    });
+    }};
 }
 
 #[cfg(test)]

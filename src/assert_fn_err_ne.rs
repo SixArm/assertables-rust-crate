@@ -165,7 +165,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -199,11 +198,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function err() is not equal to another.
@@ -306,7 +302,7 @@ macro_rules! assert_fn_err_ne {
             Err(_err) => panic!("{}", $($message)+),
         }
     });
-    
+
 }
 
 /// Assert a function err() is not equal to another.

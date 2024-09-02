@@ -18,7 +18,7 @@
 ///
 #[macro_export]
 macro_rules! assert_as_result {
-    ($x:expr $(,)?) => ({
+    ($x:expr $(,)?) => {{
         if $x {
             Ok(())
         } else {
@@ -30,7 +30,7 @@ macro_rules! assert_as_result {
                 $x
             ))
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -42,7 +42,6 @@ mod tests {
         let x = assert_as_result!(a);
         assert_eq!(x, Ok(()));
     }
-
 }
 
 /// Assert a condition is true.
@@ -108,7 +107,6 @@ mod test_assert_x_result {
         let a = false;
         let _x = assert!(a, "message");
     }
-
 }
 
 /// Assert zzz.

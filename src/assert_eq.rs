@@ -18,7 +18,7 @@
 ///
 #[macro_export]
 macro_rules! assert_eq_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a_val, b_val) => {
                 if a_val == b_val {
@@ -34,15 +34,17 @@ macro_rules! assert_eq_as_result {
                             "        left: `{:?}`,\n",
                             "       right: `{:?}`"
                         ),
-                        stringify!($a), $a,
-                        stringify!($b), $b,
+                        stringify!($a),
+                        $a,
+                        stringify!($b),
+                        $b,
                         a_val,
                         b_val
                     ))
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -60,7 +62,7 @@ mod tests {
     fn test_assert_eq_as_result_x_failure() {
         let a: i32 = 1;
         let b: i32 = 2;
-        let x =  assert_eq_as_result!(a, b);
+        let x = assert_eq_as_result!(a, b);
         assert!(x.is_err());
         assert_eq!(
             x.unwrap_err(),

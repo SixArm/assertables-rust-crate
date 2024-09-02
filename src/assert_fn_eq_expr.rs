@@ -74,9 +74,9 @@ macro_rules! assert_fn_eq_expr_as_result {
 
 #[cfg(test)]
 mod tests {
-    
+
     mod assert_fn_eq_expr_as_result {
-        
+
         mod arity_1 {
 
             fn f(i: i8) -> i8 {
@@ -111,7 +111,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -144,11 +143,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function output is equal to an expression.
@@ -213,7 +209,7 @@ mod tests {
 macro_rules! assert_fn_eq_expr {
 
     //// Arity 1
-    
+
     ($a_function:path, $a_param:expr, $b_expr:expr) => ({
         match assert_fn_eq_expr_as_result!($a_function, $a_param, $b_expr) {
             Ok(()) => (),
@@ -229,7 +225,7 @@ macro_rules! assert_fn_eq_expr {
     });
 
     //// Arity 0
-    
+
     ($a_function:path, $b_expr:expr) => ({
         match assert_fn_eq_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),

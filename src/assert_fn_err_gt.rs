@@ -187,7 +187,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -237,11 +236,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function err() is greater than another.

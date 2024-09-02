@@ -99,7 +99,6 @@ mod tests {
         );
         assert_eq!(actual, expect);
     }
-
 }
 
 /// Assert a command (built with program and args) stdout string is less than an expression.

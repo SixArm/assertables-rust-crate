@@ -113,7 +113,7 @@ macro_rules! assert_fn_err_eq_expr_as_result {
 mod tests {
 
     mod assert_fn_err_eq_expr_as_result {
-        
+
         mod arity_1 {
 
             fn f(i: i8) -> Result<i8, i8> {
@@ -148,7 +148,6 @@ mod tests {
                     )
                 );
             }
-            
         }
 
         mod arity_0 {
@@ -180,11 +179,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function err() is equal to an expression.

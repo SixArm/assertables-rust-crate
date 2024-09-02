@@ -20,7 +20,7 @@
 macro_rules! assert_fn_ge_as_result {
 
     //// Arity 1
-    
+
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr) => ({
         let a_output = $a_function($a_param);
         let b_output = $b_function($b_param);
@@ -50,7 +50,7 @@ macro_rules! assert_fn_ge_as_result {
     });
 
     //// Arity 0
-    
+
     ($a_function:path, $b_function:path) => ({
         let a_output = $a_function();
         let b_output = $b_function();
@@ -79,7 +79,7 @@ macro_rules! assert_fn_ge_as_result {
 mod tests {
 
     mod assert_fn_ge_as_result {
-        
+
         mod arity_1 {
 
             fn f(i: i8) -> i8 {
@@ -127,7 +127,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -139,7 +138,7 @@ mod tests {
             fn g() -> i8 {
                 return 2;
             }
-            
+
             #[test]
             fn test_gt() {
                 let x = assert_fn_ge_as_result!(g, f);
@@ -167,12 +166,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
-
 }
 
 /// Assert a function output is greater than or equal to another.

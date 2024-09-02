@@ -173,7 +173,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -213,11 +212,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function ok() is greater than or equal to another.

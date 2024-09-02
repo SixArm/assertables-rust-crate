@@ -20,7 +20,7 @@
 macro_rules! assert_fn_ok_eq_as_result {
 
     //// Arity 1
-    
+
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr) => ({
         let a_result = $a_function($a_param);
         let b_result = $b_function($b_param);
@@ -118,14 +118,14 @@ macro_rules! assert_fn_ok_eq_as_result {
             }
         }
     });
-    
+
 }
 
 #[cfg(test)]
 mod tests {
 
     mod assert_fn_ok_eq_as_result {
-        
+
         mod arity_1 {
 
             fn f(i: i8) -> Result<i8, i8> {
@@ -165,7 +165,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -199,11 +198,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function ok() is equal to another.
@@ -296,7 +292,7 @@ macro_rules! assert_fn_ok_eq {
             Err(_err) => panic!("{}", $($message)+),
         }
     });
-    
+
 }
 
 /// Assert a function ok() is equal to another.

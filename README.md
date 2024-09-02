@@ -76,7 +76,7 @@ Compare values by using nearness:
 
 * `assert_in_delta!(a, b, delta)` ≈ | a - b | ≤ delta
 
-* `assert_in_epsilon(a, b, epsilon)` ≈ | a - b | ≤ epsilon * min(a, b) 
+* `assert_in_epsilon(a, b, epsilon)` ≈ | a - b | ≤ epsilon * min(a, b)
 
 
 ### assert_* for strings and matchers
@@ -228,10 +228,52 @@ Compare a function Err() with an expression:
 * `assert_fn_err_lt!(function, expr)` ≈ function().unwrap_err() < expr
 
 
-### assert_io_read_to_string_* for std::io::Read comparisons
+### assert_fs_read_to_string_* for std::fs path comparisons
 
-These macros help with readers, such as file handles, byte arrays, input
-streams, and the trait std::io::Read.
+These macros help with file system paths, such as disk files, `Path`, `PathBuf`,
+the trait `AsRef<Path>`, and anything that is readable via
+`std::fs::read_to_string(…)`.
+
+Compare a path with another path:
+
+* `assert_fs_read_to_string_eq!(path1, path2)` ≈ std::fs::read_to_string(path1) = std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_ne!(path1, path2)` ≈ std::fs::read_to_string(path1) ≠ std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_ge!(path1, path2)` ≈ std::fs::read_to_string(path1) ≥ std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_gt!(path1, path2)` ≈ std::fs::read_to_string(path1) > std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_le!(path1, path2)` ≈ std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
+
+* `assert_fs_read_to_string_lt!(path1, path2)` ≈ std::fs::read_to_string(path1) < std::fs::read_to_string(path2)
+
+Compare a path with an expression:
+
+* `assert_fs_read_to_string_eq_expr(path, expr)` ≈ std::fs::read_to_string(path) = expr
+
+* `assert_fs_read_to_string_ne_expr(path, expr)` ≈ std::fs::read_to_string(path) ≠ expr
+
+* `assert_fs_read_to_string_ge_expr(path, expr)` ≈ std::fs::read_to_string(path) ≥ expr
+
+* `assert_fs_read_to_string_gt_expr(path, expr)` ≈ std::fs::read_to_string(path) > expr
+
+* `assert_fs_read_to_string_le_expr(path, expr)` ≈ std::fs::read_to_string(path) ≤ expr
+
+* `assert_fs_read_to_string_lt_expr(path, expr)` ≈ std::fs::read_to_string(path) < expr
+
+Compare a path with its contents:
+
+* `assert_fs_read_to_string_contains(path, containee)` ≈ std::fs::read_to_string(path).contains(containee)
+
+* `assert_fs_read_to_string_matches(path, matcher)` ≈ matcher.is_match(std::fs::read_to_string(path))
+
+
+### assert_io_read_to_string_* for std::io reader comparisons
+
+These macros help with input/output readers, such as file handles, byte arrays,
+input streams, the trait `std::io::Read`, and anything that implements the
+method `read_to_string()`.
 
 Compare a reader with another reader:
 
@@ -261,38 +303,11 @@ Compare a reader with an expression:
 
 * `assert_io_read_to_string_lt_expr(reader, expr)` ≈ reader.read_to_string() < expr
 
+Compare a reader with its contents:
 
-### assert_fs_read_to_string_* for path comparisons
+* `assert_io_read_to_string_contains(reader, containee)` ≈ reader.read_to_string().contains(containee)
 
-These macros help with file system paths and std::fs::read_to_string comparisons, such as with a `Path`, `PathBuf`, `AsRef<Path>`, etc.`
-
-Compare a path with another path:
-
-* `assert_fs_read_to_string_eq!(path1, path2)` ≈ std::fs::read_to_string(path1) = std::fs::read_to_string(path2)
-
-* `assert_fs_read_to_string_ne!(path1, path2)` ≈ std::fs::read_to_string(path1) ≠ std::fs::read_to_string(path2)
-
-* `assert_fs_read_to_string_ge!(path1, path2)` ≈ std::fs::read_to_string(path1) ≥ std::fs::read_to_string(path2)
-
-* `assert_fs_read_to_string_gt!(path1, path2)` ≈ std::fs::read_to_string(path1) > std::fs::read_to_string(path2)
-
-* `assert_fs_read_to_string_le!(path1, path2)` ≈ std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
-
-* `assert_fs_read_to_string_lt!(path1, path2)` ≈ std::fs::read_to_string(path1) < std::fs::read_to_string(path2)
-
-Compare a path with an expression:
-
-* `assert_fs_read_to_string_eq_expr(path, expr)` ≈ std::fs::read_to_string(path) = expr
-
-* `assert_fs_read_to_string_ne_expr(path, expr)` ≈ std::fs::read_to_string(path) ≠ expr
-
-* `assert_fs_read_to_string_ge_expr(path, expr)` ≈ std::fs::read_to_string(path) ≥ expr
-
-* `assert_fs_read_to_string_gt_expr(path, expr)` ≈ std::fs::read_to_string(path) > expr
-
-* `assert_fs_read_to_string_le_expr(path, expr)` ≈ std::fs::read_to_string(path) ≤ expr
-
-* `assert_fs_read_to_string_lt_expr(path, expr)` ≈ std::fs::read_to_string(path) < expr
+* `assert_io_read_to_string_matches(reader, matcher)` ≈ matcher.is_match(reader.read_to_string())
 
 
 ### assert_command_* for process command comparisons
@@ -325,7 +340,7 @@ Compare command using program and arguments to standard output:
 * `assert_program_args_stdout_eq!(program1, args1, program2, args2)` ≈ command using program1 and args1 to stdout = command2 with program2 and args2 to stdout
 
 * `assert_program_args_stdout_eq_expr!(program, args, expr)` ≈ command using program and args to stdout = expr
- 
+
 * `assert_program_args_stdout_contains!(program, args, containee)` ≈ command using program and args to stdout contains containee
 
 * `assert_program_args_stdout_is_match!(program, args, matcher)` ≈ matcher is match with command using program and args
@@ -335,7 +350,7 @@ Compare command using program and arguments to standard output:
 * `assert_program_args_stderr_eq!(program1, args1, program2, args2)` ≈ command using program1 and args1 to stderr = command2 with program2 and args2 to stderr
 
 * `assert_program_args_stderr_eq_expr!(program, args, expr)` ≈ command using program and args to stderr = expr
- 
+
 * `assert_program_args_stderr_contains!(program, args, containee)` ≈ command using program and args to stderr contains containee
 
 * `assert_program_args_stderr_is_match!(program, args, matcher)` ≈ matcher is match with command using program and args
@@ -413,12 +428,19 @@ assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = e
 
 ## Changes summary
 
- 
+
+### Version 8.x top changes
+
+* Add `assert_fs_read_to_string_*` macros for comparing files.
+
+* Rename `assert_read_to_string_*` macros to `assert_io_read_to_string_*`. If you use these macros, then please update your code to use the new naming convention.
+
+
 ### Version 7.x top changes
 
 * Add `assert_in_delta`, `assert_in_epsilon`.
 
-* Add `asssert_fn_*` macros with multiple arities.
+* Add `assert_fn_*` macros with multiple arities.
 
 * Add `cargo release` for optimized tagged releases.
 
@@ -435,8 +457,8 @@ assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = e
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 7.0.1
+* Version: 8.0.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2023-03-08T20:22:32Z
+* Updated: 2024-09-02T15:45:13Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

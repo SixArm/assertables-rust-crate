@@ -20,7 +20,7 @@
 macro_rules! assert_fn_err_ge_expr_as_result {
 
     //// Arity 1
-    
+
     ($a_function:path, $a_param:expr, $b_expr:expr) => ({
         let a_result = $a_function($a_param);
         let a_is_err = a_result.is_err();
@@ -67,7 +67,7 @@ macro_rules! assert_fn_err_ge_expr_as_result {
     });
 
     //// Arity 0
-    
+
     ($a_function:path, $b_expr:expr) => ({
         let a_result = $a_function();
         let a_is_err = a_result.is_err();
@@ -113,7 +113,7 @@ macro_rules! assert_fn_err_ge_expr_as_result {
 mod tests {
 
     mod assert_fn_err_ge_expr_as_result {
-        
+
         mod arity_1 {
 
             fn f(i: i8) -> Result<i8, i8> {
@@ -156,7 +156,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -196,11 +195,8 @@ mod tests {
                     )
                 );
             }
-            
         }
-
     }
-
 }
 
 /// Assert a function err() is greater than or equal to an expression.

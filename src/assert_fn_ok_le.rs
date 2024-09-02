@@ -125,7 +125,7 @@ macro_rules! assert_fn_ok_le_as_result {
 mod tests {
 
     mod assert_fn_ok_le_as_result {
-        
+
         mod arity_1 {
 
             fn f(i: i8) -> Result<i8, i8> {
@@ -173,7 +173,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -213,11 +212,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function ok() is less than or equal to another.

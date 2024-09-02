@@ -111,7 +111,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_1 {
@@ -153,11 +152,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function output is not equal to another.
@@ -213,7 +209,7 @@ mod tests {
 macro_rules! assert_fn_ne {
 
     //// Arity 1
-    
+
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr) => ({
         match assert_fn_ne_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(()) => (),
@@ -243,7 +239,7 @@ macro_rules! assert_fn_ne {
             Err(_err) => panic!("{}", $($message)+),
         }
     });
-    
+
 }
 
 /// Assert a function output is not equal to another.

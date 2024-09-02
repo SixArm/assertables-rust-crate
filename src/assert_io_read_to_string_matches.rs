@@ -62,8 +62,8 @@ macro_rules! assert_io_read_to_string_matches_as_result {
 
 #[cfg(test)]
 mod tests {
-    use std::io::Read;
     use regex::Regex;
+    use std::io::Read;
 
     #[test]
     fn test_assert_io_read_to_string_matches_as_result_x_success() {

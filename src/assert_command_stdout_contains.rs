@@ -91,7 +91,6 @@ mod tests {
         );
         assert_eq!(actual, expect);
     }
-
 }
 
 /// Assert a command stdout string contains a given containee.

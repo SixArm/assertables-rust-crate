@@ -62,8 +62,8 @@ macro_rules! assert_command_stdout_is_match_as_result {
 #[cfg(test)]
 mod tests {
 
-    use std::process::Command;
     use regex::Regex;
+    use std::process::Command;
 
     #[test]
     fn test_assert_command_stdout_is_match_as_result_x_success() {

@@ -77,11 +77,11 @@ macro_rules! assert_fn_le_expr_as_result {
 
 #[cfg(test)]
 mod tests {
-    
+
     mod assert_fn_le_expr_as_result {
 
         mod arity_1 {
-            
+
             fn f(i: i8) -> i8 {
                 return i;
             }
@@ -122,11 +122,10 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
-    
+
             fn f() -> i8 {
                 return 1;
             }
@@ -162,11 +161,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function output is less than or equal to an expression.

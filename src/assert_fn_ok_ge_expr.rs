@@ -111,7 +111,7 @@ macro_rules! assert_fn_ok_ge_expr_as_result {
 
 #[cfg(test)]
 mod tests {
-    
+
     mod assert_fn_ok_ge_expr_as_result {
 
         mod arity_1 {
@@ -156,7 +156,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -196,13 +195,9 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
-
 
 /// Assert a function ok() is greater than or equal to an expression.
 ///

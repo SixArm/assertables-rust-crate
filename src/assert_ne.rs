@@ -19,7 +19,7 @@
 ///
 #[macro_export]
 macro_rules! assert_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a_val, b_val) => {
                 if a_val != b_val {
@@ -35,15 +35,17 @@ macro_rules! assert_ne_as_result {
                             "        left: `{:?}`,\n",
                             "       right: `{:?}`"
                         ),
-                        stringify!($a), $a,
-                        stringify!($b), $b,
+                        stringify!($a),
+                        $a,
+                        stringify!($b),
+                        $b,
                         a_val,
                         b_val
                     ))
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]

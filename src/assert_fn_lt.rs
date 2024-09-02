@@ -79,9 +79,9 @@ macro_rules! assert_fn_lt_as_result {
 mod tests {
 
     mod assert_fn_lt_as_result {
-        
+
         mod arity_1 {
-            
+
             fn f(i: i8) -> i8 {
                 return i;
             }
@@ -141,7 +141,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -191,11 +190,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function output is less than another.

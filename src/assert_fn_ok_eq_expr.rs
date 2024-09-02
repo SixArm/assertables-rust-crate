@@ -106,7 +106,7 @@ macro_rules! assert_fn_ok_eq_expr_as_result {
             }
         }
     });
-    
+
 }
 
 #[cfg(test)]
@@ -148,10 +148,9 @@ mod tests {
                     )
                 );
             }
-
         }
 
-        mod arity_0 { 
+        mod arity_0 {
 
             fn f() -> Result<i8, i8> {
                 return Ok(1);
@@ -181,11 +180,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function ok() is equal to an expression.

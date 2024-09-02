@@ -18,11 +18,13 @@
 ///
 #[macro_export]
 macro_rules! assert_bag_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a_val, b_val) => {
-                let mut a_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
-                let mut b_bag: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
+                let mut a_bag: ::std::collections::BTreeMap<_, usize> =
+                    ::std::collections::BTreeMap::new();
+                let mut b_bag: ::std::collections::BTreeMap<_, usize> =
+                    ::std::collections::BTreeMap::new();
                 for x in a_val.into_iter() {
                     let n = a_bag.entry(x).or_insert(0);
                     *n += 1;
@@ -44,15 +46,17 @@ macro_rules! assert_bag_ne_as_result {
                             "            left: `{:?}`,\n",
                             "           right: `{:?}`"
                         ),
-                        stringify!($a), $a,
-                        stringify!($b), $b,
+                        stringify!($a),
+                        $a,
+                        stringify!($b),
+                        $b,
                         &a_bag,
                         &b_bag
                     ))
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -85,7 +89,6 @@ mod test_assert_x_result {
             )
         );
     }
-
 }
 
 /// Assert a bag is not equal to another.

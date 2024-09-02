@@ -156,7 +156,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -196,11 +195,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function err() is less than or equal to an expression.

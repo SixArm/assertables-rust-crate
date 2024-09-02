@@ -13,9 +13,9 @@ The sections below show each of the three flavors, using our simplest macro grou
 
 ## assert_gt_as_result
 
-The macro `assert_gt_as_result` returns a `Result` as `Ok` or `Err`. 
+The macro `assert_gt_as_result` returns a `Result` as `Ok` or `Err`.
 
-The macro contains all the logic and all the error formatting. 
+The macro contains all the logic and all the error formatting.
 
 The macro is called by the other flavors: directly by `assert_gt` and indirectly by `debug_assert_gt`.
 
@@ -57,11 +57,11 @@ macro_rules! assert_gt_as_result {
 
 ## assert_gt
 
-The macro `assert_gt` returns `()` or panics. 
+The macro `assert_gt` returns `()` or panics.
 
-The macro is the typical macro that most developers will use for testing. 
+The macro is the typical macro that most developers will use for testing.
 
-The macro wraps `assert_gt_as_result`. 
+The macro wraps `assert_gt_as_result`.
 
 The macro provides two arms: one arm is for returning the error messsage as is, and one arm is for returning a developer's custom error message.
 
@@ -94,7 +94,7 @@ The macro is the typical macro that most developers will use for runtime debuggi
 
 The macro's statements are only enabled in non-optimized builds by default. An optimized build will not execute this macro's statements unless `-C debug-assertions` is passed to the compiler.
 
-The macro wraps `assert_gt`. 
+The macro wraps `assert_gt`.
 
 Code:
 

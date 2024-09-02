@@ -119,11 +119,10 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
-            
+
             fn f() -> i8 {
                 return 1;
             }
@@ -131,7 +130,7 @@ mod tests {
             fn g() -> i8 {
                 return 2;
             }
-            
+
             #[test]
             fn test_eq() {
                 let x = assert_fn_eq_as_result!(f, f);
@@ -153,11 +152,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function output is equal to another function output.
@@ -255,7 +251,7 @@ macro_rules! assert_fn_eq {
             Err(_err) => panic!("{}", $($message)+),
         }
     });
-    
+
 }
 
 /// Assert a function output is equal to another function output.

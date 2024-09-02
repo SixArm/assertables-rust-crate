@@ -148,7 +148,6 @@ mod tests {
                     )
                 );
             }
-
         }
 
         mod arity_0 {
@@ -181,11 +180,8 @@ mod tests {
                     )
                 );
             }
-
         }
-
     }
-
 }
 
 /// Assert a function ok() is not equal to an expression.

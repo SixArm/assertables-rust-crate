@@ -5,7 +5,7 @@
 
 * Add `assert_in_delta`, `assert_in_epsilon`.
 
-* Add `asssert_fn_*` macros with multiple arities.
+* Add `assert_fn_*` macros with multiple arities.
 
 * Add `cargo release` for optimized tagged releases.
 

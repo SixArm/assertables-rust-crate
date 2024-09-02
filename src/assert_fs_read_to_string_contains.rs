@@ -61,18 +61,18 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
 
 #[cfg(test)]
 mod tests {
+    use once_cell::sync::Lazy;
     #[allow(unused_imports)]
     use std::io::Read;
     use std::path::PathBuf;
-    use once_cell::sync::Lazy;
 
-    pub static DIR: Lazy<PathBuf> = Lazy::new(||
+    pub static DIR: Lazy<PathBuf> = Lazy::new(|| {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("tests")
-        .join("src")
-        .join("std")
-        .join("fs")
-    );
+            .join("tests")
+            .join("src")
+            .join("std")
+            .join("fs")
+    });
 
     #[test]
     fn test_read_to_string_contains_as_result_x_success() {

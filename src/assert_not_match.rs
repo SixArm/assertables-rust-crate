@@ -18,7 +18,7 @@
 ///
 #[macro_export]
 macro_rules! assert_not_match_as_result {
-    ($matcher:expr, $matchee:expr $(,)?) => ({
+    ($matcher:expr, $matchee:expr $(,)?) => {{
         if !($matcher.is_match($matchee)) {
             Ok(())
         } else {
@@ -30,11 +30,13 @@ macro_rules! assert_not_match_as_result {
                     " matchee label: `{}`,\n",
                     " matchee debug: `{:?}`",
                 ),
-                stringify!($matcher), $matcher,
-                stringify!($matchee), $matchee,
+                stringify!($matcher),
+                $matcher,
+                stringify!($matchee),
+                $matchee,
             ))
         }
-    });
+    }};
 }
 
 #[cfg(test)]
