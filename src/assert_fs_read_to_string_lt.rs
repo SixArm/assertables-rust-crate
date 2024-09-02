@@ -140,9 +140,9 @@ mod tests {
 /// let expect = concat!(
 ///     "assertion failed: `assert_fs_read_to_string_lt!(left_path, right_path)`\n",
 ///     "  left_path label: `&a`,\n",
-///     "  left_path debug: `[]`,\n",
+///     "  left_path debug: `\"bravo.txt\"`,\n",
 ///     " right_path label: `&b`,\n",
-///     " right_path debug: `[]`,\n",
+///     " right_path debug: `\"alfa.txt\"`,\n",
 ///     "             left: `\"bravo\\n\"`,\n",
 ///     "            right: `\"alfa\\n\"`"
 /// );
@@ -159,13 +159,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_fs_read_to_string_lt {
     ($a_path:expr, $b_path:expr $(,)?) => ({
-        match read_to_string_lt_as_result!($a_path, $b_path) {
+        match assert_fs_read_to_string_lt_as_result!($a_path, $b_path) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a_path:expr, $b_path:expr, $($message:tt)+) => ({
-        match read_to_string_lt_as_result!($a_path, $b_path) {
+        match assert_fs_read_to_string_lt_as_result!($a_path, $b_path) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

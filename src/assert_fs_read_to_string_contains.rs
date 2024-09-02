@@ -119,27 +119,27 @@ mod tests {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let path = "hello.txt";
-/// let containee = "ell";
-/// assert_fs_read_to_string_contains!(path, containee);
+/// let path = "alfa.txt";
+/// let containee = "alfa";
+/// assert_fs_read_to_string_contains!(&path, containee);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let path = "hello.txt";
+/// let path = "alfa.txt";
 /// let containee = "zzz";
-/// assert_fs_read_to_string_contains!(path, containee);
+/// assert_fs_read_to_string_contains!(&path, containee);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
 ///     "assertion failed: `assert_fs_read_to_string_contains!(left_path, right_containee)`\n",
-///     "     left_path label: `&path`,\n",
-///     "     left_path debug: `[]`,\n",
+///     "       left_path label: `&path`,\n",
+///     "       left_path debug: `\"alfa.txt\"`,\n",
 ///     " right_containee label: `containee`,\n",
 ///     " right_containee debug: `\"zzz\"`,\n",
-///     "                  left: `\"hello\"`,\n",
+///     "                  left: `\"alfa\\n\"`,\n",
 ///     "                 right: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
@@ -155,13 +155,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_fs_read_to_string_contains {
     ($a_path:expr, $b:expr $(,)?) => ({
-        match read_to_string_contains_as_result!($a_path, $b) {
+        match assert_fs_read_to_string_contains_as_result!($a_path, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a_path:expr, $b:expr, $($message:tt)+) => ({
-        match read_to_string_contains_as_result!($a_path, $b) {
+        match assert_fs_read_to_string_contains_as_result!($a_path, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

@@ -120,16 +120,16 @@ mod tests {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let path = "hello.txt";
-/// let matcher = Regex::new(r"ell").unwrap();
-/// assert_fs_read_to_string_matches!(path, matcher);
+/// let path = "alfa.txt";
+/// let matcher = Regex::new(r"alfa").unwrap();
+/// assert_fs_read_to_string_matches!(&path, matcher);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let path = "hello.txt";
+/// let path = "alfa.txt";
 /// let matcher = Regex::new(r"zzz").unwrap();
-/// assert_fs_read_to_string_matches!(path, matcher);
+/// assert_fs_read_to_string_matches!(&path, matcher);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
@@ -137,10 +137,10 @@ mod tests {
 /// let expect = concat!(
 ///     "assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n",
 ///     "     left_path label: `&path`,\n",
-///     "     left_path debug: `[]`,\n",
+///     "     left_path debug: `\"alfa.txt\"`,\n",
 ///     " right_matcher label: `matcher`,\n",
 ///     " right_matcher debug: `Regex(\"zzz\")`,\n",
-///     "                left: `\"hello\"`,\n",
+///     "                left: `\"alfa\\n\"`,\n",
 ///     "               right: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
@@ -156,13 +156,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_fs_read_to_string_matches {
     ($a_path:expr, $b_matcher:expr $(,)?) => ({
-        match read_to_string_matches_as_result!($a_path, $b_matcher) {
+        match assert_fs_read_to_string_matches_as_result!($a_path, $b_matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a_path:expr, $b_matcher:expr, $($message:tt)+) => ({
-        match read_to_string_matches_as_result!($a_path, $b_matcher) {
+        match assert_fs_read_to_string_matches_as_result!($a_path, $b_matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

@@ -122,14 +122,14 @@ mod tests {
 /// // Return Ok
 /// let path = "alfa.txt";
 /// let value = String::from("bravo\n");
-/// assert_fs_read_to_string_le_expr!(path, &value);
+/// assert_fs_read_to_string_le_expr!(&path, &value);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let b = "bravo.txt";
+/// let path = "bravo.txt";
 /// let value = String::from("alfa\n");
-/// assert_fs_read_to_string_le_expr!(path, &value);
+/// assert_fs_read_to_string_le_expr!(&path, &value);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
@@ -137,7 +137,7 @@ mod tests {
 /// let expect = concat!(
 ///     "assertion failed: `assert_fs_read_to_string_le_expr!(left_path, right_expr)`\n",
 ///     "  left_path label: `&path`,\n",
-///     "  left_path debug: `[]`,\n",
+///     "  left_path debug: `\"bravo.txt\"`,\n",
 ///     " right_expr label: `&value`,\n",
 ///     " right_expr debug: `\"alfa\\n\"`,\n",
 ///     "             left: `\"bravo\\n\"`,\n",
@@ -156,13 +156,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_fs_read_to_string_le_expr {
     ($a_path:expr,  $b_expr:expr $(,)?) => ({
-        match read_to_string_le_expr_as_result!($a_path, $b_expr) {
+        match assert_fs_read_to_string_le_expr_as_result!($a_path, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a_path:expr, $b_expr:expr, $($message:tt)+) => ({
-        match read_to_string_le_expr_as_result!($a_path, $b_expr) {
+        match assert_fs_read_to_string_le_expr_as_result!($a_path, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
