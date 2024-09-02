@@ -95,9 +95,9 @@ mod tests {
             "     left_args label: `&a_args`,\n",
             "     left_args debug: `[\"%s\", \"hello\"]`,\n",
             " right_matcher label: `b`,\n",
-            " right_matcher debug: `zzz`,\n",
+            " right_matcher debug: `Regex(\"zzz\")`,\n",
             "                left: `\"hello\"`,\n",
-            "               right: `zzz`"
+            "               right: `Regex(\"zzz\")`"
         );
         assert_eq!(actual, expect);
     }
@@ -142,9 +142,9 @@ mod tests {
 ///     "     left_args label: `&args`,\n",
 ///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
 ///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `zzz`,\n",
+///     " right_matcher debug: `Regex(\"zzz\")`,\n",
 ///     "                left: `\"hello\"`,\n",
-///     "               right: `zzz`"
+///     "               right: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

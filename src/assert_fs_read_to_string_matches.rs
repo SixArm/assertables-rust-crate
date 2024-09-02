@@ -139,9 +139,9 @@ mod tests {
 ///     "     left_path label: `&path`,\n",
 ///     "     left_path debug: `[]`,\n",
 ///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `zzz`,\n",
+///     " right_matcher debug: `Regex(\"zzz\")`,\n",
 ///     "                left: `\"hello\"`,\n",
-///     "               right: `zzz`"
+///     "               right: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

@@ -86,9 +86,9 @@ mod tests {
             "  left_command label: `a`,\n",
             "  left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
             " right_matcher label: `b`,\n",
-            " right_matcher debug: `zzz`,\n",
+            " right_matcher debug: `Regex(\"zzz\")`,\n",
             "                left: `\"hello\"`,\n",
-            "               right: `zzz`"
+            "               right: `Regex(\"zzz\")`"
         );
         assert_eq!(actual, expect);
     }
@@ -132,9 +132,9 @@ mod tests {
 ///     "  left_command label: `command`,\n",
 ///     "  left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
 ///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `zzz`,\n",
+///     " right_matcher debug: `Regex(\"zzz\")`,\n",
 ///     "                left: `\"hello\"`,\n",
-///     "               right: `zzz`"
+///     "               right: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 ///

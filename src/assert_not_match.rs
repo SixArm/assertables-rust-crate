@@ -59,7 +59,7 @@ mod tests {
         let expect = concat!(
             "assertion failed: `assert_not_match!(matcher, matchee)`\n",
             " matcher label: `a`,\n",
-            " matcher debug: `foo`,\n",
+            " matcher debug: `Regex(\"foo\")`,\n",
             " matchee label: `b`,\n",
             " matchee debug: `\"foogoo\"`"
         );
@@ -101,7 +101,7 @@ mod tests {
 /// let expect = concat!(
 ///     "assertion failed: `assert_not_match!(matcher, matchee)`\n",
 ///     " matcher label: `a`,\n",
-///     " matcher debug: `foo`,\n",
+///     " matcher debug: `Regex(\"foo\")`,\n",
 ///     " matchee label: `b`,\n",
 ///     " matchee debug: `\"foogoo\"`"
 /// );
