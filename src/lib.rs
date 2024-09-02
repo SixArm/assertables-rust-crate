@@ -29,7 +29,8 @@
 //! assert_is_match!(regex, string); // regex is match of string
 //! assert_set_subset!(vector1, vector2); // vector1 as set ⊆ vector2 as set
 //! assert_fn_ok_eq!(function1, function2); // function1 ok = function2 ok
-//! assert_io_read_to_string_eq!(reader1, reader2); // reader1 as string = reader2 as string
+//! assert_fs_read_to_string_eq!(path1, path2); // path1 to string = path2 to string
+//! assert_io_read_to_string_eq!(reader1, reader2); // reader1 to string = reader2 to string
 //! assert_command_stdout_eq!(command1, command2); // command1 standard output = command2 standard output
 //! ```
 //!
