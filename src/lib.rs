@@ -21,7 +21,7 @@
 //! ```
 //!
 //! The assertables Rust crate provides many more assert macros for values,
-//! strings, vectors, readers, commands, and more, such as:
+//! strings, vectors, paths, readers, commands, and more, such as:
 //!
 //! ```ignore
 //! assert_gt!(value1, value2); // value1 greater than value2
