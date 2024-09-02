@@ -24,21 +24,29 @@ The assertables Rust crate provides many more assert macros for values,
 strings, vectors, paths, readers, commands, and more, such as:
 
 ```rust
-assert_gt!(value1, value2); // value1 greater than value2
+// value1 greater than value2
+assert_gt!(value1, value2);
 
-assert_starts_with!(string1, string2); // string1 starts with string2
+// string1 starts with string2
+assert_starts_with!(string1, string2);
 
-assert_is_match!(regex, string); // regex is match of string
+// regex is match of string
+assert_is_match!(regex, string);
 
-assert_set_subset!(vector1, vector2); // vector1 as set ⊆ vector2 as set
+// vector1 as set ⊆ vector2 as set
+assert_set_subset!(vector1, vector2);
 
-assert_fn_ok_eq!(function1, function2); // function1 ok = function2 ok
+// function1 ok = function2 ok
+assert_fn_ok_eq!(function1, function2);
 
-assert_fs_read_to_string_eq!(path1, path2); // path1 to string = path2 to string
+// path1 to string = path2 to string
+assert_fs_read_to_string_eq!(path1, path2);
 
-assert_io_read_to_string_eq!(reader1, reader2); // reader1 to string = reader2 to string
+// reader1 to string = reader2 to string
+assert_io_read_to_string_eq!(reader1, reader2);
 
-assert_command_stdout_eq!(command1, command2); // command1 standard output = command2 standard output
+// command1 standard output = command2 standard output
+assert_command_stdout_eq!(command1, command2);
 ```
 
 See below for the complete list of all the assert macros.
