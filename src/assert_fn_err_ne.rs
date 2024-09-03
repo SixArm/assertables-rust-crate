@@ -4,7 +4,7 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_`],
+/// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -307,7 +307,7 @@ macro_rules! assert_fn_err_ne {
 
 /// Assert a function err() is not equal to another.
 ///
-/// This macro provides the same statements as [`assert_fn_err_ne`],
+/// This macro provides the same statements as [`assert_fn_err_ne`](macro.assert_fn_err_ne.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.

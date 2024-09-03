@@ -4,7 +4,7 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_bag_subbag`],
+/// This macro provides the same statements as [`assert_bag_subbag`](macro.assert_bag_subbag.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -227,7 +227,7 @@ macro_rules! assert_bag_subbag {
 
 /// Assert a bag is a subbag of another.
 ///
-/// This macro provides the same statements as [`assert_bag_subbag`],
+/// This macro provides the same statements as [`assert_bag_subbag`](macro.assert_bag_subbag.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.

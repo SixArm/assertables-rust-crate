@@ -265,7 +265,7 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_superbag_other`],
+/// This macro provides the same statements as [`assert_superbag_other`](macro.assert_superbag_other.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -486,7 +486,7 @@
 
 <span class="doccomment">/// Assert a bag is a superbag of another.
 ///
-/// This macro provides the same statements as [`assert_bag_superbag`],
+/// This macro provides the same statements as [`assert_bag_superbag`](macro.assert_bag_superbag.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.

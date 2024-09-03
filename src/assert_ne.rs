@@ -5,7 +5,7 @@
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// This macro provides the same statements as [`assert_`],
+/// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -82,7 +82,7 @@ mod tests {
 
 /// Assert an expression is not equal to an expression.
 ///
-/// This macro provides the same statements as [`assert_ne`],
+/// This macro provides the same statements as [`assert_ne`](macro.assert_ne.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.

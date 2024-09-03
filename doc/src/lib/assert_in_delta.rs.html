@@ -229,7 +229,7 @@
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// This macro provides the same statements as [`assert_`], except this macro
+/// This macro provides the same statements as [`assert_`](macro.assert_.html), except this macro
 /// returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters, or
@@ -412,7 +412,7 @@
 
 <span class="doccomment">/// Assert a number is within delta of another number.
 ///
-/// This macro provides the same statements as [`assert_in_delta`],
+/// This macro provides the same statements as [`assert_in_delta`](macro.assert_in_delta.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.

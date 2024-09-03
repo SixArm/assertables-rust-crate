@@ -4,7 +4,7 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_command_stderr_contains`],
+/// This macro provides the same statements as [`assert_command_stderr_contains`](macro.assert_command_stderr_contains.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -180,7 +180,7 @@ macro_rules! assert_command_stderr_contains {
 
 /// Assert a command stderr string contains a given containee.
 ///
-/// This macro provides the same statements as [`assert_command_stderr_contains`],
+/// This macro provides the same statements as [`assert_command_stderr_contains`](macro.assert_command_stderr_contains.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
