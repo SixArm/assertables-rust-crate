@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_io_read_to_string_gt`]
-/// * [`assert_io_read_to_string_gt_as_result`]
-/// * [`debug_assert_io_read_to_string_gt`]
+/// * [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html)
+/// * [`assert_io_read_to_string_gt_as_result`](macro.assert_io_read_to_string_gt_as_result.html)
+/// * [`debug_assert_io_read_to_string_gt`](macro.debug_assert_io_read_to_string_gt.html)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_gt_as_result {
@@ -142,11 +142,11 @@ mod tests {
 /// # }
 /// ```
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_io_read_to_string_gt`]
-/// * [`assert_io_read_to_string_gt_as_result`]
-/// * [`debug_assert_io_read_to_string_gt`]
+/// * [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html)
+/// * [`assert_io_read_to_string_gt_as_result`](macro.assert_io_read_to_string_gt_as_result.html)
+/// * [`debug_assert_io_read_to_string_gt`](macro.debug_assert_io_read_to_string_gt.html)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_gt {
@@ -186,11 +186,11 @@ macro_rules! assert_io_read_to_string_gt {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_io_read_to_string_gt`]
-/// * [`assert_io_read_to_string_gt`]
-/// * [`debug_assert_io_read_to_string_gt`]
+/// * [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html)
+/// * [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html)
+/// * [`debug_assert_io_read_to_string_gt`](macro.debug_assert_io_read_to_string_gt.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_io_read_to_string_gt {

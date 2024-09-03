@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_program_args_stderr_lt`]
-/// * [`assert_program_args_stderr_lt_as_result`]
-/// * [`debug_assert_program_args_stderr_lt`]
+/// * [`assert_program_args_stderr_lt`](macro.assert_program_args_stderr_lt.html)
+/// * [`assert_program_args_stderr_lt_as_result`](macro.assert_program_args_stderr_lt_as_result.html)
+/// * [`debug_assert_program_args_stderr_lt`](macro.debug_assert_program_args_stderr_lt.html)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_lt_as_result {
@@ -165,11 +165,11 @@ mod tests {
 /// # }
 /// ```
 ///
-/// /// # Related
+/// /// # Module macros
 ///
-/// * [`assert_program_args_stderr_lt`]
-/// * [`assert_program_args_stderr_lt_as_result`]
-/// * [`debug_assert_program_args_stderr_lt`]
+/// * [`assert_program_args_stderr_lt`](macro.assert_program_args_stderr_lt.html)
+/// * [`assert_program_args_stderr_lt_as_result`](macro.assert_program_args_stderr_lt_as_result.html)
+/// * [`debug_assert_program_args_stderr_lt`](macro.debug_assert_program_args_stderr_lt.html)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_lt {
@@ -209,11 +209,11 @@ macro_rules! assert_program_args_stderr_lt {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_program_args_stderr_lt`]
-/// * [`assert_program_args_stderr_lt`]
-/// * [`debug_assert_program_args_stderr_lt`]
+/// * [`assert_program_args_stderr_lt`](macro.assert_program_args_stderr_lt.html)
+/// * [`assert_program_args_stderr_lt`](macro.assert_program_args_stderr_lt.html)
+/// * [`debug_assert_program_args_stderr_lt`](macro.debug_assert_program_args_stderr_lt.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_program_args_stderr_lt {

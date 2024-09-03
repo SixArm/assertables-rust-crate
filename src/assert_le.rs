@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_le`]
-/// * [`assert_le_as_result`]
-/// * [`debug_assert_le`]
+/// * [`assert_le`](macro.assert_le.html)
+/// * [`assert_le_as_result`](macro.assert_le_as_result.html)
+/// * [`debug_assert_le`](macro.debug_assert_le.html)
 ///
 #[macro_export]
 macro_rules! assert_le_as_result {
@@ -130,11 +130,11 @@ mod tests {
 /// # }
 /// ```
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_le`]
-/// * [`assert_le_as_result`]
-/// * [`debug_assert_le`]
+/// * [`assert_le`](macro.assert_le.html)
+/// * [`assert_le_as_result`](macro.assert_le_as_result.html)
+/// * [`debug_assert_le`](macro.debug_assert_le.html)
 ///
 #[macro_export]
 macro_rules! assert_le {
@@ -174,11 +174,11 @@ macro_rules! assert_le {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_le`]
-/// * [`assert_le`]
-/// * [`debug_assert_le`]
+/// * [`assert_le`](macro.assert_le.html)
+/// * [`assert_le`](macro.assert_le.html)
+/// * [`debug_assert_le`](macro.debug_assert_le.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_le {

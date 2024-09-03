@@ -10,10 +10,10 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
 /// * [`assert`]
-/// * [`assert_as_result`]
+/// * [`assert_as_result`](macro.assert_as_result.html)
 /// * [`debug_assert`]
 ///
 #[macro_export]
@@ -131,11 +131,11 @@ mod test_assert_x_result {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_zzz`]
-/// * [`assert_zzz`]
-/// * [`debug_assert_zzz`]
+/// * [`assert_zzz`](macro.assert_zzz.html)
+/// * [`assert_zzz`](macro.assert_zzz.html)
+/// * [`debug_assert_zzz`](macro.debug_assert_zzz.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_zzz {

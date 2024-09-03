@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_fn_lt`]
-/// * [`assert_fn_lt_as_result`]
-/// * [`debug_assert_fn_lt`]
+/// * [`assert_fn_lt`](macro.assert_fn_lt.html)
+/// * [`assert_fn_lt_as_result`](macro.assert_fn_lt_as_result.html)
+/// * [`debug_assert_fn_lt`](macro.debug_assert_fn_lt.html)
 ///
 #[macro_export]
 macro_rules! assert_fn_lt_as_result {
@@ -237,11 +237,11 @@ mod tests {
 /// # }
 /// ```
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_fn_lt`]
-/// * [`assert_fn_lt_as_result`]
-/// * [`debug_assert_fn_lt`]
+/// * [`assert_fn_lt`](macro.assert_fn_lt.html)
+/// * [`assert_fn_lt_as_result`](macro.assert_fn_lt_as_result.html)
+/// * [`debug_assert_fn_lt`](macro.debug_assert_fn_lt.html)
 ///
 #[macro_export]
 macro_rules! assert_fn_lt {
@@ -302,11 +302,11 @@ macro_rules! assert_fn_lt {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_fn_lt`]
-/// * [`assert_fn_lt`]
-/// * [`debug_assert_fn_lt`]
+/// * [`assert_fn_lt`](macro.assert_fn_lt.html)
+/// * [`assert_fn_lt`](macro.assert_fn_lt.html)
+/// * [`debug_assert_fn_lt`](macro.debug_assert_fn_lt.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_fn_lt {

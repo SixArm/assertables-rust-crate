@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_fn_err_ne`]
-/// * [`assert_fn_err_ne_as_result`]
-/// * [`debug_assert_fn_err_ne`]
+/// * [`assert_fn_err_ne`](macro.assert_fn_err_ne.html)
+/// * [`assert_fn_err_ne_as_result`](macro.assert_fn_err_ne_as_result.html)
+/// * [`debug_assert_fn_err_ne`](macro.debug_assert_fn_err_ne.html)
 ///
 #[macro_export]
 macro_rules! assert_fn_err_ne_as_result {
@@ -262,11 +262,11 @@ mod tests {
 /// # }
 /// ```
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_fn_err_ne`]
-/// * [`assert_fn_err_ne_as_result`]
-/// * [`debug_assert_fn_err_ne`]
+/// * [`assert_fn_err_ne`](macro.assert_fn_err_ne.html)
+/// * [`assert_fn_err_ne_as_result`](macro.assert_fn_err_ne_as_result.html)
+/// * [`debug_assert_fn_err_ne`](macro.debug_assert_fn_err_ne.html)
 ///
 #[macro_export]
 macro_rules! assert_fn_err_ne {
@@ -327,11 +327,11 @@ macro_rules! assert_fn_err_ne {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_fn_err_ne`]
-/// * [`assert_fn_err_ne`]
-/// * [`debug_assert_fn_err_ne`]
+/// * [`assert_fn_err_ne`](macro.assert_fn_err_ne.html)
+/// * [`assert_fn_err_ne`](macro.assert_fn_err_ne.html)
+/// * [`debug_assert_fn_err_ne`](macro.debug_assert_fn_err_ne.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_fn_err_ne {

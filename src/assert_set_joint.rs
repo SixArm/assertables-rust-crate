@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_set_joint`]
-/// * [`assert_set_joint_as_result`]
-/// * [`debug_assert_set_joint`]
+/// * [`assert_set_joint`](macro.assert_set_joint.html)
+/// * [`assert_set_joint_as_result`](macro.assert_set_joint_as_result.html)
+/// * [`debug_assert_set_joint`](macro.debug_assert_set_joint.html)
 ///
 #[macro_export]
 macro_rules! assert_set_joint_as_result {
@@ -124,11 +124,11 @@ mod tests {
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_set_joint`]
-/// * [`assert_set_joint_as_result`]
-/// * [`debug_assert_set_joint`]
+/// * [`assert_set_joint`](macro.assert_set_joint.html)
+/// * [`assert_set_joint_as_result`](macro.assert_set_joint_as_result.html)
+/// * [`debug_assert_set_joint`](macro.debug_assert_set_joint.html)
 ///
 #[macro_export]
 macro_rules! assert_set_joint {
@@ -168,11 +168,11 @@ macro_rules! assert_set_joint {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_set_joint`]
-/// * [`assert_set_joint`]
-/// * [`debug_assert_set_joint`]
+/// * [`assert_set_joint`](macro.assert_set_joint.html)
+/// * [`assert_set_joint`](macro.assert_set_joint.html)
+/// * [`debug_assert_set_joint`](macro.debug_assert_set_joint.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_set_joint {

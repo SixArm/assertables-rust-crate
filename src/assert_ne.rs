@@ -11,11 +11,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_ne`]
-/// * [`assert_ne_as_result`]
-/// * [`debug_assert_ne`]
+/// * [`assert_ne`](macro.assert_ne.html)
+/// * [`assert_ne_as_result`](macro.assert_ne_as_result.html)
+/// * [`debug_assert_ne`](macro.debug_assert_ne.html)
 ///
 #[macro_export]
 macro_rules! assert_ne_as_result {
@@ -102,11 +102,11 @@ mod tests {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_ne`]
-/// * [`assert_ne`]
-/// * [`debug_assert_ne`]
+/// * [`assert_ne`](macro.assert_ne.html)
+/// * [`assert_ne`](macro.assert_ne.html)
+/// * [`debug_assert_ne`](macro.debug_assert_ne.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_ne {

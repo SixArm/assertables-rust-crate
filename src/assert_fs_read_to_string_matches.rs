@@ -10,7 +10,7 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
 /// * [`read_to_string_matches`]
 /// * [`read_to_string_matches_as_result`]
@@ -149,7 +149,7 @@ mod tests {
 /// # }
 /// ```
 ///
-/// # Related
+/// # Module macros
 ///
 /// * [`read_to_string_matches`]
 /// * [`read_to_string_matches_as_result`]
@@ -193,7 +193,7 @@ macro_rules! assert_fs_read_to_string_matches {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
 /// * [`read_to_string_matches`]
 /// * [`read_to_string_matches`]

@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_set_subset`]
-/// * [`assert_set_subset_as_result`]
-/// * [`debug_assert_set_subset`]
+/// * [`assert_set_subset`](macro.assert_set_subset.html)
+/// * [`assert_set_subset_as_result`](macro.assert_set_subset_as_result.html)
+/// * [`debug_assert_set_subset`](macro.debug_assert_set_subset.html)
 ///
 #[macro_export]
 macro_rules! assert_set_subset_as_result {
@@ -124,11 +124,11 @@ mod tests {
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_set_subset`]
-/// * [`assert_set_subset_as_result`]
-/// * [`debug_assert_set_subset`]
+/// * [`assert_set_subset`](macro.assert_set_subset.html)
+/// * [`assert_set_subset_as_result`](macro.assert_set_subset_as_result.html)
+/// * [`debug_assert_set_subset`](macro.debug_assert_set_subset.html)
 ///
 #[macro_export]
 macro_rules! assert_set_subset {
@@ -168,11 +168,11 @@ macro_rules! assert_set_subset {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_set_subset`]
-/// * [`assert_set_subset`]
-/// * [`debug_assert_set_subset`]
+/// * [`assert_set_subset`](macro.assert_set_subset.html)
+/// * [`assert_set_subset`](macro.assert_set_subset.html)
+/// * [`debug_assert_set_subset`](macro.debug_assert_set_subset.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_set_subset {

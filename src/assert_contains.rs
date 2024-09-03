@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_contains`]
-/// * [`assert_contains_as_result`]
-/// * [`debug_assert_contains`]
+/// * [`assert_contains`](macro.assert_contains.html)
+/// * [`assert_contains_as_result`](macro.assert_contains_as_result.html)
+/// * [`debug_assert_contains`](macro.debug_assert_contains.html)
 ///
 #[macro_export]
 macro_rules! assert_contains_as_result {
@@ -106,11 +106,11 @@ mod tests {
 /// # }
 /// ```
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_contains`]
-/// * [`assert_contains_as_result`]
-/// * [`debug_assert_contains`]
+/// * [`assert_contains`](macro.assert_contains.html)
+/// * [`assert_contains_as_result`](macro.assert_contains_as_result.html)
+/// * [`debug_assert_contains`](macro.debug_assert_contains.html)
 ///
 #[macro_export]
 macro_rules! assert_contains {
@@ -150,11 +150,11 @@ macro_rules! assert_contains {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_contains`]
-/// * [`assert_contains`]
-/// * [`debug_assert_contains`]
+/// * [`assert_contains`](macro.assert_contains.html)
+/// * [`assert_contains`](macro.assert_contains.html)
+/// * [`debug_assert_contains`](macro.debug_assert_contains.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_contains {

@@ -12,11 +12,11 @@
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_set_superset`]
-/// * [`assert_set_superset_as_result`]
-/// * [`debug_assert_set_superset`]
+/// * [`assert_set_superset`](macro.assert_set_superset.html)
+/// * [`assert_set_superset_as_result`](macro.assert_set_superset_as_result.html)
+/// * [`debug_assert_set_superset`](macro.debug_assert_set_superset.html)
 ///
 #[macro_export]
 macro_rules! assert_set_superset_as_result {
@@ -126,11 +126,11 @@ mod tests {
 ///
 /// This implementation uses [`BTreeSet`] to count items and sort them.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_set_superset`]
-/// * [`assert_set_superset_as_result`]
-/// * [`debug_assert_set_superset`]
+/// * [`assert_set_superset`](macro.assert_set_superset.html)
+/// * [`assert_set_superset_as_result`](macro.assert_set_superset_as_result.html)
+/// * [`debug_assert_set_superset`](macro.debug_assert_set_superset.html)
 ///
 #[macro_export]
 macro_rules! assert_set_superset {
@@ -170,11 +170,11 @@ macro_rules! assert_set_superset {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_set_superset`]
-/// * [`assert_set_superset`]
-/// * [`debug_assert_set_superset`]
+/// * [`assert_set_superset`](macro.assert_set_superset.html)
+/// * [`assert_set_superset`](macro.assert_set_superset.html)
+/// * [`debug_assert_set_superset`](macro.debug_assert_set_superset.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_set_superset {

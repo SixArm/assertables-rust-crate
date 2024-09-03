@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_bag_ne`]
-/// * [`assert_bag_ne_as_result`]
-/// * [`debug_assert_bag_ne`]
+/// * [`assert_bag_ne`](macro.assert_bag_ne.html)
+/// * [`assert_bag_ne_as_result`](macro.assert_bag_ne_as_result.html)
+/// * [`debug_assert_bag_ne`](macro.debug_assert_bag_ne.html)
 ///
 #[macro_export]
 macro_rules! assert_bag_ne_as_result {
@@ -146,11 +146,11 @@ mod test_assert_x_result {
 ///
 /// This implementation uses [`BTreeMap`] to count items and sort them.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_bag_ne`]
-/// * [`assert_bag_ne_as_result`]
-/// * [`debug_assert_bag_ne`]
+/// * [`assert_bag_ne`](macro.assert_bag_ne.html)
+/// * [`assert_bag_ne_as_result`](macro.assert_bag_ne_as_result.html)
+/// * [`debug_assert_bag_ne`](macro.debug_assert_bag_ne.html)
 ///
 #[macro_export]
 macro_rules! assert_bag_ne {
@@ -190,11 +190,11 @@ macro_rules! assert_bag_ne {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_bag_ne`]
-/// * [`assert_bag_ne_as_result`]
-/// * [`debug_assert_bag_ne`]
+/// * [`assert_bag_ne`](macro.assert_bag_ne.html)
+/// * [`assert_bag_ne_as_result`](macro.assert_bag_ne_as_result.html)
+/// * [`debug_assert_bag_ne`](macro.debug_assert_bag_ne.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_bag_ne {

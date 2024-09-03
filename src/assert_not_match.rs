@@ -10,11 +10,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_not_match`]
-/// * [`assert_not_match_as_result`]
-/// * [`debug_assert_not_match`]
+/// * [`assert_not_match`](macro.assert_not_match.html)
+/// * [`assert_not_match_as_result`](macro.assert_not_match_as_result.html)
+/// * [`debug_assert_not_match`](macro.debug_assert_not_match.html)
 ///
 #[macro_export]
 macro_rules! assert_not_match_as_result {
@@ -111,11 +111,11 @@ mod tests {
 /// # }
 /// ```
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_not_match`]
-/// * [`assert_not_match_as_result`]
-/// * [`debug_assert_not_match`]
+/// * [`assert_not_match`](macro.assert_not_match.html)
+/// * [`assert_not_match_as_result`](macro.assert_not_match_as_result.html)
+/// * [`debug_assert_not_match`](macro.debug_assert_not_match.html)
 ///
 #[macro_export]
 macro_rules! assert_not_match {
@@ -155,11 +155,11 @@ macro_rules! assert_not_match {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_not_match`]
-/// * [`assert_not_match`]
-/// * [`debug_assert_not_match`]
+/// * [`assert_not_match`](macro.assert_not_match.html)
+/// * [`assert_not_match`](macro.assert_not_match.html)
+/// * [`debug_assert_not_match`](macro.debug_assert_not_match.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_not_match {

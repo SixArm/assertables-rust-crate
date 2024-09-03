@@ -11,11 +11,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_in_epsilon`]
-/// * [`assert_in_epsilon_as_result`]
-/// * [`debug_assert_in_epsilon`]
+/// * [`assert_in_epsilon`](macro.assert_in_epsilon.html)
+/// * [`assert_in_epsilon_as_result`](macro.assert_in_epsilon_as_result.html)
+/// * [`debug_assert_in_epsilon`](macro.debug_assert_in_epsilon.html)
 ///
 #[macro_export]
 macro_rules! assert_in_epsilon_as_result {
@@ -164,11 +164,11 @@ mod tests {
 ///
 /// * Thanks to Ruby minitest for the example and documentation.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_in_epsilon`]
-/// * [`assert_in_epsilon_as_result`]
-/// * [`debug_assert_in_epsilon`]
+/// * [`assert_in_epsilon`](macro.assert_in_epsilon.html)
+/// * [`assert_in_epsilon_as_result`](macro.assert_in_epsilon_as_result.html)
+/// * [`debug_assert_in_epsilon`](macro.debug_assert_in_epsilon.html)
 ///
 #[macro_export]
 macro_rules! assert_in_epsilon {
@@ -208,11 +208,11 @@ macro_rules! assert_in_epsilon {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_in_epsilon`]
-/// * [`assert_in_epsilon`]
-/// * [`debug_assert_in_epsilon`]
+/// * [`assert_in_epsilon`](macro.assert_in_epsilon.html)
+/// * [`assert_in_epsilon`](macro.assert_in_epsilon.html)
+/// * [`debug_assert_in_epsilon`](macro.debug_assert_in_epsilon.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_in_epsilon {

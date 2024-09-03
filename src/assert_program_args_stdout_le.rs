@@ -11,11 +11,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_program_args_stdout_le`]
-/// * [`assert_program_args_stdout_le_as_result`]
-/// * [`debug_assert_program_args_stdout_le`]
+/// * [`assert_program_args_stdout_le`](macro.assert_program_args_stdout_le.html)
+/// * [`assert_program_args_stdout_le_as_result`](macro.assert_program_args_stdout_le_as_result.html)
+/// * [`debug_assert_program_args_stdout_le`](macro.debug_assert_program_args_stdout_le.html)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_le_as_result {
@@ -178,11 +178,11 @@ mod tests {
 /// # }
 /// ```
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_program_args_stdout_le`]
-/// * [`assert_program_args_stdout_le_as_result`]
-/// * [`debug_assert_program_args_stdout_le`]
+/// * [`assert_program_args_stdout_le`](macro.assert_program_args_stdout_le.html)
+/// * [`assert_program_args_stdout_le_as_result`](macro.assert_program_args_stdout_le_as_result.html)
+/// * [`debug_assert_program_args_stdout_le`](macro.debug_assert_program_args_stdout_le.html)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_le {
@@ -222,11 +222,11 @@ macro_rules! assert_program_args_stdout_le {
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_program_args_stdout_le`]
-/// * [`assert_program_args_stdout_le`]
-/// * [`debug_assert_program_args_stdout_le`]
+/// * [`assert_program_args_stdout_le`](macro.assert_program_args_stdout_le.html)
+/// * [`assert_program_args_stdout_le`](macro.assert_program_args_stdout_le.html)
+/// * [`debug_assert_program_args_stdout_le`](macro.debug_assert_program_args_stdout_le.html)
 ///
 #[macro_export]
 macro_rules! debug_assert_program_args_stdout_le {

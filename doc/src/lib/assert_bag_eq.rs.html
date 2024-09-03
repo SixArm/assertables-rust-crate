@@ -204,47 +204,7 @@
 <a href="#204" id="204">204</a>
 <a href="#205" id="205">205</a>
 <a href="#206" id="206">206</a>
-<a href="#207" id="207">207</a>
-<a href="#208" id="208">208</a>
-<a href="#209" id="209">209</a>
-<a href="#210" id="210">210</a>
-<a href="#211" id="211">211</a>
-<a href="#212" id="212">212</a>
-<a href="#213" id="213">213</a>
-<a href="#214" id="214">214</a>
-<a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is equal to another.
-//!
-//! Module macros:
-//! 
-//! * [`assert_bag_eq!`]
-//! * [`debug_assert_bag_eq!`]
-//! * [`assert_bag_eq_as_result!`]
-//! 
-//! Simple example:
-//!
-//! ```rust
-//! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! # fn main() {
-//! // Return Ok
-//! let a = [1, 1];
-//! let b = [1, 1];
-//! assert_bag_eq!(&amp;a, &amp;b);
-//! ```
-
-/// Assert a bag is equal to another.
+</pre></div><pre class="rust"><code><span class="doccomment">/// Assert a bag is equal to another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -256,11 +216,11 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_bag_eq`]
-/// * [`assert_bag_eq_as_result`]
-/// * [`debug_assert_bag_eq`]
+/// * [`assert_bag_eq`](macro.assert_bag_eq.html)
+/// * [`assert_bag_eq_as_result`](macro.assert_bag_eq_as_result.html)
+/// * [`debug_assert_bag_eq`](macro.debug_assert_bag_eq.html)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_bag_eq_as_result {
@@ -392,11 +352,11 @@
 ///
 /// This implementation uses [`BTreeMap`] to count items and sort them.
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_bag_eq`]
-/// * [`assert_bag_eq_as_result`]
-/// * [`debug_assert_bag_eq`]
+/// * [`assert_bag_eq`](macro.assert_bag_eq.html)
+/// * [`assert_bag_eq_as_result`](macro.assert_bag_eq_as_result.html)
+/// * [`debug_assert_bag_eq`](macro.debug_assert_bag_eq.html)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_bag_eq {
@@ -436,11 +396,11 @@
 /// This macro is intendend to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
-/// # Related
+/// # Module macros
 ///
-/// * [`assert_bag_eq`]
-/// * [`assert_bag_eq_as_result`]
-/// * [`debug_assert_bag_eq`]
+/// * [`assert_bag_eq`](macro.assert_bag_eq.html)
+/// * [`assert_bag_eq_as_result`](macro.assert_bag_eq_as_result.html)
+/// * [`debug_assert_bag_eq`](macro.debug_assert_bag_eq.html)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_bag_eq {
