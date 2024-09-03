@@ -46,9 +46,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_program_args_stderr_gt_expr`](macro.assert_program_args_stderr_gt_expr.html)
-//! * [`assert_program_args_stderr_gt_expr_as_result`](macro.assert_program_args_stderr_gt_expr_as_result.html)
-//! * [`debug_assert_program_args_stderr_gt_expr`](macro.debug_assert_program_args_stderr_gt_expr.html)
+//! * [`assert_program_args_stderr_gt_expr`](macro@crate::assert_program_args_stderr_gt_expr)
+//! * [`assert_program_args_stderr_gt_expr_as_result`](macro@crate::assert_program_args_stderr_gt_expr_as_result)
+//! * [`debug_assert_program_args_stderr_gt_expr`](macro@crate::debug_assert_program_args_stderr_gt_expr)
 
 /// Assert a command (built with program and args) stderr string is greater than an expression.
 ///
@@ -64,9 +64,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stderr_gt_expr`](macro.assert_program_args_stderr_gt_expr.html)
-/// * [`assert_program_args_stderr_gt_expr_as_result`](macro.assert_program_args_stderr_gt_expr_as_result.html)
-/// * [`debug_assert_program_args_stderr_gt_expr`](macro.debug_assert_program_args_stderr_gt_expr.html)
+/// * [`assert_program_args_stderr_gt_expr`](macro@crate::assert_program_args_stderr_gt_expr)
+/// * [`assert_program_args_stderr_gt_expr_as_result`](macro@crate::assert_program_args_stderr_gt_expr_as_result)
+/// * [`debug_assert_program_args_stderr_gt_expr`](macro@crate::debug_assert_program_args_stderr_gt_expr)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_gt_expr_as_result {
@@ -200,9 +200,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stderr_gt_expr`](macro.assert_program_args_stderr_gt_expr.html)
-/// * [`assert_program_args_stderr_gt_expr_as_result`](macro.assert_program_args_stderr_gt_expr_as_result.html)
-/// * [`debug_assert_program_args_stderr_gt_expr`](macro.debug_assert_program_args_stderr_gt_expr.html)
+/// * [`assert_program_args_stderr_gt_expr`](macro@crate::assert_program_args_stderr_gt_expr)
+/// * [`assert_program_args_stderr_gt_expr_as_result`](macro@crate::assert_program_args_stderr_gt_expr_as_result)
+/// * [`debug_assert_program_args_stderr_gt_expr`](macro@crate::debug_assert_program_args_stderr_gt_expr)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_gt_expr {
@@ -244,9 +244,9 @@ macro_rules! assert_program_args_stderr_gt_expr {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stderr_gt_expr`](macro.assert_program_args_stderr_gt_expr.html)
-/// * [`assert_program_args_stderr_gt_expr`](macro.assert_program_args_stderr_gt_expr.html)
-/// * [`debug_assert_program_args_stderr_gt_expr`](macro.debug_assert_program_args_stderr_gt_expr.html)
+/// * [`assert_program_args_stderr_gt_expr`](macro@crate::assert_program_args_stderr_gt_expr)
+/// * [`assert_program_args_stderr_gt_expr`](macro@crate::assert_program_args_stderr_gt_expr)
+/// * [`debug_assert_program_args_stderr_gt_expr`](macro@crate::debug_assert_program_args_stderr_gt_expr)
 ///
 #[macro_export]
 macro_rules! debug_assert_program_args_stderr_gt_expr {

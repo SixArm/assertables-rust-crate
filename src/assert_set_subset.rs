@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_set_subset`](macro.assert_set_subset.html)
-//! * [`assert_set_subset_as_result`](macro.assert_set_subset_as_result.html)
-//! * [`debug_assert_set_subset`](macro.debug_assert_set_subset.html)
+//! * [`assert_set_subset`](macro@crate::assert_set_subset)
+//! * [`assert_set_subset_as_result`](macro@crate::assert_set_subset_as_result)
+//! * [`debug_assert_set_subset`](macro@crate::debug_assert_set_subset)
 
 /// Assert a set is a subset of another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_set_subset`](macro.assert_set_subset.html)
-/// * [`assert_set_subset_as_result`](macro.assert_set_subset_as_result.html)
-/// * [`debug_assert_set_subset`](macro.debug_assert_set_subset.html)
+/// * [`assert_set_subset`](macro@crate::assert_set_subset)
+/// * [`assert_set_subset_as_result`](macro@crate::assert_set_subset_as_result)
+/// * [`debug_assert_set_subset`](macro@crate::debug_assert_set_subset)
 ///
 #[macro_export]
 macro_rules! assert_set_subset_as_result {
@@ -175,9 +175,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_subset`](macro.assert_set_subset.html)
-/// * [`assert_set_subset_as_result`](macro.assert_set_subset_as_result.html)
-/// * [`debug_assert_set_subset`](macro.debug_assert_set_subset.html)
+/// * [`assert_set_subset`](macro@crate::assert_set_subset)
+/// * [`assert_set_subset_as_result`](macro@crate::assert_set_subset_as_result)
+/// * [`debug_assert_set_subset`](macro@crate::debug_assert_set_subset)
 ///
 #[macro_export]
 macro_rules! assert_set_subset {
@@ -219,9 +219,9 @@ macro_rules! assert_set_subset {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_subset`](macro.assert_set_subset.html)
-/// * [`assert_set_subset`](macro.assert_set_subset.html)
-/// * [`debug_assert_set_subset`](macro.debug_assert_set_subset.html)
+/// * [`assert_set_subset`](macro@crate::assert_set_subset)
+/// * [`assert_set_subset`](macro@crate::assert_set_subset)
+/// * [`debug_assert_set_subset`](macro@crate::debug_assert_set_subset)
 ///
 #[macro_export]
 macro_rules! debug_assert_set_subset {

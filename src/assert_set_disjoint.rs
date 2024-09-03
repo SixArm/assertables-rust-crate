@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_set_disjoint`](macro.assert_set_disjoint.html)
-//! * [`assert_set_disjoint_as_result`](macro.assert_set_disjoint_as_result.html)
-//! * [`debug_assert_set_disjoint`](macro.debug_assert_set_disjoint.html)
+//! * [`assert_set_disjoint`](macro@crate::assert_set_disjoint)
+//! * [`assert_set_disjoint_as_result`](macro@crate::assert_set_disjoint_as_result)
+//! * [`debug_assert_set_disjoint`](macro@crate::debug_assert_set_disjoint)
 
 /// Assert a set is disjoint with another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_set_disjoint`](macro.assert_set_disjoint.html)
-/// * [`assert_set_disjoint_as_result`](macro.assert_set_disjoint_as_result.html)
-/// * [`debug_assert_set_disjoint`](macro.debug_assert_set_disjoint.html)
+/// * [`assert_set_disjoint`](macro@crate::assert_set_disjoint)
+/// * [`assert_set_disjoint_as_result`](macro@crate::assert_set_disjoint_as_result)
+/// * [`debug_assert_set_disjoint`](macro@crate::debug_assert_set_disjoint)
 ///
 #[macro_export]
 macro_rules! assert_set_disjoint_as_result {
@@ -175,9 +175,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_disjoint`](macro.assert_set_disjoint.html)
-/// * [`assert_set_disjoint_as_result`](macro.assert_set_disjoint_as_result.html)
-/// * [`debug_assert_set_disjoint`](macro.debug_assert_set_disjoint.html)
+/// * [`assert_set_disjoint`](macro@crate::assert_set_disjoint)
+/// * [`assert_set_disjoint_as_result`](macro@crate::assert_set_disjoint_as_result)
+/// * [`debug_assert_set_disjoint`](macro@crate::debug_assert_set_disjoint)
 ///
 #[macro_export]
 macro_rules! assert_set_disjoint {
@@ -219,9 +219,9 @@ macro_rules! assert_set_disjoint {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_disjoint`](macro.assert_set_disjoint.html)
-/// * [`assert_set_disjoint`](macro.assert_set_disjoint.html)
-/// * [`debug_assert_set_disjoint`](macro.debug_assert_set_disjoint.html)
+/// * [`assert_set_disjoint`](macro@crate::assert_set_disjoint)
+/// * [`assert_set_disjoint`](macro@crate::assert_set_disjoint)
+/// * [`debug_assert_set_disjoint`](macro@crate::debug_assert_set_disjoint)
 ///
 #[macro_export]
 macro_rules! debug_assert_set_disjoint {

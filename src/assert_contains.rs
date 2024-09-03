@@ -39,9 +39,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_contains`](macro.assert_contains.html)
-//! * [`assert_contains_as_result`](macro.assert_contains_as_result.html)
-//! * [`debug_assert_contains`](macro.debug_assert_contains.html)
+//! * [`assert_contains`](macro@crate::assert_contains)
+//! * [`assert_contains_as_result`](macro@crate::assert_contains_as_result)
+//! * [`debug_assert_contains`](macro@crate::debug_assert_contains)
 
 /// Assert an expression (such as a string) contains an expression (such as a substring).
 ///
@@ -57,9 +57,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_contains`](macro.assert_contains.html)
-/// * [`assert_contains_as_result`](macro.assert_contains_as_result.html)
-/// * [`debug_assert_contains`](macro.debug_assert_contains.html)
+/// * [`assert_contains`](macro@crate::assert_contains)
+/// * [`assert_contains_as_result`](macro@crate::assert_contains_as_result)
+/// * [`debug_assert_contains`](macro@crate::debug_assert_contains)
 ///
 #[macro_export]
 macro_rules! assert_contains_as_result {
@@ -153,9 +153,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_contains`](macro.assert_contains.html)
-/// * [`assert_contains_as_result`](macro.assert_contains_as_result.html)
-/// * [`debug_assert_contains`](macro.debug_assert_contains.html)
+/// * [`assert_contains`](macro@crate::assert_contains)
+/// * [`assert_contains_as_result`](macro@crate::assert_contains_as_result)
+/// * [`debug_assert_contains`](macro@crate::debug_assert_contains)
 ///
 #[macro_export]
 macro_rules! assert_contains {
@@ -197,9 +197,9 @@ macro_rules! assert_contains {
 ///
 /// # Module macros
 ///
-/// * [`assert_contains`](macro.assert_contains.html)
-/// * [`assert_contains`](macro.assert_contains.html)
-/// * [`debug_assert_contains`](macro.debug_assert_contains.html)
+/// * [`assert_contains`](macro@crate::assert_contains)
+/// * [`assert_contains`](macro@crate::assert_contains)
+/// * [`debug_assert_contains`](macro@crate::debug_assert_contains)
 ///
 #[macro_export]
 macro_rules! debug_assert_contains {

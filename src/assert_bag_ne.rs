@@ -55,9 +55,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_bag_ne`](macro.assert_bag_ne.html)
-//! * [`assert_bag_ne_as_result`](macro.assert_bag_ne_as_result.html)
-//! * [`debug_assert_bag_ne`](macro.debug_assert_bag_ne.html)
+//! * [`assert_bag_ne`](macro@crate::assert_bag_ne)
+//! * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
+//! * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
 
 /// Assert a bag is not equal to another.
 ///
@@ -73,9 +73,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_ne`](macro.assert_bag_ne.html)
-/// * [`assert_bag_ne_as_result`](macro.assert_bag_ne_as_result.html)
-/// * [`debug_assert_bag_ne`](macro.debug_assert_bag_ne.html)
+/// * [`assert_bag_ne`](macro@crate::assert_bag_ne)
+/// * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
+/// * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
 ///
 #[macro_export]
 macro_rules! assert_bag_ne_as_result {
@@ -209,9 +209,9 @@ mod test_assert_x_result {
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_ne`](macro.assert_bag_ne.html)
-/// * [`assert_bag_ne_as_result`](macro.assert_bag_ne_as_result.html)
-/// * [`debug_assert_bag_ne`](macro.debug_assert_bag_ne.html)
+/// * [`assert_bag_ne`](macro@crate::assert_bag_ne)
+/// * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
+/// * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
 ///
 #[macro_export]
 macro_rules! assert_bag_ne {
@@ -253,9 +253,9 @@ macro_rules! assert_bag_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_ne`](macro.assert_bag_ne.html)
-/// * [`assert_bag_ne_as_result`](macro.assert_bag_ne_as_result.html)
-/// * [`debug_assert_bag_ne`](macro.debug_assert_bag_ne.html)
+/// * [`assert_bag_ne`](macro@crate::assert_bag_ne)
+/// * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
+/// * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
 ///
 #[macro_export]
 macro_rules! debug_assert_bag_ne {

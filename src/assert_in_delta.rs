@@ -73,9 +73,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_in_delta`](macro.assert_in_delta.html)
-//! * [`assert_in_delta_as_result`](macro.assert_in_delta_as_result.html)
-//! * [`debug_assert_in_delta`](macro.debug_assert_in_delta.html)
+//! * [`assert_in_delta`](macro@crate::assert_in_delta)
+//! * [`assert_in_delta_as_result`](macro@crate::assert_in_delta_as_result)
+//! * [`debug_assert_in_delta`](macro@crate::debug_assert_in_delta)
 
 /// Assert a number is within delta of another number.
 ///
@@ -92,9 +92,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_in_delta`](macro.assert_in_delta.html)
-/// * [`assert_in_delta_as_result`](macro.assert_in_delta_as_result.html)
-/// * [`debug_assert_in_delta`](macro.debug_assert_in_delta.html)
+/// * [`assert_in_delta`](macro@crate::assert_in_delta)
+/// * [`assert_in_delta_as_result`](macro@crate::assert_in_delta_as_result)
+/// * [`debug_assert_in_delta`](macro@crate::debug_assert_in_delta)
 ///
 #[macro_export]
 macro_rules! assert_in_delta_as_result {
@@ -245,9 +245,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_in_delta`](macro.assert_in_delta.html)
-/// * [`assert_in_delta_as_result`](macro.assert_in_delta_as_result.html)
-/// * [`debug_assert_in_delta`](macro.debug_assert_in_delta.html)
+/// * [`assert_in_delta`](macro@crate::assert_in_delta)
+/// * [`assert_in_delta_as_result`](macro@crate::assert_in_delta_as_result)
+/// * [`debug_assert_in_delta`](macro@crate::debug_assert_in_delta)
 ///
 #[macro_export]
 macro_rules! assert_in_delta {
@@ -289,9 +289,9 @@ macro_rules! assert_in_delta {
 ///
 /// # Module macros
 ///
-/// * [`assert_in_delta`](macro.assert_in_delta.html)
-/// * [`assert_in_delta`](macro.assert_in_delta.html)
-/// * [`debug_assert_in_delta`](macro.debug_assert_in_delta.html)
+/// * [`assert_in_delta`](macro@crate::assert_in_delta)
+/// * [`assert_in_delta`](macro@crate::assert_in_delta)
+/// * [`debug_assert_in_delta`](macro@crate::debug_assert_in_delta)
 ///
 #[macro_export]
 macro_rules! debug_assert_in_delta {

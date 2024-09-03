@@ -63,9 +63,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_command_stdout_contains`](macro.assert_command_stdout_contains.html)
-//! * [`assert_command_stdout_contains_as_result`](macro.assert_command_stdout_contains_as_result.html)
-//! * [`debug_assert_command_stdout_contains`](macro.debug_assert_command_stdout_contains.html)
+//! * [`assert_command_stdout_contains`](macro@crate::assert_command_stdout_contains)
+//! * [`assert_command_stdout_contains_as_result`](macro@crate::assert_command_stdout_contains_as_result)
+//! * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 
 /// Assert a command stdout string contains a given containee.
 ///
@@ -81,9 +81,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_contains`](macro.assert_command_stdout_contains.html)
-/// * [`assert_command_stdout_contains_as_result`](macro.assert_command_stdout_contains_as_result.html)
-/// * [`debug_assert_command_stdout_contains`](macro.debug_assert_command_stdout_contains.html)
+/// * [`assert_command_stdout_contains`](macro@crate::assert_command_stdout_contains)
+/// * [`assert_command_stdout_contains_as_result`](macro@crate::assert_command_stdout_contains_as_result)
+/// * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_contains_as_result {
@@ -227,9 +227,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_contains`](macro.assert_command_stdout_contains.html)
-/// * [`assert_command_stdout_contains_as_result`](macro.assert_command_stdout_contains_as_result.html)
-/// * [`debug_assert_command_stdout_contains`](macro.debug_assert_command_stdout_contains.html)
+/// * [`assert_command_stdout_contains`](macro@crate::assert_command_stdout_contains)
+/// * [`assert_command_stdout_contains_as_result`](macro@crate::assert_command_stdout_contains_as_result)
+/// * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_contains {
@@ -271,9 +271,9 @@ macro_rules! assert_command_stdout_contains {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_contains`](macro.assert_command_stdout_contains.html)
-/// * [`assert_command_stdout_contains`](macro.assert_command_stdout_contains.html)
-/// * [`debug_assert_command_stdout_contains`](macro.debug_assert_command_stdout_contains.html)
+/// * [`assert_command_stdout_contains`](macro@crate::assert_command_stdout_contains)
+/// * [`assert_command_stdout_contains`](macro@crate::assert_command_stdout_contains)
+/// * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 ///
 #[macro_export]
 macro_rules! debug_assert_command_stdout_contains {

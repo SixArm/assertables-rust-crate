@@ -50,9 +50,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_program_args_stdout_ne`](macro.assert_program_args_stdout_ne.html)
-//! * [`assert_program_args_stdout_ne_as_result`](macro.assert_program_args_stdout_ne_as_result.html)
-//! * [`debug_assert_program_args_stdout_ne`](macro.debug_assert_program_args_stdout_ne.html)
+//! * [`assert_program_args_stdout_ne`](macro@crate::assert_program_args_stdout_ne)
+//! * [`assert_program_args_stdout_ne_as_result`](macro@crate::assert_program_args_stdout_ne_as_result)
+//! * [`debug_assert_program_args_stdout_ne`](macro@crate::debug_assert_program_args_stdout_ne)
 
 /// Assert a command (built with program and args) stdout string is not equal to another.
 ///
@@ -69,9 +69,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stdout_ne`](macro.assert_program_args_stdout_ne.html)
-/// * [`assert_program_args_stdout_ne_as_result`](macro.assert_program_args_stdout_ne_as_result.html)
-/// * [`debug_assert_program_args_stdout_ne`](macro.debug_assert_program_args_stdout_ne.html)
+/// * [`assert_program_args_stdout_ne`](macro@crate::assert_program_args_stdout_ne)
+/// * [`assert_program_args_stdout_ne_as_result`](macro@crate::assert_program_args_stdout_ne_as_result)
+/// * [`debug_assert_program_args_stdout_ne`](macro@crate::debug_assert_program_args_stdout_ne)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_ne_as_result {
@@ -226,9 +226,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stdout_ne`](macro.assert_program_args_stdout_ne.html)
-/// * [`assert_program_args_stdout_ne_as_result`](macro.assert_program_args_stdout_ne_as_result.html)
-/// * [`debug_assert_program_args_stdout_ne`](macro.debug_assert_program_args_stdout_ne.html)
+/// * [`assert_program_args_stdout_ne`](macro@crate::assert_program_args_stdout_ne)
+/// * [`assert_program_args_stdout_ne_as_result`](macro@crate::assert_program_args_stdout_ne_as_result)
+/// * [`debug_assert_program_args_stdout_ne`](macro@crate::debug_assert_program_args_stdout_ne)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_ne {
@@ -270,9 +270,9 @@ macro_rules! assert_program_args_stdout_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stdout_ne`](macro.assert_program_args_stdout_ne.html)
-/// * [`assert_program_args_stdout_ne`](macro.assert_program_args_stdout_ne.html)
-/// * [`debug_assert_program_args_stdout_ne`](macro.debug_assert_program_args_stdout_ne.html)
+/// * [`assert_program_args_stdout_ne`](macro@crate::assert_program_args_stdout_ne)
+/// * [`assert_program_args_stdout_ne`](macro@crate::assert_program_args_stdout_ne)
+/// * [`debug_assert_program_args_stdout_ne`](macro@crate::debug_assert_program_args_stdout_ne)
 ///
 #[macro_export]
 macro_rules! debug_assert_program_args_stdout_ne {

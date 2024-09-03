@@ -88,9 +88,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_bag_subbag`](macro.assert_bag_subbag.html)
-//! * [`assert_bag_subbag_as_result`](macro.assert_bag_subbag_as_result.html)
-//! * [`debug_assert_bag_subbag`](macro.debug_assert_bag_subbag.html)
+//! * [`assert_bag_subbag`](macro@crate::assert_bag_subbag)
+//! * [`assert_bag_subbag_as_result`](macro@crate::assert_bag_subbag_as_result)
+//! * [`debug_assert_bag_subbag`](macro@crate::debug_assert_bag_subbag)
 
 /// Assert a bag is a subbag of another.
 ///
@@ -106,9 +106,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_subbag`](macro.assert_bag_subbag.html)
-/// * [`assert_bag_subbag_as_result`](macro.assert_bag_subbag_as_result.html)
-/// * [`debug_assert_bag_subbag`](macro.debug_assert_bag_subbag.html)
+/// * [`assert_bag_subbag`](macro@crate::assert_bag_subbag)
+/// * [`assert_bag_subbag_as_result`](macro@crate::assert_bag_subbag_as_result)
+/// * [`debug_assert_bag_subbag`](macro@crate::debug_assert_bag_subbag)
 ///
 #[macro_export]
 macro_rules! assert_bag_subbag_as_result {
@@ -299,9 +299,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_subbag`](macro.assert_bag_subbag.html)
-/// * [`assert_bag_subbag_as_result`](macro.assert_bag_subbag_as_result.html)
-/// * [`debug_assert_bag_subbag`](macro.debug_assert_bag_subbag.html)
+/// * [`assert_bag_subbag`](macro@crate::assert_bag_subbag)
+/// * [`assert_bag_subbag_as_result`](macro@crate::assert_bag_subbag_as_result)
+/// * [`debug_assert_bag_subbag`](macro@crate::debug_assert_bag_subbag)
 ///
 #[macro_export]
 macro_rules! assert_bag_subbag {
@@ -343,9 +343,9 @@ macro_rules! assert_bag_subbag {
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_subbag`](macro.assert_bag_subbag.html)
-/// * [`assert_bag_subbag_as_result`](macro.assert_bag_subbag_as_result.html)
-/// * [`debug_assert_bag_subbag`](macro.debug_assert_bag_subbag.html)
+/// * [`assert_bag_subbag`](macro@crate::assert_bag_subbag)
+/// * [`assert_bag_subbag_as_result`](macro@crate::assert_bag_subbag_as_result)
+/// * [`debug_assert_bag_subbag`](macro@crate::debug_assert_bag_subbag)
 ///
 #[macro_export]
 macro_rules! debug_assert_bag_subbag {

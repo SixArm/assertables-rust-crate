@@ -39,9 +39,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_not_contains`](macro.assert_not_contains.html)
-//! * [`assert_not_contains_as_result`](macro.assert_not_contains_as_result.html)
-//! * [`debug_assert_not_contains`](macro.debug_assert_not_contains.html)
+//! * [`assert_not_contains`](macro@crate::assert_not_contains)
+//! * [`assert_not_contains_as_result`](macro@crate::assert_not_contains_as_result)
+//! * [`debug_assert_not_contains`](macro@crate::debug_assert_not_contains)
 
 /// Assert an expression (such as a string) does not contain an expression (such as a substring).
 ///
@@ -57,9 +57,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_not_contains`](macro.assert_not_contains.html)
-/// * [`assert_not_contains_as_result`](macro.assert_not_contains_as_result.html)
-/// * [`debug_assert_not_contains`](macro.debug_assert_not_contains.html)
+/// * [`assert_not_contains`](macro@crate::assert_not_contains)
+/// * [`assert_not_contains_as_result`](macro@crate::assert_not_contains_as_result)
+/// * [`debug_assert_not_contains`](macro@crate::debug_assert_not_contains)
 ///
 #[macro_export]
 macro_rules! assert_not_contains_as_result {
@@ -153,9 +153,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_not_contains`](macro.assert_not_contains.html)
-/// * [`assert_not_contains_as_result`](macro.assert_not_contains_as_result.html)
-/// * [`debug_assert_not_contains`](macro.debug_assert_not_contains.html)
+/// * [`assert_not_contains`](macro@crate::assert_not_contains)
+/// * [`assert_not_contains_as_result`](macro@crate::assert_not_contains_as_result)
+/// * [`debug_assert_not_contains`](macro@crate::debug_assert_not_contains)
 ///
 #[macro_export]
 macro_rules! assert_not_contains {
@@ -197,9 +197,9 @@ macro_rules! assert_not_contains {
 ///
 /// # Module macros
 ///
-/// * [`assert_not_contains`](macro.assert_not_contains.html)
-/// * [`assert_not_contains`](macro.assert_not_contains.html)
-/// * [`debug_assert_not_contains`](macro.debug_assert_not_contains.html)
+/// * [`assert_not_contains`](macro@crate::assert_not_contains)
+/// * [`assert_not_contains`](macro@crate::assert_not_contains)
+/// * [`debug_assert_not_contains`](macro@crate::debug_assert_not_contains)
 ///
 #[macro_export]
 macro_rules! debug_assert_not_contains {

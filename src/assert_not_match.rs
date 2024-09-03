@@ -42,9 +42,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_not_match`](macro.assert_not_match.html)
-//! * [`assert_not_match_as_result`](macro.assert_not_match_as_result.html)
-//! * [`debug_assert_not_match`](macro.debug_assert_not_match.html)
+//! * [`assert_not_match`](macro@crate::assert_not_match)
+//! * [`assert_not_match_as_result`](macro@crate::assert_not_match_as_result)
+//! * [`debug_assert_not_match`](macro@crate::debug_assert_not_match)
 
 /// Assert an expression (such as a regex) is not a match for an expression (such as a string).
 ///
@@ -60,9 +60,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_not_match`](macro.assert_not_match.html)
-/// * [`assert_not_match_as_result`](macro.assert_not_match_as_result.html)
-/// * [`debug_assert_not_match`](macro.debug_assert_not_match.html)
+/// * [`assert_not_match`](macro@crate::assert_not_match)
+/// * [`assert_not_match_as_result`](macro@crate::assert_not_match_as_result)
+/// * [`debug_assert_not_match`](macro@crate::debug_assert_not_match)
 ///
 #[macro_export]
 macro_rules! assert_not_match_as_result {
@@ -161,9 +161,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_not_match`](macro.assert_not_match.html)
-/// * [`assert_not_match_as_result`](macro.assert_not_match_as_result.html)
-/// * [`debug_assert_not_match`](macro.debug_assert_not_match.html)
+/// * [`assert_not_match`](macro@crate::assert_not_match)
+/// * [`assert_not_match_as_result`](macro@crate::assert_not_match_as_result)
+/// * [`debug_assert_not_match`](macro@crate::debug_assert_not_match)
 ///
 #[macro_export]
 macro_rules! assert_not_match {
@@ -205,9 +205,9 @@ macro_rules! assert_not_match {
 ///
 /// # Module macros
 ///
-/// * [`assert_not_match`](macro.assert_not_match.html)
-/// * [`assert_not_match`](macro.assert_not_match.html)
-/// * [`debug_assert_not_match`](macro.debug_assert_not_match.html)
+/// * [`assert_not_match`](macro@crate::assert_not_match)
+/// * [`assert_not_match`](macro@crate::assert_not_match)
+/// * [`debug_assert_not_match`](macro@crate::debug_assert_not_match)
 ///
 #[macro_export]
 macro_rules! debug_assert_not_match {

@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fn_le`](macro.assert_fn_le.html)
-//! * [`assert_fn_le_as_result`](macro.assert_fn_le_as_result.html)
-//! * [`debug_assert_fn_le`](macro.debug_assert_fn_le.html)
+//! * [`assert_fn_le`](macro@crate::assert_fn_le)
+//! * [`assert_fn_le_as_result`](macro@crate::assert_fn_le_as_result)
+//! * [`debug_assert_fn_le`](macro@crate::debug_assert_fn_le)
 
 /// Assert a function output is less than or equal to another.
 ///
@@ -63,9 +63,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_le`](macro.assert_fn_le.html)
-/// * [`assert_fn_le_as_result`](macro.assert_fn_le_as_result.html)
-/// * [`debug_assert_fn_le`](macro.debug_assert_fn_le.html)
+/// * [`assert_fn_le`](macro@crate::assert_fn_le)
+/// * [`assert_fn_le_as_result`](macro@crate::assert_fn_le_as_result)
+/// * [`debug_assert_fn_le`](macro@crate::debug_assert_fn_le)
 ///
 #[macro_export]
 macro_rules! assert_fn_le_as_result {
@@ -266,9 +266,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_le`](macro.assert_fn_le.html)
-/// * [`assert_fn_le_as_result`](macro.assert_fn_le_as_result.html)
-/// * [`debug_assert_fn_le`](macro.debug_assert_fn_le.html)
+/// * [`assert_fn_le`](macro@crate::assert_fn_le)
+/// * [`assert_fn_le_as_result`](macro@crate::assert_fn_le_as_result)
+/// * [`debug_assert_fn_le`](macro@crate::debug_assert_fn_le)
 ///
 #[macro_export]
 macro_rules! assert_fn_le {
@@ -331,9 +331,9 @@ macro_rules! assert_fn_le {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_le`](macro.assert_fn_le.html)
-/// * [`assert_fn_le`](macro.assert_fn_le.html)
-/// * [`debug_assert_fn_le`](macro.debug_assert_fn_le.html)
+/// * [`assert_fn_le`](macro@crate::assert_fn_le)
+/// * [`assert_fn_le`](macro@crate::assert_fn_le)
+/// * [`debug_assert_fn_le`](macro@crate::debug_assert_fn_le)
 ///
 #[macro_export]
 macro_rules! debug_assert_fn_le {

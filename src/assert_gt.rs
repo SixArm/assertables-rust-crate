@@ -51,9 +51,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_gt`](macro.assert_gt.html)
-//! * [`assert_gt_as_result`](macro.assert_gt_as_result.html)
-//! * [`debug_assert_gt`](macro.debug_assert_gt.html)
+//! * [`assert_gt`](macro@crate::assert_gt)
+//! * [`assert_gt_as_result`](macro@crate::assert_gt_as_result)
+//! * [`debug_assert_gt`](macro@crate::debug_assert_gt)
 
 /// Assert a value is greater than an expression.
 ///
@@ -69,9 +69,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_gt`](macro.assert_gt.html)
-/// * [`assert_gt_as_result`](macro.assert_gt_as_result.html)
-/// * [`debug_assert_gt`](macro.debug_assert_gt.html)
+/// * [`assert_gt`](macro@crate::assert_gt)
+/// * [`assert_gt_as_result`](macro@crate::assert_gt_as_result)
+/// * [`debug_assert_gt`](macro@crate::debug_assert_gt)
 ///
 #[macro_export]
 macro_rules! assert_gt_as_result {
@@ -189,9 +189,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_gt`](macro.assert_gt.html)
-/// * [`assert_gt_as_result`](macro.assert_gt_as_result.html)
-/// * [`debug_assert_gt`](macro.debug_assert_gt.html)
+/// * [`assert_gt`](macro@crate::assert_gt)
+/// * [`assert_gt_as_result`](macro@crate::assert_gt_as_result)
+/// * [`debug_assert_gt`](macro@crate::debug_assert_gt)
 ///
 #[macro_export]
 macro_rules! assert_gt {
@@ -233,9 +233,9 @@ macro_rules! assert_gt {
 ///
 /// # Module macros
 ///
-/// * [`assert_gt`](macro.assert_gt.html)
-/// * [`assert_gt`](macro.assert_gt.html)
-/// * [`debug_assert_gt`](macro.debug_assert_gt.html)
+/// * [`assert_gt`](macro@crate::assert_gt)
+/// * [`assert_gt`](macro@crate::assert_gt)
+/// * [`debug_assert_gt`](macro@crate::debug_assert_gt)
 ///
 #[macro_export]
 macro_rules! debug_assert_gt {

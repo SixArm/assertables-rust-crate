@@ -655,6 +655,8 @@
 <a href="#655" id="655">655</a>
 <a href="#656" id="656">656</a>
 <a href="#657" id="657">657</a>
+<a href="#658" id="658">658</a>
+<a href="#659" id="659">659</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
@@ -1119,6 +1121,8 @@
 //!   If you use these macros, then please update your code to use the new
 //!   naming convention.
 //!
+//! * Add `rustdoc` documentation for all modules.
+//!
 //!
 //! ### Version 7.x top changes
 //!
@@ -1142,17 +1146,17 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.0.0
+//! * Version: 8.0.2
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-02T15:45:13Z
+//! * Updated: 2024-09-03T13:39:09Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
 </span><span class="comment">// Assert truth
-</span><span class="kw">pub mod </span>assert; <span class="comment">// (provided by Rust `std`)
+</span><span class="kw">pub mod </span>assert; <span class="comment">// (in addition to what's provided by Rust `std`)
 
 // Assert value comparison
-</span><span class="kw">pub mod </span>assert_eq; <span class="comment">// (provided by Rust `std`)
+</span><span class="kw">pub mod </span>assert_eq; <span class="comment">// (in addition to what's provided by Rust `std`)
 </span><span class="kw">pub mod </span>assert_ge;
 <span class="kw">pub mod </span>assert_gt;
 <span class="kw">pub mod </span>assert_le;

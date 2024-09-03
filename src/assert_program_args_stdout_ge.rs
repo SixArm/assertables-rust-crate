@@ -50,9 +50,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_program_args_stdout_ge`](macro.assert_program_args_stdout_ge.html)
-//! * [`assert_program_args_stdout_ge_as_result`](macro.assert_program_args_stdout_ge_as_result.html)
-//! * [`debug_assert_program_args_stdout_ge`](macro.debug_assert_program_args_stdout_ge.html)
+//! * [`assert_program_args_stdout_ge`](macro@crate::assert_program_args_stdout_ge)
+//! * [`assert_program_args_stdout_ge_as_result`](macro@crate::assert_program_args_stdout_ge_as_result)
+//! * [`debug_assert_program_args_stdout_ge`](macro@crate::debug_assert_program_args_stdout_ge)
 
 /// Assert a command (built with program and args) stdout string is greater than or equal to another.
 ///
@@ -69,9 +69,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stdout_ge`](macro.assert_program_args_stdout_ge.html)
-/// * [`assert_program_args_stdout_ge_as_result`](macro.assert_program_args_stdout_ge_as_result.html)
-/// * [`debug_assert_program_args_stdout_ge`](macro.debug_assert_program_args_stdout_ge.html)
+/// * [`assert_program_args_stdout_ge`](macro@crate::assert_program_args_stdout_ge)
+/// * [`assert_program_args_stdout_ge_as_result`](macro@crate::assert_program_args_stdout_ge_as_result)
+/// * [`debug_assert_program_args_stdout_ge`](macro@crate::debug_assert_program_args_stdout_ge)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_ge_as_result {
@@ -236,9 +236,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stdout_ge`](macro.assert_program_args_stdout_ge.html)
-/// * [`assert_program_args_stdout_ge_as_result`](macro.assert_program_args_stdout_ge_as_result.html)
-/// * [`debug_assert_program_args_stdout_ge`](macro.debug_assert_program_args_stdout_ge.html)
+/// * [`assert_program_args_stdout_ge`](macro@crate::assert_program_args_stdout_ge)
+/// * [`assert_program_args_stdout_ge_as_result`](macro@crate::assert_program_args_stdout_ge_as_result)
+/// * [`debug_assert_program_args_stdout_ge`](macro@crate::debug_assert_program_args_stdout_ge)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_ge {
@@ -280,9 +280,9 @@ macro_rules! assert_program_args_stdout_ge {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stdout_ge`](macro.assert_program_args_stdout_ge.html)
-/// * [`assert_program_args_stdout_ge`](macro.assert_program_args_stdout_ge.html)
-/// * [`debug_assert_program_args_stdout_ge`](macro.debug_assert_program_args_stdout_ge.html)
+/// * [`assert_program_args_stdout_ge`](macro@crate::assert_program_args_stdout_ge)
+/// * [`assert_program_args_stdout_ge`](macro@crate::assert_program_args_stdout_ge)
+/// * [`debug_assert_program_args_stdout_ge`](macro@crate::debug_assert_program_args_stdout_ge)
 ///
 #[macro_export]
 macro_rules! debug_assert_program_args_stdout_ge {

@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fs_read_to_string_contains`](macro.assert_fs_read_to_string_contains.html)
-//! * [`assert_fs_read_to_string_contains_as_result`](macro.assert_fs_read_to_string_contains_as_result.html)
-//! * [`debug_assert_fs_read_to_string_contains`](macro.debug_assert_fs_read_to_string_contains.html)
+//! * [`assert_fs_read_to_string_contains`](macro@crate::assert_fs_read_to_string_contains)
+//! * [`assert_fs_read_to_string_contains_as_result`](macro@crate::assert_fs_read_to_string_contains_as_result)
+//! * [`debug_assert_fs_read_to_string_contains`](macro@crate::debug_assert_fs_read_to_string_contains)
 
 /// Assert a std::fs::read_to_string() contains a pattern.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_contains`](macro.assert_fs_read_to_string_contains.html)
-/// * [`assert_fs_read_to_string_contains_as_result`](macro.assert_fs_read_to_string_contains_as_result.html)
-/// * [`debug_assert_fs_read_to_string_contains`](macro.debug_assert_fs_read_to_string_contains.html)
+/// * [`assert_fs_read_to_string_contains`](macro@crate::assert_fs_read_to_string_contains)
+/// * [`assert_fs_read_to_string_contains_as_result`](macro@crate::assert_fs_read_to_string_contains_as_result)
+/// * [`debug_assert_fs_read_to_string_contains`](macro@crate::debug_assert_fs_read_to_string_contains)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_contains_as_result {
@@ -197,9 +197,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_contains`](macro.assert_fs_read_to_string_contains.html)
-/// * [`assert_fs_read_to_string_contains_as_result`](macro.assert_fs_read_to_string_contains_as_result.html)
-/// * [`debug_assert_fs_read_to_string_contains`](macro.debug_assert_fs_read_to_string_contains.html)
+/// * [`assert_fs_read_to_string_contains`](macro@crate::assert_fs_read_to_string_contains)
+/// * [`assert_fs_read_to_string_contains_as_result`](macro@crate::assert_fs_read_to_string_contains_as_result)
+/// * [`debug_assert_fs_read_to_string_contains`](macro@crate::debug_assert_fs_read_to_string_contains)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_contains {
@@ -241,12 +241,12 @@ macro_rules! assert_fs_read_to_string_contains {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_contains`](macro.assert_fs_read_to_string_contains.html)
-/// * [`assert_fs_read_to_string_contains`](macro.assert_fs_read_to_string_contains.html)
-/// * [`debug_assert_fs_read_to_string_contains`](macro.debug_assert_fs_read_to_string_contains.html)
+/// * [`assert_fs_read_to_string_contains`](macro@crate::assert_fs_read_to_string_contains)
+/// * [`assert_fs_read_to_string_contains`](macro@crate::assert_fs_read_to_string_contains)
+/// * [`debug_assert_fs_read_to_string_contains`](macro@crate::debug_assert_fs_read_to_string_contains)
 ///
 #[macro_export]
-macro_rules! debug_read_to_string_contains {
+macro_rules! debug_assert_fs_read_to_string_contains {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
             $crate::std::fs::read_to_string_contains!($($arg)*);

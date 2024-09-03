@@ -60,9 +60,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fn_err_ge`](macro.assert_fn_err_ge.html)
-//! * [`assert_fn_err_ge_as_result`](macro.assert_fn_err_ge_as_result.html)
-//! * [`debug_assert_fn_err_ge`](macro.debug_assert_fn_err_ge.html)
+//! * [`assert_fn_err_ge`](macro@crate::assert_fn_err_ge)
+//! * [`assert_fn_err_ge_as_result`](macro@crate::assert_fn_err_ge_as_result)
+//! * [`debug_assert_fn_err_ge`](macro@crate::debug_assert_fn_err_ge)
 
 /// Assert a function err() is greater than or equal to another.
 ///
@@ -78,9 +78,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_err_ge`](macro.assert_fn_err_ge.html)
-/// * [`assert_fn_err_ge_as_result`](macro.assert_fn_err_ge_as_result.html)
-/// * [`debug_assert_fn_err_ge`](macro.debug_assert_fn_err_ge.html)
+/// * [`assert_fn_err_ge`](macro@crate::assert_fn_err_ge)
+/// * [`assert_fn_err_ge_as_result`](macro@crate::assert_fn_err_ge_as_result)
+/// * [`debug_assert_fn_err_ge`](macro@crate::debug_assert_fn_err_ge)
 ///
 #[macro_export]
 macro_rules! assert_fn_err_ge_as_result {
@@ -344,9 +344,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_err_ge`](macro.assert_fn_err_ge.html)
-/// * [`assert_fn_err_ge_as_result`](macro.assert_fn_err_ge_as_result.html)
-/// * [`debug_assert_fn_err_ge`](macro.debug_assert_fn_err_ge.html)
+/// * [`assert_fn_err_ge`](macro@crate::assert_fn_err_ge)
+/// * [`assert_fn_err_ge_as_result`](macro@crate::assert_fn_err_ge_as_result)
+/// * [`debug_assert_fn_err_ge`](macro@crate::debug_assert_fn_err_ge)
 ///
 #[macro_export]
 macro_rules! assert_fn_err_ge {
@@ -409,9 +409,9 @@ macro_rules! assert_fn_err_ge {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_err_ge`](macro.assert_fn_err_ge.html)
-/// * [`assert_fn_err_ge`](macro.assert_fn_err_ge.html)
-/// * [`debug_assert_fn_err_ge`](macro.debug_assert_fn_err_ge.html)
+/// * [`assert_fn_err_ge`](macro@crate::assert_fn_err_ge)
+/// * [`assert_fn_err_ge`](macro@crate::assert_fn_err_ge)
+/// * [`debug_assert_fn_err_ge`](macro@crate::debug_assert_fn_err_ge)
 ///
 #[macro_export]
 macro_rules! debug_assert_fn_err_ge {

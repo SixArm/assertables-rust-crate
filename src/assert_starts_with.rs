@@ -39,9 +39,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_starts_with`](macro.assert_starts_with.html)
-//! * [`assert_starts_with_as_result`](macro.assert_starts_with_as_result.html)
-//! * [`debug_assert_starts_with`](macro.debug_assert_starts_with.html)
+//! * [`assert_starts_with`](macro@crate::assert_starts_with)
+//! * [`assert_starts_with_as_result`](macro@crate::assert_starts_with_as_result)
+//! * [`debug_assert_starts_with`](macro@crate::debug_assert_starts_with)
 
 /// Assert an expression (such as a string) starts with an expression (such as a substring).
 ///
@@ -57,9 +57,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_starts_with`](macro.assert_starts_with.html)
-/// * [`assert_starts_with_as_result`](macro.assert_starts_with_as_result.html)
-/// * [`debug_assert_starts_with`](macro.debug_assert_starts_with.html)
+/// * [`assert_starts_with`](macro@crate::assert_starts_with)
+/// * [`assert_starts_with_as_result`](macro@crate::assert_starts_with_as_result)
+/// * [`debug_assert_starts_with`](macro@crate::debug_assert_starts_with)
 ///
 #[macro_export]
 macro_rules! assert_starts_with_as_result {
@@ -153,9 +153,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_starts_with`](macro.assert_starts_with.html)
-/// * [`assert_starts_with_as_result`](macro.assert_starts_with_as_result.html)
-/// * [`debug_assert_starts_with`](macro.debug_assert_starts_with.html)
+/// * [`assert_starts_with`](macro@crate::assert_starts_with)
+/// * [`assert_starts_with_as_result`](macro@crate::assert_starts_with_as_result)
+/// * [`debug_assert_starts_with`](macro@crate::debug_assert_starts_with)
 ///
 #[macro_export]
 macro_rules! assert_starts_with {
@@ -197,9 +197,9 @@ macro_rules! assert_starts_with {
 ///
 /// # Module macros
 ///
-/// * [`assert_starts_with`](macro.assert_starts_with.html)
-/// * [`assert_starts_with`](macro.assert_starts_with.html)
-/// * [`debug_assert_starts_with`](macro.debug_assert_starts_with.html)
+/// * [`assert_starts_with`](macro@crate::assert_starts_with)
+/// * [`assert_starts_with`](macro@crate::assert_starts_with)
+/// * [`debug_assert_starts_with`](macro@crate::debug_assert_starts_with)
 ///
 #[macro_export]
 macro_rules! debug_assert_starts_with {

@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fs_read_to_string_gt`](macro.assert_fs_read_to_string_gt.html)
-//! * [`assert_fs_read_to_string_gt_as_result`](macro.assert_fs_read_to_string_gt_as_result.html)
-//! * [`debug_assert_fs_read_to_string_gt`](macro.debug_assert_fs_read_to_string_gt.html)
+//! * [`assert_fs_read_to_string_gt`](macro@crate::assert_fs_read_to_string_gt)
+//! * [`assert_fs_read_to_string_gt_as_result`](macro@crate::assert_fs_read_to_string_gt_as_result)
+//! * [`debug_assert_fs_read_to_string_gt`](macro@crate::debug_assert_fs_read_to_string_gt)
 
 /// Assert a std::fs::read_to_string() value is greater than another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_gt`](macro.assert_fs_read_to_string_gt.html)
-/// * [`assert_fs_read_to_string_gt_as_result`](macro.assert_fs_read_to_string_gt_as_result.html)
-/// * [`debug_assert_fs_read_to_string_gt`](macro.debug_assert_fs_read_to_string_gt.html)
+/// * [`assert_fs_read_to_string_gt`](macro@crate::assert_fs_read_to_string_gt)
+/// * [`assert_fs_read_to_string_gt_as_result`](macro@crate::assert_fs_read_to_string_gt_as_result)
+/// * [`debug_assert_fs_read_to_string_gt`](macro@crate::debug_assert_fs_read_to_string_gt)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_gt_as_result {
@@ -210,9 +210,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_gt`](macro.assert_fs_read_to_string_gt.html)
-/// * [`assert_fs_read_to_string_gt_as_result`](macro.assert_fs_read_to_string_gt_as_result.html)
-/// * [`debug_assert_fs_read_to_string_gt`](macro.debug_assert_fs_read_to_string_gt.html)
+/// * [`assert_fs_read_to_string_gt`](macro@crate::assert_fs_read_to_string_gt)
+/// * [`assert_fs_read_to_string_gt_as_result`](macro@crate::assert_fs_read_to_string_gt_as_result)
+/// * [`debug_assert_fs_read_to_string_gt`](macro@crate::debug_assert_fs_read_to_string_gt)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_gt {
@@ -254,12 +254,12 @@ macro_rules! assert_fs_read_to_string_gt {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_gt`](macro.assert_fs_read_to_string_gt.html)
-/// * [`assert_fs_read_to_string_gt`](macro.assert_fs_read_to_string_gt.html)
-/// * [`debug_assert_fs_read_to_string_gt`](macro.debug_assert_fs_read_to_string_gt.html)
+/// * [`assert_fs_read_to_string_gt`](macro@crate::assert_fs_read_to_string_gt)
+/// * [`assert_fs_read_to_string_gt`](macro@crate::assert_fs_read_to_string_gt)
+/// * [`debug_assert_fs_read_to_string_gt`](macro@crate::debug_assert_fs_read_to_string_gt)
 ///
 #[macro_export]
-macro_rules! debug_read_to_string_gt {
+macro_rules! debug_assert_fs_read_to_string_gt {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
             $crate::std::fs::read_to_string_gt!($($arg)*);

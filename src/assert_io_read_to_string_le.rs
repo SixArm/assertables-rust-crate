@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_io_read_to_string_le`](macro.assert_io_read_to_string_le.html)
-//! * [`assert_io_read_to_string_le_as_result`](macro.assert_io_read_to_string_le_as_result.html)
-//! * [`debug_assert_io_read_to_string_le`](macro.debug_assert_io_read_to_string_le.html)
+//! * [`assert_io_read_to_string_le`](macro@crate::assert_io_read_to_string_le)
+//! * [`assert_io_read_to_string_le_as_result`](macro@crate::assert_io_read_to_string_le_as_result)
+//! * [`debug_assert_io_read_to_string_le`](macro@crate::debug_assert_io_read_to_string_le)
 
 /// Assert a std::io::Read read_to_string() value is less than or equal to another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_le`](macro.assert_io_read_to_string_le.html)
-/// * [`assert_io_read_to_string_le_as_result`](macro.assert_io_read_to_string_le_as_result.html)
-/// * [`debug_assert_io_read_to_string_le`](macro.debug_assert_io_read_to_string_le.html)
+/// * [`assert_io_read_to_string_le`](macro@crate::assert_io_read_to_string_le)
+/// * [`assert_io_read_to_string_le_as_result`](macro@crate::assert_io_read_to_string_le_as_result)
+/// * [`debug_assert_io_read_to_string_le`](macro@crate::debug_assert_io_read_to_string_le)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_le_as_result {
@@ -193,9 +193,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_le`](macro.assert_io_read_to_string_le.html)
-/// * [`assert_io_read_to_string_le_as_result`](macro.assert_io_read_to_string_le_as_result.html)
-/// * [`debug_assert_io_read_to_string_le`](macro.debug_assert_io_read_to_string_le.html)
+/// * [`assert_io_read_to_string_le`](macro@crate::assert_io_read_to_string_le)
+/// * [`assert_io_read_to_string_le_as_result`](macro@crate::assert_io_read_to_string_le_as_result)
+/// * [`debug_assert_io_read_to_string_le`](macro@crate::debug_assert_io_read_to_string_le)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_le {
@@ -237,9 +237,9 @@ macro_rules! assert_io_read_to_string_le {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_le`](macro.assert_io_read_to_string_le.html)
-/// * [`assert_io_read_to_string_le`](macro.assert_io_read_to_string_le.html)
-/// * [`debug_assert_io_read_to_string_le`](macro.debug_assert_io_read_to_string_le.html)
+/// * [`assert_io_read_to_string_le`](macro@crate::assert_io_read_to_string_le)
+/// * [`assert_io_read_to_string_le`](macro@crate::assert_io_read_to_string_le)
+/// * [`debug_assert_io_read_to_string_le`](macro@crate::debug_assert_io_read_to_string_le)
 ///
 #[macro_export]
 macro_rules! debug_assert_io_read_to_string_le {

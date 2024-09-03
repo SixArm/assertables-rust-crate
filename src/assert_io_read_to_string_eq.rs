@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_io_read_to_string_eq`](macro.assert_io_read_to_string_eq.html)
-//! * [`assert_io_read_to_string_eq_as_result`](macro.assert_io_read_to_string_eq_as_result.html)
-//! * [`debug_assert_io_read_to_string_eq`](macro.debug_assert_io_read_to_string_eq.html)
+//! * [`assert_io_read_to_string_eq`](macro@crate::assert_io_read_to_string_eq)
+//! * [`assert_io_read_to_string_eq_as_result`](macro@crate::assert_io_read_to_string_eq_as_result)
+//! * [`debug_assert_io_read_to_string_eq`](macro@crate::debug_assert_io_read_to_string_eq)
 
 /// Assert a std::io::Read read_to_string() is equal to another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_eq`](macro.assert_io_read_to_string_eq.html)
-/// * [`assert_io_read_to_string_eq_as_result`](macro.assert_io_read_to_string_eq_as_result.html)
-/// * [`debug_assert_io_read_to_string_eq`](macro.debug_assert_io_read_to_string_eq.html)
+/// * [`assert_io_read_to_string_eq`](macro@crate::assert_io_read_to_string_eq)
+/// * [`assert_io_read_to_string_eq_as_result`](macro@crate::assert_io_read_to_string_eq_as_result)
+/// * [`debug_assert_io_read_to_string_eq`](macro@crate::debug_assert_io_read_to_string_eq)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_eq_as_result {
@@ -193,9 +193,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_eq`](macro.assert_io_read_to_string_eq.html)
-/// * [`assert_io_read_to_string_eq_as_result`](macro.assert_io_read_to_string_eq_as_result.html)
-/// * [`debug_assert_io_read_to_string_eq`](macro.debug_assert_io_read_to_string_eq.html)
+/// * [`assert_io_read_to_string_eq`](macro@crate::assert_io_read_to_string_eq)
+/// * [`assert_io_read_to_string_eq_as_result`](macro@crate::assert_io_read_to_string_eq_as_result)
+/// * [`debug_assert_io_read_to_string_eq`](macro@crate::debug_assert_io_read_to_string_eq)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_eq {
@@ -237,9 +237,9 @@ macro_rules! assert_io_read_to_string_eq {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_eq`](macro.assert_io_read_to_string_eq.html)
-/// * [`assert_io_read_to_string_eq`](macro.assert_io_read_to_string_eq.html)
-/// * [`debug_assert_io_read_to_string_eq`](macro.debug_assert_io_read_to_string_eq.html)
+/// * [`assert_io_read_to_string_eq`](macro@crate::assert_io_read_to_string_eq)
+/// * [`assert_io_read_to_string_eq`](macro@crate::assert_io_read_to_string_eq)
+/// * [`debug_assert_io_read_to_string_eq`](macro@crate::debug_assert_io_read_to_string_eq)
 ///
 #[macro_export]
 macro_rules! debug_assert_io_read_to_string_eq {

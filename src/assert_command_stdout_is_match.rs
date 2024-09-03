@@ -59,9 +59,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_command_stdout_is_match`](macro.assert_command_stdout_is_match.html)
-//! * [`assert_command_stdout_is_match_as_result`](macro.assert_command_stdout_is_match_as_result.html)
-//! * [`debug_assert_command_stdout_is_match`](macro.debug_assert_command_stdout_is_match.html)
+//! * [`assert_command_stdout_is_match`](macro@crate::assert_command_stdout_is_match)
+//! * [`assert_command_stdout_is_match_as_result`](macro@crate::assert_command_stdout_is_match_as_result)
+//! * [`debug_assert_command_stdout_is_match`](macro@crate::debug_assert_command_stdout_is_match)
 
 /// Assert a command stdout string is a match to a regex.
 ///
@@ -77,9 +77,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_is_match`](macro.assert_command_stdout_is_match.html)
-/// * [`assert_command_stdout_is_match_as_result`](macro.assert_command_stdout_is_match_as_result.html)
-/// * [`debug_assert_command_stdout_is_match`](macro.debug_assert_command_stdout_is_match.html)
+/// * [`assert_command_stdout_is_match`](macro@crate::assert_command_stdout_is_match)
+/// * [`assert_command_stdout_is_match_as_result`](macro@crate::assert_command_stdout_is_match_as_result)
+/// * [`debug_assert_command_stdout_is_match`](macro@crate::debug_assert_command_stdout_is_match)
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_is_match_as_result {
@@ -220,9 +220,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_is_match`](macro.assert_command_stdout_is_match.html)
-/// * [`assert_command_stdout_is_match_as_result`](macro.assert_command_stdout_is_match_as_result.html)
-/// * [`debug_assert_command_stdout_is_match`](macro.debug_assert_command_stdout_is_match.html)
+/// * [`assert_command_stdout_is_match`](macro@crate::assert_command_stdout_is_match)
+/// * [`assert_command_stdout_is_match_as_result`](macro@crate::assert_command_stdout_is_match_as_result)
+/// * [`debug_assert_command_stdout_is_match`](macro@crate::debug_assert_command_stdout_is_match)
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_is_match {
@@ -264,9 +264,9 @@ macro_rules! assert_command_stdout_is_match {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_is_match`](macro.assert_command_stdout_is_match.html)
-/// * [`assert_command_stdout_is_match`](macro.assert_command_stdout_is_match.html)
-/// * [`debug_assert_command_stdout_is_match`](macro.debug_assert_command_stdout_is_match.html)
+/// * [`assert_command_stdout_is_match`](macro@crate::assert_command_stdout_is_match)
+/// * [`assert_command_stdout_is_match`](macro@crate::assert_command_stdout_is_match)
+/// * [`debug_assert_command_stdout_is_match`](macro@crate::debug_assert_command_stdout_is_match)
 ///
 #[macro_export]
 macro_rules! debug_assert_command_stdout_is_match {

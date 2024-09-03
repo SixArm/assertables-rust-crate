@@ -39,9 +39,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_ends_with`](macro.assert_ends_with.html)
-//! * [`assert_ends_with_as_result`](macro.assert_ends_with_as_result.html)
-//! * [`debug_assert_ends_with`](macro.debug_assert_ends_with.html)
+//! * [`assert_ends_with`](macro@crate::assert_ends_with)
+//! * [`assert_ends_with_as_result`](macro@crate::assert_ends_with_as_result)
+//! * [`debug_assert_ends_with`](macro@crate::debug_assert_ends_with)
 
 /// Assert an expression (such as a string) ends with an expression (such as a substring).
 ///
@@ -57,9 +57,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_ends_with`](macro.assert_ends_with.html)
-/// * [`assert_ends_with_as_result`](macro.assert_ends_with_as_result.html)
-/// * [`debug_assert_ends_with`](macro.debug_assert_ends_with.html)
+/// * [`assert_ends_with`](macro@crate::assert_ends_with)
+/// * [`assert_ends_with_as_result`](macro@crate::assert_ends_with_as_result)
+/// * [`debug_assert_ends_with`](macro@crate::debug_assert_ends_with)
 ///
 #[macro_export]
 macro_rules! assert_ends_with_as_result {
@@ -153,9 +153,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_ends_with`](macro.assert_ends_with.html)
-/// * [`assert_ends_with_as_result`](macro.assert_ends_with_as_result.html)
-/// * [`debug_assert_ends_with`](macro.debug_assert_ends_with.html)
+/// * [`assert_ends_with`](macro@crate::assert_ends_with)
+/// * [`assert_ends_with_as_result`](macro@crate::assert_ends_with_as_result)
+/// * [`debug_assert_ends_with`](macro@crate::debug_assert_ends_with)
 ///
 #[macro_export]
 macro_rules! assert_ends_with {
@@ -197,9 +197,9 @@ macro_rules! assert_ends_with {
 ///
 /// # Module macros
 ///
-/// * [`assert_ends_with`](macro.assert_ends_with.html)
-/// * [`assert_ends_with`](macro.assert_ends_with.html)
-/// * [`debug_assert_ends_with`](macro.debug_assert_ends_with.html)
+/// * [`assert_ends_with`](macro@crate::assert_ends_with)
+/// * [`assert_ends_with`](macro@crate::assert_ends_with)
+/// * [`debug_assert_ends_with`](macro@crate::debug_assert_ends_with)
 ///
 #[macro_export]
 macro_rules! debug_assert_ends_with {

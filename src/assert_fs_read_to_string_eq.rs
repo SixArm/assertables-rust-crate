@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fs_read_to_string_eq`](macro.assert_fs_read_to_string_eq.html)
-//! * [`assert_fs_read_to_string_eq_as_result`](macro.assert_fs_read_to_string_eq_as_result.html)
-//! * [`debug_assert_fs_read_to_string_eq`](macro.debug_assert_fs_read_to_string_eq.html)
+//! * [`assert_fs_read_to_string_eq`](macro@crate::assert_fs_read_to_string_eq)
+//! * [`assert_fs_read_to_string_eq_as_result`](macro@crate::assert_fs_read_to_string_eq_as_result)
+//! * [`debug_assert_fs_read_to_string_eq`](macro@crate::debug_assert_fs_read_to_string_eq)
 
 /// Assert a std::fs::read_to_string() is equal to another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_eq`](macro.assert_fs_read_to_string_eq.html)
-/// * [`assert_fs_read_to_string_eq_as_result`](macro.assert_fs_read_to_string_eq_as_result.html)
-/// * [`debug_assert_fs_read_to_string_eq`](macro.debug_assert_fs_read_to_string_eq.html)
+/// * [`assert_fs_read_to_string_eq`](macro@crate::assert_fs_read_to_string_eq)
+/// * [`assert_fs_read_to_string_eq_as_result`](macro@crate::assert_fs_read_to_string_eq_as_result)
+/// * [`debug_assert_fs_read_to_string_eq`](macro@crate::debug_assert_fs_read_to_string_eq)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_eq_as_result {
@@ -210,9 +210,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_eq`](macro.assert_fs_read_to_string_eq.html)
-/// * [`assert_fs_read_to_string_eq_as_result`](macro.assert_fs_read_to_string_eq_as_result.html)
-/// * [`debug_assert_fs_read_to_string_eq`](macro.debug_assert_fs_read_to_string_eq.html)
+/// * [`assert_fs_read_to_string_eq`](macro@crate::assert_fs_read_to_string_eq)
+/// * [`assert_fs_read_to_string_eq_as_result`](macro@crate::assert_fs_read_to_string_eq_as_result)
+/// * [`debug_assert_fs_read_to_string_eq`](macro@crate::debug_assert_fs_read_to_string_eq)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_eq {
@@ -254,12 +254,12 @@ macro_rules! assert_fs_read_to_string_eq {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_eq`](macro.assert_fs_read_to_string_eq.html)
-/// * [`assert_fs_read_to_string_eq`](macro.assert_fs_read_to_string_eq.html)
-/// * [`debug_assert_fs_read_to_string_eq`](macro.debug_assert_fs_read_to_string_eq.html)
+/// * [`assert_fs_read_to_string_eq`](macro@crate::assert_fs_read_to_string_eq)
+/// * [`assert_fs_read_to_string_eq`](macro@crate::assert_fs_read_to_string_eq)
+/// * [`debug_assert_fs_read_to_string_eq`](macro@crate::debug_assert_fs_read_to_string_eq)
 ///
 #[macro_export]
-macro_rules! debug_read_to_string_eq {
+macro_rules! debug_assert_fs_read_to_string_eq {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
             $crate::std::fs::read_to_string_eq!($($arg)*);

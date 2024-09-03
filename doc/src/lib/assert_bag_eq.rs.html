@@ -257,6 +257,12 @@
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is equal to another.
 //! 
 //! * If true, return `()`.
@@ -309,6 +315,12 @@
 //! assert_eq!(actual, expect);
 //! # }
 //! ```
+//! 
+//! # Module macros
+//!
+//! * [`assert_bag_eq`](macro@crate::assert_bag_eq)
+//! * [`assert_bag_eq_as_result`](macro@crate::assert_bag_eq_as_result)
+//! * [`debug_assert_bag_eq`](macro@crate::debug_assert_bag_eq)
 
 /// Assert a bag is equal to another.
 ///
@@ -324,9 +336,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_eq`](macro.assert_bag_eq.html)
-/// * [`assert_bag_eq_as_result`](macro.assert_bag_eq_as_result.html)
-/// * [`debug_assert_bag_eq`](macro.debug_assert_bag_eq.html)
+/// * [`assert_bag_eq!`](macro@crate::assert_bag_eq)
+/// * [`assert_bag_eq_as_result`](macro@crate::assert_bag_eq_as_result)
+/// * [`debug_assert_bag_eq`](macro@crate::debug_assert_bag_eq)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_bag_eq_as_result {
@@ -460,9 +472,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_eq`](macro.assert_bag_eq.html)
-/// * [`assert_bag_eq_as_result`](macro.assert_bag_eq_as_result.html)
-/// * [`debug_assert_bag_eq`](macro.debug_assert_bag_eq.html)
+/// * [`assert_bag_eq`](macro@crate::assert_bag_eq)
+/// * [`assert_bag_eq_as_result`](macro@crate::assert_bag_eq_as_result)
+/// * [`debug_assert_bag_eq`](macro@crate::debug_assert_bag_eq)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_bag_eq {
@@ -504,9 +516,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_eq`](macro.assert_bag_eq.html)
-/// * [`assert_bag_eq_as_result`](macro.assert_bag_eq_as_result.html)
-/// * [`debug_assert_bag_eq`](macro.debug_assert_bag_eq.html)
+/// * [`assert_bag_eq`](macro@crate::assert_bag_eq)
+/// * [`assert_bag_eq_as_result`](macro@crate::assert_bag_eq_as_result)
+/// * [`debug_assert_bag_eq`](macro@crate::debug_assert_bag_eq)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_bag_eq {

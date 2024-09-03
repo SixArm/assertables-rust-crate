@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_set_joint`](macro.assert_set_joint.html)
-//! * [`assert_set_joint_as_result`](macro.assert_set_joint_as_result.html)
-//! * [`debug_assert_set_joint`](macro.debug_assert_set_joint.html)
+//! * [`assert_set_joint`](macro@crate::assert_set_joint)
+//! * [`assert_set_joint_as_result`](macro@crate::assert_set_joint_as_result)
+//! * [`debug_assert_set_joint`](macro@crate::debug_assert_set_joint)
 
 /// Assert a set is joint with another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_set_joint`](macro.assert_set_joint.html)
-/// * [`assert_set_joint_as_result`](macro.assert_set_joint_as_result.html)
-/// * [`debug_assert_set_joint`](macro.debug_assert_set_joint.html)
+/// * [`assert_set_joint`](macro@crate::assert_set_joint)
+/// * [`assert_set_joint_as_result`](macro@crate::assert_set_joint_as_result)
+/// * [`debug_assert_set_joint`](macro@crate::debug_assert_set_joint)
 ///
 #[macro_export]
 macro_rules! assert_set_joint_as_result {
@@ -175,9 +175,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_joint`](macro.assert_set_joint.html)
-/// * [`assert_set_joint_as_result`](macro.assert_set_joint_as_result.html)
-/// * [`debug_assert_set_joint`](macro.debug_assert_set_joint.html)
+/// * [`assert_set_joint`](macro@crate::assert_set_joint)
+/// * [`assert_set_joint_as_result`](macro@crate::assert_set_joint_as_result)
+/// * [`debug_assert_set_joint`](macro@crate::debug_assert_set_joint)
 ///
 #[macro_export]
 macro_rules! assert_set_joint {
@@ -219,9 +219,9 @@ macro_rules! assert_set_joint {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_joint`](macro.assert_set_joint.html)
-/// * [`assert_set_joint`](macro.assert_set_joint.html)
-/// * [`debug_assert_set_joint`](macro.debug_assert_set_joint.html)
+/// * [`assert_set_joint`](macro@crate::assert_set_joint)
+/// * [`assert_set_joint`](macro@crate::assert_set_joint)
+/// * [`debug_assert_set_joint`](macro@crate::debug_assert_set_joint)
 ///
 #[macro_export]
 macro_rules! debug_assert_set_joint {

@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_set_eq`](macro.assert_set_eq.html)
-//! * [`assert_set_eq_as_result`](macro.assert_set_eq_as_result.html)
-//! * [`debug_assert_set_eq`](macro.debug_assert_set_eq.html)
+//! * [`assert_set_eq`](macro@crate::assert_set_eq)
+//! * [`assert_set_eq_as_result`](macro@crate::assert_set_eq_as_result)
+//! * [`debug_assert_set_eq`](macro@crate::debug_assert_set_eq)
 
 /// Assert a set is equal to another.
 ///
@@ -63,9 +63,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_set_eq`](macro.assert_set_eq.html)
-/// * [`assert_set_eq_as_result`](macro.assert_set_eq_as_result.html)
-/// * [`debug_assert_set_eq`](macro.debug_assert_set_eq.html)
+/// * [`assert_set_eq`](macro@crate::assert_set_eq)
+/// * [`assert_set_eq_as_result`](macro@crate::assert_set_eq_as_result)
+/// * [`debug_assert_set_eq`](macro@crate::debug_assert_set_eq)
 ///
 #[macro_export]
 macro_rules! assert_set_eq_as_result {
@@ -177,9 +177,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_eq`](macro.assert_set_eq.html)
-/// * [`assert_set_eq_as_result`](macro.assert_set_eq_as_result.html)
-/// * [`debug_assert_set_eq`](macro.debug_assert_set_eq.html)
+/// * [`assert_set_eq`](macro@crate::assert_set_eq)
+/// * [`assert_set_eq_as_result`](macro@crate::assert_set_eq_as_result)
+/// * [`debug_assert_set_eq`](macro@crate::debug_assert_set_eq)
 ///
 #[macro_export]
 macro_rules! assert_set_eq {
@@ -221,9 +221,9 @@ macro_rules! assert_set_eq {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_eq`](macro.assert_set_eq.html)
-/// * [`assert_set_eq`](macro.assert_set_eq.html)
-/// * [`debug_assert_set_eq`](macro.debug_assert_set_eq.html)
+/// * [`assert_set_eq`](macro@crate::assert_set_eq)
+/// * [`assert_set_eq`](macro@crate::assert_set_eq)
+/// * [`debug_assert_set_eq`](macro@crate::debug_assert_set_eq)
 ///
 #[macro_export]
 macro_rules! debug_assert_set_eq {

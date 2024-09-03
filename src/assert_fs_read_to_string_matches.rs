@@ -44,9 +44,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
-//! * [`assert_fs_read_to_string_matches_as_result`](macro.assert_fs_read_to_string_matches_as_result.html)
-//! * [`debug_assert_fs_read_to_string_matches`](macro.debug_assert_fs_read_to_string_matches.html)
+//! * [`assert_fs_read_to_string_matches`](macro@crate::assert_fs_read_to_string_matches)
+//! * [`assert_fs_read_to_string_matches_as_result`](macro@crate::assert_fs_read_to_string_matches_as_result)
+//! * [`debug_assert_fs_read_to_string_matches`](macro@crate::debug_assert_fs_read_to_string_matches)
 
 /// Assert a std::fs::read_to_string() is a match to a regex.
 ///
@@ -62,9 +62,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
-/// * [`assert_fs_read_to_string_matches_as_result`](macro.assert_fs_read_to_string_matches_as_result.html)
-/// * [`debug_assert_fs_read_to_string_matches`](macro.debug_assert_fs_read_to_string_matches.html)
+/// * [`assert_fs_read_to_string_matches`](macro@crate::assert_fs_read_to_string_matches)
+/// * [`assert_fs_read_to_string_matches_as_result`](macro@crate::assert_fs_read_to_string_matches_as_result)
+/// * [`debug_assert_fs_read_to_string_matches`](macro@crate::debug_assert_fs_read_to_string_matches)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_matches_as_result {
@@ -201,9 +201,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
-/// * [`assert_fs_read_to_string_matches_as_result`](macro.assert_fs_read_to_string_matches_as_result.html)
-/// * [`debug_assert_fs_read_to_string_matches`](macro.debug_assert_fs_read_to_string_matches.html)
+/// * [`assert_fs_read_to_string_matches`](macro@crate::assert_fs_read_to_string_matches)
+/// * [`assert_fs_read_to_string_matches_as_result`](macro@crate::assert_fs_read_to_string_matches_as_result)
+/// * [`debug_assert_fs_read_to_string_matches`](macro@crate::debug_assert_fs_read_to_string_matches)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_matches {
@@ -245,12 +245,12 @@ macro_rules! assert_fs_read_to_string_matches {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
-/// * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
-/// * [`debug_assert_fs_read_to_string_matches`](macro.debug_assert_fs_read_to_string_matches.html)
+/// * [`assert_fs_read_to_string_matches`](macro@crate::assert_fs_read_to_string_matches)
+/// * [`assert_fs_read_to_string_matches`](macro@crate::assert_fs_read_to_string_matches)
+/// * [`debug_assert_fs_read_to_string_matches`](macro@crate::debug_assert_fs_read_to_string_matches)
 ///
 #[macro_export]
-macro_rules! debug_read_to_string_matches {
+macro_rules! debug_assert_fs_read_to_string_matches {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
             $crate::std::fs::read_to_string_matches!($($arg)*);

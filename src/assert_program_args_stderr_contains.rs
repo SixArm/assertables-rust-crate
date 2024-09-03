@@ -51,9 +51,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_program_args_stderr_contains`](macro.assert_program_args_stderr_contains.html)
-//! * [`assert_program_args_stderr_contains_as_result`](macro.assert_program_args_stderr_contains_as_result.html)
-//! * [`debug_assert_program_args_stderr_contains`](macro.debug_assert_program_args_stderr_contains.html)
+//! * [`assert_program_args_stderr_contains`](macro@crate::assert_program_args_stderr_contains)
+//! * [`assert_program_args_stderr_contains_as_result`](macro@crate::assert_program_args_stderr_contains_as_result)
+//! * [`debug_assert_program_args_stderr_contains`](macro@crate::debug_assert_program_args_stderr_contains)
 
 /// Assert a command (built with program and args) stderr string contains a given containee.
 ///
@@ -69,9 +69,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stderr_contains`](macro.assert_program_args_stderr_contains.html)
-/// * [`assert_program_args_stderr_contains_as_result`](macro.assert_program_args_stderr_contains_as_result.html)
-/// * [`debug_assert_program_args_stderr_contains`](macro.debug_assert_program_args_stderr_contains.html)
+/// * [`assert_program_args_stderr_contains`](macro@crate::assert_program_args_stderr_contains)
+/// * [`assert_program_args_stderr_contains_as_result`](macro@crate::assert_program_args_stderr_contains_as_result)
+/// * [`debug_assert_program_args_stderr_contains`](macro@crate::debug_assert_program_args_stderr_contains)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_contains_as_result {
@@ -211,9 +211,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stderr_contains`](macro.assert_program_args_stderr_contains.html)
-/// * [`assert_program_args_stderr_contains_as_result`](macro.assert_program_args_stderr_contains_as_result.html)
-/// * [`debug_assert_program_args_stderr_contains`](macro.debug_assert_program_args_stderr_contains.html)
+/// * [`assert_program_args_stderr_contains`](macro@crate::assert_program_args_stderr_contains)
+/// * [`assert_program_args_stderr_contains_as_result`](macro@crate::assert_program_args_stderr_contains_as_result)
+/// * [`debug_assert_program_args_stderr_contains`](macro@crate::debug_assert_program_args_stderr_contains)
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_contains {
@@ -255,9 +255,9 @@ macro_rules! assert_program_args_stderr_contains {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stderr_contains`](macro.assert_program_args_stderr_contains.html)
-/// * [`assert_program_args_stderr_contains`](macro.assert_program_args_stderr_contains.html)
-/// * [`debug_assert_program_args_stderr_contains`](macro.debug_assert_program_args_stderr_contains.html)
+/// * [`assert_program_args_stderr_contains`](macro@crate::assert_program_args_stderr_contains)
+/// * [`assert_program_args_stderr_contains`](macro@crate::assert_program_args_stderr_contains)
+/// * [`debug_assert_program_args_stderr_contains`](macro@crate::debug_assert_program_args_stderr_contains)
 ///
 #[macro_export]
 macro_rules! debug_assert_program_args_stderr_contains {

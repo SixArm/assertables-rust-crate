@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fs_read_to_string_lt_expr`](macro.assert_fs_read_to_string_lt_expr.html)
-//! * [`assert_fs_read_to_string_lt_expr_as_result`](macro.assert_fs_read_to_string_lt_expr_as_result.html)
-//! * [`debug_assert_fs_read_to_string_lt_expr`](macro.debug_assert_fs_read_to_string_lt_expr.html)
+//! * [`assert_fs_read_to_string_lt_expr`](macro@crate::assert_fs_read_to_string_lt_expr)
+//! * [`assert_fs_read_to_string_lt_expr_as_result`](macro@crate::assert_fs_read_to_string_lt_expr_as_result)
+//! * [`debug_assert_fs_read_to_string_lt_expr`](macro@crate::debug_assert_fs_read_to_string_lt_expr)
 
 /// Assert a std::fs::read_to_string() value is less than an expression.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_lt_expr`](macro.assert_fs_read_to_string_lt_expr.html)
-/// * [`assert_fs_read_to_string_lt_expr_as_result`](macro.assert_fs_read_to_string_lt_expr_as_result.html)
-/// * [`debug_assert_fs_read_to_string_lt_expr`](macro.debug_assert_fs_read_to_string_lt_expr.html)
+/// * [`assert_fs_read_to_string_lt_expr`](macro@crate::assert_fs_read_to_string_lt_expr)
+/// * [`assert_fs_read_to_string_lt_expr_as_result`](macro@crate::assert_fs_read_to_string_lt_expr_as_result)
+/// * [`debug_assert_fs_read_to_string_lt_expr`](macro@crate::debug_assert_fs_read_to_string_lt_expr)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_lt_expr_as_result {
@@ -201,9 +201,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_lt_expr`](macro.assert_fs_read_to_string_lt_expr.html)
-/// * [`assert_fs_read_to_string_lt_expr_as_result`](macro.assert_fs_read_to_string_lt_expr_as_result.html)
-/// * [`debug_assert_fs_read_to_string_lt_expr`](macro.debug_assert_fs_read_to_string_lt_expr.html)
+/// * [`assert_fs_read_to_string_lt_expr`](macro@crate::assert_fs_read_to_string_lt_expr)
+/// * [`assert_fs_read_to_string_lt_expr_as_result`](macro@crate::assert_fs_read_to_string_lt_expr_as_result)
+/// * [`debug_assert_fs_read_to_string_lt_expr`](macro@crate::debug_assert_fs_read_to_string_lt_expr)
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_lt_expr {
@@ -245,12 +245,12 @@ macro_rules! assert_fs_read_to_string_lt_expr {
 ///
 /// # Module macros
 ///
-/// * [`assert_fs_read_to_string_lt_expr`](macro.assert_fs_read_to_string_lt_expr.html)
-/// * [`assert_fs_read_to_string_lt_expr`](macro.assert_fs_read_to_string_lt_expr.html)
-/// * [`debug_assert_fs_read_to_string_lt_expr`](macro.debug_assert_fs_read_to_string_lt_expr.html)
+/// * [`assert_fs_read_to_string_lt_expr`](macro@crate::assert_fs_read_to_string_lt_expr)
+/// * [`assert_fs_read_to_string_lt_expr`](macro@crate::assert_fs_read_to_string_lt_expr)
+/// * [`debug_assert_fs_read_to_string_lt_expr`](macro@crate::debug_assert_fs_read_to_string_lt_expr)
 ///
 #[macro_export]
-macro_rules! debug_read_to_string_lt_expr {
+macro_rules! debug_assert_fs_read_to_string_lt_expr {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
             $crate::std::fs::read_to_string_lt_expr!($($arg)*);

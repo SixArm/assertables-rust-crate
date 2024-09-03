@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_io_read_to_string_lt`](macro.assert_io_read_to_string_lt.html)
-//! * [`assert_io_read_to_string_lt_as_result`](macro.assert_io_read_to_string_lt_as_result.html)
-//! * [`debug_assert_io_read_to_string_lt`](macro.debug_assert_io_read_to_string_lt.html)
+//! * [`assert_io_read_to_string_lt`](macro@crate::assert_io_read_to_string_lt)
+//! * [`assert_io_read_to_string_lt_as_result`](macro@crate::assert_io_read_to_string_lt_as_result)
+//! * [`debug_assert_io_read_to_string_lt`](macro@crate::debug_assert_io_read_to_string_lt)
 
 /// Assert a std::io::Read read_to_string() value is less than another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_lt`](macro.assert_io_read_to_string_lt.html)
-/// * [`assert_io_read_to_string_lt_as_result`](macro.assert_io_read_to_string_lt_as_result.html)
-/// * [`debug_assert_io_read_to_string_lt`](macro.debug_assert_io_read_to_string_lt.html)
+/// * [`assert_io_read_to_string_lt`](macro@crate::assert_io_read_to_string_lt)
+/// * [`assert_io_read_to_string_lt_as_result`](macro@crate::assert_io_read_to_string_lt_as_result)
+/// * [`debug_assert_io_read_to_string_lt`](macro@crate::debug_assert_io_read_to_string_lt)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_lt_as_result {
@@ -193,9 +193,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_lt`](macro.assert_io_read_to_string_lt.html)
-/// * [`assert_io_read_to_string_lt_as_result`](macro.assert_io_read_to_string_lt_as_result.html)
-/// * [`debug_assert_io_read_to_string_lt`](macro.debug_assert_io_read_to_string_lt.html)
+/// * [`assert_io_read_to_string_lt`](macro@crate::assert_io_read_to_string_lt)
+/// * [`assert_io_read_to_string_lt_as_result`](macro@crate::assert_io_read_to_string_lt_as_result)
+/// * [`debug_assert_io_read_to_string_lt`](macro@crate::debug_assert_io_read_to_string_lt)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_lt {
@@ -237,9 +237,9 @@ macro_rules! assert_io_read_to_string_lt {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_lt`](macro.assert_io_read_to_string_lt.html)
-/// * [`assert_io_read_to_string_lt`](macro.assert_io_read_to_string_lt.html)
-/// * [`debug_assert_io_read_to_string_lt`](macro.debug_assert_io_read_to_string_lt.html)
+/// * [`assert_io_read_to_string_lt`](macro@crate::assert_io_read_to_string_lt)
+/// * [`assert_io_read_to_string_lt`](macro@crate::assert_io_read_to_string_lt)
+/// * [`debug_assert_io_read_to_string_lt`](macro@crate::debug_assert_io_read_to_string_lt)
 ///
 #[macro_export]
 macro_rules! debug_assert_io_read_to_string_lt {

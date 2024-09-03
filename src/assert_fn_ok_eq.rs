@@ -50,9 +50,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fn_ok_eq`](macro.assert_fn_ok_eq.html)
-//! * [`assert_fn_ok_eq_as_result`](macro.assert_fn_ok_eq_as_result.html)
-//! * [`debug_assert_fn_ok_eq`](macro.debug_assert_fn_ok_eq.html)
+//! * [`assert_fn_ok_eq`](macro@crate::assert_fn_ok_eq)
+//! * [`assert_fn_ok_eq_as_result`](macro@crate::assert_fn_ok_eq_as_result)
+//! * [`debug_assert_fn_ok_eq`](macro@crate::debug_assert_fn_ok_eq)
 
 /// Assert a function ok() is equal to another.
 ///
@@ -68,9 +68,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_ok_eq`](macro.assert_fn_ok_eq.html)
-/// * [`assert_fn_ok_eq_as_result`](macro.assert_fn_ok_eq_as_result.html)
-/// * [`debug_assert_fn_ok_eq`](macro.debug_assert_fn_ok_eq.html)
+/// * [`assert_fn_ok_eq`](macro@crate::assert_fn_ok_eq)
+/// * [`assert_fn_ok_eq_as_result`](macro@crate::assert_fn_ok_eq_as_result)
+/// * [`debug_assert_fn_ok_eq`](macro@crate::debug_assert_fn_ok_eq)
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_eq_as_result {
@@ -310,9 +310,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_ok_eq`](macro.assert_fn_ok_eq.html)
-/// * [`assert_fn_ok_eq_as_result`](macro.assert_fn_ok_eq_as_result.html)
-/// * [`debug_assert_fn_ok_eq`](macro.debug_assert_fn_ok_eq.html)
+/// * [`assert_fn_ok_eq`](macro@crate::assert_fn_ok_eq)
+/// * [`assert_fn_ok_eq_as_result`](macro@crate::assert_fn_ok_eq_as_result)
+/// * [`debug_assert_fn_ok_eq`](macro@crate::debug_assert_fn_ok_eq)
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_eq {
@@ -375,9 +375,9 @@ macro_rules! assert_fn_ok_eq {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_ok_eq`](macro.assert_fn_ok_eq.html)
-/// * [`assert_fn_ok_eq`](macro.assert_fn_ok_eq.html)
-/// * [`debug_assert_fn_ok_eq`](macro.debug_assert_fn_ok_eq.html)
+/// * [`assert_fn_ok_eq`](macro@crate::assert_fn_ok_eq)
+/// * [`assert_fn_ok_eq`](macro@crate::assert_fn_ok_eq)
+/// * [`debug_assert_fn_ok_eq`](macro@crate::debug_assert_fn_ok_eq)
 ///
 #[macro_export]
 macro_rules! debug_assert_fn_ok_eq {

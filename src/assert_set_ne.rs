@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_set_ne`](macro.assert_set_ne.html)
-//! * [`assert_set_ne_as_result`](macro.assert_set_ne_as_result.html)
-//! * [`debug_assert_set_ne`](macro.debug_assert_set_ne.html)
+//! * [`assert_set_ne`](macro@crate::assert_set_ne)
+//! * [`assert_set_ne_as_result`](macro@crate::assert_set_ne_as_result)
+//! * [`debug_assert_set_ne`](macro@crate::debug_assert_set_ne)
 
 /// Assert a set is not equal to another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_set_ne`](macro.assert_set_ne.html)
-/// * [`assert_set_ne_as_result`](macro.assert_set_ne_as_result.html)
-/// * [`debug_assert_set_ne`](macro.debug_assert_set_ne.html)
+/// * [`assert_set_ne`](macro@crate::assert_set_ne)
+/// * [`assert_set_ne_as_result`](macro@crate::assert_set_ne_as_result)
+/// * [`debug_assert_set_ne`](macro@crate::debug_assert_set_ne)
 ///
 #[macro_export]
 macro_rules! assert_set_ne_as_result {
@@ -175,9 +175,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_ne`](macro.assert_set_ne.html)
-/// * [`assert_set_ne_as_result`](macro.assert_set_ne_as_result.html)
-/// * [`debug_assert_set_ne`](macro.debug_assert_set_ne.html)
+/// * [`assert_set_ne`](macro@crate::assert_set_ne)
+/// * [`assert_set_ne_as_result`](macro@crate::assert_set_ne_as_result)
+/// * [`debug_assert_set_ne`](macro@crate::debug_assert_set_ne)
 ///
 #[macro_export]
 macro_rules! assert_set_ne {
@@ -219,9 +219,9 @@ macro_rules! assert_set_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_ne`](macro.assert_set_ne.html)
-/// * [`assert_set_ne`](macro.assert_set_ne.html)
-/// * [`debug_assert_set_ne`](macro.debug_assert_set_ne.html)
+/// * [`assert_set_ne`](macro@crate::assert_set_ne)
+/// * [`assert_set_ne`](macro@crate::assert_set_ne)
+/// * [`debug_assert_set_ne`](macro@crate::debug_assert_set_ne)
 ///
 #[macro_export]
 macro_rules! debug_assert_set_ne {

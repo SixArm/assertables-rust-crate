@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html)
-//! * [`assert_io_read_to_string_gt_as_result`](macro.assert_io_read_to_string_gt_as_result.html)
-//! * [`debug_assert_io_read_to_string_gt`](macro.debug_assert_io_read_to_string_gt.html)
+//! * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+//! * [`assert_io_read_to_string_gt_as_result`](macro@crate::assert_io_read_to_string_gt_as_result)
+//! * [`debug_assert_io_read_to_string_gt`](macro@crate::debug_assert_io_read_to_string_gt)
 
 /// Assert a std::io::Read read_to_string() value is greater than another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html)
-/// * [`assert_io_read_to_string_gt_as_result`](macro.assert_io_read_to_string_gt_as_result.html)
-/// * [`debug_assert_io_read_to_string_gt`](macro.debug_assert_io_read_to_string_gt.html)
+/// * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+/// * [`assert_io_read_to_string_gt_as_result`](macro@crate::assert_io_read_to_string_gt_as_result)
+/// * [`debug_assert_io_read_to_string_gt`](macro@crate::debug_assert_io_read_to_string_gt)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_gt_as_result {
@@ -193,9 +193,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html)
-/// * [`assert_io_read_to_string_gt_as_result`](macro.assert_io_read_to_string_gt_as_result.html)
-/// * [`debug_assert_io_read_to_string_gt`](macro.debug_assert_io_read_to_string_gt.html)
+/// * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+/// * [`assert_io_read_to_string_gt_as_result`](macro@crate::assert_io_read_to_string_gt_as_result)
+/// * [`debug_assert_io_read_to_string_gt`](macro@crate::debug_assert_io_read_to_string_gt)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_gt {
@@ -237,9 +237,9 @@ macro_rules! assert_io_read_to_string_gt {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html)
-/// * [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html)
-/// * [`debug_assert_io_read_to_string_gt`](macro.debug_assert_io_read_to_string_gt.html)
+/// * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+/// * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+/// * [`debug_assert_io_read_to_string_gt`](macro@crate::debug_assert_io_read_to_string_gt)
 ///
 #[macro_export]
 macro_rules! debug_assert_io_read_to_string_gt {

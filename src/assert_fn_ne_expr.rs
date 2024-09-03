@@ -42,9 +42,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fn_ne_expr`](macro.assert_fn_ne_expr.html)
-//! * [`assert_fn_ne_expr_as_result`](macro.assert_fn_ne_expr_as_result.html)
-//! * [`debug_assert_fn_ne_expr`](macro.debug_assert_fn_ne_expr.html)
+//! * [`assert_fn_ne_expr`](macro@crate::assert_fn_ne_expr)
+//! * [`assert_fn_ne_expr_as_result`](macro@crate::assert_fn_ne_expr_as_result)
+//! * [`debug_assert_fn_ne_expr`](macro@crate::debug_assert_fn_ne_expr)
 
 /// Assert a function output is not equal to an expression.
 ///
@@ -60,9 +60,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_ne_expr`](macro.assert_fn_ne_expr.html)
-/// * [`assert_fn_ne_expr_as_result`](macro.assert_fn_ne_expr_as_result.html)
-/// * [`debug_assert_fn_ne_expr`](macro.debug_assert_fn_ne_expr.html)
+/// * [`assert_fn_ne_expr`](macro@crate::assert_fn_ne_expr)
+/// * [`assert_fn_ne_expr_as_result`](macro@crate::assert_fn_ne_expr_as_result)
+/// * [`debug_assert_fn_ne_expr`](macro@crate::debug_assert_fn_ne_expr)
 ///
 #[macro_export]
 macro_rules! assert_fn_ne_expr_as_result {
@@ -239,9 +239,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_ne_expr`](macro.assert_fn_ne_expr.html)
-/// * [`assert_fn_ne_expr_as_result`](macro.assert_fn_ne_expr_as_result.html)
-/// * [`debug_assert_fn_ne_expr`](macro.debug_assert_fn_ne_expr.html)
+/// * [`assert_fn_ne_expr`](macro@crate::assert_fn_ne_expr)
+/// * [`assert_fn_ne_expr_as_result`](macro@crate::assert_fn_ne_expr_as_result)
+/// * [`debug_assert_fn_ne_expr`](macro@crate::debug_assert_fn_ne_expr)
 ///
 #[macro_export]
 macro_rules! assert_fn_ne_expr {
@@ -304,9 +304,9 @@ macro_rules! assert_fn_ne_expr {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_ne_expr`](macro.assert_fn_ne_expr.html)
-/// * [`assert_fn_ne_expr`](macro.assert_fn_ne_expr.html)
-/// * [`debug_assert_fn_ne_expr`](macro.debug_assert_fn_ne_expr.html)
+/// * [`assert_fn_ne_expr`](macro@crate::assert_fn_ne_expr)
+/// * [`assert_fn_ne_expr`](macro@crate::assert_fn_ne_expr)
+/// * [`debug_assert_fn_ne_expr`](macro@crate::debug_assert_fn_ne_expr)
 ///
 #[macro_export]
 macro_rules! debug_assert_fn_ne_expr {

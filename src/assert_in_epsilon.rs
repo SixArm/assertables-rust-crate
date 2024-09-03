@@ -73,9 +73,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_in_epsilon`](macro.assert_in_epsilon.html)
-//! * [`assert_in_epsilon_as_result`](macro.assert_in_epsilon_as_result.html)
-//! * [`debug_assert_in_epsilon`](macro.debug_assert_in_epsilon.html)
+//! * [`assert_in_epsilon`](macro@crate::assert_in_epsilon)
+//! * [`assert_in_epsilon_as_result`](macro@crate::assert_in_epsilon_as_result)
+//! * [`debug_assert_in_epsilon`](macro@crate::debug_assert_in_epsilon)
 
 /// Assert a number is within epsilon of another number.
 ///
@@ -92,9 +92,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_in_epsilon`](macro.assert_in_epsilon.html)
-/// * [`assert_in_epsilon_as_result`](macro.assert_in_epsilon_as_result.html)
-/// * [`debug_assert_in_epsilon`](macro.debug_assert_in_epsilon.html)
+/// * [`assert_in_epsilon`](macro@crate::assert_in_epsilon)
+/// * [`assert_in_epsilon_as_result`](macro@crate::assert_in_epsilon_as_result)
+/// * [`debug_assert_in_epsilon`](macro@crate::debug_assert_in_epsilon)
 ///
 #[macro_export]
 macro_rules! assert_in_epsilon_as_result {
@@ -245,9 +245,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_in_epsilon`](macro.assert_in_epsilon.html)
-/// * [`assert_in_epsilon_as_result`](macro.assert_in_epsilon_as_result.html)
-/// * [`debug_assert_in_epsilon`](macro.debug_assert_in_epsilon.html)
+/// * [`assert_in_epsilon`](macro@crate::assert_in_epsilon)
+/// * [`assert_in_epsilon_as_result`](macro@crate::assert_in_epsilon_as_result)
+/// * [`debug_assert_in_epsilon`](macro@crate::debug_assert_in_epsilon)
 ///
 #[macro_export]
 macro_rules! assert_in_epsilon {
@@ -289,9 +289,9 @@ macro_rules! assert_in_epsilon {
 ///
 /// # Module macros
 ///
-/// * [`assert_in_epsilon`](macro.assert_in_epsilon.html)
-/// * [`assert_in_epsilon`](macro.assert_in_epsilon.html)
-/// * [`debug_assert_in_epsilon`](macro.debug_assert_in_epsilon.html)
+/// * [`assert_in_epsilon`](macro@crate::assert_in_epsilon)
+/// * [`assert_in_epsilon`](macro@crate::assert_in_epsilon)
+/// * [`debug_assert_in_epsilon`](macro@crate::debug_assert_in_epsilon)
 ///
 #[macro_export]
 macro_rules! debug_assert_in_epsilon {

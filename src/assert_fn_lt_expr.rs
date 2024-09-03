@@ -42,9 +42,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fn_lt_expr`](macro.assert_fn_lt_expr.html)
-//! * [`assert_fn_lt_expr_as_result`](macro.assert_fn_lt_expr_as_result.html)
-//! * [`debug_assert_fn_lt_expr`](macro.debug_assert_fn_lt_expr.html)
+//! * [`assert_fn_lt_expr`](macro@crate::assert_fn_lt_expr)
+//! * [`assert_fn_lt_expr_as_result`](macro@crate::assert_fn_lt_expr_as_result)
+//! * [`debug_assert_fn_lt_expr`](macro@crate::debug_assert_fn_lt_expr)
 
 /// Assert a function output is less than an expression.
 ///
@@ -60,9 +60,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_lt_expr`](macro.assert_fn_lt_expr.html)
-/// * [`assert_fn_lt_expr_as_result`](macro.assert_fn_lt_expr_as_result.html)
-/// * [`debug_assert_fn_lt_expr`](macro.debug_assert_fn_lt_expr.html)
+/// * [`assert_fn_lt_expr`](macro@crate::assert_fn_lt_expr)
+/// * [`assert_fn_lt_expr_as_result`](macro@crate::assert_fn_lt_expr_as_result)
+/// * [`debug_assert_fn_lt_expr`](macro@crate::debug_assert_fn_lt_expr)
 ///
 #[macro_export]
 macro_rules! assert_fn_lt_expr_as_result {
@@ -278,9 +278,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_lt_expr`](macro.assert_fn_lt_expr.html)
-/// * [`assert_fn_lt_expr_as_result`](macro.assert_fn_lt_expr_as_result.html)
-/// * [`debug_assert_fn_lt_expr`](macro.debug_assert_fn_lt_expr.html)
+/// * [`assert_fn_lt_expr`](macro@crate::assert_fn_lt_expr)
+/// * [`assert_fn_lt_expr_as_result`](macro@crate::assert_fn_lt_expr_as_result)
+/// * [`debug_assert_fn_lt_expr`](macro@crate::debug_assert_fn_lt_expr)
 ///
 #[macro_export]
 macro_rules! assert_fn_lt_expr {
@@ -343,9 +343,9 @@ macro_rules! assert_fn_lt_expr {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_lt_expr`](macro.assert_fn_lt_expr.html)
-/// * [`assert_fn_lt_expr`](macro.assert_fn_lt_expr.html)
-/// * [`debug_assert_fn_lt_expr`](macro.debug_assert_fn_lt_expr.html)
+/// * [`assert_fn_lt_expr`](macro@crate::assert_fn_lt_expr)
+/// * [`assert_fn_lt_expr`](macro@crate::assert_fn_lt_expr)
+/// * [`debug_assert_fn_lt_expr`](macro@crate::debug_assert_fn_lt_expr)
 ///
 #[macro_export]
 macro_rules! debug_assert_fn_lt_expr {

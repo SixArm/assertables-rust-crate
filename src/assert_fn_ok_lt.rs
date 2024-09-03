@@ -50,9 +50,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_fn_ok_lt`](macro.assert_fn_ok_lt.html)
-//! * [`assert_fn_ok_lt_as_result`](macro.assert_fn_ok_lt_as_result.html)
-//! * [`debug_assert_fn_ok_lt`](macro.debug_assert_fn_ok_lt.html)
+//! * [`assert_fn_ok_lt`](macro@crate::assert_fn_ok_lt)
+//! * [`assert_fn_ok_lt_as_result`](macro@crate::assert_fn_ok_lt_as_result)
+//! * [`debug_assert_fn_ok_lt`](macro@crate::debug_assert_fn_ok_lt)
 
 /// Assert a function ok() is less than another.
 ///
@@ -68,9 +68,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_ok_lt`](macro.assert_fn_ok_lt.html)
-/// * [`assert_fn_ok_lt_as_result`](macro.assert_fn_ok_lt_as_result.html)
-/// * [`debug_assert_fn_ok_lt`](macro.debug_assert_fn_ok_lt.html)
+/// * [`assert_fn_ok_lt`](macro@crate::assert_fn_ok_lt)
+/// * [`assert_fn_ok_lt_as_result`](macro@crate::assert_fn_ok_lt_as_result)
+/// * [`debug_assert_fn_ok_lt`](macro@crate::debug_assert_fn_ok_lt)
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_lt_as_result {
@@ -348,9 +348,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_ok_lt`](macro.assert_fn_ok_lt.html)
-/// * [`assert_fn_ok_lt_as_result`](macro.assert_fn_ok_lt_as_result.html)
-/// * [`debug_assert_fn_ok_lt`](macro.debug_assert_fn_ok_lt.html)
+/// * [`assert_fn_ok_lt`](macro@crate::assert_fn_ok_lt)
+/// * [`assert_fn_ok_lt_as_result`](macro@crate::assert_fn_ok_lt_as_result)
+/// * [`debug_assert_fn_ok_lt`](macro@crate::debug_assert_fn_ok_lt)
 ///
 #[macro_export]
 macro_rules! assert_fn_ok_lt {
@@ -413,9 +413,9 @@ macro_rules! assert_fn_ok_lt {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_ok_lt`](macro.assert_fn_ok_lt.html)
-/// * [`assert_fn_ok_lt`](macro.assert_fn_ok_lt.html)
-/// * [`debug_assert_fn_ok_lt`](macro.debug_assert_fn_ok_lt.html)
+/// * [`assert_fn_ok_lt`](macro@crate::assert_fn_ok_lt)
+/// * [`assert_fn_ok_lt`](macro@crate::assert_fn_ok_lt)
+/// * [`debug_assert_fn_ok_lt`](macro@crate::debug_assert_fn_ok_lt)
 ///
 #[macro_export]
 macro_rules! debug_assert_fn_ok_lt {

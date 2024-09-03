@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_set_superset`](macro.assert_set_superset.html)
-//! * [`assert_set_superset_as_result`](macro.assert_set_superset_as_result.html)
-//! * [`debug_assert_set_superset`](macro.debug_assert_set_superset.html)
+//! * [`assert_set_superset`](macro@crate::assert_set_superset)
+//! * [`assert_set_superset_as_result`](macro@crate::assert_set_superset_as_result)
+//! * [`debug_assert_set_superset`](macro@crate::debug_assert_set_superset)
 
 /// Assert a set is a superset of another.
 ///
@@ -63,9 +63,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_set_superset`](macro.assert_set_superset.html)
-/// * [`assert_set_superset_as_result`](macro.assert_set_superset_as_result.html)
-/// * [`debug_assert_set_superset`](macro.debug_assert_set_superset.html)
+/// * [`assert_set_superset`](macro@crate::assert_set_superset)
+/// * [`assert_set_superset_as_result`](macro@crate::assert_set_superset_as_result)
+/// * [`debug_assert_set_superset`](macro@crate::debug_assert_set_superset)
 ///
 #[macro_export]
 macro_rules! assert_set_superset_as_result {
@@ -177,9 +177,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_superset`](macro.assert_set_superset.html)
-/// * [`assert_set_superset_as_result`](macro.assert_set_superset_as_result.html)
-/// * [`debug_assert_set_superset`](macro.debug_assert_set_superset.html)
+/// * [`assert_set_superset`](macro@crate::assert_set_superset)
+/// * [`assert_set_superset_as_result`](macro@crate::assert_set_superset_as_result)
+/// * [`debug_assert_set_superset`](macro@crate::debug_assert_set_superset)
 ///
 #[macro_export]
 macro_rules! assert_set_superset {
@@ -221,9 +221,9 @@ macro_rules! assert_set_superset {
 ///
 /// # Module macros
 ///
-/// * [`assert_set_superset`](macro.assert_set_superset.html)
-/// * [`assert_set_superset`](macro.assert_set_superset.html)
-/// * [`debug_assert_set_superset`](macro.debug_assert_set_superset.html)
+/// * [`assert_set_superset`](macro@crate::assert_set_superset)
+/// * [`assert_set_superset`](macro@crate::assert_set_superset)
+/// * [`debug_assert_set_superset`](macro@crate::debug_assert_set_superset)
 ///
 #[macro_export]
 macro_rules! debug_assert_set_superset {

@@ -477,8 +477,8 @@ assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = e
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.0.0
+* Version: 8.0.2
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-09-02T15:45:13Z
+* Updated: 2024-09-03T13:39:09Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

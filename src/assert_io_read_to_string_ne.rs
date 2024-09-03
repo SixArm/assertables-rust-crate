@@ -43,9 +43,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_io_read_to_string_ne`](macro.assert_io_read_to_string_ne.html)
-//! * [`assert_io_read_to_string_ne_as_result`](macro.assert_io_read_to_string_ne_as_result.html)
-//! * [`debug_assert_io_read_to_string_ne`](macro.debug_assert_io_read_to_string_ne.html)
+//! * [`assert_io_read_to_string_ne`](macro@crate::assert_io_read_to_string_ne)
+//! * [`assert_io_read_to_string_ne_as_result`](macro@crate::assert_io_read_to_string_ne_as_result)
+//! * [`debug_assert_io_read_to_string_ne`](macro@crate::debug_assert_io_read_to_string_ne)
 
 /// Assert a std::io::Read read_to_string() is not equal to another.
 ///
@@ -61,9 +61,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_ne`](macro.assert_io_read_to_string_ne.html)
-/// * [`assert_io_read_to_string_ne_as_result`](macro.assert_io_read_to_string_ne_as_result.html)
-/// * [`debug_assert_io_read_to_string_ne`](macro.debug_assert_io_read_to_string_ne.html)
+/// * [`assert_io_read_to_string_ne`](macro@crate::assert_io_read_to_string_ne)
+/// * [`assert_io_read_to_string_ne_as_result`](macro@crate::assert_io_read_to_string_ne_as_result)
+/// * [`debug_assert_io_read_to_string_ne`](macro@crate::debug_assert_io_read_to_string_ne)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_ne_as_result {
@@ -193,9 +193,9 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_ne`](macro.assert_io_read_to_string_ne.html)
-/// * [`assert_io_read_to_string_ne_as_result`](macro.assert_io_read_to_string_ne_as_result.html)
-/// * [`debug_assert_io_read_to_string_ne`](macro.debug_assert_io_read_to_string_ne.html)
+/// * [`assert_io_read_to_string_ne`](macro@crate::assert_io_read_to_string_ne)
+/// * [`assert_io_read_to_string_ne_as_result`](macro@crate::assert_io_read_to_string_ne_as_result)
+/// * [`debug_assert_io_read_to_string_ne`](macro@crate::debug_assert_io_read_to_string_ne)
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_ne {
@@ -237,9 +237,9 @@ macro_rules! assert_io_read_to_string_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_ne`](macro.assert_io_read_to_string_ne.html)
-/// * [`assert_io_read_to_string_ne`](macro.assert_io_read_to_string_ne.html)
-/// * [`debug_assert_io_read_to_string_ne`](macro.debug_assert_io_read_to_string_ne.html)
+/// * [`assert_io_read_to_string_ne`](macro@crate::assert_io_read_to_string_ne)
+/// * [`assert_io_read_to_string_ne`](macro@crate::assert_io_read_to_string_ne)
+/// * [`debug_assert_io_read_to_string_ne`](macro@crate::debug_assert_io_read_to_string_ne)
 ///
 #[macro_export]
 macro_rules! debug_assert_io_read_to_string_ne {

@@ -487,17 +487,17 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.0.0
+//! * Version: 8.0.2
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-02T15:45:13Z
+//! * Updated: 2024-09-03T13:39:09Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
 // Assert truth
-pub mod assert; // (provided by Rust `std`)
+pub mod assert; // (in addition to what's provided by Rust `std`)
 
 // Assert value comparison
-pub mod assert_eq; // (provided by Rust `std`)
+pub mod assert_eq; // (in addition to what's provided by Rust `std`)
 pub mod assert_ge;
 pub mod assert_gt;
 pub mod assert_le;
