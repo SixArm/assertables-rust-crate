@@ -1,3 +1,59 @@
+//! Assert a command (built with program and args) stdout string is equal to another.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//!
+//! # fn main() {
+//! // Return Ok
+//! let a_program = "bin/printf-stdout";
+//! let a_args = ["%s", "hello"];
+//! let b_program = "bin/printf-stdout";
+//! let b_args = ["%s%s%s%s%s", "h", "e", "l", "l", "o"];
+//! assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
+//! //-> ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let a_program = "bin/printf-stdout";
+//! let a_args = ["%s", "hello"];
+//! let b_program = "bin/printf-stdout";
+//! let b_args = ["%s%s%s", "z", "z", "z"];
+//! assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_program_args_stdout_eq!(left_program, left_args, right_program, right_args)`\n",
+//!     "  left_program label: `&a_program`,\n",
+//!     "  left_program debug: `\"bin/printf-stdout\"`,\n",
+//!     "     left_args label: `&a_args`,\n",
+//!     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
+//!     " right_program label: `&b_program`,\n",
+//!     " right_program debug: `\"bin/printf-stdout\"`,\n",
+//!     "    right_args label: `&b_args`,\n",
+//!     "    right_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,\n",
+//!     "                left: `\"hello\"`,\n",
+//!     "               right: `\"zzz\"`"
+//! );
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_program_args_stdout_eq`](macro.assert_program_args_stdout_eq.html)
+//! * [`assert_program_args_stdout_eq_as_result`](macro.assert_program_args_stdout_eq_as_result.html)
+//! * [`debug_assert_program_args_stdout_eq`](macro.debug_assert_program_args_stdout_eq.html)
+
 /// Assert a command (built with program and args) stdout string is equal to another.
 ///
 /// * If true, return `()`.
@@ -209,7 +265,7 @@ macro_rules! assert_program_args_stdout_eq {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

@@ -1,3 +1,52 @@
+//! Assert a function output is greater than another.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! // Return Ok
+//! let a: i8 = -2;
+//! let b: i8 = 1;
+//! assert_fn_gt!(i8::abs, a, i8::abs, b);
+//! //-> ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let a: i8 = 1;
+//! let b: i8 = -2;
+//! assert_fn_gt!(i8::abs, a, i8::abs, b);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_fn_gt!(left_function, left_param, right_function, right_param)`\n",
+//!     "  left_function label: `i8::abs`,\n",
+//!     "     left_param label: `a`,\n",
+//!     "     left_param debug: `1`,\n",
+//!     " right_function label: `i8::abs`,\n",
+//!     "    right_param label: `b`,\n",
+//!     "    right_param debug: `-2`,\n",
+//!     "                 left: `1`,\n",
+//!     "                right: `2`"
+//! );
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_fn_gt`](macro.assert_fn_gt.html)
+//! * [`assert_fn_gt_as_result`](macro.assert_fn_gt_as_result.html)
+//! * [`debug_assert_fn_gt`](macro.debug_assert_fn_gt.html)
+
 /// Assert a function output is greater than another.
 ///
 /// * If true, return Result `Ok(())`.
@@ -299,7 +348,7 @@ macro_rules! assert_fn_gt {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

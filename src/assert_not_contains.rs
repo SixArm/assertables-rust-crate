@@ -1,3 +1,48 @@
+//! Assert an expression (such as a string) does not contain an expression (such as a substring).
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! // Return Ok
+//! let a = "foogoo";
+//! let b = "zz";
+//! assert_not_contains!(a, b);
+//! //-> ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let a = "foogoo";
+//! let b = "oo";
+//! assert_not_contains!(a, b);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_not_contains!(container, containee)`\n",
+//!     " container label: `a`,\n",
+//!     " container debug: `\"foogoo\"`,\n",
+//!     " containee label: `b`,\n",
+//!     " containee debug: `\"oo\"`"
+//! );
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_not_contains`](macro.assert_not_contains.html)
+//! * [`assert_not_contains_as_result`](macro.assert_not_contains_as_result.html)
+//! * [`debug_assert_not_contains`](macro.debug_assert_not_contains.html)
+
 /// Assert an expression (such as a string) does not contain an expression (such as a substring).
 ///
 /// * If true, return Result `Ok(())`.
@@ -67,7 +112,7 @@ mod tests {
     }
 }
 
-/// Assert a container is a match for an expression.
+/// Assert an expression (such as a string) does not contain an expression (such as a substring).
 ///
 /// * If true, return `()`.
 ///
@@ -128,7 +173,7 @@ macro_rules! assert_not_contains {
     });
 }
 
-/// Assert a container is a match for an expression.
+/// Assert an expression (such as a string) does not contain an expression (such as a substring).
 ///
 /// This macro provides the same statements as [`assert_not_contains`](macro.assert_not_contains.html),
 /// except this macro's statements are only enabled in non-optimized
@@ -147,7 +192,7 @@ macro_rules! assert_not_contains {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

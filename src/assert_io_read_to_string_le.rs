@@ -1,3 +1,52 @@
+//! Assert a std::io::Read read_to_string() value is less than or equal to another.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! use std::io::Read;
+//!
+//! # fn main() {
+//! // Return Ok
+//! let mut a = "alfa".as_bytes();
+//! let mut b = "bravo".as_bytes();
+//! assert_io_read_to_string_le!(a, b);
+//! //-> ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let mut a = "bravo".as_bytes();
+//! let mut b = "alfa".as_bytes();
+//! assert_io_read_to_string_le!(a, b);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_io_read_to_string_le!(left_reader, right_reader)`\n",
+//!     "  left_reader label: `a`,\n",
+//!     "  left_reader debug: `[]`,\n",
+//!     " right_reader label: `b`,\n",
+//!     " right_reader debug: `[]`,\n",
+//!     "               left: `\"bravo\"`,\n",
+//!     "              right: `\"alfa\"`"
+//! );
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_io_read_to_string_le`](macro.assert_io_read_to_string_le.html)
+//! * [`assert_io_read_to_string_le_as_result`](macro.assert_io_read_to_string_le_as_result.html)
+//! * [`debug_assert_io_read_to_string_le`](macro.debug_assert_io_read_to_string_le.html)
+
 /// Assert a std::io::Read read_to_string() value is less than or equal to another.
 ///
 /// * If true, return Result `Ok(())`.
@@ -183,7 +232,7 @@ macro_rules! assert_io_read_to_string_le {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

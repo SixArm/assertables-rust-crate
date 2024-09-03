@@ -1,3 +1,52 @@
+//! Assert a std::io::Read read_to_string() contains a pattern.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! use std::io::Read;
+//!
+//! # fn main() {
+//! // Return Ok
+//! let mut reader = "hello".as_bytes();
+//! let containee = "ell";
+//! assert_io_read_to_string_contains!(reader, containee);
+//! //-> ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let mut reader = "hello".as_bytes();
+//! let containee = "zzz";
+//! assert_io_read_to_string_contains!(reader, containee);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n",
+//!     "     left_reader label: `reader`,\n",
+//!     "     left_reader debug: `[]`,\n",
+//!     " right_containee label: `containee`,\n",
+//!     " right_containee debug: `\"zzz\"`,\n",
+//!     "                  left: `\"hello\"`,\n",
+//!     "                 right: `\"zzz\"`"
+//! );
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_io_read_to_string_contains`](macro.assert_io_read_to_string_contains.html)
+//! * [`assert_io_read_to_string_contains_as_result`](macro.assert_io_read_to_string_contains_as_result.html)
+//! * [`debug_assert_io_read_to_string_contains`](macro.debug_assert_io_read_to_string_contains.html)
+
 /// Assert a std::io::Read read_to_string() contains a pattern.
 ///
 /// * If true, return Result `Ok(())`.
@@ -178,7 +227,7 @@ macro_rules! assert_io_read_to_string_contains {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

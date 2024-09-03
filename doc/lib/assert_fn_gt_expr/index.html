@@ -1,1 +1,44 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `assert_fn_gt_expr` mod in crate `lib`."><title>lib::assert_fn_gt_expr - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../lib/index.html">lib</a></h2></div><h2 class="location"><a href="#">Module assert_fn_gt_expr</a></h2><div class="sidebar-elems"><h2><a href="../index.html">In crate lib</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">lib</a>::<wbr><a class="mod" href="#">assert_fn_gt_expr</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/lib/assert_fn_gt_expr.rs.html#1-309">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div></section></div></main></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Assert a function output is greater than an expression."><title>lib::assert_fn_gt_expr - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../lib/index.html">lib</a></h2></div><h2 class="location"><a href="#">Module assert_fn_gt_expr</a></h2><div class="sidebar-elems"><h2><a href="../index.html">In crate lib</a></h2></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">lib</a>::<wbr><a class="mod" href="#">assert_fn_gt_expr</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../../src/lib/assert_fn_gt_expr.rs.html#1-357">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a function output is greater than an expression.</p>
+<ul>
+<li>
+<p>If true, return <code>()</code>.</p>
+</li>
+<li>
+<p>Otherwise, call <a href="https://doc.rust-lang.org/1.80.1/std/macro.panic.html" title="macro std::panic"><code>panic!</code></a> with a message and the values of the
+expressions with their debug representations.</p>
+</li>
+</ul>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Return Ok
+</span><span class="kw">let </span>a: i32 = -<span class="number">2</span>;
+<span class="kw">let </span>b: i32 = <span class="number">1</span>;
+<span class="macro">assert_fn_gt_expr!</span>(i32::abs, a, b);
+<span class="comment">//-&gt; ()
+
+// Panic with error message
+</span><span class="kw">let </span>result = panic::catch_unwind(|| {
+<span class="kw">let </span>a: i32 = -<span class="number">1</span>;
+<span class="kw">let </span>b: i32 = <span class="number">2</span>;
+<span class="macro">assert_fn_gt_expr!</span>(i32::abs, a, b);
+<span class="comment">//-&gt; panic!
+</span>});
+<span class="macro">assert!</span>(result.is_err());
+<span class="kw">let </span>actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+<span class="kw">let </span>expect = <span class="macro">concat!</span>(
+    <span class="string">"assertion failed: `assert_fn_gt_expr!(left_function, left_param, right_expr)`\n"</span>,
+    <span class="string">" left_function label: `i32::abs`,\n"</span>,
+    <span class="string">"    left_param label: `a`,\n"</span>,
+    <span class="string">"    left_param debug: `-1`,\n"</span>,
+    <span class="string">"    right_expr label: `b`,\n"</span>,
+    <span class="string">"    right_expr debug: `2`,\n"</span>,
+    <span class="string">"                left: `1`,\n"</span>,
+    <span class="string">"               right: `2`"
+</span>);
+<span class="macro">assert_eq!</span>(actual, expect);</code></pre></div>
+<h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>
+<ul>
+<li><a href="macro.assert_fn_gt_expr.html"><code>assert_fn_gt_expr</code></a></li>
+<li><a href="macro.assert_fn_gt_expr_as_result.html"><code>assert_fn_gt_expr_as_result</code></a></li>
+<li><a href="macro.debug_assert_fn_gt_expr.html"><code>debug_assert_fn_gt_expr</code></a></li>
+</ul>
+</div></details></section></div></main></body></html>

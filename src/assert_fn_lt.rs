@@ -1,3 +1,52 @@
+//! Assert a function output is less than another.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! // Return Ok
+//! let a: i32 = 1;
+//! let b: i32 = -2;
+//! assert_fn_lt!(i32::abs, a, i32::abs, b);
+//! //-> ()
+//!
+//! let a: i32 = -2;
+//! let b: i32 = 1;
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! assert_fn_lt!(i32::abs, a, i32::abs, b);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_fn_lt!(left_function, left_param, right_function, right_param)`\n",
+//!     "  left_function label: `i32::abs`,\n",
+//!     "     left_param label: `a`,\n",
+//!     "     left_param debug: `-2`,\n",
+//!     " right_function label: `i32::abs`,\n",
+//!     "    right_param label: `b`,\n",
+//!     "    right_param debug: `1`,\n",
+//!     "                 left: `2`,\n",
+//!     "                right: `1`"
+//! );
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_fn_lt`](macro.assert_fn_lt.html)
+//! * [`assert_fn_lt_as_result`](macro.assert_fn_lt_as_result.html)
+//! * [`debug_assert_fn_lt`](macro.debug_assert_fn_lt.html)
+
 /// Assert a function output is less than another.
 ///
 /// * If true, return Result `Ok(())`.
@@ -299,7 +348,7 @@ macro_rules! assert_fn_lt {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

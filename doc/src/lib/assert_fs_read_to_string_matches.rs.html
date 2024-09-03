@@ -207,13 +207,113 @@
 <a href="#207" id="207">207</a>
 <a href="#208" id="208">208</a>
 <a href="#209" id="209">209</a>
-</pre></div><pre class="rust"><code><span class="doccomment">/// Assert a std::fs::read_to_string() is a match to a regex.
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string() is a match to a regex.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! use std::io::Read;
+//! use regex::Regex;
+//!
+//! # fn main() {
+//! // Return Ok
+//! let path = "alfa.txt";
+//! let matcher = Regex::new(r"alfa").unwrap();
+//! assert_fs_read_to_string_matches!(&amp;path, matcher);
+//! //-&gt; ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let path = "alfa.txt";
+//! let matcher = Regex::new(r"zzz").unwrap();
+//! assert_fs_read_to_string_matches!(&amp;path, matcher);
+//! //-&gt; panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n",
+//!     "     left_path label: `&amp;path`,\n",
+//!     "     left_path debug: `\"alfa.txt\"`,\n",
+//!     " right_matcher label: `matcher`,\n",
+//!     " right_matcher debug: `Regex(\"zzz\")`,\n",
+//!     "                left: `\"alfa\\n\"`,\n",
+//!     "               right: `Regex(\"zzz\")`"
+//! );
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
+//! * [`assert_fs_read_to_string_matches_as_result`](macro.assert_fs_read_to_string_matches_as_result.html)
+//! * [`debug_assert_fs_read_to_string_matches`](macro.debug_assert_fs_read_to_string_matches.html)
+
+/// Assert a std::fs::read_to_string() is a match to a regex.
 ///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_`](macro.assert_.html),
+/// This macro provides the same statements as [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -221,9 +321,9 @@
 ///
 /// # Module macros
 ///
-/// * [`read_to_string_matches`]
-/// * [`read_to_string_matches_as_result`]
-/// * [`debug_read_to_string_matches`]
+/// * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
+/// * [`assert_fs_read_to_string_matches_as_result`](macro.assert_fs_read_to_string_matches_as_result.html)
+/// * [`debug_assert_fs_read_to_string_matches`](macro.debug_assert_fs_read_to_string_matches.html)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_matches_as_result {
@@ -360,9 +460,9 @@
 ///
 /// # Module macros
 ///
-/// * [`read_to_string_matches`]
-/// * [`read_to_string_matches_as_result`]
-/// * [`debug_read_to_string_matches`]
+/// * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
+/// * [`assert_fs_read_to_string_matches_as_result`](macro.assert_fs_read_to_string_matches_as_result.html)
+/// * [`debug_assert_fs_read_to_string_matches`](macro.debug_assert_fs_read_to_string_matches.html)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_matches {
@@ -382,7 +482,7 @@
 
 <span class="doccomment">/// Assert a std::fs::read_to_string() is a match to a regex.
 ///
-/// This macro provides the same statements as [`read_to_string_matches`],
+/// This macro provides the same statements as [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -399,14 +499,14 @@
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
 ///
-/// * [`read_to_string_matches`]
-/// * [`read_to_string_matches`]
-/// * [`debug_read_to_string_matches`]
+/// * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
+/// * [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html)
+/// * [`debug_assert_fs_read_to_string_matches`](macro.debug_assert_fs_read_to_string_matches.html)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_read_to_string_matches {

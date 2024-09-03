@@ -1,3 +1,22 @@
+//! Assert an expression is not equal to an expression.
+//!
+//! * If true, return Result `Ok(())`.
+//!
+//! * When false, return [`Err`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! This macro provides the same statements as [`assert_`](macro.assert_.html),
+//! except this macro returns a Result, rather than doing a panic.
+//!
+//! This macro is useful for runtime checks, such as checking parameters,
+//! or sanitizing inputs, or handling different results in different ways.
+//!
+//! # Module macros
+//!
+//! * [`assert_ne`](macro.assert_ne.html)
+//! * [`assert_ne_as_result`](macro.assert_ne_as_result.html)
+//! * [`debug_assert_ne`](macro.debug_assert_ne.html)
+
 /// Assert an expression is not equal to an expression.
 ///
 /// * If true, return Result `Ok(())`.
@@ -99,7 +118,7 @@ mod tests {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

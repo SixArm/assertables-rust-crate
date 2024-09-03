@@ -1,3 +1,60 @@
+//! Assert a value is greater than an expression.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! // Return Ok
+//! let a = 2;
+//! let b = 1;
+//! assert_gt!(a, b);
+//! //-> ()
+//!
+//! let a = 1;
+//! let b = 2;
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! assert_gt!(a, b);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_gt!(left, right)`\n",
+//!     "  left label: `a`,\n",
+//!     "  left debug: `1`,\n",
+//!     " right label: `b`,\n",
+//!     " right debug: `2`,\n",
+//!     "        left: `1`,\n",
+//!     "       right: `2`"
+//! );
+//! assert_eq!(actual, expect);
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! assert_gt!(a, b, "message");
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = "message";
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_gt`](macro.assert_gt.html)
+//! * [`assert_gt_as_result`](macro.assert_gt_as_result.html)
+//! * [`debug_assert_gt`](macro.debug_assert_gt.html)
+
 /// Assert a value is greater than an expression.
 ///
 /// * If true, return Result `Ok(())`.
@@ -171,7 +228,7 @@ macro_rules! assert_gt {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

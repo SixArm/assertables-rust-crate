@@ -1,3 +1,82 @@
+//! Assert a number is within delta of another number.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! // Return Ok
+//! let a: i8 = 10;
+//! let b: i8 = 11;
+//! let delta: i8 = 1;
+//! assert_in_delta!(a, b, delta);
+//! //-> ()
+//!
+//! let a: i8 = 10;
+//! let b: i8 = 12;
+//! let delta: i8 = 1;
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! assert_in_delta!(a, b, delta);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_in_delta!(left, right, delta)`\n",
+//!     "  left label: `a`,\n",
+//!     "  left debug: `10`,\n",
+//!     " right label: `b`,\n",
+//!     " right debug: `12`,\n",
+//!     " delta label: `delta`,\n",
+//!     " delta debug: `1`,\n",
+//!     "        left: `10`,\n",
+//!     "       right: `12`"
+//! );
+//! assert_eq!(actual, expect);
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! assert_in_delta!(a, b, delta, "message");
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = "message";
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! The macros `assert_in_delta` and `assert_in_epsilon` can test
+//! approximations:
+//!
+//! * For an approximation, the absolute error (i.e. delta) is the magnitude of
+//!   the difference between the exact value and the approximation. For this,
+//!  use the macro
+//!
+//! * For an approximation, the relative error (i.e. epsilon) is the absolute
+//!   error divided by the magnitude of the exact value. This can be used to
+//!   compare approximations of numbers of wildly differing size.
+//!
+//! * For example, approximating the number 1,000 with an absolute error of 3
+//!   is, in most applications, much worse than approximating the number
+//!   1,000,000 with an absolute error of 3; in the first case the relative
+//!   error is 0.003 and in the second it is only 0.000003.
+//!
+//! * Thanks to Ruby minitest for the example and documentation.
+//!
+//! # Module macros
+//!
+//! * [`assert_in_delta`](macro.assert_in_delta.html)
+//! * [`assert_in_delta_as_result`](macro.assert_in_delta_as_result.html)
+//! * [`debug_assert_in_delta`](macro.debug_assert_in_delta.html)
+
 /// Assert a number is within delta of another number.
 ///
 /// * If true, return Result `Ok(())`.
@@ -205,7 +284,7 @@ macro_rules! assert_in_delta {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

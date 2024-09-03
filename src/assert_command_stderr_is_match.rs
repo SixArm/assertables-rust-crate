@@ -1,3 +1,67 @@
+//! Assert a command stderr string is a match to a regex.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! use std::process::Command;
+//! use regex::Regex;
+//!
+//! # fn main() {
+//! // Return Ok
+//! let mut command = Command::new("bin/printf-stderr");
+//! command.args(["%s", "hello"]);
+//! let matcher = Regex::new(r"ell").unwrap();
+//! assert_command_stderr_is_match!(command, matcher);
+//! //-> ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let mut command = Command::new("bin/printf-stderr");
+//! command.args(["%s", "hello"]);
+//! let matcher = Regex::new(r"zzz").unwrap();
+//! assert_command_stderr_is_match!(command, matcher);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_command_stderr_is_match!(left_command, right_matcher)`\n",
+//!     "  left_command label: `command`,\n",
+//!     "  left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+//!     " right_matcher label: `matcher`,\n",
+//!     " right_matcher debug: `Regex(\"zzz\")`,\n",
+//!     "                left: `\"hello\"`,\n",
+//!     "               right: `Regex(\"zzz\")`"
+//! );
+//! assert_eq!(actual, expect);
+//!
+//! // Panic with custom message
+//! let result = panic::catch_unwind(|| {
+//! let mut command = Command::new("bin/printf-stderr");
+//! let matcher = Regex::new(r"zzz").unwrap();
+//! assert_command_stderr_is_match!(command, matcher, "message");
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = "message";
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_command_stderr_is_match`](macro.assert_command_stderr_is_match.html)
+//! * [`assert_command_stderr_is_match_as_result`](macro.assert_command_stderr_is_match_as_result.html)
+//! * [`debug_assert_command_stderr_is_match`](macro.debug_assert_command_stderr_is_match.html)
+
 /// Assert a command stderr string is a match to a regex.
 ///
 /// * If true, return Result `Ok(())`.
@@ -193,7 +257,7 @@ macro_rules! assert_command_stderr_is_match {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

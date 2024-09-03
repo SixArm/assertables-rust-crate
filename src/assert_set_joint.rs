@@ -1,3 +1,52 @@
+//! Assert a set is joint with another.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! // Return Ok
+//! let a = [1, 2];
+//! let b = [2, 3];
+//! assert_set_joint!(&a, &b);
+//! //-> ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let a = [1, 2];
+//! let b = [3, 4];
+//! assert_set_joint!(&a, &b);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_set_joint!(left_set, right_set)`\n",
+//!     "  left_set label: `&a`,\n",
+//!     "  left_set debug: `[1, 2]`,\n",
+//!     " right_set label: `&b`,\n",
+//!     " right_set debug: `[3, 4]`,\n",
+//!     "            left: `{1, 2}`,\n",
+//!     "           right: `{3, 4}`"
+//! );
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
+//!
+//! # Module macros
+//!
+//! * [`assert_set_joint`](macro.assert_set_joint.html)
+//! * [`assert_set_joint_as_result`](macro.assert_set_joint_as_result.html)
+//! * [`debug_assert_set_joint`](macro.debug_assert_set_joint.html)
+
 /// Assert a set is joint with another.
 ///
 /// * If true, return Result `Ok(())`.
@@ -122,7 +171,7 @@ mod tests {
 /// # }
 /// ```
 ///
-/// This implementation uses [`BTreeSet`] to count items and sort them.
+/// This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
 ///
 /// # Module macros
 ///
@@ -165,7 +214,7 @@ macro_rules! assert_set_joint {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

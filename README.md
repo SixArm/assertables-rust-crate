@@ -453,6 +453,8 @@ assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = e
 
 * Rename `assert_read_to_string_*` macros to `assert_io_read_to_string_*`. If you use these macros, then please update your code to use the new naming convention.
 
+* Add `rustdoc` documentation for all modules.
+
 
 ### Version 7.x top changes
 

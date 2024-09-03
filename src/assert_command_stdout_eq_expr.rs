@@ -1,3 +1,67 @@
+//! Assert a command stdout string is equal to an expression.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! use std::process::Command;
+//!
+//! # fn main() {
+//! // Return Ok
+//! let mut command = Command::new("bin/printf-stdout");
+//! command.args(["%s", "hello"]);
+//! let s = String::from("hello");
+//! assert_command_stdout_eq_expr!(command, s);
+//! //-> ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let mut command = Command::new("bin/printf-stdout");
+//! command.args(["%s", "hello"]);
+//! let s = String::from("zzz");
+//! assert_command_stdout_eq_expr!(command, s);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_command_stdout_eq_expr!(left_command, right_expr)`\n",
+//!     " left_command label: `command`,\n",
+//!     " left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+//!     "   right_expr label: `s`,\n",
+//!     "   right_expr debug: `\"zzz\"`,\n",
+//!     "               left: `\"hello\"`,\n",
+//!     "              right: `\"zzz\"`"
+//! );
+//! assert_eq!(actual, expect);
+//!
+//! // Panic with custom message
+//! let result = panic::catch_unwind(|| {
+//! let mut command = Command::new("bin/printf-stdout");
+//! command.args(["%s", "hello"]);
+//! let s = "world";
+//! assert_command_stdout_eq_expr!(command, s, "message");
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+//! let expect = "message";
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! # Module macros
+//!
+//! * [`assert_command_stdout_eq_expr`](macro.assert_command_stdout_eq_expr.html)
+//! * [`assert_command_stdout_eq_expr_as_result`](macro.assert_command_stdout_eq_expr_as_result.html)
+//! * [`debug_assert_command_stdout_eq_expr`](macro.debug_assert_command_stdout_eq_expr.html)
+
 /// Assert a command stdout string is equal to an expression.
 ///
 /// * If true, return Result `Ok(())`.
@@ -192,7 +256,7 @@ macro_rules! assert_command_stdout_eq_expr {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

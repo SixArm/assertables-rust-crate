@@ -462,6 +462,8 @@
 //!   If you use these macros, then please update your code to use the new
 //!   naming convention.
 //!
+//! * Add `rustdoc` documentation for all modules.
+//!
 //!
 //! ### Version 7.x top changes
 //!

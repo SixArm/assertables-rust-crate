@@ -184,7 +184,105 @@
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
-</pre></div><pre class="rust"><code><span class="doccomment">/// Assert a set is a superset of another.
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a set is a superset of another.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! // Return Ok
+//! let a = [1, 2, 3];
+//! let b = [1, 2];
+//! assert_set_superset!(&amp;a, &amp;b);
+//! //-&gt; ()
+//!
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! let a = [1, 2];
+//! let b = [1, 2, 3];
+//! assert_set_superset!(&amp;a, &amp;b);
+//! //-&gt; panic!
+//! });
+//! assert!(result.is_err());
+//! let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+//! let expect = concat!(
+//!     "assertion failed: `assert_set_superset!(left_set, right_set)`\n",
+//!     "  left_set label: `&amp;a`,\n",
+//!     "  left_set debug: `[1, 2]`,\n",
+//!     " right_set label: `&amp;b`,\n",
+//!     " right_set debug: `[1, 2, 3]`,\n",
+//!     "            left: `{1, 2}`,\n",
+//!     "           right: `{1, 2, 3}`"
+//! );
+//! assert_eq!(actual, expect);
+//! # }
+//! ```
+//!
+//! This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
+//!
+//! # Module macros
+//!
+//! * [`assert_set_superset`](macro.assert_set_superset.html)
+//! * [`assert_set_superset_as_result`](macro.assert_set_superset_as_result.html)
+//! * [`debug_assert_set_superset`](macro.debug_assert_set_superset.html)
+
+/// Assert a set is a superset of another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -196,7 +294,7 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// This implementation uses [`BTreeSet`] to count items and sort them.
+/// This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
 ///
 /// # Module macros
 ///
@@ -310,7 +408,7 @@
 /// # }
 /// ```
 ///
-/// This implementation uses [`BTreeSet`] to count items and sort them.
+/// This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
 ///
 /// # Module macros
 ///
@@ -353,7 +451,7 @@
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros

@@ -1,3 +1,37 @@
+//! Assert a condition is true.
+//!
+//! * If true, return `()`.
+//!
+//! * Otherwise, call [`panic!`] with a message and the values of the
+//!   expressions with their debug representations.
+//!
+//! # Examples
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! // Return Ok
+//! assert!(true);
+//! //-> ()
+//! # }
+//! ```
+//!
+//! ```rust
+//! # #[macro_use] extern crate assertables;
+//! # use std::panic;
+//! # fn main() {
+//! // Panic with error message
+//! let result = panic::catch_unwind(|| {
+//! assert!(false);
+//! //-> panic!
+//! });
+//! assert!(result.is_err());
+//! # }
+//! ```
+//! 
+//! The `assert` macro is a Rust built-in.
+
 /// Assert a condition is true.
 ///
 /// * If true, return Result `Ok(())`.
@@ -68,14 +102,12 @@ mod tests {
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: false"
-/// );
+/// let expect = "assertion failed: false";
 /// assert_eq!(actual, expect);
 /// # }
 /// ```
-
-// `assert_eq` macro is provided by Rust `std`.
+///
+/// The `assert` macro is a Rust built-in.
 
 #[cfg(test)]
 mod test_assert_x_result {
@@ -128,7 +160,7 @@ mod test_assert_x_result {
 /// Replacing `assert*!` with `debug_assert*!` is thus only encouraged
 /// after thorough profiling, and more importantly, only in safe code!
 ///
-/// This macro is intendend to work in a similar way to
+/// This macro is intended to work in a similar way to
 /// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
