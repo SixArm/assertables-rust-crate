@@ -2,11 +2,11 @@
 
 There are various Rust crates that provide assert macros:
 
-* [`claims`](https://crates.io/crates/claims) is a fork of 
+* [`claims`](https://crates.io/crates/claims)
 
 * [`claim`](https://crates.io/crates/claim)
 
-* [`rust-claim`](https://crates.io/crates/rust-claim)
+* [`rust-claim`](https://crates.io/crates/rust-claim) which was forked to create `claims`.
 
 Each of these crates are doing the same surface-level thing as Assertables, by adding new assert macros.
 
@@ -23,18 +23,18 @@ If there's an assertion from any of those crates that you would like us to add t
 
 | macros  | claims | assertables |
 |---------|--------|-------------|
-| Compare  | assert_ge<br>assert_gt<br>assert_le<br>assert_lt | assert_ge<br>assert_gt<br>assert_le<br>assert_lt<br>assert_in_delta<br>assert_in_epsilon |
-| Match    | assert_matches | assert_is_match<br>assert_not_match |
-| Contains | - | assert_contains<br>assert_not_contains |
-| Starts/Ends | - | assert_starts_with<br>assert_not_starts_with<br>assert_ends_with<br>assert_not_ends_with |
-| Result  | assert_ok<br>assert_err<br>assert_ok_eq         | TODO |
-| Option  | assert_some<br>assert_none<br>assert_some_eq | TODO |
-| Poll    | assert_pending<br>assert_ready<br>assert_ready_ok<br>assert_ready_err<br>assert_ready_eq | TODO |
+| Compare  | assert_ge <br> assert_gt <br> assert_le <br> assert_lt<br><br> | assert_ge <br> assert_gt <br> assert_le <br> assert_lt <br> assert_in_delta <br> assert_in_epsilon |
+| Match    | assert_matches | assert_is_match <br> assert_not_match |
+| Contains | - | assert_contains <br> assert_not_contains |
+| Starts/Ends | - | assert_starts_with <br> assert_not_starts_with <br> assert_ends_with <br> assert_not_ends_with |
+| Result  | assert_ok <br> assert_err <br> assert_ok_eq | TODO |
+| Option  | assert_some <br> assert_none <br> assert_some_eq | TODO |
+| Poll    | assert_pending <br> assert_ready<br> assert_ready_ok<br> assert_ready_err <br> assert_ready_eq | TODO |
 | FS Path  | - | assert_fs_read_to_string_* |
 | IO Reader  | - | assert_io_read_to_string_* |
-| Command | - | assert_command_*<br>assert_program_args_* |
-| Set     | - | assert_set_eq<br>assert_set_ne<br><br>assert_set_subset<br>assert_set_superset<br>assert_set_joint<br>assert_set_disjoint |
-| Bag     | - | assert_bag_eq<br>assert_bag_ne<br><br>assert_bag_subbag<br>assert_bag_superbag |
+| Command | - | assert_command_* <br> assert_program_args_* |
+| Set     | - | assert_set_eq <br> assert_set_ne <br> assert_set_subset <br> assert_set_superset <br> assert_set_joint <br> assert_set_disjoint |
+| Bag     | - | assert_bag_eq <br> assert_bag_ne<br> <br> assert_bag_subbag <br> assert_bag_superbag |
 | Function | - | assert_fn_* |
 
 
