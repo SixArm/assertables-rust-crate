@@ -27,8 +27,8 @@ If there's an assertion from any of those crates that you would like us to add t
 | Match    | assert_matches | assert_is_match <br> assert_not_match |
 | Contains | - | assert_contains <br> assert_not_contains |
 | Starts/Ends | - | assert_starts_with <br> assert_not_starts_with <br> assert_ends_with <br> assert_not_ends_with |
-| Result  | assert_ok <br> assert_err <br> assert_ok_eq | TODO |
-| Option  | assert_some <br> assert_none <br> assert_some_eq | TODO |
+| Result  | assert_ok <br> assert_err <br> assert_ok_eq | assert_ok <br> assert_err <br> TODO |
+| Option  | assert_some <br> assert_none <br> assert_some_eq | assert_some <br> assert_none <br> TODO |
 | Poll    | assert_pending <br> assert_ready<br> assert_ready_ok<br> assert_ready_err <br> assert_ready_eq | TODO |
 | FS Path  | - | assert_fs_read_to_string_* |
 | IO Reader  | - | assert_io_read_to_string_* |

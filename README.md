@@ -117,6 +117,28 @@ matchers such as `starts_with`, `ends_width`, `contains`, and `is_match`.
 * `assert_not_match(matcher, matchee)` ≈ !matcher.is_match(matchee)
 
 
+### assert_ok & assert_err for Result
+
+* `assert_ok(a)` ≈ a.is_ok()
+
+* `assert_ok_eq(a, b)` ≈ a.ok() = b.ok() (TODO)
+
+* `assert_ok_eq_expr(a, b)` ≈ a.ok() = b (TODO)
+
+* `assert_err(a)` ≈ a.is_err()
+
+
+### assert_some & assert_none for Option
+
+* `assert_some(a)` ≈ a.is_some()
+
+* `assert_some_eq(a, b)` ≈ a.some() = b.some() (TODO)
+
+* `assert_some_eq_expr(a, b)` ≈ a.some() = b (TODO)
+
+* `assert_none(a)` ≈ a.is_none()
+
+
 ### assert_set_* for set collection comparisons
 
 These macros help with comparison of set parameters, such as two arrays or
@@ -477,8 +499,8 @@ assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = e
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.0.2
+* Version: 8.1.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-09-03T13:39:09Z
+* Updated: 2024-09-03T21:12:07Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)
