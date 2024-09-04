@@ -691,3 +691,6 @@ pub mod assert_program_args_stderr_ne_expr;
 // Assert program args stderr specializations
 pub mod assert_program_args_stderr_contains;
 pub mod assert_program_args_stderr_is_match;
+
+// Experimental - work in progress - unsupported
+pub mod assert_cmp;
