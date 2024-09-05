@@ -16,7 +16,7 @@
 //! * [`assert_ne_as_result`](macro@crate::assert_ne_as_result)
 //!
 //! # Rust standard macros
-//! 
+//!
 //! * [`assert_ne`](https://doc.rust-lang.org/std/macro.assert_ne.html)
 //! * [`debug_assert_ne`](https://doc.rust-lang.org/std/macro.debug_assert_ne.html)
 
@@ -38,7 +38,7 @@
 /// * [`assert_ne_as_result`](macro@crate::assert_ne_as_result)
 ///
 /// # Rust standard macros
-/// 
+///
 /// * [`assert_ne`](https://doc.rust-lang.org/std/macro.assert_ne.html)
 /// * [`debug_assert_ne`](https://doc.rust-lang.org/std/macro.debug_assert_ne.html)
 ///

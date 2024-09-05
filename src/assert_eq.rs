@@ -13,9 +13,9 @@
 //! # Module macro
 //!
 //! * [`assert_eq_as_result`](macro@crate::assert_eq_as_result)
-//! 
+//!
 //! # Rust standard macros
-//! 
+//!
 //! * [`assert_eq`](https://doc.rust-lang.org/std/macro.assert_eq.html)
 //! * [`debug_assert_eq`](https://doc.rust-lang.org/std/macro.debug_assert_eq.html)
 

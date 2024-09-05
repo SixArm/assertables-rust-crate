@@ -90,7 +90,7 @@ Rust `assertables` provides these macros for functions:
 
 ### Macros for functions that return a Result
 
-A **Result** is a Rust standard that can be either `Ok` or `Err`.
+A **Result** is a Rust standard that can be either `Ok`, `Err`.
 
 TODO
 
@@ -543,7 +543,7 @@ Rust `assertables` provides these macros for program args and standard error:
 
 We write each our test macros in three flavors:
 
-* `assert_gt_as_result` returns a `Result` as `Ok` or `Err`. This macro contains all the logic, all the error formatting, etc. This macro is called by the other flavors below. This macros is also useful for runtime checks, such as when you want to know success or failure, yet you don't want to panic.
+* `assert_gt_as_result` returns a `Result` as `Ok`, `Err`. This macro contains all the logic, all the error formatting, etc. This macro is called by the other flavors below. This macros is also useful for runtime checks, such as when you want to know success or failure, yet you don't want to panic.
 
 * `assert_gt` returns `()` or panics. This is the typical macro that most developers will use for testing. This macro wraps `assert_gt_as_result`. This macro provides two arms: one arm is for returning the error messsage as is, and one arm is for returning a developer's custom error message.
 
@@ -554,7 +554,7 @@ The sections below show each of the three flavors, using our simplest macro grou
 
 ### assert_gt_as_result
 
-The macro `assert_gt_as_result` returns a `Result` as `Ok` or `Err`.
+The macro `assert_gt_as_result` returns a `Result` as `Ok`, `Err`.
 
 The macro contains all the logic and all the error formatting.
 

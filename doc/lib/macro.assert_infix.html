@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Assert a infix operator, such as assert_infix!(a == b)."><title>assert_infix in lib - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-dd39b87e5fcfba68.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.80.1 (3f5fd8dd4 2024-08-06)" data-channel="1.80.1" data-search-js="search-d52510db62a78183.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-20a3ad099b048cf2.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../lib/index.html">lib</a></h2></div><div class="sidebar-elems"></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Macro <a href="index.html">lib</a>::<wbr><a class="macro" href="#">assert_infix</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/lib/assert_infix.rs.html#239-252">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><span class="macro">macro_rules!</span> assert_infix {
+    (<span class="macro-nonterminal">$x</span>:tt <span class="macro-nonterminal">$infix</span>:tt <span class="macro-nonterminal">$y</span>:tt) =&gt; { ... };
+    (<span class="macro-nonterminal">$x</span>:tt <span class="macro-nonterminal">$infix</span>:tt <span class="macro-nonterminal">$y</span>:tt, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; { ... };
+}</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a infix operator, such as assert_infix!(a == b).</p>
+<ul>
+<li>
+<p>If true, return <code>()</code>.</p>
+</li>
+<li>
+<p>Otherwise, call <a href="https://doc.rust-lang.org/1.80.1/std/macro.panic.html" title="macro std::panic"><code>panic!</code></a> with a message and the values of the
+expressions with their debug representations.</p>
+</li>
+</ul>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Return Ok
+</span><span class="kw">let </span>a = <span class="number">1</span>;
+<span class="kw">let </span>b = <span class="number">1</span>;
+<span class="macro">assert_infix!</span>(a == b);
+<span class="comment">//-&gt; ()
+
+</span><span class="kw">let </span>a = <span class="number">1</span>;
+<span class="kw">let </span>b = <span class="number">2</span>;
+<span class="comment">// Panic with error message
+</span><span class="kw">let </span>result = panic::catch_unwind(|| {
+<span class="macro">assert_infix!</span>(a == b);
+<span class="comment">//-&gt; panic!
+</span>});
+<span class="macro">assert!</span>(result.is_err());
+<span class="kw">let </span>actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+<span class="kw">let </span>expect = <span class="macro">concat!</span>(
+    <span class="string">"assertion failed: `assert_infix!(x == y)`\n"</span>,
+    <span class="string">" x label: `a`,\n"</span>,
+    <span class="string">" x debug: `1`,\n"</span>,
+    <span class="string">" y label: `b`,\n"</span>,
+    <span class="string">" y debug: `2`\n"</span>,
+);
+<span class="macro">assert_eq!</span>(actual, expect);
+
+<span class="comment">// Panic with error message
+</span><span class="kw">let </span>result = panic::catch_unwind(|| {
+<span class="macro">assert_infix!</span>(a == b, <span class="string">"message"</span>);
+<span class="comment">//-&gt; panic!
+</span>});
+<span class="macro">assert!</span>(result.is_err());
+<span class="kw">let </span>actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+<span class="kw">let </span>expect = <span class="string">"message"</span>;
+<span class="macro">assert_eq!</span>(actual, expect);</code></pre></div>
+<h2 id="infix-operators"><a class="doc-anchor" href="#infix-operators">§</a>Infix operators</h2>
+<p>For values:</p>
+<ul>
+<li><code>==</code>  equal</li>
+<li><code>!=</code>  not equal</li>
+<li><code>&lt;</code>	less than</li>
+<li><code>&lt;=</code>	less than or equal to</li>
+<li><code>&gt;</code>	greater than</li>
+<li><code>&gt;=</code>	greater than or equal to</li>
+</ul>
+<p>For booleans:</p>
+<ul>
+<li><code>^</code>	logical XOR</li>
+<li><code>!</code>	logical NOT</li>
+<li><code>&amp;</code>	logical AND</li>
+<li><code>|</code>	logical OR</li>
+<li><code>&amp;&amp;</code>	logical lazy AND</li>
+<li><code>||</code>	logical lazy OR</li>
+</ul>
+<h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>
+<ul>
+<li><a href="macro.assert_infix.html" title="macro lib::assert_infix"><code>assert_infix</code></a></li>
+<li><a href="macro.assert_infix_as_result.html" title="macro lib::assert_infix_as_result"><code>assert_infix_as_result</code></a></li>
+<li><a href="macro.debug_assert_infix.html" title="macro lib::debug_assert_infix"><code>debug_assert_infix</code></a></li>
+</ul>
+</div></details></section></div></main></body></html>

@@ -10,7 +10,7 @@ There are various Rust crates that provide assert macros:
 
 Each of these crates are doing the same surface-level thing as Assertables, by adding new assert macros.
 
-Assertables has two major differences: 
+Assertables has two major differences:
 
 * More assertions
 
@@ -27,8 +27,8 @@ If there's an assertion from any of those crates that you would like us to add t
 | Match    | assert_matches | assert_is_match <br> assert_not_match |
 | Contains | - | assert_contains <br> assert_not_contains |
 | Starts/Ends | - | assert_starts_with <br> assert_not_starts_with <br> assert_ends_with <br> assert_not_ends_with |
-| Result  | assert_ok <br> assert_err <br> assert_ok_eq | assert_ok <br> assert_err <br> TODO |
-| Option  | assert_some <br> assert_none <br> assert_some_eq | assert_some <br> assert_none <br> TODO |
+| Result  | assert_result_ok <br> assert_result_err <br> assert_result_ok_eq | assert_result_ok <br> assert_result_err <br> TODO |
+| Option  | assert_option_some <br> assert_option_none <br> assert_option_some_eq | assert_option_some <br> assert_option_none <br> TODO |
 | Poll    | assert_pending <br> assert_ready<br> assert_ready_ok<br> assert_ready_err <br> assert_ready_eq | TODO |
 | FS Path  | - | assert_fs_read_to_string_* |
 | IO Reader  | - | assert_io_read_to_string_* |
@@ -40,18 +40,18 @@ If there's an assertion from any of those crates that you would like us to add t
 
 ## Assertables has more logic leverage
 
-Assertables makes deliberate design decisions to implement each concept as three macros: 
+Assertables makes deliberate design decisions to implement each concept as three macros:
 
 * The logic macro. This returns a Result and is the most important of the three macros.
-  
+
 * The panic macro. This is what a typical cargo test uses.
-  
+
 * The debug macro. This is what a typical runtime debug config uses.
 
 Assertables puts all the logic in the logic macro, and developers can use the same logic anywhere they want, even for totally different purposes:
 
 * Runtime production analysis using a Result. This works without triggering a panic, and without needing any debug config.
-  
+
 * Chaos engineering where logic macros can detect dirty input, or missing files, or bad data. This well for UI interactions with users, with fallback files, and with data sanitization.
 
 * Custom macro wrapping where developers prefer to write their own syntax for their tests. This works well because the new syntax is just a surface-level addition, and can delegate to the logic macro.
