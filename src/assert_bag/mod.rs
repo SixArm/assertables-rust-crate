@@ -1,4 +1,4 @@
-//! Assert macros for comparing bags.
+//! Assert macros for comparing bag collections.
 //!
 //! These macros help with comparison of bag parameters, such as comparison of
 //! two arrays or two vectors, where the item order does not matter, and the

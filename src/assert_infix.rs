@@ -5,6 +5,33 @@
 //! * Otherwise, call [`panic!`] with a message and the values of the
 //!   expressions with their debug representations.
 //!
+//! Compare values via infix value operator:
+//!
+//! * `assert_infix!(a == b)` ≈ a == b
+//!
+//! * `assert_infix!(a != b)` ≈ a ≠ b
+//!
+//! * `assert_infix!(a < b)` ≈ a < b
+//!
+//! * `assert_infix!(a <= b)` ≈ a ≤ b
+//!
+//! * `assert_infix!(a > b)` ≈ a > b
+//!
+//! * `assert_infix!(a >= b)` ≈ a ≥ b
+//!
+//! Relate values via infix logical operator:
+//!
+//! * `assert_infix!(a & b)` ≈ a ∧ b ≈ a AND b
+//!
+//! * `assert_infix!(a | b)` ≈ a ∨ b ≈ a OR b
+//!
+//! * `assert_infix!(a ^ b)` ≈ a ⊻ b ≈ a XOR b
+//!
+//! * `assert_infix!(a && b)` ≈ a …∧ b ≈ a lazy AND b
+//!
+//! * `assert_infix!(a || b)` ≈ a …∨ b ≈ a lazy OR b
+//!
+//!
 //! # Examples
 //!
 //! ```rust

@@ -1,4 +1,4 @@
-//! Assert macros for Option (Some or None)
+//! Assert macros for `Option` {`Some`, `None`}
 //!
 //! These macros help compare an `Option` that is either `Some`, `None`.
 //!
@@ -17,7 +17,7 @@
 //! * [`assert_option_none!(a)`](macro@crate::assert_option_none) ≈ a.is_none()
 //!
 //! # Example
-//! 
+//!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {

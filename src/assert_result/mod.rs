@@ -1,4 +1,4 @@
-//! Assert macros for Result (Ok or Err)
+//! Assert macros for `Result` {`Ok`, `Err`}
 //!
 //! These macros help compare a `Result` that is either `Ok`, `Err`.
 //!
