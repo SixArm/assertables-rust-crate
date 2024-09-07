@@ -258,31 +258,6 @@
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
 <a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a>
-<a href="#278" id="278">278</a>
-<a href="#279" id="279">279</a>
-<a href="#280" id="280">280</a>
-<a href="#281" id="281">281</a>
-<a href="#282" id="282">282</a>
-<a href="#283" id="283">283</a>
-<a href="#284" id="284">284</a>
-<a href="#285" id="285">285</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
@@ -418,13 +393,13 @@
 //!
 //! Shorthands:
 //!
-//! * `path` ≈ `AsRef&lt;Path&gt;`.
-//! * `reader` ≈ method `reader.read*()`.
-//! * `readee` ≈ function `read*(readee)`.
-//! * `matcher` ≈ `matcher.is_match(matchee)`
-//! * `container` ≈ use `container.contains(containee)`
+//! * `path` ≈ implements `AsRef&lt;Path&gt;`
+//! * `reader` ≈ method `reader.read*()`
+//! * `readee` ≈ function `read*(readee)`
+//! * `matcher` ≈ such as `matcher.is_match(matchee)`
+//! * `container` ≈ such as `container.contains(containee)`
 //! * `set` ≈ a collection such as `::std::collections::BTreeSet`
-//! * `bag` ≈ a collection such as `::std::collections::BTreeMap`.
+//! * `bag` ≈ a collection such as `::std::collections::BTreeMap`
 //!
 //!
 //! ## Forms
@@ -442,7 +417,7 @@
 //!
 //! * [`assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html) // panic!
 //! * [`debug_assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.debug_assert_starts_with.html) // panic! in debug mode
-//! * [`assert_starts_with_as_result!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with_as_result.html); // return Ok or Err
+//! * [`assert_starts_with_as_result!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with_as_result.html) // return Ok or Err
 //!
 //!
 //! ### Forms for messages
@@ -473,50 +448,25 @@
 //!
 //! ## Change highlights
 //!
+//! 8.3: Add `assert_poll_ready`, `assert_poll_pending`.
 //!
-//! ### Version 8
+//! 8.2: Add `assert_infix`.
 //!
-//! 8.2:
+//! 8.1: Add `assert_result_ok`, `assert_result_err`, `assert_option_some`, `assert_option_none`.
 //!
-//! * Add `assert_infix`
+//! 8.0: Add `assert_fs_read_to_string_*`. Breaking change: rename `assert_read_to_string_*` macros to `assert_io_read_to_string_*`.
 //!
-//! * Add modules for better discoverability and testability.
+//! 7.x: Add `assert_in_delta`, `assert_in_epsilon`. Add `assert_fn_*` macros with multiple arities.
 //!
-//! 8.1:
-//!
-//! * Add Result macros `assert_result_ok` and `assert_result_err`
-//!
-//! * Add Option macros `assert_option_some` and `assert_option_none`
-//!
-//! 8.0:
-//!
-//! * Add `assert_fs_read_to_string_*` macros for comparing files.
-//!
-//! * Breaking change: rename `assert_read_to_string_*` macros to `assert_io_read_to_string_*`. If you use these macros, then please update your code to use the new naming convention.
-//!
-//! 7.x:
-//!
-//! * Add `assert_in_delta`, `assert_in_epsilon`.
-//!
-//! * Add `assert_fn_*` macros with multiple arities.
-//!
-//! * Add `cargo release` for optimized tagged releases.
-//!
-//! 6.x:
-//!
-//! * Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`.
-//!
-//! * Add `debug_assert_*` macros everywhere.
-//!
-//! * Add `GPL-3.0` license.
+//! 6.x: Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`. Add `debug_assert_*` macros everywhere.
 //!
 //!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.2.2
+//! * Version: 8.3.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-07T12:31:17Z
+//! * Updated: 2024-09-07T22:22:42Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 

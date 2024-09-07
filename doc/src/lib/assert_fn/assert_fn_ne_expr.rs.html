@@ -288,73 +288,17 @@
 <a href="#288" id="288">288</a>
 <a href="#289" id="289">289</a>
 <a href="#290" id="290">290</a>
-<a href="#291" id="291">291</a>
-<a href="#292" id="292">292</a>
-<a href="#293" id="293">293</a>
-<a href="#294" id="294">294</a>
-<a href="#295" id="295">295</a>
-<a href="#296" id="296">296</a>
-<a href="#297" id="297">297</a>
-<a href="#298" id="298">298</a>
-<a href="#299" id="299">299</a>
-<a href="#300" id="300">300</a>
-<a href="#301" id="301">301</a>
-<a href="#302" id="302">302</a>
-<a href="#303" id="303">303</a>
-<a href="#304" id="304">304</a>
-<a href="#305" id="305">305</a>
-<a href="#306" id="306">306</a>
-<a href="#307" id="307">307</a>
-<a href="#308" id="308">308</a>
-<a href="#309" id="309">309</a>
-<a href="#310" id="310">310</a>
-<a href="#311" id="311">311</a>
-<a href="#312" id="312">312</a>
-<a href="#313" id="313">313</a>
-<a href="#314" id="314">314</a>
-<a href="#315" id="315">315</a>
-<a href="#316" id="316">316</a>
-<a href="#317" id="317">317</a>
-<a href="#318" id="318">318</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is not equal to an expression.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
-//! // Return Ok
 //! let a: i8 = 1;
 //! let b: i8 = -2;
 //! assert_fn_ne_expr!(i8::abs, a, b);
-//! //-&gt; ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let a: i8 = -1;
-//! let b: i8 = 1;
-//! assert_fn_ne_expr!(i8::abs, a, b);
-//! //-&gt; panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_fn_ne_expr!(left_function, left_param, right_expr)`\n",
-//!     " left_function label: `i8::abs`,\n",
-//!     "    left_param label: `a`,\n",
-//!     "    left_param debug: `-1`,\n",
-//!     "    right_expr label: `b`,\n",
-//!     "    right_expr debug: `1`,\n",
-//!     "                left: `1`,\n",
-//!     "               right: `1`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

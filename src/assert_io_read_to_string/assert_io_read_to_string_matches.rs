@@ -1,44 +1,16 @@
 //! Assert a std::io::Read read_to_string() is a match to a regex.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::io::Read;
 //! use regex::Regex;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let mut reader = "hello".as_bytes();
 //! let matcher = Regex::new(r"ell").unwrap();
 //! assert_io_read_to_string_matches!(reader, matcher);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let mut reader = "hello".as_bytes();
-//! let matcher = Regex::new(r"zzz").unwrap();
-//! assert_io_read_to_string_matches!(reader, matcher);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
-//!     "   left_reader label: `reader`,\n",
-//!     "   left_reader debug: `[]`,\n",
-//!     " right_matcher label: `matcher`,\n",
-//!     " right_matcher debug: `Regex(\"zzz\")`,\n",
-//!     "                left: `\"hello\"`,\n",
-//!     "               right: `Regex(\"zzz\")`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

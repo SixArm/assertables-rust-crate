@@ -1,42 +1,16 @@
 //! Assert an expression (such as a regex) is not a match for an expression (such as a string).
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::process::Command;
 //! use regex::Regex;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let a = Regex::new(r"foo").unwrap();
 //! let b = "yoohoo";
 //! assert_not_match!(a, b);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let a = Regex::new(r"foo").unwrap();
-//! let b = "foogoo";
-//! assert_not_match!(a, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-//!     " matcher label: `a`,\n",
-//!     " matcher debug: `Regex(\"foo\")`,\n",
-//!     " matchee label: `b`,\n",
-//!     " matchee debug: `\"foogoo\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

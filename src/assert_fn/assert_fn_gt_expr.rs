@@ -1,42 +1,14 @@
 //! Assert a function output is greater than an expression.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
-//! // Return Ok
 //! let a: i8 = -2;
 //! let b: i8 = 1;
 //! assert_fn_gt_expr!(i8::abs, a, b);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let a: i8 = -1;
-//! let b: i8 = 2;
-//! assert_fn_gt_expr!(i8::abs, a, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_fn_gt_expr!(left_function, left_param, right_expr)`\n",
-//!     " left_function label: `i8::abs`,\n",
-//!     "    left_param label: `a`,\n",
-//!     "    left_param debug: `-1`,\n",
-//!     "    right_expr label: `b`,\n",
-//!     "    right_expr debug: `2`,\n",
-//!     "                left: `1`,\n",
-//!     "               right: `2`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

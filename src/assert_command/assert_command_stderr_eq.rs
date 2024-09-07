@@ -1,60 +1,17 @@
 //! Assert a command stderr string is equal to another.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::process::Command;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let mut a = Command::new("bin/printf-stderr");
 //! a.args(["%s", "hello"]);
 //! let mut b = Command::new("bin/printf-stderr");
 //! b.args(["%s", "hello"]);
 //! assert_command_stderr_eq!(a, b);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let mut a = Command::new("bin/printf-stderr");
-//! a.args(["%s", "hello"]);
-//! let mut b = Command::new("bin/printf-stderr");
-//! b.args(["%s", "zzz"]);
-//! assert_command_stderr_eq!(a, b);
-//! //-> panic!("…")
-//! # });
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_command_stderr_eq!(left_command, right_command)`\n",
-//!     "  left_command label: `a`,\n",
-//!     "  left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-//!     " right_command label: `b`,\n",
-//!     " right_command debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
-//!     "                left: `\"hello\"`,\n",
-//!     "               right: `\"zzz\"`"
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with custom message
-//! let result = panic::catch_unwind(|| {
-//! let mut a = Command::new("bin/printf-stderr");
-//! a.args(["%s", "hello"]);
-//! let mut b = Command::new("bin/printf-stderr");
-//! b.args(["%s", "zzz"]);
-//! assert_command_stderr_eq!(a, b, "message");
-//! //-> panic!("…")
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

@@ -1,43 +1,14 @@
 //! Assert a std::fs::read_to_string() contains a pattern.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
-//! use std::io::Read;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let path = "alfa.txt";
 //! let containee = "alfa";
 //! assert_fs_read_to_string_contains!(&path, containee);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let path = "alfa.txt";
-//! let containee = "zzz";
-//! assert_fs_read_to_string_contains!(&path, containee);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_fs_read_to_string_contains!(left_path, right_containee)`\n",
-//!     "       left_path label: `&path`,\n",
-//!     "       left_path debug: `\"alfa.txt\"`,\n",
-//!     " right_containee label: `containee`,\n",
-//!     " right_containee debug: `\"zzz\"`,\n",
-//!     "                  left: `\"alfa\\n\"`,\n",
-//!     "                 right: `\"zzz\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

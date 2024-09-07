@@ -191,71 +191,19 @@
 <a href="#191" id="191">191</a>
 <a href="#192" id="192">192</a>
 <a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
-<a href="#195" id="195">195</a>
-<a href="#196" id="196">196</a>
-<a href="#197" id="197">197</a>
-<a href="#198" id="198">198</a>
-<a href="#199" id="199">199</a>
-<a href="#200" id="200">200</a>
-<a href="#201" id="201">201</a>
-<a href="#202" id="202">202</a>
-<a href="#203" id="203">203</a>
-<a href="#204" id="204">204</a>
-<a href="#205" id="205">205</a>
-<a href="#206" id="206">206</a>
-<a href="#207" id="207">207</a>
-<a href="#208" id="208">208</a>
-<a href="#209" id="209">209</a>
-<a href="#210" id="210">210</a>
-<a href="#211" id="211">211</a>
-<a href="#212" id="212">212</a>
-<a href="#213" id="213">213</a>
-<a href="#214" id="214">214</a>
-<a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a regex) is not a match for an expression (such as a string).
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::process::Command;
 //! use regex::Regex;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let a = Regex::new(r"foo").unwrap();
 //! let b = "yoohoo";
 //! assert_not_match!(a, b);
-//! //-&gt; ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let a = Regex::new(r"foo").unwrap();
-//! let b = "foogoo";
-//! assert_not_match!(a, b);
-//! //-&gt; panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-//!     " matcher label: `a`,\n",
-//!     " matcher debug: `Regex(\"foo\")`,\n",
-//!     " matchee label: `b`,\n",
-//!     " matchee debug: `\"foogoo\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

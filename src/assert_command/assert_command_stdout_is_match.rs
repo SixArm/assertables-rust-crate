@@ -1,59 +1,17 @@
 //! Assert a command stdout string is a match to a regex.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::process::Command;
 //! use regex::Regex;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let mut command = Command::new("bin/printf-stdout");
 //! command.args(["%s", "hello"]);
 //! let matcher = Regex::new(r"ell").unwrap();
 //! assert_command_stdout_is_match!(command, matcher);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let mut command = Command::new("bin/printf-stdout");
-//! command.args(["%s", "hello"]);
-//! let matcher = Regex::new(r"zzz").unwrap();
-//! assert_command_stdout_is_match!(command, matcher);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_command_stdout_is_match!(left_command, right_matcher)`\n",
-//!     "  left_command label: `command`,\n",
-//!     "  left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-//!     " right_matcher label: `matcher`,\n",
-//!     " right_matcher debug: `Regex(\"zzz\")`,\n",
-//!     "                left: `\"hello\"`,\n",
-//!     "               right: `Regex(\"zzz\")`"
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with custom message
-//! let result = panic::catch_unwind(|| {
-//! let mut command = Command::new("bin/printf-stdout");
-//! command.args(["%s", "hello"]);
-//! let matcher = Regex::new(r"zzz").unwrap();
-//! assert_command_stdout_is_match!(command, matcher, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

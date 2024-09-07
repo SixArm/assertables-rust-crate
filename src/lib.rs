@@ -133,13 +133,13 @@
 //!
 //! Shorthands:
 //!
-//! * `path` ≈ `AsRef<Path>`.
-//! * `reader` ≈ method `reader.read*()`.
-//! * `readee` ≈ function `read*(readee)`.
-//! * `matcher` ≈ `matcher.is_match(matchee)`
-//! * `container` ≈ use `container.contains(containee)`
+//! * `path` ≈ implements `AsRef<Path>`
+//! * `reader` ≈ method `reader.read*()`
+//! * `readee` ≈ function `read*(readee)`
+//! * `matcher` ≈ such as `matcher.is_match(matchee)`
+//! * `container` ≈ such as `container.contains(containee)`
 //! * `set` ≈ a collection such as `::std::collections::BTreeSet`
-//! * `bag` ≈ a collection such as `::std::collections::BTreeMap`.
+//! * `bag` ≈ a collection such as `::std::collections::BTreeMap`
 //!
 //!
 //! ## Forms
@@ -157,7 +157,7 @@
 //!
 //! * [`assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html) // panic!
 //! * [`debug_assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.debug_assert_starts_with.html) // panic! in debug mode
-//! * [`assert_starts_with_as_result!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with_as_result.html); // return Ok or Err
+//! * [`assert_starts_with_as_result!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with_as_result.html) // return Ok or Err
 //!
 //!
 //! ### Forms for messages
@@ -188,50 +188,25 @@
 //!
 //! ## Change highlights
 //!
+//! 8.3: Add `assert_poll_ready`, `assert_poll_pending`.
 //!
-//! ### Version 8
+//! 8.2: Add `assert_infix`.
 //!
-//! 8.2:
+//! 8.1: Add `assert_result_ok`, `assert_result_err`, `assert_option_some`, `assert_option_none`.
 //!
-//! * Add `assert_infix`
+//! 8.0: Add `assert_fs_read_to_string_*`. Breaking change: rename `assert_read_to_string_*` macros to `assert_io_read_to_string_*`.
 //!
-//! * Add modules for better discoverability and testability.
+//! 7.x: Add `assert_in_delta`, `assert_in_epsilon`. Add `assert_fn_*` macros with multiple arities.
 //!
-//! 8.1:
-//!
-//! * Add Result macros `assert_result_ok` and `assert_result_err`
-//!
-//! * Add Option macros `assert_option_some` and `assert_option_none`
-//!
-//! 8.0:
-//!
-//! * Add `assert_fs_read_to_string_*` macros for comparing files.
-//!
-//! * Breaking change: rename `assert_read_to_string_*` macros to `assert_io_read_to_string_*`. If you use these macros, then please update your code to use the new naming convention.
-//!
-//! 7.x:
-//!
-//! * Add `assert_in_delta`, `assert_in_epsilon`.
-//!
-//! * Add `assert_fn_*` macros with multiple arities.
-//!
-//! * Add `cargo release` for optimized tagged releases.
-//!
-//! 6.x:
-//!
-//! * Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`.
-//!
-//! * Add `debug_assert_*` macros everywhere.
-//!
-//! * Add `GPL-3.0` license.
+//! 6.x: Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`. Add `debug_assert_*` macros everywhere.
 //!
 //!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.2.2
+//! * Version: 8.3.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-07T12:31:17Z
+//! * Updated: 2024-09-07T22:22:42Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 

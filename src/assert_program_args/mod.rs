@@ -30,6 +30,7 @@
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
+//!
 //! # fn main() {
 //! let a_program = "bin/printf-stdout";
 //! let a_args = ["%s", "hello"];

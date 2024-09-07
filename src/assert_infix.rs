@@ -1,10 +1,5 @@
 //! Assert a infix operator, such as assert_infix!(a == b).
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
 //! Compare values via infix value operator:
 //!
 //! * `assert_infix!(a == b)` ≈ a == b
@@ -32,45 +27,15 @@
 //! * `assert_infix!(a || b)` ≈ a …∨ b ≈ a lazy OR b
 //!
 //!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
-//! // Return Ok
 //! let a = 1;
 //! let b = 1;
 //! assert_infix!(a == b);
-//! //-> ()
-//!
-//! let a = 1;
-//! let b = 2;
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_infix!(a == b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_infix!(x == y)`\n",
-//!     " x label: `a`,\n",
-//!     " x debug: `1`,\n",
-//!     " y label: `b`,\n",
-//!     " y debug: `2`\n",
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_infix!(a == b, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

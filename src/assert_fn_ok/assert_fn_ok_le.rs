@@ -1,15 +1,9 @@
 //! Assert a function ok() is less than or equal to another.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! fn f(i: i8) -> Result<String, String> {
 //!     match i {
 //!         0..=9 => Ok(format!("{}", i)),
@@ -18,33 +12,9 @@
 //! }
 //!
 //! # fn main() {
-//! // Return Ok
 //! let a: i8 = 1;
 //! let b: i8 = 2;
 //! assert_fn_ok_le!(f, a, f, b);
-//! //-> ()
-//!
-//! let a: i8 = 2;
-//! let b: i8 = 1;
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_fn_ok_le!(f, a, f, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_fn_ok_le!(left_function, left_param, right_function, right_param)`\n",
-//!     "  left_function label: `f`,\n",
-//!     "     left_param label: `a`,\n",
-//!     "     left_param debug: `2`,\n",
-//!     " right_function label: `f`,\n",
-//!     "    right_param label: `b`,\n",
-//!     "    right_param debug: `1`,\n",
-//!     "                 left: `\"2\"`,\n",
-//!     "                right: `\"1\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

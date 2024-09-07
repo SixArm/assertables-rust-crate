@@ -1,47 +1,16 @@
 //! Assert a command (built with program and args) stdout string is a match to a regex.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use regex::Regex;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "hello"];
 //! let matcher = Regex::new(r"el").unwrap();
 //! assert_program_args_stdout_is_match!(&program, &args, matcher);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let program = "bin/printf-stdout";
-//! let args = ["%s", "hello"];
-//! let matcher = Regex::new(r"zzz").unwrap();
-//! assert_program_args_stdout_is_match!(&program, &args, matcher);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
-//!     "  left_program label: `&program`,\n",
-//!     "  left_program debug: `\"bin/printf-stdout\"`,\n",
-//!     "     left_args label: `&args`,\n",
-//!     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
-//!     " right_matcher label: `matcher`,\n",
-//!     " right_matcher debug: `Regex(\"zzz\")`,\n",
-//!     "                left: `\"hello\"`,\n",
-//!     "               right: `Regex(\"zzz\")`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

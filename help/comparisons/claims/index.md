@@ -25,19 +25,17 @@ If there's an assertion from any of those crates that you would like us to add t
 |---------|--------|-------------|
 | Version |  0.7 | 8.2 |
 | Updated | 2022 | 2024 |
-| Compare  | assert_ge <br> assert_gt <br> assert_le <br> assert_lt<br><br> | assert_ge <br> assert_gt <br> assert_le <br> assert_lt <br> assert_in_delta <br> assert_in_epsilon |
-| Match    | assert_matches <br> | assert_is_match <br> assert_not_match |
-| Contains | x | assert_contains <br> assert_not_contains |
-| Starts/Ends | x | assert_starts_with <br> assert_not_starts_with <br> assert_ends_with <br> assert_not_ends_with |
-| Result  | assert_result_ok <br> assert_result_err <br> assert_result_ok_eq | assert_result_ok <br> assert_result_err <br> TODO |
+| Compare  | assert_ge <br> assert_gt <br> assert_le <br> assert_lt <br> - <br> - | assert_ge <br> assert_gt <br> assert_le <br> assert_lt <br> assert_in_delta <br> assert_in_epsilon |
+| Match    | assert_matches <br> - | assert_is_match <br> assert_not_match |
+| Contains | - <br> - | assert_contains <br> assert_not_contains |
+| Starts/Ends | - <br> - <br> - <br> - | assert_starts_with <br> assert_not_starts_with <br> assert_ends_with <br> assert_not_ends_with |
+| Result  | assert_result_ok <br> assert_result_err <br> assert_result_ok_eq | assert_result_ok <br> assert_result_err <br> todo |
 | Option  | assert_option_some <br> assert_option_none <br> assert_option_some_eq | assert_option_some <br> assert_option_none <br> todo |
 | Poll    | assert_ready <br> assert_pending <br> assert_ready_ok<br> assert_ready_err <br> assert_ready_eq | assert_pending <br> assert_ready <br> todo <br> todo <br> todo |
-| FS Path  | x | assert_fs_read_to_string_* |
-| IO Reader  | x | assert_io_read_to_string_* |
-| Command | x | assert_command_* <br> assert_program_args_* |
-| Set     | x | assert_set_eq <br> assert_set_ne <br> assert_set_subset <br> assert_set_superset <br> assert_set_joint <br> assert_set_disjoint |
-| Bag     | x | assert_bag_eq <br> assert_bag_ne<br> <br> assert_bag_subbag <br> assert_bag_superbag |
-| Function | x | assert_fn_* |
+| Readers | - <br> - | assert_fs_read_to_string_* <br> assert_io_read_to_string_* |
+| Commands | - <br> - | assert_command_* <br> assert_program_args_* |
+| Collections | - <br> - | assert_set_* <br> assert_bag_* |
+| Functions | - <br> - | assert_fn_* |
 
 
 ## Assertables has more logic leverage

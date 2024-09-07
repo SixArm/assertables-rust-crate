@@ -1,60 +1,15 @@
 //! Assert a function err() is equal to an expression.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! fn f(i: i8) -> Result<String, String> {
 //!     match i {
 //!         0..=9 => Ok(format!("{}", i)),
 //!         _ => Err(format!("{:?} is out of range", i)),
 //!     }
 //! }
-//!
-//! # fn main() {
-//! // Return Ok
-//! let a: i8 = 10;
-//! let b = String::from("10 is out of range");
-//! assert_fn_err_eq_expr!(f, a, b);
-//! //-> ()
-//!
-//! let a: i8 = 10;
-//! let b = String::from("20 is out of range");
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_fn_err_eq_expr!(f, a, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_fn_err_eq_expr!(left_function, left_param, right_expr)`\n",
-//!     " left_function label: `f`,\n",
-//!     "    left_param label: `a`,\n",
-//!     "    left_param debug: `10`,\n",
-//!     "    right_expr label: `b`,\n",
-//!     "    right_expr debug: `\"20 is out of range\"`,\n",
-//!     "                left: `\"10 is out of range\"`,\n",
-//!     "               right: `\"20 is out of range\"`"
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_fn_err_eq_expr!(f, a, b, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
-//! # }
 //! ```
 //!
 //! # Module macros

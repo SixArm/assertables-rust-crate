@@ -1,46 +1,14 @@
 //! Assert poll.is_ready() is true.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::task::Poll;
+//!
 //! # fn main() {
 //! let a: Poll<i8> = Poll::Ready(1);
 //! assert_poll_ready!(a);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let a: Poll<i8> = Poll::Pending;
-//! let result = panic::catch_unwind(|| {
-//! assert_poll_ready!(a);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_poll_ready!(expr)`\n",
-//!     "      expr label: `a`,\n",
-//!     "      expr debug: `Pending`,\n",
-//!     " expr.is_ready(): `false`",
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_poll_ready!(a, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

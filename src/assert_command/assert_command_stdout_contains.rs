@@ -1,63 +1,16 @@
 //! Assert a command stdout string contains a given containee.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! This uses [`std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
-//!
-//! * The containee can be a &str, char, a slice of chars, or a function or
-//! closure that determines if a character contains.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::process::Command;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let mut command = Command::new("bin/printf-stdout");
 //! command.args(["%s", "hello"]);
 //! let containee = "ell";
 //! assert_command_stdout_contains!(command, containee);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let mut command = Command::new("bin/printf-stdout");
-//! command.args(["%s", "hello"]);
-//! let containee = "zzz";
-//! assert_command_stdout_contains!(command, containee);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n",
-//!     "    left_command label: `command`,\n",
-//!     "    left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-//!     " right_containee label: `containee`,\n",
-//!     " right_containee debug: `\"zzz\"`,\n",
-//!     "                  left: `\"hello\"`,\n",
-//!     "                 right: `\"zzz\"`"
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with custom message
-//! let result = panic::catch_unwind(|| {
-//! let mut command = Command::new("bin/printf-stdout");
-//! command.args(["%s", "hello"]);
-//! let containee = "zzz";
-//! assert_command_stdout_contains!(command, containee, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

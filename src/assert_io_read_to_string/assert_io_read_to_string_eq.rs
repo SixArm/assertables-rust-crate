@@ -1,43 +1,15 @@
 //! Assert a std::io::Read read_to_string() value is equal to another.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::io::Read;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let mut a = "alfa".as_bytes();
 //! let mut b = "alfa".as_bytes();
 //! assert_io_read_to_string_eq!(a, b);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let mut a = "alfa".as_bytes();
-//! let mut b = "bravo".as_bytes();
-//! assert_io_read_to_string_eq!(a, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_io_read_to_string_eq!(left_reader, right_reader)`\n",
-//!     "  left_reader label: `a`,\n",
-//!     "  left_reader debug: `[]`,\n",
-//!     " right_reader label: `b`,\n",
-//!     " right_reader debug: `[]`,\n",
-//!     "               left: `\"alfa\"`,\n",
-//!     "              right: `\"bravo\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

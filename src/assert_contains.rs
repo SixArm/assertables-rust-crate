@@ -1,39 +1,14 @@
 //! Assert a container is a match for an expression.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
-//! // Return Ok
 //! let a = "foogoo";
 //! let b = "oo";
 //! assert_contains!(a, b);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let a = "foogoo";
-//! let b = "zz";
-//! assert_contains!(a, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_contains!(container, containee)`\n",
-//!     " container label: `a`,\n",
-//!     " container debug: `\"foogoo\"`,\n",
-//!     " containee label: `b`,\n",
-//!     " containee debug: `\"zz\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

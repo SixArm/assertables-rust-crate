@@ -1,51 +1,14 @@
 //! Assert a value is less than or equal to an expression.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
-//! // Return Ok
 //! let a = 1;
 //! let b = 2;
 //! assert_le!(a, b);
-//! //-> ()
-//!
-//! let a = 2;
-//! let b = 1;
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_le!(a, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_le!(left, right)`\n",
-//!     "  left label: `a`,\n",
-//!     "  left debug: `2`,\n",
-//!     " right label: `b`,\n",
-//!     " right debug: `1`,\n",
-//!     "        left: `2`,\n",
-//!     "       right: `1`"
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_le!(a, b, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

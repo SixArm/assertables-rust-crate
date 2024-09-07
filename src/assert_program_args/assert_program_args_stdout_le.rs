@@ -1,50 +1,16 @@
 //! Assert a command (built with program and args) stdout string is less than or equal to another.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let a_program = "bin/printf-stdout";
 //! let a_args = ["%s", "hello"];
 //! let b_program = "bin/printf-stdout";
 //! let b_args = ["%s%s%s%s%s", "h", "u", "l", "l", "o"];
 //! assert_program_args_stdout_le!(&a_program, &a_args, &b_program, &b_args);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let a_program = "bin/printf-stdout";
-//! let a_args = ["%s", "hello"];
-//! let b_program = "bin/printf-stdout";
-//! let b_args = ["%s%s%s%s%s", "h", "a", "l", "l", "o"];
-//! assert_program_args_stdout_le!(&a_program, &a_args, &b_program, &b_args);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_program_args_stdout_le!(left_program, left_args, right_program, right_args)`\n",
-//!     "  left_program label: `&a_program`,\n",
-//!     "  left_program debug: `\"bin/printf-stdout\"`,\n",
-//!     "     left_args label: `&a_args`,\n",
-//!     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
-//!     " right_program label: `&b_program`,\n",
-//!     " right_program debug: `\"bin/printf-stdout\"`,\n",
-//!     "    right_args label: `&b_args`,\n",
-//!     "    right_args debug: `[\"%s%s%s%s%s\", \"h\", \"a\", \"l\", \"l\", \"o\"]`,\n",
-//!     "                left: `\"hello\"`,\n",
-//!     "               right: `\"hallo\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

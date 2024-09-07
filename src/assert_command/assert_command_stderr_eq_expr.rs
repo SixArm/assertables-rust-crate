@@ -1,58 +1,16 @@
 //! Assert a command stderr string is equal to an expression.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::process::Command;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let mut command = Command::new("bin/printf-stderr");
 //! command.args(["%s", "hello"]);
 //! let s = String::from("hello");
 //! assert_command_stderr_eq_expr!(command, s);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let mut command = Command::new("bin/printf-stderr");
-//! command.args(["%s", "hello"]);
-//! let s = String::from("zzz");
-//! assert_command_stderr_eq_expr!(command, s);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_command_stderr_eq_expr!(left_command, right_expr)`\n",
-//!     " left_command label: `command`,\n",
-//!     " left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-//!     "   right_expr label: `s`,\n",
-//!     "   right_expr debug: `\"zzz\"`,\n",
-//!     "               left: `\"hello\"`,\n",
-//!     "              right: `\"zzz\"`"
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with custom message
-//! let result = panic::catch_unwind(|| {
-//! let mut command = Command::new("bin/printf-stderr");
-//! command.args(["%s", "hello"]);
-//! let s = String::from("zzz");
-//! assert_command_stderr_eq_expr!(command, s, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

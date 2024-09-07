@@ -1,61 +1,17 @@
 //! Assert a command stdout string is equal to another.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::process::Command;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let mut a = Command::new("bin/printf-stdout");
 //! a.args(["%s", "hello"]);
 //! let mut b = Command::new("bin/printf-stdout");
 //! b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
 //! assert_command_stdout_eq!(a, b);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let mut a = Command::new("bin/printf-stdout");
-//! a.args(["%s", "hello"]);
-//! let mut b = Command::new("bin/printf-stdout");
-//! b.args(["%s%s%s", "z", "z", "z"]);
-//! assert_command_stdout_eq!(a, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n",
-//!     "  left_command label: `a`,\n",
-//!     "  left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-//!     " right_command label: `b`,\n",
-//!     " right_command debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
-//!     "                left: `\"hello\"`,\n",
-//!     "               right: `\"zzz\"`"
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with custom message
-//! let result = panic::catch_unwind(|| {
-//! let mut a = Command::new("bin/printf-stdout");
-//! a.args(["%s", "hello"]);
-//! let mut b = Command::new("bin/printf-stdout");
-//! b.args(["%s%s%s", "z", "z", "z"]);
-//! assert_command_stdout_eq!(a, b, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

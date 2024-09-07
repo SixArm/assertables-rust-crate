@@ -1,45 +1,13 @@
 //! Assert expression.is_err() is true.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
 //! let a: Result<(), i8> = Result::Err(1);
 //! assert_result_err!(a);
-//! //-> ()
-//!
-//! let a: Result<(), i8> = Result::Ok(());
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_result_err!(a);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_result_err!(expr)`\n",
-//!     "    expr label: `a`,\n",
-//!     "    expr debug: `Ok(())`,\n",
-//!     " expr.is_err(): `false`",
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_result_err!(a, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

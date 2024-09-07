@@ -22,6 +22,7 @@
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
+//!
 //! # fn main() {
 //! let a: Result<(), i8> = Result::Ok(());
 //! assert_result_ok!(a);

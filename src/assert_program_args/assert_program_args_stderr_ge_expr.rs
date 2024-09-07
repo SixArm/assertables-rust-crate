@@ -1,24 +1,17 @@
 //! Assert a command (built with program and args) stderr string is greater than or equal to an expression.
 //!
-//! This macro provides the same statements as [`assert_program_args_stderr_ge_expr`](macro.assert_program_args_stderr_ge_expr.html),
-//! except this macro's statements are only enabled in non-optimized
-//! builds by default. An optimized build will not execute this macro's
-//! statements unless `-C debug-assertions` is passed to the compiler.
+//! # Examples
 //!
-//! This macro is useful for checks that are too expensive to be present
-//! in a release build but may be helpful during development.
+//! ```rust
+//! # #[macro_use] extern crate assertables;
 //!
-//! The result of expanding this macro is always type checked.
-//!
-//! An unchecked assertion allows a program in an inconsistent state to
-//! keep running, which might have unexpected consequences but does not
-//! introduce unsafety as long as this only happens in safe code. The
-//! performance cost of assertions, however, is not measurable in general.
-//! Replacing `assert*!` with `debug_assert*!` is thus only encouraged
-//! after thorough profiling, and more importantly, only in safe code!
-//!
-//! This macro is intended to work in a similar way to
-//! [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+//! # fn main() {
+//! let program = "bin/printf-stderr";
+//! let args = ["%s", "hello"];
+//! let s = String::from("hallo");
+//! assert_program_args_stderr_ge_expr!(&program, &args, s);
+//! # }
+//! ```
 //!
 //! # Module macros
 //!

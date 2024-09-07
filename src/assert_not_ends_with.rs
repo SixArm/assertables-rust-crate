@@ -1,39 +1,14 @@
 //! Assert an expression (such as a string) does not end with an expression (such as a string).
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
-//! // Return Ok
 //! let a = "foogoo";
 //! let b = "foo";
 //! assert_not_ends_with!(a, b);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let a = "foogoo";
-//! let b = "goo";
-//! assert_not_ends_with!(a, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_not_ends_with!(a, b)`\n",
-//!     " a label: `a`,\n",
-//!     " a debug: `\"foogoo\"`,\n",
-//!     " b label: `b`,\n",
-//!     " b debug: `\"goo\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

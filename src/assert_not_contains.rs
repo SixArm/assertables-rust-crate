@@ -1,39 +1,14 @@
 //! Assert an expression (such as a string) does not contain an expression (such as a substring).
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
-//! // Return Ok
 //! let a = "foogoo";
 //! let b = "zz";
 //! assert_not_contains!(a, b);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let a = "foogoo";
-//! let b = "oo";
-//! assert_not_contains!(a, b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_not_contains!(container, containee)`\n",
-//!     " container label: `a`,\n",
-//!     " container debug: `\"foogoo\"`,\n",
-//!     " containee label: `b`,\n",
-//!     " containee debug: `\"oo\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

@@ -1,46 +1,15 @@
 //! Assert a command (built with program and args) stderr string is less than or equal to an expression.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let program = "bin/printf-stderr";
 //! let args = ["%s", "hello"];
 //! let s = String::from("hullo");
 //! assert_program_args_stderr_le_expr!(&program, &args, s);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let program = "bin/printf-stderr";
-//! let args = ["%s", "hello"];
-//! let s = String::from("hallo");
-//! assert_program_args_stderr_le_expr!(&program, &args, s);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_program_args_stderr_le_expr!(left_program, left_args, right_expr)`\n",
-//!     " left_program label: `&program`,\n",
-//!     " left_program debug: `\"bin/printf-stderr\"`,\n",
-//!     "    left_args label: `&args`,\n",
-//!     "    left_args debug: `[\"%s\", \"hello\"]`,\n",
-//!     "   right_expr label: `s`,\n",
-//!     "   right_expr debug: `\"hallo\"`,\n",
-//!     "               left: `\"hello\"`,\n",
-//!     "              right: `\"hallo\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

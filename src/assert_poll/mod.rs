@@ -10,15 +10,17 @@
 //!
 //! # Macros
 //!
-//! * [`assert_poll_ok!(a)`](macro@crate::assert_poll_ok) ≈ a.is_ok()
+//! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready) ≈ a.is_ready()
 //!
-//! * [`assert_poll_err!(a)`](macro@crate::assert_poll_err) ≈ a.is_err()
+//! * [`assert_poll_pending!(a)`](macro@crate::assert_poll_pending) ≈ a.is_pending()
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! use std::task::Poll;
+//!
+//!
 //! # fn main() {
 //! let a: Poll<i8> = Poll::Ready(1);
 //! assert_poll_ready!(a);

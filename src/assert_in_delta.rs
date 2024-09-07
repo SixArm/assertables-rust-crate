@@ -1,55 +1,15 @@
 //! Assert a number is within delta of another number.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
-//! // Return Ok
 //! let a: i8 = 10;
 //! let b: i8 = 11;
 //! let delta: i8 = 1;
 //! assert_in_delta!(a, b, delta);
-//! //-> ()
-//!
-//! let a: i8 = 10;
-//! let b: i8 = 12;
-//! let delta: i8 = 1;
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_in_delta!(a, b, delta);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_in_delta!(left, right, delta)`\n",
-//!     "  left label: `a`,\n",
-//!     "  left debug: `10`,\n",
-//!     " right label: `b`,\n",
-//!     " right debug: `12`,\n",
-//!     " delta label: `delta`,\n",
-//!     " delta debug: `1`,\n",
-//!     "        left: `10`,\n",
-//!     "       right: `12`"
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_in_delta!(a, b, delta, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

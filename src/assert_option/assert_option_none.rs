@@ -1,45 +1,13 @@
 //! Assert expression.is_none() is true.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
 //! let a: Option<i8> = Option::None;
 //! assert_option_none!(a);
-//! //-> ()
-//!
-//! let a: Option<i8> = Option::Some(1);
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_option_none!(a);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_option_none!(expr)`\n",
-//!     "     expr label: `a`,\n",
-//!     "     expr debug: `Some(1)`,\n",
-//!     " expr.is_none(): `false`",
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_option_none!(a, "message");
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

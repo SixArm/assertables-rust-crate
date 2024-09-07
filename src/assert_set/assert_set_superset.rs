@@ -1,41 +1,14 @@
 //! Assert a set is a superset of another.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
+//!
 //! # fn main() {
-//! // Return Ok
 //! let a = [1, 2, 3];
 //! let b = [1, 2];
 //! assert_set_superset!(&a, &b);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let a = [1, 2];
-//! let b = [1, 2, 3];
-//! assert_set_superset!(&a, &b);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_set_superset!(left_set, right_set)`\n",
-//!     "  left_set label: `&a`,\n",
-//!     "  left_set debug: `[1, 2]`,\n",
-//!     " right_set label: `&b`,\n",
-//!     " right_set debug: `[1, 2, 3]`,\n",
-//!     "            left: `{1, 2}`,\n",
-//!     "           right: `{1, 2, 3}`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

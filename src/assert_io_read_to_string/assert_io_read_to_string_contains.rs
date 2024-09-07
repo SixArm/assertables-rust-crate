@@ -1,43 +1,15 @@
 //! Assert a std::io::Read read_to_string() contains a pattern.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! use std::io::Read;
 //!
 //! # fn main() {
-//! // Return Ok
 //! let mut reader = "hello".as_bytes();
 //! let containee = "ell";
 //! assert_io_read_to_string_contains!(reader, containee);
-//! //-> ()
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! let mut reader = "hello".as_bytes();
-//! let containee = "zzz";
-//! assert_io_read_to_string_contains!(reader, containee);
-//! //-> panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n",
-//!     "     left_reader label: `reader`,\n",
-//!     "     left_reader debug: `[]`,\n",
-//!     " right_containee label: `containee`,\n",
-//!     " right_containee debug: `\"zzz\"`,\n",
-//!     "                  left: `\"hello\"`,\n",
-//!     "                 right: `\"zzz\"`"
-//! );
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!

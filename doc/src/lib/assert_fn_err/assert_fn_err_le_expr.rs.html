@@ -363,57 +363,12 @@
 <a href="#363" id="363">363</a>
 <a href="#364" id="364">364</a>
 <a href="#365" id="365">365</a>
-<a href="#366" id="366">366</a>
-<a href="#367" id="367">367</a>
-<a href="#368" id="368">368</a>
-<a href="#369" id="369">369</a>
-<a href="#370" id="370">370</a>
-<a href="#371" id="371">371</a>
-<a href="#372" id="372">372</a>
-<a href="#373" id="373">373</a>
-<a href="#374" id="374">374</a>
-<a href="#375" id="375">375</a>
-<a href="#376" id="376">376</a>
-<a href="#377" id="377">377</a>
-<a href="#378" id="378">378</a>
-<a href="#379" id="379">379</a>
-<a href="#380" id="380">380</a>
-<a href="#381" id="381">381</a>
-<a href="#382" id="382">382</a>
-<a href="#383" id="383">383</a>
-<a href="#384" id="384">384</a>
-<a href="#385" id="385">385</a>
-<a href="#386" id="386">386</a>
-<a href="#387" id="387">387</a>
-<a href="#388" id="388">388</a>
-<a href="#389" id="389">389</a>
-<a href="#390" id="390">390</a>
-<a href="#391" id="391">391</a>
-<a href="#392" id="392">392</a>
-<a href="#393" id="393">393</a>
-<a href="#394" id="394">394</a>
-<a href="#395" id="395">395</a>
-<a href="#396" id="396">396</a>
-<a href="#397" id="397">397</a>
-<a href="#398" id="398">398</a>
-<a href="#399" id="399">399</a>
-<a href="#400" id="400">400</a>
-<a href="#401" id="401">401</a>
-<a href="#402" id="402">402</a>
-<a href="#403" id="403">403</a>
-<a href="#404" id="404">404</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function err() is less than or equal to an expression.
 //!
-//! * If true, return `()`.
-//!
-//! * Otherwise, call [`panic!`] with a message and the values of the
-//!   expressions with their debug representations.
-//!
-//! # Examples
+//! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//! # use std::panic;
 //! fn f(i: i8) -&gt; Result&lt;String, String&gt; {
 //!     match i {
 //!         0..=9 =&gt; Ok(format!("{}", i)),
@@ -422,42 +377,9 @@
 //! }
 //!
 //! # fn main() {
-//! // Return Ok
 //! let a: i8 = 10;
 //! let b = String::from("20 is out of range");
 //! assert_fn_err_le_expr!(f, a, b);
-//! //-&gt; ()
-//!
-//! let a: i8 = 20;
-//! let b = String::from("10 is out of range");
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_fn_err_le_expr!(f, a, b);
-//! //-&gt; panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-//! let expect = concat!(
-//!     "assertion failed: `assert_fn_err_le_expr!(left_function, left_param, right_expr)`\n",
-//!     " left_function label: `f`,\n",
-//!     "    left_param label: `a`,\n",
-//!     "    left_param debug: `20`,\n",
-//!     "    right_expr label: `b`,\n",
-//!     "    right_expr debug: `\"10 is out of range\"`,\n",
-//!     "                left: `\"20 is out of range\"`,\n",
-//!     "               right: `\"10 is out of range\"`"
-//! );
-//! assert_eq!(actual, expect);
-//!
-//! // Panic with error message
-//! let result = panic::catch_unwind(|| {
-//! assert_fn_err_le_expr!(f, a, b, "message");
-//! //-&gt; panic!
-//! });
-//! assert!(result.is_err());
-//! let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-//! let expect = "message";
-//! assert_eq!(actual, expect);
 //! # }
 //! ```
 //!
