@@ -46,10 +46,11 @@
 //! * [`assert_infix!(a == b)`](macro@crate::assert_infix)
 //! * [`assert_infix!(a && b)`](macro@crate::assert_infix)
 //!
-//! For maybes:
+//! For enums:
 //!
 //! * [`assert_result_ok!(a)`](macro@crate::assert_result_ok)
 //! * [`assert_option_some!(a)`](macro@crate::assert_option_some)
+//! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready)
 //!
 //! For collections such as arrays, vectors, maps, sets:
 //!
@@ -72,6 +73,7 @@
 //!
 //! * [`assert_option`](module@crate::assert_option) for `Option` {`Some`, `None`}
 //! * [`assert_result`](module@crate::assert_result) for `Result` {`Ok`, `Err`}
+//! * [`assert_poll`](module@crate::assert_poll) for `Poll` {`Ready`, `Pending`}
 //!
 //! Modules for collections, such as arrays, vectors, lists, maps:
 //!
@@ -260,6 +262,7 @@ pub mod assert_starts_with;
 // For maybes
 pub mod assert_result;
 pub mod assert_option;
+pub mod assert_poll;
 
 // For collections
 pub mod assert_set;

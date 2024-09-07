@@ -21,21 +21,23 @@ Assertables has two major differences:
 
 If there's an assertion from any of those crates that you would like us to add to Assertables, then let us know, or create a merge request, and we'll add it.
 
-| macros  | claims | assertables |
+| Category  | `claims` | `assertables` |
 |---------|--------|-------------|
+| Version |  0.7 | 8.2 |
+| Updated | 2022 | 2024 |
 | Compare  | assert_ge <br> assert_gt <br> assert_le <br> assert_lt<br><br> | assert_ge <br> assert_gt <br> assert_le <br> assert_lt <br> assert_in_delta <br> assert_in_epsilon |
-| Match    | assert_matches | assert_is_match <br> assert_not_match |
-| Contains | - | assert_contains <br> assert_not_contains |
-| Starts/Ends | - | assert_starts_with <br> assert_not_starts_with <br> assert_ends_with <br> assert_not_ends_with |
+| Match    | assert_matches <br> | assert_is_match <br> assert_not_match |
+| Contains | x | assert_contains <br> assert_not_contains |
+| Starts/Ends | x | assert_starts_with <br> assert_not_starts_with <br> assert_ends_with <br> assert_not_ends_with |
 | Result  | assert_result_ok <br> assert_result_err <br> assert_result_ok_eq | assert_result_ok <br> assert_result_err <br> TODO |
-| Option  | assert_option_some <br> assert_option_none <br> assert_option_some_eq | assert_option_some <br> assert_option_none <br> TODO |
-| Poll    | assert_pending <br> assert_ready<br> assert_ready_ok<br> assert_ready_err <br> assert_ready_eq | TODO |
-| FS Path  | - | assert_fs_read_to_string_* |
-| IO Reader  | - | assert_io_read_to_string_* |
-| Command | - | assert_command_* <br> assert_program_args_* |
-| Set     | - | assert_set_eq <br> assert_set_ne <br> assert_set_subset <br> assert_set_superset <br> assert_set_joint <br> assert_set_disjoint |
-| Bag     | - | assert_bag_eq <br> assert_bag_ne<br> <br> assert_bag_subbag <br> assert_bag_superbag |
-| Function | - | assert_fn_* |
+| Option  | assert_option_some <br> assert_option_none <br> assert_option_some_eq | assert_option_some <br> assert_option_none <br> todo |
+| Poll    | assert_ready <br> assert_pending <br> assert_ready_ok<br> assert_ready_err <br> assert_ready_eq | assert_pending <br> assert_ready <br> todo <br> todo <br> todo |
+| FS Path  | x | assert_fs_read_to_string_* |
+| IO Reader  | x | assert_io_read_to_string_* |
+| Command | x | assert_command_* <br> assert_program_args_* |
+| Set     | x | assert_set_eq <br> assert_set_ne <br> assert_set_subset <br> assert_set_superset <br> assert_set_joint <br> assert_set_disjoint |
+| Bag     | x | assert_bag_eq <br> assert_bag_ne<br> <br> assert_bag_subbag <br> assert_bag_superbag |
+| Function | x | assert_fn_* |
 
 
 ## Assertables has more logic leverage

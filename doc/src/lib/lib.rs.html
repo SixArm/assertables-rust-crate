@@ -280,6 +280,9 @@
 <a href="#280" id="280">280</a>
 <a href="#281" id="281">281</a>
 <a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
@@ -328,10 +331,11 @@
 //! * [`assert_infix!(a == b)`](macro@crate::assert_infix)
 //! * [`assert_infix!(a &amp;&amp; b)`](macro@crate::assert_infix)
 //!
-//! For maybes:
+//! For enums:
 //!
 //! * [`assert_result_ok!(a)`](macro@crate::assert_result_ok)
 //! * [`assert_option_some!(a)`](macro@crate::assert_option_some)
+//! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready)
 //!
 //! For collections such as arrays, vectors, maps, sets:
 //!
@@ -354,6 +358,7 @@
 //!
 //! * [`assert_option`](module@crate::assert_option) for `Option` {`Some`, `None`}
 //! * [`assert_result`](module@crate::assert_result) for `Result` {`Ok`, `Err`}
+//! * [`assert_poll`](module@crate::assert_poll) for `Poll` {`Ready`, `Pending`}
 //!
 //! Modules for collections, such as arrays, vectors, lists, maps:
 //!
@@ -542,6 +547,7 @@
 <span class="comment">// For maybes
 </span><span class="kw">pub mod </span>assert_result;
 <span class="kw">pub mod </span>assert_option;
+<span class="kw">pub mod </span>assert_poll;
 
 <span class="comment">// For collections
 </span><span class="kw">pub mod </span>assert_set;

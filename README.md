@@ -70,6 +70,7 @@ Modules for enums:
 
 * [`assert_option`](https://docs.rs/assertables/latest/assertables/assert_option)for `Option` {`Some`, `None`}
 * [`assert_result`](https://docs.rs/assertables/latest/assertables/assert_result) for `Result` {`Ok`, `Err`}
+* [`assert_poll]`](https://docs.rs/assertables/latest/assertables/assert_poll) for `Poll` {`Ready`, `Pending`}
 
 Modules for collections, such as arrays, vectors, lists, maps:
 
