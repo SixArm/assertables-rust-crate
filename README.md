@@ -13,62 +13,91 @@ compile-time tests and run-time reliability.
 
 The Rust programming language provides a few built-in assert macros to test code:
 
-```rust
-assert!()
-assert_eq!(a, b)
-assert_ne!(a, b)
-```
+* `assert!()`
+* `assert_eq!(a, b)`
+* `assert_ne!(a, b)`
 
 The assertables crate provides many more, so you can write smarter tests.
 
 For values:
 
-```rust
-assert_gt!(a, b)
-assert_lt!(a, b)
-```
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_gt.html)
+* [`assert_lt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_lt.html)
 
 For numbers:
 
-```rust
-assert_in_delta!(a, b, delta)
-assert_in_epsilon!(a, b, epsilon)
-```
+* [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_delta.html)
+* [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_epsilon.html)
 
 For strings:
 
-```rust
-assert_starts_with!(a, b)
-assert_ends_with!(a, b)
-```
+* [`assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html)
+* [`assert_ends_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ends_with.html)
 
 For matching:
 
-```rust
-assert_contains!(a, b)
-assert_is_match!(a, b)
-```
+* [`assert_contains!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_contains.html)
+* [`assert_is_match!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_is_match.html)
+
+For infix numeric operators and infix logical operators:
+
+* [`assert_infix!(a == b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
+* [`assert_infix!(a && b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
+
+For maybes:
+ 
+* [`assert_result_ok!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_ok.html)
+* [`assert_option_some!(a)`](macro@crate::assert_option_some)
 
 For collections such as arrays, vectors, maps, sets:
 
-```rust
-assert_set_subset!(a, b)
-assert_set_disjoint!(a, b)
-```
+* [`assert_set_subset_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_subset_eq.html)
+* [`assert_set_disjoint_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_disjoint_eq.html)
 
 For file system paths and input/output readers:
 
-```rust
-assert_fs_read_to_string_eq!(path1, path2)
-assert_io_read_to_string_eq!(reader1, reader2)
-```
+* [`assert_fs_read_to_string_eq!(path1, path2)`](https://docs.rs/assertables/latest/assertables/macro.assert_fs_read_to_string_eq.html)
+* [`assert_io_read_to_string_eq!(reader1, reader2)`](https://docs.rs/assertables/latest/assertables/macro.assert_io_read_to_string_eq.html)
 
 For command capture of standard output and standard error:
 
-```rust
-assert_command_stdout_eq!(command1 stdout = command2 stdout);
-assert_command_stderr_eq!(command1, command2);
-```
+* [`assert_command_stdout_eq!(command1, command2)`](https://docs.rs/assertables/latest/assertables/macro.assert_command_stdout_eq.html);
+* [`assert_program_args_stdout_eq!(program1, args1, program2, args2`](https://docs.rs/assertables/latest/assertables/macro.assert_program_args_stdout_eq.html)
+
+There are many more macros that are grouped into modules.
+
+Modules for enums:
+
+* [`assert_option`](https://docs.rs/assertables/latest/assertables/macro.assert_option.html)for `Option` {`Some`, `None`}
+
+* [`assert_result`](https://docs.rs/assertables/latest/assertables/macro.assert_result.html) for `Result` {`Ok`, `Err`}
+
+Modules for collections, such as arrays, vectors, lists, maps:
+
+* [`assert_set`](https://docs.rs/assertables/latest/assertables/macro.assert_set.html) for set collections
+
+* [`assert_bag`](https://docs.rs/assertables/latest/assertables/macro.assert_bag.html) for bag collections
+
+Modules for functions:
+
+* [`assert_fn`](https://docs.rs/assertables/latest/assertables/macro.assert_fn.html) for functions in general.
+
+* [`assert_fn_ok`](https://docs.rs/assertables/latest/assertables/macro.assert_ok.html) for functions that return `Result::Ok`.
+
+* [`assert_fn_err`](https://docs.rs/assertables/latest/assertables/macro.assert_fn_err.html) for functions that return `Result::Err`.
+
+Modules for readers:
+
+* [`assert_fs_read_to_string`](https://docs.rs/assertables/latest/assertables/macro.assert_fs_read_to_string.html) for file system path contents.
+
+* [`assert_io_read_to_string`](https://docs.rs/assertables/latest/assertables/macro.assert_io_read_to_string.html) for input/output reader streams.
+
+Modules for external calls:
+
+* [`assert_command`](https://docs.rs/assertables/latest/assertables/macro.assert_command.html) for commands and their stdout & stderr.
+
+* [`assert_program_args`](https://docs.rs/assertables/latest/assertables/macro.assert_program_args.html) for programs with arguments and their stdout & stderr.
+
 
 ### Benefits
 
@@ -93,17 +122,6 @@ your code.
 * Zero dependencies: the crate has no release dependencies, and just a short list of development dependencies.
 
 
-### Forms
-
-Assertables macros come in three forms:
-
-* Panic macro: `assert_*` is for typical test uses with `cargo test`.
-
-* Debug macro: `debug_assert_*` is for runtime diagnostic configuration.
-
-* Result macro:  `assert_*_as_result` is for runtime production configuration, such as for site reliability engineering, chaos engineering, validations, verifications, sanitizations, and more.
-
-
 ### Naming conventions
 
 Abbreviations:
@@ -120,8 +138,7 @@ Abbreviations:
 
 * `ge` ≈ greater than or equal.
 
-
-Shorthands:
+Types:
 
 * `path` ≈ implements `AsRef<Path>` such as `std::path::PathBuf`.
 
@@ -138,159 +155,53 @@ Shorthands:
   key counts.
 
 
-## Complete list of assert macros
-
-
-### assert_* for values
-
-Compare values:
-
-* `assert_eq!(a, b)` ≈ a = b
-
-* `assert_ne!(a, b)` ≈ a ≠ b
-
-* `assert_ge!(a, b)` ≈ a ≥ b
-
-* `assert_gt!(a, b)` ≈ a > b
-
-* `assert_le!(a, b)` ≈ a ≤ b
-
-* `assert_lt!(a, b)` ≈ a < b
-
-
-## For infix operators
-
-Compare values by using an infix value operator:
-
-* `assert_infix!(a == b)` ≈ a == b
-
-* `assert_infix!(a != b)` ≈ a ≠ b
-
-* `assert_infix!(a < b)` ≈ a < b
-
-* `assert_infix!(a <= b)` ≈ a ≤ b
-
-* `assert_infix!(a > b)` ≈ a > b
-
-* `assert_infix!(a >= b)` ≈ a ≥ b
-
-Relate values by using an infix logical operator:
-
-* `assert_infix!(a & b)` ≈ a ∧ b ≈ a AND b
-
-* `assert_infix!(a | b)` ≈ a ∨ b ≈ a OR b
-
-* `assert_infix!(a ^ b)` ≈ a ⊻ b ≈ a XOR b
-
-* `assert_infix!(a && b)` ≈ a …∧ b ≈ a lazy AND b
-
-* `assert_infix!(a || b)` ≈ a …∨ b ≈ a lazy OR b
-
-
-### For nearness
-
-Compare values by using nearness math conventions:
-
-* `assert_in_delta!(a, b, delta)` ≈ | a - b | ≤ delta
-
-* `assert_in_epsilon(a, b, epsilon)` ≈ | a - b | ≤ epsilon * min(a, b)
-
-
-### For strings
-
-These macros help with strings and also other structures that provide
-matchers such as `starts_with`, `ends_width`, `contains`, and `is_match`.
-Each macro also has a corresponding `not` version.
-
-* `assert_starts_with(a, b)` ≈ a.starts_with(b)
-
-* `assert_ends_with(a, b)` ≈ a.ends_with(b)
-
-* `assert_contains(container, containee)` ≈ container.contains(containee)
-
-* `assert_is_match(matcher, matchee)` ≈ matcher.is_match(matchee)
-
-
-### For much more
-
-There are many more macros that are conveniently grouped into modules.
-
-For enums:
-
-* [`assert_option`] for `Option` (`Some`, `None`)
-
-* [`assert_result`] for `Result` (`Ok`, `Err`)
-
-For collections, such as arrays, vectors, lists, maps:
-
-* [`assert_set`] for set collections
-
-* [`assert_bag`] for bag collections
-
-For functions:
-
-* [`assert_fn`] for functions in general.
-
-* [`assert_fn_ok`] for functions that return Result::Ok.
-
-* [`assert_fn_err`] for functions that return Result::Err.
-
-For readers:
-
-* [`assert_fs_read_to_string`] for file system path contents.
-
-* [`assert_io_read_to_string`] for input/output reader streams.
-
-For external calls:
-
-* [`assert_command`] for commands and their stdout & stderr.
-
-* [`assert_program_args`] for programs with args and their stdout & stderr.
-
-
 ## Forms
 
 
 ### Forms for panic! versus Err()
 
-The assert macros have three forms that you can use depending on your goals:
+All the assert macros have 3 forms that you can use depending on your goals.
 
+Panic form for typical tests:
 
-```rust
-assert_gt!(a, b); // return () or panic!(…), for typical compile-time testing
+* [`assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html)
 
-debug_assert_gt!(a, b); // return () or panic!(…), for a non-optimized runtime
+Debug form for runtime:
 
-assert_gt_as_result!(a, b); // return Result Ok(()) or Err(…), for any runtime
-```
+* [`debug_assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.debug_assert_starts_with.html)
+
+Result form for runtime, validation, verification, sanitization, and more:
+
+* [`assert_starts_with_as_result!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with_as_result.html); // return Result Ok(()) or Err(…), for any runtime
 
 
 ### Forms for messages
 
-The assert macros have forms for default messages versus custom messages.
+All the assert macros have 2 forms that are for default messages versus custom messages.
 
-```rust
-assert_gt!(1, 2); // panic!("assertion failed: assert_gt(1, 2)…")
+Default message form:
 
-assert_gt!(1, 2, "message"); // panic!("message")
-```
+* [`assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html)
+
+Custom message form:
+
+* [`assert_starts_with!(a, b, "Your custom message here")`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html)
 
 
 ### Forms for comparing an other versus an expression
 
-Some assert macros have forms for comparing an other versus an expression:
+Many of the assert macros have 2 forms that are for comparing an item to an other of the same type versus to an expression.
 
-```rust
-assert_io_read_to_string_eq!(reader1, reader2); // reader1.read_to_string() = reader2.read_to_string()
+Compare an item to an other i.e. of the same type:
+ 
+* [`assert_io_read_to_string_eq!(reader1, reader2)`](https://docs.rs/assertables/latest/assertables/macro.assert_io_read_to_string_eq.html)
 
-assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = expr
-```
+Compare an item to an expression:
+
+* [`assert_io_read_to_string_eq_expr!(reader, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_io_read_to_string_eq_expr.html)
 
 
 ## Change highlights
-
-
-### Version 8
 
 8.2:
 
@@ -310,8 +221,7 @@ assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = e
 
 * Breaking change: rename `assert_read_to_string_*` macros to `assert_io_read_to_string_*`. If you use these macros, then please update your code to use the new naming convention.
 
-
-### Version 7
+7.x:
 
 * Add `assert_in_delta`, `assert_in_epsilon`.
 
@@ -319,8 +229,7 @@ assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = e
 
 * Add `cargo release` for optimized tagged releases.
 
-
-### Version 6
+6.x:
 
 * Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`.
 
@@ -332,8 +241,8 @@ assert_io_read_to_string_eq_expr!(reader, expr); // reader1.read_to_string() = e
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.2.0
+* Version: 8.2.1
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-09-04T20:21:53Z
+* Updated: 2024-09-07T12:31:17Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

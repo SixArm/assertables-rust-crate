@@ -1,4 +1,4 @@
-//! Assert macros for Option (Some or None)
+//! Assert macros for `Option` {`Some`, `None`}
 //!
 //! These macros help compare an `Option` that is either `Some`, `None`.
 //!

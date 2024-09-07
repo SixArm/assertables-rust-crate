@@ -123,7 +123,7 @@ assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_function, r
 ```
 
 
-Rust `assertables` provides these macros for functions that return a Result of Ok or Err:
+Rust `assertables` provides these macros for functions that return a Result of `Ok`, `Err`:
 
 * `assert_fn_ok_eq!`
 
