@@ -19,22 +19,22 @@ Assertables has two major differences:
 
 If there's an assertion from any of those crates that you would like us to add to Assertables, then let us know, or create a merge request, and we'll add it.
 
-| Category  | `assertables` | `claims` |
+| Category  | Assertables | claims & claim |
 |---------|--------|-------------|
-| Version | 8.2 |  0.7 |
+| Version | 8.3 |  0.7 |
 | Updated | 2024 | 2022 |
-| Compare  | [`assert_lt`](https://docs.rs/assertables/latest/assertables/assert_lt) <br> [`assert_le`](https://docs.rs/assertables/latest/assertables/assert_le) <br> [`assert_gt`](https://docs.rs/assertables/latest/assertables/assert_gt) <br> [`assert_ge`](https://docs.rs/assertables/latest/assertables/assert_ge) | assert_lt <br> assert_le <br> assert_gt <br> assert_ge |
+| Compare  | [`assert_lt`](https://docs.rs/assertables/latest/assertables/assert_lt) <br> [`assert_le`](https://docs.rs/assertables/latest/assertables/assert_le) <br> [`assert_gt`](https://docs.rs/assertables/latest/assertables/assert_gt) <br> [`assert_ge`](https://docs.rs/assertables/latest/assertables/assert_ge) | `assert_lt` <br> `assert_le` <br> `assert_gt` <br> `assert_ge` |
 | Nearness  | [`assert_in_delta`](https://docs.rs/assertables/latest/assertables/assert_in_delta) <br> [`assert_in_epsilon`](https://docs.rs/assertables/latest/assertables/assert_in_epsilon) | - <br> - |
-| Match    | [`assert_is_match`](https://docs.rs/assertables/latest/assertables/assert_is_match) <br> [`assert_not_match`](https://docs.rs/assertables/latest/assertables/assert_not_match) | assert_matches <br> - |
+| Match    | [`assert_is_match`](https://docs.rs/assertables/latest/assertables/assert_is_match) <br> [`assert_not_match`](https://docs.rs/assertables/latest/assertables/assert_not_match) | `assert_matches` <br> - |
 | Contains | [`assert_contains`](https://docs.rs/assertables/latest/assertables/assert_contains) <br> [`assert_not_contains`](https://docs.rs/assertables/latest/assertables/assert_not_contains) | - <br> - |
 | Starts/Ends | [`assert_starts_with`](https://docs.rs/assertables/latest/assertables/assert_starts_with) <br> [`assert_not_starts_with`](https://docs.rs/assertables/latest/assertables/assert_not_starts_with) <br> [`assert_ends_with`](https://docs.rs/assertables/latest/assertables/assert_ends_with) <br> [`assert_not_ends_with`](https://docs.rs/assertables/latest/assertables/assert_not_ends_with) | - <br> - <br> - <br> - |
-| Result  | [`assert_result_ok`](https://docs.rs/assertables/latest/assertables/assert_result/assert_result_ok) <br> [`assert_result_err`](https://docs.rs/assertables/latest/assertables/assert_result/assert_result_err) <br> todo | assert_result_ok <br> assert_result_err <br> assert_result_ok_eq |
-| Option  | [`assert_option_some`](https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some) <br> [`assert_option_none`](https://docs.rs/assertables/latest/assertables/assert_option/assert_option_none) <br> todo | assert_option_some <br> assert_option_none <br> assert_option_some_eq |
-| Poll    | [`assert_poll_ready`](https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready) <br> [`assert_poll_pending`](https://docs.rs/assertables/latest/assertables/assert_poll/assert_pending) <br> todo <br> todo | assert_ready <br> assert_pending <br> assert_ready_ok <br> assert_ready_err <br> assert_ready_eq |
+| Result  | [`assert_result_ok`](https://docs.rs/assertables/latest/assertables/assert_result/assert_result_ok) <br> [`assert_result_err`](https://docs.rs/assertables/latest/assertables/assert_result/assert_result_err) <br> `todo` | `assert_result_ok` <br> `assert_result_err` <br> `assert_result_ok_eq` |
+| Option  | [`assert_option_some`](https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some) <br> [`assert_option_none`](https://docs.rs/assertables/latest/assertables/assert_option/assert_option_none) <br> `todo` | `assert_option_some` <br> `assert_option_none` <br> `assert_option_some_eq` |
+| Poll    | [`assert_poll_ready`](https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready) <br> [`assert_poll_pending`](https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_pending) <br> `todo` <br> `todo` <br> `todo` | `assert_ready` <br> `assert_pending` <br> `assert_ready_ok` <br> `assert_ready_err` <br> `assert_ready_eq` |
 | Readers | [`assert_fs_read_to_string_*`](https://docs.rs/assertables/latest/assertables/assert_fs_read_to_string) <br> [`assert_io_read_to_string_*`](https://docs.rs/assertables/latest/assertables/assert_io_read_to_string) | - <br> - |
 | Commands | [`assert_command_*`](https://docs.rs/assertables/latest/assertables/assert_command) <br> [`assert_program_args_*`](https://docs.rs/assertables/latest/assertables/assert_program_args) | - <br> - |
 | Collections | [`assert_set_*`](https://docs.rs/assertables/latest/assertables/assert_set) <br> [`assert_bag_*`](https://docs.rs/assertables/latest/assertables/assert_bag) | - <br> - |
-| Functions | [`assert_fn`](https://docs.rs/assertables/latest/assertables/assert_fn) <br> [`assert_fn_ok_*`](https://docs.rs/assertables/latest/assertables/assert_fn_ok) <br> [`assert_fn_err_*`](https://docs.rs/assertables/latest/assertables/assert_fn_err) | - <br> - |
+| Functions | [`assert_fn_*`](https://docs.rs/assertables/latest/assertables/assert_fn) <br> [`assert_fn_ok_*`](https://docs.rs/assertables/latest/assertables/assert_fn_ok) <br> [`assert_fn_err_*`](https://docs.rs/assertables/latest/assertables/assert_fn_err) | - <br> - |
 
 
 ## Assertables has more logic leverage
