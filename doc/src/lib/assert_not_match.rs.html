@@ -201,8 +201,8 @@
 //! use regex::Regex;
 //!
 //! # fn main() {
-//! let a = Regex::new(r"foo").unwrap();
-//! let b = "yoohoo";
+//! let a = Regex::new(r"lf").unwrap();
+//! let b = "bravo";
 //! assert_not_match!(a, b);
 //! # }
 //! ```
@@ -261,24 +261,24 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_not_match_as_result_x_success() {
-        <span class="kw">let </span>a = Regex::new(<span class="string">r"foo"</span>).unwrap();
-        <span class="kw">let </span>b = <span class="string">"yoohoo"</span>;
+        <span class="kw">let </span>a = Regex::new(<span class="string">r"lf"</span>).unwrap();
+        <span class="kw">let </span>b = <span class="string">"bravo"</span>;
         <span class="kw">let </span>x = <span class="macro">assert_not_match_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(x.unwrap(), ());
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_not_match_as_result_x_failure() {
-        <span class="kw">let </span>a = Regex::new(<span class="string">r"foo"</span>).unwrap();
-        <span class="kw">let </span>b = <span class="string">"foogoo"</span>;
+        <span class="kw">let </span>a = Regex::new(<span class="string">r"lf"</span>).unwrap();
+        <span class="kw">let </span>b = <span class="string">"alfa"</span>;
         <span class="kw">let </span>x = <span class="macro">assert_not_match_as_result!</span>(a, b);
         <span class="kw">let </span>actual = x.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_not_match!(matcher, matchee)`\n"</span>,
             <span class="string">" matcher label: `a`,\n"</span>,
-            <span class="string">" matcher debug: `Regex(\"foo\")`,\n"</span>,
+            <span class="string">" matcher debug: `Regex(\"lf\")`,\n"</span>,
             <span class="string">" matchee label: `b`,\n"</span>,
-            <span class="string">" matchee debug: `\"foogoo\"`"
+            <span class="string">" matchee debug: `\"alfa\"`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -301,15 +301,15 @@
 ///
 /// # fn main() {
 /// // Return Ok
-/// let a = Regex::new(r"foo").unwrap();
-/// let b = "yoohoo";
+/// let a = Regex::new(r"lf").unwrap();
+/// let b = "bravo";
 /// assert_not_match!(a, b);
 /// //-&gt; ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a = Regex::new(r"foo").unwrap();
-/// let b = "foogoo";
+/// let a = Regex::new(r"lf").unwrap();
+/// let b = "alfa";
 /// assert_not_match!(a, b);
 /// //-&gt; panic!
 /// });
@@ -318,9 +318,9 @@
 /// let expect = concat!(
 ///     "assertion failed: `assert_not_match!(matcher, matchee)`\n",
 ///     " matcher label: `a`,\n",
-///     " matcher debug: `Regex(\"foo\")`,\n",
+///     " matcher debug: `Regex(\"lf\")`,\n",
 ///     " matchee label: `b`,\n",
-///     " matchee debug: `\"foogoo\"`"
+///     " matchee debug: `\"alfa\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

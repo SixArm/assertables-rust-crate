@@ -192,8 +192,8 @@
 //! # #[macro_use] extern crate assertables;
 //!
 //! # fn main() {
-//! let a = "foogoo";
-//! let b = "foo";
+//! let a = "alfa";
+//! let b = "al";
 //! assert_starts_with!(a, b);
 //! # }
 //! ```
@@ -250,24 +250,24 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_starts_with_as_result_x_success() {
-        <span class="kw">let </span>a = <span class="string">"foogoo"</span>;
-        <span class="kw">let </span>b = <span class="string">"foo"</span>;
+        <span class="kw">let </span>a = <span class="string">"alfa"</span>;
+        <span class="kw">let </span>b = <span class="string">"al"</span>;
         <span class="kw">let </span>x = <span class="macro">assert_starts_with_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(x.unwrap(), ());
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_starts_with_as_result_x_failure() {
-        <span class="kw">let </span>a = <span class="string">"foogoo"</span>;
-        <span class="kw">let </span>b = <span class="string">"goo"</span>;
+        <span class="kw">let </span>a = <span class="string">"alfa"</span>;
+        <span class="kw">let </span>b = <span class="string">"fa"</span>;
         <span class="kw">let </span>x = <span class="macro">assert_starts_with_as_result!</span>(a, b);
         <span class="kw">let </span>actual = x.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_starts_with!(a, b)`\n"</span>,
             <span class="string">" a label: `a`,\n"</span>,
-            <span class="string">" a debug: `\"foogoo\"`,\n"</span>,
+            <span class="string">" a debug: `\"alfa\"`,\n"</span>,
             <span class="string">" b label: `b`,\n"</span>,
-            <span class="string">" b debug: `\"goo\"`"
+            <span class="string">" b debug: `\"fa\"`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -287,15 +287,15 @@
 /// # use std::panic;
 /// # fn main() {
 /// // Return Ok
-/// let a = "foogoo";
-/// let b = "foo";
+/// let a = "alfa";
+/// let b = "al";
 /// assert_starts_with!(a, b);
 /// //-&gt; ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a = "foogoo";
-/// let b = "goo";
+/// let a = "alfa";
+/// let b = "fa";
 /// assert_starts_with!(a, b);
 /// //-&gt; panic!
 /// });
@@ -304,9 +304,9 @@
 /// let expect = concat!(
 ///     "assertion failed: `assert_starts_with!(a, b)`\n",
 ///     " a label: `a`,\n",
-///     " a debug: `\"foogoo\"`,\n",
+///     " a debug: `\"alfa\"`,\n",
 ///     " b label: `b`,\n",
-///     " b debug: `\"goo\"`"
+///     " b debug: `\"fa\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

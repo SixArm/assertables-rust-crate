@@ -6,8 +6,8 @@
 //! # #[macro_use] extern crate assertables;
 //!
 //! # fn main() {
-//! let a = "foogoo";
-//! let b = "goo";
+//! let a = "alfa";
+//! let b = "fa";
 //! assert_ends_with!(a, b);
 //! # }
 //! ```
@@ -64,24 +64,24 @@ mod tests {
 
     #[test]
     fn test_assert_ends_with_as_result_x_success() {
-        let a = "foogoo";
-        let b = "goo";
+        let a = "alfa";
+        let b = "fa";
         let x = assert_ends_with_as_result!(a, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_assert_ends_with_as_result_x_failure() {
-        let a = "foogoo";
-        let b = "foo";
+        let a = "alfa";
+        let b = "al";
         let x = assert_ends_with_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_ends_with!(a, b)`\n",
             " a label: `a`,\n",
-            " a debug: `\"foogoo\"`,\n",
+            " a debug: `\"alfa\"`,\n",
             " b label: `b`,\n",
-            " b debug: `\"foo\"`"
+            " b debug: `\"al\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -101,15 +101,15 @@ mod tests {
 /// # use std::panic;
 /// # fn main() {
 /// // Return Ok
-/// let a = "foogoo";
-/// let b = "goo";
+/// let a = "alfa";
+/// let b = "fa";
 /// assert_ends_with!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a = "foogoo";
-/// let b = "foo";
+/// let a = "alfa";
+/// let b = "al";
 /// assert_ends_with!(a, b);
 /// //-> panic!
 /// });
@@ -118,9 +118,9 @@ mod tests {
 /// let expect = concat!(
 ///     "assertion failed: `assert_ends_with!(a, b)`\n",
 ///     " a label: `a`,\n",
-///     " a debug: `\"foogoo\"`,\n",
+///     " a debug: `\"alfa\"`,\n",
 ///     " b label: `b`,\n",
-///     " b debug: `\"foo\"`"
+///     " b debug: `\"al\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

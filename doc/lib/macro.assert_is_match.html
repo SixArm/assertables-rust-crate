@@ -16,15 +16,15 @@ expressions with their debug representations.</p>
 <span class="kw">use </span>regex::Regex;
 
 <span class="comment">// Return Ok
-</span><span class="kw">let </span>a = Regex::new(<span class="string">r"foo"</span>).unwrap();
-<span class="kw">let </span>b = <span class="string">"foogoo"</span>;
+</span><span class="kw">let </span>a = Regex::new(<span class="string">r"lf"</span>).unwrap();
+<span class="kw">let </span>b = <span class="string">"alfa"</span>;
 <span class="macro">assert_is_match!</span>(a, b);
 <span class="comment">//-&gt; ()
 
 // Panic with error message
 </span><span class="kw">let </span>result = panic::catch_unwind(|| {
-<span class="kw">let </span>a = Regex::new(<span class="string">r"foo"</span>).unwrap();
-<span class="kw">let </span>b = <span class="string">"yoohoo"</span>;
+<span class="kw">let </span>a = Regex::new(<span class="string">r"lf"</span>).unwrap();
+<span class="kw">let </span>b = <span class="string">"bravo"</span>;
 <span class="macro">assert_is_match!</span>(a, b);
 <span class="comment">//-&gt; panic!
 </span>});
@@ -33,9 +33,9 @@ expressions with their debug representations.</p>
 <span class="kw">let </span>expect = <span class="macro">concat!</span>(
     <span class="string">"assertion failed: `assert_is_match!(matcher, matchee)`\n"</span>,
     <span class="string">" matcher label: `a`,\n"</span>,
-    <span class="string">" matcher debug: `Regex(\"foo\")`,\n"</span>,
+    <span class="string">" matcher debug: `Regex(\"lf\")`,\n"</span>,
     <span class="string">" matchee label: `b`,\n"</span>,
-    <span class="string">" matchee debug: `\"yoohoo\"`"
+    <span class="string">" matchee debug: `\"bravo\"`"
 </span>);
 <span class="macro">assert_eq!</span>(actual, expect);</code></pre></div>
 <h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>

@@ -6,9 +6,15 @@
 //! # #[macro_use] extern crate assertables;
 //!
 //! # fn main() {
-//! let a = "foogoo";
-//! let b = "oo";
+//! // String contains substring
+//! let a: &str  = "alfa";
+//! let b: &str = "lf";
 //! assert_contains!(a, b);
+//!
+//! // Range contains value
+//! let a = 1..5;
+//! let b = 2;
+//! assert_contains!(a, &b);
 //! # }
 //! ```
 //!
@@ -62,29 +68,58 @@ macro_rules! assert_contains_as_result {
 #[cfg(test)]
 mod tests {
 
+    //// For &str
+
     #[test]
-    fn test_assert_contains_as_result_x_success() {
-        let a = "foogoo";
-        let b = "oo";
+    fn test_assert_contains_as_result_x_str_x_success() {
+        let a = "alfa";
+        let b = "lf";
         let x = assert_contains_as_result!(a, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_contains_as_result_x_failure() {
-        let a = "foogoo";
+    fn test_assert_contains_as_result_x_str_x_failure() {
+        let a: &str = "alfa";
         let b = "zz";
         let x = assert_contains_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_contains!(container, containee)`\n",
             " container label: `a`,\n",
-            " container debug: `\"foogoo\"`,\n",
+            " container debug: `\"alfa\"`,\n",
             " containee label: `b`,\n",
             " containee debug: `\"zz\"`"
         );
         assert_eq!(actual, expect);
     }
+
+    //// For Range
+
+    #[test]
+    fn test_assert_contains_as_result_x_range_x_success() {
+        let a = 1..5;
+        let b = 2;
+        let x = assert_contains_as_result!(a, &b);
+        assert_eq!(x.unwrap(), ());
+    }
+
+    #[test]
+    fn test_assert_contains_as_result_x_range_x_failure() {
+        let a = 1..5;
+        let b = 6;
+        let x = assert_contains_as_result!(a, &b);
+        let actual = x.unwrap_err();
+        let expect = concat!(
+            "assertion failed: `assert_contains!(container, containee)`\n",
+            " container label: `a`,\n",
+            " container debug: `1..5`,\n",
+            " containee label: `&b`,\n",
+            " containee debug: `6`"
+        );
+        assert_eq!(actual, expect);
+    }
+
 }
 
 /// Assert a container is a match for an expression.
@@ -100,15 +135,21 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
-/// let a = "foogoo";
-/// let b = "oo";
+/// // Return Ok when a string contains a substring
+/// let a = "alfa";
+/// let b = "lf";
 /// assert_contains!(a, b);
+/// //-> ()
+///
+/// // Return Ok when a range contains a value
+/// let a = 1..5;
+/// let b = 2;
+/// assert_contains!(a, &b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a = "foogoo";
+/// let a = "alfa";
 /// let b = "zz";
 /// assert_contains!(a, b);
 /// //-> panic!
@@ -118,7 +159,7 @@ mod tests {
 /// let expect = concat!(
 ///     "assertion failed: `assert_contains!(container, containee)`\n",
 ///     " container label: `a`,\n",
-///     " container debug: `\"foogoo\"`,\n",
+///     " container debug: `\"alfa\"`,\n",
 ///     " containee label: `b`,\n",
 ///     " containee debug: `\"zz\"`"
 /// );

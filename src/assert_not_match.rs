@@ -8,8 +8,8 @@
 //! use regex::Regex;
 //!
 //! # fn main() {
-//! let a = Regex::new(r"foo").unwrap();
-//! let b = "yoohoo";
+//! let a = Regex::new(r"lf").unwrap();
+//! let b = "bravo";
 //! assert_not_match!(a, b);
 //! # }
 //! ```
@@ -68,24 +68,24 @@ mod tests {
 
     #[test]
     fn test_assert_not_match_as_result_x_success() {
-        let a = Regex::new(r"foo").unwrap();
-        let b = "yoohoo";
+        let a = Regex::new(r"lf").unwrap();
+        let b = "bravo";
         let x = assert_not_match_as_result!(a, b);
         assert_eq!(x.unwrap(), ());
     }
 
     #[test]
     fn test_assert_not_match_as_result_x_failure() {
-        let a = Regex::new(r"foo").unwrap();
-        let b = "foogoo";
+        let a = Regex::new(r"lf").unwrap();
+        let b = "alfa";
         let x = assert_not_match_as_result!(a, b);
         let actual = x.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_not_match!(matcher, matchee)`\n",
             " matcher label: `a`,\n",
-            " matcher debug: `Regex(\"foo\")`,\n",
+            " matcher debug: `Regex(\"lf\")`,\n",
             " matchee label: `b`,\n",
-            " matchee debug: `\"foogoo\"`"
+            " matchee debug: `\"alfa\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -108,15 +108,15 @@ mod tests {
 ///
 /// # fn main() {
 /// // Return Ok
-/// let a = Regex::new(r"foo").unwrap();
-/// let b = "yoohoo";
+/// let a = Regex::new(r"lf").unwrap();
+/// let b = "bravo";
 /// assert_not_match!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// let a = Regex::new(r"foo").unwrap();
-/// let b = "foogoo";
+/// let a = Regex::new(r"lf").unwrap();
+/// let b = "alfa";
 /// assert_not_match!(a, b);
 /// //-> panic!
 /// });
@@ -125,9 +125,9 @@ mod tests {
 /// let expect = concat!(
 ///     "assertion failed: `assert_not_match!(matcher, matchee)`\n",
 ///     " matcher label: `a`,\n",
-///     " matcher debug: `Regex(\"foo\")`,\n",
+///     " matcher debug: `Regex(\"lf\")`,\n",
 ///     " matchee label: `b`,\n",
-///     " matchee debug: `\"foogoo\"`"
+///     " matchee debug: `\"alfa\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

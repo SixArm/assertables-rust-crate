@@ -44,10 +44,20 @@ For infix numeric operators and infix logical operators:
 * [`assert_infix!(a == b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
 * [`assert_infix!(a && b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
 
-For maybes:
+For options:
+
+* [`assert_option_some!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some.html)
+* [`assert_option_none!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_none.html)
+
+For results:
 
 * [`assert_result_ok!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_ok.html)
-* [`assert_option_some!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some.html)
+* [`assert_result_err!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_err.html)
+
+For polls:
+
+* [`assert_poll_ready!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_ready.html)
+* [`assert_poll_pending!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_pending.html)
 
 For collections such as arrays, vectors, maps, sets:
 
@@ -61,8 +71,8 @@ For file system paths and input/output readers:
 
 For command capture of standard output and standard error:
 
-* [`assert_command_stdout_eq!(command1, command2)`](https://docs.rs/assertables/latest/assertables/macro.assert_command_stdout_eq.html);
-* [`assert_program_args_stdout_eq!(program1, args1, program2, args2`](https://docs.rs/assertables/latest/assertables/macro.assert_program_args_stdout_eq.html)
+* [`assert_command_stdout_eq!(command1, command2)`](https://docs.rs/assertables/latest/assertables/macro.assert_command_stdout_eq.html)
+* [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](https://docs.rs/assertables/latest/assertables/macro.assert_program_args_stdout_eq.html)
 
 There are many more macros that are grouped into modules.
 
@@ -70,7 +80,7 @@ Modules for enums:
 
 * [`assert_option`](https://docs.rs/assertables/latest/assertables/assert_option)for `Option` {`Some`, `None`}
 * [`assert_result`](https://docs.rs/assertables/latest/assertables/assert_result) for `Result` {`Ok`, `Err`}
-* [`assert_poll]`](https://docs.rs/assertables/latest/assertables/assert_poll) for `Poll` {`Ready`, `Pending`}
+* [`assert_poll`](https://docs.rs/assertables/latest/assertables/assert_poll) for `Poll` {`Ready`, `Pending`}
 
 Modules for collections, such as arrays, vectors, lists, maps:
 
@@ -137,6 +147,13 @@ Shorthands:
 * `container` ≈ such as `container.contains(containee)`
 * `set` ≈ a collection such as `::std::collections::BTreeSet`
 * `bag` ≈ a collection such as `::std::collections::BTreeMap`
+
+Samples:
+
+* `alfa, bravo, charlie, …`
+* `lorem, ipsum, dolor, …`
+* `lorem, ipsum, dolor, …`
+
 
 ## Forms
 

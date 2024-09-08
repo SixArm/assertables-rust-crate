@@ -46,11 +46,20 @@
 //! * [`assert_infix!(a == b)`](macro@crate::assert_infix)
 //! * [`assert_infix!(a && b)`](macro@crate::assert_infix)
 //!
-//! For enums:
+//! For results:
 //!
 //! * [`assert_result_ok!(a)`](macro@crate::assert_result_ok)
+//! * [`assert_result_err!(a)`](macro@crate::assert_result_err)
+//!
+//! For options:
+//!
 //! * [`assert_option_some!(a)`](macro@crate::assert_option_some)
+//! * [`assert_option_none!(a)`](macro@crate::assert_option_none)
+//!
+//! For polls:
+//!
 //! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready)
+//! * [`assert_poll_pending!(a)`](macro@crate::assert_poll_pending)
 //!
 //! For collections such as arrays, vectors, maps, sets:
 //!
@@ -64,8 +73,8 @@
 //!
 //! For command capture of standard output and standard error:
 //!
-//! * [`assert_command_stdout_eq!(command1, command2)`](macro@crate::assert_command_stdout_eq);
-//! * [`assert_program_args_stdout_eq!(program1, args1, program2, args2`](macro@crate::assert_program_args_stdout_eq);
+//! * [`assert_command_stdout_eq!(command1, command2)`](macro@crate::assert_command_stdout_eq)
+//! * [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](macro@crate::assert_program_args_stdout_eq);
 //!
 //! There are many more macros that are grouped into modules.
 //!
@@ -140,6 +149,12 @@
 //! * `container` ≈ such as `container.contains(containee)`
 //! * `set` ≈ a collection such as `::std::collections::BTreeSet`
 //! * `bag` ≈ a collection such as `::std::collections::BTreeMap`
+//!
+//! Samples:
+//!
+//! * `alfa, bravo, charlie, …`
+//! * `lorem, ipsum, dolor, …`
+//! * `foo, goo, hoo, …`
 //!
 //!
 //! ## Forms
