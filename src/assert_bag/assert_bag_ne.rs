@@ -4,7 +4,6 @@
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//!
 //! # fn main() {
 //! let a = [1, 1];
 //! let b = [1, 1, 1];

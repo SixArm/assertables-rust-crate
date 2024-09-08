@@ -4,7 +4,6 @@
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//!
 //! # fn main() {
 //! let a ="alfa.txt";
 //! let b ="bravo.txt";

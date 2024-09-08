@@ -4,7 +4,6 @@
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//!
 //! # fn main() {
 //! let path = "bravo.txt";
 //! let value = String::from("alfa\n");

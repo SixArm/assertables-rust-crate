@@ -4,7 +4,6 @@
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//!
 //! # fn main() {
 //! let a: Result<(), i8> = Result::Err(1);
 //! assert_result_err!(a);

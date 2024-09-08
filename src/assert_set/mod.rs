@@ -27,7 +27,6 @@
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
-//!
 //! # fn main() {
 //! let a = [1, 2];
 //! let b = [2, 1];
