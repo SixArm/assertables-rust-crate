@@ -44,15 +44,15 @@ For infix numeric operators and infix logical operators:
 * [`assert_infix!(a == b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
 * [`assert_infix!(a && b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
 
-For options:
-
-* [`assert_option_some!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some.html)
-* [`assert_option_none!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_none.html)
-
 For results:
 
 * [`assert_result_ok!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_ok.html)
 * [`assert_result_err!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_err.html)
+
+For options:
+
+* [`assert_option_some!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some.html)
+* [`assert_option_none!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_none.html)
 
 For polls:
 
