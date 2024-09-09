@@ -1,5 +1,7 @@
 //! Assert a number is within epsilon of another number.
 //!
+//! Calculate | a - b | ≤ epsilon * min(a, b)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -16,8 +18,7 @@
 //! approximations:
 //!
 //! * For an approximation, the absolute error (i.e. delta) is the magnitude of
-//!   the difference between the exact value and the approximation. For this,
-//!  use the macro
+//!   the difference between the exact value and the approximation. 
 //!
 //! * For an approximation, the relative error (i.e. epsilon) is the absolute
 //!   error divided by the magnitude of the exact value. This can be used to
@@ -37,6 +38,8 @@
 //! * [`debug_assert_in_epsilon`](macro@crate::debug_assert_in_epsilon)
 
 /// Assert a number is within epsilon of another number.
+///
+/// Calculate | a - b | ≤ epsilon * min(a, b)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -130,6 +133,8 @@ mod tests {
 }
 
 /// Assert a number is within epsilon of another number.
+///
+/// Calculate | a - b | ≤ epsilon * min(a, b)
 ///
 /// * If true, return `()`.
 ///
@@ -226,6 +231,8 @@ macro_rules! assert_in_epsilon {
 
 /// Assert a number is within epsilon of another number.
 ///
+/// Calculate | a - b | ≤ epsilon * min(a, b)
+/// 
 /// This macro provides the same statements as [`assert_in_epsilon`](macro.assert_in_epsilon.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

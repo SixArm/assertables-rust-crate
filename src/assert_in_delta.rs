@@ -1,5 +1,7 @@
 //! Assert a number is within delta of another number.
 //!
+//! Calculate | a - b | ≤ delta
+//! 
 //! # Example
 //!
 //! ```rust
@@ -38,6 +40,8 @@
 
 /// Assert a number is within delta of another number.
 ///
+/// Calculate | a - b | ≤ delta
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * When false, return [`Err`] with a message and the values of the
@@ -131,6 +135,8 @@ mod tests {
 
 /// Assert a number is within delta of another number.
 ///
+/// Calculate | a - b | ≤ delta
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -226,6 +232,8 @@ macro_rules! assert_in_delta {
 
 /// Assert a number is within delta of another number.
 ///
+/// Calculate | a - b | ≤ delta
+/// 
 /// This macro provides the same statements as [`assert_in_delta`](macro.assert_in_delta.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
