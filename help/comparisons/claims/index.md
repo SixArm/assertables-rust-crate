@@ -19,22 +19,190 @@ Assertables has two major differences:
 
 If there's an assertion from any of those crates that you would like us to add to Assertables, then let us know, or create a merge request, and we'll add it.
 
-| Category  | Assertables | claims & claim |
-|---------|--------|-------------|
-| Version | 8.3 |  0.7 |
-| Updated | 2024 | 2022 |
-| Compare  | [`assert_lt`](https://docs.rs/assertables/latest/assertables/assert_lt) <br> [`assert_le`](https://docs.rs/assertables/latest/assertables/assert_le) <br> [`assert_gt`](https://docs.rs/assertables/latest/assertables/assert_gt) <br> [`assert_ge`](https://docs.rs/assertables/latest/assertables/assert_ge) | `assert_lt` <br> `assert_le` <br> `assert_gt` <br> `assert_ge` |
-| Nearness  | [`assert_in_delta`](https://docs.rs/assertables/latest/assertables/assert_in_delta) <br> [`assert_in_epsilon`](https://docs.rs/assertables/latest/assertables/assert_in_epsilon) | - <br> - |
-| Match    | [`assert_is_match`](https://docs.rs/assertables/latest/assertables/assert_is_match) <br> [`assert_not_match`](https://docs.rs/assertables/latest/assertables/assert_not_match) | `assert_matches` <br> - |
-| Contains | [`assert_contains`](https://docs.rs/assertables/latest/assertables/assert_contains) <br> [`assert_not_contains`](https://docs.rs/assertables/latest/assertables/assert_not_contains) | - <br> - |
-| Starts/Ends | [`assert_starts_with`](https://docs.rs/assertables/latest/assertables/assert_starts_with) <br> [`assert_not_starts_with`](https://docs.rs/assertables/latest/assertables/assert_not_starts_with) <br> [`assert_ends_with`](https://docs.rs/assertables/latest/assertables/assert_ends_with) <br> [`assert_not_ends_with`](https://docs.rs/assertables/latest/assertables/assert_not_ends_with) | - <br> - <br> - <br> - |
-| Result  | [`assert_result_ok`](https://docs.rs/assertables/latest/assertables/assert_result/assert_result_ok) <br> [`assert_result_ok_eq`](https://docs.rs/assertables/latest/assertables/assert_result/assert_result_ok_eq) <br> [`assert_result_err`](https://docs.rs/assertables/latest/assertables/assert_result/assert_result_err) | `assert_ok` <br> `assert_ok_eq` <br> `assert_err` |
-| Option  | [`assert_option_some`](https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some) <br> [`assert_option_some_eq(planned)`](https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some_eq) <br> [`assert_option_none`](https://docs.rs/assertables/latest/assertables/assert_option/assert_option_none) | `assert_some` <br> `assert_some_eq` <br> `assert_none` |
-| Poll    | [`assert_poll_ready`](https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready) <br>  [`assert_poll_ready_eq(planned)`](https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_eq)  <br> [`assert_poll_ready_ok(planned)`](https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_ok) <br> [`assert_poll_ready_err(planned)`](https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_err) <br> [`assert_poll_pending`](https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_pending) | `assert_ready` <br> `assert_ready_eq` <br> `assert_ready_ok` <br> `assert_ready_err` <br>  `assert_pending` |
-| Readers | [`assert_fs_read_to_string_*`](https://docs.rs/assertables/latest/assertables/assert_fs_read_to_string) <br> [`assert_io_read_to_string_*`](https://docs.rs/assertables/latest/assertables/assert_io_read_to_string) | - <br> - |
-| Commands | [`assert_command_*`](https://docs.rs/assertables/latest/assertables/assert_command) <br> [`assert_program_args_*`](https://docs.rs/assertables/latest/assertables/assert_program_args) | - <br> - |
-| Collections | [`assert_set_*`](https://docs.rs/assertables/latest/assertables/assert_set) <br> [`assert_bag_*`](https://docs.rs/assertables/latest/assertables/assert_bag) | - <br> - |
-| Functions | [`assert_fn_*`](https://docs.rs/assertables/latest/assertables/assert_fn) <br> [`assert_fn_ok_*`](https://docs.rs/assertables/latest/assertables/assert_fn_ok) <br> [`assert_fn_err_*`](https://docs.rs/assertables/latest/assertables/assert_fn_err) | - <br> - |
+<table>
+
+<thead>
+
+<tr>
+<th>Category</th>
+<th>Assertables</th>
+<th>claims</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>Version</td> 
+<td>8.4</td>
+<td>0.7</td>
+</tr>
+
+<tr>
+<td>Updated</td>
+<td>2024</td>
+<td>2022</td>
+</tr>
+
+<tr>
+<td>
+Compare
+</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/macro.assert_lt.html">assert_lt</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/macro.assert_le.html">assert_le</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/macro.assert_gt.html">assert_gt</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/macro.assert_ge.html">assert_ge</a>
+</td>
+<td>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_lt.html">assert_lt</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_le</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_gt</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_ge</a>
+</td>
+</tr>
+
+<tr>
+<td>Nearness</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_in_delta">assert_in_delta</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_in_epsilon">assert_in_epsilon</a>
+</td>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>
+Match
+</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_is_match">assert_is_match</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_not_match">assert_not_match</a>
+</td>
+<td>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_matches.html">assert_matches</a><br>
+&nbsp;
+</td>
+</tr>
+
+<tr>
+<td>Contains</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_contains">assert_contains</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_not_contains">assert_not_contains</a>
+</td>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>Starts With</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_starts_with">assert_starts_with</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_not_starts_with">assert_not_starts_with</a>
+</td>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>Ends With</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_ends_with">assert_ends_with</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_not_ends_with">assert_not_ends_with</a>
+</td>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>Result </td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/macro.assert_result_err.html">assert_result_ok</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_result_ok_eq">assert_result_ok_eq</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_result_err">assert_result_err</a>
+</td>
+<td>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_ok</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_ok_eq.html">assert_ok_eq</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_err.html">assert_err</a>
+</td>
+</tr>
+
+<tr>
+<td>Option </td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some">assert_option_some</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some_eq">assert_option_some_eq</a>&nbsp;(eta&nbsp;2024-10)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_none">assert_option_none</a>
+</td>
+<td>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_some.html">assert_some</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_some_eq.html">assert_some_eq</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_none.html">assert_none</a>
+</td>
+</tr>
+
+<tr>
+<td>Poll</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready">assert_poll_ready</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_eq">assert_poll_ready_eq</a>&nbsp;(eta&nbsp;2024-11)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_ok">assert_poll_ready_ok</a>&nbsp;(eta&nbsp;2024-11)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_err">assert_poll_ready_err</a>&nbsp;(eta&nbsp;2024-11)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_pending">assert_poll_pending</a></td>
+</td>
+<td>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_ready.html">assert_ready</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_ready_eq.html">assert_ready_eq</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_ready_ok.html">assert_ready_ok</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_ready_err.html">assert_ready_err</a><br>
+<a href="https://docs.rs/claims/latest/claims/macro.assert_pending.html">assert_pending</a><br>
+</td>
+</tr>
+
+<tr>
+<td>Readers</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_fs_read_to_string">assert_fs_read_to_string_*</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_io_read_to_string">assert_io_read_to_string_*</a>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>Commands</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_command">assert_command_*</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_program_args">assert_program_args_*</a></td>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>Collections</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_set">assert_set_*</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_bag">assert_bag_*</a>
+</td>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>Functions</td>
+<td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_fn">assert_fn_*</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_fn_ok">assert_fn_ok_*</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_fn_err">assert_fn_err_*</a></td>
+<td>
+</td>
+</tr>
+
+</tbody>
+</table>
 
 
 ## Assertables has more logic leverage
