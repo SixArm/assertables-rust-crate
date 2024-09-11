@@ -30,7 +30,7 @@
 
 // Assert for Result
 pub mod assert_result_ok;
-// pub mod assert_result_ok_eq; //TODO
-// pub mod assert_result_ok_eq_expr; //TODO
+pub mod assert_result_ok_eq;
+pub mod assert_result_ok_ne;
 pub mod assert_result_err;
 
