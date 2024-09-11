@@ -46,15 +46,17 @@ macro_rules! assert_io_read_to_string_matches_as_result {
         if let Err(a_err) = a_result {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
-                    "   left_reader label: `{}`,\n",
-                    "   left_reader debug: `{:?}`,\n",
+                    "assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n",
+                    "   a_reader label: `{}`,\n",
+                    "   a_reader debug: `{:?}`,\n",
                     " right_matcher label: `{}`,\n",
                     " right_matcher debug: `{:?}`,\n",
                     "            left err: `{:?}`"
                 ),
-                stringify!($a_reader), $a_reader,
-                stringify!($b_matcher), $b_matcher,
+                stringify!($a_reader),
+                $a_reader,
+                stringify!($b_matcher),
+                $b_matcher,
                 a_err
             ))
         } else {
@@ -64,16 +66,18 @@ macro_rules! assert_io_read_to_string_matches_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
-                        "   left_reader label: `{}`,\n",
-                        "   left_reader debug: `{:?}`,\n",
+                        "assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n",
+                        "   a_reader label: `{}`,\n",
+                        "   a_reader debug: `{:?}`,\n",
                         " right_matcher label: `{}`,\n",
                         " right_matcher debug: `{:?}`,\n",
-                        "                left: `{:?}`,\n",
-                        "               right: `{:?}`",
+                        "       a: `{:?}`,\n",
+                        "       b: `{:?}`",
                     ),
-                    stringify!($a_reader), $a_reader,
-                    stringify!($b_matcher), $b_matcher,
+                    stringify!($a_reader),
+                    $a_reader,
+                    stringify!($b_matcher),
+                    $b_matcher,
                     a_string,
                     $b_matcher
                 ))
@@ -91,26 +95,26 @@ mod tests {
     fn test_assert_io_read_to_string_matches_as_result_x_success() {
         let mut reader = "alfa".as_bytes();
         let matcher = Regex::new(r"alfa").unwrap();
-        let x = assert_io_read_to_string_matches_as_result!(reader, matcher);
-        assert_eq!(x, Ok(()));
+        let result = assert_io_read_to_string_matches_as_result!(reader, matcher);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_io_read_to_string_matches_as_result_x_failure() {
         let mut reader = "alfa".as_bytes();
         let matcher = Regex::new(r"zzz").unwrap();
-        let x = assert_io_read_to_string_matches_as_result!(reader, matcher);
-        assert!(x.is_err());
+        let result = assert_io_read_to_string_matches_as_result!(reader, matcher);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
-                "   left_reader label: `reader`,\n",
-                "   left_reader debug: `[]`,\n",
+                "assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n",
+                "   a_reader label: `reader`,\n",
+                "   a_reader debug: `[]`,\n",
                 " right_matcher label: `matcher`,\n",
                 " right_matcher debug: `Regex(\"zzz\")`,\n",
-                "                left: `\"alfa\"`,\n",
-                "               right: `Regex(\"zzz\")`"
+                "       a: `\"alfa\"`,\n",
+                "       b: `Regex(\"zzz\")`"
             )
         );
     }
@@ -148,13 +152,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
-///     "   left_reader label: `reader`,\n",
-///     "   left_reader debug: `[]`,\n",
+///     "assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n",
+///     "   a_reader label: `reader`,\n",
+///     "   a_reader debug: `[]`,\n",
 ///     " right_matcher label: `matcher`,\n",
 ///     " right_matcher debug: `Regex(\"zzz\")`,\n",
-///     "                left: `\"hello\"`,\n",
-///     "               right: `Regex(\"zzz\")`"
+///     "       a: `\"hello\"`,\n",
+///     "       b: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

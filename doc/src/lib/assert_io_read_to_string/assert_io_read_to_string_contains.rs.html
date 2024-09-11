@@ -216,6 +216,10 @@
 <a href="#216" id="216">216</a>
 <a href="#217" id="217">217</a>
 <a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() contains a pattern.
 //!
 //! # Example
@@ -257,42 +261,46 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_io_read_to_string_contains_as_result {
-    (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b_containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span><span class="kw-2">mut </span>a_string = String::new();
-        <span class="kw">let </span>a_result = <span class="macro-nonterminal">$a_reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>a_string);
-        <span class="kw">if let </span><span class="prelude-val">Err</span>(a_err) = a_result {
+    (<span class="macro-nonterminal">$reader</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">let </span><span class="kw-2">mut </span>reader_string = String::new();
+        <span class="kw">let </span>reader_result = <span class="macro-nonterminal">$reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>reader_string);
+        <span class="kw">if let </span><span class="prelude-val">Err</span>(reader_err) = reader_result {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n"</span>,
-                    <span class="string">"     left_reader label: `{}`,\n"</span>,
-                    <span class="string">"     left_reader debug: `{:?}`,\n"</span>,
-                    <span class="string">" right_containee label: `{}`,\n"</span>,
-                    <span class="string">" right_containee debug: `{:?}`,\n"</span>,
-                    <span class="string">"              left err: `{:?}`"
+                    <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n"</span>,
+                    <span class="string">"    reader label: `{}`,\n"</span>,
+                    <span class="string">"    reader debug: `{:?}`,\n"</span>,
+                    <span class="string">" containee label: `{}`,\n"</span>,
+                    <span class="string">" containee debug: `{:?}`,\n"</span>,
+                    <span class="string">"      reader err: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>), <span class="macro-nonterminal">$a_reader</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_containee</span>), <span class="macro-nonterminal">$b_containee</span>,
-                a_err
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
+                <span class="macro-nonterminal">$reader</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
+                <span class="macro-nonterminal">$containee</span>,
+                reader_err
             ))
         } <span class="kw">else </span>{
-            <span class="kw">if </span>a_string.contains(<span class="macro-nonterminal">$b_containee</span>) {
+            <span class="kw">if </span>reader_string.contains(<span class="macro-nonterminal">$containee</span>) {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
-                <span class="kw">let </span>_a_size = a_result.unwrap();
+                <span class="kw">let </span>_reader_size = reader_result.unwrap();
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n"</span>,
-                        <span class="string">"     left_reader label: `{}`,\n"</span>,
-                        <span class="string">"     left_reader debug: `{:?}`,\n"</span>,
-                        <span class="string">" right_containee label: `{}`,\n"</span>,
-                        <span class="string">" right_containee debug: `{:?}`,\n"</span>,
-                        <span class="string">"                  left: `{:?}`,\n"</span>,
-                        <span class="string">"                 right: `{:?}`"</span>,
+                        <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n"</span>,
+                        <span class="string">"    reader label: `{}`,\n"</span>,
+                        <span class="string">"    reader debug: `{:?}`,\n"</span>,
+                        <span class="string">" containee label: `{}`,\n"</span>,
+                        <span class="string">" containee debug: `{:?}`,\n"</span>,
+                        <span class="string">"    reader value: `{:?}`,\n"</span>,
+                        <span class="string">" containee value: `{:?}`"</span>,
                     ),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>), <span class="macro-nonterminal">$a_reader</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_containee</span>), <span class="macro-nonterminal">$b_containee</span>,
-                    a_string,
-                    <span class="macro-nonterminal">$b_containee
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
+                    <span class="macro-nonterminal">$reader</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
+                    <span class="macro-nonterminal">$containee</span>,
+                    reader_string,
+                    <span class="macro-nonterminal">$containee
                 </span>))
             }
         }
@@ -308,26 +316,26 @@
     </span><span class="kw">fn </span>test_assert_io_read_to_string_contains_as_result_x_success() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>containee = <span class="string">"alfa"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_io_read_to_string_contains_as_result!</span>(reader, containee);
-        <span class="macro">assert_eq!</span>(x, <span class="prelude-val">Ok</span>(()));
+        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_contains_as_result!</span>(reader, containee);
+        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_io_read_to_string_contains_as_result_x_failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>containee = <span class="string">"zzz"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_io_read_to_string_contains_as_result!</span>(reader, containee);
-        <span class="macro">assert!</span>(x.is_err());
+        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_contains_as_result!</span>(reader, containee);
+        <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
-            x.unwrap_err(),
+            result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n"</span>,
-                <span class="string">"     left_reader label: `reader`,\n"</span>,
-                <span class="string">"     left_reader debug: `[]`,\n"</span>,
-                <span class="string">" right_containee label: `containee`,\n"</span>,
-                <span class="string">" right_containee debug: `\"zzz\"`,\n"</span>,
-                <span class="string">"                  left: `\"alfa\"`,\n"</span>,
-                <span class="string">"                 right: `\"zzz\"`"
+                <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n"</span>,
+                <span class="string">"    reader label: `reader`,\n"</span>,
+                <span class="string">"    reader debug: `[]`,\n"</span>,
+                <span class="string">" containee label: `containee`,\n"</span>,
+                <span class="string">" containee debug: `\"zzz\"`,\n"</span>,
+                <span class="string">"    reader value: `\"alfa\"`,\n"</span>,
+                <span class="string">" containee value: `\"zzz\"`"
             </span>)
         );
     }
@@ -364,13 +372,13 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n",
-///     "     left_reader label: `reader`,\n",
-///     "     left_reader debug: `[]`,\n",
-///     " right_containee label: `containee`,\n",
-///     " right_containee debug: `\"zzz\"`,\n",
-///     "                  left: `\"hello\"`,\n",
-///     "                 right: `\"zzz\"`"
+///     "assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n",
+///     "    reader label: `reader`,\n",
+///     "    reader debug: `[]`,\n",
+///     " containee label: `containee`,\n",
+///     " containee debug: `\"zzz\"`,\n",
+///     "    reader value: `\"hello\"`,\n",
+///     " containee value: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -384,14 +392,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_io_read_to_string_contains {
-    (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_io_read_to_string_contains_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$reader</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_io_read_to_string_contains_as_result!</span>(<span class="macro-nonterminal">$reader</span>, <span class="macro-nonterminal">$containee</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_io_read_to_string_contains_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_io_read_to_string_contains_as_result!</span>(<span class="macro-nonterminal">$reader</span>, <span class="macro-nonterminal">$containee</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

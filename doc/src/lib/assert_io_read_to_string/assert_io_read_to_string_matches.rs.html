@@ -218,6 +218,10 @@
 <a href="#218" id="218">218</a>
 <a href="#219" id="219">219</a>
 <a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() is a match to a regex.
 //!
 //! # Example
@@ -266,15 +270,17 @@
         <span class="kw">if let </span><span class="prelude-val">Err</span>(a_err) = a_result {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n"</span>,
-                    <span class="string">"   left_reader label: `{}`,\n"</span>,
-                    <span class="string">"   left_reader debug: `{:?}`,\n"</span>,
+                    <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n"</span>,
+                    <span class="string">"   a_reader label: `{}`,\n"</span>,
+                    <span class="string">"   a_reader debug: `{:?}`,\n"</span>,
                     <span class="string">" right_matcher label: `{}`,\n"</span>,
                     <span class="string">" right_matcher debug: `{:?}`,\n"</span>,
                     <span class="string">"            left err: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>), <span class="macro-nonterminal">$a_reader</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>), <span class="macro-nonterminal">$b_matcher</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
+                <span class="macro-nonterminal">$a_reader</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>),
+                <span class="macro-nonterminal">$b_matcher</span>,
                 a_err
             ))
         } <span class="kw">else </span>{
@@ -284,16 +290,18 @@
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n"</span>,
-                        <span class="string">"   left_reader label: `{}`,\n"</span>,
-                        <span class="string">"   left_reader debug: `{:?}`,\n"</span>,
+                        <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n"</span>,
+                        <span class="string">"   a_reader label: `{}`,\n"</span>,
+                        <span class="string">"   a_reader debug: `{:?}`,\n"</span>,
                         <span class="string">" right_matcher label: `{}`,\n"</span>,
                         <span class="string">" right_matcher debug: `{:?}`,\n"</span>,
-                        <span class="string">"                left: `{:?}`,\n"</span>,
-                        <span class="string">"               right: `{:?}`"</span>,
+                        <span class="string">"       a: `{:?}`,\n"</span>,
+                        <span class="string">"       b: `{:?}`"</span>,
                     ),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>), <span class="macro-nonterminal">$a_reader</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>), <span class="macro-nonterminal">$b_matcher</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
+                    <span class="macro-nonterminal">$a_reader</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>),
+                    <span class="macro-nonterminal">$b_matcher</span>,
                     a_string,
                     <span class="macro-nonterminal">$b_matcher
                 </span>))
@@ -311,26 +319,26 @@
     </span><span class="kw">fn </span>test_assert_io_read_to_string_matches_as_result_x_success() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>matcher = Regex::new(<span class="string">r"alfa"</span>).unwrap();
-        <span class="kw">let </span>x = <span class="macro">assert_io_read_to_string_matches_as_result!</span>(reader, matcher);
-        <span class="macro">assert_eq!</span>(x, <span class="prelude-val">Ok</span>(()));
+        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_matches_as_result!</span>(reader, matcher);
+        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_io_read_to_string_matches_as_result_x_failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>matcher = Regex::new(<span class="string">r"zzz"</span>).unwrap();
-        <span class="kw">let </span>x = <span class="macro">assert_io_read_to_string_matches_as_result!</span>(reader, matcher);
-        <span class="macro">assert!</span>(x.is_err());
+        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_matches_as_result!</span>(reader, matcher);
+        <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
-            x.unwrap_err(),
+            result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n"</span>,
-                <span class="string">"   left_reader label: `reader`,\n"</span>,
-                <span class="string">"   left_reader debug: `[]`,\n"</span>,
+                <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n"</span>,
+                <span class="string">"   a_reader label: `reader`,\n"</span>,
+                <span class="string">"   a_reader debug: `[]`,\n"</span>,
                 <span class="string">" right_matcher label: `matcher`,\n"</span>,
                 <span class="string">" right_matcher debug: `Regex(\"zzz\")`,\n"</span>,
-                <span class="string">"                left: `\"alfa\"`,\n"</span>,
-                <span class="string">"               right: `Regex(\"zzz\")`"
+                <span class="string">"       a: `\"alfa\"`,\n"</span>,
+                <span class="string">"       b: `Regex(\"zzz\")`"
             </span>)
         );
     }
@@ -368,13 +376,13 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_matches!(left_reader, right_matcher)`\n",
-///     "   left_reader label: `reader`,\n",
-///     "   left_reader debug: `[]`,\n",
+///     "assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n",
+///     "   a_reader label: `reader`,\n",
+///     "   a_reader debug: `[]`,\n",
 ///     " right_matcher label: `matcher`,\n",
 ///     " right_matcher debug: `Regex(\"zzz\")`,\n",
-///     "                left: `\"hello\"`,\n",
-///     "               right: `Regex(\"zzz\")`"
+///     "       a: `\"hello\"`,\n",
+///     "       b: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

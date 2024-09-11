@@ -1,7 +1,7 @@
 //! Assert a number is within epsilon of another number.
 //!
 //! Calculate | a - b | ≤ epsilon * min(a, b)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -18,7 +18,7 @@
 //! approximations:
 //!
 //! * For an approximation, the absolute error (i.e. delta) is the magnitude of
-//!   the difference between the exact value and the approximation. 
+//!   the difference between the exact value and the approximation.
 //!
 //! * For an approximation, the relative error (i.e. epsilon) is the absolute
 //!   error divided by the magnitude of the exact value. This can be used to
@@ -71,15 +71,16 @@ macro_rules! assert_in_epsilon_as_result {
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_in_epsilon!(left, right, epsilon)`\n",
-                            "    left label: `{}`,\n",
-                            "    left debug: `{:?}`,\n",
-                            "   right label: `{}`,\n",
-                            "   right debug: `{:?}`,\n",
+                            "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
+                            "       a label: `{}`,\n",
+                            "       a debug: `{:?}`,\n",
+                            "       b label: `{}`,\n",
+                            "       b debug: `{:?}`,\n",
                             " epsilon label: `{}`,\n",
                             " epsilon debug: `{:?}`,\n",
-                            "          left: `{:?}`,\n",
-                            "         right: `{:?}`"
+                            "       a value: `{:?}`,\n",
+                            "       b value: `{:?}`,\n",
+                            " epsilon value: `{:?}`"
                         ),
                         stringify!($a),
                         $a,
@@ -88,7 +89,8 @@ macro_rules! assert_in_epsilon_as_result {
                         stringify!($epsilon),
                         $epsilon,
                         a_val,
-                        b_val
+                        b_val,
+                        epsilon_val
                     ))
                 }
             }
@@ -104,8 +106,8 @@ mod tests {
         let a: i8 = 10;
         let b: i8 = 20;
         let epsilon: i8 = 1;
-        let x = assert_in_epsilon_as_result!(a, b, epsilon);
-        assert_eq!(x, Ok(()));
+        let result = assert_in_epsilon_as_result!(a, b, epsilon);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
@@ -113,20 +115,21 @@ mod tests {
         let a: i8 = 10;
         let b: i8 = 30;
         let epsilon: i8 = 1;
-        let x = assert_in_epsilon_as_result!(a, b, epsilon);
-        assert!(x.is_err());
+        let result = assert_in_epsilon_as_result!(a, b, epsilon);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_in_epsilon!(left, right, epsilon)`\n",
-                "    left label: `a`,\n",
-                "    left debug: `10`,\n",
-                "   right label: `b`,\n",
-                "   right debug: `30`,\n",
+                "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
+                "       a label: `a`,\n",
+                "       a debug: `10`,\n",
+                "       b label: `b`,\n",
+                "       b debug: `30`,\n",
                 " epsilon label: `epsilon`,\n",
                 " epsilon debug: `1`,\n",
-                "          left: `10`,\n",
-                "         right: `30`"
+                "       a value: `10`,\n",
+                "       b value: `30`,\n",
+                " epsilon value: `1`",
             )
         );
     }
@@ -165,15 +168,16 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_in_epsilon!(left, right, epsilon)`\n",
-///     "    left label: `a`,\n",
-///     "    left debug: `10`,\n",
-///     "   right label: `b`,\n",
-///     "   right debug: `30`,\n",
+///     "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
+///     "       a label: `a`,\n",
+///     "       a debug: `10`,\n",
+///     "       b label: `b`,\n",
+///     "       b debug: `30`,\n",
 ///     " epsilon label: `epsilon`,\n",
 ///     " epsilon debug: `1`,\n",
-///     "          left: `10`,\n",
-///     "         right: `30`"
+///     "       a value: `10`,\n",
+///     "       b value: `30`,\n",
+///     " epsilon value: `1`"
 /// );
 /// assert_eq!(actual, expect);
 ///
@@ -232,7 +236,7 @@ macro_rules! assert_in_epsilon {
 /// Assert a number is within epsilon of another number.
 ///
 /// Calculate | a - b | ≤ epsilon * min(a, b)
-/// 
+///
 /// This macro provides the same statements as [`assert_in_epsilon`](macro.assert_in_epsilon.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

@@ -45,15 +45,17 @@ macro_rules! assert_command_stderr_eq_expr_as_result {
         if a_output.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_command_stderr_eq_expr!(left_command, right_expr)`\n",
-                    " left_command label: `{}`,\n",
-                    " left_command debug: `{:?}`,\n",
-                    "   right_expr label: `{}`,\n",
-                    "   right_expr debug: `{:?}`,\n",
-                    "        left output: `{:?}`"
+                    "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
+                    "  command label: `{}`,\n",
+                    "     expr label: `{}`,\n",
+                    "  command debug: `{:?}`,\n",
+                    "     expr debug: `{:?}`,\n",
+                    " command output: `{:?}`"
                 ),
-                stringify!($a_command), $a_command,
-                stringify!($b_expr), $b_expr,
+                stringify!($a_command),
+                stringify!($b_expr),
+                $a_command,
+                $b_expr,
                 a_output
             ))
         } else {
@@ -63,16 +65,18 @@ macro_rules! assert_command_stderr_eq_expr_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_command_stderr_eq_expr!(left_command, right_expr)`\n",
-                        " left_command label: `{}`,\n",
-                        " left_command debug: `{:?}`,\n",
-                        "   right_expr label: `{}`,\n",
-                        "   right_expr debug: `{:?}`,\n",
-                        "               left: `{:?}`,\n",
-                        "              right: `{:?}`"
+                        "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
+                        " command label: `{}`,\n",
+                        "    expr label: `{}`,\n",
+                        " command debug: `{:?}`,\n",
+                        "    expr debug: `{:?}`,\n",
+                        " command value: `{:?}`,\n",
+                        "    expr value: `{:?}`"
                     ),
-                    stringify!($a_command), $a_command,
-                    stringify!($b_expr), $b_expr,
+                    stringify!($a_command),
+                    stringify!($b_expr),
+                    $a_command,
+                    $b_expr,
                     a_string,
                     $b_expr
                 ))
@@ -91,8 +95,8 @@ mod tests {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "hello"]);
         let b = String::from("hello");
-        let x = assert_command_stderr_eq_expr_as_result!(a, b);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_command_stderr_eq_expr_as_result!(a, b);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
@@ -100,16 +104,16 @@ mod tests {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "hello"]);
         let b = String::from("zzz");
-        let x = assert_command_stderr_eq_expr_as_result!(a, b);
-        let actual = x.unwrap_err();
+        let result = assert_command_stderr_eq_expr_as_result!(a, b);
+        let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stderr_eq_expr!(left_command, right_expr)`\n",
-            " left_command label: `a`,\n",
-            " left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-            "   right_expr label: `b`,\n",
-            "   right_expr debug: `\"zzz\"`,\n",
-            "               left: `\"hello\"`,\n",
-            "              right: `\"zzz\"`"
+            "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
+            " command label: `a`,\n",
+            "    expr label: `b`,\n",
+            " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+            "    expr debug: `\"zzz\"`,\n",
+            " command value: `\"hello\"`,\n",
+            "    expr value: `\"zzz\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -148,13 +152,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stderr_eq_expr!(left_command, right_expr)`\n",
-///     " left_command label: `command`,\n",
-///     " left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-///     "   right_expr label: `s`,\n",
-///     "   right_expr debug: `\"zzz\"`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `\"zzz\"`"
+///     "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
+///     " command label: `command`,\n",
+///     "    expr label: `s`,\n",
+///     " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+///     "    expr debug: `\"zzz\"`,\n",
+///     " command value: `\"hello\"`,\n",
+///     "    expr value: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 ///

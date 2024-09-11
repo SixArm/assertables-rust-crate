@@ -1,8 +1,8 @@
 //! Validation examples
-//! 
+//!
 //! The Assertables macros can be useful for runtime validation, verification,
 //! sanitization, reliability engineering, chaos engineering, and the like.
-//! 
+//!
 //! This file has some very simple demonstrations of how to use Assertables in
 //! validations.
 

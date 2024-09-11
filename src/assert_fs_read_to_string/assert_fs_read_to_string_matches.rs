@@ -44,15 +44,17 @@ macro_rules! assert_fs_read_to_string_matches_as_result {
         if let Err(a_err) = a_result {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n",
-                    "     left_path label: `{}`,\n",
-                    "     left_path debug: `{:?}`,\n",
+                    "assertion failed: `assert_fs_read_to_string_matches!(a_path, right_matcher)`\n",
+                    "     a_path label: `{}`,\n",
+                    "     a_path debug: `{:?}`,\n",
                     " right_matcher label: `{}`,\n",
                     " right_matcher debug: `{:?}`,\n",
-                    "            left err: `{:?}`"
+                    "            a err: `{:?}`"
                 ),
-                stringify!($a_path), $a_path,
-                stringify!($b_matcher), $b_matcher,
+                stringify!($a_path),
+                $a_path,
+                stringify!($b_matcher),
+                $b_matcher,
                 a_err
             ))
         } else {
@@ -62,16 +64,18 @@ macro_rules! assert_fs_read_to_string_matches_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n",
-                        "     left_path label: `{}`,\n",
-                        "     left_path debug: `{:?}`,\n",
+                        "assertion failed: `assert_fs_read_to_string_matches!(a_path, right_matcher)`\n",
+                        "     a_path label: `{}`,\n",
+                        "     a_path debug: `{:?}`,\n",
                         " right_matcher label: `{}`,\n",
                         " right_matcher debug: `{:?}`,\n",
-                        "                left: `{:?}`,\n",
-                        "               right: `{:?}`",
+                        "       a: `{:?}`,\n",
+                        "       b: `{:?}`",
                     ),
-                    stringify!($a_path), $a_path,
-                    stringify!($b_matcher), $b_matcher,
+                    stringify!($a_path),
+                    $a_path,
+                    stringify!($b_matcher),
+                    $b_matcher,
                     a_string,
                     $b_matcher
                 ))
@@ -98,29 +102,29 @@ mod tests {
     fn test_read_to_string_matches_as_result_x_success() {
         let path = DIR.join("alfa.txt");
         let matcher = Regex::new(r"alfa").unwrap();
-        let x = assert_fs_read_to_string_matches_as_result!(&path, matcher);
-        assert_eq!(x, Ok(()));
+        let result = assert_fs_read_to_string_matches_as_result!(&path, matcher);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_read_to_string_matches_as_result_x_failure() {
         let path = DIR.join("alfa.txt");
         let matcher = Regex::new(r"zzz").unwrap();
-        let x = assert_fs_read_to_string_matches_as_result!(&path, matcher);
-        assert!(x.is_err());
+        let result = assert_fs_read_to_string_matches_as_result!(&path, matcher);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             format!(
                 "{}{}{}{}{}{}{}{}{}",
-                "assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n",
-                "     left_path label: `&path`,\n",
-                "     left_path debug: `\"",
+                "assertion failed: `assert_fs_read_to_string_matches!(a_path, right_matcher)`\n",
+                "     a_path label: `&path`,\n",
+                "     a_path debug: `\"",
                 path.to_string_lossy(),
                 "\"`,\n",
                 " right_matcher label: `matcher`,\n",
                 " right_matcher debug: `Regex(\"zzz\")`,\n",
-                "                left: `\"alfa\\n\"`,\n",
-                "               right: `Regex(\"zzz\")`"
+                "       a: `\"alfa\\n\"`,\n",
+                "       b: `Regex(\"zzz\")`"
             )
         );
     }
@@ -158,13 +162,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n",
-///     "     left_path label: `&path`,\n",
-///     "     left_path debug: `\"alfa.txt\"`,\n",
+///     "assertion failed: `assert_fs_read_to_string_matches!(a_path, right_matcher)`\n",
+///     "     a_path label: `&path`,\n",
+///     "     a_path debug: `\"alfa.txt\"`,\n",
 ///     " right_matcher label: `matcher`,\n",
 ///     " right_matcher debug: `Regex(\"zzz\")`,\n",
-///     "                left: `\"alfa\\n\"`,\n",
-///     "               right: `Regex(\"zzz\")`"
+///     "       a: `\"alfa\\n\"`,\n",
+///     "       b: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

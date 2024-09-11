@@ -41,41 +41,45 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_is_match_as_result {
-    ($a_command:expr, $b_matcher:expr $(,)?) => ({
-        let a_output = $a_command.output();
-        if a_output.is_err() {
+    ($command:expr, $matcher:expr $(,)?) => ({
+        let output = $command.output();
+        if output.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_command_stderr_is_match!(left_command, right_matcher)`\n",
-                    " left_command label: `{}`,\n",
-                    " left_command debug: `{:?}`,\n",
-                    "  right_matcher label: `{}`,\n",
-                    "  right_matcher debug: `{:?}`,\n",
-                    "        left output: `{:?}`"
+                    "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
+                    " command label: `{}`,\n",
+                    " command debug: `{:?}`,\n",
+                    " matcher label: `{}`,\n",
+                    " matcher debug: `{:?}`,\n",
+                    " command output: `{:?}`"
                 ),
-                stringify!($a_command), $a_command,
-                stringify!($b_matcher), $b_matcher,
-                a_output
+                stringify!($command),
+                $command,
+                stringify!($matcher),
+                $matcher,
+                output
             ))
         } else {
-            let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if $b_matcher.is_match(&a_string) {
+            let string = String::from_utf8(output.unwrap().stderr).unwrap();
+            if $matcher.is_match(&string) {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_command_stderr_is_match!(left_command, right_matcher)`\n",
-                        "  left_command label: `{}`,\n",
-                        "  left_command debug: `{:?}`,\n",
-                        " right_matcher label: `{}`,\n",
-                        " right_matcher debug: `{:?}`,\n",
-                        "                left: `{:?}`,\n",
-                        "               right: `{:?}`"
+                        "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
+                        " command label: `{}`,\n",
+                        " command debug: `{:?}`,\n",
+                        " matcher label: `{}`,\n",
+                        " matcher debug: `{:?}`,\n",
+                        " command value: `{:?}`,\n",
+                        " matcher value: `{:?}`"
                     ),
-                    stringify!($a_command), $a_command,
-                    stringify!($b_matcher), $b_matcher,
-                    a_string,
-                    $b_matcher
+                    stringify!($command),
+                    $command,
+                    stringify!($matcher),
+                    $matcher,
+                    string,
+                    $matcher
                 ))
             }
         }
@@ -93,8 +97,8 @@ mod tests {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "hello"]);
         let b = Regex::new(r"ell").unwrap();
-        let x = assert_command_stderr_is_match_as_result!(a, b);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_command_stderr_is_match_as_result!(a, b);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
@@ -102,16 +106,16 @@ mod tests {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "hello"]);
         let b = Regex::new(r"zzz").unwrap();
-        let x = assert_command_stderr_is_match_as_result!(a, b);
-        let actual = x.unwrap_err();
+        let result = assert_command_stderr_is_match_as_result!(a, b);
+        let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stderr_is_match!(left_command, right_matcher)`\n",
-            "  left_command label: `a`,\n",
-            "  left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-            " right_matcher label: `b`,\n",
-            " right_matcher debug: `Regex(\"zzz\")`,\n",
-            "                left: `\"hello\"`,\n",
-            "               right: `Regex(\"zzz\")`"
+            "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
+            " command label: `a`,\n",
+            " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+            " matcher label: `b`,\n",
+            " matcher debug: `Regex(\"zzz\")`,\n",
+            " command value: `\"hello\"`,\n",
+            " matcher value: `Regex(\"zzz\")`"
         );
         assert_eq!(actual, expect);
     }
@@ -151,13 +155,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stderr_is_match!(left_command, right_matcher)`\n",
-///     "  left_command label: `command`,\n",
-///     "  left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `Regex(\"zzz\")`,\n",
-///     "                left: `\"hello\"`,\n",
-///     "               right: `Regex(\"zzz\")`"
+///     "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
+///     " command label: `command`,\n",
+///     " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+///     " matcher label: `matcher`,\n",
+///     " matcher debug: `Regex(\"zzz\")`,\n",
+///     " command value: `\"hello\"`,\n",
+///     " matcher value: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 ///
@@ -183,14 +187,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_is_match {
-    ($a_command:expr, $b_matcher:expr $(,)?) => ({
-        match assert_command_stderr_is_match_as_result!($a_command, $b_matcher) {
+    ($command:expr, $matcher:expr $(,)?) => ({
+        match assert_command_stderr_is_match_as_result!($command, $matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_command:expr, $b_matcher:expr, $($message:tt)+) => ({
-        match assert_command_stderr_is_match_as_result!($a_command, $b_matcher) {
+    ($command:expr, $matcher:expr, $($message:tt)+) => ({
+        match assert_command_stderr_is_match_as_result!($command, $matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

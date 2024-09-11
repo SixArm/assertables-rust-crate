@@ -49,22 +49,26 @@ macro_rules! assert_program_args_stderr_lt_as_result {
         if a_output.is_err() || b_output.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_program_args_stderr_lt!(left_program, left_args, right_program, right_args)`\n",
-                    "  left_program label: `{}`,\n",
-                    "  left_program debug: `{:?}`,\n",
-                    "     left_args label: `{}`,\n",
-                    "     left_args debug: `{:?}`,\n",
-                    " right_program label: `{}`,\n",
-                    " right_program debug: `{:?}`,\n",
-                    "    right_args label: `{}`,\n",
-                    "    right_args debug: `{:?}`,\n",
-                    "         left output: `{:?}`,\n",
-                    "        right output: `{:?}`"
+                    "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
+                    " a_program label: `{}`,\n",
+                    " a_program debug: `{:?}`,\n",
+                    "    a_args label: `{}`,\n",
+                    "    a_args debug: `{:?}`,\n",
+                    " b_program label: `{}`,\n",
+                    " b_program debug: `{:?}`,\n",
+                    "    b_args label: `{}`,\n",
+                    "    b_args debug: `{:?}`,\n",
+                    "        a output: `{:?}`,\n",
+                    "        b output: `{:?}`"
                 ),
-                stringify!($a_program), $a_program,
-                stringify!($a_args), $a_args,
-                stringify!($b_program), $b_program,
-                stringify!($b_args), $b_args,
+                stringify!($a_program),
+                $a_program,
+                stringify!($a_args),
+                $a_args,
+                stringify!($b_program),
+                $b_program,
+                stringify!($b_args),
+                $b_args,
                 a_output,
                 b_output
             ))
@@ -76,22 +80,26 @@ macro_rules! assert_program_args_stderr_lt_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_program_args_stderr_lt!(left_program, left_args, right_program, right_args)`\n",
-                        "  left_program label: `{}`,\n",
-                        "  left_program debug: `{:?}`,\n",
-                        "     left_args label: `{}`,\n",
-                        "     left_args debug: `{:?}`,\n",
-                        " right_program label: `{}`,\n",
-                        " right_program debug: `{:?}`,\n",
-                        "    right_args label: `{}`,\n",
-                        "    right_args debug: `{:?}`,\n",
-                        "                left: `{:?}`,\n",
-                        "               right: `{:?}`"
+                        "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
+                        " a_program label: `{}`,\n",
+                        " a_program debug: `{:?}`,\n",
+                        "    a_args label: `{}`,\n",
+                        "    a_args debug: `{:?}`,\n",
+                        " b_program label: `{}`,\n",
+                        " b_program debug: `{:?}`,\n",
+                        "    b_args label: `{}`,\n",
+                        "    b_args debug: `{:?}`,\n",
+                        "               a: `{:?}`,\n",
+                        "               b: `{:?}`"
                     ),
-                    stringify!($a_program), $a_program,
-                    stringify!($a_args), $a_args,
-                    stringify!($b_program), $b_program,
-                    stringify!($b_args), $b_args,
+                    stringify!($a_program),
+                    $a_program,
+                    stringify!($a_args),
+                    $a_args,
+                    stringify!($b_program),
+                    $b_program,
+                    stringify!($b_args),
+                    $b_args,
                     a_string,
                     b_string
                 ))
@@ -109,8 +117,8 @@ mod tests {
         let a_args = ["%s", "hello"];
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "hullo"];
-        let x = assert_program_args_stderr_lt_as_result!(&a_program, &a_args, &b_program, &b_args);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_program_args_stderr_lt_as_result!(&a_program, &a_args, &b_program, &b_args);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
@@ -119,20 +127,20 @@ mod tests {
         let a_args = ["%s", "hello"];
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "hallo"];
-        let x = assert_program_args_stderr_lt_as_result!(&a_program, &a_args, &b_program, &b_args);
-        let actual = x.unwrap_err();
+        let result = assert_program_args_stderr_lt_as_result!(&a_program, &a_args, &b_program, &b_args);
+        let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_program_args_stderr_lt!(left_program, left_args, right_program, right_args)`\n",
-            "  left_program label: `&a_program`,\n",
-            "  left_program debug: `\"bin/printf-stderr\"`,\n",
-            "     left_args label: `&a_args`,\n",
-            "     left_args debug: `[\"%s\", \"hello\"]`,\n",
-            " right_program label: `&b_program`,\n",
-            " right_program debug: `\"bin/printf-stderr\"`,\n",
-            "    right_args label: `&b_args`,\n",
-            "    right_args debug: `[\"%s\", \"hallo\"]`,\n",
-            "                left: `\"hello\"`,\n",
-            "               right: `\"hallo\"`"
+            "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
+            " a_program label: `&a_program`,\n",
+            " a_program debug: `\"bin/printf-stderr\"`,\n",
+            "    a_args label: `&a_args`,\n",
+            "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+            " b_program label: `&b_program`,\n",
+            " b_program debug: `\"bin/printf-stderr\"`,\n",
+            "    b_args label: `&b_args`,\n",
+            "    b_args debug: `[\"%s\", \"hallo\"]`,\n",
+            "               a: `\"hello\"`,\n",
+            "               b: `\"hallo\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -170,17 +178,17 @@ mod tests {
 /// # });
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_program_args_stderr_lt!(left_program, left_args, right_program, right_args)`\n",
-///     "  left_program label: `&a_program`,\n",
-///     "  left_program debug: `\"bin/printf-stderr\"`,\n",
-///     "     left_args label: `&a_args`,\n",
-///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " right_program label: `&b_program`,\n",
-///     " right_program debug: `\"bin/printf-stderr\"`,\n",
-///     "    right_args label: `&b_args`,\n",
-///     "    right_args debug: `[\"%s\", \"hallo\"]`,\n",
-///     "                left: `\"hello\"`,\n",
-///     "               right: `\"hallo\"`"
+///     "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
+///     " a_program label: `&a_program`,\n",
+///     " a_program debug: `\"bin/printf-stderr\"`,\n",
+///     "    a_args label: `&a_args`,\n",
+///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+///     " b_program label: `&b_program`,\n",
+///     " b_program debug: `\"bin/printf-stderr\"`,\n",
+///     "    b_args label: `&b_args`,\n",
+///     "    b_args debug: `[\"%s\", \"hallo\"]`,\n",
+///     "               a: `\"hello\"`,\n",
+///     "               b: `\"hallo\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

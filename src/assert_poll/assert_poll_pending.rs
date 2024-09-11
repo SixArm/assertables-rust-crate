@@ -69,17 +69,17 @@ mod tests {
     #[test]
     fn test_assert_poll_pending_as_result_x_success() {
         let a: Poll<i8> = Poll::Pending;
-        let x = assert_poll_pending_as_result!(a);
-        assert_eq!(x, Ok(()));
+        let result = assert_poll_pending_as_result!(a);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_poll_pending_as_result_x_failure() {
         let a: Poll<i8> = Poll::Ready(1);
-        let x = assert_poll_pending_as_result!(a);
-        assert!(x.is_err());
+        let result = assert_poll_pending_as_result!(a);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_poll_pending!(expr)`\n",
                 "        expr label: `a`,\n",

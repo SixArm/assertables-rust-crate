@@ -247,6 +247,14 @@
 <a href="#247" id="247">247</a>
 <a href="#248" id="248">248</a>
 <a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is less than another.
 //!
 //! # Example
@@ -299,22 +307,26 @@
         <span class="kw">if </span>a_output.is_err() || b_output.is_err() {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_program_args_stdout_lt!(left_program, left_args, right_program, right_args)`\n"</span>,
-                    <span class="string">"  left_program label: `{}`,\n"</span>,
-                    <span class="string">"  left_program debug: `{:?}`,\n"</span>,
-                    <span class="string">"     left_args label: `{}`,\n"</span>,
-                    <span class="string">"     left_args debug: `{:?}`,\n"</span>,
-                    <span class="string">" right_program label: `{}`,\n"</span>,
-                    <span class="string">" right_program debug: `{:?}`,\n"</span>,
-                    <span class="string">"    right_args label: `{}`,\n"</span>,
-                    <span class="string">"    right_args debug: `{:?}`,\n"</span>,
-                    <span class="string">"         left output: `{:?}`,\n"</span>,
-                    <span class="string">"        right output: `{:?}`"
+                    <span class="string">"assertion failed: `assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args)`\n"</span>,
+                    <span class="string">" a_program label: `{}`,\n"</span>,
+                    <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                    <span class="string">"    a_args label: `{}`,\n"</span>,
+                    <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                    <span class="string">" b_program label: `{}`,\n"</span>,
+                    <span class="string">" b_program debug: `{:?}`,\n"</span>,
+                    <span class="string">"    b_args label: `{}`,\n"</span>,
+                    <span class="string">"    b_args debug: `{:?}`,\n"</span>,
+                    <span class="string">"        a output: `{:?}`,\n"</span>,
+                    <span class="string">"        b output: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>), <span class="macro-nonterminal">$a_program</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>), <span class="macro-nonterminal">$a_args</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>), <span class="macro-nonterminal">$b_program</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>), <span class="macro-nonterminal">$b_args</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                <span class="macro-nonterminal">$a_program</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                <span class="macro-nonterminal">$a_args</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
+                <span class="macro-nonterminal">$b_program</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
+                <span class="macro-nonterminal">$b_args</span>,
                 a_output,
                 b_output
             ))
@@ -326,22 +338,26 @@
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_program_args_stdout_lt!(left_program, left_args, right_program, right_args)`\n"</span>,
-                    <span class="string">"  left_program label: `{}`,\n"</span>,
-                    <span class="string">"  left_program debug: `{:?}`,\n"</span>,
-                        <span class="string">"     left_args label: `{}`,\n"</span>,
-                        <span class="string">"     left_args debug: `{:?}`,\n"</span>,
-                        <span class="string">" right_program label: `{}`,\n"</span>,
-                        <span class="string">" right_program debug: `{:?}`,\n"</span>,
-                        <span class="string">"    right_args label: `{}`,\n"</span>,
-                        <span class="string">"    right_args debug: `{:?}`,\n"</span>,
-                        <span class="string">"                left: `{:?}`,\n"</span>,
-                        <span class="string">"               right: `{:?}`"
+                        <span class="string">"assertion failed: `assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args)`\n"</span>,
+                        <span class="string">" a_program label: `{}`,\n"</span>,
+                        <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                        <span class="string">"    a_args label: `{}`,\n"</span>,
+                        <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                        <span class="string">" b_program label: `{}`,\n"</span>,
+                        <span class="string">" b_program debug: `{:?}`,\n"</span>,
+                        <span class="string">"    b_args label: `{}`,\n"</span>,
+                        <span class="string">"    b_args debug: `{:?}`,\n"</span>,
+                        <span class="string">"               a: `{:?}`,\n"</span>,
+                        <span class="string">"               b: `{:?}`"
                     </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>), <span class="macro-nonterminal">$a_program</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>), <span class="macro-nonterminal">$a_args</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>), <span class="macro-nonterminal">$b_program</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>), <span class="macro-nonterminal">$b_args</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                    <span class="macro-nonterminal">$a_program</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                    <span class="macro-nonterminal">$a_args</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
+                    <span class="macro-nonterminal">$b_program</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
+                    <span class="macro-nonterminal">$b_args</span>,
                     a_string,
                     b_string
                 ))
@@ -359,8 +375,8 @@
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>b_args = [<span class="string">"%s%s%s%s%s"</span>, <span class="string">"h"</span>, <span class="string">"u"</span>, <span class="string">"l"</span>, <span class="string">"l"</span>, <span class="string">"o"</span>];
-        <span class="kw">let </span>x = <span class="macro">assert_program_args_stdout_lt_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
-        <span class="macro">assert_eq!</span>(x.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_lt_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
+        <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
@@ -369,20 +385,20 @@
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>b_args = [<span class="string">"%s%s%s%s%s"</span>, <span class="string">"h"</span>, <span class="string">"a"</span>, <span class="string">"l"</span>, <span class="string">"l"</span>, <span class="string">"o"</span>];
-        <span class="kw">let </span>x = <span class="macro">assert_program_args_stdout_lt_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
-        <span class="kw">let </span>actual = x.unwrap_err();
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_lt_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
+        <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_program_args_stdout_lt!(left_program, left_args, right_program, right_args)`\n"</span>,
-            <span class="string">"  left_program label: `&amp;a_program`,\n"</span>,
-            <span class="string">"  left_program debug: `\"bin/printf-stdout\"`,\n"</span>,
-            <span class="string">"     left_args label: `&amp;a_args`,\n"</span>,
-            <span class="string">"     left_args debug: `[\"%s\", \"hello\"]`,\n"</span>,
-            <span class="string">" right_program label: `&amp;b_program`,\n"</span>,
-            <span class="string">" right_program debug: `\"bin/printf-stdout\"`,\n"</span>,
-            <span class="string">"    right_args label: `&amp;b_args`,\n"</span>,
-            <span class="string">"    right_args debug: `[\"%s%s%s%s%s\", \"h\", \"a\", \"l\", \"l\", \"o\"]`,\n"</span>,
-            <span class="string">"                left: `\"hello\"`,\n"</span>,
-            <span class="string">"               right: `\"hallo\"`"
+            <span class="string">"assertion failed: `assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args)`\n"</span>,
+            <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
+            <span class="string">" a_program debug: `\"bin/printf-stdout\"`,\n"</span>,
+            <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
+            <span class="string">"    a_args debug: `[\"%s\", \"hello\"]`,\n"</span>,
+            <span class="string">" b_program label: `&amp;b_program`,\n"</span>,
+            <span class="string">" b_program debug: `\"bin/printf-stdout\"`,\n"</span>,
+            <span class="string">"    b_args label: `&amp;b_args`,\n"</span>,
+            <span class="string">"    b_args debug: `[\"%s%s%s%s%s\", \"h\", \"a\", \"l\", \"l\", \"o\"]`,\n"</span>,
+            <span class="string">"               a: `\"hello\"`,\n"</span>,
+            <span class="string">"               b: `\"hallo\"`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -422,17 +438,17 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_lt!(left_program, left_args, right_program, right_args)`\n",
-///     "  left_program label: `&amp;a_program`,\n",
-///     "  left_program debug: `\"bin/printf-stdout\"`,\n",
-///     "     left_args label: `&amp;a_args`,\n",
-///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " right_program label: `&amp;b_program`,\n",
-///     " right_program debug: `\"bin/printf-stdout\"`,\n",
-///     "    right_args label: `&amp;b_args`,\n",
-///     "    right_args debug: `[\"%s%s%s%s%s\", \"h\", \"a\", \"l\", \"l\", \"o\"]`,\n",
-///     "                left: `\"hello\"`,\n",
-///     "               right: `\"hallo\"`"
+///     "assertion failed: `assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args)`\n",
+///     " a_program label: `&amp;a_program`,\n",
+///     " a_program debug: `\"bin/printf-stdout\"`,\n",
+///     "    a_args label: `&amp;a_args`,\n",
+///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+///     " b_program label: `&amp;b_program`,\n",
+///     " b_program debug: `\"bin/printf-stdout\"`,\n",
+///     "    b_args label: `&amp;b_args`,\n",
+///     "    b_args debug: `[\"%s%s%s%s%s\", \"h\", \"a\", \"l\", \"l\", \"o\"]`,\n",
+///     "               a: `\"hello\"`,\n",
+///     "               b: `\"hallo\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

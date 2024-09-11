@@ -65,16 +65,16 @@ mod tests {
     fn test_assert_ends_with_as_result_x_success() {
         let a = "alfa";
         let b = "fa";
-        let x = assert_ends_with_as_result!(a, b);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_ends_with_as_result!(a, b);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
     fn test_assert_ends_with_as_result_x_failure() {
         let a = "alfa";
         let b = "al";
-        let x = assert_ends_with_as_result!(a, b);
-        let actual = x.unwrap_err();
+        let result = assert_ends_with_as_result!(a, b);
+        let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_ends_with!(a, b)`\n",
             " a label: `a`,\n",

@@ -55,17 +55,19 @@ macro_rules! assert_fn_ok_lt_expr_as_result {
         if !a_is_ok {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fn_ok_le_expr!(left_function, left_param, right_expr)`\n",
-                    " left_function label: `{}`,\n",
-                    "    left_param label: `{}`,\n",
-                    "    left_param debug: `{:?}`,\n",
-                    "    right_expr label: `{}`,\n",
-                    "    right_expr debug: `{:?}`,\n",
-                    "         left result: `{:?}`",
+                    "assertion failed: `assert_fn_ok_le_expr!(a_function, a_param, b_expr)`\n",
+                    " a_function label: `{}`,\n",
+                    "    a_param label: `{}`,\n",
+                    "    a_param debug: `{:?}`,\n",
+                    "     b_expr label: `{}`,\n",
+                    "     b_expr debug: `{:?}`,\n",
+                    "         a result: `{:?}`",
                 ),
                 stringify!($a_function),
-                stringify!($a_param), $a_param,
-                stringify!($b_expr), $b_expr,
+                stringify!($a_param),
+                $a_param,
+                stringify!($b_expr),
+                $b_expr,
                 a_result
             ))
         } else {
@@ -75,18 +77,20 @@ macro_rules! assert_fn_ok_lt_expr_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_fn_ok_lt_expr!(left_function, left_param, right_expr)`\n",
-                        " left_function label: `{}`,\n",
-                        "    left_param label: `{}`,\n",
-                        "    left_param debug: `{:?}`,\n",
-                        "    right_expr label: `{}`,\n",
-                        "    right_expr debug: `{:?}`,\n",
-                        "                left: `{:?}`,\n",
-                        "               right: `{:?}`",
+                        "assertion failed: `assert_fn_ok_lt_expr!(a_function, a_param, b_expr)`\n",
+                        " a_function label: `{}`,\n",
+                        "    a_param label: `{}`,\n",
+                        "    a_param debug: `{:?}`,\n",
+                        "     b_expr label: `{}`,\n",
+                        "     b_expr debug: `{:?}`,\n",
+                        "                a: `{:?}`,\n",
+                        "                b: `{:?}`",
                     ),
                     stringify!($a_function),
-                    stringify!($a_param), $a_param,
-                    stringify!($b_expr), $b_expr,
+                    stringify!($a_param),
+                    $a_param,
+                    stringify!($b_expr),
+                    $b_expr,
                     a_ok,
                     $b_expr
                 ))
@@ -102,14 +106,15 @@ macro_rules! assert_fn_ok_lt_expr_as_result {
         if !a_is_ok {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fn_ok_le_expr!(left_function, right_expr)`\n",
-                    " left_function label: `{}`,\n",
-                    "    right_expr label: `{}`,\n",
-                    "    right_expr debug: `{:?}`,\n",
-                    "         left result: `{:?}`",
+                    "assertion failed: `assert_fn_ok_le_expr!(a_function, b_expr)`\n",
+                    " a_function label: `{}`,\n",
+                    "     b_expr label: `{}`,\n",
+                    "     b_expr debug: `{:?}`,\n",
+                    "         a result: `{:?}`",
                 ),
                 stringify!($a_function),
-                stringify!($b_expr), $b_expr,
+                stringify!($b_expr),
+                $b_expr,
                 a_result
             ))
         } else {
@@ -119,15 +124,16 @@ macro_rules! assert_fn_ok_lt_expr_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_fn_ok_lt_expr!(left_function, right_expr)`\n",
-                        " left_function label: `{}`,\n",
-                        "    right_expr label: `{}`,\n",
-                        "    right_expr debug: `{:?}`,\n",
-                        "                left: `{:?}`,\n",
-                        "               right: `{:?}`",
+                        "assertion failed: `assert_fn_ok_lt_expr!(a_function, b_expr)`\n",
+                        " a_function label: `{}`,\n",
+                        "     b_expr label: `{}`,\n",
+                        "     b_expr debug: `{:?}`,\n",
+                        "                a: `{:?}`,\n",
+                        "                b: `{:?}`",
                     ),
                     stringify!($a_function),
-                    stringify!($b_expr), $b_expr,
+                    stringify!($b_expr),
+                    $b_expr,
                     a_ok,
                     $b_expr
                 ))
@@ -152,27 +158,27 @@ mod tests {
             fn test_lt() {
                 let a: i8 = 1;
                 let b: i8 = 2;
-                let x = assert_fn_ok_lt_expr_as_result!(f, a, b);
-                assert_eq!(x, Ok(()));
+                let result = assert_fn_ok_lt_expr_as_result!(f, a, b);
+                assert_eq!(result, Ok(()));
             }
 
             #[test]
             fn test_eq() {
                 let a: i8 = 1;
                 let b: i8 = 1;
-                let x = assert_fn_ok_lt_expr_as_result!(f, a, b);
-                assert!(x.is_err());
+                let result = assert_fn_ok_lt_expr_as_result!(f, a, b);
+                assert!(result.is_err());
                 assert_eq!(
-                    x.unwrap_err(),
+                    result.unwrap_err(),
                     concat!(
-                        "assertion failed: `assert_fn_ok_lt_expr!(left_function, left_param, right_expr)`\n",
-                        " left_function label: `f`,\n",
-                        "    left_param label: `a`,\n",
-                        "    left_param debug: `1`,\n",
-                        "    right_expr label: `b`,\n",
-                        "    right_expr debug: `1`,\n",
-                        "                left: `1`,\n",
-                        "               right: `1`"
+                        "assertion failed: `assert_fn_ok_lt_expr!(a_function, a_param, b_expr)`\n",
+                        " a_function label: `f`,\n",
+                        "    a_param label: `a`,\n",
+                        "    a_param debug: `1`,\n",
+                        "     b_expr label: `b`,\n",
+                        "     b_expr debug: `1`,\n",
+                        "                a: `1`,\n",
+                        "                b: `1`"
                     )
                 );
             }
@@ -187,24 +193,24 @@ mod tests {
             #[test]
             fn test_lt() {
                 let b: i8 = 2;
-                let x = assert_fn_ok_lt_expr_as_result!(f, b);
-                assert_eq!(x, Ok(()));
+                let result = assert_fn_ok_lt_expr_as_result!(f, b);
+                assert_eq!(result, Ok(()));
             }
 
             #[test]
             fn test_eq() {
                 let b: i8 = 1;
-                let x = assert_fn_ok_lt_expr_as_result!(f, b);
-                assert!(x.is_err());
+                let result = assert_fn_ok_lt_expr_as_result!(f, b);
+                assert!(result.is_err());
                 assert_eq!(
-                    x.unwrap_err(),
+                    result.unwrap_err(),
                     concat!(
-                        "assertion failed: `assert_fn_ok_lt_expr!(left_function, right_expr)`\n",
-                        " left_function label: `f`,\n",
-                        "    right_expr label: `b`,\n",
-                        "    right_expr debug: `1`,\n",
-                        "                left: `1`,\n",
-                        "               right: `1`"
+                        "assertion failed: `assert_fn_ok_lt_expr!(a_function, b_expr)`\n",
+                        " a_function label: `f`,\n",
+                        "     b_expr label: `b`,\n",
+                        "     b_expr debug: `1`,\n",
+                        "                a: `1`,\n",
+                        "                b: `1`"
                     )
                 );
             }
@@ -248,14 +254,14 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_lt_expr!(left_function, left_param, right_expr)`\n",
-///     " left_function label: `f`,\n",
-///     "    left_param label: `a`,\n",
-///     "    left_param debug: `2`,\n",
-///     "    right_expr label: `b`,\n",
-///     "    right_expr debug: `\"1\"`,\n",
-///     "                left: `\"2\"`,\n",
-///     "               right: `\"1\"`"
+///     "assertion failed: `assert_fn_ok_lt_expr!(a_function, a_param, b_expr)`\n",
+///     " a_function label: `f`,\n",
+///     "    a_param label: `a`,\n",
+///     "    a_param debug: `2`,\n",
+///     "     b_expr label: `b`,\n",
+///     "     b_expr debug: `\"1\"`,\n",
+///     "                a: `\"2\"`,\n",
+///     "                b: `\"1\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

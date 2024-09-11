@@ -52,13 +52,13 @@ macro_rules! assert_ne_as_result {
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_ne!(left, right)`\n",
-                            "  left label: `{}`,\n",
-                            "  left debug: `{:?}`,\n",
-                            " right label: `{}`,\n",
-                            " right debug: `{:?}`,\n",
-                            "        left: `{:?}`,\n",
-                            "       right: `{:?}`"
+                            "assertion failed: `assert_ne!(a, b)`\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            "       a: `{:?}`,\n",
+                            "       b: `{:?}`"
                         ),
                         stringify!($a),
                         $a,
@@ -80,26 +80,26 @@ mod tests {
     fn test_assert_ne_as_result_x_success() {
         let a: i32 = 1;
         let b: i32 = 2;
-        let x = assert_ne_as_result!(a, b);
-        assert_eq!(x, Ok(()));
+        let result = assert_ne_as_result!(a, b);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_ne_as_result_x_failure() {
         let a: i32 = 1;
         let b: i32 = 1;
-        let x = assert_ne_as_result!(a, b);
-        assert!(x.is_err());
+        let result = assert_ne_as_result!(a, b);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_ne!(left, right)`\n",
-                "  left label: `a`,\n",
-                "  left debug: `1`,\n",
-                " right label: `b`,\n",
-                " right debug: `1`,\n",
-                "        left: `1`,\n",
-                "       right: `1`"
+                "assertion failed: `assert_ne!(a, b)`\n",
+                " a label: `a`,\n",
+                " a debug: `1`,\n",
+                " b label: `b`,\n",
+                " b debug: `1`,\n",
+                "       a: `1`,\n",
+                "       b: `1`"
             )
         );
     }

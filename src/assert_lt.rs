@@ -46,13 +46,13 @@ macro_rules! assert_lt_as_result {
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_lt!(left, right)`\n",
-                            "  left label: `{}`,\n",
-                            "  left debug: `{:?}`,\n",
-                            " right label: `{}`,\n",
-                            " right debug: `{:?}`,\n",
-                            "        left: `{:?}`,\n",
-                            "       right: `{:?}`"
+                            "assertion failed: `assert_lt!(a, b)`\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            "       a: `{:?}`,\n",
+                            "       b: `{:?}`"
                         ),
                         stringify!($a),
                         $a,
@@ -74,26 +74,26 @@ mod test_assert_x_result {
     fn test_assert_lt_as_result_x_success() {
         let a: i32 = 1;
         let b: i32 = 2;
-        let x = assert_lt_as_result!(a, b);
-        assert_eq!(x, Ok(()));
+        let result = assert_lt_as_result!(a, b);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_lt_as_result_x_failure() {
         let a: i32 = 2;
         let b: i32 = 1;
-        let x = assert_lt_as_result!(a, b);
-        assert!(x.is_err());
+        let result = assert_lt_as_result!(a, b);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_lt!(left, right)`\n",
-                "  left label: `a`,\n",
-                "  left debug: `2`,\n",
-                " right label: `b`,\n",
-                " right debug: `1`,\n",
-                "        left: `2`,\n",
-                "       right: `1`"
+                "assertion failed: `assert_lt!(a, b)`\n",
+                " a label: `a`,\n",
+                " a debug: `2`,\n",
+                " b label: `b`,\n",
+                " b debug: `1`,\n",
+                "       a: `2`,\n",
+                "       b: `1`"
             )
         );
     }
@@ -128,13 +128,13 @@ mod test_assert_x_result {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_lt!(left, right)`\n",
-///     "  left label: `a`,\n",
-///     "  left debug: `2`,\n",
-///     " right label: `b`,\n",
-///     " right debug: `1`,\n",
-///     "        left: `2`,\n",
-///     "       right: `1`"
+///     "assertion failed: `assert_lt!(a, b)`\n",
+///     " a label: `a`,\n",
+///     " a debug: `2`,\n",
+///     " b label: `b`,\n",
+///     " b debug: `1`,\n",
+///     "       a: `2`,\n",
+///     "       b: `1`"
 /// );
 /// assert_eq!(actual, expect);
 ///

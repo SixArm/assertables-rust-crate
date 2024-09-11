@@ -43,49 +43,55 @@
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_contains_as_result {
-    ($a_program:expr, $a_args:expr, $b_containee:expr $(,)?) => ({
+    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => ({
         let mut a_command = ::std::process::Command::new($a_program);
         a_command.args($a_args);
         let a_output = a_command.output();
         if a_output.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_program_args_stdout_contains!(left_program, left_args, right_containee)`\n",
-                    "    left_program label: `{}`,\n",
-                    "    left_program debug: `{:?}`,\n",
-                    "       left_args label: `{}`,\n",
-                    "       left_args debug: `{:?}`,\n",
-                    " right_containee label: `{}`,\n",
-                    " right_containee debug: `{:?}`,\n",
-                    "           left output: `{:?}`"
+                    "assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`\n",
+                    " a_program label: `{}`,\n",
+                    " a_program debug: `{:?}`,\n",
+                    "    a_args label: `{}`,\n",
+                    "    a_args debug: `{:?}`,\n",
+                    " containee label: `{}`,\n",
+                    " containee debug: `{:?}`,\n",
+                    "        a output: `{:?}`"
                 ),
-                stringify!($a_program), $a_program,
-                stringify!($a_args), $a_args,
-                stringify!($b_containee), $b_containee,
+                stringify!($a_program),
+                $a_program,
+                stringify!($a_args),
+                $a_args,
+                stringify!($containee),
+                $containee,
                 a_output
             ))
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            if a_string.contains($b_containee) {
+            if a_string.contains($containee) {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_program_args_stdout_contains!(left_program, left_args, right_containee)`\n",
-                        "    left_program label: `{}`,\n",
-                        "    left_program debug: `{:?}`,\n",
-                        "       left_args label: `{}`,\n",
-                        "       left_args debug: `{:?}`,\n",
-                        " right_containee label: `{}`,\n",
-                        " right_containee debug: `{:?}`,\n",
-                        "                  left: `{:?}`,\n",
-                        "                 right: `{:?}`"
+                        "assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`\n",
+                        " a_program label: `{}`,\n",
+                        " a_program debug: `{:?}`,\n",
+                        "    a_args label: `{}`,\n",
+                        "    a_args debug: `{:?}`,\n",
+                        " containee label: `{}`,\n",
+                        " containee debug: `{:?}`,\n",
+                        "               a: `{:?}`,\n",
+                        "               b: `{:?}`"
                     ),
-                    stringify!($a_program), $a_program,
-                    stringify!($a_args), $a_args,
-                    stringify!($b_containee), $b_containee,
+                    stringify!($a_program),
+                    $a_program,
+                    stringify!($a_args),
+                    $a_args,
+                    stringify!($containee),
+                    $containee,
                     a_string,
-                    $b_containee
+                    $containee
                 ))
             }
         }
@@ -96,31 +102,31 @@ macro_rules! assert_program_args_stdout_contains_as_result {
 mod tests {
 
     #[test]
-    fn test_asserterable_command_stdout_contains_x_success() {
+    fn test_assert_command_stdout_contains_x_success() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "hello"];
         let b = "ell";
-        let x = assert_program_args_stdout_contains_as_result!(&a_program, &a_args, b);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_program_args_stdout_contains_as_result!(&a_program, &a_args, b);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
-    fn test_asserterable_command_stdout_contains_x_failure() {
+    fn test_assert_command_stdout_contains_x_failure() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "hello"];
         let b = "zzz";
-        let x = assert_program_args_stdout_contains_as_result!(&a_program, &a_args, b);
-        let actual = x.unwrap_err();
+        let result = assert_program_args_stdout_contains_as_result!(&a_program, &a_args, b);
+        let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_program_args_stdout_contains!(left_program, left_args, right_containee)`\n",
-            "    left_program label: `&a_program`,\n",
-            "    left_program debug: `\"bin/printf-stdout\"`,\n",
-            "       left_args label: `&a_args`,\n",
-            "       left_args debug: `[\"%s\", \"hello\"]`,\n",
-            " right_containee label: `b`,\n",
-            " right_containee debug: `\"zzz\"`,\n",
-            "                  left: `\"hello\"`,\n",
-            "                 right: `\"zzz\"`"
+            "assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`\n",
+            " a_program label: `&a_program`,\n",
+            " a_program debug: `\"bin/printf-stdout\"`,\n",
+            "    a_args label: `&a_args`,\n",
+            "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+            " containee label: `b`,\n",
+            " containee debug: `\"zzz\"`,\n",
+            "               a: `\"hello\"`,\n",
+            "               b: `\"zzz\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -163,15 +169,15 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_contains!(left_program, left_args, right_containee)`\n",
-///     "    left_program label: `&program`,\n",
-///     "    left_program debug: `\"bin/printf-stdout\"`,\n",
-///     "       left_args label: `&args`,\n",
-///     "       left_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " right_containee label: `containee`,\n",
-///     " right_containee debug: `\"zzz\"`,\n",
-///     "                  left: `\"hello\"`,\n",
-///     "                 right: `\"zzz\"`"
+///     "assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`\n",
+///     " a_program label: `&program`,\n",
+///     " a_program debug: `\"bin/printf-stdout\"`,\n",
+///     "    a_args label: `&args`,\n",
+///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+///     " containee label: `containee`,\n",
+///     " containee debug: `\"zzz\"`,\n",
+///     "               a: `\"hello\"`,\n",
+///     "               b: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -185,14 +191,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_contains {
-    ($a_program:expr, $a_args:expr, $b_containee:expr $(,)?) => ({
-        match assert_program_args_stdout_contains_as_result!($a_program, $a_args, $b_containee) {
+    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => ({
+        match assert_program_args_stdout_contains_as_result!($a_program, $a_args, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_program:expr, $a_args:expr, $b_containee:expr, $($message:tt)+) => ({
-        match assert_program_args_stdout_contains_as_result!($a_program, $a_args, $b_containee) {
+    ($a_program:expr, $a_args:expr, $containee:expr, $($message:tt)+) => ({
+        match assert_program_args_stdout_contains_as_result!($a_program, $a_args, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

@@ -198,6 +198,12 @@
 <a href="#198" id="198">198</a>
 <a href="#199" id="199">199</a>
 <a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is greater than or equal to an expression.
 //!
 //! # Examples
@@ -245,18 +251,21 @@
         <span class="kw">if </span>a_output.is_err() {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_program_args_stderr_ge_expr!(left_program, left_args, right_expr)`\n"</span>,
-                    <span class="string">" left_program label: `{}`,\n"</span>,
-                    <span class="string">" left_program debug: `{:?}`,\n"</span>,
-                    <span class="string">"    left_args label: `{}`,\n"</span>,
-                    <span class="string">"    left_args debug: `{:?}`,\n"</span>,
-                    <span class="string">"   right_expr label: `{}`,\n"</span>,
-                    <span class="string">"   right_expr debug: `{:?}`,\n"</span>,
-                    <span class="string">"        left output: `{:?}`"
+                    <span class="string">"assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n"</span>,
+                    <span class="string">" a_program label: `{}`,\n"</span>,
+                    <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                    <span class="string">"    a_args label: `{}`,\n"</span>,
+                    <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                    <span class="string">"    b_expr label: `{}`,\n"</span>,
+                    <span class="string">"    b_expr debug: `{:?}`,\n"</span>,
+                    <span class="string">"        a output: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>), <span class="macro-nonterminal">$a_program</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>), <span class="macro-nonterminal">$a_args</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>), <span class="macro-nonterminal">$b_expr</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                <span class="macro-nonterminal">$a_program</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                <span class="macro-nonterminal">$a_args</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                <span class="macro-nonterminal">$b_expr</span>,
                 a_output
             ))
         } <span class="kw">else </span>{
@@ -266,19 +275,22 @@
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_program_args_stderr_ge_expr!(left_program, left_args, right_expr)`\n"</span>,
-                        <span class="string">" left_program label: `{}`,\n"</span>,
-                        <span class="string">" left_program debug: `{:?}`,\n"</span>,
-                        <span class="string">"    left_args label: `{}`,\n"</span>,
-                        <span class="string">"    left_args debug: `{:?}`,\n"</span>,
-                        <span class="string">"   right_expr label: `{}`,\n"</span>,
-                        <span class="string">"   right_expr debug: `{:?}`,\n"</span>,
-                        <span class="string">"               left: `{:?}`,\n"</span>,
-                        <span class="string">"              right: `{:?}`"
+                        <span class="string">"assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n"</span>,
+                        <span class="string">" a_program label: `{}`,\n"</span>,
+                        <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                        <span class="string">"    a_args label: `{}`,\n"</span>,
+                        <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                        <span class="string">"    b_expr label: `{}`,\n"</span>,
+                        <span class="string">"    b_expr debug: `{:?}`,\n"</span>,
+                        <span class="string">"               a: `{:?}`,\n"</span>,
+                        <span class="string">"               b: `{:?}`"
                     </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>), <span class="macro-nonterminal">$a_program</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>), <span class="macro-nonterminal">$a_args</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>), <span class="macro-nonterminal">$b_expr</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                    <span class="macro-nonterminal">$a_program</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                    <span class="macro-nonterminal">$a_args</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                    <span class="macro-nonterminal">$b_expr</span>,
                     a_string,
                     <span class="macro-nonterminal">$b_expr
                 </span>))
@@ -326,15 +338,15 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_program_args_stderr_ge_expr!(left_program, left_args, right_expr)`\n",
-///     " left_program label: `&amp;program`,\n",
-///     " left_program debug: `\"bin/printf-stderr\"`,\n",
-///     "    left_args label: `&amp;args`,\n",
-///     "    left_args debug: `[\"%s\", \"hello\"]`,\n",
-///     "   right_expr label: `s`,\n",
-///     "   right_expr debug: `\"hullo\"`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `\"hullo\"`"
+///     "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
+///     " a_program label: `&amp;program`,\n",
+///     " a_program debug: `\"bin/printf-stderr\"`,\n",
+///     "    a_args label: `&amp;args`,\n",
+///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+///     "    b_expr label: `s`,\n",
+///     "    b_expr debug: `\"hullo\"`,\n",
+///     "               a: `\"hello\"`,\n",
+///     "               b: `\"hullo\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

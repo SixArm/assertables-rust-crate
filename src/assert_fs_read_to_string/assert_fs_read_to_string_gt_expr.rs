@@ -42,15 +42,17 @@ macro_rules! assert_fs_read_to_string_gt_expr_as_result {
         if let Err(a_err) = a_result {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fs_read_to_string_gt_expr!(left_path, right_expr)`\n",
-                    "  left_path label: `{}`,\n",
-                    "  left_path debug: `{:?}`,\n",
-                    " right_expr label: `{}`,\n",
-                    " right_expr debug: `{:?}`,\n",
-                    "         left err: `{:?}`"
+                    "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
+                    " a_path label: `{}`,\n",
+                    " a_path debug: `{:?}`,\n",
+                    " b_expr label: `{}`,\n",
+                    " b_expr debug: `{:?}`,\n",
+                    "        a err: `{:?}`"
                 ),
-                stringify!($a_path), $a_path,
-                stringify!($b_expr), $b_expr,
+                stringify!($a_path),
+                $a_path,
+                stringify!($b_expr),
+                $b_expr,
                 a_err
             ))
         } else {
@@ -61,16 +63,18 @@ macro_rules! assert_fs_read_to_string_gt_expr_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_fs_read_to_string_gt_expr!(left_path, right_expr)`\n",
-                        "  left_path label: `{}`,\n",
-                        "  left_path debug: `{:?}`,\n",
-                        " right_expr label: `{}`,\n",
-                        " right_expr debug: `{:?}`,\n",
-                        "             left: `{:?}`,\n",
-                        "            right: `{:?}`",
+                        "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
+                        " a_path label: `{}`,\n",
+                        " a_path debug: `{:?}`,\n",
+                        " b_expr label: `{}`,\n",
+                        " b_expr debug: `{:?}`,\n",
+                        "            a: `{:?}`,\n",
+                        "            b: `{:?}`",
                     ),
-                    stringify!($a_path), $a_path,
-                    stringify!($b_expr), $b_expr,
+                    stringify!($a_path),
+                    $a_path,
+                    stringify!($b_expr),
+                    $b_expr,
                     a_string,
                     b_string
                 ))
@@ -98,29 +102,27 @@ mod tests {
     fn test_read_to_string_gt_expr_as_result_x_success() {
         let path = DIR.join("bravo.txt");
         let value = String::from("alfa\n");
-        let x = assert_fs_read_to_string_gt_expr_as_result!(&path, &value);
-        assert_eq!(x, Ok(()));
+        let result = assert_fs_read_to_string_gt_expr_as_result!(&path, &value);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_read_to_string_gt_expr_as_result_x_failure() {
         let path = DIR.join("alfa.txt");
         let value = String::from("bravo\n");
-        let x = assert_fs_read_to_string_gt_expr_as_result!(&path, &value);
-        assert!(x.is_err());
+        let result = assert_fs_read_to_string_gt_expr_as_result!(&path, &value);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             format!(
                 "{}{}{}{}{}{}{}{}{}",
-                "assertion failed: `assert_fs_read_to_string_gt_expr!(left_path, right_expr)`\n",
-                "  left_path label: `&path`,\n",
-                "  left_path debug: `\"",
-                path.to_string_lossy(),
-                "\"`,\n",
-                " right_expr label: `&value`,\n",
-                " right_expr debug: `\"bravo\\n\"`,\n",
-                "             left: `\"alfa\\n\"`,\n",
-                "            right: `\"bravo\\n\"`"
+                "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
+                " a_path label: `&path`,\n",
+                " a_path debug: `\"", path.to_string_lossy(), "\"`,\n",
+                " b_expr label: `&value`,\n",
+                " b_expr debug: `\"bravo\\n\"`,\n",
+                "            a: `\"alfa\\n\"`,\n",
+                "            b: `\"bravo\\n\"`"
             )
         );
     }
@@ -157,13 +159,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_gt_expr!(left_path, right_expr)`\n",
-///     "  left_path label: `&path`,\n",
-///     "  left_path debug: `\"alfa.txt\"`,\n",
-///     " right_expr label: `&value`,\n",
-///     " right_expr debug: `\"bravo\\n\"`,\n",
-///     "             left: `\"alfa\\n\"`,\n",
-///     "            right: `\"bravo\\n\"`"
+///     "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
+///     " a_path label: `&path`,\n",
+///     " a_path debug: `\"alfa.txt\"`,\n",
+///     " b_expr label: `&value`,\n",
+///     " b_expr debug: `\"bravo\\n\"`,\n",
+///     "            a: `\"alfa\\n\"`,\n",
+///     "            b: `\"bravo\\n\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

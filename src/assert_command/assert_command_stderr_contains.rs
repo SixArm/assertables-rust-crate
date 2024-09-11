@@ -40,41 +40,45 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_contains_as_result {
-    ($a_command:expr, $b_containee:expr $(,)?) => ({
-        let a_output = $a_command.output();
-        if a_output.is_err() {
+    ($command:expr, $containee:expr $(,)?) => ({
+        let output = $command.output();
+        if output.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_command_stderr_contains!(left_command, right_containee)`\n",
-                    "    left_command label: `{}`,\n",
-                    "    left_command debug: `{:?}`,\n",
-                    " right_containee label: `{}`,\n",
-                    " right_containee debug: `{:?}`,\n",
-                    "           left output: `{:?}`"
+                    "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
+                    "   command label: `{}`,\n",
+                    "   command debug: `{:?}`,\n",
+                    " containee label: `{}`,\n",
+                    " containee debug: `{:?}`,\n",
+                    "  command output: `{:?}`"
                 ),
-                stringify!($a_command), $a_command,
-                stringify!($b_containee), $b_containee,
-                a_output
+                stringify!($command),
+                $command,
+                stringify!($containee),
+                $containee,
+                output
             ))
         } else {
-            let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if a_string.contains($b_containee) {
+            let string = String::from_utf8(output.unwrap().stderr).unwrap();
+            if string.contains($containee) {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_command_stderr_contains!(left_command, right_containee)`\n",
-                        "    left_command label: `{}`,\n",
-                        "    left_command debug: `{:?}`,\n",
-                        " right_containee label: `{}`,\n",
-                        " right_containee debug: `{:?}`,\n",
-                        "                  left: `{:?}`,\n",
-                        "                 right: `{:?}`"
+                        "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
+                        "   command label: `{}`,\n",
+                        "   command debug: `{:?}`,\n",
+                        " containee label: `{}`,\n",
+                        " containee debug: `{:?}`,\n",
+                        "   command value: `{:?}`,\n",
+                        " containee value: `{:?}`"
                     ),
-                    stringify!($a_command), $a_command,
-                    stringify!($b_containee), $b_containee,
-                    a_string,
-                    $b_containee
+                    stringify!($command),
+                    $command,
+                    stringify!($containee),
+                    $containee,
+                    string,
+                    $containee
                 ))
             }
         }
@@ -87,29 +91,29 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_asserterable_command_stderr_contains_x_success() {
+    fn test_assert_command_stderr_contains_x_success() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "hello"]);
         let b = "ell";
-        let x = assert_command_stderr_contains_as_result!(a, b);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_command_stderr_contains_as_result!(a, b);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
-    fn test_asserterable_command_stderr_contains_x_failure() {
+    fn test_assert_command_stderr_contains_x_failure() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "hello"]);
         let b = "zzz";
-        let x = assert_command_stderr_contains_as_result!(a, b);
-        let actual = x.unwrap_err();
+        let result = assert_command_stderr_contains_as_result!(a, b);
+        let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stderr_contains!(left_command, right_containee)`\n",
-            "    left_command label: `a`,\n",
-            "    left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-            " right_containee label: `b`,\n",
-            " right_containee debug: `\"zzz\"`,\n",
-            "                  left: `\"hello\"`,\n",
-            "                 right: `\"zzz\"`"
+            "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
+            "   command label: `a`,\n",
+            "   command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+            " containee label: `b`,\n",
+            " containee debug: `\"zzz\"`,\n",
+            "   command value: `\"hello\"`,\n",
+            " containee value: `\"zzz\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -153,13 +157,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stderr_contains!(left_command, right_containee)`\n",
-///     "    left_command label: `command`,\n",
-///     "    left_command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-///     " right_containee label: `containee`,\n",
-///     " right_containee debug: `\"zzz\"`,\n",
-///     "                  left: `\"hello\"`,\n",
-///     "                 right: `\"zzz\"`"
+///     "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
+///     "   command label: `command`,\n",
+///     "   command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+///     " containee label: `containee`,\n",
+///     " containee debug: `\"zzz\"`,\n",
+///     "   command value: `\"hello\"`,\n",
+///     " containee value: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 ///
@@ -186,14 +190,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_contains {
-    ($a_command:expr, $b:expr $(,)?) => ({
-        match assert_command_stderr_contains_as_result!($a_command, $b) {
+    ($command:expr, $containee:expr $(,)?) => ({
+        match assert_command_stderr_contains_as_result!($command, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_command:expr, $b:expr, $($message:tt)+) => ({
-        match assert_command_stderr_contains_as_result!($a_command, $b) {
+    ($command:expr, $containee:expr, $($message:tt)+) => ({
+        match assert_command_stderr_contains_as_result!($command, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

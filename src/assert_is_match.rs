@@ -70,16 +70,16 @@ mod tests {
     fn test_assert_is_match_as_result_x_success() {
         let a = Regex::new(r"lf").unwrap();
         let b = "alfa";
-        let x = assert_is_match_as_result!(a, b);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_is_match_as_result!(a, b);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
     fn test_assert_is_match_as_result_x_failure() {
         let a = Regex::new(r"lf").unwrap();
         let b = "bravo";
-        let x = assert_is_match_as_result!(a, b);
-        let actual = x.unwrap_err();
+        let result = assert_is_match_as_result!(a, b);
+        let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_is_match!(matcher, matchee)`\n",
             " matcher label: `a`,\n",

@@ -28,13 +28,13 @@ expressions with their debug representations.</p>
 <span class="macro">assert!</span>(result.is_err());
 <span class="kw">let </span>actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-    <span class="string">"assertion failed: `assert_bag_ne!(left_bag, right_bag)`\n"</span>,
-    <span class="string">"  left_bag label: `&amp;a`,\n"</span>,
-    <span class="string">"  left_bag debug: `[1, 1]`,\n"</span>,
-    <span class="string">" right_bag label: `&amp;b`,\n"</span>,
-    <span class="string">" right_bag debug: `[1, 1]`,\n"</span>,
-    <span class="string">"            left: `{1: 2}`,\n"</span>,
-    <span class="string">"           right: `{1: 2}`"
+    <span class="string">"assertion failed: `assert_bag_ne!(a_bag, b_bag)`\n"</span>,
+    <span class="string">" a label: `&amp;a`,\n"</span>,
+    <span class="string">" a debug: `[1, 1]`,\n"</span>,
+    <span class="string">" b label: `&amp;b`,\n"</span>,
+    <span class="string">" b debug: `[1, 1]`,\n"</span>,
+    <span class="string">"       a: `{1: 2}`,\n"</span>,
+    <span class="string">"       b: `{1: 2}`"
 </span>);
 <span class="macro">assert_eq!</span>(actual, expect);
 

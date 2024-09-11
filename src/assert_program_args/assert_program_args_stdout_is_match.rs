@@ -40,49 +40,55 @@
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_is_match_as_result {
-    ($a_program:expr, $a_args:expr, $b_matcher:expr $(,)?) => ({
+    ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => ({
         let mut a_command = ::std::process::Command::new($a_program);
         a_command.args($a_args);
         let a_output = a_command.output();
         if a_output.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
-                    "  left_program label: `{}`,\n",
-                    "  left_program debug: `{:?}`,\n",
-                    "     left_args label: `{}`,\n",
-                    "     left_args debug: `{:?}`,\n",
-                    " right_matcher label: `{}`,\n",
-                    " right_matcher debug: `{:?}`,\n",
-                    "         left output: `{:?}`"
+                    "assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n",
+                    " a_program label: `{}`,\n",
+                    " a_program debug: `{:?}`,\n",
+                    "    a_args label: `{}`,\n",
+                    "    a_args debug: `{:?}`,\n",
+                    " b_matcher label: `{}`,\n",
+                    " b_matcher debug: `{:?}`,\n",
+                    "        a output: `{:?}`"
                 ),
-                stringify!($a_program), $a_program,
-                stringify!($a_args), $a_args,
-                stringify!($b_matcher), $b_matcher,
+                stringify!($a_program),
+                $a_program,
+                stringify!($a_args),
+                $a_args,
+                stringify!($matcher),
+                $matcher,
                 a_output
             ))
         } else {
             let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            if $b_matcher.is_match(&a_string) {
+            if $matcher.is_match(&a_string) {
                 Ok(())
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
-                        "  left_program label: `{}`,\n",
-                        "  left_program debug: `{:?}`,\n",
-                        "     left_args label: `{}`,\n",
-                        "     left_args debug: `{:?}`,\n",
-                        " right_matcher label: `{}`,\n",
-                        " right_matcher debug: `{:?}`,\n",
-                        "                left: `{:?}`,\n",
-                        "               right: `{:?}`"
+                        "assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n",
+                        " a_program label: `{}`,\n",
+                        " a_program debug: `{:?}`,\n",
+                        "    a_args label: `{}`,\n",
+                        "    a_args debug: `{:?}`,\n",
+                        " b_matcher label: `{}`,\n",
+                        " b_matcher debug: `{:?}`,\n",
+                        "               a: `{:?}`,\n",
+                        "               b: `{:?}`"
                     ),
-                    stringify!($a_program), $a_program,
-                    stringify!($a_args), $a_args,
-                    stringify!($b_matcher), $b_matcher,
+                    stringify!($a_program),
+                    $a_program,
+                    stringify!($a_args),
+                    $a_args,
+                    stringify!($matcher),
+                    $matcher,
                     a_string,
-                    $b_matcher
+                    $matcher
                 ))
             }
         }
@@ -99,8 +105,8 @@ mod tests {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "hello"];
         let b = Regex::new(r"ell").unwrap();
-        let x = assert_program_args_stdout_is_match_as_result!(&a_program, &a_args, b);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_program_args_stdout_is_match_as_result!(&a_program, &a_args, b);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
@@ -108,18 +114,18 @@ mod tests {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "hello"];
         let b = Regex::new(r"zzz").unwrap();
-        let x = assert_program_args_stdout_is_match_as_result!(&a_program, &a_args, b);
-        let actual = x.unwrap_err();
+        let result = assert_program_args_stdout_is_match_as_result!(&a_program, &a_args, b);
+        let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
-            "  left_program label: `&a_program`,\n",
-            "  left_program debug: `\"bin/printf-stdout\"`,\n",
-            "     left_args label: `&a_args`,\n",
-            "     left_args debug: `[\"%s\", \"hello\"]`,\n",
-            " right_matcher label: `b`,\n",
-            " right_matcher debug: `Regex(\"zzz\")`,\n",
-            "                left: `\"hello\"`,\n",
-            "               right: `Regex(\"zzz\")`"
+            "assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n",
+            " a_program label: `&a_program`,\n",
+            " a_program debug: `\"bin/printf-stdout\"`,\n",
+            "    a_args label: `&a_args`,\n",
+            "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+            " b_matcher label: `b`,\n",
+            " b_matcher debug: `Regex(\"zzz\")`,\n",
+            "               a: `\"hello\"`,\n",
+            "               b: `Regex(\"zzz\")`"
         );
         assert_eq!(actual, expect);
     }
@@ -158,15 +164,15 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
-///     "  left_program label: `&program`,\n",
-///     "  left_program debug: `\"bin/printf-stdout\"`,\n",
-///     "     left_args label: `&args`,\n",
-///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `Regex(\"zzz\")`,\n",
-///     "                left: `\"hello\"`,\n",
-///     "               right: `Regex(\"zzz\")`"
+///     "assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n",
+///     " a_program label: `&program`,\n",
+///     " a_program debug: `\"bin/printf-stdout\"`,\n",
+///     "    a_args label: `&args`,\n",
+///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+///     " b_matcher label: `matcher`,\n",
+///     " b_matcher debug: `Regex(\"zzz\")`,\n",
+///     "               a: `\"hello\"`,\n",
+///     "               b: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -180,14 +186,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_is_match {
-    ($a_program:expr, $a_args:expr, $b_matcher:expr $(,)?) => ({
-        match assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $b_matcher) {
+    ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => ({
+        match assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_program:expr, $a_args:expr, $b_matcher:expr, $($message:tt)+) => ({
-        match assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $b_matcher) {
+    ($a_program:expr, $a_args:expr, $matcher:expr, $($message:tt)+) => ({
+        match assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

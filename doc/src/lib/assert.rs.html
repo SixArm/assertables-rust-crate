@@ -108,8 +108,8 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_as_result {
-    (<span class="macro-nonterminal">$x</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">if </span><span class="macro-nonterminal">$x </span>{
+    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">if </span><span class="macro-nonterminal">$a </span>{
             <span class="prelude-val">Ok</span>(())
         } <span class="kw">else </span>{
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
@@ -118,8 +118,8 @@
                     <span class="string">" condition label: `{}`,\n"</span>,
                     <span class="string">" condition debug: `{:?}`,\n"</span>,
                 ),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$x</span>),
-                <span class="macro-nonterminal">$x</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                <span class="macro-nonterminal">$a</span>,
             ))
         }
     }};
@@ -131,8 +131,8 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_as_result_x_success() {
         <span class="kw">let </span>a = <span class="bool-val">true</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_as_result!</span>(a);
-        <span class="macro">assert_eq!</span>(x, <span class="prelude-val">Ok</span>(()));
+        <span class="kw">let </span>result = <span class="macro">assert_as_result!</span>(a);
+        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
     <span class="attr">#[test]

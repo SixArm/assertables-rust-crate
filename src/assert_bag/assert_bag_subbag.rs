@@ -63,13 +63,13 @@ macro_rules! assert_bag_subbag_as_result {
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
-                            "  left_bag label: `{}`,\n",
-                            "  left_bag debug: `{:?}`,\n",
-                            " right_bag label: `{}`,\n",
-                            " right_bag debug: `{:?}`,\n",
-                            "            left: `{:?}`,\n",
-                            "           right: `{:?}`"
+                            "assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            "       a: `{:?}`,\n",
+                            "       b: `{:?}`"
                         ),
                         stringify!($a),
                         $a,
@@ -91,26 +91,26 @@ mod tests {
     fn test_assert_bag_subbag_as_result_x_success() {
         let a = [1, 1];
         let b = [1, 1, 1];
-        let x = assert_bag_subbag_as_result!(&a, &b);
-        assert_eq!(x, Ok(()));
+        let result = assert_bag_subbag_as_result!(&a, &b);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_bag_subbag_as_result_x_failure_because_key_is_missing() {
         let a = [1, 1];
         let b = [2, 2];
-        let x = assert_bag_subbag_as_result!(&a, &b);
-        assert!(x.is_err());
+        let result = assert_bag_subbag_as_result!(&a, &b);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
-                "  left_bag label: `&a`,\n",
-                "  left_bag debug: `[1, 1]`,\n",
-                " right_bag label: `&b`,\n",
-                " right_bag debug: `[2, 2]`,\n",
-                "            left: `{1: 2}`,\n",
-                "           right: `{2: 2}`"
+                "assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n",
+                " a label: `&a`,\n",
+                " a debug: `[1, 1]`,\n",
+                " b label: `&b`,\n",
+                " b debug: `[2, 2]`,\n",
+                "       a: `{1: 2}`,\n",
+                "       b: `{2: 2}`"
             )
         );
     }
@@ -119,18 +119,18 @@ mod tests {
     fn test_assert_bag_subbag_as_result_x_failure_because_val_count_is_excessive() {
         let a = [1, 1, 1];
         let b = [1, 1];
-        let x = assert_bag_subbag_as_result!(&a, &b);
-        assert!(x.is_err());
+        let result = assert_bag_subbag_as_result!(&a, &b);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
-                "  left_bag label: `&a`,\n",
-                "  left_bag debug: `[1, 1, 1]`,\n",
-                " right_bag label: `&b`,\n",
-                " right_bag debug: `[1, 1]`,\n",
-                "            left: `{1: 3}`,\n",
-                "           right: `{1: 2}`"
+                "assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n",
+                " a label: `&a`,\n",
+                " a debug: `[1, 1, 1]`,\n",
+                " b label: `&b`,\n",
+                " b debug: `[1, 1]`,\n",
+                "       a: `{1: 3}`,\n",
+                "       b: `{1: 2}`"
             )
         );
     }
@@ -165,13 +165,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
-///     "  left_bag label: `&a`,\n",
-///     "  left_bag debug: `[1, 1]`,\n",
-///     " right_bag label: `&b`,\n",
-///     " right_bag debug: `[2, 2]`,\n",
-///     "            left: `{1: 2}`,\n",
-///     "           right: `{2: 2}`"
+///     "assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n",
+///     " a label: `&a`,\n",
+///     " a debug: `[1, 1]`,\n",
+///     " b label: `&b`,\n",
+///     " b debug: `[2, 2]`,\n",
+///     "       a: `{1: 2}`,\n",
+///     "       b: `{2: 2}`"
 /// );
 /// assert_eq!(actual, expect);
 ///
@@ -198,13 +198,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_bag_subbag!(left_bag, right_bag)`\n",
-///     "  left_bag label: `&a`,\n",
-///     "  left_bag debug: `[1, 1, 1]`,\n",
-///     " right_bag label: `&b`,\n",
-///     " right_bag debug: `[1, 1]`,\n",
-///     "            left: `{1: 3}`,\n",
-///     "           right: `{1: 2}`"
+///     "assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n",
+///     " a label: `&a`,\n",
+///     " a debug: `[1, 1, 1]`,\n",
+///     " b label: `&b`,\n",
+///     " b debug: `[1, 1]`,\n",
+///     "       a: `{1: 3}`,\n",
+///     "       b: `{1: 2}`"
 /// );
 /// assert_eq!(actual, expect);
 ///

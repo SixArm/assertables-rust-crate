@@ -73,16 +73,16 @@ mod tests {
     fn test_assert_contains_as_result_x_str_x_success() {
         let a = "alfa";
         let b = "lf";
-        let x = assert_contains_as_result!(a, b);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_contains_as_result!(a, b);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
     fn test_assert_contains_as_result_x_str_x_failure() {
         let a: &str = "alfa";
         let b = "zz";
-        let x = assert_contains_as_result!(a, b);
-        let actual = x.unwrap_err();
+        let result = assert_contains_as_result!(a, b);
+        let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_contains!(container, containee)`\n",
             " container label: `a`,\n",
@@ -99,16 +99,16 @@ mod tests {
     fn test_assert_contains_as_result_x_range_x_success() {
         let a = 1..5;
         let b = 2;
-        let x = assert_contains_as_result!(a, &b);
-        assert_eq!(x.unwrap(), ());
+        let result = assert_contains_as_result!(a, &b);
+        assert_eq!(result.unwrap(), ());
     }
 
     #[test]
     fn test_assert_contains_as_result_x_range_x_failure() {
         let a = 1..5;
         let b = 6;
-        let x = assert_contains_as_result!(a, &b);
-        let actual = x.unwrap_err();
+        let result = assert_contains_as_result!(a, &b);
+        let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_contains!(container, containee)`\n",
             " container label: `a`,\n",

@@ -32,8 +32,8 @@
 ///
 #[macro_export]
 macro_rules! assert_as_result {
-    ($x:expr $(,)?) => {{
-        if $x {
+    ($a:expr $(,)?) => {{
+        if $a {
             Ok(())
         } else {
             Err(format!(
@@ -42,8 +42,8 @@ macro_rules! assert_as_result {
                     " condition label: `{}`,\n",
                     " condition debug: `{:?}`,\n",
                 ),
-                stringify!($x),
-                $x,
+                stringify!($a),
+                $a,
             ))
         }
     }};
@@ -55,8 +55,8 @@ mod tests {
     #[test]
     fn test_assert_as_result_x_success() {
         let a = true;
-        let x = assert_as_result!(a);
-        assert_eq!(x, Ok(()));
+        let result = assert_as_result!(a);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]

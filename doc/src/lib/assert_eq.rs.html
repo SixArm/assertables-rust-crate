@@ -154,13 +154,13 @@
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_eq!(left, right)`\n"</span>,
-                            <span class="string">"  left label: `{}`,\n"</span>,
-                            <span class="string">"  left debug: `{:?}`,\n"</span>,
-                            <span class="string">" right label: `{}`,\n"</span>,
-                            <span class="string">" right debug: `{:?}`,\n"</span>,
-                            <span class="string">"        left: `{:?}`,\n"</span>,
-                            <span class="string">"       right: `{:?}`"
+                            <span class="string">"assertion failed: `assert_eq!(a, b)`\n"</span>,
+                            <span class="string">" a label: `{}`,\n"</span>,
+                            <span class="string">" a debug: `{:?}`,\n"</span>,
+                            <span class="string">" b label: `{}`,\n"</span>,
+                            <span class="string">" b debug: `{:?}`,\n"</span>,
+                            <span class="string">"       a: `{:?}`,\n"</span>,
+                            <span class="string">"       b: `{:?}`"
                         </span>),
                         <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                         <span class="macro-nonterminal">$a</span>,
@@ -182,26 +182,26 @@
     </span><span class="kw">fn </span>test_assert_eq_as_result_x_success() {
         <span class="kw">let </span>a: i32 = <span class="number">1</span>;
         <span class="kw">let </span>b: i32 = <span class="number">1</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_eq_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(x, <span class="prelude-val">Ok</span>(()));
+        <span class="kw">let </span>result = <span class="macro">assert_eq_as_result!</span>(a, b);
+        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_eq_as_result_x_failure() {
         <span class="kw">let </span>a: i32 = <span class="number">1</span>;
         <span class="kw">let </span>b: i32 = <span class="number">2</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_eq_as_result!</span>(a, b);
-        <span class="macro">assert!</span>(x.is_err());
+        <span class="kw">let </span>result = <span class="macro">assert_eq_as_result!</span>(a, b);
+        <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
-            x.unwrap_err(),
+            result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_eq!(left, right)`\n"</span>,
-                <span class="string">"  left label: `a`,\n"</span>,
-                <span class="string">"  left debug: `1`,\n"</span>,
-                <span class="string">" right label: `b`,\n"</span>,
-                <span class="string">" right debug: `2`,\n"</span>,
-                <span class="string">"        left: `1`,\n"</span>,
-                <span class="string">"       right: `2`"
+                <span class="string">"assertion failed: `assert_eq!(a, b)`\n"</span>,
+                <span class="string">" a label: `a`,\n"</span>,
+                <span class="string">" a debug: `1`,\n"</span>,
+                <span class="string">" b label: `b`,\n"</span>,
+                <span class="string">" b debug: `2`,\n"</span>,
+                <span class="string">"       a: `1`,\n"</span>,
+                <span class="string">"       b: `2`"
             </span>)
         );
     }

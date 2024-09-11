@@ -242,6 +242,10 @@
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
 <a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stdout string is equal to another.
 //!
 //! # Example
@@ -292,16 +296,18 @@
         <span class="kw">if </span>a_output.is_err() || b_output.is_err() {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n"</span>,
-                    <span class="string">"  left_command label: `{}`,\n"</span>,
-                    <span class="string">"  left_command debug: `{:?}`,\n"</span>,
-                    <span class="string">" right_command label: `{}`,\n"</span>,
-                    <span class="string">" right_command debug: `{:?}`,\n"</span>,
-                    <span class="string">"         left output: `{:?}`,\n"</span>,
-                    <span class="string">"        right output: `{:?}`"
+                    <span class="string">"assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n"</span>,
+                    <span class="string">" a label: `{}`,\n"</span>,
+                    <span class="string">" a debug: `{:?}`,\n"</span>,
+                    <span class="string">" b label: `{}`,\n"</span>,
+                    <span class="string">" b debug: `{:?}`,\n"</span>,
+                    <span class="string">" a output: `{:?}`,\n"</span>,
+                    <span class="string">" b output: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>), <span class="macro-nonterminal">$a_command</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_command</span>), <span class="macro-nonterminal">$b_command</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
+                <span class="macro-nonterminal">$a_command</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_command</span>),
+                <span class="macro-nonterminal">$b_command</span>,
                 a_output,
                 b_output
             ))
@@ -313,16 +319,18 @@
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n"</span>,
-                        <span class="string">"  left_command label: `{}`,\n"</span>,
-                        <span class="string">"  left_command debug: `{:?}`,\n"</span>,
-                        <span class="string">" right_command label: `{}`,\n"</span>,
-                        <span class="string">" right_command debug: `{:?}`,\n"</span>,
-                        <span class="string">"                left: `{:?}`,\n"</span>,
-                        <span class="string">"               right: `{:?}`"
+                        <span class="string">"assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n"</span>,
+                        <span class="string">" a label: `{}`,\n"</span>,
+                        <span class="string">" a debug: `{:?}`,\n"</span>,
+                        <span class="string">" b label: `{}`,\n"</span>,
+                        <span class="string">" b debug: `{:?}`,\n"</span>,
+                        <span class="string">"       a: `{:?}`,\n"</span>,
+                        <span class="string">"       b: `{:?}`"
                     </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>), <span class="macro-nonterminal">$a_command</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_command</span>), <span class="macro-nonterminal">$b_command</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
+                    <span class="macro-nonterminal">$a_command</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_command</span>),
+                    <span class="macro-nonterminal">$b_command</span>,
                     a_string,
                     b_string
                 ))
@@ -342,8 +350,8 @@
         a.args([<span class="string">"%s"</span>, <span class="string">"hello"</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stdout"</span>);
         b.args([<span class="string">"%s%s%s%s%s"</span>, <span class="string">"h"</span>, <span class="string">"e"</span>, <span class="string">"l"</span>, <span class="string">"l"</span>, <span class="string">"o"</span>]);
-        <span class="kw">let </span>x = <span class="macro">assert_command_stdout_eq_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(x.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_command_stdout_eq_as_result!</span>(a, b);
+        <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
@@ -352,16 +360,16 @@
         a.args([<span class="string">"%s"</span>, <span class="string">"hello"</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stdout"</span>);
         b.args([<span class="string">"%s%s%s"</span>, <span class="string">"z"</span>, <span class="string">"z"</span>, <span class="string">"z"</span>]);
-        <span class="kw">let </span>x = <span class="macro">assert_command_stdout_eq_as_result!</span>(a, b);
-        <span class="kw">let </span>actual = x.unwrap_err();
+        <span class="kw">let </span>result = <span class="macro">assert_command_stdout_eq_as_result!</span>(a, b);
+        <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n"</span>,
-            <span class="string">"  left_command label: `a`,\n"</span>,
-            <span class="string">"  left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n"</span>,
-            <span class="string">" right_command label: `b`,\n"</span>,
-            <span class="string">" right_command debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n"</span>,
-            <span class="string">"                left: `\"hello\"`,\n"</span>,
-            <span class="string">"               right: `\"zzz\"`"
+            <span class="string">"assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n"</span>,
+            <span class="string">" a label: `a`,\n"</span>,
+            <span class="string">" a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n"</span>,
+            <span class="string">" b label: `b`,\n"</span>,
+            <span class="string">" b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n"</span>,
+            <span class="string">"       a: `\"hello\"`,\n"</span>,
+            <span class="string">"       b: `\"zzz\"`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -402,13 +410,13 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stdout_eq!(left_command, right_command)`\n",
-///     "  left_command label: `a`,\n",
-///     "  left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-///     " right_command label: `b`,\n",
-///     " right_command debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
-///     "                left: `\"hello\"`,\n",
-///     "               right: `\"zzz\"`"
+///     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
+///     " a label: `a`,\n",
+///     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+///     " b label: `b`,\n",
+///     " b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
+///     "       a: `\"hello\"`,\n",
+///     "       b: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 ///

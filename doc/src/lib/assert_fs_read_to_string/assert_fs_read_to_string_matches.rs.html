@@ -228,6 +228,10 @@
 <a href="#228" id="228">228</a>
 <a href="#229" id="229">229</a>
 <a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string() is a match to a regex.
 //!
 //! # Example
@@ -274,15 +278,17 @@
         <span class="kw">if let </span><span class="prelude-val">Err</span>(a_err) = a_result {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n"</span>,
-                    <span class="string">"     left_path label: `{}`,\n"</span>,
-                    <span class="string">"     left_path debug: `{:?}`,\n"</span>,
+                    <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(a_path, right_matcher)`\n"</span>,
+                    <span class="string">"     a_path label: `{}`,\n"</span>,
+                    <span class="string">"     a_path debug: `{:?}`,\n"</span>,
                     <span class="string">" right_matcher label: `{}`,\n"</span>,
                     <span class="string">" right_matcher debug: `{:?}`,\n"</span>,
-                    <span class="string">"            left err: `{:?}`"
+                    <span class="string">"            a err: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>), <span class="macro-nonterminal">$a_path</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>), <span class="macro-nonterminal">$b_matcher</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
+                <span class="macro-nonterminal">$a_path</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>),
+                <span class="macro-nonterminal">$b_matcher</span>,
                 a_err
             ))
         } <span class="kw">else </span>{
@@ -292,16 +298,18 @@
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n"</span>,
-                        <span class="string">"     left_path label: `{}`,\n"</span>,
-                        <span class="string">"     left_path debug: `{:?}`,\n"</span>,
+                        <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(a_path, right_matcher)`\n"</span>,
+                        <span class="string">"     a_path label: `{}`,\n"</span>,
+                        <span class="string">"     a_path debug: `{:?}`,\n"</span>,
                         <span class="string">" right_matcher label: `{}`,\n"</span>,
                         <span class="string">" right_matcher debug: `{:?}`,\n"</span>,
-                        <span class="string">"                left: `{:?}`,\n"</span>,
-                        <span class="string">"               right: `{:?}`"</span>,
+                        <span class="string">"       a: `{:?}`,\n"</span>,
+                        <span class="string">"       b: `{:?}`"</span>,
                     ),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>), <span class="macro-nonterminal">$a_path</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>), <span class="macro-nonterminal">$b_matcher</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
+                    <span class="macro-nonterminal">$a_path</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>),
+                    <span class="macro-nonterminal">$b_matcher</span>,
                     a_string,
                     <span class="macro-nonterminal">$b_matcher
                 </span>))
@@ -328,29 +336,29 @@
     </span><span class="kw">fn </span>test_read_to_string_matches_as_result_x_success() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"alfa.txt"</span>);
         <span class="kw">let </span>matcher = Regex::new(<span class="string">r"alfa"</span>).unwrap();
-        <span class="kw">let </span>x = <span class="macro">assert_fs_read_to_string_matches_as_result!</span>(<span class="kw-2">&amp;</span>path, matcher);
-        <span class="macro">assert_eq!</span>(x, <span class="prelude-val">Ok</span>(()));
+        <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_matches_as_result!</span>(<span class="kw-2">&amp;</span>path, matcher);
+        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_read_to_string_matches_as_result_x_failure() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"alfa.txt"</span>);
         <span class="kw">let </span>matcher = Regex::new(<span class="string">r"zzz"</span>).unwrap();
-        <span class="kw">let </span>x = <span class="macro">assert_fs_read_to_string_matches_as_result!</span>(<span class="kw-2">&amp;</span>path, matcher);
-        <span class="macro">assert!</span>(x.is_err());
+        <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_matches_as_result!</span>(<span class="kw-2">&amp;</span>path, matcher);
+        <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
-            x.unwrap_err(),
+            result.unwrap_err(),
             <span class="macro">format!</span>(
                 <span class="string">"{}{}{}{}{}{}{}{}{}"</span>,
-                <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n"</span>,
-                <span class="string">"     left_path label: `&amp;path`,\n"</span>,
-                <span class="string">"     left_path debug: `\""</span>,
+                <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(a_path, right_matcher)`\n"</span>,
+                <span class="string">"     a_path label: `&amp;path`,\n"</span>,
+                <span class="string">"     a_path debug: `\""</span>,
                 path.to_string_lossy(),
                 <span class="string">"\"`,\n"</span>,
                 <span class="string">" right_matcher label: `matcher`,\n"</span>,
                 <span class="string">" right_matcher debug: `Regex(\"zzz\")`,\n"</span>,
-                <span class="string">"                left: `\"alfa\\n\"`,\n"</span>,
-                <span class="string">"               right: `Regex(\"zzz\")`"
+                <span class="string">"       a: `\"alfa\\n\"`,\n"</span>,
+                <span class="string">"       b: `Regex(\"zzz\")`"
             </span>)
         );
     }
@@ -388,13 +396,13 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_matches!(left_path, right_matcher)`\n",
-///     "     left_path label: `&amp;path`,\n",
-///     "     left_path debug: `\"alfa.txt\"`,\n",
+///     "assertion failed: `assert_fs_read_to_string_matches!(a_path, right_matcher)`\n",
+///     "     a_path label: `&amp;path`,\n",
+///     "     a_path debug: `\"alfa.txt\"`,\n",
 ///     " right_matcher label: `matcher`,\n",
 ///     " right_matcher debug: `Regex(\"zzz\")`,\n",
-///     "                left: `\"alfa\\n\"`,\n",
-///     "               right: `Regex(\"zzz\")`"
+///     "       a: `\"alfa\\n\"`,\n",
+///     "       b: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

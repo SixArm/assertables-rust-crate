@@ -66,17 +66,17 @@ mod tests {
     #[test]
     fn test_assert_result_ok_as_result_x_success() {
         let a: Result<(), i8> = Result::Ok(());
-        let x = assert_result_ok_as_result!(a);
-        assert_eq!(x, Ok(()));
+        let result = assert_result_ok_as_result!(a);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_result_ok_as_result_x_failure() {
         let a: Result<(), i8> = Result::Err(1);
-        let x = assert_result_ok_as_result!(a);
-        assert!(x.is_err());
+        let result = assert_result_ok_as_result!(a);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_result_ok!(expr)`\n",
                 "   expr label: `a`,\n",

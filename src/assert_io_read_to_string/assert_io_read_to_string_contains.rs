@@ -39,42 +39,46 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_contains_as_result {
-    ($a_reader:expr, $b_containee:expr $(,)?) => ({
-        let mut a_string = String::new();
-        let a_result = $a_reader.read_to_string(&mut a_string);
-        if let Err(a_err) = a_result {
+    ($reader:expr, $containee:expr $(,)?) => ({
+        let mut reader_string = String::new();
+        let reader_result = $reader.read_to_string(&mut reader_string);
+        if let Err(reader_err) = reader_result {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n",
-                    "     left_reader label: `{}`,\n",
-                    "     left_reader debug: `{:?}`,\n",
-                    " right_containee label: `{}`,\n",
-                    " right_containee debug: `{:?}`,\n",
-                    "              left err: `{:?}`"
+                    "assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n",
+                    "    reader label: `{}`,\n",
+                    "    reader debug: `{:?}`,\n",
+                    " containee label: `{}`,\n",
+                    " containee debug: `{:?}`,\n",
+                    "      reader err: `{:?}`"
                 ),
-                stringify!($a_reader), $a_reader,
-                stringify!($b_containee), $b_containee,
-                a_err
+                stringify!($reader),
+                $reader,
+                stringify!($containee),
+                $containee,
+                reader_err
             ))
         } else {
-            if a_string.contains($b_containee) {
+            if reader_string.contains($containee) {
                 Ok(())
             } else {
-                let _a_size = a_result.unwrap();
+                let _reader_size = reader_result.unwrap();
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n",
-                        "     left_reader label: `{}`,\n",
-                        "     left_reader debug: `{:?}`,\n",
-                        " right_containee label: `{}`,\n",
-                        " right_containee debug: `{:?}`,\n",
-                        "                  left: `{:?}`,\n",
-                        "                 right: `{:?}`",
+                        "assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n",
+                        "    reader label: `{}`,\n",
+                        "    reader debug: `{:?}`,\n",
+                        " containee label: `{}`,\n",
+                        " containee debug: `{:?}`,\n",
+                        "    reader value: `{:?}`,\n",
+                        " containee value: `{:?}`",
                     ),
-                    stringify!($a_reader), $a_reader,
-                    stringify!($b_containee), $b_containee,
-                    a_string,
-                    $b_containee
+                    stringify!($reader),
+                    $reader,
+                    stringify!($containee),
+                    $containee,
+                    reader_string,
+                    $containee
                 ))
             }
         }
@@ -90,26 +94,26 @@ mod tests {
     fn test_assert_io_read_to_string_contains_as_result_x_success() {
         let mut reader = "alfa".as_bytes();
         let containee = "alfa";
-        let x = assert_io_read_to_string_contains_as_result!(reader, containee);
-        assert_eq!(x, Ok(()));
+        let result = assert_io_read_to_string_contains_as_result!(reader, containee);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_io_read_to_string_contains_as_result_x_failure() {
         let mut reader = "alfa".as_bytes();
         let containee = "zzz";
-        let x = assert_io_read_to_string_contains_as_result!(reader, containee);
-        assert!(x.is_err());
+        let result = assert_io_read_to_string_contains_as_result!(reader, containee);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n",
-                "     left_reader label: `reader`,\n",
-                "     left_reader debug: `[]`,\n",
-                " right_containee label: `containee`,\n",
-                " right_containee debug: `\"zzz\"`,\n",
-                "                  left: `\"alfa\"`,\n",
-                "                 right: `\"zzz\"`"
+                "assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n",
+                "    reader label: `reader`,\n",
+                "    reader debug: `[]`,\n",
+                " containee label: `containee`,\n",
+                " containee debug: `\"zzz\"`,\n",
+                "    reader value: `\"alfa\"`,\n",
+                " containee value: `\"zzz\"`"
             )
         );
     }
@@ -146,13 +150,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_contains!(left_reader, right_containee)`\n",
-///     "     left_reader label: `reader`,\n",
-///     "     left_reader debug: `[]`,\n",
-///     " right_containee label: `containee`,\n",
-///     " right_containee debug: `\"zzz\"`,\n",
-///     "                  left: `\"hello\"`,\n",
-///     "                 right: `\"zzz\"`"
+///     "assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n",
+///     "    reader label: `reader`,\n",
+///     "    reader debug: `[]`,\n",
+///     " containee label: `containee`,\n",
+///     " containee debug: `\"zzz\"`,\n",
+///     "    reader value: `\"hello\"`,\n",
+///     " containee value: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -166,14 +170,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_contains {
-    ($a_reader:expr, $b:expr $(,)?) => ({
-        match assert_io_read_to_string_contains_as_result!($a_reader, $b) {
+    ($reader:expr, $containee:expr $(,)?) => ({
+        match assert_io_read_to_string_contains_as_result!($reader, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_reader:expr, $b:expr, $($message:tt)+) => ({
-        match assert_io_read_to_string_contains_as_result!($a_reader, $b) {
+    ($a:expr, $b:expr, $($message:tt)+) => ({
+        match assert_io_read_to_string_contains_as_result!($reader, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

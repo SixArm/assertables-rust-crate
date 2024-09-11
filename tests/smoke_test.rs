@@ -31,18 +31,61 @@ fn assert_inners() {
 
 #[test]
 fn assert_return_enum() {
-    let x: Result<i8, i8> = Result::Ok(1);
-    assert_result_ok!(x);
-    let x: Result<i8, i8> = Result::Err(2);
-    assert_result_err!(x);
+    let a: Result<i8, i8> = Result::Ok(1);
+    assert_result_ok!(a);
+
+    //TODO
+    // let a: Result<i8, i8> = Result::Ok(1);
+    // let b: Result<i8, i8> = Result::Ok(1);
+    // assert_result_ok_eq!(a, b);
+
+    //TODO
+    // let a: Result<i8, i8> = Result::Ok(1);
+    // let b: Result<i8, i8> = Result::Ok(2);
+    // assert_result_ok_ne!(a, b);
+
+    let a: Result<i8, i8> = Result::Err(2);
+    assert_result_err!(a);
 }
 
 #[test]
 fn assert_option_enum() {
-    let x: Option<i8> = Option::Some(1);
-    assert_option_some!(x);
-    let x: Option<i8> = Option::None;
-    assert_option_none!(x);
+    let a: Option<i8> = Option::Some(1);
+    assert_option_some!(a);
+
+    //TODO
+    // let a: Option<i8> = Option::Some(1);
+    // let b: Option<i8> = Option::Some(1);
+    // assert_option_some_eq!(a, b);
+
+    //TODO
+    // let a: Option<i8> = Option::Some(1);
+    // let b: Option<i8> = Option::Some(2);
+    // assert_option_some_ne!(a, b);
+
+    let a: Option<i8> = Option::None;
+    assert_option_none!(a);
+}
+
+#[test]
+fn assert_poll_enum() {
+    use std::task::Poll;
+
+    let a: Poll<i8> = Poll::Ready(1);
+    assert_poll_ready!(a);
+
+    //TODO
+    // let a: Poll<i8> = Poll::Ready(1);
+    // let b: Poll<i8> = Poll::Ready(1);
+    // assert_poll_ready_eq!(a, b);
+
+    //TODO
+    // let a: Poll<i8> = Poll::Ready(1);
+    // let b: Poll<i8> = Poll::Ready(2);
+    // assert_poll_ready_ne!(a, b);
+
+    let a: Poll<i8> = Poll::Pending;
+    assert_poll_pending!(a);
 }
 
 #[test]

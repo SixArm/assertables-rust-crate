@@ -230,6 +230,12 @@
 <a href="#230" id="230">230</a>
 <a href="#231" id="231">231</a>
 <a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is a match to a regex.
 //!
 //! # Example
@@ -272,49 +278,55 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stdout_is_match_as_result {
-    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">let </span><span class="kw-2">mut </span>a_command = ::std::process::Command::new(<span class="macro-nonterminal">$a_program</span>);
         a_command.args(<span class="macro-nonterminal">$a_args</span>);
         <span class="kw">let </span>a_output = a_command.output();
         <span class="kw">if </span>a_output.is_err() {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n"</span>,
-                    <span class="string">"  left_program label: `{}`,\n"</span>,
-                    <span class="string">"  left_program debug: `{:?}`,\n"</span>,
-                    <span class="string">"     left_args label: `{}`,\n"</span>,
-                    <span class="string">"     left_args debug: `{:?}`,\n"</span>,
-                    <span class="string">" right_matcher label: `{}`,\n"</span>,
-                    <span class="string">" right_matcher debug: `{:?}`,\n"</span>,
-                    <span class="string">"         left output: `{:?}`"
+                    <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n"</span>,
+                    <span class="string">" a_program label: `{}`,\n"</span>,
+                    <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                    <span class="string">"    a_args label: `{}`,\n"</span>,
+                    <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                    <span class="string">" b_matcher label: `{}`,\n"</span>,
+                    <span class="string">" b_matcher debug: `{:?}`,\n"</span>,
+                    <span class="string">"        a output: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>), <span class="macro-nonterminal">$a_program</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>), <span class="macro-nonterminal">$a_args</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>), <span class="macro-nonterminal">$b_matcher</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                <span class="macro-nonterminal">$a_program</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                <span class="macro-nonterminal">$a_args</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
+                <span class="macro-nonterminal">$matcher</span>,
                 a_output
             ))
         } <span class="kw">else </span>{
             <span class="kw">let </span>a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            <span class="kw">if </span><span class="macro-nonterminal">$b_matcher</span>.is_match(<span class="kw-2">&amp;</span>a_string) {
+            <span class="kw">if </span><span class="macro-nonterminal">$matcher</span>.is_match(<span class="kw-2">&amp;</span>a_string) {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n"</span>,
-                        <span class="string">"  left_program label: `{}`,\n"</span>,
-                        <span class="string">"  left_program debug: `{:?}`,\n"</span>,
-                        <span class="string">"     left_args label: `{}`,\n"</span>,
-                        <span class="string">"     left_args debug: `{:?}`,\n"</span>,
-                        <span class="string">" right_matcher label: `{}`,\n"</span>,
-                        <span class="string">" right_matcher debug: `{:?}`,\n"</span>,
-                        <span class="string">"                left: `{:?}`,\n"</span>,
-                        <span class="string">"               right: `{:?}`"
+                        <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n"</span>,
+                        <span class="string">" a_program label: `{}`,\n"</span>,
+                        <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                        <span class="string">"    a_args label: `{}`,\n"</span>,
+                        <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                        <span class="string">" b_matcher label: `{}`,\n"</span>,
+                        <span class="string">" b_matcher debug: `{:?}`,\n"</span>,
+                        <span class="string">"               a: `{:?}`,\n"</span>,
+                        <span class="string">"               b: `{:?}`"
                     </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>), <span class="macro-nonterminal">$a_program</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>), <span class="macro-nonterminal">$a_args</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>), <span class="macro-nonterminal">$b_matcher</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                    <span class="macro-nonterminal">$a_program</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                    <span class="macro-nonterminal">$a_args</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
+                    <span class="macro-nonterminal">$matcher</span>,
                     a_string,
-                    <span class="macro-nonterminal">$b_matcher
+                    <span class="macro-nonterminal">$matcher
                 </span>))
             }
         }
@@ -331,8 +343,8 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
         <span class="kw">let </span>b = Regex::new(<span class="string">r"ell"</span>).unwrap();
-        <span class="kw">let </span>x = <span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
-        <span class="macro">assert_eq!</span>(x.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
+        <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
@@ -340,18 +352,18 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
         <span class="kw">let </span>b = Regex::new(<span class="string">r"zzz"</span>).unwrap();
-        <span class="kw">let </span>x = <span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
-        <span class="kw">let </span>actual = x.unwrap_err();
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
+        <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n"</span>,
-            <span class="string">"  left_program label: `&amp;a_program`,\n"</span>,
-            <span class="string">"  left_program debug: `\"bin/printf-stdout\"`,\n"</span>,
-            <span class="string">"     left_args label: `&amp;a_args`,\n"</span>,
-            <span class="string">"     left_args debug: `[\"%s\", \"hello\"]`,\n"</span>,
-            <span class="string">" right_matcher label: `b`,\n"</span>,
-            <span class="string">" right_matcher debug: `Regex(\"zzz\")`,\n"</span>,
-            <span class="string">"                left: `\"hello\"`,\n"</span>,
-            <span class="string">"               right: `Regex(\"zzz\")`"
+            <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n"</span>,
+            <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
+            <span class="string">" a_program debug: `\"bin/printf-stdout\"`,\n"</span>,
+            <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
+            <span class="string">"    a_args debug: `[\"%s\", \"hello\"]`,\n"</span>,
+            <span class="string">" b_matcher label: `b`,\n"</span>,
+            <span class="string">" b_matcher debug: `Regex(\"zzz\")`,\n"</span>,
+            <span class="string">"               a: `\"hello\"`,\n"</span>,
+            <span class="string">"               b: `Regex(\"zzz\")`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -390,15 +402,15 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_is_match!(left_program, right_matcher)`\n",
-///     "  left_program label: `&amp;program`,\n",
-///     "  left_program debug: `\"bin/printf-stdout\"`,\n",
-///     "     left_args label: `&amp;args`,\n",
-///     "     left_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `Regex(\"zzz\")`,\n",
-///     "                left: `\"hello\"`,\n",
-///     "               right: `Regex(\"zzz\")`"
+///     "assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n",
+///     " a_program label: `&amp;program`,\n",
+///     " a_program debug: `\"bin/printf-stdout\"`,\n",
+///     "    a_args label: `&amp;args`,\n",
+///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+///     " b_matcher label: `matcher`,\n",
+///     " b_matcher debug: `Regex(\"zzz\")`,\n",
+///     "               a: `\"hello\"`,\n",
+///     "               b: `Regex(\"zzz\")`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -412,14 +424,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stdout_is_match {
-    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_matcher</span>) {
+    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$matcher</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_matcher</span>) {
+    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$matcher</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

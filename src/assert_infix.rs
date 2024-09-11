@@ -85,23 +85,23 @@
 ///
 #[macro_export]
 macro_rules! assert_infix_as_result {
-    ($x:tt $infix:tt $y:tt) => {{
-        if $x $infix $y {
+    ($a:tt $infix:tt $b:tt) => {{
+        if $a $infix $b {
             Ok(())
         } else {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_infix!(x {} y)`\n",
-                    " x label: `{}`,\n",
-                    " x debug: `{:?}`,\n",
-                    " y label: `{}`,\n",
-                    " y debug: `{:?}`\n",
+                    "assertion failed: `assert_infix!(a {} b)`\n",
+                    " a label: `{}`,\n",
+                    " a debug: `{:?}`,\n",
+                    " b label: `{}`,\n",
+                    " b debug: `{:?}`\n",
                 ),
                 stringify!($infix),
-                stringify!($x),
-                $x,
-                stringify!($y),
-                $y,
+                stringify!($a),
+                $a,
+                stringify!($b),
+                $b,
             ))
         }
     }};
@@ -129,11 +129,11 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_infix!(x == y)`\n",
-                " x label: `a`,\n",
-                " x debug: `1`,\n",
-                " y label: `b`,\n",
-                " y debug: `2`\n",
+                "assertion failed: `assert_infix!(a == b)`\n",
+                " a label: `a`,\n",
+                " a debug: `1`,\n",
+                " b label: `b`,\n",
+                " b debug: `2`\n",
             )
         );
         let result = assert_infix_as_result!(a >= b);
@@ -141,11 +141,11 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_infix!(x >= y)`\n",
-                " x label: `a`,\n",
-                " x debug: `1`,\n",
-                " y label: `b`,\n",
-                " y debug: `2`\n",
+                "assertion failed: `assert_infix!(a >= b)`\n",
+                " a label: `a`,\n",
+                " a debug: `1`,\n",
+                " b label: `b`,\n",
+                " b debug: `2`\n",
             )
         );
     }
@@ -180,11 +180,11 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_infix!(x == y)`\n",
-///     " x label: `a`,\n",
-///     " x debug: `1`,\n",
-///     " y label: `b`,\n",
-///     " y debug: `2`\n",
+///     "assertion failed: `assert_infix!(a == b)`\n",
+///     " a label: `a`,\n",
+///     " a debug: `1`,\n",
+///     " b label: `b`,\n",
+///     " b debug: `2`\n",
 /// );
 /// assert_eq!(actual, expect);
 ///
@@ -228,14 +228,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_infix {
-    ($x:tt $infix:tt $y:tt) => {
-        match assert_infix_as_result!($x $infix $y) {
+    ($a:tt $infix:tt $b:tt) => {
+        match assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     };
-    ($x:tt $infix:tt $y:tt, $($message:tt)+) => {
-        match assert_infix_as_result!($x $infix $y) {
+    ($a:tt $infix:tt $b:tt, $($message:tt)+) => {
+        match assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

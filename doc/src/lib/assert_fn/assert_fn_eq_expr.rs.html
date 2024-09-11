@@ -297,6 +297,9 @@
 <a href="#297" id="297">297</a>
 <a href="#298" id="298">298</a>
 <a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is equal to an expression.
 //!
 //! # Example
@@ -346,18 +349,20 @@
         } <span class="kw">else </span>{
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fn_eq_expr!(left_function, left_param, right_expr)`\n"</span>,
-                    <span class="string">" left_function label: `{}`,\n"</span>,
-                    <span class="string">"    left_param label: `{}`,\n"</span>,
-                    <span class="string">"    left_param debug: `{:?}`,\n"</span>,
-                    <span class="string">"    right_expr label: `{}`,\n"</span>,
-                    <span class="string">"    right_expr debug: `{:?}`,\n"</span>,
-                    <span class="string">"                left: `{:?}`,\n"</span>,
-                    <span class="string">"               right: `{:?}`"
+                    <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
+                    <span class="string">" a_function label: `{}`,\n"</span>,
+                    <span class="string">"    a_param label: `{}`,\n"</span>,
+                    <span class="string">"    a_param debug: `{:?}`,\n"</span>,
+                    <span class="string">"     b_expr label: `{}`,\n"</span>,
+                    <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                    <span class="string">"                a: `{:?}`,\n"</span>,
+                    <span class="string">"                b: `{:?}`"
                 </span>),
                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>), <span class="macro-nonterminal">$a_param</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>), <span class="macro-nonterminal">$b_expr</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
+                <span class="macro-nonterminal">$a_param</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                <span class="macro-nonterminal">$b_expr</span>,
                 a_output,
                 <span class="macro-nonterminal">$b_expr
             </span>))
@@ -373,15 +378,16 @@
         } <span class="kw">else </span>{
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fn_eq_expr!(left_function, right_expr)`\n"</span>,
-                    <span class="string">" left_function label: `{}`,\n"</span>,
-                    <span class="string">"    right_expr label: `{}`,\n"</span>,
-                    <span class="string">"    right_expr debug: `{:?}`,\n"</span>,
-                    <span class="string">"                left: `{:?}`,\n"</span>,
-                    <span class="string">"               right: `{:?}`"
+                    <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, b_expr)`\n"</span>,
+                    <span class="string">" a_function label: `{}`,\n"</span>,
+                    <span class="string">"     b_expr label: `{}`,\n"</span>,
+                    <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                    <span class="string">"                a: `{:?}`,\n"</span>,
+                    <span class="string">"                b: `{:?}`"
                 </span>),
                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>), <span class="macro-nonterminal">$b_expr</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                <span class="macro-nonterminal">$b_expr</span>,
                 a_output,
                 <span class="macro-nonterminal">$b_expr
             </span>))
@@ -405,27 +411,27 @@
             </span><span class="kw">fn </span>test_eq() {
                 <span class="kw">let </span>a: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">1</span>;
-                <span class="kw">let </span>x = <span class="macro">assert_fn_eq_expr_as_result!</span>(f, a, b);
-                <span class="macro">assert_eq!</span>(x, <span class="prelude-val">Ok</span>(()));
+                <span class="kw">let </span>result = <span class="macro">assert_fn_eq_expr_as_result!</span>(f, a, b);
+                <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
             }
 
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_assert_fn_eq_expr_as_result_x_arity_1_x_failure() {
                 <span class="kw">let </span>a: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">2</span>;
-                <span class="kw">let </span>x = <span class="macro">assert_fn_eq_expr_as_result!</span>(f, a, b);
-                <span class="macro">assert!</span>(x.is_err());
+                <span class="kw">let </span>result = <span class="macro">assert_fn_eq_expr_as_result!</span>(f, a, b);
+                <span class="macro">assert!</span>(result.is_err());
                 <span class="macro">assert_eq!</span>(
-                    x.unwrap_err(),
+                    result.unwrap_err(),
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fn_eq_expr!(left_function, left_param, right_expr)`\n"</span>,
-                        <span class="string">" left_function label: `f`,\n"</span>,
-                        <span class="string">"    left_param label: `a`,\n"</span>,
-                        <span class="string">"    left_param debug: `1`,\n"</span>,
-                        <span class="string">"    right_expr label: `b`,\n"</span>,
-                        <span class="string">"    right_expr debug: `2`,\n"</span>,
-                        <span class="string">"                left: `1`,\n"</span>,
-                        <span class="string">"               right: `2`"
+                        <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
+                        <span class="string">" a_function label: `f`,\n"</span>,
+                        <span class="string">"    a_param label: `a`,\n"</span>,
+                        <span class="string">"    a_param debug: `1`,\n"</span>,
+                        <span class="string">"     b_expr label: `b`,\n"</span>,
+                        <span class="string">"     b_expr debug: `2`,\n"</span>,
+                        <span class="string">"                a: `1`,\n"</span>,
+                        <span class="string">"                b: `2`"
                     </span>)
                 );
             }
@@ -440,24 +446,24 @@
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_eq() {
                 <span class="kw">let </span>b: i8 = <span class="number">1</span>;
-                <span class="kw">let </span>x = <span class="macro">assert_fn_eq_expr_as_result!</span>(f, b);
-                <span class="macro">assert_eq!</span>(x, <span class="prelude-val">Ok</span>(()));
+                <span class="kw">let </span>result = <span class="macro">assert_fn_eq_expr_as_result!</span>(f, b);
+                <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
             }
 
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_ne() {
                 <span class="kw">let </span>b: i8 = <span class="number">2</span>;
-                <span class="kw">let </span>x = <span class="macro">assert_fn_eq_expr_as_result!</span>(f, b);
-                <span class="macro">assert!</span>(x.is_err());
+                <span class="kw">let </span>result = <span class="macro">assert_fn_eq_expr_as_result!</span>(f, b);
+                <span class="macro">assert!</span>(result.is_err());
                 <span class="macro">assert_eq!</span>(
-                    x.unwrap_err(),
+                    result.unwrap_err(),
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fn_eq_expr!(left_function, right_expr)`\n"</span>,
-                        <span class="string">" left_function label: `f`,\n"</span>,
-                        <span class="string">"    right_expr label: `b`,\n"</span>,
-                        <span class="string">"    right_expr debug: `2`,\n"</span>,
-                        <span class="string">"                left: `1`,\n"</span>,
-                        <span class="string">"               right: `2`"
+                        <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, b_expr)`\n"</span>,
+                        <span class="string">" a_function label: `f`,\n"</span>,
+                        <span class="string">"     b_expr label: `b`,\n"</span>,
+                        <span class="string">"     b_expr debug: `2`,\n"</span>,
+                        <span class="string">"                a: `1`,\n"</span>,
+                        <span class="string">"                b: `2`"
                     </span>)
                 );
             }
@@ -494,14 +500,14 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fn_eq_expr!(left_function, left_param, right_expr)`\n",
-///     " left_function label: `i8::abs`,\n",
-///     "    left_param label: `a`,\n",
-///     "    left_param debug: `-1`,\n",
-///     "    right_expr label: `b`,\n",
-///     "    right_expr debug: `2`,\n",
-///     "                left: `1`,\n",
-///     "               right: `2`"
+///     "assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n",
+///     " a_function label: `i8::abs`,\n",
+///     "    a_param label: `a`,\n",
+///     "    a_param debug: `-1`,\n",
+///     "     b_expr label: `b`,\n",
+///     "     b_expr debug: `2`,\n",
+///     "                a: `1`,\n",
+///     "                b: `2`"
 /// );
 /// assert_eq!(actual, expect);
 ///

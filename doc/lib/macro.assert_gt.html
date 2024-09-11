@@ -28,13 +28,13 @@ expressions with their debug representations.</p>
 <span class="macro">assert!</span>(result.is_err());
 <span class="kw">let </span>actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-    <span class="string">"assertion failed: `assert_gt!(left, right)`\n"</span>,
-    <span class="string">"  left label: `a`,\n"</span>,
-    <span class="string">"  left debug: `1`,\n"</span>,
-    <span class="string">" right label: `b`,\n"</span>,
-    <span class="string">" right debug: `2`,\n"</span>,
-    <span class="string">"        left: `1`,\n"</span>,
-    <span class="string">"       right: `2`"
+    <span class="string">"assertion failed: `assert_gt!(a, b)`\n"</span>,
+    <span class="string">" a label: `a`,\n"</span>,
+    <span class="string">" a debug: `1`,\n"</span>,
+    <span class="string">" b label: `b`,\n"</span>,
+    <span class="string">" b debug: `2`,\n"</span>,
+    <span class="string">"       a: `1`,\n"</span>,
+    <span class="string">"       b: `2`"
 </span>);
 <span class="macro">assert_eq!</span>(actual, expect);
 

@@ -1,7 +1,7 @@
 //! Assert a number is within delta of another number.
 //!
 //! Calculate | a - b | ≤ delta
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -41,7 +41,7 @@
 /// Assert a number is within delta of another number.
 ///
 /// Calculate | a - b | ≤ delta
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * When false, return [`Err`] with a message and the values of the
@@ -72,15 +72,16 @@ macro_rules! assert_in_delta_as_result {
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_in_delta!(left, right, delta)`\n",
-                            "  left label: `{}`,\n",
-                            "  left debug: `{:?}`,\n",
-                            " right label: `{}`,\n",
-                            " right debug: `{:?}`,\n",
+                            "assertion failed: `assert_in_delta!(a, b, delta)`\n",
+                            "     a label: `{}`,\n",
+                            "     a debug: `{:?}`,\n",
+                            "     b label: `{}`,\n",
+                            "     b debug: `{:?}`,\n",
                             " delta label: `{}`,\n",
                             " delta debug: `{:?}`,\n",
-                            "        left: `{:?}`,\n",
-                            "       right: `{:?}`"
+                            "     a value: `{:?}`,\n",
+                            "     b value: `{:?}`,\n",
+                            " delta value: `{:?}`"
                         ),
                         stringify!($a),
                         $a,
@@ -89,7 +90,9 @@ macro_rules! assert_in_delta_as_result {
                         stringify!($delta),
                         $delta,
                         a_val,
-                        b_val
+                        b_val,
+                        delta_val
+
                     ))
                 }
             }
@@ -105,8 +108,8 @@ mod tests {
         let a: i8 = 10;
         let b: i8 = 11;
         let delta: i8 = 1;
-        let x = assert_in_delta_as_result!(a, b, delta);
-        assert_eq!(x, Ok(()));
+        let result = assert_in_delta_as_result!(a, b, delta);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
@@ -114,20 +117,21 @@ mod tests {
         let a: i8 = 10;
         let b: i8 = 12;
         let delta: i8 = 1;
-        let x = assert_in_delta_as_result!(a, b, delta);
-        assert!(x.is_err());
+        let result = assert_in_delta_as_result!(a, b, delta);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_in_delta!(left, right, delta)`\n",
-                "  left label: `a`,\n",
-                "  left debug: `10`,\n",
-                " right label: `b`,\n",
-                " right debug: `12`,\n",
+                "assertion failed: `assert_in_delta!(a, b, delta)`\n",
+                "     a label: `a`,\n",
+                "     a debug: `10`,\n",
+                "     b label: `b`,\n",
+                "     b debug: `12`,\n",
                 " delta label: `delta`,\n",
                 " delta debug: `1`,\n",
-                "        left: `10`,\n",
-                "       right: `12`"
+                "     a value: `10`,\n",
+                "     b value: `12`,\n",
+                " delta value: `1`"
             )
         );
     }
@@ -136,7 +140,7 @@ mod tests {
 /// Assert a number is within delta of another number.
 ///
 /// Calculate | a - b | ≤ delta
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -166,15 +170,16 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_in_delta!(left, right, delta)`\n",
-///     "  left label: `a`,\n",
-///     "  left debug: `10`,\n",
-///     " right label: `b`,\n",
-///     " right debug: `12`,\n",
+///     "assertion failed: `assert_in_delta!(a, b, delta)`\n",
+///     "     a label: `a`,\n",
+///     "     a debug: `10`,\n",
+///     "     b label: `b`,\n",
+///     "     b debug: `12`,\n",
 ///     " delta label: `delta`,\n",
 ///     " delta debug: `1`,\n",
-///     "        left: `10`,\n",
-///     "       right: `12`"
+///     "     a value: `10`,\n",
+///     "     b value: `12`,\n",
+///     " delta value: `1`"
 /// );
 /// assert_eq!(actual, expect);
 ///
@@ -233,7 +238,7 @@ macro_rules! assert_in_delta {
 /// Assert a number is within delta of another number.
 ///
 /// Calculate | a - b | ≤ delta
-/// 
+///
 /// This macro provides the same statements as [`assert_in_delta`](macro.assert_in_delta.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

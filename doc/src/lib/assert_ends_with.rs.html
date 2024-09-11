@@ -250,16 +250,16 @@
     </span><span class="kw">fn </span>test_assert_ends_with_as_result_x_success() {
         <span class="kw">let </span>a = <span class="string">"alfa"</span>;
         <span class="kw">let </span>b = <span class="string">"fa"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_ends_with_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(x.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_ends_with_as_result!</span>(a, b);
+        <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_ends_with_as_result_x_failure() {
         <span class="kw">let </span>a = <span class="string">"alfa"</span>;
         <span class="kw">let </span>b = <span class="string">"al"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_ends_with_as_result!</span>(a, b);
-        <span class="kw">let </span>actual = x.unwrap_err();
+        <span class="kw">let </span>result = <span class="macro">assert_ends_with_as_result!</span>(a, b);
+        <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_ends_with!(a, b)`\n"</span>,
             <span class="string">" a label: `a`,\n"</span>,

@@ -217,6 +217,10 @@
 <a href="#217" id="217">217</a>
 <a href="#218" id="218">218</a>
 <a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() value is less than an expression.
 //!
 //! # Example
@@ -264,15 +268,17 @@
         <span class="kw">if let </span><span class="prelude-val">Err</span>(a_err) = a_result {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_io_read_to_string_lt_expr!(left_reader, right_expr)`\n"</span>,
-                    <span class="string">" left_reader label: `{}`,\n"</span>,
-                    <span class="string">" left_reader debug: `{:?}`,\n"</span>,
-                    <span class="string">"  right_expr label: `{}`,\n"</span>,
-                    <span class="string">"  right_expr debug: `{:?}`,\n"</span>,
+                    <span class="string">"assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n"</span>,
+                    <span class="string">" a_reader label: `{}`,\n"</span>,
+                    <span class="string">" a_reader debug: `{:?}`,\n"</span>,
+                    <span class="string">"   b_expr label: `{}`,\n"</span>,
+                    <span class="string">"   b_expr debug: `{:?}`,\n"</span>,
                     <span class="string">"          left err: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>), <span class="macro-nonterminal">$a_reader</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>), <span class="macro-nonterminal">$b_expr</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
+                <span class="macro-nonterminal">$a_reader</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                <span class="macro-nonterminal">$b_expr</span>,
                 a_err
             ))
         } <span class="kw">else </span>{
@@ -283,16 +289,18 @@
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_io_read_to_string_lt_expr!(left_reader, right_expr)`\n"</span>,
-                        <span class="string">" left_reader label: `{}`,\n"</span>,
-                        <span class="string">" left_reader debug: `{:?}`,\n"</span>,
-                        <span class="string">"  right_expr label: `{}`,\n"</span>,
-                        <span class="string">"  right_expr debug: `{:?}`,\n"</span>,
-                        <span class="string">"              left: `{:?}`,\n"</span>,
-                        <span class="string">"             right: `{:?}`"</span>,
+                        <span class="string">"assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n"</span>,
+                        <span class="string">" a_reader label: `{}`,\n"</span>,
+                        <span class="string">" a_reader debug: `{:?}`,\n"</span>,
+                        <span class="string">"   b_expr label: `{}`,\n"</span>,
+                        <span class="string">"   b_expr debug: `{:?}`,\n"</span>,
+                        <span class="string">"       a: `{:?}`,\n"</span>,
+                        <span class="string">"       b: `{:?}`"</span>,
                     ),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>), <span class="macro-nonterminal">$a_reader</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>), <span class="macro-nonterminal">$b_expr</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
+                    <span class="macro-nonterminal">$a_reader</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                    <span class="macro-nonterminal">$b_expr</span>,
                     a_string,
                     b_string
                 ))
@@ -310,26 +318,26 @@
     </span><span class="kw">fn </span>test_assert_io_read_to_string_lt_expr_as_result_x_success() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>value = String::from(<span class="string">"bravo"</span>);
-        <span class="kw">let </span>x = <span class="macro">assert_io_read_to_string_lt_expr_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
-        <span class="macro">assert_eq!</span>(x, <span class="prelude-val">Ok</span>(()));
+        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_lt_expr_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
+        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_io_read_to_string_lt_expr_as_result_x_failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"bravo"</span>.as_bytes();
         <span class="kw">let </span>value = String::from(<span class="string">"alfa"</span>);
-        <span class="kw">let </span>x = <span class="macro">assert_io_read_to_string_lt_expr_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
-        <span class="macro">assert!</span>(x.is_err());
+        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_lt_expr_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
+        <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
-            x.unwrap_err(),
+            result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_io_read_to_string_lt_expr!(left_reader, right_expr)`\n"</span>,
-                <span class="string">" left_reader label: `reader`,\n"</span>,
-                <span class="string">" left_reader debug: `[]`,\n"</span>,
-                <span class="string">"  right_expr label: `&amp;value`,\n"</span>,
-                <span class="string">"  right_expr debug: `\"alfa\"`,\n"</span>,
-                <span class="string">"              left: `\"bravo\"`,\n"</span>,
-                <span class="string">"             right: `\"alfa\"`"
+                <span class="string">"assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n"</span>,
+                <span class="string">" a_reader label: `reader`,\n"</span>,
+                <span class="string">" a_reader debug: `[]`,\n"</span>,
+                <span class="string">"   b_expr label: `&amp;value`,\n"</span>,
+                <span class="string">"   b_expr debug: `\"alfa\"`,\n"</span>,
+                <span class="string">"       a: `\"bravo\"`,\n"</span>,
+                <span class="string">"       b: `\"alfa\"`"
             </span>)
         );
     }
@@ -366,13 +374,13 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_lt_expr!(left_reader, right_expr)`\n",
-///     " left_reader label: `reader`,\n",
-///     " left_reader debug: `[]`,\n",
-///     "  right_expr label: `&amp;value`,\n",
-///     "  right_expr debug: `\"alfa\"`,\n",
-///     "              left: `\"bravo\"`,\n",
-///     "             right: `\"alfa\"`"
+///     "assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n",
+///     " a_reader label: `reader`,\n",
+///     " a_reader debug: `[]`,\n",
+///     "   b_expr label: `&amp;value`,\n",
+///     "   b_expr debug: `\"alfa\"`,\n",
+///     "       a: `\"bravo\"`,\n",
+///     "       b: `\"alfa\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

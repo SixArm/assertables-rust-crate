@@ -263,16 +263,16 @@
     </span><span class="kw">fn </span>test_assert_is_match_as_result_x_success() {
         <span class="kw">let </span>a = Regex::new(<span class="string">r"lf"</span>).unwrap();
         <span class="kw">let </span>b = <span class="string">"alfa"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_is_match_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(x.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_is_match_as_result!</span>(a, b);
+        <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_is_match_as_result_x_failure() {
         <span class="kw">let </span>a = Regex::new(<span class="string">r"lf"</span>).unwrap();
         <span class="kw">let </span>b = <span class="string">"bravo"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_is_match_as_result!</span>(a, b);
-        <span class="kw">let </span>actual = x.unwrap_err();
+        <span class="kw">let </span>result = <span class="macro">assert_is_match_as_result!</span>(a, b);
+        <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_is_match!(matcher, matchee)`\n"</span>,
             <span class="string">" matcher label: `a`,\n"</span>,

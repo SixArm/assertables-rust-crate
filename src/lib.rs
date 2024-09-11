@@ -23,8 +23,10 @@
 //!
 //! For values:
 //!
-//! * [`assert_gt!(a, b)`](macro@crate::assert_gt)
 //! * [`assert_lt!(a, b)`](macro@crate::assert_lt)
+//! * [`assert_le!(a, b)`](macro@crate::assert_le)
+//! * [`assert_gt!(a, b)`](macro@crate::assert_gt)
+//! * [`assert_ge!(a, b)`](macro@crate::assert_ge)
 //!
 //! For numbers:
 //!
@@ -49,6 +51,8 @@
 //! For results:
 //!
 //! * [`assert_result_ok!(a)`](macro@crate::assert_result_ok)
+//! * [`assert_result_ok_eq!(a)`](macro@crate::assert_result_ok_eq)
+//! * [`assert_result_ok_ne!(a)`](macro@crate::assert_result_ok_ne)
 //! * [`assert_result_err!(a)`](macro@crate::assert_result_err)
 //!
 //! For options:
@@ -63,8 +67,8 @@
 //!
 //! For collections such as arrays, vectors, maps, sets:
 //!
-//! * [`assert_set_subset!(a, b)`](macro@crate::assert_set_subset)
-//! * [`assert_set_disjoint!(a, b)`](macro@crate::assert_set_disjoint)
+//! * [`assert_set_subset!(collection1, collection2)`](macro@crate::assert_set_subset)
+//! * [`assert_set_disjoint!(collection1, collection2)`](macro@crate::assert_set_disjoint)
 //!
 //! For file system paths and input/output readers:
 //!
@@ -203,6 +207,12 @@
 //!
 //! ## Change highlights
 //!
+//! 8.6: Add `assert_poll_ready_eq`, `assert_poll_ready_ne` (planned)
+//!
+//! 8.5: Add `assert_option_some_eq`, `assert_option_some_ne` (planned)
+//!
+//! 8.4: Add `assert_result_ok_eq`, `assert_result_ok_ne`
+//!
 //! 8.3: Add `assert_poll_ready`, `assert_poll_pending`.
 //!
 //! 8.2: Add `assert_infix`.
@@ -219,7 +229,7 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.3.0
+//! * Version: 8.4.0
 //! * Created: 2021-03-30T15:47:49Z
 //! * Updated: 2024-09-07T22:22:42Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more

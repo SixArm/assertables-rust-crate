@@ -299,16 +299,16 @@
     </span><span class="kw">fn </span>test_assert_contains_as_result_x_str_x_success() {
         <span class="kw">let </span>a = <span class="string">"alfa"</span>;
         <span class="kw">let </span>b = <span class="string">"lf"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_contains_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(x.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_contains_as_result!</span>(a, b);
+        <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_contains_as_result_x_str_x_failure() {
         <span class="kw">let </span>a: <span class="kw-2">&amp;</span>str = <span class="string">"alfa"</span>;
         <span class="kw">let </span>b = <span class="string">"zz"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_contains_as_result!</span>(a, b);
-        <span class="kw">let </span>actual = x.unwrap_err();
+        <span class="kw">let </span>result = <span class="macro">assert_contains_as_result!</span>(a, b);
+        <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_contains!(container, containee)`\n"</span>,
             <span class="string">" container label: `a`,\n"</span>,
@@ -325,16 +325,16 @@
     </span><span class="kw">fn </span>test_assert_contains_as_result_x_range_x_success() {
         <span class="kw">let </span>a = <span class="number">1</span>..<span class="number">5</span>;
         <span class="kw">let </span>b = <span class="number">2</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_contains_as_result!</span>(a, <span class="kw-2">&amp;</span>b);
-        <span class="macro">assert_eq!</span>(x.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_contains_as_result!</span>(a, <span class="kw-2">&amp;</span>b);
+        <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_contains_as_result_x_range_x_failure() {
         <span class="kw">let </span>a = <span class="number">1</span>..<span class="number">5</span>;
         <span class="kw">let </span>b = <span class="number">6</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_contains_as_result!</span>(a, <span class="kw-2">&amp;</span>b);
-        <span class="kw">let </span>actual = x.unwrap_err();
+        <span class="kw">let </span>result = <span class="macro">assert_contains_as_result!</span>(a, <span class="kw-2">&amp;</span>b);
+        <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_contains!(container, containee)`\n"</span>,
             <span class="string">" container label: `a`,\n"</span>,

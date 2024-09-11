@@ -6,21 +6,21 @@
 //!
 //! For eq & ne:
 //!
-//! * [`assert_set_eq!(a, b)`](macro@crate::assert_set_eq) ≈ set a = set b
+//! * [`assert_set_eq!(collection1, collection2)`](macro@crate::assert_set_eq) ≈ set a = set b
 //!
-//! * [`assert_set_ne!(a, b)`](macro@crate::assert_set_ne) ≈ set a ≠ set b
+//! * [`assert_set_ne!(collection1, collection2)`](macro@crate::assert_set_ne) ≈ set a ≠ set b
 //!
 //! For subset & superset:
 //!
-//! * [`assert_set_subset!(a, b)`](macro@crate::assert_set_subset) ≈ set a ⊆ set b
+//! * [`assert_set_subset!(collection1, collection2)`](macro@crate::assert_set_subset) ≈ set a ⊆ set b
 //!
-//! * [`assert_set_superset!(a, b)`](macro@crate::assert_set_superset) ≈ set a ⊇ set b
+//! * [`assert_set_superset!(collection1, collection2)`](macro@crate::assert_set_superset) ≈ set a ⊇ set b
 //!
 //! For joint & disjoint:
 //!
-//! * [`assert_set_joint!(a, b)`](macro@crate::assert_set_joint) ≈ set a ∩ set b ≠ ∅
+//! * [`assert_set_joint!(collection1, collection2)`](macro@crate::assert_set_joint) ≈ set a ∩ set b ≠ ∅
 //!
-//! * [`assert_set_disjoint!(a, b)`](macro@crate::assert_set_disjoint) ≈ set a ∩ set b = ∅
+//! * [`assert_set_disjoint!(collection1, collection2)`](macro@crate::assert_set_disjoint) ≈ set a ∩ set b = ∅
 //!
 //!
 //! # Example

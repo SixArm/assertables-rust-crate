@@ -49,13 +49,13 @@ macro_rules! assert_set_disjoint_as_result {
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_set_disjoint!(left_set, right_set)`\n",
-                            "  left_set label: `{}`,\n",
-                            "  left_set debug: `{:?}`,\n",
-                            " right_set label: `{}`,\n",
-                            " right_set debug: `{:?}`,\n",
-                            "            left: `{:?}`,\n",
-                            "           right: `{:?}`"
+                            "assertion failed: `assert_set_disjoint!(a_set, b_set)`\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            "       a: `{:?}`,\n",
+                            "       b: `{:?}`"
                         ),
                         stringify!($a),
                         $a,
@@ -77,26 +77,26 @@ mod tests {
     fn test_assert_set_disjoint_as_result_x_success() {
         let a = [1, 2];
         let b = [3, 4];
-        let x = assert_set_disjoint_as_result!(&a, &b);
-        assert_eq!(x, Ok(()));
+        let result = assert_set_disjoint_as_result!(&a, &b);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_set_disjoint_as_result_x_failure() {
         let a = [1, 2];
         let b = [2, 3];
-        let x = assert_set_disjoint_as_result!(&a, &b);
-        assert!(x.is_err());
+        let result = assert_set_disjoint_as_result!(&a, &b);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_set_disjoint!(left_set, right_set)`\n",
-                "  left_set label: `&a`,\n",
-                "  left_set debug: `[1, 2]`,\n",
-                " right_set label: `&b`,\n",
-                " right_set debug: `[2, 3]`,\n",
-                "            left: `{1, 2}`,\n",
-                "           right: `{2, 3}`"
+                "assertion failed: `assert_set_disjoint!(a_set, b_set)`\n",
+                " a label: `&a`,\n",
+                " a debug: `[1, 2]`,\n",
+                " b label: `&b`,\n",
+                " b debug: `[2, 3]`,\n",
+                "       a: `{1, 2}`,\n",
+                "       b: `{2, 3}`"
             )
         );
     }
@@ -131,13 +131,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_set_disjoint!(left_set, right_set)`\n",
-///     "  left_set label: `&a`,\n",
-///     "  left_set debug: `[1, 2]`,\n",
-///     " right_set label: `&b`,\n",
-///     " right_set debug: `[2, 3]`,\n",
-///     "            left: `{1, 2}`,\n",
-///     "           right: `{2, 3}`"
+///     "assertion failed: `assert_set_disjoint!(a_set, b_set)`\n",
+///     " a label: `&a`,\n",
+///     " a debug: `[1, 2]`,\n",
+///     " b label: `&b`,\n",
+///     " b debug: `[2, 3]`,\n",
+///     "       a: `{1, 2}`,\n",
+///     "       b: `{2, 3}`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

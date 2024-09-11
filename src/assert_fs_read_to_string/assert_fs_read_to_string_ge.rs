@@ -37,24 +37,24 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_ge_as_result {
-    ($a_path:expr, $b_path:expr $(,)?) => {{
+    ($a_path:expr, $b:expr $(,)?) => {{
         let a_result = ::std::fs::read_to_string($a_path);
-        let b_result = ::std::fs::read_to_string($b_path);
+        let b_result = ::std::fs::read_to_string($b);
         if a_result.is_err() || b_result.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_fs_read_to_string_ge!(left_path, right_path)`\n",
-                    "  left_path label: `{}`,\n",
-                    "  left_path debug: `{:?}`,\n",
+                    "assertion failed: `assert_fs_read_to_string_ge!(a_path, right_path)`\n",
+                    "  a_path label: `{}`,\n",
+                    "  a_path debug: `{:?}`,\n",
                     " right_path label: `{}`,\n",
                     " right_path debug: `{:?}`,\n",
-                    "      left result: `{:?}`,\n",
-                    "     right result: `{:?}`"
+                    "      a result: `{:?}`,\n",
+                    "     b result: `{:?}`"
                 ),
                 stringify!($a_path),
                 $a_path,
-                stringify!($b_path),
-                $b_path,
+                stringify!($b),
+                $b,
                 a_result,
                 b_result
             ))
@@ -66,18 +66,18 @@ macro_rules! assert_fs_read_to_string_ge_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_fs_read_to_string_ge!(left_path, right_path)`\n",
-                        "  left_path label: `{}`,\n",
-                        "  left_path debug: `{:?}`,\n",
+                        "assertion failed: `assert_fs_read_to_string_ge!(a_path, right_path)`\n",
+                        "  a_path label: `{}`,\n",
+                        "  a_path debug: `{:?}`,\n",
                         " right_path label: `{}`,\n",
                         " right_path debug: `{:?}`,\n",
-                        "             left: `{:?}`,\n",
-                        "            right: `{:?}`"
+                        "       a: `{:?}`,\n",
+                        "       b: `{:?}`"
                     ),
                     stringify!($a_path),
                     $a_path,
-                    stringify!($b_path),
-                    $b_path,
+                    stringify!($b),
+                    $b,
                     a_string,
                     b_string
                 ))
@@ -105,31 +105,31 @@ mod tests {
     fn test_read_to_string_ge_as_result_x_success() {
         let a = DIR.join("bravo.txt");
         let b = DIR.join("alfa.txt");
-        let x = assert_fs_read_to_string_ge_as_result!(&a, &b);
-        assert_eq!(x, Ok(()));
+        let result = assert_fs_read_to_string_ge_as_result!(&a, &b);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_read_to_string_ge_as_result_x_failure() {
         let a = DIR.join("alfa.txt");
         let b = DIR.join("bravo.txt");
-        let x = assert_fs_read_to_string_ge_as_result!(&a, &b);
-        assert!(x.is_err());
+        let result = assert_fs_read_to_string_ge_as_result!(&a, &b);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             format!(
                 "{}{}{}{}{}{}{}{}{}{}{}",
-                "assertion failed: `assert_fs_read_to_string_ge!(left_path, right_path)`\n",
-                "  left_path label: `&a`,\n",
-                "  left_path debug: `\"",
+                "assertion failed: `assert_fs_read_to_string_ge!(a_path, right_path)`\n",
+                "  a_path label: `&a`,\n",
+                "  a_path debug: `\"",
                 a.to_string_lossy(),
                 "\"`,\n",
                 " right_path label: `&b`,\n",
                 " right_path debug: `\"",
                 b.to_string_lossy(),
                 "\"`,\n",
-                "             left: `\"alfa\\n\"`,\n",
-                "            right: `\"bravo\\n\"`"
+                "       a: `\"alfa\\n\"`,\n",
+                "       b: `\"bravo\\n\"`"
             )
         );
     }
@@ -166,13 +166,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_ge!(left_path, right_path)`\n",
-///     "  left_path label: `&a`,\n",
-///     "  left_path debug: `\"alfa.txt\"`,\n",
+///     "assertion failed: `assert_fs_read_to_string_ge!(a_path, right_path)`\n",
+///     "  a_path label: `&a`,\n",
+///     "  a_path debug: `\"alfa.txt\"`,\n",
 ///     " right_path label: `&b`,\n",
 ///     " right_path debug: `\"bravo.txt\"`,\n",
-///     "             left: `\"alfa\\n\"`,\n",
-///     "            right: `\"bravo\\n\"`"
+///     "       a: `\"alfa\\n\"`,\n",
+///     "       b: `\"bravo\\n\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -186,14 +186,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_ge {
-    ($a_path:expr, $b_path:expr $(,)?) => ({
-        match assert_fs_read_to_string_ge_as_result!($a_path, $b_path) {
+    ($a_path:expr, $b:expr $(,)?) => ({
+        match assert_fs_read_to_string_ge_as_result!($a_path, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_path:expr, $b_path:expr, $($message:tt)+) => ({
-        match assert_fs_read_to_string_ge_as_result!($a_path, $b_path) {
+    ($a_path:expr, $b:expr, $($message:tt)+) => ({
+        match assert_fs_read_to_string_ge_as_result!($a_path, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

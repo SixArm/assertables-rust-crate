@@ -236,6 +236,10 @@
 <a href="#236" id="236">236</a>
 <a href="#237" id="237">237</a>
 <a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stdout string contains a given containee.
 //!
 //! # Example
@@ -278,41 +282,45 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stdout_contains_as_result {
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span>a_output = <span class="macro-nonterminal">$a_command</span>.output();
-        <span class="kw">if </span>a_output.is_err() {
+    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">let </span>output = <span class="macro-nonterminal">$command</span>.output();
+        <span class="kw">if </span>output.is_err() {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n"</span>,
-                    <span class="string">"    left_command label: `{}`,\n"</span>,
-                    <span class="string">"    left_command debug: `{:?}`,\n"</span>,
-                    <span class="string">" right_containee label: `{}`,\n"</span>,
-                    <span class="string">" right_containee debug: `{:?}`,\n"</span>,
-                    <span class="string">"           left output: `{:?}`"
+                    <span class="string">"assertion failed: `assert_command_stdout_contains!(command, containee)`\n"</span>,
+                    <span class="string">"   command label: `{}`,\n"</span>,
+                    <span class="string">"   command debug: `{:?}`,\n"</span>,
+                    <span class="string">" containee label: `{}`,\n"</span>,
+                    <span class="string">" containee debug: `{:?}`,\n"</span>,
+                    <span class="string">"  command output: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>), <span class="macro-nonterminal">$a_command</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_containee</span>), <span class="macro-nonterminal">$b_containee</span>,
-                a_output
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$command</span>),
+                <span class="macro-nonterminal">$command</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
+                <span class="macro-nonterminal">$containee</span>,
+                output
             ))
         } <span class="kw">else </span>{
-            <span class="kw">let </span>a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            <span class="kw">if </span>a_string.contains(<span class="macro-nonterminal">$b_containee</span>) {
+            <span class="kw">let </span>string = String::from_utf8(output.unwrap().stdout).unwrap();
+            <span class="kw">if </span>string.contains(<span class="macro-nonterminal">$containee</span>) {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n"</span>,
-                        <span class="string">"    left_command label: `{}`,\n"</span>,
-                        <span class="string">"    left_command debug: `{:?}`,\n"</span>,
-                        <span class="string">" right_containee label: `{}`,\n"</span>,
-                        <span class="string">" right_containee debug: `{:?}`,\n"</span>,
-                        <span class="string">"                  left: `{:?}`,\n"</span>,
-                        <span class="string">"                 right: `{:?}`"
+                        <span class="string">"assertion failed: `assert_command_stdout_contains!(command, containee)`\n"</span>,
+                        <span class="string">"   command label: `{}`,\n"</span>,
+                        <span class="string">"   command debug: `{:?}`,\n"</span>,
+                        <span class="string">" containee label: `{}`,\n"</span>,
+                        <span class="string">" containee debug: `{:?}`,\n"</span>,
+                        <span class="string">"   command value: `{:?}`,\n"</span>,
+                        <span class="string">" containee value: `{:?}`"
                     </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>), <span class="macro-nonterminal">$a_command</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_containee</span>), <span class="macro-nonterminal">$b_containee</span>,
-                    a_string,
-                    <span class="macro-nonterminal">$b_containee
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$command</span>),
+                    <span class="macro-nonterminal">$command</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
+                    <span class="macro-nonterminal">$containee</span>,
+                    string,
+                    <span class="macro-nonterminal">$containee
                 </span>))
             }
         }
@@ -325,29 +333,29 @@
     <span class="kw">use </span>std::process::Command;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_asserterable_command_stdout_contains_x_success() {
+    </span><span class="kw">fn </span>test_assert_command_stdout_contains_x_success() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"hello"</span>]);
         <span class="kw">let </span>b = <span class="string">"ell"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_command_stdout_contains_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(x.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_command_stdout_contains_as_result!</span>(a, b);
+        <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_asserterable_command_stdout_contains_x_failure() {
+    </span><span class="kw">fn </span>test_assert_command_stdout_contains_x_failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"hello"</span>]);
         <span class="kw">let </span>b = <span class="string">"zzz"</span>;
-        <span class="kw">let </span>x = <span class="macro">assert_command_stdout_contains_as_result!</span>(a, b);
-        <span class="kw">let </span>actual = x.unwrap_err();
+        <span class="kw">let </span>result = <span class="macro">assert_command_stdout_contains_as_result!</span>(a, b);
+        <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n"</span>,
-            <span class="string">"    left_command label: `a`,\n"</span>,
-            <span class="string">"    left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n"</span>,
-            <span class="string">" right_containee label: `b`,\n"</span>,
-            <span class="string">" right_containee debug: `\"zzz\"`,\n"</span>,
-            <span class="string">"                  left: `\"hello\"`,\n"</span>,
-            <span class="string">"                 right: `\"zzz\"`"
+            <span class="string">"assertion failed: `assert_command_stdout_contains!(command, containee)`\n"</span>,
+            <span class="string">"   command label: `a`,\n"</span>,
+            <span class="string">"   command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n"</span>,
+            <span class="string">" containee label: `b`,\n"</span>,
+            <span class="string">" containee debug: `\"zzz\"`,\n"</span>,
+            <span class="string">"   command value: `\"hello\"`,\n"</span>,
+            <span class="string">" containee value: `\"zzz\"`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -391,13 +399,13 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_command_stdout_contains!(left_command, right_containee)`\n",
-///     "    left_command label: `command`,\n",
-///     "    left_command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-///     " right_containee label: `containee`,\n",
-///     " right_containee debug: `\"zzz\"`,\n",
-///     "                  left: `\"hello\"`,\n",
-///     "                 right: `\"zzz\"`"
+///     "assertion failed: `assert_command_stdout_contains!(command, containee)`\n",
+///     "   command label: `command`,\n",
+///     "   command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+///     " containee label: `containee`,\n",
+///     " containee debug: `\"zzz\"`,\n",
+///     "   command value: `\"hello\"`,\n",
+///     " containee value: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 ///
@@ -424,14 +432,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stdout_contains {
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_command_stdout_contains_as_result!</span>(<span class="macro-nonterminal">$a_command</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_command_stdout_contains_as_result!</span>(<span class="macro-nonterminal">$command</span>, <span class="macro-nonterminal">$b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_command_stdout_contains_as_result!</span>(<span class="macro-nonterminal">$a_command</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_command_stdout_contains_as_result!</span>(<span class="macro-nonterminal">$command</span>, <span class="macro-nonterminal">$b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

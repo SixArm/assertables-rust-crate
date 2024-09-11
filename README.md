@@ -21,8 +21,10 @@ The assertables crate provides many more, so you can write smarter tests.
 
 For values:
 
-* [`assert_gt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_gt.html)
 * [`assert_lt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_lt.html)
+* [`assert_le!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_le.html)
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_gt.html)
+* [`assert_ge!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ge.html)
 
 For numbers:
 
@@ -47,6 +49,8 @@ For infix numeric operators and infix logical operators:
 For results:
 
 * [`assert_result_ok!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_ok.html)
+* [`assert_result_ok_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_ok_eq.html)
+* [`assert_result_ok_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_ok_ne.html)
 * [`assert_result_err!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_err.html)
 
 For options:
@@ -61,8 +65,8 @@ For polls:
 
 For collections such as arrays, vectors, maps, sets:
 
-* [`assert_set_subset_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_subset_eq.html)
-* [`assert_set_disjoint_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_disjoint_eq.html)
+* [`assert_set_subset_eq!(collection1, collection2)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_subset_eq.html)
+* [`assert_set_disjoint_eq!(collection1, collection2)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_disjoint_eq.html)
 
 For file system paths and input/output readers:
 
@@ -201,6 +205,12 @@ Examples:
 
 ## Change highlights
 
+8.6: Add `assert_poll_ready_eq`, `assert_poll_ready_ne` (planned)
+ 
+8.5: Add `assert_option_some_eq`, `assert_option_some_ne` (planned)
+
+8.4: Add `assert_result_ok_eq`, `assert_result_ok_ne` (planned)
+
 8.3: Add `assert_poll_ready`, `assert_poll_pending`.
 
 8.2: Add `assert_infix`.
@@ -217,7 +227,7 @@ Examples:
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.3.0
+* Version: 8.4.0
 * Created: 2021-03-30T15:47:49Z
 * Updated: 2024-09-07T22:22:42Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more

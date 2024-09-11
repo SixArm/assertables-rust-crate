@@ -66,17 +66,17 @@ mod tests {
     #[test]
     fn test_assert_option_none_as_result_x_success() {
         let a: Option<i8> = Option::None;
-        let x = assert_option_none_as_result!(a);
-        assert_eq!(x, Ok(()));
+        let result = assert_option_none_as_result!(a);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_option_none_as_result_x_failure() {
         let a: Option<i8> = Option::Some(1);
-        let x = assert_option_none_as_result!(a);
-        assert!(x.is_err());
+        let result = assert_option_none_as_result!(a);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_option_none!(expr)`\n",
                 "     expr label: `a`,\n",

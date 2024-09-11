@@ -28,8 +28,14 @@ expressions with their debug representations.</p>
 <span class="macro">assert!</span>(result.is_err());
 <span class="kw">let </span>actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-    <span class="string">"assertion failed: `assert_set_ne!(left_set, right_set)`\n"</span>,
-);
+    <span class="string">"assertion failed: `assert_set_ne!(a_set, b_set)`\n"</span>,
+    <span class="string">" a label: `&amp;a`,\n"</span>,
+    <span class="string">" a debug: `[1, 2]`,\n"</span>,
+    <span class="string">" b label: `&amp;b`,\n"</span>,
+    <span class="string">" b debug: `[1, 2]`,\n"</span>,
+    <span class="string">"       a: `{1, 2}`,\n"</span>,
+    <span class="string">"       b: `{1, 2}`"
+</span>);
 <span class="macro">assert_eq!</span>(actual, expect);</code></pre></div>
 <p>This implementation uses <a href="https://doc.rust-lang.org/std/collections/struct.BTreeSet.html"><code>std::collections::BTreeSet</code></a> to count items and sort them.</p>
 <h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>

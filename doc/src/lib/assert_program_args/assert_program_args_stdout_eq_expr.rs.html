@@ -225,6 +225,12 @@
 <a href="#225" id="225">225</a>
 <a href="#226" id="226">226</a>
 <a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is equal to an expression.
 //!
 //! # Example
@@ -272,18 +278,21 @@
         <span class="kw">if </span>a_output.is_err() {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_program_args_stdout_eq_expr!(left_program, left_args, right_expr)`\n"</span>,
-                    <span class="string">" left_program label: `{}`,\n"</span>,
-                    <span class="string">" left_program debug: `{:?}`,\n"</span>,
-                    <span class="string">"    left_args label: `{}`,\n"</span>,
-                    <span class="string">"    left_args debug: `{:?}`,\n"</span>,
-                    <span class="string">"   right_expr label: `{}`,\n"</span>,
-                    <span class="string">"   right_expr debug: `{:?}`,\n"</span>,
-                    <span class="string">"        left output: `{:?}`"
+                    <span class="string">"assertion failed: `assert_program_args_stdout_eq_expr!(a_program, a_args, b_expr)`\n"</span>,
+                    <span class="string">" a_program label: `{}`,\n"</span>,
+                    <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                    <span class="string">"    a_args label: `{}`,\n"</span>,
+                    <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                    <span class="string">"    b_expr label: `{}`,\n"</span>,
+                    <span class="string">"    b_expr debug: `{:?}`,\n"</span>,
+                    <span class="string">"        a output: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>), <span class="macro-nonterminal">$a_program</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>), <span class="macro-nonterminal">$a_args</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>), <span class="macro-nonterminal">$b_expr</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                <span class="macro-nonterminal">$a_program</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                <span class="macro-nonterminal">$a_args</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                <span class="macro-nonterminal">$b_expr</span>,
                 a_output
             ))
         } <span class="kw">else </span>{
@@ -293,19 +302,22 @@
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_program_args_stdout_eq_expr!(left_program, left_args, right_expr)`\n"</span>,
-                        <span class="string">" left_program label: `{}`,\n"</span>,
-                        <span class="string">" left_program debug: `{:?}`,\n"</span>,
-                        <span class="string">"    left_args label: `{}`,\n"</span>,
-                        <span class="string">"    left_args debug: `{:?}`,\n"</span>,
-                        <span class="string">"   right_expr label: `{}`,\n"</span>,
-                        <span class="string">"   right_expr debug: `{:?}`,\n"</span>,
-                        <span class="string">"               left: `{:?}`,\n"</span>,
-                        <span class="string">"              right: `{:?}`"
+                        <span class="string">"assertion failed: `assert_program_args_stdout_eq_expr!(a_program, a_args, b_expr)`\n"</span>,
+                        <span class="string">" a_program label: `{}`,\n"</span>,
+                        <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                        <span class="string">"    a_args label: `{}`,\n"</span>,
+                        <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                        <span class="string">"    b_expr label: `{}`,\n"</span>,
+                        <span class="string">"    b_expr debug: `{:?}`,\n"</span>,
+                        <span class="string">"               a: `{:?}`,\n"</span>,
+                        <span class="string">"               b: `{:?}`"
                     </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>), <span class="macro-nonterminal">$a_program</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>), <span class="macro-nonterminal">$a_args</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>), <span class="macro-nonterminal">$b_expr</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                    <span class="macro-nonterminal">$a_program</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                    <span class="macro-nonterminal">$a_args</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                    <span class="macro-nonterminal">$b_expr</span>,
                     a_string,
                     <span class="macro-nonterminal">$b_expr
                 </span>))
@@ -322,8 +334,8 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
         <span class="kw">let </span>b = String::from(<span class="string">"hello"</span>);
-        <span class="kw">let </span>x = <span class="macro">assert_program_args_stdout_eq_expr_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
-        <span class="macro">assert_eq!</span>(x.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_eq_expr_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
+        <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
@@ -331,18 +343,18 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
         <span class="kw">let </span>b = String::from(<span class="string">"zzz"</span>);
-        <span class="kw">let </span>x = <span class="macro">assert_program_args_stdout_eq_expr_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
-        <span class="kw">let </span>actual = x.unwrap_err();
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_eq_expr_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
+        <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-          <span class="string">"assertion failed: `assert_program_args_stdout_eq_expr!(left_program, left_args, right_expr)`\n"</span>,
-          <span class="string">" left_program label: `&amp;a_program`,\n"</span>,
-          <span class="string">" left_program debug: `\"bin/printf-stdout\"`,\n"</span>,
-          <span class="string">"    left_args label: `&amp;a_args`,\n"</span>,
-          <span class="string">"    left_args debug: `[\"%s\", \"hello\"]`,\n"</span>,
-          <span class="string">"   right_expr label: `b`,\n"</span>,
-          <span class="string">"   right_expr debug: `\"zzz\"`,\n"</span>,
-          <span class="string">"               left: `\"hello\"`,\n"</span>,
-          <span class="string">"              right: `\"zzz\"`"
+          <span class="string">"assertion failed: `assert_program_args_stdout_eq_expr!(a_program, a_args, b_expr)`\n"</span>,
+          <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
+          <span class="string">" a_program debug: `\"bin/printf-stdout\"`,\n"</span>,
+          <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
+          <span class="string">"    a_args debug: `[\"%s\", \"hello\"]`,\n"</span>,
+          <span class="string">"    b_expr label: `b`,\n"</span>,
+          <span class="string">"    b_expr debug: `\"zzz\"`,\n"</span>,
+          <span class="string">"               a: `\"hello\"`,\n"</span>,
+          <span class="string">"               b: `\"zzz\"`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -380,15 +392,15 @@
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_eq_expr!(left_program, left_args, right_expr)`\n",
-///     " left_program label: `&amp;program`,\n",
-///     " left_program debug: `\"bin/printf-stdout\"`,\n",
-///     "    left_args label: `&amp;args`,\n",
-///     "    left_args debug: `[\"%s\", \"hello\"]`,\n",
-///     "   right_expr label: `s`,\n",
-///     "   right_expr debug: `\"zzz\"`,\n",
-///     "               left: `\"hello\"`,\n",
-///     "              right: `\"zzz\"`"
+///     "assertion failed: `assert_program_args_stdout_eq_expr!(a_program, a_args, b_expr)`\n",
+///     " a_program label: `&amp;program`,\n",
+///     " a_program debug: `\"bin/printf-stdout\"`,\n",
+///     "    a_args label: `&amp;args`,\n",
+///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+///     "    b_expr label: `s`,\n",
+///     "    b_expr debug: `\"zzz\"`,\n",
+///     "               a: `\"hello\"`,\n",
+///     "               b: `\"zzz\"`"
 /// );
 /// assert_eq!(actual, expect);
 /// # }

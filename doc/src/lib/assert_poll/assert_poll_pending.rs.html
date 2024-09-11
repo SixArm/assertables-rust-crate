@@ -266,17 +266,17 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_poll_pending_as_result_x_success() {
         <span class="kw">let </span>a: Poll&lt;i8&gt; = Poll::Pending;
-        <span class="kw">let </span>x = <span class="macro">assert_poll_pending_as_result!</span>(a);
-        <span class="macro">assert_eq!</span>(x, <span class="prelude-val">Ok</span>(()));
+        <span class="kw">let </span>result = <span class="macro">assert_poll_pending_as_result!</span>(a);
+        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_poll_pending_as_result_x_failure() {
         <span class="kw">let </span>a: Poll&lt;i8&gt; = Poll::Ready(<span class="number">1</span>);
-        <span class="kw">let </span>x = <span class="macro">assert_poll_pending_as_result!</span>(a);
-        <span class="macro">assert!</span>(x.is_err());
+        <span class="kw">let </span>result = <span class="macro">assert_poll_pending_as_result!</span>(a);
+        <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
-            x.unwrap_err(),
+            result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_poll_pending!(expr)`\n"</span>,
                 <span class="string">"        expr label: `a`,\n"</span>,

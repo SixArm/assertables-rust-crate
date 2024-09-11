@@ -39,24 +39,26 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_gt_as_result {
-    ($a_reader:expr, $b_reader:expr $(,)?) => ({
+    ($a_reader:expr, $b:expr $(,)?) => ({
         let mut a_string = String::new();
         let mut b_string = String::new();
         let a_result = $a_reader.read_to_string(&mut a_string);
-        let b_result = $b_reader.read_to_string(&mut b_string);
+        let b_result = $b.read_to_string(&mut b_string);
         if a_result.is_err() || b_result.is_err() {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_io_read_to_string_gt!(left_reader, right_reader)`\n",
-                    "  left_reader label: `{}`,\n",
-                    "  left_reader debug: `{:?}`,\n",
-                    " right_reader label: `{}`,\n",
-                    " right_reader debug: `{:?}`,\n",
-                    "        left result: `{:?}`,\n",
-                    "       right result: `{:?}`"
+                    "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
+                    " a label: `{}`,\n",
+                    " a debug: `{:?}`,\n",
+                    " b label: `{}`,\n",
+                    " b debug: `{:?}`,\n",
+                    "        a result: `{:?}`,\n",
+                    "       b result: `{:?}`"
                 ),
-                stringify!($a_reader), $a_reader,
-                stringify!($b_reader), $b_reader,
+                stringify!($a_reader),
+                $a_reader,
+                stringify!($b),
+                $b,
                 a_result,
                 b_result
             ))
@@ -68,16 +70,18 @@ macro_rules! assert_io_read_to_string_gt_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_io_read_to_string_gt!(left_reader, right_reader)`\n",
-                        "  left_reader label: `{}`,\n",
-                        "  left_reader debug: `{:?}`,\n",
-                        " right_reader label: `{}`,\n",
-                        " right_reader debug: `{:?}`,\n",
-                        "               left: `{:?}`,\n",
-                        "              right: `{:?}`"
+                        "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`,\n",
+                        " b label: `{}`,\n",
+                        " b debug: `{:?}`,\n",
+                        " a: `{:?}`,\n",
+                        " b: `{:?}`"
                     ),
-                    stringify!($a_reader), $a_reader,
-                    stringify!($b_reader), $b_reader,
+                    stringify!($a_reader),
+                    $a_reader,
+                    stringify!($b),
+                    $b,
                     a_string,
                     b_string
                 ))
@@ -95,26 +99,26 @@ mod tests {
     fn test_assert_io_read_to_string_gt_as_result_x_success() {
         let mut a = "bravo".as_bytes();
         let mut b = "alfa".as_bytes();
-        let x = assert_io_read_to_string_gt_as_result!(a, b);
-        assert_eq!(x, Ok(()));
+        let result = assert_io_read_to_string_gt_as_result!(a, b);
+        assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_io_read_to_string_gt_as_result_x_failure() {
         let mut a = "alfa".as_bytes();
         let mut b = "bravo".as_bytes();
-        let x = assert_io_read_to_string_gt_as_result!(a, b);
-        assert!(x.is_err());
+        let result = assert_io_read_to_string_gt_as_result!(a, b);
+        assert!(result.is_err());
         assert_eq!(
-            x.unwrap_err(),
+            result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_io_read_to_string_gt!(left_reader, right_reader)`\n",
-                "  left_reader label: `a`,\n",
-                "  left_reader debug: `[]`,\n",
-                " right_reader label: `b`,\n",
-                " right_reader debug: `[]`,\n",
-                "               left: `\"alfa\"`,\n",
-                "              right: `\"bravo\"`"
+                "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
+                " a label: `a`,\n",
+                " a debug: `[]`,\n",
+                " b label: `b`,\n",
+                " b debug: `[]`,\n",
+                " a: `\"alfa\"`,\n",
+                " b: `\"bravo\"`"
             )
         );
     }
@@ -151,13 +155,13 @@ mod tests {
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_gt!(left_reader, right_reader)`\n",
-///     "  left_reader label: `a`,\n",
-///     "  left_reader debug: `[]`,\n",
-///     " right_reader label: `b`,\n",
-///     " right_reader debug: `[]`,\n",
-///     "               left: `\"alfa\"`,\n",
-///     "              right: `\"bravo\"`",
+///     "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
+///     " a label: `a`,\n",
+///     " a debug: `[]`,\n",
+///     " b label: `b`,\n",
+///     " b debug: `[]`,\n",
+///     " a: `\"alfa\"`,\n",
+///     " b: `\"bravo\"`",
 /// );
 /// assert_eq!(actual, expect);
 /// # }
@@ -171,14 +175,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_gt {
-    ($a_reader:expr, $b_reader:expr $(,)?) => ({
-        match assert_io_read_to_string_gt_as_result!($a_reader, $b_reader) {
+    ($a_reader:expr, $b:expr $(,)?) => ({
+        match assert_io_read_to_string_gt_as_result!($a_reader, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_reader:expr, $b_reader:expr, $($message:tt)+) => ({
-        match assert_io_read_to_string_gt_as_result!($a_reader, $b_reader) {
+    ($a_reader:expr, $b:expr, $($message:tt)+) => ({
+        match assert_io_read_to_string_gt_as_result!($a_reader, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
