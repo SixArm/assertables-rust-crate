@@ -1,68 +1,68 @@
-//! Assert a.is_ok() and a.unwrap() are equal to another.
+//! Assert a.is_some() and a.unwrap() are equal to another.
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
-//! let a: Result<i8, i8> = Result::Ok(1);
-//! let b: Result<i8, i8> = Result::Ok(1);
-//! assert_result_ok_eq!(a, b);
+//! let a: Option<i8> = Option::Some(1);
+//! let b: Option<i8> = Option::Some(1);
+//! assert_option_some_eq!(a, b);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_result_ok_eq`](macro@crate::assert_result_ok_eq)
-//! * [`assert_result_ok_eq_as_result`](macro@crate::assert_result_ok_eq_as_result)
-//! * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
+//! * [`assert_option_some_eq`](macro@crate::assert_option_some_eq)
+//! * [`assert_option_some_eq_as_result`](macro@crate::assert_option_some_eq_as_result)
+//! * [`debug_assert_option_some_eq`](macro@crate::debug_assert_option_some_eq)
 
-/// Assert a.is_ok() and a.unwrap() are equal to another.
+/// Assert a.is_some() and a.unwrap() are equal to another.
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Option `Some(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Option `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_result_ok_eq`](macro.assert_result_ok_eq.html),
-/// except this macro returns a Result, rather than doing a panic.
+/// This macro provides the same statements as [`assert_option_some_eq`](macro.assert_option_some_eq.html),
+/// except this macro returns a Option, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
 /// # Module macros
 ///
-/// * [`assert_result_ok_eq`](macro@crate::assert_result_ok_eq)
-/// * [`assert_result_ok_eq_as_result`](macro@crate::assert_result_ok_eq_as_result)
-/// * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
+/// * [`assert_option_some_eq`](macro@crate::assert_option_some_eq)
+/// * [`assert_option_some_eq_as_result`](macro@crate::assert_option_some_eq_as_result)
+/// * [`debug_assert_option_some_eq`](macro@crate::debug_assert_option_some_eq)
 ///
 #[macro_export]
-macro_rules! assert_result_ok_eq_as_result {
-    ($a_result:expr, $b_result:expr $(,)?) => {{
-        match (&$a_result, &$b_result) {
-            (a_result, b_result) => {
-                if a_result.is_err() || b_result.is_err() {
+macro_rules! assert_option_some_eq_as_result {
+    ($a_option:expr, $b_option:expr $(,)?) => {{
+        match (&$a_option, &$b_option) {
+            (a_option, b_option) => {
+                if a_option.is_none() || b_option.is_none() {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_result_ok_eq!(a, b)`\n",
+                            "assertion failed: `assert_option_some_eq!(a, b)`\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
                             " b debug: `{:?}`",
                         ),
-                        stringify!($a_result),
-                        $a_result,
-                        stringify!($b_result),
-                        $b_result,
+                        stringify!($a_option),
+                        $a_option,
+                        stringify!($b_option),
+                        $b_option,
                     ))
                 } else {
-                    let a = a_result.unwrap();
-                    let b = b_result.unwrap();
+                    let a = a_option.unwrap();
+                    let b = b_option.unwrap();
                     if a == b {
                         Ok(())
                     } else {
                         Err(format!(
                             concat!(
-                                "assertion failed: `assert_result_ok_eq!(a, b)`\n",
+                                "assertion failed: `assert_option_some_eq!(a, b)`\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -70,10 +70,10 @@ macro_rules! assert_result_ok_eq_as_result {
                                 "       a: `{:?}`,\n",
                                 "       b: `{:?}`"
                             ),
-                            stringify!($a_result),
-                            $a_result,
-                            stringify!($b_result),
-                            $b_result,
+                            stringify!($a_option),
+                            $a_option,
+                            stringify!($b_option),
+                            $b_option,
                             a,
                             b
                         ))
@@ -88,27 +88,27 @@ macro_rules! assert_result_ok_eq_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_result_ok_eq_as_result_x_success() {
-        let a: Result<i8, i8> = Result::Ok(1);
-        let b: Result<i8, i8> = Result::Ok(1);
-        let result = assert_result_ok_eq_as_result!(a, b);
+    fn test_assert_option_some_eq_as_result_x_success() {
+        let a: Option<i8> = Option::Some(1);
+        let b: Option<i8> = Option::Some(1);
+        let result = assert_option_some_eq_as_result!(a, b);
         assert_eq!(result, Ok(()));
     }
 
     #[test]
-    fn test_assert_result_ok_eq_as_result_x_failure_because_ne() {
-        let a: Result<i8, i8> = Result::Ok(1);
-        let b: Result<i8, i8> = Result::Ok(2);
-        let result = assert_result_ok_eq_as_result!(a, b);
+    fn test_assert_option_some_eq_as_result_x_failure_because_ne() {
+        let a: Option<i8> = Option::Some(1);
+        let b: Option<i8> = Option::Some(2);
+        let result = assert_option_some_eq_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_result_ok_eq!(a, b)`\n",
+                "assertion failed: `assert_option_some_eq!(a, b)`\n",
                 " a label: `a`,\n",
-                " a debug: `Ok(1)`,\n",
+                " a debug: `Some(1)`,\n",
                 " b label: `b`,\n",
-                " b debug: `Ok(2)`,\n",
+                " b debug: `Some(2)`,\n",
                 "       a: `1`,\n",
                 "       b: `2`",
             )
@@ -116,26 +116,26 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_result_ok_eq_as_result_x_failure_because_err() {
-        let a: Result<i8, i8> = Result::Ok(1);
-        let b: Result<i8, i8> = Result::Err(1);
-        let result = assert_result_ok_eq_as_result!(a, b);
+    fn test_assert_option_some_eq_as_result_x_failure_because_none() {
+        let a: Option<i8> = Option::Some(1);
+        let b: Option<i8> = Option::None;
+        let result = assert_option_some_eq_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_result_ok_eq!(a, b)`\n",
+                "assertion failed: `assert_option_some_eq!(a, b)`\n",
                 " a label: `a`,\n",
-                " a debug: `Ok(1)`,\n",
+                " a debug: `Some(1)`,\n",
                 " b label: `b`,\n",
-                " b debug: `Err(1)`",
+                " b debug: `None`",
             )
         );
     }
 
 }
 
-/// Assert a.is_ok() and a.unwrap() are equal to another.
+/// Assert a.is_some() and a.unwrap() are equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -148,26 +148,26 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// let a: Result<i8, i8> = Result::Ok(1);
-/// let b: Result<i8, i8> = Result::Ok(1);
-/// assert_result_ok_eq!(a, b);
+/// let a: Option<i8> = Option::Some(1);
+/// let b: Option<i8> = Option::Some(1);
+/// assert_option_some_eq!(a, b);
 /// //-> ()
 ///
 /// // Panic with error message
-/// let a: Result<i8, i8> = Result::Ok(1);
-/// let b: Result<i8, i8> = Result::Ok(2);
+/// let a: Option<i8> = Option::Some(1);
+/// let b: Option<i8> = Option::Some(2);
 /// let result = panic::catch_unwind(|| {
-/// assert_result_ok_eq!(a, b);
+/// assert_option_some_eq!(a, b);
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
 /// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// let expect = concat!(
-///     "assertion failed: `assert_result_ok_eq!(a, b)`\n",
+///     "assertion failed: `assert_option_some_eq!(a, b)`\n",
 ///     " a label: `a`,\n",
-///     " a debug: `Ok(1)`,\n",
+///     " a debug: `Some(1)`,\n",
 ///     " b label: `b`,\n",
-///     " b debug: `Ok(2)`,\n",
+///     " b debug: `Some(2)`,\n",
 ///     "       a: `1`,\n",
 ///     "       b: `2`",
 /// );
@@ -175,7 +175,7 @@ mod tests {
 ///
 /// // Panic with error message
 /// let result = panic::catch_unwind(|| {
-/// assert_result_ok_eq!(a, b, "message");
+/// assert_option_some_eq!(a, b, "message");
 /// //-> panic!
 /// });
 /// assert!(result.is_err());
@@ -187,29 +187,29 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_result_ok_eq`](macro@crate::assert_result_ok_eq)
-/// * [`assert_result_ok_eq_as_result`](macro@crate::assert_result_ok_eq_as_result)
-/// * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
+/// * [`assert_option_some_eq`](macro@crate::assert_option_some_eq)
+/// * [`assert_option_some_eq_as_result`](macro@crate::assert_option_some_eq_as_result)
+/// * [`debug_assert_option_some_eq`](macro@crate::debug_assert_option_some_eq)
 ///
 #[macro_export]
-macro_rules! assert_result_ok_eq {
+macro_rules! assert_option_some_eq {
     ($a:expr, $b:expr $(,)?) => ({
-        match assert_result_ok_eq_as_result!($a, $b) {
+        match assert_option_some_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
     ($a:expr, $b:expr, $($message:tt)+) => ({
-        match assert_result_ok_eq_as_result!($a, $b) {
+        match assert_option_some_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a.is_ok() and a.unwrap() are equal to another.
+/// Assert a.is_some() and a.unwrap() are equal to another.
 ///
-/// This macro provides the same statements as [`assert_result_ok_eq`](macro.assert_result_ok_eq.html),
+/// This macro provides the same statements as [`assert_option_some_eq`](macro.assert_option_some_eq.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -231,15 +231,15 @@ macro_rules! assert_result_ok_eq {
 ///
 /// # Module macros
 ///
-/// * [`assert_result_ok_eq`](macro@crate::assert_result_ok_eq)
-/// * [`assert_result_ok_eq`](macro@crate::assert_result_ok_eq)
-/// * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
+/// * [`assert_option_some_eq`](macro@crate::assert_option_some_eq)
+/// * [`assert_option_some_eq`](macro@crate::assert_option_some_eq)
+/// * [`debug_assert_option_some_eq`](macro@crate::debug_assert_option_some_eq)
 ///
 #[macro_export]
-macro_rules! debug_assert_result_ok_eq {
+macro_rules! debug_assert_option_some_eq {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_result_ok_eq!($($arg)*);
+            $crate::assert_option_some_eq!($($arg)*);
         }
     };
 }

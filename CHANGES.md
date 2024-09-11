@@ -1,24 +1,36 @@
 # Changes
 
+Changes highlights for recent major versions.
 
-## Version 5.0 summary
 
-Upgrades:
+## Version 8.x
 
-* Add many new macro names with `other` in order to compare two items of the same type.
+8.5: Add `assert_option_some_eq`, `assert_option_some_ne`
 
-* Add many new macro parameters with `expr` in order to enable arbitrary expressions.
+8.4: Add `assert_result_ok_eq`, `assert_result_ok_ne`
 
-* Improve messages for collection macros `bag` and `set` so they preserve insertion order.
+8.3: Add `assert_poll_ready`, `assert_poll_pending`.
 
-* Refactor for maintainability via `msg` macros, `concat` formats, and `assert…result` calls.
+8.2: Add `assert_infix`.
 
-Breakers:
+8.1: Add `assert_result_ok`, `assert_result_err`, `assert_option_some`, `assert_option_none`.
 
-  * Rename result macros from `assertable` to `assert…result` in order to improve learnability.
+8.0: Add `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`. Breaking change: migrate from `assert_read_to_string_*`. to `assert_io_read_to_string_*`.
 
-  * Rename function macros `f` to `fn` in order to improve learnability.
 
-  * Rename string macros from `contains_str` to `contains` in order to add new containee capabilties.
+## Version 7.x
 
-  * Rename matcher macros from `is_match` to `matches` in order to add new matcher capabilties.
+* Add `assert_in_delta`, `assert_in_epsilon`.
+
+* Add `assert_fn_*` macros with multiple arities.
+
+* Add `cargo release` for optimized tagged releases.
+
+
+## Version 6.x
+
+* Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`.
+
+* Add `debug_assert_*` macros everywhere.
+
+* Add `GPL-3.0` license.

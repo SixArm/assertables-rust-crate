@@ -1,4 +1,4 @@
-//! Assert expression.is_ok() is true.
+//! Assert a.is_ok().
 //!
 //! # Example
 //!
@@ -16,7 +16,7 @@
 //! * [`assert_result_ok_as_result`](macro@crate::assert_result_ok_as_result)
 //! * [`debug_assert_result_ok`](macro@crate::debug_assert_result_ok)
 
-/// Assert an expression.is_ok() is true.
+/// Assert a.is_ok() is true.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -87,7 +87,7 @@ mod tests {
     }
 }
 
-/// Assert expression.is_ok() is true.
+/// Assert a.is_ok() is true.
 ///
 /// * If true, return `()`.
 ///
@@ -154,7 +154,7 @@ macro_rules! assert_result_ok {
     });
 }
 
-/// Assert expression.is_ok() is true.
+/// Assert a.is_ok() is true.
 ///
 /// This macro provides the same statements as [`assert_result_ok`](macro.assert_result_ok.html),
 /// except this macro's statements are only enabled in non-optimized

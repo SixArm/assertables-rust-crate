@@ -21,15 +21,10 @@ The assertables crate provides many more, so you can write smarter tests.
 
 For values:
 
-* [`assert_lt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_lt.html)
-* [`assert_le!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_le.html)
-* [`assert_gt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_gt.html)
-* [`assert_ge!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ge.html)
-
-For numbers:
-
-* [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_delta.html)
-* [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_epsilon.html)
+* [`assert_lt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_lt.html) // less than
+* [`assert_le!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_le.html) // less than or equal to
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_gt.html) // greater than
+* [`assert_ge!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ge.html) // greater than or equal to
 
 For strings:
 
@@ -41,10 +36,15 @@ For matching:
 * [`assert_contains!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_contains.html)
 * [`assert_is_match!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_is_match.html)
 
-For infix numeric operators and infix logical operators:
+For infix operators:
 
 * [`assert_infix!(a == b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
 * [`assert_infix!(a && b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
+
+For numbers:
+
+* [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_delta.html)
+* [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_epsilon.html)
 
 For results:
 
@@ -56,6 +56,8 @@ For results:
 For options:
 
 * [`assert_option_some!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some.html)
+* [`assert_option_some_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some_eq.html)
+* [`assert_option_some_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some_ne.html)
 * [`assert_option_none!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_none.html)
 
 For polls:
@@ -152,12 +154,6 @@ Shorthands:
 * `set` ≈ a collection such as `::std::collections::BTreeSet`
 * `bag` ≈ a collection such as `::std::collections::BTreeMap`
 
-Samples:
-
-* `alfa, bravo, charlie, …`
-* `lorem, ipsum, dolor, …`
-* `lorem, ipsum, dolor, …`
-
 
 ## Forms
 
@@ -203,32 +199,11 @@ Examples:
 * [`assert_io_read_to_string_eq_expr!(reader, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_io_read_to_string_eq_expr.html)
 
 
-## Change highlights
-
-8.6: Add `assert_poll_ready_eq`, `assert_poll_ready_ne` (planned)
- 
-8.5: Add `assert_option_some_eq`, `assert_option_some_ne` (planned)
-
-8.4: Add `assert_result_ok_eq`, `assert_result_ok_ne`
-
-8.3: Add `assert_poll_ready`, `assert_poll_pending`.
-
-8.2: Add `assert_infix`.
-
-8.1: Add `assert_result_ok`, `assert_result_err`, `assert_option_some`, `assert_option_none`.
-
-8.0: Add `assert_fs_read_to_string_*`. Breaking change: rename `assert_read_to_string_*` macros to `assert_io_read_to_string_*`.
-
-7.x: Add `assert_in_delta`, `assert_in_epsilon`. Add `assert_fn_*` macros with multiple arities.
-
-6.x: Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`. Add `debug_assert_*` macros everywhere.
-
-
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.4.0
+* Version: 8.5.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-09-11T02:11:16Z
+* Updated: 2024-09-12T18:16:41Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

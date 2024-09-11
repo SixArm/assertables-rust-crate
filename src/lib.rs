@@ -23,15 +23,10 @@
 //!
 //! For values:
 //!
-//! * [`assert_lt!(a, b)`](macro@crate::assert_lt)
-//! * [`assert_le!(a, b)`](macro@crate::assert_le)
-//! * [`assert_gt!(a, b)`](macro@crate::assert_gt)
-//! * [`assert_ge!(a, b)`](macro@crate::assert_ge)
-//!
-//! For numbers:
-//!
-//! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
-//! * [`assert_in_epsilon!(a, b, epsilon)`](macro@crate::assert_in_epsilon)
+//! * [`assert_lt!(a, b)`](macro@crate::assert_lt) // less than
+//! * [`assert_le!(a, b)`](macro@crate::assert_le) // less than or equal to
+//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) // greater than
+//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) // greater than or equal to
 //!
 //! For strings:
 //!
@@ -43,10 +38,15 @@
 //! * [`assert_contains!(a, b)`](macro@crate::assert_contains)
 //! * [`assert_is_match!(a, b)`](macro@crate::assert_is_match)
 //!
-//! For infix numeric operators and infix logical operators:
+//! For infix operators:
 //!
 //! * [`assert_infix!(a == b)`](macro@crate::assert_infix)
 //! * [`assert_infix!(a && b)`](macro@crate::assert_infix)
+//!
+//! For numbers:
+//!
+//! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
+//! * [`assert_in_epsilon!(a, b, epsilon)`](macro@crate::assert_in_epsilon)
 //!
 //! For results:
 //!
@@ -154,12 +154,6 @@
 //! * `set` ≈ a collection such as `::std::collections::BTreeSet`
 //! * `bag` ≈ a collection such as `::std::collections::BTreeMap`
 //!
-//! Samples:
-//!
-//! * `alfa, bravo, charlie, …`
-//! * `lorem, ipsum, dolor, …`
-//! * `foo, goo, hoo, …`
-//!
 //!
 //! ## Forms
 //!
@@ -205,33 +199,12 @@
 //! * [`assert_io_read_to_string_eq_expr!(reader, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_io_read_to_string_eq_expr.html)
 //!
 //!
-//! ## Change highlights
-//!
-//! 8.6: Add `assert_poll_ready_eq`, `assert_poll_ready_ne` (planned)
-//!
-//! 8.5: Add `assert_option_some_eq`, `assert_option_some_ne` (planned)
-//!
-//! 8.4: Add `assert_result_ok_eq`, `assert_result_ok_ne`
-//!
-//! 8.3: Add `assert_poll_ready`, `assert_poll_pending`.
-//!
-//! 8.2: Add `assert_infix`.
-//!
-//! 8.1: Add `assert_result_ok`, `assert_result_err`, `assert_option_some`, `assert_option_none`.
-//!
-//! 8.0: Add `assert_fs_read_to_string_*`. Breaking change: rename `assert_read_to_string_*` macros to `assert_io_read_to_string_*`.
-//!
-//! 7.x: Add `assert_in_delta`, `assert_in_epsilon`. Add `assert_fn_*` macros with multiple arities.
-//!
-//! 6.x: Add `assert_starts_with`, `assert_ends_with`, `assert_contains`, `assert_is_match`. Add `debug_assert_*` macros everywhere.
-//!
-//!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.4.0
+//! * Version: 8.5.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-11T02:11:16Z
+//! * Updated: 2024-09-12T18:16:41Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
