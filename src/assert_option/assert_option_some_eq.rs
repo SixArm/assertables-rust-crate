@@ -19,9 +19,9 @@
 
 /// Assert a.is_some() and a.unwrap() are equal to another.
 ///
-/// * If true, return Option `Some(())`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Option `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// This macro provides the same statements as [`assert_option_some_eq`](macro.assert_option_some_eq.html),
 /// except this macro returns a Option, rather than doing a panic.
@@ -40,7 +40,7 @@ macro_rules! assert_option_some_eq_as_result {
     ($a_option:expr, $b_option:expr $(,)?) => {{
         match (&$a_option, &$b_option) {
             (a_option, b_option) => {
-                if a_option.is_none() || b_option.is_none() {
+                if !a_option.is_some() || !b_option.is_some() {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_option_some_eq!(a, b)`\n",
@@ -116,7 +116,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_option_some_eq_as_result_x_failure_because_none() {
+    fn test_assert_option_some_eq_as_result_x_failure_because_not_some() {
         let a: Option<i8> = Option::Some(1);
         let b: Option<i8> = Option::None;
         let result = assert_option_some_eq_as_result!(a, b);
@@ -151,37 +151,30 @@ mod tests {
 /// let a: Option<i8> = Option::Some(1);
 /// let b: Option<i8> = Option::Some(1);
 /// assert_option_some_eq!(a, b);
-/// //-> ()
 ///
-/// // Panic with error message
+/// # let result = panic::catch_unwind(|| {
 /// let a: Option<i8> = Option::Some(1);
 /// let b: Option<i8> = Option::Some(2);
-/// let result = panic::catch_unwind(|| {
 /// assert_option_some_eq!(a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_option_some_eq!(a, b)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `Some(1)`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `Some(2)`,\n",
-///     "       a: `1`,\n",
-///     "       b: `2`",
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_option_some_eq!(a, b, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_option_some_eq!(a, b)`
+/// //  a label: `a`,
+/// //  a debug: `Some(1)`,
+/// //  b label: `b`,
+/// //  b debug: `Some(2)`,
+/// //        a: `1`,
+/// //        b: `2`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_option_some_eq!(a, b)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `Some(1)`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `Some(2)`,\n",
+/// #     "       a: `1`,\n",
+/// #     "       b: `2`",
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -193,14 +186,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_option_some_eq {
-    ($a:expr, $b:expr $(,)?) => ({
-        match assert_option_some_eq_as_result!($a, $b) {
+    ($a_option:expr, $b_option:expr $(,)?) => ({
+        match assert_option_some_eq_as_result!($a_option, $b_option) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
-        match assert_option_some_eq_as_result!($a, $b) {
+    ($a_option:expr, $b_option:expr, $($message:tt)+) => ({
+        match assert_option_some_eq_as_result!($a_option, $b_option) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

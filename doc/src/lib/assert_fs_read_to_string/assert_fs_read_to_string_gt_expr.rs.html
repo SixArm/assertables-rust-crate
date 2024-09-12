@@ -229,6 +229,8 @@
 <a href="#229" id="229">229</a>
 <a href="#230" id="230">230</a>
 <a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string() value is greater than an expression.
 //!
 //! # Example
@@ -374,31 +376,33 @@
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let path = "bravo.txt";
 /// let value = String::from("alfa\n");
 /// assert_fs_read_to_string_gt_expr!(&amp;path, &amp;value);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let path = "alfa.txt";
 /// let value = String::from("bravo\n");
 /// assert_fs_read_to_string_gt_expr!(&amp;path, &amp;value);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
-///     " a_path label: `&amp;path`,\n",
-///     " a_path debug: `\"alfa.txt\"`,\n",
-///     " b_expr label: `&amp;value`,\n",
-///     " b_expr debug: `\"bravo\\n\"`,\n",
-///     "            a: `\"alfa\\n\"`,\n",
-///     "            b: `\"bravo\\n\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`
+/// //  a_path label: `&amp;path`,
+/// //  a_path debug: `\"alfa.txt\"`,
+/// //  b_expr label: `&amp;value`,
+/// //  b_expr debug: `\"bravo\\n\"`,
+/// //             a: `\"alfa\\n\"`,
+/// //             b: `\"bravo\\n\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
+/// #     " a_path label: `&amp;path`,\n",
+/// #     " a_path debug: `\"alfa.txt\"`,\n",
+/// #     " b_expr label: `&amp;value`,\n",
+/// #     " b_expr debug: `\"bravo\\n\"`,\n",
+/// #     "            a: `\"alfa\\n\"`,\n",
+/// #     "            b: `\"bravo\\n\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

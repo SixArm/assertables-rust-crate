@@ -160,13 +160,11 @@ mod tests {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let a_program = "bin/printf-stderr";
 /// let a_args = ["%s", "hello"];
 /// let b_program = "bin/printf-stderr";
 /// let b_args = ["%s", "hullo"];
 /// assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
-/// //-> ()
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let a_program = "bin/printf-stderr";
@@ -174,23 +172,33 @@ mod tests {
 /// let b_program = "bin/printf-stderr";
 /// let b_args = ["%s", "hallo"];
 /// assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
-/// //-> panic!("…")
 /// # });
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
-///     " a_program label: `&a_program`,\n",
-///     " a_program debug: `\"bin/printf-stderr\"`,\n",
-///     "    a_args label: `&a_args`,\n",
-///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " b_program label: `&b_program`,\n",
-///     " b_program debug: `\"bin/printf-stderr\"`,\n",
-///     "    b_args label: `&b_args`,\n",
-///     "    b_args debug: `[\"%s\", \"hallo\"]`,\n",
-///     "               a: `\"hello\"`,\n",
-///     "               b: `\"hallo\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// // assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`
+/// //  a_program label: `&a_program`,
+/// //  a_program debug: `\"bin/printf-stderr\"`,
+/// //     a_args label: `&a_args`,
+/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //  b_program label: `&b_program`,
+/// //  b_program debug: `\"bin/printf-stderr\"`,
+/// //     b_args label: `&b_args`,
+/// //     b_args debug: `[\"%s\", \"hallo\"]`,
+/// //                a: `\"hello\"`,
+/// //                b: `\"hallo\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
+/// #     " a_program label: `&a_program`,\n",
+/// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
+/// #     "    a_args label: `&a_args`,\n",
+/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     " b_program label: `&b_program`,\n",
+/// #     " b_program debug: `\"bin/printf-stderr\"`,\n",
+/// #     "    b_args label: `&b_args`,\n",
+/// #     "    b_args debug: `[\"%s\", \"hallo\"]`,\n",
+/// #     "               a: `\"hello\"`,\n",
+/// #     "               b: `\"hallo\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

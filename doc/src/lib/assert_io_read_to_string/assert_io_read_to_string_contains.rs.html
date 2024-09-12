@@ -220,6 +220,8 @@
 <a href="#220" id="220">220</a>
 <a href="#221" id="221">221</a>
 <a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() contains a pattern.
 //!
 //! # Example
@@ -231,7 +233,7 @@
 //! # fn main() {
 //! let mut reader = "hello".as_bytes();
 //! let containee = "ell";
-//! assert_io_read_to_string_contains!(reader, containee);
+//! assert_io_read_to_string_contains!(reader, &amp;containee);
 //! # }
 //! ```
 //!
@@ -267,7 +269,7 @@
         <span class="kw">if let </span><span class="prelude-val">Err</span>(reader_err) = reader_result {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n"</span>,
+                    <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
                     <span class="string">"    reader label: `{}`,\n"</span>,
                     <span class="string">"    reader debug: `{:?}`,\n"</span>,
                     <span class="string">" containee label: `{}`,\n"</span>,
@@ -287,12 +289,12 @@
                 <span class="kw">let </span>_reader_size = reader_result.unwrap();
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n"</span>,
+                        <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
                         <span class="string">"    reader label: `{}`,\n"</span>,
                         <span class="string">"    reader debug: `{:?}`,\n"</span>,
                         <span class="string">" containee label: `{}`,\n"</span>,
                         <span class="string">" containee debug: `{:?}`,\n"</span>,
-                        <span class="string">"    reader value: `{:?}`,\n"</span>,
+                        <span class="string">"  read to string: `{:?}`,\n"</span>,
                         <span class="string">" containee value: `{:?}`"</span>,
                     ),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
@@ -316,7 +318,7 @@
     </span><span class="kw">fn </span>test_assert_io_read_to_string_contains_as_result_x_success() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>containee = <span class="string">"alfa"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_contains_as_result!</span>(reader, containee);
+        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_contains_as_result!</span>(reader, <span class="kw-2">&amp;</span>containee);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
@@ -324,17 +326,17 @@
     </span><span class="kw">fn </span>test_assert_io_read_to_string_contains_as_result_x_failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>containee = <span class="string">"zzz"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_contains_as_result!</span>(reader, containee);
+        <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_contains_as_result!</span>(reader, <span class="kw-2">&amp;</span>containee);
         <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n"</span>,
+                <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
                 <span class="string">"    reader label: `reader`,\n"</span>,
                 <span class="string">"    reader debug: `[]`,\n"</span>,
-                <span class="string">" containee label: `containee`,\n"</span>,
+                <span class="string">" containee label: `&amp;containee`,\n"</span>,
                 <span class="string">" containee debug: `\"zzz\"`,\n"</span>,
-                <span class="string">"    reader value: `\"alfa\"`,\n"</span>,
+                <span class="string">"  read to string: `\"alfa\"`,\n"</span>,
                 <span class="string">" containee value: `\"zzz\"`"
             </span>)
         );
@@ -356,31 +358,33 @@
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut reader = "hello".as_bytes();
 /// let containee = "ell";
-/// assert_io_read_to_string_contains!(reader, containee);
-/// //-&gt; ()
+/// assert_io_read_to_string_contains!(reader, &amp;containee);
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut reader = "hello".as_bytes();
 /// let containee = "zzz";
-/// assert_io_read_to_string_contains!(reader, containee);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n",
-///     "    reader label: `reader`,\n",
-///     "    reader debug: `[]`,\n",
-///     " containee label: `containee`,\n",
-///     " containee debug: `\"zzz\"`,\n",
-///     "    reader value: `\"hello\"`,\n",
-///     " containee value: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// assert_io_read_to_string_contains!(reader, &amp;containee);
+/// # });
+/// // assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`
+/// //     reader label: `&amp;reader`,
+/// //     reader debug: `[]`,
+/// //  containee label: `&amp;containee`,
+/// //  containee debug: `\"zzz\"`,
+/// //   read to string: `\"hello\"`,
+/// //  containee value: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n",
+/// #     "    reader label: `reader`,\n",
+/// #     "    reader debug: `[]`,\n",
+/// #     " containee label: `&amp;containee`,\n",
+/// #     " containee debug: `\"zzz\"`,\n",
+/// #     "  read to string: `\"hello\"`,\n",
+/// #     " containee value: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

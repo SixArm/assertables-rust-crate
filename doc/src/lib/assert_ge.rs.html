@@ -199,14 +199,6 @@
 <a href="#199" id="199">199</a>
 <a href="#200" id="200">200</a>
 <a href="#201" id="201">201</a>
-<a href="#202" id="202">202</a>
-<a href="#203" id="203">203</a>
-<a href="#204" id="204">204</a>
-<a href="#205" id="205">205</a>
-<a href="#206" id="206">206</a>
-<a href="#207" id="207">207</a>
-<a href="#208" id="208">208</a>
-<a href="#209" id="209">209</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a value is greater than or equal to an expression.
 //!
 //! # Example
@@ -320,41 +312,33 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a = 2;
 /// let b = 1;
 /// assert_ge!(a, b);
-/// //-&gt; ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a = 1;
 /// let b = 2;
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_ge!(a, b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_ge!(a, b)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `1`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `2`,\n",
-///     "       a: `1`,\n",
-///     "       b: `2`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_ge!(a, b, "message");
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_ge!(a, b)`
+/// //  a label: `a`,
+/// //  a debug: `1`,
+/// //  b label: `b`,
+/// //  b debug: `2`,
+/// //        a: `1`,
+/// //        b: `2`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_ge!(a, b)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `1`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `2`,\n",
+/// #     "       a: `1`,\n",
+/// #     "       b: `2`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

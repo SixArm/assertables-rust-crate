@@ -43,11 +43,11 @@ macro_rules! assert_fs_read_to_string_ne_expr_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`\n",
-                    "  a_path label: `{}`,\n",
-                    "  a_path debug: `{:?}`,\n",
+                    " a_path label: `{}`,\n",
+                    " a_path debug: `{:?}`,\n",
                     " b_expr label: `{}`,\n",
                     " b_expr debug: `{:?}`,\n",
-                    "         a err: `{:?}`"
+                    "        a err: `{:?}`"
                 ),
                 stringify!($a_path),
                 $a_path,
@@ -64,12 +64,12 @@ macro_rules! assert_fs_read_to_string_ne_expr_as_result {
                 Err(format!(
                     concat!(
                         "assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`\n",
-                        "  a_path label: `{}`,\n",
-                        "  a_path debug: `{:?}`,\n",
+                        " a_path label: `{}`,\n",
+                        " a_path debug: `{:?}`,\n",
                         " b_expr label: `{}`,\n",
                         " b_expr debug: `{:?}`,\n",
-                        "       a: `{:?}`,\n",
-                        "       b: `{:?}`",
+                        "            a: `{:?}`,\n",
+                        "            b: `{:?}`",
                     ),
                     stringify!($a_path),
                     $a_path,
@@ -117,14 +117,14 @@ mod tests {
             format!(
                 "{}{}{}{}{}{}{}{}{}",
                 "assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`\n",
-                "  a_path label: `&path`,\n",
-                "  a_path debug: `\"",
+                " a_path label: `&path`,\n",
+                " a_path debug: `\"",
                 path.to_string_lossy(),
                 "\"`,\n",
                 " b_expr label: `&value`,\n",
                 " b_expr debug: `\"alfa\\n\"`,\n",
-                "       a: `\"alfa\\n\"`,\n",
-                "       b: `\"alfa\\n\"`"
+                "            a: `\"alfa\\n\"`,\n",
+                "            b: `\"alfa\\n\"`"
             )
         );
     }
@@ -145,31 +145,33 @@ mod tests {
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let path = "alfa.txt";
 /// let value = String::from("bravo\n");
 /// assert_fs_read_to_string_ne_expr!(&path, &value);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let path = "alfa.txt";
 /// let value = String::from("alfa\n");
 /// assert_fs_read_to_string_ne_expr!(&path, &value);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`\n",
-///     "  a_path label: `&path`,\n",
-///     "  a_path debug: `\"alfa.txt\"`,\n",
-///     " b_expr label: `&value`,\n",
-///     " b_expr debug: `\"alfa\\n\"`,\n",
-///     "       a: `\"alfa\\n\"`,\n",
-///     "       b: `\"alfa\\n\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`
+/// //  a_path label: `&path`,
+/// //  a_path debug: `\"alfa.txt\"`,
+/// //  b_expr label: `&value`,
+/// //  b_expr debug: `\"alfa\\n\"`,
+/// //             a: `\"alfa\\n\"`,
+/// //             b: `\"alfa\\n\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`\n",
+/// #     " a_path label: `&path`,\n",
+/// #     " a_path debug: `\"alfa.txt\"`,\n",
+/// #     " b_expr label: `&value`,\n",
+/// #     " b_expr debug: `\"alfa\\n\"`,\n",
+/// #     "            a: `\"alfa\\n\"`,\n",
+/// #     "            b: `\"alfa\\n\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

@@ -39,8 +39,8 @@
 ///
 #[macro_export]
 macro_rules! assert_bag_superbag_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        match (&$a, &$b) {
+    ($a_collection:expr, $b_collection:expr $(,)?) => {{
+        match (&$a_collection, &$b_collection) {
             (a_val, b_val) => {
                 let mut a_bag: ::std::collections::BTreeMap<_, usize> =
                     ::std::collections::BTreeMap::new();
@@ -63,7 +63,7 @@ macro_rules! assert_bag_superbag_as_result {
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_bag_superbag!(a_bag, b_bag)`\n",
+                            "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -71,10 +71,10 @@ macro_rules! assert_bag_superbag_as_result {
                             "       a: `{:?}`,\n",
                             "       b: `{:?}`"
                         ),
-                        stringify!($a),
-                        $a,
-                        stringify!($b),
-                        $b,
+                        stringify!($a_collection),
+                        $a_collection,
+                        stringify!($b_collection),
+                        $b_collection,
                         &a_bag,
                         &b_bag
                     ))
@@ -104,7 +104,7 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_bag_superbag!(a_bag, b_bag)`\n",
+                "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 1]`,\n",
                 " b label: `&b`,\n",
@@ -124,7 +124,7 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_bag_superbag!(a_bag, b_bag)`\n",
+                "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 1]`,\n",
                 " b label: `&b`,\n",
@@ -149,74 +149,33 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a = [1, 1, 1];
 /// let b = [1, 1];
 /// assert_bag_superbag!(&a, &b);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// let a = [1, 1];
-/// let b = [2, 2];
-/// assert_bag_superbag!(&a, &b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_bag_superbag!(a_bag, b_bag)`\n",
-///     " a label: `&a`,\n",
-///     " a debug: `[1, 1]`,\n",
-///     " b label: `&b`,\n",
-///     " b debug: `[2, 2]`,\n",
-///     "       a: `{1: 2}`,\n",
-///     "       b: `{2: 2}`"
-/// );
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let a = [1, 1];
-/// let b = [2, 2];
-/// assert_bag_superbag!(&a, &b, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
+/// # let result = panic::catch_unwind(|| {
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
-/// let result = panic::catch_unwind(|| {
 /// assert_bag_superbag!(&a, &b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_bag_superbag!(a_bag, b_bag)`\n",
-///     " a label: `&a`,\n",
-///     " a debug: `[1, 1]`,\n",
-///     " b label: `&b`,\n",
-///     " b debug: `[1, 1, 1]`,\n",
-///     "       a: `{1: 2}`,\n",
-///     "       b: `{1: 3}`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let a = [1, 1];
-/// let b = [1, 1, 1];
-/// assert_bag_superbag!(&a, &b, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_bag_superbag!(a_collection, b_collection)`
+/// //  a label: `&a`,
+/// //  a debug: `[1, 1]`,
+/// //  b label: `&b`,
+/// //  b debug: `[1, 1, 1]`,
+/// //        a: `{1: 2}`,
+/// //        b: `{1: 3}`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
+/// #     " a label: `&a`,\n",
+/// #     " a debug: `[1, 1]`,\n",
+/// #     " b label: `&b`,\n",
+/// #     " b debug: `[1, 1, 1]`,\n",
+/// #     "       a: `{1: 2}`,\n",
+/// #     "       b: `{1: 3}`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -230,14 +189,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_bag_superbag {
-    ($a:expr, $b:expr $(,)?) => ({
-        match assert_bag_superbag_as_result!($a, $b) {
+    ($a_collection:expr, $b_collection:expr $(,)?) => ({
+        match assert_bag_superbag_as_result!($a_collection, $b_collection) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
-        match assert_bag_superbag_as_result!($a, $b) {
+    ($a_collection:expr, $b_collection:expr, $($message:tt)+) => ({
+        match assert_bag_superbag_as_result!($a_collection, $b_collection) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

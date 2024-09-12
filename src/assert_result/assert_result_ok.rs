@@ -36,22 +36,22 @@
 ///
 #[macro_export]
 macro_rules! assert_result_ok_as_result {
-    ($a:expr $(,)?) => {{
-        match (&$a) {
-            a_val => {
-                let is_ok = a_val.is_ok();
+    ($result:expr $(,)?) => {{
+        match (&$result) {
+            result_val => {
+                let is_ok = result_val.is_ok();
                 if is_ok {
                     Ok(())
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_result_ok!(expr)`\n",
-                            "   expr label: `{}`,\n",
-                            "   expr debug: `{:?}`,\n",
-                            " expr.is_ok(): `{:?}`",
+                            "assertion failed: `assert_result_ok!(result)`\n",
+                            "   result label: `{}`,\n",
+                            "   result debug: `{:?}`,\n",
+                            " result.is_ok(): `{:?}`",
                         ),
-                        stringify!($a),
-                        $a,
+                        stringify!($result),
+                        $result,
                         is_ok,
                     ))
                 }
@@ -78,10 +78,10 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_result_ok!(expr)`\n",
-                "   expr label: `a`,\n",
-                "   expr debug: `Err(1)`,\n",
-                " expr.is_ok(): `false`"
+                "assertion failed: `assert_result_ok!(result)`\n",
+                "   result label: `a`,\n",
+                "   result debug: `Err(1)`,\n",
+                " result.is_ok(): `false`"
             )
         );
     }
@@ -102,33 +102,23 @@ mod tests {
 /// # fn main() {
 /// let a: Result<(), i8> = Result::Ok(());
 /// assert_result_ok!(a);
-/// //-> ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: Result<(), i8> = Result::Err(1);
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_result_ok!(a);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_result_ok!(expr)`\n",
-///     "   expr label: `a`,\n",
-///     "   expr debug: `Err(1)`,\n",
-///     " expr.is_ok(): `false`",
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_result_ok!(a, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_result_ok!(result)`
+/// //    result label: `a`,
+/// //    result debug: `Err(1)`,
+/// //  result.is_ok(): `false`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_result_ok!(result)`\n",
+/// #     "   result label: `a`,\n",
+/// #     "   result debug: `Err(1)`,\n",
+/// #     " result.is_ok(): `false`",
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -140,14 +130,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_result_ok {
-    ($a:expr $(,)?) => ({
-        match assert_result_ok_as_result!($a) {
+    ($result:expr $(,)?) => ({
+        match assert_result_ok_as_result!($result) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $($message:tt)+) => ({
-        match assert_result_ok_as_result!($a) {
+    ($result:expr, $($message:tt)+) => ({
+        match assert_result_ok_as_result!($result) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

@@ -36,22 +36,22 @@
 ///
 #[macro_export]
 macro_rules! assert_option_some_as_result {
-    ($a:expr $(,)?) => {{
-        match (&$a) {
-            a_val => {
-                let is_some = a_val.is_some();
+    ($option:expr $(,)?) => {{
+        match (&$option) {
+            option_val => {
+                let is_some = option_val.is_some();
                 if is_some {
                     Ok(())
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_option_some!(expr)`\n",
-                            "     expr label: `{}`,\n",
-                            "     expr debug: `{:?}`,\n",
+                            "assertion failed: `assert_option_some!(option)`\n",
+                            "     option label: `{}`,\n",
+                            "     option debug: `{:?}`,\n",
                             " expr.is_some(): `{:?}`",
                         ),
-                        stringify!($a),
-                        $a,
+                        stringify!($option),
+                        $option,
                         is_some,
                     ))
                 }
@@ -78,9 +78,9 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_option_some!(expr)`\n",
-                "     expr label: `a`,\n",
-                "     expr debug: `None`,\n",
+                "assertion failed: `assert_option_some!(option)`\n",
+                "     option label: `a`,\n",
+                "     option debug: `None`,\n",
                 " expr.is_some(): `false`"
             )
         );
@@ -102,33 +102,23 @@ mod tests {
 /// # fn main() {
 /// let a: Option<i8> = Option::Some(1);
 /// assert_option_some!(a);
-/// //-> ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: Option<i8> = Option::None;
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_option_some!(a);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_option_some!(expr)`\n",
-///     "     expr label: `a`,\n",
-///     "     expr debug: `None`,\n",
-///     " expr.is_some(): `false`",
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_option_some!(a, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_option_some!(option)`
+/// //      option label: `a`,
+/// //      option debug: `None`,
+/// //  expr.is_some(): `false`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_option_some!(option)`\n",
+/// #     "     option label: `a`,\n",
+/// #     "     option debug: `None`,\n",
+/// #     " expr.is_some(): `false`",
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -140,14 +130,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_option_some {
-    ($a:expr $(,)?) => ({
-        match assert_option_some_as_result!($a) {
+    ($option:expr $(,)?) => ({
+        match assert_option_some_as_result!($option) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $($message:tt)+) => ({
-        match assert_option_some_as_result!($a) {
+    ($option:expr, $($message:tt)+) => ({
+        match assert_option_some_as_result!($option) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -184,9 +174,9 @@ macro_rules! assert_option_some {
 ///
 #[macro_export]
 macro_rules! debug_assert_option_some {
-    ($($arg:tt)*) => {
+    ($($optionrg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_option_some!($($arg)*);
+            $crate::assert_option_some!($($optionrg)*);
         }
     };
 }

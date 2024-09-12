@@ -143,31 +143,33 @@ mod tests {
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let path = "bravo.txt";
 /// let value = String::from("alfa\n");
 /// assert_fs_read_to_string_gt_expr!(&path, &value);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let path = "alfa.txt";
 /// let value = String::from("bravo\n");
 /// assert_fs_read_to_string_gt_expr!(&path, &value);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
-///     " a_path label: `&path`,\n",
-///     " a_path debug: `\"alfa.txt\"`,\n",
-///     " b_expr label: `&value`,\n",
-///     " b_expr debug: `\"bravo\\n\"`,\n",
-///     "            a: `\"alfa\\n\"`,\n",
-///     "            b: `\"bravo\\n\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`
+/// //  a_path label: `&path`,
+/// //  a_path debug: `\"alfa.txt\"`,
+/// //  b_expr label: `&value`,
+/// //  b_expr debug: `\"bravo\\n\"`,
+/// //             a: `\"alfa\\n\"`,
+/// //             b: `\"bravo\\n\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
+/// #     " a_path label: `&path`,\n",
+/// #     " a_path debug: `\"alfa.txt\"`,\n",
+/// #     " b_expr label: `&value`,\n",
+/// #     " b_expr debug: `\"bravo\\n\"`,\n",
+/// #     "            a: `\"alfa\\n\"`,\n",
+/// #     "            b: `\"bravo\\n\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

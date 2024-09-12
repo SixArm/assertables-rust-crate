@@ -203,6 +203,8 @@
 <a href="#203" id="203">203</a>
 <a href="#204" id="204">204</a>
 <a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a set is disjoint with another.
 //!
 //! # Example
@@ -244,8 +246,8 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_set_disjoint_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_collection</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_collection</span>) {
             (a_val, b_val) =&gt; {
                 <span class="kw">let </span>a_set: ::std::collections::BTreeSet&lt;<span class="kw">_</span>&gt; = a_val.into_iter().collect();
                 <span class="kw">let </span>b_set: ::std::collections::BTreeSet&lt;<span class="kw">_</span>&gt; = b_val.into_iter().collect();
@@ -254,7 +256,7 @@
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_set_disjoint!(a_set, b_set)`\n"</span>,
+                            <span class="string">"assertion failed: `assert_set_disjoint!(a_collection, b_collection)`\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -262,10 +264,10 @@
                             <span class="string">"       a: `{:?}`,\n"</span>,
                             <span class="string">"       b: `{:?}`"
                         </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                        <span class="macro-nonterminal">$a</span>,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                        <span class="macro-nonterminal">$b</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
+                        <span class="macro-nonterminal">$a_collection</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
+                        <span class="macro-nonterminal">$b_collection</span>,
                         <span class="kw-2">&amp;</span>a_set,
                         <span class="kw-2">&amp;</span>b_set
                     ))
@@ -295,7 +297,7 @@
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_set_disjoint!(a_set, b_set)`\n"</span>,
+                <span class="string">"assertion failed: `assert_set_disjoint!(a_collection, b_collection)`\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[1, 2]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -320,31 +322,33 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a = [1, 2];
 /// let b = [3, 4];
 /// assert_set_disjoint!(&amp;a, &amp;b);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a = [1, 2];
 /// let b = [2, 3];
 /// assert_set_disjoint!(&amp;a, &amp;b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_set_disjoint!(a_set, b_set)`\n",
-///     " a label: `&amp;a`,\n",
-///     " a debug: `[1, 2]`,\n",
-///     " b label: `&amp;b`,\n",
-///     " b debug: `[2, 3]`,\n",
-///     "       a: `{1, 2}`,\n",
-///     "       b: `{2, 3}`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_set_disjoint!(a_collection, b_collection)`
+/// //  a label: `&amp;a`,
+/// //  a debug: `[1, 2]`,
+/// //  b label: `&amp;b`,
+/// //  b debug: `[2, 3]`,
+/// //        a: `{1, 2}`,
+/// //        b: `{2, 3}`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_set_disjoint!(a_collection, b_collection)`\n",
+/// #     " a label: `&amp;a`,\n",
+/// #     " a debug: `[1, 2]`,\n",
+/// #     " b label: `&amp;b`,\n",
+/// #     " b debug: `[2, 3]`,\n",
+/// #     "       a: `{1, 2}`,\n",
+/// #     "       b: `{2, 3}`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -358,14 +362,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_set_disjoint {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_set_disjoint_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_set_disjoint_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_set_disjoint_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_set_disjoint_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

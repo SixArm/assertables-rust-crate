@@ -141,35 +141,39 @@ mod tests {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
 /// let s = "hello";
 /// assert_program_args_stdout_eq_expr!(&program, &args, s);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
 /// let s = String::from("zzz");
 /// assert_program_args_stdout_eq_expr!(&program, &args, s);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_eq_expr!(a_program, a_args, b_expr)`\n",
-///     " a_program label: `&program`,\n",
-///     " a_program debug: `\"bin/printf-stdout\"`,\n",
-///     "    a_args label: `&args`,\n",
-///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
-///     "    b_expr label: `s`,\n",
-///     "    b_expr debug: `\"zzz\"`,\n",
-///     "               a: `\"hello\"`,\n",
-///     "               b: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_program_args_stdout_eq_expr!(a_program, a_args, b_expr)`
+/// //  a_program label: `&program`,
+/// //  a_program debug: `\"bin/printf-stdout\"`,
+/// //     a_args label: `&args`,
+/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //     b_expr label: `s`,
+/// //     b_expr debug: `\"zzz\"`,
+/// //                a: `\"hello\"`,
+/// //                b: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_program_args_stdout_eq_expr!(a_program, a_args, b_expr)`\n",
+/// #     " a_program label: `&program`,\n",
+/// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
+/// #     "    a_args label: `&args`,\n",
+/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     "    b_expr label: `s`,\n",
+/// #     "    b_expr debug: `\"zzz\"`,\n",
+/// #     "               a: `\"hello\"`,\n",
+/// #     "               b: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

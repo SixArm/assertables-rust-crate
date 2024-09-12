@@ -138,7 +138,6 @@ mod tests {
 /// let a = "alfa";
 /// let b = "zz";
 /// assert_not_contains!(a, b);
-/// //-> ()
 ///
 /// // Range contains value?
 /// let a = 1..5;
@@ -146,23 +145,25 @@ mod tests {
 /// assert_not_contains!(a, &b);
 /// //->
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a = "alfa";
 /// let b = "lf";
 /// assert_not_contains!(a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_not_contains!(container, containee)`\n",
-///     " container label: `a`,\n",
-///     " container debug: `\"alfa\"`,\n",
-///     " containee label: `b`,\n",
-///     " containee debug: `\"lf\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_not_contains!(container, containee)`
+/// //  container label: `a`,
+/// //  container debug: `\"alfa\"`,
+/// //  containee label: `b`,
+/// //  containee debug: `\"lf\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_not_contains!(container, containee)`\n",
+/// #     " container label: `a`,\n",
+/// #     " container debug: `\"alfa\"`,\n",
+/// #     " containee label: `b`,\n",
+/// #     " containee debug: `\"lf\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

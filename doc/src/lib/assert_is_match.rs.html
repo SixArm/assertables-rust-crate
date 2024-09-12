@@ -300,29 +300,29 @@
 /// use regex::Regex;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let a = Regex::new(r"lf").unwrap();
 /// let b = "alfa";
 /// assert_is_match!(a, b);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a = Regex::new(r"lf").unwrap();
 /// let b = "bravo";
 /// assert_is_match!(a, b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-///     " matcher label: `a`,\n",
-///     " matcher debug: `Regex(\"lf\")`,\n",
-///     " matchee label: `b`,\n",
-///     " matchee debug: `\"bravo\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_is_match!(matcher, matchee)`
+/// //  matcher label: `a`,
+/// //  matcher debug: `Regex(\"lf\")`,
+/// //  matchee label: `b`,
+/// //  matchee debug: `\"bravo\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_is_match!(matcher, matchee)`\n",
+/// #     " matcher label: `a`,\n",
+/// #     " matcher debug: `Regex(\"lf\")`,\n",
+/// #     " matchee label: `b`,\n",
+/// #     " matchee debug: `\"bravo\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

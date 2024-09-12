@@ -122,11 +122,13 @@ Match
 <td>
 <a href="https://docs.rs/assertables/latest/assertables/macro.assert_result_err.html">assert_result_ok</a><br>
 <a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_result_ok_eq">assert_result_ok_eq</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_result_ok_ne">assert_result_ok_ne</a><br>
 <a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_result_err">assert_result_err</a>
 </td>
 <td>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_ok</a><br>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_ok_eq.html">assert_ok_eq</a><br>
+-<br>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_err.html">assert_err</a>
 </td>
 </tr>
@@ -135,12 +137,14 @@ Match
 <td>Option </td>
 <td>
 <a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some">assert_option_some</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some_eq">assert_option_some_eq</a>&nbsp;(eta&nbsp;2024-10)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some_eq">assert_option_some_eq</a>&nbsp;(eta&nbsp;v8.5)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some_ne">assert_option_some_ne</a>&nbsp;(eta&nbsp;v8.5)<br>
 <a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_none">assert_option_none</a>
 </td>
 <td>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_some.html">assert_some</a><br>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_some_eq.html">assert_some_eq</a><br>
+-<br>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_none.html">assert_none</a>
 </td>
 </tr>
@@ -149,9 +153,9 @@ Match
 <td>Poll</td>
 <td>
 <a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready">assert_poll_ready</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_eq">assert_poll_ready_eq</a>&nbsp;(eta&nbsp;2024-11)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_ok">assert_poll_ready_ok</a>&nbsp;(eta&nbsp;2024-11)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_err">assert_poll_ready_err</a>&nbsp;(eta&nbsp;2024-11)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_eq">assert_poll_ready_eq</a>&nbsp;(eta&nbsp;v8.6)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_ok">assert_poll_ready_ok</a>&nbsp;(eta&nbsp;v8.6)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_err">assert_poll_ready_err</a>&nbsp;(eta&nbsp;v8.6)<br>
 <a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_pending">assert_poll_pending</a></td>
 </td>
 <td>

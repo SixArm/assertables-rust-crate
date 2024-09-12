@@ -36,22 +36,22 @@
 ///
 #[macro_export]
 macro_rules! assert_option_none_as_result {
-    ($a:expr $(,)?) => {{
-        match (&$a) {
-            a_val => {
-                let is_none = a_val.is_none();
+    ($option:expr $(,)?) => {{
+        match (&$option) {
+            option_val => {
+                let is_none = option_val.is_none();
                 if is_none {
                     Ok(())
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_option_none!(expr)`\n",
-                            "     expr label: `{}`,\n",
-                            "     expr debug: `{:?}`,\n",
-                            " expr.is_none(): `{:?}`",
+                            "assertion failed: `assert_option_none!(option)`\n",
+                            "     option label: `{}`,\n",
+                            "     option debug: `{:?}`,\n",
+                            " option.is_none(): `{:?}`",
                         ),
-                        stringify!($a),
-                        $a,
+                        stringify!($option),
+                        $option,
                         is_none,
                     ))
                 }
@@ -78,10 +78,10 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_option_none!(expr)`\n",
-                "     expr label: `a`,\n",
-                "     expr debug: `Some(1)`,\n",
-                " expr.is_none(): `false`"
+                "assertion failed: `assert_option_none!(option)`\n",
+                "     option label: `a`,\n",
+                "     option debug: `Some(1)`,\n",
+                " option.is_none(): `false`"
             )
         );
     }
@@ -102,33 +102,23 @@ mod tests {
 /// # fn main() {
 /// let a: Option<i8> = Option::None;
 /// assert_option_none!(a);
-/// //-> ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: Option<i8> = Option::Some(1);
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_option_none!(a);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_option_none!(expr)`\n",
-///     "     expr label: `a`,\n",
-///     "     expr debug: `Some(1)`,\n",
-///     " expr.is_none(): `false`",
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_option_none!(a, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_option_none!(option)`
+/// //      option label: `a`,
+/// //      option debug: `Some(1)`,
+/// //  option.is_none(): `false`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_option_none!(option)`\n",
+/// #     "     option label: `a`,\n",
+/// #     "     option debug: `Some(1)`,\n",
+/// #     " option.is_none(): `false`",
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -140,14 +130,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_option_none {
-    ($a:expr $(,)?) => ({
-        match assert_option_none_as_result!($a) {
+    ($option:expr $(,)?) => ({
+        match assert_option_none_as_result!($option) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $($message:tt)+) => ({
-        match assert_option_none_as_result!($a) {
+    ($option:expr, $($message:tt)+) => ({
+        match assert_option_none_as_result!($option) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

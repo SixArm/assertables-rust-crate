@@ -161,39 +161,45 @@ mod tests {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "hello"];
 /// let b_program = "bin/printf-stdout";
 /// let b_args = ["%s%s%s%s%s", "h", "a", "l", "l", "o"];
 /// assert_program_args_stdout_gt!(&a_program, &a_args, &b_program, &b_args);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "hello"];
 /// let b_program = "bin/printf-stdout";
 /// let b_args = ["%s%s%s%s%s", "h", "u", "l", "l", "o"];
 /// assert_program_args_stdout_gt!(&a_program, &a_args, &b_program, &b_args);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-///     " a_program label: `&a_program`,\n",
-///     " a_program debug: `\"bin/printf-stdout\"`,\n",
-///     "    a_args label: `&a_args`,\n",
-///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " b_program label: `&b_program`,\n",
-///     " b_program debug: `\"bin/printf-stdout\"`,\n",
-///     "    b_args label: `&b_args`,\n",
-///     "    b_args debug: `[\"%s%s%s%s%s\", \"h\", \"u\", \"l\", \"l\", \"o\"]`,\n",
-///     "               a: `\"hello\"`,\n",
-///     "               b: `\"hullo\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`
+/// //  a_program label: `&a_program`,
+/// //  a_program debug: `\"bin/printf-stdout\"`,
+/// //     a_args label: `&a_args`,
+/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //  b_program label: `&b_program`,
+/// //  b_program debug: `\"bin/printf-stdout\"`,
+/// //     b_args label: `&b_args`,
+/// //     b_args debug: `[\"%s%s%s%s%s\", \"h\", \"u\", \"l\", \"l\", \"o\"]`,
+/// //                a: `\"hello\"`,
+/// //                b: `\"hullo\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
+/// #     " a_program label: `&a_program`,\n",
+/// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
+/// #     "    a_args label: `&a_args`,\n",
+/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     " b_program label: `&b_program`,\n",
+/// #     " b_program debug: `\"bin/printf-stdout\"`,\n",
+/// #     "    b_args label: `&b_args`,\n",
+/// #     "    b_args debug: `[\"%s%s%s%s%s\", \"h\", \"u\", \"l\", \"l\", \"o\"]`,\n",
+/// #     "               a: `\"hello\"`,\n",
+/// #     "               b: `\"hullo\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

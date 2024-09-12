@@ -230,6 +230,10 @@
 <a href="#230" id="230">230</a>
 <a href="#231" id="231">231</a>
 <a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is not equal to an expression.
 //!
 //! # Example
@@ -372,35 +376,39 @@
 /// # use std::panic;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "hello"];
 /// let s = String::from("zzz");
 /// assert_program_args_stderr_ne_expr!(&amp;program, &amp;args, s);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "hello"];
 /// let s = String::from("hello");
 /// assert_program_args_stderr_ne_expr!(&amp;program, &amp;args, s);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_program_args_stderr_ne_expr!(a_program, a_args, b_expr)`\n",
-///     " a_program label: `&amp;program`,\n",
-///     " a_program debug: `\"bin/printf-stderr\"`,\n",
-///     "    a_args label: `&amp;args`,\n",
-///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
-///     "    b_expr label: `s`,\n",
-///     "    b_expr debug: `\"hello\"`,\n",
-///     "               a: `\"hello\"`,\n",
-///     "               b: `\"hello\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_program_args_stderr_ne_expr!(a_program, a_args, b_expr)`
+/// //  a_program label: `&amp;program`,
+/// //  a_program debug: `\"bin/printf-stderr\"`,
+/// //     a_args label: `&amp;args`,
+/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //     b_expr label: `s`,
+/// //     b_expr debug: `\"hello\"`,
+/// //                a: `\"hello\"`,
+/// //                b: `\"hello\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_program_args_stderr_ne_expr!(a_program, a_args, b_expr)`\n",
+/// #     " a_program label: `&amp;program`,\n",
+/// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
+/// #     "    a_args label: `&amp;args`,\n",
+/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     "    b_expr label: `s`,\n",
+/// #     "    b_expr debug: `\"hello\"`,\n",
+/// #     "               a: `\"hello\"`,\n",
+/// #     "               b: `\"hello\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

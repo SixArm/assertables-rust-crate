@@ -34,9 +34,9 @@
 //!
 //! Compare a reader with its contents:
 //!
-//! * [`assert_io_read_to_string_contains!(reader, containee)`](macro@crate::assert_io_read_to_string_contains) ≈ reader.read_to_string().contains(containee)
+//! * [`assert_io_read_to_string_contains!(reader, &containee)`](macro@crate::assert_io_read_to_string_contains) ≈ reader.read_to_string().contains(containee)
 //!
-//! * [`assert_io_read_to_string_matches!(reader, matcher)`](macro@crate::assert_io_read_to_string_matches) ≈ matcher.is_match(reader.read_to_string())
+//! * [`assert_io_read_to_string_matches!(reader, &matcher)`](macro@crate::assert_io_read_to_string_matches) ≈ matcher.is_match(reader.read_to_string())
 //!
 //!
 //! # Example

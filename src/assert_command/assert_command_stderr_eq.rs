@@ -141,48 +141,37 @@ mod tests {
 /// use std::process::Command;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut a = Command::new("bin/printf-stderr");
 /// a.args(["%s", "hello"]);
 /// let mut b = Command::new("bin/printf-stderr");
 /// b.args(["%s", "hello"]);
 /// assert_command_stderr_eq!(a, b);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("bin/printf-stderr");
 /// a.args(["%s", "hello"]);
 /// let mut b = Command::new("bin/printf-stderr");
 /// b.args(["%s", "zzz"]);
 /// assert_command_stderr_eq!(a, b);
-/// //-> panic!("…")
 /// # });
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
-///     "       a: `\"hello\"`,\n",
-///     "       b: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let mut a = Command::new("bin/printf-stderr");
-/// a.args(["%s", "hello"]);
-/// let mut b = Command::new("bin/printf-stderr");
-/// b.args(["%s", "zzz"]);
-/// assert_command_stderr_eq!(a, b, "message");
-/// //-> panic!("…")
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// // assertion failed: `assert_command_stderr_eq!(a_command, b_command)`
+/// //  a label: `a`,
+/// //  a debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
+/// //  b label: `b`,
+/// //  b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,
+/// //        a: `\"hello\"`,
+/// //        b: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
+/// #     "       a: `\"hello\"`,\n",
+/// #     "       b: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

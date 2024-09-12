@@ -111,41 +111,33 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a = 2;
 /// let b = 1;
 /// assert_ge!(a, b);
-/// //-> ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a = 1;
 /// let b = 2;
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_ge!(a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_ge!(a, b)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `1`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `2`,\n",
-///     "       a: `1`,\n",
-///     "       b: `2`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_ge!(a, b, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_ge!(a, b)`
+/// //  a label: `a`,
+/// //  a debug: `1`,
+/// //  b label: `b`,
+/// //  b debug: `2`,
+/// //        a: `1`,
+/// //        b: `2`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_ge!(a, b)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `1`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `2`,\n",
+/// #     "       a: `1`,\n",
+/// #     "       b: `2`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

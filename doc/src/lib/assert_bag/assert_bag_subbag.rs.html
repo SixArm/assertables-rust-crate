@@ -239,49 +239,6 @@
 <a href="#239" id="239">239</a>
 <a href="#240" id="240">240</a>
 <a href="#241" id="241">241</a>
-<a href="#242" id="242">242</a>
-<a href="#243" id="243">243</a>
-<a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
-<a href="#247" id="247">247</a>
-<a href="#248" id="248">248</a>
-<a href="#249" id="249">249</a>
-<a href="#250" id="250">250</a>
-<a href="#251" id="251">251</a>
-<a href="#252" id="252">252</a>
-<a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a>
-<a href="#278" id="278">278</a>
-<a href="#279" id="279">279</a>
-<a href="#280" id="280">280</a>
-<a href="#281" id="281">281</a>
-<a href="#282" id="282">282</a>
-<a href="#283" id="283">283</a>
-<a href="#284" id="284">284</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is a subbag of another.
 //!
 //! # Example
@@ -323,8 +280,8 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_bag_subbag_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_collection</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_collection</span>) {
             (a_val, b_val) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>a_bag: ::std::collections::BTreeMap&lt;<span class="kw">_</span>, usize&gt; =
                     ::std::collections::BTreeMap::new();
@@ -347,7 +304,7 @@
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n"</span>,
+                            <span class="string">"assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -355,10 +312,10 @@
                             <span class="string">"       a: `{:?}`,\n"</span>,
                             <span class="string">"       b: `{:?}`"
                         </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                        <span class="macro-nonterminal">$a</span>,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                        <span class="macro-nonterminal">$b</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
+                        <span class="macro-nonterminal">$a_collection</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
+                        <span class="macro-nonterminal">$b_collection</span>,
                         <span class="kw-2">&amp;</span>a_bag,
                         <span class="kw-2">&amp;</span>b_bag
                     ))
@@ -388,7 +345,7 @@
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n"</span>,
+                <span class="string">"assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[1, 1]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -408,7 +365,7 @@
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n"</span>,
+                <span class="string">"assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[1, 1, 1]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -433,76 +390,33 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
 /// assert_bag_subbag!(&amp;a, &amp;b);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// let a = [1, 1];
-/// let b = [2, 2];
-/// assert_bag_subbag!(&amp;a, &amp;b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n",
-///     " a label: `&amp;a`,\n",
-///     " a debug: `[1, 1]`,\n",
-///     " b label: `&amp;b`,\n",
-///     " b debug: `[2, 2]`,\n",
-///     "       a: `{1: 2}`,\n",
-///     "       b: `{2: 2}`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let a = [1, 1];
-/// let b = [2, 2];
-/// assert_bag_subbag!(&amp;a, &amp;b, "message");
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
+/// # let result = panic::catch_unwind(|| {
 /// let a = [1, 1, 1];
 /// let b = [1, 1];
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_bag_subbag!(&amp;a, &amp;b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_bag_subbag!(a_bag, b_bag)`\n",
-///     " a label: `&amp;a`,\n",
-///     " a debug: `[1, 1, 1]`,\n",
-///     " b label: `&amp;b`,\n",
-///     " b debug: `[1, 1]`,\n",
-///     "       a: `{1: 3}`,\n",
-///     "       b: `{1: 2}`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let a = [1, 1, 1];
-/// let b = [1, 1];
-/// assert_bag_subbag!(&amp;a, &amp;b, "message");
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_bag_subbag!(a_collection, b_collection)`
+/// //  a label: `&amp;a`,
+/// //  a debug: `[1, 1, 1]`,
+/// //  b label: `&amp;b`,
+/// //  b debug: `[1, 1]`,
+/// //        a: `{1: 3}`,
+/// //        b: `{1: 2}`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
+/// #     " a label: `&amp;a`,\n",
+/// #     " a debug: `[1, 1, 1]`,\n",
+/// #     " b label: `&amp;b`,\n",
+/// #     " b debug: `[1, 1]`,\n",
+/// #     "       a: `{1: 3}`,\n",
+/// #     "       b: `{1: 2}`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -516,14 +430,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_bag_subbag {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_bag_subbag_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_bag_subbag_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_bag_subbag_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_bag_subbag_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

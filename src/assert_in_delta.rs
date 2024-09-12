@@ -152,46 +152,41 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = 10;
 /// let b: i8 = 11;
 /// let delta: i8 = 1;
 /// assert_in_delta!(a, b, delta);
-/// //-> ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = 10;
 /// let b: i8 = 12;
 /// let delta: i8 = 1;
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_in_delta!(a, b, delta);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-///     "     a label: `a`,\n",
-///     "     a debug: `10`,\n",
-///     "     b label: `b`,\n",
-///     "     b debug: `12`,\n",
-///     " delta label: `delta`,\n",
-///     " delta debug: `1`,\n",
-///     "     a value: `10`,\n",
-///     "     b value: `12`,\n",
-///     " delta value: `1`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_in_delta!(a, b, delta, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_in_delta!(a, b, delta)`
+/// //      a label: `a`,
+/// //      a debug: `10`,
+/// //      b label: `b`,
+/// //      b debug: `12`,
+/// //  delta label: `delta`,
+/// //  delta debug: `1`,
+/// //      a value: `10`,
+/// //      b value: `12`,
+/// //  delta value: `1`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_in_delta!(a, b, delta)`\n",
+/// #     "     a label: `a`,\n",
+/// #     "     a debug: `10`,\n",
+/// #     "     b label: `b`,\n",
+/// #     "     b debug: `12`,\n",
+/// #     " delta label: `delta`,\n",
+/// #     " delta debug: `1`,\n",
+/// #     "     a value: `10`,\n",
+/// #     "     b value: `12`,\n",
+/// #     " delta value: `1`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

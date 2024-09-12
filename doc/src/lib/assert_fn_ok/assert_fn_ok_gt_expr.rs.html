@@ -383,6 +383,9 @@
 <a href="#383" id="383">383</a>
 <a href="#384" id="384">384</a>
 <a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function ok() is greater than an expression.
 //!
 //! # Example
@@ -660,32 +663,35 @@
 /// }
 ///
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = 2;
 /// let b = String::from("1");
 /// assert_fn_ok_gt_expr!(f, a, b);
-/// //-&gt; ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = 1;
 /// let b = String::from("2");
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_fn_ok_gt_expr!(f, a, b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_gt_expr!(a_function, a_param, b_expr)`\n",
-///     " a_function label: `f`,\n",
-///     "    a_param label: `a`,\n",
-///     "    a_param debug: `1`,\n",
-///     "     b_expr label: `b`,\n",
-///     "     b_expr debug: `\"2\"`,\n",
-///     "                a: `\"1\"`,\n",
-///     "                b: `\"2\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fn_ok_gt_expr!(a_function, a_param, b_expr)`
+/// //  a_function label: `f`,
+/// //     a_param label: `a`,
+/// //     a_param debug: `1`,
+/// //      b_expr label: `b`,
+/// //      b_expr debug: `\"2\"`,
+/// //                 a: `\"1\"`,
+/// //                 b: `\"2\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fn_ok_gt_expr!(a_function, a_param, b_expr)`\n",
+/// #     " a_function label: `f`,\n",
+/// #     "    a_param label: `a`,\n",
+/// #     "    a_param debug: `1`,\n",
+/// #     "     b_expr label: `b`,\n",
+/// #     "     b_expr debug: `\"2\"`,\n",
+/// #     "                a: `\"1\"`,\n",
+/// #     "                b: `\"2\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

@@ -34,15 +34,13 @@ fn assert_return_enum() {
     let a: Result<i8, i8> = Result::Ok(1);
     assert_result_ok!(a);
 
-    //TODO
-    // let a: Result<i8, i8> = Result::Ok(1);
-    // let b: Result<i8, i8> = Result::Ok(1);
-    // assert_result_ok_eq!(a, b);
+    let a: Result<i8, i8> = Result::Ok(1);
+    let b: Result<i8, i8> = Result::Ok(1);
+    assert_result_ok_eq!(a, b);
 
-    //TODO
-    // let a: Result<i8, i8> = Result::Ok(1);
-    // let b: Result<i8, i8> = Result::Ok(2);
-    // assert_result_ok_ne!(a, b);
+    let a: Result<i8, i8> = Result::Ok(1);
+    let b: Result<i8, i8> = Result::Ok(2);
+    assert_result_ok_ne!(a, b);
 
     let a: Result<i8, i8> = Result::Err(2);
     assert_result_err!(a);
@@ -53,15 +51,13 @@ fn assert_option_enum() {
     let a: Option<i8> = Option::Some(1);
     assert_option_some!(a);
 
-    //TODO
-    // let a: Option<i8> = Option::Some(1);
-    // let b: Option<i8> = Option::Some(1);
-    // assert_option_some_eq!(a, b);
+    let a: Option<i8> = Option::Some(1);
+    let b: Option<i8> = Option::Some(1);
+    assert_option_some_eq!(a, b);
 
-    //TODO
-    // let a: Option<i8> = Option::Some(1);
-    // let b: Option<i8> = Option::Some(2);
-    // assert_option_some_ne!(a, b);
+    let a: Option<i8> = Option::Some(1);
+    let b: Option<i8> = Option::Some(2);
+    assert_option_some_ne!(a, b);
 
     let a: Option<i8> = Option::None;
     assert_option_none!(a);

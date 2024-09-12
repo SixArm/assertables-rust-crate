@@ -13,7 +13,7 @@
 //! let program = "bin/printf-stderr";
 //! let args = ["%s", "hello"];
 //! let containee = "ell";
-//! assert_program_args_stderr_contains!(&program, &args, containee);
+//! assert_program_args_stderr_contains!(&program, &args, &containee);
 //! # }
 //! ```
 //!
@@ -151,35 +151,39 @@ mod tests {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "hello"];
 /// let containee = "ell";
-/// assert_program_args_stderr_contains!(&program, &args, containee);
-/// //-> ()
+/// assert_program_args_stderr_contains!(&program, &args, &containee);
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "hello"];
 /// let containee = "zzz";
-/// assert_program_args_stderr_contains!(&program, &args, containee);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_program_args_stderr_contains!(a_program, a_args, containee)`\n",
-///     " a_program label: `&program`,\n",
-///     " a_program debug: `\"bin/printf-stderr\"`,\n",
-///     "    a_args label: `&args`,\n",
-///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " containee label: `containee`,\n",
-///     " containee debug: `\"zzz\"`,\n",
-///     "               a: `\"hello\"`,\n",
-///     "       containee: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// assert_program_args_stderr_contains!(&program, &args, &containee);
+/// # });
+/// // assertion failed: `assert_program_args_stderr_contains!(a_program, a_args, containee)`
+/// //  a_program label: `&program`,
+/// //  a_program debug: `\"bin/printf-stderr\"`,
+/// //     a_args label: `&args`,
+/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //  containee label: `&containee`,
+/// //  containee debug: `\"zzz\"`,
+/// //                a: `\"hello\"`,
+/// //        containee: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_program_args_stderr_contains!(a_program, a_args, containee)`\n",
+/// #     " a_program label: `&program`,\n",
+/// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
+/// #     "    a_args label: `&args`,\n",
+/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     " containee label: `&containee`,\n",
+/// #     " containee debug: `\"zzz\"`,\n",
+/// #     "               a: `\"hello\"`,\n",
+/// #     "       containee: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

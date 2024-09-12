@@ -28,6 +28,12 @@
 <a href="#28" id="28">28</a>
 <a href="#29" id="29">29</a>
 <a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
+<a href="#32" id="32">32</a>
+<a href="#33" id="33">33</a>
+<a href="#34" id="34">34</a>
+<a href="#35" id="35">35</a>
+<a href="#36" id="36">36</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert macros for `Option` {`Some`, `None`}
 //!
 //! These macros help compare an `Option` that is either `Some`, `None`.
@@ -44,6 +50,10 @@
 //!
 //! * [`assert_option_some!(a)`](macro@crate::assert_option_some) ≈ a.is_some()
 //!
+//! * [`assert_option_some_eq!(a, b)`](macro@crate::assert_option_some_eq) ≈ a.is_some() &amp; b.is_some() &amp; a.unwrap() == b.unwrap()
+//! 
+//! * [`assert_option_some_ne!(a, b)`](macro@crate::assert_option_some_ne) ≈ a.is_some() &amp; b.is_some() &amp; a.unwrap() != b.unwrap()
+//!
 //! * [`assert_option_none!(a)`](macro@crate::assert_option_none) ≈ a.is_none()
 //!
 //! # Example
@@ -57,5 +67,7 @@
 //! ```
 
 </span><span class="kw">pub mod </span>assert_option_some;
+<span class="kw">pub mod </span>assert_option_some_eq;
+<span class="kw">pub mod </span>assert_option_some_ne;
 <span class="kw">pub mod </span>assert_option_none;
 </code></pre></div></section></main></body></html>

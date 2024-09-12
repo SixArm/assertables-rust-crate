@@ -236,6 +236,10 @@
 <a href="#236" id="236">236</a>
 <a href="#237" id="237">237</a>
 <a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is a match to a regex.
 //!
 //! # Example
@@ -248,7 +252,7 @@
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "hello"];
 //! let matcher = Regex::new(r"el").unwrap();
-//! assert_program_args_stdout_is_match!(&amp;program, &amp;args, matcher);
+//! assert_program_args_stdout_is_match!(&amp;program, &amp;args, &amp;matcher);
 //! # }
 //! ```
 //!
@@ -384,35 +388,39 @@
 /// use regex::Regex;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
 /// let matcher = Regex::new(r"el").unwrap();
-/// assert_program_args_stdout_is_match!(&amp;program, &amp;args, matcher);
-/// //-&gt; ()
+/// assert_program_args_stdout_is_match!(&amp;program, &amp;args, &amp;matcher);
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
 /// let matcher = Regex::new(r"zzz").unwrap();
-/// assert_program_args_stdout_is_match!(&amp;program, &amp;args, matcher);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n",
-///     " a_program label: `&amp;program`,\n",
-///     " a_program debug: `\"bin/printf-stdout\"`,\n",
-///     "    a_args label: `&amp;args`,\n",
-///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " b_matcher label: `matcher`,\n",
-///     " b_matcher debug: `Regex(\"zzz\")`,\n",
-///     "               a: `\"hello\"`,\n",
-///     "               b: `Regex(\"zzz\")`"
-/// );
-/// assert_eq!(actual, expect);
+/// assert_program_args_stdout_is_match!(&amp;program, &amp;args, &amp;matcher);
+/// # });
+/// // assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`
+/// //  a_program label: `&amp;program`,
+/// //  a_program debug: `\"bin/printf-stdout\"`,
+/// //     a_args label: `&amp;args`,
+/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //  b_matcher label: `&amp;matcher`,
+/// //  b_matcher debug: `Regex(\"zzz\")`,
+/// //                a: `\"hello\"`,
+/// //                b: `Regex(\"zzz\")`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n",
+/// #     " a_program label: `&amp;program`,\n",
+/// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
+/// #     "    a_args label: `&amp;args`,\n",
+/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     " b_matcher label: `&amp;matcher`,\n",
+/// #     " b_matcher debug: `Regex(\"zzz\")`,\n",
+/// #     "               a: `\"hello\"`,\n",
+/// #     "               b: `Regex(\"zzz\")`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

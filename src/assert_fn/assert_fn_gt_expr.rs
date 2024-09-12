@@ -221,32 +221,35 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = -2;
 /// let b: i8 = 1;
 /// assert_fn_gt_expr!(i8::abs, a, b);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = -1;
 /// let b: i8 = 2;
 /// assert_fn_gt_expr!(i8::abs, a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_gt_expr!(a_function, a_param, b_expr)`\n",
-///     " a_function label: `i8::abs`,\n",
-///     "    a_param label: `a`,\n",
-///     "    a_param debug: `-1`,\n",
-///     "     b_expr label: `b`,\n",
-///     "     b_expr debug: `2`,\n",
-///     "                a: `1`,\n",
-///     "                b: `2`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fn_gt_expr!(a_function, a_param, b_expr)`
+/// //  a_function label: `i8::abs`,
+/// //     a_param label: `a`,
+/// //     a_param debug: `-1`,
+/// //      b_expr label: `b`,
+/// //      b_expr debug: `2`,
+/// //                 a: `1`,
+/// //                 b: `2`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fn_gt_expr!(a_function, a_param, b_expr)`\n",
+/// #     " a_function label: `i8::abs`,\n",
+/// #     "    a_param label: `a`,\n",
+/// #     "    a_param debug: `-1`,\n",
+/// #     "     b_expr label: `b`,\n",
+/// #     "     b_expr debug: `2`,\n",
+/// #     "                a: `1`,\n",
+/// #     "                b: `2`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

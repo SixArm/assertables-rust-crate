@@ -184,16 +184,6 @@
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
-<a href="#187" id="187">187</a>
-<a href="#188" id="188">188</a>
-<a href="#189" id="189">189</a>
-<a href="#190" id="190">190</a>
-<a href="#191" id="191">191</a>
-<a href="#192" id="192">192</a>
-<a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
-<a href="#195" id="195">195</a>
-<a href="#196" id="196">196</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert poll.is_ready() is true.
 //!
 //! # Example
@@ -234,8 +224,8 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_poll_ready_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>) {
+    (<span class="macro-nonterminal">$poll</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$poll</span>) {
             a_val =&gt; {
                 <span class="kw">let </span>is_ready = a_val.is_ready();
                 <span class="kw">if </span>is_ready {
@@ -243,13 +233,13 @@
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_poll_ready!(expr)`\n"</span>,
-                            <span class="string">"      expr label: `{}`,\n"</span>,
-                            <span class="string">"      expr debug: `{:?}`,\n"</span>,
+                            <span class="string">"assertion failed: `assert_poll_ready!(poll)`\n"</span>,
+                            <span class="string">"      poll label: `{}`,\n"</span>,
+                            <span class="string">"      poll debug: `{:?}`,\n"</span>,
                             <span class="string">" expr.is_ready(): `{:?}`"</span>,
                         ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                        <span class="macro-nonterminal">$a</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$poll</span>),
+                        <span class="macro-nonterminal">$poll</span>,
                         is_ready,
                     ))
                 }
@@ -277,9 +267,9 @@
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_poll_ready!(expr)`\n"</span>,
-                <span class="string">"      expr label: `a`,\n"</span>,
-                <span class="string">"      expr debug: `Pending`,\n"</span>,
+                <span class="string">"assertion failed: `assert_poll_ready!(poll)`\n"</span>,
+                <span class="string">"      poll label: `a`,\n"</span>,
+                <span class="string">"      poll debug: `Pending`,\n"</span>,
                 <span class="string">" expr.is_ready(): `false`"
             </span>)
         );
@@ -302,33 +292,23 @@
 /// # fn main() {
 /// let a: Poll&lt;i8&gt; = Poll::Ready(1);
 /// assert_poll_ready!(a);
-/// //-&gt; ()
 ///
-/// // Panic with error message
+/// # let result = panic::catch_unwind(|| {
 /// let a: Poll&lt;i8&gt; = Poll::Pending;
-/// let result = panic::catch_unwind(|| {
 /// assert_poll_ready!(a);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_poll_ready!(expr)`\n",
-///     "      expr label: `a`,\n",
-///     "      expr debug: `Pending`,\n",
-///     " expr.is_ready(): `false`",
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_poll_ready!(a, "message");
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_poll_ready!(poll)`
+/// //      poll label: `a`,
+/// //      poll debug: `Pending`,
+/// // expr.is_ready(): `false`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_poll_ready!(poll)`\n",
+/// #     "      poll label: `a`,\n",
+/// #     "      poll debug: `Pending`,\n",
+/// #     " expr.is_ready(): `false`",
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -340,14 +320,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_poll_ready {
-    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_poll_ready_as_result!</span>(<span class="macro-nonterminal">$a</span>) {
+    (<span class="macro-nonterminal">$poll</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_poll_ready_as_result!</span>(<span class="macro-nonterminal">$poll</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_poll_ready_as_result!</span>(<span class="macro-nonterminal">$a</span>) {
+    (<span class="macro-nonterminal">$poll</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_poll_ready_as_result!</span>(<span class="macro-nonterminal">$poll</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
@@ -384,9 +364,9 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_poll_ready {
-    ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {
+    ($(<span class="macro-nonterminal">$pollrg</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="kw">if </span><span class="macro-nonterminal">$</span><span class="macro">crate::cfg!</span>(<span class="macro-nonterminal">debug_assertions</span>) {
-            <span class="macro-nonterminal">$</span><span class="macro">crate::assert_poll_ready!</span>($(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>);
+            <span class="macro-nonterminal">$</span><span class="macro">crate::assert_poll_ready!</span>($(<span class="macro-nonterminal">$pollrg</span>)<span class="kw-2">*</span>);
         }
     };
 }

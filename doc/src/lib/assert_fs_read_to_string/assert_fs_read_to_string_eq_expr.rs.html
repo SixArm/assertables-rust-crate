@@ -231,6 +231,8 @@
 <a href="#231" id="231">231</a>
 <a href="#232" id="232">232</a>
 <a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string() value is equal to an expression.
 //!
 //! # Example
@@ -276,11 +278,11 @@
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n"</span>,
-                    <span class="string">"  a_path label: `{}`,\n"</span>,
-                    <span class="string">"  a_path debug: `{:?}`,\n"</span>,
+                    <span class="string">" a_path label: `{}`,\n"</span>,
+                    <span class="string">" a_path debug: `{:?}`,\n"</span>,
                     <span class="string">" b_expr label: `{}`,\n"</span>,
                     <span class="string">" b_expr debug: `{:?}`,\n"</span>,
-                    <span class="string">"         a err: `{:?}`"
+                    <span class="string">"        a err: `{:?}`"
                 </span>),
                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
                 <span class="macro-nonterminal">$a_path</span>,
@@ -297,8 +299,8 @@
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n"</span>,
-                        <span class="string">"  a_path label: `{}`,\n"</span>,
-                        <span class="string">"  a_path debug: `{:?}`,\n"</span>,
+                        <span class="string">" a_path label: `{}`,\n"</span>,
+                        <span class="string">" a_path debug: `{:?}`,\n"</span>,
                         <span class="string">" b_expr label: `{}`,\n"</span>,
                         <span class="string">" b_expr debug: `{:?}`,\n"</span>,
                         <span class="string">"       a: `{:?}`,\n"</span>,
@@ -350,8 +352,8 @@
             <span class="macro">format!</span>(
                 <span class="string">"{}{}{}{}{}{}{}{}{}"</span>,
                 <span class="string">"assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n"</span>,
-                <span class="string">"  a_path label: `&amp;path`,\n"</span>,
-                <span class="string">"  a_path debug: `\""</span>,
+                <span class="string">" a_path label: `&amp;path`,\n"</span>,
+                <span class="string">" a_path debug: `\""</span>,
                 path.to_string_lossy(),
                 <span class="string">"\"`,\n"</span>,
                 <span class="string">" b_expr label: `&amp;value`,\n"</span>,
@@ -378,31 +380,33 @@
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let path = "alfa.txt";
 /// let value = String::from("alfa\n");
 /// assert_fs_read_to_string_eq_expr!(&amp;path, &amp;value);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let path = "alfa.txt";
 /// let value = String::from("bravo\n");
 /// assert_fs_read_to_string_eq_expr!(&amp;path, &amp;value);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n",
-///     "  a_path label: `&amp;path`,\n",
-///     "  a_path debug: `\"alfa.txt\"`,\n",
-///     " b_expr label: `&amp;value`,\n",
-///     " b_expr debug: `\"bravo\\n\"`,\n",
-///     "       a: `\"alfa\\n\"`,\n",
-///     "       b: `\"bravo\\n\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`
+/// //  a_path label: `&amp;path`,
+/// //  a_path debug: `\"alfa.txt\"`,
+/// //  b_expr label: `&amp;value`,
+/// //  b_expr debug: `\"bravo\\n\"`,
+/// //        a: `\"alfa\\n\"`,
+/// //        b: `\"bravo\\n\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n",
+/// #     " a_path label: `&amp;path`,\n",
+/// #     " a_path debug: `\"alfa.txt\"`,\n",
+/// #     " b_expr label: `&amp;value`,\n",
+/// #     " b_expr debug: `\"bravo\\n\"`,\n",
+/// #     "       a: `\"alfa\\n\"`,\n",
+/// #     "       b: `\"bravo\\n\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

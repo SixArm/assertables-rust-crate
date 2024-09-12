@@ -221,6 +221,8 @@
 <a href="#221" id="221">221</a>
 <a href="#222" id="222">222</a>
 <a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() value is less than or equal to an expression.
 //!
 //! # Example
@@ -273,7 +275,7 @@
                     <span class="string">" a_reader debug: `{:?}`,\n"</span>,
                     <span class="string">"   b_expr label: `{}`,\n"</span>,
                     <span class="string">"   b_expr debug: `{:?}`,\n"</span>,
-                    <span class="string">"          left err: `{:?}`"
+                    <span class="string">"          a err: `{:?}`"
                 </span>),
                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
                 <span class="macro-nonterminal">$a_reader</span>,
@@ -294,8 +296,8 @@
                         <span class="string">" a_reader debug: `{:?}`,\n"</span>,
                         <span class="string">"   b_expr label: `{}`,\n"</span>,
                         <span class="string">"   b_expr debug: `{:?}`,\n"</span>,
-                        <span class="string">"       a: `{:?}`,\n"</span>,
-                        <span class="string">"       b: `{:?}`"</span>,
+                        <span class="string">"              a: `{:?}`,\n"</span>,
+                        <span class="string">"              b: `{:?}`"</span>,
                     ),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
                     <span class="macro-nonterminal">$a_reader</span>,
@@ -336,8 +338,8 @@
                 <span class="string">" a_reader debug: `[]`,\n"</span>,
                 <span class="string">"   b_expr label: `&amp;value`,\n"</span>,
                 <span class="string">"   b_expr debug: `\"alfa\"`,\n"</span>,
-                <span class="string">"       a: `\"bravo\"`,\n"</span>,
-                <span class="string">"       b: `\"alfa\"`"
+                <span class="string">"              a: `\"bravo\"`,\n"</span>,
+                <span class="string">"              b: `\"alfa\"`"
             </span>)
         );
     }
@@ -358,31 +360,33 @@
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut reader = "alfa".as_bytes();
 /// let value = String::from("bravo");
 /// assert_io_read_to_string_le_expr!(reader, &amp;value);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut reader = "bravo".as_bytes();
 /// let value = String::from("alfa");
 /// assert_io_read_to_string_le_expr!(reader, &amp;value);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_le_expr!(a_reader, b_expr)`\n",
-///     " a_reader label: `reader`,\n",
-///     " a_reader debug: `[]`,\n",
-///     "   b_expr label: `&amp;value`,\n",
-///     "   b_expr debug: `\"alfa\"`,\n",
-///     "       a: `\"bravo\"`,\n",
-///     "       b: `\"alfa\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_io_read_to_string_le_expr!(a_reader, b_expr)`
+/// //  a_reader label: `reader`,
+/// //  a_reader debug: `[]`,
+/// //    b_expr label: `&amp;value`,
+/// //    b_expr debug: `\"alfa\"`,
+/// //               a: `\"bravo\"`,
+/// //               b: `\"alfa\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_io_read_to_string_le_expr!(a_reader, b_expr)`\n",
+/// #     " a_reader label: `reader`,\n",
+/// #     " a_reader debug: `[]`,\n",
+/// #     "   b_expr label: `&amp;value`,\n",
+/// #     "   b_expr debug: `\"alfa\"`,\n",
+/// #     "              a: `\"bravo\"`,\n",
+/// #     "              b: `\"alfa\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

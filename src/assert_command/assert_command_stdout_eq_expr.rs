@@ -134,46 +134,35 @@ mod tests {
 /// use std::process::Command;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "hello"]);
 /// let s = String::from("hello");
 /// assert_command_stdout_eq_expr!(command, s);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "hello"]);
 /// let s = String::from("zzz");
 /// assert_command_stdout_eq_expr!(command, s);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
-///     " a label: `command`,\n",
-///     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-///     " b label: `s`,\n",
-///     " b debug: `\"zzz\"`,\n",
-///     "       a: `\"hello\"`,\n",
-///     "       b: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let mut command = Command::new("bin/printf-stdout");
-/// command.args(["%s", "hello"]);
-/// let s = "world";
-/// assert_command_stdout_eq_expr!(command, s, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`
+/// //  a label: `command`,
+/// //  a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
+/// //  b label: `s`,
+/// //  b debug: `\"zzz\"`,
+/// //        a: `\"hello\"`,
+/// //        b: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+/// #     " a label: `command`,\n",
+/// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+/// #     " b label: `s`,\n",
+/// #     " b debug: `\"zzz\"`,\n",
+/// #     "       a: `\"hello\"`,\n",
+/// #     "       b: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

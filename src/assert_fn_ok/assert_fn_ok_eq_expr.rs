@@ -236,32 +236,35 @@ mod tests {
 /// }
 ///
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = 1;
 /// let b = String::from("1");
 /// assert_fn_ok_eq_expr!(f, a, b);
-/// //-> ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = 1;
 /// let b = String::from("2");
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_fn_ok_eq_expr!(f, a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_eq_expr!(a_function, a_param, b_expr)`\n",
-///     " a_function label: `f`,\n",
-///     "    a_param label: `a`,\n",
-///     "    a_param debug: `1`,\n",
-///     "     b_expr label: `b`,\n",
-///     "     b_expr debug: `\"2\"`,\n",
-///     "                a: `\"1\"`,\n",
-///     "                b: `\"2\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fn_ok_eq_expr!(a_function, a_param, b_expr)`
+/// //  a_function label: `f`,
+/// //     a_param label: `a`,
+/// //     a_param debug: `1`,
+/// //      b_expr label: `b`,
+/// //      b_expr debug: `\"2\"`,
+/// //                 a: `\"1\"`,
+/// //                 b: `\"2\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fn_ok_eq_expr!(a_function, a_param, b_expr)`\n",
+/// #     " a_function label: `f`,\n",
+/// #     "    a_param label: `a`,\n",
+/// #     "    a_param debug: `1`,\n",
+/// #     "     b_expr label: `b`,\n",
+/// #     "     b_expr debug: `\"2\"`,\n",
+/// #     "                a: `\"1\"`,\n",
+/// #     "                b: `\"2\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

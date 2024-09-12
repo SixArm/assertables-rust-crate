@@ -142,49 +142,37 @@ mod tests {
 /// use std::process::Command;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut a = Command::new("bin/printf-stdout");
 /// a.args(["%s", "hello"]);
 /// let mut b = Command::new("bin/printf-stdout");
 /// b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
 /// assert_command_stdout_eq!(a, b);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("bin/printf-stdout");
 /// a.args(["%s", "hello"]);
 /// let mut b = Command::new("bin/printf-stdout");
 /// b.args(["%s%s%s", "z", "z", "z"]);
 /// assert_command_stdout_eq!(a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
-///     "       a: `\"hello\"`,\n",
-///     "       b: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let mut a = Command::new("bin/printf-stdout");
-/// a.args(["%s", "hello"]);
-/// let mut b = Command::new("bin/printf-stdout");
-/// b.args(["%s%s%s", "z", "z", "z"]);
-/// assert_command_stdout_eq!(a, b, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
+/// //  a label: `a`,
+/// //  a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
+/// //  b label: `b`,
+/// //  b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,
+/// //        a: `\"hello\"`,
+/// //        b: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
+/// #     "       a: `\"hello\"`,\n",
+/// #     "       b: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

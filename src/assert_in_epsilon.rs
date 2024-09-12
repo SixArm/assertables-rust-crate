@@ -150,46 +150,41 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = 10;
 /// let b: i8 = 20;
 /// let epsilon: i8 = 1;
 /// assert_in_epsilon!(a, b, epsilon);
-/// //-> ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = 10;
 /// let b: i8 = 30;
 /// let epsilon: i8 = 1;
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_in_epsilon!(a, b, epsilon);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-///     "       a label: `a`,\n",
-///     "       a debug: `10`,\n",
-///     "       b label: `b`,\n",
-///     "       b debug: `30`,\n",
-///     " epsilon label: `epsilon`,\n",
-///     " epsilon debug: `1`,\n",
-///     "       a value: `10`,\n",
-///     "       b value: `30`,\n",
-///     " epsilon value: `1`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_in_epsilon!(a, b, epsilon, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
+/// //        a label: `a`,
+/// //        a debug: `10`,
+/// //        b label: `b`,
+/// //        b debug: `30`,
+/// //  epsilon label: `epsilon`,
+/// //  epsilon debug: `1`,
+/// //        a value: `10`,
+/// //        b value: `30`,
+/// //  epsilon value: `1`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
+/// #     "       a label: `a`,\n",
+/// #     "       a debug: `10`,\n",
+/// #     "       b label: `b`,\n",
+/// #     "       b debug: `30`,\n",
+/// #     " epsilon label: `epsilon`,\n",
+/// #     " epsilon debug: `1`,\n",
+/// #     "       a value: `10`,\n",
+/// #     "       b value: `30`,\n",
+/// #     " epsilon value: `1`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

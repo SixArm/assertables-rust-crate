@@ -224,6 +224,7 @@
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
 <a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a string) does not contain an expression (such as a substring).
 //!
 //! # Example
@@ -364,7 +365,6 @@
 /// let a = "alfa";
 /// let b = "zz";
 /// assert_not_contains!(a, b);
-/// //-&gt; ()
 ///
 /// // Range contains value?
 /// let a = 1..5;
@@ -372,23 +372,25 @@
 /// assert_not_contains!(a, &amp;b);
 /// //-&gt;
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a = "alfa";
 /// let b = "lf";
 /// assert_not_contains!(a, b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_not_contains!(container, containee)`\n",
-///     " container label: `a`,\n",
-///     " container debug: `\"alfa\"`,\n",
-///     " containee label: `b`,\n",
-///     " containee debug: `\"lf\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_not_contains!(container, containee)`
+/// //  container label: `a`,
+/// //  container debug: `\"alfa\"`,
+/// //  containee label: `b`,
+/// //  containee debug: `\"lf\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_not_contains!(container, containee)`\n",
+/// #     " container label: `a`,\n",
+/// #     " container debug: `\"alfa\"`,\n",
+/// #     " containee label: `b`,\n",
+/// #     " containee debug: `\"lf\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

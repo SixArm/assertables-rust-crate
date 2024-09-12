@@ -236,6 +236,8 @@
 <a href="#236" id="236">236</a>
 <a href="#237" id="237">237</a>
 <a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string() value is greater than another.
 //!
 //! # Example
@@ -245,7 +247,7 @@
 //! # fn main() {
 //! let a ="alfa.txt";
 //! let b ="bravo.txt";
-//! assert_fs_read_to_string_gt!(b, a);
+//! assert_fs_read_to_string_gt!(&amp;b, &amp;a);
 //! # }
 //! ```
 //!
@@ -275,24 +277,24 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_gt_as_result {
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_path</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">let </span>a_result = ::std::fs::read_to_string(<span class="macro-nonterminal">$a_path</span>);
-        <span class="kw">let </span>b_result = ::std::fs::read_to_string(<span class="macro-nonterminal">$b</span>);
+        <span class="kw">let </span>b_result = ::std::fs::read_to_string(<span class="macro-nonterminal">$b_path</span>);
         <span class="kw">if </span>a_result.is_err() || b_result.is_err() {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fs_read_to_string_gt!(a_path, right_path)`\n"</span>,
-                    <span class="string">"  a_path label: `{}`,\n"</span>,
-                    <span class="string">"  a_path debug: `{:?}`,\n"</span>,
-                    <span class="string">" right_path label: `{}`,\n"</span>,
-                    <span class="string">" right_path debug: `{:?}`,\n"</span>,
-                    <span class="string">"      a result: `{:?}`,\n"</span>,
+                    <span class="string">"assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n"</span>,
+                    <span class="string">" a_path label: `{}`,\n"</span>,
+                    <span class="string">" a_path debug: `{:?}`,\n"</span>,
+                    <span class="string">" b_path label: `{}`,\n"</span>,
+                    <span class="string">" b_path debug: `{:?}`,\n"</span>,
+                    <span class="string">"     a result: `{:?}`,\n"</span>,
                     <span class="string">"     b result: `{:?}`"
                 </span>),
                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
                 <span class="macro-nonterminal">$a_path</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                <span class="macro-nonterminal">$b</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_path</span>),
+                <span class="macro-nonterminal">$b_path</span>,
                 a_result,
                 b_result
             ))
@@ -304,18 +306,18 @@
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fs_read_to_string_gt!(a_path, right_path)`\n"</span>,
-                        <span class="string">"  a_path label: `{}`,\n"</span>,
-                        <span class="string">"  a_path debug: `{:?}`,\n"</span>,
-                        <span class="string">" right_path label: `{}`,\n"</span>,
-                        <span class="string">" right_path debug: `{:?}`,\n"</span>,
-                        <span class="string">"       a: `{:?}`,\n"</span>,
-                        <span class="string">"       b: `{:?}`"
+                        <span class="string">"assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n"</span>,
+                        <span class="string">" a_path label: `{}`,\n"</span>,
+                        <span class="string">" a_path debug: `{:?}`,\n"</span>,
+                        <span class="string">" b_path label: `{}`,\n"</span>,
+                        <span class="string">" b_path debug: `{:?}`,\n"</span>,
+                        <span class="string">"            a: `{:?}`,\n"</span>,
+                        <span class="string">"            b: `{:?}`"
                     </span>),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
                     <span class="macro-nonterminal">$a_path</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                    <span class="macro-nonterminal">$b</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_path</span>),
+                    <span class="macro-nonterminal">$b_path</span>,
                     a_string,
                     b_string
                 ))
@@ -357,17 +359,17 @@
             result.unwrap_err(),
             <span class="macro">format!</span>(
                 <span class="string">"{}{}{}{}{}{}{}{}{}{}{}"</span>,
-                <span class="string">"assertion failed: `assert_fs_read_to_string_gt!(a_path, right_path)`\n"</span>,
-                <span class="string">"  a_path label: `&amp;a`,\n"</span>,
-                <span class="string">"  a_path debug: `\""</span>,
+                <span class="string">"assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n"</span>,
+                <span class="string">" a_path label: `&amp;a`,\n"</span>,
+                <span class="string">" a_path debug: `\""</span>,
                 a.to_string_lossy(),
                 <span class="string">"\"`,\n"</span>,
-                <span class="string">" right_path label: `&amp;b`,\n"</span>,
-                <span class="string">" right_path debug: `\""</span>,
+                <span class="string">" b_path label: `&amp;b`,\n"</span>,
+                <span class="string">" b_path debug: `\""</span>,
                 b.to_string_lossy(),
                 <span class="string">"\"`,\n"</span>,
-                <span class="string">"       a: `\"alfa\\n\"`,\n"</span>,
-                <span class="string">"       b: `\"bravo\\n\"`"
+                <span class="string">"            a: `\"alfa\\n\"`,\n"</span>,
+                <span class="string">"            b: `\"bravo\\n\"`"
             </span>)
         );
     }
@@ -388,31 +390,33 @@
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
-/// let a ="alfa.txt";
-/// let b ="bravo.txt";
-/// assert_fs_read_to_string_gt!(b, a);
-/// //-&gt; ()
+/// let a = "alfa.txt";
+/// let b = "bravo.txt";
+/// assert_fs_read_to_string_gt!(&amp;b, &amp;a);
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// let a ="alfa.txt";
-/// let b ="bravo.txt";
+/// # let result = panic::catch_unwind(|| {
+/// let a = "alfa.txt";
+/// let b = "bravo.txt";
 /// assert_fs_read_to_string_gt!(&amp;a, &amp;b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_gt!(a_path, right_path)`\n",
-///     "  a_path label: `&amp;a`,\n",
-///     "  a_path debug: `\"alfa.txt\"`,\n",
-///     " right_path label: `&amp;b`,\n",
-///     " right_path debug: `\"bravo.txt\"`,\n",
-///     "       a: `\"alfa\\n\"`,\n",
-///     "       b: `\"bravo\\n\"`",
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`
+/// //  a_path label: `&amp;a`,
+/// //  a_path debug: `\"alfa.txt\"`,
+/// //  b_path label: `&amp;b`,
+/// //  b_path debug: `\"bravo.txt\"`,
+/// //             a: `\"alfa\\n\"`,
+/// //             b: `\"bravo\\n\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n",
+/// #     " a_path label: `&amp;a`,\n",
+/// #     " a_path debug: `\"alfa.txt\"`,\n",
+/// #     " b_path label: `&amp;b`,\n",
+/// #     " b_path debug: `\"bravo.txt\"`,\n",
+/// #     "            a: `\"alfa\\n\"`,\n",
+/// #     "            b: `\"bravo\\n\"`",
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -424,14 +428,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_gt {
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_gt_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_path</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_gt_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b_path</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_gt_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_path</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_gt_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b_path</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

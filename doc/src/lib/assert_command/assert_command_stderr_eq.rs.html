@@ -233,17 +233,6 @@
 <a href="#233" id="233">233</a>
 <a href="#234" id="234">234</a>
 <a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-<a href="#237" id="237">237</a>
-<a href="#238" id="238">238</a>
-<a href="#239" id="239">239</a>
-<a href="#240" id="240">240</a>
-<a href="#241" id="241">241</a>
-<a href="#242" id="242">242</a>
-<a href="#243" id="243">243</a>
-<a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string is equal to another.
 //!
 //! # Example
@@ -387,48 +376,37 @@
 /// use std::process::Command;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut a = Command::new("bin/printf-stderr");
 /// a.args(["%s", "hello"]);
 /// let mut b = Command::new("bin/printf-stderr");
 /// b.args(["%s", "hello"]);
 /// assert_command_stderr_eq!(a, b);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("bin/printf-stderr");
 /// a.args(["%s", "hello"]);
 /// let mut b = Command::new("bin/printf-stderr");
 /// b.args(["%s", "zzz"]);
 /// assert_command_stderr_eq!(a, b);
-/// //-&gt; panic!("…")
 /// # });
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
-///     "       a: `\"hello\"`,\n",
-///     "       b: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let mut a = Command::new("bin/printf-stderr");
-/// a.args(["%s", "hello"]);
-/// let mut b = Command::new("bin/printf-stderr");
-/// b.args(["%s", "zzz"]);
-/// assert_command_stderr_eq!(a, b, "message");
-/// //-&gt; panic!("…")
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// // assertion failed: `assert_command_stderr_eq!(a_command, b_command)`
+/// //  a label: `a`,
+/// //  a debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
+/// //  b label: `b`,
+/// //  b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,
+/// //        a: `\"hello\"`,
+/// //        b: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
+/// #     "       a: `\"hello\"`,\n",
+/// #     "       b: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

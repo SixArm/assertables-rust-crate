@@ -225,6 +225,8 @@
 <a href="#225" id="225">225</a>
 <a href="#226" id="226">226</a>
 <a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() is not equal to another.
 //!
 //! # Example
@@ -275,12 +277,12 @@
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n"</span>,
-                    <span class="string">" a label: `{}`,\n"</span>,
-                    <span class="string">" a debug: `{:?}`,\n"</span>,
-                    <span class="string">" b label: `{}`,\n"</span>,
-                    <span class="string">" b debug: `{:?}`,\n"</span>,
-                    <span class="string">"        a result: `{:?}`,\n"</span>,
-                    <span class="string">"       b result: `{:?}`"
+                    <span class="string">"  a label: `{}`,\n"</span>,
+                    <span class="string">"  a debug: `{:?}`,\n"</span>,
+                    <span class="string">"  b label: `{}`,\n"</span>,
+                    <span class="string">"  b debug: `{:?}`,\n"</span>,
+                    <span class="string">" a result: `{:?}`,\n"</span>,
+                    <span class="string">" b result: `{:?}`"
                 </span>),
                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
                 <span class="macro-nonterminal">$a_reader</span>,
@@ -302,8 +304,8 @@
                         <span class="string">" a debug: `{:?}`,\n"</span>,
                         <span class="string">" b label: `{}`,\n"</span>,
                         <span class="string">" b debug: `{:?}`,\n"</span>,
-                        <span class="string">" a: `{:?}`,\n"</span>,
-                        <span class="string">" b: `{:?}`"
+                        <span class="string">"       a: `{:?}`,\n"</span>,
+                        <span class="string">"       b: `{:?}`"
                     </span>),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
                     <span class="macro-nonterminal">$a_reader</span>,
@@ -344,8 +346,8 @@
                 <span class="string">" a debug: `[]`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
                 <span class="string">" b debug: `[]`,\n"</span>,
-                <span class="string">" a: `\"alfa\"`,\n"</span>,
-                <span class="string">" b: `\"alfa\"`"
+                <span class="string">"       a: `\"alfa\"`,\n"</span>,
+                <span class="string">"       b: `\"alfa\"`"
             </span>)
         );
     }
@@ -366,31 +368,33 @@
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut a = "alfa".as_bytes();
 /// let mut b = "bravo".as_bytes();
 /// assert_io_read_to_string_ne!(a, b);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut a = "alfa".as_bytes();
 /// let mut b = "alfa".as_bytes();
 /// assert_io_read_to_string_ne!(a, b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `[]`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `[]`,\n",
-///     " a: `\"alfa\"`,\n",
-///     " b: `\"alfa\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`
+/// //  a label: `a`,
+/// //  a debug: `[]`,
+/// //  b label: `b`,
+/// //  b debug: `[]`,
+/// //        a: `\"alfa\"`,
+/// //        b: `\"alfa\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `[]`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `[]`,\n",
+/// #     "       a: `\"alfa\"`,\n",
+/// #     "       b: `\"alfa\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

@@ -34,6 +34,10 @@
 <a href="#34" id="34">34</a>
 <a href="#35" id="35">35</a>
 <a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
+<a href="#39" id="39">39</a>
+<a href="#40" id="40">40</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert macros for `Result` {`Ok`, `Err`}
 //!
 //! These macros help compare a `Result` that is either `Ok`, `Err`.
@@ -42,7 +46,7 @@
 //!
 //! * implements `.is_ok() -&gt; boolean`
 //!
-//! * implements `.unwrap_ok() -&gt; comparable`
+//! * implements `.unwrap() -&gt; comparable`
 //!
 //! * implements `.is_err() -&gt; boolean`
 //!
@@ -52,6 +56,10 @@
 //!
 //! * [`assert_result_ok!(a)`](macro@crate::assert_result_ok) ≈ a.is_ok()
 //!
+//! * [`assert_result_ok_eq!(a, b)`](macro@crate::assert_result_ok_eq) ≈ a.is_ok() &amp; b.is_ok() &amp; a.unwrap() == b.unwrap()
+//! 
+//! * [`assert_result_ok_ne!(a, b)`](macro@crate::assert_result_ok_ne) ≈ a.is_ok() &amp; b.is_ok() &amp; a.unwrap() != b.unwrap()
+//! 
 //! * [`assert_result_err!(a)`](macro@crate::assert_result_err) ≈ a.is_err()
 //!
 //! # Example

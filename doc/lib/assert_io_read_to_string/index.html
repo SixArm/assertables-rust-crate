@@ -47,10 +47,10 @@ method <code>read_to_string() -&gt; String</code>.</p>
 <p>Compare a reader with its contents:</p>
 <ul>
 <li>
-<p><a href="../macro.assert_io_read_to_string_contains.html" title="macro lib::assert_io_read_to_string_contains"><code>assert_io_read_to_string_contains!(reader, containee)</code></a> ≈ reader.read_to_string().contains(containee)</p>
+<p><a href="../macro.assert_io_read_to_string_contains.html" title="macro lib::assert_io_read_to_string_contains"><code>assert_io_read_to_string_contains!(reader, &amp;containee)</code></a> ≈ reader.read_to_string().contains(containee)</p>
 </li>
 <li>
-<p><a href="../macro.assert_io_read_to_string_matches.html" title="macro lib::assert_io_read_to_string_matches"><code>assert_io_read_to_string_matches!(reader, matcher)</code></a> ≈ matcher.is_match(reader.read_to_string())</p>
+<p><a href="../macro.assert_io_read_to_string_matches.html" title="macro lib::assert_io_read_to_string_matches"><code>assert_io_read_to_string_matches!(reader, &amp;matcher)</code></a> ≈ matcher.is_match(reader.read_to_string())</p>
 </li>
 </ul>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>

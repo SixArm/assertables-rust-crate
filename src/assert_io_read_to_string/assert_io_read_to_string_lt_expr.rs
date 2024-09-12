@@ -71,8 +71,8 @@ macro_rules! assert_io_read_to_string_lt_expr_as_result {
                         " a_reader debug: `{:?}`,\n",
                         "   b_expr label: `{}`,\n",
                         "   b_expr debug: `{:?}`,\n",
-                        "       a: `{:?}`,\n",
-                        "       b: `{:?}`",
+                        "              a: `{:?}`,\n",
+                        "              b: `{:?}`",
                     ),
                     stringify!($a_reader),
                     $a_reader,
@@ -113,8 +113,8 @@ mod tests {
                 " a_reader debug: `[]`,\n",
                 "   b_expr label: `&value`,\n",
                 "   b_expr debug: `\"alfa\"`,\n",
-                "       a: `\"bravo\"`,\n",
-                "       b: `\"alfa\"`"
+                "              a: `\"bravo\"`,\n",
+                "              b: `\"alfa\"`"
             )
         );
     }
@@ -135,31 +135,33 @@ mod tests {
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut reader = "alfa".as_bytes();
 /// let value = String::from("bravo");
 /// assert_io_read_to_string_lt_expr!(reader, &value);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut reader = "bravo".as_bytes();
 /// let value = String::from("alfa");
 /// assert_io_read_to_string_lt_expr!(reader, &value);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n",
-///     " a_reader label: `reader`,\n",
-///     " a_reader debug: `[]`,\n",
-///     "   b_expr label: `&value`,\n",
-///     "   b_expr debug: `\"alfa\"`,\n",
-///     "       a: `\"bravo\"`,\n",
-///     "       b: `\"alfa\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`
+/// //  a_reader label: `reader`,
+/// //  a_reader debug: `[]`,
+/// //    b_expr label: `&value`,
+/// //    b_expr debug: `\"alfa\"`,
+/// //               a: `\"bravo\"`,
+/// //               b: `\"alfa\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n",
+/// #     " a_reader label: `reader`,\n",
+/// #     " a_reader debug: `[]`,\n",
+/// #     "   b_expr label: `&value`,\n",
+/// #     "   b_expr debug: `\"alfa\"`,\n",
+/// #     "              a: `\"bravo\"`,\n",
+/// #     "              b: `\"alfa\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

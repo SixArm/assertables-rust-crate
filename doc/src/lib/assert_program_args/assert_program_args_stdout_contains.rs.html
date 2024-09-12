@@ -241,6 +241,10 @@
 <a href="#241" id="241">241</a>
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string contains a given containee.
 //!
 //! This uses [`std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
@@ -256,7 +260,7 @@
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "hello"];
 //! let containee = "ell";
-//! assert_program_args_stdout_contains!(&amp;program, &amp;args, containee);
+//! assert_program_args_stdout_contains!(&amp;program, &amp;args, &amp;containee);
 //! # }
 //! ```
 //!
@@ -394,35 +398,39 @@
 /// # use std::panic;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
 /// let containee = "ell";
-/// assert_program_args_stdout_contains!(&amp;program, &amp;args, containee);
-/// //-&gt; ()
+/// assert_program_args_stdout_contains!(&amp;program, &amp;args, &amp;containee);
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "hello"];
 /// let containee = "zzz";
-/// assert_program_args_stdout_contains!(&amp;program, &amp;args, containee);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`\n",
-///     " a_program label: `&amp;program`,\n",
-///     " a_program debug: `\"bin/printf-stdout\"`,\n",
-///     "    a_args label: `&amp;args`,\n",
-///     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
-///     " containee label: `containee`,\n",
-///     " containee debug: `\"zzz\"`,\n",
-///     "               a: `\"hello\"`,\n",
-///     "               b: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// assert_program_args_stdout_contains!(&amp;program, &amp;args, &amp;containee);
+/// # });
+/// // assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`
+/// //  a_program label: `&amp;program`,
+/// //  a_program debug: `\"bin/printf-stdout\"`,
+/// //     a_args label: `&amp;args`,
+/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //  containee label: `&amp;containee`,
+/// //  containee debug: `\"zzz\"`,
+/// //                a: `\"hello\"`,
+/// //                b: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`\n",
+/// #     " a_program label: `&amp;program`,\n",
+/// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
+/// #     "    a_args label: `&amp;args`,\n",
+/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     " containee label: `&amp;containee`,\n",
+/// #     " containee debug: `\"zzz\"`,\n",
+/// #     "               a: `\"hello\"`,\n",
+/// #     "               b: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

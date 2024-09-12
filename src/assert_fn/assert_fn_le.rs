@@ -206,33 +206,37 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = 1;
 /// let b: i8 = -2;
 /// assert_fn_le!(i8::abs, a, i8::abs, b);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = -2;
 /// let b: i8 = 1;
 /// assert_fn_le!(i8::abs, a, i8::abs, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_le!(a_function, a_param, b_function, b_param)`\n",
-///     " a_function label: `i8::abs`,\n",
-///     "    a_param label: `a`,\n",
-///     "    a_param debug: `-2`,\n",
-///     " b_function label: `i8::abs`,\n",
-///     "    b_param label: `b`,\n",
-///     "    b_param debug: `1`,\n",
-///     "                a: `2`,\n",
-///     "                b: `1`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fn_le!(a_function, a_param, b_function, b_param)`
+/// //  a_function label: `i8::abs`,
+/// //     a_param label: `a`,
+/// //     a_param debug: `-2`,
+/// //  b_function label: `i8::abs`,
+/// //     b_param label: `b`,
+/// //     b_param debug: `1`,
+/// //                 a: `2`,
+/// //                 b: `1`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fn_le!(a_function, a_param, b_function, b_param)`\n",
+/// #     " a_function label: `i8::abs`,\n",
+/// #     "    a_param label: `a`,\n",
+/// #     "    a_param debug: `-2`,\n",
+/// #     " b_function label: `i8::abs`,\n",
+/// #     "    b_param label: `b`,\n",
+/// #     "    b_param debug: `1`,\n",
+/// #     "                a: `2`,\n",
+/// #     "                b: `1`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

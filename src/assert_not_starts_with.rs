@@ -99,29 +99,29 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a = "alfa";
 /// let b = "fa";
 /// assert_not_starts_with!(a, b);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a = "alfa";
 /// let b = "al";
 /// assert_not_starts_with!(a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_not_starts_with!(a, b)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `\"alfa\"`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `\"al\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_not_starts_with!(a, b)`
+/// //  a label: `a`,
+/// //  a debug: `\"alfa\"`,
+/// //  b label: `b`,
+/// //  b debug: `\"al\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_not_starts_with!(a, b)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `\"alfa\"`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `\"al\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

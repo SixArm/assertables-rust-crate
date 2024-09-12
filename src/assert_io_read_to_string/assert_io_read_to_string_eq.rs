@@ -139,31 +139,33 @@ mod tests {
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut a = "alfa".as_bytes();
 /// let mut b = "alfa".as_bytes();
 /// assert_io_read_to_string_eq!(a, b);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut a = "alfa".as_bytes();
 /// let mut b = "bravo".as_bytes();
 /// assert_io_read_to_string_eq!(a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `[]`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `[]`,\n",
-///     "       a: `\"alfa\"`,\n",
-///     "       b: `\"bravo\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`
+/// //  a label: `a`,
+/// //  a debug: `[]`,
+/// //  b label: `b`,
+/// //  b debug: `[]`,
+/// //        a: `\"alfa\"`,
+/// //        b: `\"bravo\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `[]`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `[]`,\n",
+/// #     "       a: `\"alfa\"`,\n",
+/// #     "       b: `\"bravo\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

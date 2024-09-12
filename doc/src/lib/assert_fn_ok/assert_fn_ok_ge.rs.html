@@ -375,6 +375,10 @@
 <a href="#375" id="375">375</a>
 <a href="#376" id="376">376</a>
 <a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function ok() is greater than or equal to another.
 //!
 //! # Example
@@ -643,33 +647,37 @@
 /// }
 ///
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = 2;
 /// let b: i8 = 1;
 /// assert_fn_ok_ge!(f, a, f, b);
-/// //-&gt; ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = 1;
 /// let b: i8 = 2;
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_fn_ok_ge!(f, a, f, b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`\n",
-///     " a_function label: `f`,\n",
-///     "    a_param label: `a`,\n",
-///     "    a_param debug: `1`,\n",
-///     " b_function label: `f`,\n",
-///     "    b_param label: `b`,\n",
-///     "    b_param debug: `2`,\n",
-///     "                a: `\"1\"`,\n",
-///     "                b: `\"2\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`
+/// //  a_function label: `f`,
+/// //     a_param label: `a`,
+/// //     a_param debug: `1`,
+/// //  b_function label: `f`,
+/// //     b_param label: `b`,
+/// //     b_param debug: `2`,
+/// //                 a: `\"1\"`,
+/// //                 b: `\"2\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`\n",
+/// #     " a_function label: `f`,\n",
+/// #     "    a_param label: `a`,\n",
+/// #     "    a_param debug: `1`,\n",
+/// #     " b_function label: `f`,\n",
+/// #     "    b_param label: `b`,\n",
+/// #     "    b_param debug: `2`,\n",
+/// #     "                a: `\"1\"`,\n",
+/// #     "                b: `\"2\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

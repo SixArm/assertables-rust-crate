@@ -138,31 +138,31 @@ mod tests {
 /// let a = "alfa";
 /// let b = "lf";
 /// assert_contains!(a, b);
-/// //-> ()
 ///
 /// // Return Ok when a range contains a value
 /// let a = 1..5;
 /// let b = 2;
 /// assert_contains!(a, &b);
-/// //-> ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a = "alfa";
 /// let b = "zz";
 /// assert_contains!(a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_contains!(container, containee)`\n",
-///     " container label: `a`,\n",
-///     " container debug: `\"alfa\"`,\n",
-///     " containee label: `b`,\n",
-///     " containee debug: `\"zz\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_contains!(container, containee)`
+/// //  container label: `a`,
+/// //  container debug: `\"alfa\"`,
+/// //  containee label: `b`,
+/// //  containee debug: `\"zz\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_contains!(container, containee)`\n",
+/// #     " container label: `a`,\n",
+/// #     " container debug: `\"alfa\"`,\n",
+/// #     " containee label: `b`,\n",
+/// #     " containee debug: `\"zz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

@@ -236,42 +236,35 @@ mod tests {
 /// }
 ///
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = 10;
 /// let b = String::from("20 is out of range");
 /// assert_fn_err_ne_expr!(f, a, b);
-/// //-> ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = 10;
 /// let b = String::from("10 is out of range");
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_fn_err_ne_expr!(f, a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_err_ne_expr!(a_function, a_param, b_expr)`\n",
-///     " a_function label: `f`,\n",
-///     "    a_param label: `a`,\n",
-///     "    a_param debug: `10`,\n",
-///     "     b_expr label: `b`,\n",
-///     "     b_expr debug: `\"10 is out of range\"`,\n",
-///     "                a: `\"10 is out of range\"`,\n",
-///     "                b: `\"10 is out of range\"`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_fn_err_ne_expr!(f, a, b, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fn_err_ne_expr!(a_function, a_param, b_expr)`
+/// //  a_function label: `f`,
+/// //     a_param label: `a`,
+/// //     a_param debug: `10`,
+/// //      b_expr label: `b`,
+/// //      b_expr debug: `\"10 is out of range\"`,
+/// //                 a: `\"10 is out of range\"`,
+/// //                 b: `\"10 is out of range\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fn_err_ne_expr!(a_function, a_param, b_expr)`\n",
+/// #     " a_function label: `f`,\n",
+/// #     "    a_param label: `a`,\n",
+/// #     "    a_param debug: `10`,\n",
+/// #     "     b_expr label: `b`,\n",
+/// #     "     b_expr debug: `\"10 is out of range\"`,\n",
+/// #     "                a: `\"10 is out of range\"`,\n",
+/// #     "                b: `\"10 is out of range\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

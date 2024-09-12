@@ -11,7 +11,7 @@
 //! let mut command = Command::new("bin/printf-stderr");
 //! command.args(["%s", "hello"]);
 //! let matcher = Regex::new(r"ell").unwrap();
-//! assert_command_stderr_is_match!(command, matcher);
+//! assert_command_stderr_is_match!(command, &matcher);
 //! # }
 //! ```
 //!
@@ -137,45 +137,35 @@ mod tests {
 /// use regex::Regex;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut command = Command::new("bin/printf-stderr");
 /// command.args(["%s", "hello"]);
 /// let matcher = Regex::new(r"ell").unwrap();
-/// assert_command_stderr_is_match!(command, matcher);
-/// //-> ()
+/// assert_command_stderr_is_match!(command, &matcher);
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("bin/printf-stderr");
 /// command.args(["%s", "hello"]);
 /// let matcher = Regex::new(r"zzz").unwrap();
-/// assert_command_stderr_is_match!(command, matcher);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
-///     " command label: `command`,\n",
-///     " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-///     " matcher label: `matcher`,\n",
-///     " matcher debug: `Regex(\"zzz\")`,\n",
-///     " command value: `\"hello\"`,\n",
-///     " matcher value: `Regex(\"zzz\")`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let mut command = Command::new("bin/printf-stderr");
-/// let matcher = Regex::new(r"zzz").unwrap();
-/// assert_command_stderr_is_match!(command, matcher, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// assert_command_stderr_is_match!(command, &matcher);
+/// # });
+/// // assertion failed: `assert_command_stderr_is_match!(command, matcher)`
+/// //  command label: `command`,
+/// //  command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
+/// //  matcher label: `&matcher`,
+/// //  matcher debug: `Regex(\"zzz\")`,
+/// //  command value: `\"hello\"`,
+/// //  matcher value: `Regex(\"zzz\")`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
+/// #     " command label: `command`,\n",
+/// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+/// #     " matcher label: `&matcher`,\n",
+/// #     " matcher debug: `Regex(\"zzz\")`,\n",
+/// #     " command value: `\"hello\"`,\n",
+/// #     " matcher value: `Regex(\"zzz\")`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

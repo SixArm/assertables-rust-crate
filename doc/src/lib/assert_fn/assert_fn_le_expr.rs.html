@@ -308,6 +308,9 @@
 <a href="#308" id="308">308</a>
 <a href="#309" id="309">309</a>
 <a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is less than or equal to an expression.
 //!
 //! # Example
@@ -510,32 +513,35 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = -1;
 /// let b: i8 = 2;
 /// assert_fn_le_expr!(i8::abs, a, b);
-/// //-&gt; ()
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = -2;
 /// let b: i8 = 1;
 /// assert_fn_le_expr!(i8::abs, a, b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_le_expr!(a_function, a_param, b_expr)`\n",
-///     " a_function label: `i8::abs`,\n",
-///     "    a_param label: `a`,\n",
-///     "    a_param debug: `-2`,\n",
-///     "     b_expr label: `b`,\n",
-///     "     b_expr debug: `1`,\n",
-///     "                a: `2`,\n",
-///     "                b: `1`"
-/// );
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fn_le_expr!(a_function, a_param, b_expr)`
+/// //  a_function label: `i8::abs`,
+/// //     a_param label: `a`,
+/// //     a_param debug: `-2`,
+/// //      b_expr label: `b`,
+/// //      b_expr debug: `1`,
+/// //                 a: `2`,
+/// //                 b: `1`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fn_le_expr!(a_function, a_param, b_expr)`\n",
+/// #     " a_function label: `i8::abs`,\n",
+/// #     "    a_param label: `a`,\n",
+/// #     "    a_param debug: `-2`,\n",
+/// #     "     b_expr label: `b`,\n",
+/// #     "     b_expr debug: `1`,\n",
+/// #     "                a: `2`,\n",
+/// #     "                b: `1`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

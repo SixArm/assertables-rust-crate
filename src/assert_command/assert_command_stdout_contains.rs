@@ -10,7 +10,7 @@
 //! let mut command = Command::new("bin/printf-stdout");
 //! command.args(["%s", "hello"]);
 //! let containee = "ell";
-//! assert_command_stdout_contains!(command, containee);
+//! assert_command_stdout_contains!(command, &containee);
 //! # }
 //! ```
 //!
@@ -139,46 +139,35 @@ mod tests {
 /// use std::process::Command;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "hello"]);
 /// let containee = "ell";
-/// assert_command_stdout_contains!(command, containee);
-/// //-> ()
+/// assert_command_stdout_contains!(command, &containee);
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "hello"]);
 /// let containee = "zzz";
-/// assert_command_stdout_contains!(command, containee);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_command_stdout_contains!(command, containee)`\n",
-///     "   command label: `command`,\n",
-///     "   command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-///     " containee label: `containee`,\n",
-///     " containee debug: `\"zzz\"`,\n",
-///     "   command value: `\"hello\"`,\n",
-///     " containee value: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with custom message
-/// let result = panic::catch_unwind(|| {
-/// let mut command = Command::new("bin/printf-stdout");
-/// command.args(["%s", "hello"]);
-/// let containee = "zzz";
-/// assert_command_stdout_contains!(command, containee, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// assert_command_stdout_contains!(command, &containee);
+/// # });
+/// // assertion failed: `assert_command_stdout_contains!(command, containee)`
+/// //    command label: `command`,
+/// //    command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
+/// //  containee label: `&containee`,
+/// //  containee debug: `\"zzz\"`,
+/// //    command value: `\"hello\"`,
+/// //  containee value: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_command_stdout_contains!(command, containee)`\n",
+/// #     "   command label: `command`,\n",
+/// #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+/// #     " containee label: `&containee`,\n",
+/// #     " containee debug: `\"zzz\"`,\n",
+/// #     "   command value: `\"hello\"`,\n",
+/// #     " containee value: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

@@ -12,29 +12,18 @@ expressions with their debug representations.</p>
 </li>
 </ul>
 <h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Return Ok
-</span><span class="kw">let </span>a = <span class="string">"alfa"</span>;
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>a = <span class="string">"alfa"</span>;
 <span class="kw">let </span>b = <span class="string">"al"</span>;
 <span class="macro">assert_not_ends_with!</span>(a, b);
-<span class="comment">//-&gt; ()
 
-// Panic with error message
-</span><span class="kw">let </span>result = panic::catch_unwind(|| {
 <span class="kw">let </span>a = <span class="string">"alfa"</span>;
 <span class="kw">let </span>b = <span class="string">"fa"</span>;
 <span class="macro">assert_not_ends_with!</span>(a, b);
-<span class="comment">//-&gt; panic!
-</span>});
-<span class="macro">assert!</span>(result.is_err());
-<span class="kw">let </span>actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-<span class="kw">let </span>expect = <span class="macro">concat!</span>(
-    <span class="string">"assertion failed: `assert_not_ends_with!(a, b)`\n"</span>,
-    <span class="string">" a label: `a`,\n"</span>,
-    <span class="string">" a debug: `\"alfa\"`,\n"</span>,
-    <span class="string">" b label: `b`,\n"</span>,
-    <span class="string">" b debug: `\"fa\"`"
-</span>);
-<span class="macro">assert_eq!</span>(actual, expect);</code></pre></div>
+<span class="comment">// assertion failed: `assert_not_ends_with!(a, b)`
+//  a label: `a`,
+//  a debug: `\"alfa\"`,
+//  b label: `b`,
+//  b debug: `\"fa\"`</span></code></pre></div>
 <h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>
 <ul>
 <li><a href="macro.assert_not_ends_with.html" title="macro lib::assert_not_ends_with"><code>assert_not_ends_with</code></a></li>

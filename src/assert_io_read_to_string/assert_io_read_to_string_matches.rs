@@ -10,7 +10,7 @@
 //! # fn main() {
 //! let mut reader = "hello".as_bytes();
 //! let matcher = Regex::new(r"ell").unwrap();
-//! assert_io_read_to_string_matches!(reader, matcher);
+//! assert_io_read_to_string_matches!(reader, &matcher);
 //! # }
 //! ```
 //!
@@ -46,12 +46,12 @@ macro_rules! assert_io_read_to_string_matches_as_result {
         if let Err(a_err) = a_result {
             Err(format!(
                 concat!(
-                    "assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n",
-                    "   a_reader label: `{}`,\n",
-                    "   a_reader debug: `{:?}`,\n",
-                    " right_matcher label: `{}`,\n",
-                    " right_matcher debug: `{:?}`,\n",
-                    "            left err: `{:?}`"
+                    "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
+                    " a_reader label: `{}`,\n",
+                    " a_reader debug: `{:?}`,\n",
+                    "  matcher label: `{}`,\n",
+                    "  matcher debug: `{:?}`,\n",
+                    "          a err: `{:?}`"
                 ),
                 stringify!($a_reader),
                 $a_reader,
@@ -66,13 +66,13 @@ macro_rules! assert_io_read_to_string_matches_as_result {
             } else {
                 Err(format!(
                     concat!(
-                        "assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n",
-                        "   a_reader label: `{}`,\n",
-                        "   a_reader debug: `{:?}`,\n",
-                        " right_matcher label: `{}`,\n",
-                        " right_matcher debug: `{:?}`,\n",
-                        "       a: `{:?}`,\n",
-                        "       b: `{:?}`",
+                        "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
+                        " a_reader label: `{}`,\n",
+                        " a_reader debug: `{:?}`,\n",
+                        "  matcher label: `{}`,\n",
+                        "  matcher debug: `{:?}`,\n",
+                        "              a: `{:?}`,\n",
+                        "              b: `{:?}`",
                     ),
                     stringify!($a_reader),
                     $a_reader,
@@ -95,7 +95,7 @@ mod tests {
     fn test_assert_io_read_to_string_matches_as_result_x_success() {
         let mut reader = "alfa".as_bytes();
         let matcher = Regex::new(r"alfa").unwrap();
-        let result = assert_io_read_to_string_matches_as_result!(reader, matcher);
+        let result = assert_io_read_to_string_matches_as_result!(reader, &matcher);
         assert_eq!(result, Ok(()));
     }
 
@@ -103,18 +103,18 @@ mod tests {
     fn test_assert_io_read_to_string_matches_as_result_x_failure() {
         let mut reader = "alfa".as_bytes();
         let matcher = Regex::new(r"zzz").unwrap();
-        let result = assert_io_read_to_string_matches_as_result!(reader, matcher);
+        let result = assert_io_read_to_string_matches_as_result!(reader, &matcher);
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n",
-                "   a_reader label: `reader`,\n",
-                "   a_reader debug: `[]`,\n",
-                " right_matcher label: `matcher`,\n",
-                " right_matcher debug: `Regex(\"zzz\")`,\n",
-                "       a: `\"alfa\"`,\n",
-                "       b: `Regex(\"zzz\")`"
+                "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
+                " a_reader label: `reader`,\n",
+                " a_reader debug: `[]`,\n",
+                "  matcher label: `&matcher`,\n",
+                "  matcher debug: `Regex(\"zzz\")`,\n",
+                "              a: `\"alfa\"`,\n",
+                "              b: `Regex(\"zzz\")`"
             )
         );
     }
@@ -136,31 +136,33 @@ mod tests {
 /// use regex::Regex;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let mut reader = "hello".as_bytes();
 /// let matcher = Regex::new(r"ell").unwrap();
-/// assert_io_read_to_string_matches!(reader, matcher);
-/// //-> ()
+/// assert_io_read_to_string_matches!(reader, &matcher);
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let mut reader = "hello".as_bytes();
 /// let matcher = Regex::new(r"zzz").unwrap();
-/// assert_io_read_to_string_matches!(reader, matcher);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_io_read_to_string_matches!(a_reader, right_matcher)`\n",
-///     "   a_reader label: `reader`,\n",
-///     "   a_reader debug: `[]`,\n",
-///     " right_matcher label: `matcher`,\n",
-///     " right_matcher debug: `Regex(\"zzz\")`,\n",
-///     "       a: `\"hello\"`,\n",
-///     "       b: `Regex(\"zzz\")`"
-/// );
-/// assert_eq!(actual, expect);
+/// assert_io_read_to_string_matches!(reader, &matcher);
+/// # });
+/// // assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`
+/// //  a_reader label: `reader`,
+/// //  a_reader debug: `[]`,
+/// //   matcher label: `&matcher`,
+/// //   matcher debug: `Regex(\"zzz\")`,
+/// //               a: `\"hello\"`,
+/// //               b: `Regex(\"zzz\")`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
+/// #     " a_reader label: `reader`,\n",
+/// #     " a_reader debug: `[]`,\n",
+/// #     "  matcher label: `&matcher`,\n",
+/// #     "  matcher debug: `Regex(\"zzz\")`,\n",
+/// #     "              a: `\"hello\"`,\n",
+/// #     "              b: `Regex(\"zzz\")`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///

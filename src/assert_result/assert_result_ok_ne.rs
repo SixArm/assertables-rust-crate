@@ -37,10 +37,10 @@
 ///
 #[macro_export]
 macro_rules! assert_result_ok_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        match (&$a, &$b) {
+    ($a_result:expr, $b_result:expr $(,)?) => {{
+        match (&$a_result, &$b_result) {
             (a_result, b_result) => {
-                if a_result.is_err() || b_result.is_err() {
+                if !a_result.is_ok() || !b_result.is_ok() {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_result_ok_ne!(a, b)`\n",
@@ -49,10 +49,10 @@ macro_rules! assert_result_ok_ne_as_result {
                             " b label: `{}`,\n",
                             " b debug: `{:?}`",
                         ),
-                        stringify!($a),
-                        $a,
-                        stringify!($b),
-                        $b,
+                        stringify!($a_result),
+                        $a_result,
+                        stringify!($b_result),
+                        $b_result,
                     ))
                 } else {
                     let a_ok = a_result.unwrap();
@@ -70,10 +70,10 @@ macro_rules! assert_result_ok_ne_as_result {
                                 "    a ok: `{:?}`,\n",
                                 "    b ok: `{:?}`"
                             ),
-                            stringify!($a),
-                            $a,
-                            stringify!($b),
-                            $b,
+                            stringify!($a_result),
+                            $a_result,
+                            stringify!($b_result),
+                            $b_result,
                             a_ok,
                             b_ok
                         ))
@@ -116,7 +116,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_result_ok_ne_as_result_x_failure_because_err() {
+    fn test_assert_result_ok_ne_as_result_x_failure_because_not_ok() {
         let a: Result<i8, i8> = Result::Ok(1);
         let b: Result<i8, i8> = Result::Err(1);
         let result = assert_result_ok_ne_as_result!(a, b);
@@ -151,37 +151,30 @@ mod tests {
 /// let a: Result<i8, i8> = Result::Ok(1);
 /// let b: Result<i8, i8> = Result::Ok(2);
 /// assert_result_ok_ne!(a, b);
-/// //-> ()
 ///
-/// // Panic with error message
+/// # let result = panic::catch_unwind(|| {
 /// let a: Result<i8, i8> = Result::Ok(1);
 /// let b: Result<i8, i8> = Result::Ok(1);
-/// let result = panic::catch_unwind(|| {
 /// assert_result_ok_ne!(a, b);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_result_ok_ne!(a, b)`\n",
-///     " a label: `a`,\n",
-///     " a debug: `Ok(1)`,\n",
-///     " b label: `b`,\n",
-///     " b debug: `Ok(1)`,\n",
-///     "    a ok: `1`,\n",
-///     "    b ok: `1`",
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_result_ok_ne!(a, b, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_result_ok_ne!(a, b)`
+/// //  a label: `a`,
+/// //  a debug: `Ok(1)`,
+/// //  b label: `b`,
+/// //  b debug: `Ok(1)`,
+/// //     a ok: `1`,
+/// //     b ok: `1`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_result_ok_ne!(a, b)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `Ok(1)`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `Ok(1)`,\n",
+/// #     "    a ok: `1`,\n",
+/// #     "    b ok: `1`",
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -193,14 +186,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_result_ok_ne {
-    ($a:expr, $b:expr $(,)?) => ({
-        match assert_result_ok_ne_as_result!($a, $b) {
+    ($a_result:expr, $b_result:expr $(,)?) => ({
+        match assert_result_ok_ne_as_result!($a_result, $b_result) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
-        match assert_result_ok_ne_as_result!($a, $b) {
+    ($a_result:expr, $b_result:expr, $($message:tt)+) => ({
+        match assert_result_ok_ne_as_result!($a_result, $b_result) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

@@ -227,6 +227,8 @@
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
 <a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string() contains a pattern.
 //!
 //! # Example
@@ -236,7 +238,7 @@
 //! # fn main() {
 //! let path = "alfa.txt";
 //! let containee = "alfa";
-//! assert_fs_read_to_string_contains!(&amp;path, containee);
+//! assert_fs_read_to_string_contains!(&amp;path, &amp;containee);
 //! # }
 //! ```
 //!
@@ -266,20 +268,20 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_contains_as_result {
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span>a_result = ::std::fs::read_to_string(<span class="macro-nonterminal">$a_path</span>);
+    (<span class="macro-nonterminal">$path</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">let </span>a_result = ::std::fs::read_to_string(<span class="macro-nonterminal">$path</span>);
         <span class="kw">if let </span><span class="prelude-val">Err</span>(a_err) = a_result {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fs_read_to_string_contains!(a_path, containee)`\n"</span>,
-                    <span class="string">"       a_path label: `{}`,\n"</span>,
-                    <span class="string">"       a_path debug: `{:?}`,\n"</span>,
+                    <span class="string">"assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n"</span>,
+                    <span class="string">"      path label: `{}`,\n"</span>,
+                    <span class="string">"      path debug: `{:?}`,\n"</span>,
                     <span class="string">" containee label: `{}`,\n"</span>,
                     <span class="string">" containee debug: `{:?}`,\n"</span>,
-                    <span class="string">"              a err: `{:?}`"
+                    <span class="string">"        path err: `{:?}`"
                 </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
-                <span class="macro-nonterminal">$a_path</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$path</span>),
+                <span class="macro-nonterminal">$path</span>,
                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
                 <span class="macro-nonterminal">$containee</span>,
                 a_err
@@ -291,16 +293,16 @@
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fs_read_to_string_contains!(a_path, containee)`\n"</span>,
-                        <span class="string">"       a_path label: `{}`,\n"</span>,
-                        <span class="string">"       a_path debug: `{:?}`,\n"</span>,
+                        <span class="string">"assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n"</span>,
+                        <span class="string">"      path label: `{}`,\n"</span>,
+                        <span class="string">"      path debug: `{:?}`,\n"</span>,
                         <span class="string">" containee label: `{}`,\n"</span>,
                         <span class="string">" containee debug: `{:?}`,\n"</span>,
-                        <span class="string">"       a: `{:?}`,\n"</span>,
-                        <span class="string">"       b: `{:?}`"</span>,
+                        <span class="string">"  read to string: `{:?}`,\n"</span>,
+                        <span class="string">"       containee: `{:?}`"</span>,
                     ),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
-                    <span class="macro-nonterminal">$a_path</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$path</span>),
+                    <span class="macro-nonterminal">$path</span>,
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
                     <span class="macro-nonterminal">$containee</span>,
                     a_string,
@@ -330,7 +332,7 @@
     </span><span class="kw">fn </span>test_read_to_string_contains_as_result_x_success() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"alfa.txt"</span>);
         <span class="kw">let </span>containee = <span class="string">"alfa"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_contains_as_result!</span>(<span class="kw-2">&amp;</span>path, containee);
+        <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_contains_as_result!</span>(<span class="kw-2">&amp;</span>path, <span class="kw-2">&amp;</span>containee);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
@@ -338,18 +340,18 @@
     </span><span class="kw">fn </span>test_read_to_string_contains_as_result_x_failure() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"alfa.txt"</span>);
         <span class="kw">let </span>containee = <span class="string">"zzz"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_contains_as_result!</span>(<span class="kw-2">&amp;</span>path, containee);
+        <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_contains_as_result!</span>(<span class="kw-2">&amp;</span>path, <span class="kw-2">&amp;</span>containee);
         <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">format!</span>(<span class="string">"{}{}{}{}{}{}{}{}{}"</span>,
-                <span class="string">"assertion failed: `assert_fs_read_to_string_contains!(a_path, containee)`\n"</span>,
-                <span class="string">"       a_path label: `&amp;path`,\n"</span>,
-                <span class="string">"       a_path debug: `\""</span>, path.to_string_lossy(), <span class="string">"\"`,\n"</span>,
-                <span class="string">" containee label: `containee`,\n"</span>,
+                <span class="string">"assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n"</span>,
+                <span class="string">"      path label: `&amp;path`,\n"</span>,
+                <span class="string">"      path debug: `\""</span>, path.to_string_lossy(), <span class="string">"\"`,\n"</span>,
+                <span class="string">" containee label: `&amp;containee`,\n"</span>,
                 <span class="string">" containee debug: `\"zzz\"`,\n"</span>,
-                <span class="string">"       a: `\"alfa\\n\"`,\n"</span>,
-                <span class="string">"       b: `\"zzz\"`"
+                <span class="string">"  read to string: `\"alfa\\n\"`,\n"</span>,
+                <span class="string">"       containee: `\"zzz\"`"
             </span>)
         );
     }
@@ -370,31 +372,33 @@
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// // Return Ok
 /// let path = "alfa.txt";
 /// let containee = "alfa";
-/// assert_fs_read_to_string_contains!(&amp;path, containee);
-/// //-&gt; ()
+/// assert_fs_read_to_string_contains!(&amp;path, &amp;containee);
 ///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
+/// # let result = panic::catch_unwind(|| {
 /// let path = "alfa.txt";
 /// let containee = "zzz";
-/// assert_fs_read_to_string_contains!(&amp;path, containee);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fs_read_to_string_contains!(a_path, containee)`\n",
-///     "       a_path label: `&amp;path`,\n",
-///     "       a_path debug: `\"alfa.txt\"`,\n",
-///     " containee label: `containee`,\n",
-///     " containee debug: `\"zzz\"`,\n",
-///     "       a: `\"alfa\\n\"`,\n",
-///     "       b: `\"zzz\"`"
-/// );
-/// assert_eq!(actual, expect);
+/// assert_fs_read_to_string_contains!(&amp;path, &amp;containee);
+/// # });
+/// // assertion failed: `assert_fs_read_to_string_contains!(path, containee)`
+/// //       path label: `&amp;path`,
+/// //       path debug: `\"alfa.txt\"`,
+/// //  containee label: `&amp;containee`,
+/// //  containee debug: `\"zzz\"`,
+/// //   read to string: `\"alfa\\n\"`,
+/// //        containee: `\"zzz\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
+/// #     "      path label: `&amp;path`,\n",
+/// #     "      path debug: `\"alfa.txt\"`,\n",
+/// #     " containee label: `&amp;containee`,\n",
+/// #     " containee debug: `\"zzz\"`,\n",
+/// #     "  read to string: `\"alfa\\n\"`,\n",
+/// #     "       containee: `\"zzz\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -406,14 +410,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_contains {
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_contains_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$path</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_contains_as_result!</span>(<span class="macro-nonterminal">$path</span>, <span class="macro-nonterminal">$containee</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_contains_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$path</span>:expr, <span class="macro-nonterminal">$containee</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_contains_as_result!</span>(<span class="macro-nonterminal">$path</span>, <span class="macro-nonterminal">$containee</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

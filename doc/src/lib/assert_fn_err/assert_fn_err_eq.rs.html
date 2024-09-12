@@ -365,12 +365,6 @@
 <a href="#365" id="365">365</a>
 <a href="#366" id="366">366</a>
 <a href="#367" id="367">367</a>
-<a href="#368" id="368">368</a>
-<a href="#369" id="369">369</a>
-<a href="#370" id="370">370</a>
-<a href="#371" id="371">371</a>
-<a href="#372" id="372">372</a>
-<a href="#373" id="373">373</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function err() is equal to another.
 //!
 //! # Example
@@ -625,43 +619,37 @@
 /// }
 ///
 /// # fn main() {
-/// // Return Ok
 /// let a: i8 = 10;
 /// let b: i8 = 10;
 /// assert_fn_err_eq!(f, a, f, b);
-/// //-&gt; ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: i8 = 10;
 /// let b: i8 = 20;
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
 /// assert_fn_err_eq!(f, a, f, b);
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_fn_err_eq!(a_function, a_param, b_function, b_param)`\n",
-///     " a_function label: `f`,\n",
-///     "    a_param label: `a`,\n",
-///     "    a_param debug: `10`,\n",
-///     " b_function label: `f`,\n",
-///     "    b_param label: `b`,\n",
-///     "    b_param debug: `20`,\n",
-///     "                a: `\"10 is out of range\"`,\n",
-///     "                b: `\"20 is out of range\"`"
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_fn_err_eq!(f, a, f, b, "message");
-/// //-&gt; panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_fn_err_eq!(a_function, a_param, b_function, b_param)`
+/// //  a_function label: `f`,
+/// //     a_param label: `a`,
+/// //     a_param debug: `10`,
+/// //  b_function label: `f`,
+/// //     b_param label: `b`,
+/// //     b_param debug: `20`,
+/// //                 a: `\"10 is out of range\"`,
+/// //                 b: `\"20 is out of range\"`
+/// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_fn_err_eq!(a_function, a_param, b_function, b_param)`\n",
+/// #     " a_function label: `f`,\n",
+/// #     "    a_param label: `a`,\n",
+/// #     "    a_param debug: `10`,\n",
+/// #     " b_function label: `f`,\n",
+/// #     "    b_param label: `b`,\n",
+/// #     "    b_param debug: `20`,\n",
+/// #     "                a: `\"10 is out of range\"`,\n",
+/// #     "                b: `\"20 is out of range\"`"
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
