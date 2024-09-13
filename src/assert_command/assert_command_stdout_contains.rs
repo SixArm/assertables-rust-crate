@@ -50,7 +50,7 @@ macro_rules! assert_command_stdout_contains_as_result {
                     "   command debug: `{:?}`,\n",
                     " containee label: `{}`,\n",
                     " containee debug: `{:?}`,\n",
-                    "  command output: `{:?}`"
+                    "          output: `{:?}`"
                 ),
                 stringify!($command),
                 $command,
@@ -70,15 +70,13 @@ macro_rules! assert_command_stdout_contains_as_result {
                         "   command debug: `{:?}`,\n",
                         " containee label: `{}`,\n",
                         " containee debug: `{:?}`,\n",
-                        "   command value: `{:?}`,\n",
-                        " containee value: `{:?}`"
+                        "          stdout: `{:?}`"
                     ),
                     stringify!($command),
                     $command,
                     stringify!($containee),
                     $containee,
-                    string,
-                    $containee
+                    string
                 ))
             }
         }
@@ -112,8 +110,7 @@ mod tests {
             "   command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
             " containee label: `b`,\n",
             " containee debug: `\"zzz\"`,\n",
-            "   command value: `\"hello\"`,\n",
-            " containee value: `\"zzz\"`"
+            "          stdout: `\"hello\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -155,8 +152,7 @@ mod tests {
 /// //    command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zzz\"`,
-/// //    command value: `\"hello\"`,
-/// //  containee value: `\"zzz\"`
+/// //    command value: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_contains!(command, containee)`\n",
@@ -164,8 +160,7 @@ mod tests {
 /// #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zzz\"`,\n",
-/// #     "   command value: `\"hello\"`,\n",
-/// #     " containee value: `\"zzz\"`"
+/// #     "          stdout: `\"hello\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
