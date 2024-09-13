@@ -63,35 +63,39 @@ macro_rules! assert_in_epsilon_as_result {
     ($a:expr, $b:expr, $epsilon:expr $(,)?) => {{
         match (&$a, &$b, &$epsilon) {
             (a_val, b_val, epsilon_val) => {
-                if a_val == b_val
-                    || ((a_val < b_val) && (b_val - a_val) <= (a_val * *epsilon_val))
-                    || ((a_val > b_val) && (a_val - b_val) <= (b_val * *epsilon_val))
-                {
+                if a_val == b_val {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                            "       a label: `{}`,\n",
-                            "       a debug: `{:?}`,\n",
-                            "       b label: `{}`,\n",
-                            "       b debug: `{:?}`,\n",
-                            " epsilon label: `{}`,\n",
-                            " epsilon debug: `{:?}`,\n",
-                            "       a value: `{:?}`,\n",
-                            "       b value: `{:?}`,\n",
-                            " epsilon value: `{:?}`"
-                        ),
-                        stringify!($a),
-                        $a,
-                        stringify!($b),
-                        $b,
-                        stringify!($epsilon),
-                        $epsilon,
-                        a_val,
-                        b_val,
-                        epsilon_val
-                    ))
+                    let diff = if (a_val > b_val) { a_val - b_val } else { b_val - a_val };
+                    let min = if (a_val < b_val) { a_val } else { b_val };
+                    let rhs = *epsilon_val * min;
+                    if diff <= rhs {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
+                                "                         a label: `{}`,\n",
+                                "                         a debug: `{:?}`,\n",
+                                "                         b label: `{}`,\n",
+                                "                         b debug: `{:?}`,\n",
+                                "                   epsilon label: `{}`,\n",
+                                "                   epsilon debug: `{:?}`,\n",
+                                "                       | a - b |: `{:?}`,\n",
+                                "             epsilon * min(a, b): `{:?}`,\n",
+                                " | a - b | ≤ epsilon * min(a, b): {}",
+                            ),
+                            stringify!($a),
+                            $a,
+                            stringify!($b),
+                            $b,
+                            stringify!($epsilon),
+                            $epsilon,
+                            diff,
+                            rhs,
+                            false
+                        ))
+                    }
                 }
             }
         }
@@ -114,22 +118,22 @@ mod tests {
     fn test_assert_in_epsilon_as_result_x_failure() {
         let a: i8 = 10;
         let b: i8 = 30;
-        let epsilon: i8 = 1;
-        let result = assert_in_epsilon_as_result!(a, b, epsilon);
+        let e: i8 = 1;
+        let result = assert_in_epsilon_as_result!(a, b, e);
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                "       a label: `a`,\n",
-                "       a debug: `10`,\n",
-                "       b label: `b`,\n",
-                "       b debug: `30`,\n",
-                " epsilon label: `epsilon`,\n",
-                " epsilon debug: `1`,\n",
-                "       a value: `10`,\n",
-                "       b value: `30`,\n",
-                " epsilon value: `1`",
+                "                         a label: `a`,\n",
+                "                         a debug: `10`,\n",
+                "                         b label: `b`,\n",
+                "                         b debug: `30`,\n",
+                "                   epsilon label: `e`,\n",
+                "                   epsilon debug: `1`,\n",
+                "                       | a - b |: `20`,\n",
+                "             epsilon * min(a, b): `10`,\n",
+                " | a - b | ≤ epsilon * min(a, b): false"
             )
         );
     }
@@ -158,31 +162,31 @@ mod tests {
 /// # let result = panic::catch_unwind(|| {
 /// let a: i8 = 10;
 /// let b: i8 = 30;
-/// let epsilon: i8 = 1;
-/// assert_in_epsilon!(a, b, epsilon);
+/// let e: i8 = 1;
+/// assert_in_epsilon!(a, b, e);
 /// # });
 /// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-/// //        a label: `a`,
-/// //        a debug: `10`,
-/// //        b label: `b`,
-/// //        b debug: `30`,
-/// //  epsilon label: `epsilon`,
-/// //  epsilon debug: `1`,
-/// //        a value: `10`,
-/// //        b value: `30`,
-/// //  epsilon value: `1`
+/// //                          a label: `a`,
+/// //                          a debug: `10`,
+/// //                          b label: `b`,
+/// //                          b debug: `30`,
+/// //                    epsilon label: `e`,
+/// //                    epsilon debug: `1`,
+/// //                        | a - b |: `20`,
+/// //              epsilon * min(a, b): `10`,\n",
+/// //  | a - b | ≤ epsilon * min(a, b): false"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-/// #     "       a label: `a`,\n",
-/// #     "       a debug: `10`,\n",
-/// #     "       b label: `b`,\n",
-/// #     "       b debug: `30`,\n",
-/// #     " epsilon label: `epsilon`,\n",
-/// #     " epsilon debug: `1`,\n",
-/// #     "       a value: `10`,\n",
-/// #     "       b value: `30`,\n",
-/// #     " epsilon value: `1`"
+/// #     "                         a label: `a`,\n",
+/// #     "                         a debug: `10`,\n",
+/// #     "                         b label: `b`,\n",
+/// #     "                         b debug: `30`,\n",
+/// #     "                   epsilon label: `e`,\n",
+/// #     "                   epsilon debug: `1`,\n",
+/// #     "                       | a - b |: `20`,\n",
+/// #     "             epsilon * min(a, b): `10`,\n",
+/// #     " | a - b | ≤ epsilon * min(a, b): false"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

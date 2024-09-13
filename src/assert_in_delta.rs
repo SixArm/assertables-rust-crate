@@ -64,36 +64,35 @@ macro_rules! assert_in_delta_as_result {
     ($a:expr, $b:expr, $delta:expr $(,)?) => {{
         match (&$a, &$b, &$delta) {
             (a_val, b_val, delta_val) => {
-                if a_val == b_val
-                    || ((a_val < b_val) && (b_val - a_val) <= *delta_val)
-                    || ((a_val > b_val) && (a_val - b_val) <= *delta_val)
-                {
+                if a_val == b_val {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-                            "     a label: `{}`,\n",
-                            "     a debug: `{:?}`,\n",
-                            "     b label: `{}`,\n",
-                            "     b debug: `{:?}`,\n",
-                            " delta label: `{}`,\n",
-                            " delta debug: `{:?}`,\n",
-                            "     a value: `{:?}`,\n",
-                            "     b value: `{:?}`,\n",
-                            " delta value: `{:?}`"
-                        ),
-                        stringify!($a),
-                        $a,
-                        stringify!($b),
-                        $b,
-                        stringify!($delta),
-                        $delta,
-                        a_val,
-                        b_val,
-                        delta_val
-
-                    ))
+                    let diff = if (a_val > b_val) { a_val - b_val } else { b_val - a_val };
+                    if diff <= *delta_val {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_in_delta!(a, b, delta)`\n",
+                                "           a label: `{}`,\n",
+                                "           a debug: `{:?}`,\n",
+                                "           b label: `{}`,\n",
+                                "           b debug: `{:?}`,\n",
+                                "       delta label: `{}`,\n",
+                                "       delta debug: `{:?}`,\n",
+                                "         | a - b |: `{:?}`,\n",
+                                " | a - b | ≤ delta: {}"
+                            ),
+                            stringify!($a),
+                            $a,
+                            stringify!($b),
+                            $b,
+                            stringify!($delta),
+                            $delta,
+                            diff,
+                            false
+                        ))
+                    }
                 }
             }
         }
@@ -123,15 +122,14 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-                "     a label: `a`,\n",
-                "     a debug: `10`,\n",
-                "     b label: `b`,\n",
-                "     b debug: `12`,\n",
-                " delta label: `delta`,\n",
-                " delta debug: `1`,\n",
-                "     a value: `10`,\n",
-                "     b value: `12`,\n",
-                " delta value: `1`"
+                "           a label: `a`,\n",
+                "           a debug: `10`,\n",
+                "           b label: `b`,\n",
+                "           b debug: `12`,\n",
+                "       delta label: `delta`,\n",
+                "       delta debug: `1`,\n",
+                "         | a - b |: `2`,\n",
+                " | a - b | ≤ delta: false"
             )
         );
     }
@@ -164,27 +162,25 @@ mod tests {
 /// assert_in_delta!(a, b, delta);
 /// # });
 /// // assertion failed: `assert_in_delta!(a, b, delta)`
-/// //      a label: `a`,
-/// //      a debug: `10`,
-/// //      b label: `b`,
-/// //      b debug: `12`,
-/// //  delta label: `delta`,
-/// //  delta debug: `1`,
-/// //      a value: `10`,
-/// //      b value: `12`,
-/// //  delta value: `1`
+/// //            a label: `a`,
+/// //            a debug: `10`,
+/// //            b label: `b`,
+/// //            b debug: `12`,
+/// //        delta label: `delta`,
+/// //        delta debug: `1`,
+/// //          | a - b |: `2`,
+/// //  | a - b | ≤ delta: false
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-/// #     "     a label: `a`,\n",
-/// #     "     a debug: `10`,\n",
-/// #     "     b label: `b`,\n",
-/// #     "     b debug: `12`,\n",
-/// #     " delta label: `delta`,\n",
-/// #     " delta debug: `1`,\n",
-/// #     "     a value: `10`,\n",
-/// #     "     b value: `12`,\n",
-/// #     " delta value: `1`"
+/// #     "           a label: `a`,\n",
+/// #     "           a debug: `10`,\n",
+/// #     "           b label: `b`,\n",
+/// #     "           b debug: `12`,\n",
+/// #     "       delta label: `delta`,\n",
+/// #     "       delta debug: `1`,\n",
+/// #     "         | a - b |: `2`,\n",
+/// #     " | a - b | ≤ delta: false",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
