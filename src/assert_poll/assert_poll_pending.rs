@@ -38,22 +38,22 @@
 ///
 #[macro_export]
 macro_rules! assert_poll_pending_as_result {
-    ($a:expr $(,)?) => {{
-        match (&$a) {
-            a_val => {
-                let is_pending = a_val.is_pending();
+    ($poll:expr $(,)?) => {{
+        match (&$poll) {
+            poll_val => {
+                let is_pending = poll_val.is_pending();
                 if is_pending {
                     Ok(())
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_poll_pending!(expr)`\n",
-                            "        expr label: `{}`,\n",
-                            "        expr debug: `{:?}`,\n",
-                            " expr.is_pending(): `{:?}`",
+                            "assertion failed: `assert_poll_pending!(poll)`\n",
+                            "        poll label: `{}`,\n",
+                            "        poll debug: `{:?}`,\n",
+                            " poll.is_pending(): `{:?}`",
                         ),
-                        stringify!($a),
-                        $a,
+                        stringify!($poll),
+                        $poll,
                         is_pending,
                     ))
                 }
@@ -81,10 +81,10 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_poll_pending!(expr)`\n",
-                "        expr label: `a`,\n",
-                "        expr debug: `Ready(1)`,\n",
-                " expr.is_pending(): `false`"
+                "assertion failed: `assert_poll_pending!(poll)`\n",
+                "        poll label: `a`,\n",
+                "        poll debug: `Ready(1)`,\n",
+                " poll.is_pending(): `false`"
             )
         );
     }
@@ -106,34 +106,24 @@ mod tests {
 /// # fn main() {
 /// let a: Poll<i8> = Poll::Pending;
 /// assert_poll_pending!(a);
-/// //-> ()
 ///
+/// # let result = panic::catch_unwind(|| {
 /// let a: Result<(), i8> = Result::Err(1);
-/// // Panic with error message
 /// let a: Poll<i8> = Poll::Ready(1);
-/// let result = panic::catch_unwind(|| {
 /// assert_poll_pending!(a);
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = concat!(
-///     "assertion failed: `assert_poll_pending!(expr)`\n",
-///     "        expr label: `a`,\n",
-///     "        expr debug: `Ready(1)`,\n",
-///     " expr.is_pending(): `false`",
-/// );
-/// assert_eq!(actual, expect);
-///
-/// // Panic with error message
-/// let result = panic::catch_unwind(|| {
-/// assert_poll_pending!(a, "message");
-/// //-> panic!
-/// });
-/// assert!(result.is_err());
-/// let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// let expect = "message";
-/// assert_eq!(actual, expect);
+/// # });
+/// // assertion failed: `assert_poll_pending!(poll)`
+/// //         poll label: `a`,
+/// //         poll debug: `Ready(1)`,
+/// //  poll.is_pending(): `false`
+/// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
+/// # let expect = concat!(
+/// #     "assertion failed: `assert_poll_pending!(poll)`\n",
+/// #     "        poll label: `a`,\n",
+/// #     "        poll debug: `Ready(1)`,\n",
+/// #     " poll.is_pending(): `false`",
+/// # );
+/// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
@@ -145,14 +135,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_poll_pending {
-    ($a:expr $(,)?) => ({
-        match assert_poll_pending_as_result!($a) {
+    ($poll:expr $(,)?) => ({
+        match assert_poll_pending_as_result!($poll) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a:expr, $($message:tt)+) => ({
-        match assert_poll_pending_as_result!($a) {
+    ($poll:expr, $($message:tt)+) => ({
+        match assert_poll_pending_as_result!($poll) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -189,9 +179,9 @@ macro_rules! assert_poll_pending {
 ///
 #[macro_export]
 macro_rules! debug_assert_poll_pending {
-    ($($arg:tt)*) => {
+    ($($pollrg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_poll_pending!($($arg)*);
+            $crate::assert_poll_pending!($($pollrg)*);
         }
     };
 }
