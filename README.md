@@ -63,6 +63,8 @@ For options:
 For polls:
 
 * [`assert_poll_ready!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_ready.html)
+* [`assert_poll_ready_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_ready_eq.html)
+* [`assert_poll_ready_ne!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_ready_ne.html)
 * [`assert_poll_pending!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_pending.html)
 
 For collections such as arrays, vectors, maps, sets:
@@ -133,28 +135,6 @@ your code.
 * Zero dependencies: the crate has no release dependencies, and just a short list of development dependencies.
 
 
-### Naming conventions
-
-Abbreviations:
-
-* `eq` ≈ equal
-* `ne` ≈ not equal.
-* `lt` ≈ less than
-* `le` ≈ less than or equal.
-* `gt` ≈ greater than
-* `ge` ≈ greater than or equal.
-
-Shorthands:
-
-* `path` ≈ implements `AsRef<Path>`
-* `reader` ≈ method `reader.read*()`
-* `readee` ≈ function `read*(readee)`
-* `matcher` ≈ such as `matcher.is_match(matchee)`
-* `container` ≈ such as `container.contains(containee)`
-* `set` ≈ a collection such as `::std::collections::BTreeSet`
-* `bag` ≈ a collection such as `::std::collections::BTreeMap`
-
-
 ## Forms
 
 
@@ -202,8 +182,8 @@ Examples:
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.5.0
+* Version: 8.6.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-09-12T18:16:41Z
+* Updated: 2024-09-15T17:11:03Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

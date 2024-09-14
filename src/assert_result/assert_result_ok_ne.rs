@@ -1,4 +1,4 @@
-//! Assert expression is ok, and its value is equal to another.
+//! Assert a result ok value is not equal to another.
 //!
 //! # Example
 //!
@@ -17,7 +17,7 @@
 //! * [`assert_result_ok_ne_as_result`](macro@crate::assert_result_ok_ne_as_result)
 //! * [`debug_assert_result_ok_ne`](macro@crate::debug_assert_result_ok_ne)
 
-/// Assert expression is ok, and its value is equal to another.
+/// Assert a result ok value is not equal to another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -135,7 +135,7 @@ mod tests {
 
 }
 
-/// Assert expression is ok, and its value is equal to another.
+/// Assert a result ok value is not equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -200,7 +200,7 @@ macro_rules! assert_result_ok_ne {
     });
 }
 
-/// Assert expression is ok, and its value is equal to another.
+/// Assert a result ok value is not equal to another.
 ///
 /// This macro provides the same statements as [`assert_result_ok_ne`](macro.assert_result_ok_ne.html),
 /// except this macro's statements are only enabled in non-optimized

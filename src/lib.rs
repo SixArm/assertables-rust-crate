@@ -23,10 +23,10 @@
 //!
 //! For values:
 //!
-//! * [`assert_lt!(a, b)`](macro@crate::assert_lt) // less than
-//! * [`assert_le!(a, b)`](macro@crate::assert_le) // less than or equal to
-//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) // greater than
-//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) // greater than or equal to
+//! * [`assert_lt!(a, b)`](macro@crate::assert_lt) `// less than`
+//! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal to`
+//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// greater than`
+//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal to`
 //!
 //! For strings:
 //!
@@ -58,11 +58,15 @@
 //! For options:
 //!
 //! * [`assert_option_some!(a)`](macro@crate::assert_option_some)
+//! * [`assert_option_some_eq!(a)`](macro@crate::assert_option_some_eq)
+//! * [`assert_option_some_ne!(a)`](macro@crate::assert_option_some_ne)
 //! * [`assert_option_none!(a)`](macro@crate::assert_option_none)
 //!
 //! For polls:
 //!
 //! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready)
+//! * [`assert_poll_ready_eq!(a, b)`](macro@crate::assert_poll_ready_eq)
+//! * [`assert_poll_ready_ne!(a, b)`](macro@crate::assert_poll_ready_ne)
 //! * [`assert_poll_pending!(a)`](macro@crate::assert_poll_pending)
 //!
 //! For collections such as arrays, vectors, maps, sets:
@@ -133,28 +137,6 @@
 //! * Zero dependencies: the crate has no release dependencies, and just a short list of development dependencies.
 //!
 //!
-//! ### Naming conventions
-//!
-//! Abbreviations:
-//!
-//! * `eq` ≈ equal
-//! * `ne` ≈ not equal.
-//! * `lt` ≈ less than
-//! * `le` ≈ less than or equal.
-//! * `gt` ≈ greater than
-//! * `ge` ≈ greater than or equal.
-//!
-//! Shorthands:
-//!
-//! * `path` ≈ implements `AsRef<Path>`
-//! * `reader` ≈ method `reader.read*()`
-//! * `readee` ≈ function `read*(readee)`
-//! * `matcher` ≈ such as `matcher.is_match(matchee)`
-//! * `container` ≈ such as `container.contains(containee)`
-//! * `set` ≈ a collection such as `::std::collections::BTreeSet`
-//! * `bag` ≈ a collection such as `::std::collections::BTreeMap`
-//!
-//!
 //! ## Forms
 //!
 //!
@@ -202,9 +184,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.5.0
+//! * Version: 8.6.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-12T18:16:41Z
+//! * Updated: 2024-09-15T17:11:03Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 

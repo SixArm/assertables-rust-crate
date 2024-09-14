@@ -1,4 +1,4 @@
-//! Assert poll.is_ready() is true.
+//! Assert a poll is ready.
 //!
 //! # Example
 //!
@@ -18,7 +18,7 @@
 //! * [`assert_poll_ready_as_result`](macro@crate::assert_poll_ready_as_result)
 //! * [`debug_assert_poll_ready`](macro@crate::debug_assert_poll_ready)
 
-/// Assert an expression.is_ready() is true.
+/// Assert a poll is ready.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -38,28 +38,22 @@
 ///
 #[macro_export]
 macro_rules! assert_poll_ready_as_result {
-    ($poll:expr $(,)?) => {{
+    ($poll:expr $(,)?) => {
         match (&$poll) {
-            a_val => {
-                let is_ready = a_val.is_ready();
-                if is_ready {
-                    Ok(())
-                } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_poll_ready!(poll)`\n",
-                            "      poll label: `{}`,\n",
-                            "      poll debug: `{:?}`,\n",
-                            " expr.is_ready(): `{:?}`",
-                        ),
-                        stringify!($poll),
-                        $poll,
-                        is_ready,
-                    ))
-                }
-            }
+            Poll::Ready(_) =>
+                Ok(()),
+            _ =>
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_poll_ready!(poll)`\n",
+                        "      poll label: `{}`,\n",
+                        "      poll debug: `{:?}`",
+                    ),
+                    stringify!($poll),
+                    $poll,
+                ))
         }
-    }};
+    }
 }
 
 #[cfg(test)]
@@ -83,14 +77,13 @@ mod tests {
             concat!(
                 "assertion failed: `assert_poll_ready!(poll)`\n",
                 "      poll label: `a`,\n",
-                "      poll debug: `Pending`,\n",
-                " expr.is_ready(): `false`"
+                "      poll debug: `Pending`",
             )
         );
     }
 }
 
-/// Assert poll.is_ready() is true.
+/// Assert a poll is ready.
 ///
 /// * If true, return `()`.
 ///
@@ -113,14 +106,12 @@ mod tests {
 /// # });
 /// // assertion failed: `assert_poll_ready!(poll)`
 /// //      poll label: `a`,
-/// //      poll debug: `Pending`,
-/// // expr.is_ready(): `false`
+/// //      poll debug: `Pending`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_poll_ready!(poll)`\n",
 /// #     "      poll label: `a`,\n",
-/// #     "      poll debug: `Pending`,\n",
-/// #     " expr.is_ready(): `false`",
+/// #     "      poll debug: `Pending`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -134,18 +125,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_poll_ready {
-    ($poll:expr $(,)?) => ({
+    ($poll:expr $(,)?) => {
         match assert_poll_ready_as_result!($poll) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($poll:expr, $($message:tt)+) => ({
+    };
+    ($poll:expr, $($message:tt)+) => {
         match assert_poll_ready_as_result!($poll) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    };
 }
 
 /// Assert poll.is_ready() is true.
@@ -178,9 +169,9 @@ macro_rules! assert_poll_ready {
 ///
 #[macro_export]
 macro_rules! debug_assert_poll_ready {
-    ($($pollrg:tt)*) => {
+    ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_poll_ready!($($pollrg)*);
+            $crate::assert_poll_ready!($($arg)*);
         }
     };
 }

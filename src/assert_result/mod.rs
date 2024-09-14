@@ -17,9 +17,9 @@
 //! * [`assert_result_ok!(a)`](macro@crate::assert_result_ok) ≈ a.is_ok()
 //!
 //! * [`assert_result_ok_eq!(a, b)`](macro@crate::assert_result_ok_eq) ≈ a.is_ok() & b.is_ok() & a.unwrap() == b.unwrap()
-//! 
+//!
 //! * [`assert_result_ok_ne!(a, b)`](macro@crate::assert_result_ok_ne) ≈ a.is_ok() & b.is_ok() & a.unwrap() != b.unwrap()
-//! 
+//!
 //! * [`assert_result_err!(a)`](macro@crate::assert_result_err) ≈ a.is_err()
 //!
 //! # Example

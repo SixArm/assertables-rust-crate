@@ -1,4 +1,4 @@
-//! Assert a.is_ok() and a.unwrap() are equal to another.
+//! Assert a result ok value is equal to another.
 //!
 //! # Example
 //!
@@ -17,7 +17,7 @@
 //! * [`assert_result_ok_eq_as_result`](macro@crate::assert_result_ok_eq_as_result)
 //! * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
 
-/// Assert a.is_ok() and a.unwrap() are equal to another.
+/// Assert a result ok value is equal to another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -135,7 +135,7 @@ mod tests {
 
 }
 
-/// Assert a.is_ok() and a.unwrap() are equal to another.
+/// Assert a result ok value is equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -200,7 +200,7 @@ macro_rules! assert_result_ok_eq {
     });
 }
 
-/// Assert a.is_ok() and a.unwrap() are equal to another.
+/// Assert a result ok value is equal to another.
 ///
 /// This macro provides the same statements as [`assert_result_ok_eq`](macro.assert_result_ok_eq.html),
 /// except this macro's statements are only enabled in non-optimized

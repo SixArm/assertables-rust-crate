@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["assert_poll_pending","assert_poll_ready"]};
+window.SIDEBAR_ITEMS = {"mod":["assert_poll_pending","assert_poll_ready","assert_poll_ready_eq","assert_poll_ready_ne"]};

@@ -1,4 +1,4 @@
-//! Assert a.is_some() and a.unwrap() is not equal to another.
+//! Assert an option some value is not equal to another.
 //!
 //! # Example
 //!
@@ -17,7 +17,7 @@
 //! * [`assert_option_some_ne_as_result`](macro@crate::assert_option_some_ne_as_result)
 //! * [`debug_assert_option_some_ne`](macro@crate::debug_assert_option_some_ne)
 
-/// Assert expression is_some(), and its value is not equal to another.
+/// Assert an option some value is not equal to another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -37,51 +37,46 @@
 ///
 #[macro_export]
 macro_rules! assert_option_some_ne_as_result {
-    ($a_option:expr, $b_option:expr $(,)?) => {{
+    ($a_option:expr, $b_option:expr $(,)?) => {
         match (&$a_option, &$b_option) {
-            (a_option, b_option) => {
-                if !a_option.is_some() || !b_option.is_some() {
+            (Some(a), Some(b)) =>
+                if a != b {
+                    Ok(())
+                } else {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_option_some_ne!(a, b)`\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
-                            " b debug: `{:?}`",
+                            " b debug: `{:?}`,\n",
+                            "       a: `{:?}`,\n",
+                            "       b: `{:?}`"
                         ),
                         stringify!($a_option),
                         $a_option,
                         stringify!($b_option),
                         $b_option,
+                        a,
+                        b
                     ))
-                } else {
-                    let a = a_option.unwrap();
-                    let b = b_option.unwrap();
-                    if a != b {
-                        Ok(())
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_option_some_ne!(a, b)`\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                "       a: `{:?}`,\n",
-                                "       b: `{:?}`"
-                            ),
-                            stringify!($a_option),
-                            $a_option,
-                            stringify!($b_option),
-                            $b_option,
-                            a,
-                            b
-                        ))
-                    }
-                }
-            }
+                },
+            _ =>
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_option_some_ne!(a, b)`\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`,\n",
+                        " b label: `{}`,\n",
+                        " b debug: `{:?}`",
+                    ),
+                    stringify!($a_option),
+                    $a_option,
+                    stringify!($b_option),
+                    $b_option,
+                ))
         }
-    }};
+    }
 }
 
 #[cfg(test)]
@@ -135,7 +130,7 @@ mod tests {
 
 }
 
-/// Assert a.is_some() and a.unwrap() is not equal to another.
+/// Assert an option some value is not equal to another.
 ///
 /// * If true, return `()`.
 ///
@@ -200,7 +195,7 @@ macro_rules! assert_option_some_ne {
     });
 }
 
-/// Assert a.is_some() and a.unwrap() is not equal to another.
+/// Assert an option some value is not equal to another.
 ///
 /// This macro provides the same statements as [`assert_option_some_ne`](macro.assert_option_some_ne.html),
 /// except this macro's statements are only enabled in non-optimized

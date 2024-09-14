@@ -34,7 +34,7 @@ If there's an assertion from any of those crates that you would like us to add t
 <tbody>
 
 <tr>
-<td>Version</td> 
+<td>Version</td>
 <td>8.4</td>
 <td>0.7</td>
 </tr>
@@ -134,7 +134,7 @@ Match
 </tr>
 
 <tr>
-<td>Option </td>
+<td>Option</td>
 <td>
 <a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some">assert_option_some</a><br>
 <a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some_eq">assert_option_some_eq</a>&nbsp;(eta&nbsp;v8.5)<br>
@@ -153,14 +153,16 @@ Match
 <td>Poll</td>
 <td>
 <a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready">assert_poll_ready</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_eq">assert_poll_ready_eq</a>&nbsp;(eta&nbsp;v8.6)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_ok">assert_poll_ready_ok</a>&nbsp;(eta&nbsp;v8.6)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_err">assert_poll_ready_err</a>&nbsp;(eta&nbsp;v8.6)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_eq">assert_poll_ready_eq</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_ne">assert_poll_ready_ne</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_ok">assert_poll_ready_ok</a>(eta 8.6)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_err">assert_poll_ready_err</a>(eta 8.6)<br>
 <a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_pending">assert_poll_pending</a></td>
 </td>
 <td>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_ready.html">assert_ready</a><br>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_ready_eq.html">assert_ready_eq</a><br>
+-<br>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_ready_ok.html">assert_ready_ok</a><br>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_ready_err.html">assert_ready_err</a><br>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_pending.html">assert_pending</a><br>

@@ -224,11 +224,6 @@
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
 <a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string contains a given containee.
 //!
 //! # Example
@@ -281,7 +276,7 @@
                     <span class="string">"   command debug: `{:?}`,\n"</span>,
                     <span class="string">" containee label: `{}`,\n"</span>,
                     <span class="string">" containee debug: `{:?}`,\n"</span>,
-                    <span class="string">"  command output: `{:?}`"
+                    <span class="string">"          output: `{:?}`"
                 </span>),
                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$command</span>),
                 <span class="macro-nonterminal">$command</span>,
@@ -301,16 +296,14 @@
                         <span class="string">"   command debug: `{:?}`,\n"</span>,
                         <span class="string">" containee label: `{}`,\n"</span>,
                         <span class="string">" containee debug: `{:?}`,\n"</span>,
-                        <span class="string">"   command value: `{:?}`,\n"</span>,
-                        <span class="string">" containee value: `{:?}`"
+                        <span class="string">"          stderr: `{:?}`"
                     </span>),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$command</span>),
                     <span class="macro-nonterminal">$command</span>,
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
                     <span class="macro-nonterminal">$containee</span>,
-                    string,
-                    <span class="macro-nonterminal">$containee
-                </span>))
+                    string
+                ))
             }
         }
     });
@@ -343,9 +336,8 @@
             <span class="string">"   command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n"</span>,
             <span class="string">" containee label: `b`,\n"</span>,
             <span class="string">" containee debug: `\"zzz\"`,\n"</span>,
-            <span class="string">"   command value: `\"hello\"`,\n"</span>,
-            <span class="string">" containee value: `\"zzz\"`"
-        </span>);
+            <span class="string">"          stderr: `\"hello\"`"</span>,
+        );
         <span class="macro">assert_eq!</span>(actual, expect);
     }
 }
@@ -386,8 +378,7 @@
 /// //    command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
 /// //  containee label: `&amp;containee`,
 /// //  containee debug: `\"zzz\"`,
-/// //    command value: `\"hello\"`,
-/// //  containee value: `\"zzz\"`
+/// //    command value: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
@@ -395,8 +386,7 @@
 /// #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
 /// #     " containee label: `&amp;containee`,\n",
 /// #     " containee debug: `\"zzz\"`,\n",
-/// #     "   command value: `\"hello\"`,\n",
-/// #     " containee value: `\"zzz\"`"
+/// #     "          stderr: `\"hello\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

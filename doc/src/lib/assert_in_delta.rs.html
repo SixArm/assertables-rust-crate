@@ -264,10 +264,6 @@
 <a href="#264" id="264">264</a>
 <a href="#265" id="265">265</a>
 <a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a number is within delta of another number.
 //!
 //! Calculate | a - b | ≤ delta
@@ -334,36 +330,35 @@
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, <span class="macro-nonterminal">$delta</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$delta</span>) {
             (a_val, b_val, delta_val) =&gt; {
-                <span class="kw">if </span>a_val == b_val
-                    || ((a_val &lt; b_val) &amp;&amp; (b_val - a_val) &lt;= <span class="kw-2">*</span>delta_val)
-                    || ((a_val &gt; b_val) &amp;&amp; (a_val - b_val) &lt;= <span class="kw-2">*</span>delta_val)
-                {
+                <span class="kw">if </span>a_val == b_val {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_in_delta!(a, b, delta)`\n"</span>,
-                            <span class="string">"     a label: `{}`,\n"</span>,
-                            <span class="string">"     a debug: `{:?}`,\n"</span>,
-                            <span class="string">"     b label: `{}`,\n"</span>,
-                            <span class="string">"     b debug: `{:?}`,\n"</span>,
-                            <span class="string">" delta label: `{}`,\n"</span>,
-                            <span class="string">" delta debug: `{:?}`,\n"</span>,
-                            <span class="string">"     a value: `{:?}`,\n"</span>,
-                            <span class="string">"     b value: `{:?}`,\n"</span>,
-                            <span class="string">" delta value: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                        <span class="macro-nonterminal">$a</span>,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                        <span class="macro-nonterminal">$b</span>,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$delta</span>),
-                        <span class="macro-nonterminal">$delta</span>,
-                        a_val,
-                        b_val,
-                        delta_val
-
-                    ))
+                    <span class="kw">let </span>diff = <span class="kw">if </span>(a_val &gt; b_val) { a_val - b_val } <span class="kw">else </span>{ b_val - a_val };
+                    <span class="kw">if </span>diff &lt;= <span class="kw-2">*</span>delta_val {
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_in_delta!(a, b, delta)`\n"</span>,
+                                <span class="string">"           a label: `{}`,\n"</span>,
+                                <span class="string">"           a debug: `{:?}`,\n"</span>,
+                                <span class="string">"           b label: `{}`,\n"</span>,
+                                <span class="string">"           b debug: `{:?}`,\n"</span>,
+                                <span class="string">"       delta label: `{}`,\n"</span>,
+                                <span class="string">"       delta debug: `{:?}`,\n"</span>,
+                                <span class="string">"         | a - b |: `{:?}`,\n"</span>,
+                                <span class="string">" | a - b | ≤ delta: {}"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                            <span class="macro-nonterminal">$a</span>,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                            <span class="macro-nonterminal">$b</span>,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$delta</span>),
+                            <span class="macro-nonterminal">$delta</span>,
+                            diff,
+                            <span class="bool-val">false
+                        </span>))
+                    }
                 }
             }
         }
@@ -393,15 +388,14 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_in_delta!(a, b, delta)`\n"</span>,
-                <span class="string">"     a label: `a`,\n"</span>,
-                <span class="string">"     a debug: `10`,\n"</span>,
-                <span class="string">"     b label: `b`,\n"</span>,
-                <span class="string">"     b debug: `12`,\n"</span>,
-                <span class="string">" delta label: `delta`,\n"</span>,
-                <span class="string">" delta debug: `1`,\n"</span>,
-                <span class="string">"     a value: `10`,\n"</span>,
-                <span class="string">"     b value: `12`,\n"</span>,
-                <span class="string">" delta value: `1`"
+                <span class="string">"           a label: `a`,\n"</span>,
+                <span class="string">"           a debug: `10`,\n"</span>,
+                <span class="string">"           b label: `b`,\n"</span>,
+                <span class="string">"           b debug: `12`,\n"</span>,
+                <span class="string">"       delta label: `delta`,\n"</span>,
+                <span class="string">"       delta debug: `1`,\n"</span>,
+                <span class="string">"         | a - b |: `2`,\n"</span>,
+                <span class="string">" | a - b | ≤ delta: false"
             </span>)
         );
     }
@@ -434,27 +428,25 @@
 /// assert_in_delta!(a, b, delta);
 /// # });
 /// // assertion failed: `assert_in_delta!(a, b, delta)`
-/// //      a label: `a`,
-/// //      a debug: `10`,
-/// //      b label: `b`,
-/// //      b debug: `12`,
-/// //  delta label: `delta`,
-/// //  delta debug: `1`,
-/// //      a value: `10`,
-/// //      b value: `12`,
-/// //  delta value: `1`
+/// //            a label: `a`,
+/// //            a debug: `10`,
+/// //            b label: `b`,
+/// //            b debug: `12`,
+/// //        delta label: `delta`,
+/// //        delta debug: `1`,
+/// //          | a - b |: `2`,
+/// //  | a - b | ≤ delta: false
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-/// #     "     a label: `a`,\n",
-/// #     "     a debug: `10`,\n",
-/// #     "     b label: `b`,\n",
-/// #     "     b debug: `12`,\n",
-/// #     " delta label: `delta`,\n",
-/// #     " delta debug: `1`,\n",
-/// #     "     a value: `10`,\n",
-/// #     "     b value: `12`,\n",
-/// #     " delta value: `1`"
+/// #     "           a label: `a`,\n",
+/// #     "           a debug: `10`,\n",
+/// #     "           b label: `b`,\n",
+/// #     "           b debug: `12`,\n",
+/// #     "       delta label: `delta`,\n",
+/// #     "       delta debug: `1`,\n",
+/// #     "         | a - b |: `2`,\n",
+/// #     " | a - b | ≤ delta: false",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

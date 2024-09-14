@@ -31,6 +31,10 @@
 <a href="#31" id="31">31</a>
 <a href="#32" id="32">32</a>
 <a href="#33" id="33">33</a>
+<a href="#34" id="34">34</a>
+<a href="#35" id="35">35</a>
+<a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert macros for `Poll` {`Ready`, `Pending`}
 //!
 //! These macros help compare a `Poll` that is either `Ready`, `Pending`.
@@ -43,9 +47,13 @@
 //!
 //! # Macros
 //!
-//! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready) ≈ a.is_ready()
+//! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready) ≈ a is Poll::Ready
 //!
-//! * [`assert_poll_pending!(a)`](macro@crate::assert_poll_pending) ≈ a.is_pending()
+//! * [`assert_poll_ready_eq!(a, b)`](macro@crate::assert_poll_ready_eq) ≈ Poll::Ready(a) == Poll::Ready(b)
+//!
+//! * [`assert_poll_ready_ne!(a, b)`](macro@crate::assert_poll_ready_ne) ≈ Poll::Ready(a) == Poll::Ready(b)
+//!
+//! * [`assert_poll_pending!(a)`](macro@crate::assert_poll_pending) ≈ a is Poll::Pending
 //!
 //! # Example
 //!
@@ -61,7 +69,7 @@
 //! ```
 
 </span><span class="kw">pub mod </span>assert_poll_ready;
-<span class="comment">// pub mod assert_poll_ready_eq;
-// pub mod assert_poll_ready_ne;
-</span><span class="kw">pub mod </span>assert_poll_pending;
+<span class="kw">pub mod </span>assert_poll_ready_eq;
+<span class="kw">pub mod </span>assert_poll_ready_ne;
+<span class="kw">pub mod </span>assert_poll_pending;
 </code></pre></div></section></main></body></html>

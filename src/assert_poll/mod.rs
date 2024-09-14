@@ -10,9 +10,13 @@
 //!
 //! # Macros
 //!
-//! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready) ≈ a.is_ready()
+//! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready) ≈ a is Poll::Ready
 //!
-//! * [`assert_poll_pending!(a)`](macro@crate::assert_poll_pending) ≈ a.is_pending()
+//! * [`assert_poll_ready_eq!(a, b)`](macro@crate::assert_poll_ready_eq) ≈ Poll::Ready(a) == Poll::Ready(b)
+//!
+//! * [`assert_poll_ready_ne!(a, b)`](macro@crate::assert_poll_ready_ne) ≈ Poll::Ready(a) == Poll::Ready(b)
+//!
+//! * [`assert_poll_pending!(a)`](macro@crate::assert_poll_pending) ≈ a is Poll::Pending
 //!
 //! # Example
 //!
@@ -28,4 +32,6 @@
 //! ```
 
 pub mod assert_poll_ready;
+pub mod assert_poll_ready_eq;
+pub mod assert_poll_ready_ne;
 pub mod assert_poll_pending;

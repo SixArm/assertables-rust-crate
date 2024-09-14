@@ -1,4 +1,4 @@
-//! Assert poll.is_pending() is true.
+//! Assert poll is pending.
 //!
 //! # Example
 //!
@@ -38,28 +38,22 @@
 ///
 #[macro_export]
 macro_rules! assert_poll_pending_as_result {
-    ($poll:expr $(,)?) => {{
+    ($poll:expr $(,)?) => {
         match (&$poll) {
-            poll_val => {
-                let is_pending = poll_val.is_pending();
-                if is_pending {
-                    Ok(())
-                } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_poll_pending!(poll)`\n",
-                            "        poll label: `{}`,\n",
-                            "        poll debug: `{:?}`,\n",
-                            " poll.is_pending(): `{:?}`",
-                        ),
-                        stringify!($poll),
-                        $poll,
-                        is_pending,
-                    ))
-                }
-            }
+            Poll::Pending =>
+                Ok(()),
+            _ =>
+                Err(format!(
+                    concat!(
+                        "assertion failed: `assert_poll_pending!(poll)`\n",
+                        " poll label: `{}`,\n",
+                        " poll debug: `{:?}`",
+                    ),
+                    stringify!($poll),
+                    $poll
+                ))
         }
-    }};
+    }
 }
 
 #[cfg(test)]
@@ -82,15 +76,14 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_poll_pending!(poll)`\n",
-                "        poll label: `a`,\n",
-                "        poll debug: `Ready(1)`,\n",
-                " poll.is_pending(): `false`"
+                " poll label: `a`,\n",
+                " poll debug: `Ready(1)`",
             )
         );
     }
 }
 
-/// Assert poll.is_pending() is true.
+/// Assert poll is pending.
 ///
 /// * If true, return `()`.
 ///
@@ -113,15 +106,13 @@ mod tests {
 /// assert_poll_pending!(a);
 /// # });
 /// // assertion failed: `assert_poll_pending!(poll)`
-/// //         poll label: `a`,
-/// //         poll debug: `Ready(1)`,
-/// //  poll.is_pending(): `false`
+/// //  poll label: `a`,
+/// //  poll debug: `Ready(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_poll_pending!(poll)`\n",
-/// #     "        poll label: `a`,\n",
-/// #     "        poll debug: `Ready(1)`,\n",
-/// #     " poll.is_pending(): `false`",
+/// #     " poll label: `a`,\n",
+/// #     " poll debug: `Ready(1)`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -135,21 +126,21 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_poll_pending {
-    ($poll:expr $(,)?) => ({
+    ($poll:expr $(,)?) => {
         match assert_poll_pending_as_result!($poll) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($poll:expr, $($message:tt)+) => ({
+    };
+    ($poll:expr, $($message:tt)+) => {
         match assert_poll_pending_as_result!($poll) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    };
 }
 
-/// Assert poll.is_pending() is true.
+/// Assert poll is pending.
 ///
 /// This macro provides the same statements as [`assert_poll_pending`](macro.assert_poll_pending.html),
 /// except this macro's statements are only enabled in non-optimized
@@ -179,9 +170,9 @@ macro_rules! assert_poll_pending {
 ///
 #[macro_export]
 macro_rules! debug_assert_poll_pending {
-    ($($pollrg:tt)*) => {
+    ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_poll_pending!($($pollrg)*);
+            $crate::assert_poll_pending!($($arg)*);
         }
     };
 }
