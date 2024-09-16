@@ -32,21 +32,25 @@
 ///
 #[macro_export]
 macro_rules! assert_as_result {
-    ($a:expr $(,)?) => {{
-        if $a {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert!(condition)`\n",
-                    " condition label: `{}`,\n",
-                    " condition debug: `{:?}`,\n",
-                ),
-                stringify!($a),
-                $a,
-            ))
+    ($a:expr $(,)?) => ({
+        match ($a) {
+            a => {
+                if a {
+                    Ok(())
+                } else {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert!(condition)`\n",
+                            " condition label: `{}`,\n",
+                            " condition debug: `{:?}`,\n",
+                        ),
+                        stringify!($a),
+                        a,
+                    ))
+                }
+            }
         }
-    }};
+    });
 }
 
 #[cfg(test)]

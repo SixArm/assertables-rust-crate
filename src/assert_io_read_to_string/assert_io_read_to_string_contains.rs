@@ -40,46 +40,48 @@
 #[macro_export]
 macro_rules! assert_io_read_to_string_contains_as_result {
     ($reader:expr, $containee:expr $(,)?) => ({
-        let mut reader_string = String::new();
-        let reader_result = $reader.read_to_string(&mut reader_string);
-        if let Err(reader_err) = reader_result {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                    "    reader label: `{}`,\n",
-                    "    reader debug: `{:?}`,\n",
-                    " containee label: `{}`,\n",
-                    " containee debug: `{:?}`,\n",
-                    "      reader err: `{:?}`"
-                ),
-                stringify!($reader),
-                $reader,
-                stringify!($containee),
-                $containee,
-                reader_err
-            ))
-        } else {
-            if reader_string.contains($containee) {
-                Ok(())
-            } else {
-                let _reader_size = reader_result.unwrap();
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                        "    reader label: `{}`,\n",
-                        "    reader debug: `{:?}`,\n",
-                        " containee label: `{}`,\n",
-                        " containee debug: `{:?}`,\n",
-                        "  read to string: `{:?}`,\n",
-                        " containee value: `{:?}`",
-                    ),
-                    stringify!($reader),
-                    $reader,
-                    stringify!($containee),
-                    $containee,
-                    reader_string,
-                    $containee
-                ))
+        match (/*&$reader,*/ &$containee) {
+            containee => {
+                let mut read_string = String::new();
+                let read_result = $reader.read_to_string(&mut read_string);
+                if let Err(read_err) = read_result {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+                            "    reader label: `{}`,\n",
+                            "    reader debug: `{:?}`,\n",
+                            " containee label: `{}`,\n",
+                            " containee debug: `{:?}`,\n",
+                            "        read err: `{:?}`"
+                        ),
+                        stringify!($reader),
+                        $reader,
+                        stringify!($containee),
+                        containee,
+                        read_err
+                    ))
+                } else {
+                    if read_string.contains($containee) {
+                        Ok(())
+                    } else {
+                        let _reader_size = read_result.unwrap();
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+                                "    reader label: `{}`,\n",
+                                "    reader debug: `{:?}`,\n",
+                                " containee label: `{}`,\n",
+                                " containee debug: `{:?}`,\n",
+                                "     read string: `{:?}`",
+                            ),
+                            stringify!($reader),
+                            $reader,
+                            stringify!($containee),
+                            containee,
+                            read_string,
+                        ))
+                    }
+                }
             }
         }
     });
@@ -112,8 +114,7 @@ mod tests {
                 "    reader debug: `[]`,\n",
                 " containee label: `&containee`,\n",
                 " containee debug: `\"zzz\"`,\n",
-                "  read to string: `\"alfa\"`,\n",
-                " containee value: `\"zzz\"`"
+                "     read string: `\"alfa\"`",
             )
         );
     }
@@ -148,8 +149,7 @@ mod tests {
 /// //     reader debug: `[]`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zzz\"`,
-/// //   read to string: `\"hello\"`,
-/// //  containee value: `\"zzz\"`
+/// //      read string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
@@ -157,8 +157,7 @@ mod tests {
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zzz\"`,\n",
-/// #     "  read to string: `\"hello\"`,\n",
-/// #     " containee value: `\"zzz\"`"
+/// #     "     read string: `\"hello\"`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

@@ -61,14 +61,14 @@
 ///
 #[macro_export]
 macro_rules! assert_in_delta_as_result {
-    ($a:expr, $b:expr, $delta:expr $(,)?) => {{
+    ($a:expr, $b:expr, $delta:expr $(,)?) => ({
         match (&$a, &$b, &$delta) {
-            (a_val, b_val, delta_val) => {
-                if a_val == b_val {
+            (a, b, delta) => {
+                if a == b {
                     Ok(())
                 } else {
-                    let diff = if (a_val > b_val) { a_val - b_val } else { b_val - a_val };
-                    if diff <= *delta_val {
+                    let diff = if (a > b) { a - b } else { b - a };
+                    if diff <= *delta {
                         Ok(())
                     } else {
                         Err(format!(
@@ -84,11 +84,11 @@ macro_rules! assert_in_delta_as_result {
                                 " | a - b | ≤ delta: {}"
                             ),
                             stringify!($a),
-                            $a,
+                            a,
                             stringify!($b),
-                            $b,
+                            b,
                             stringify!($delta),
-                            $delta,
+                            delta,
                             diff,
                             false
                         ))
@@ -96,7 +96,7 @@ macro_rules! assert_in_delta_as_result {
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]

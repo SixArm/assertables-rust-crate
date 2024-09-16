@@ -183,6 +183,10 @@
 <a href="#183" id="183">183</a>
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a string) does not start with an expression (such as a string).
 //!
 //! # Example
@@ -222,25 +226,29 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_not_starts_with_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">if </span>!(<span class="macro-nonterminal">$a</span>.starts_with(<span class="macro-nonterminal">$b</span>)) {
-            <span class="prelude-val">Ok</span>(())
-        } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_not_starts_with!(a, b)`\n"</span>,
-                    <span class="string">" a label: `{}`,\n"</span>,
-                    <span class="string">" a debug: `{:?}`,\n"</span>,
-                    <span class="string">" b label: `{}`,\n"</span>,
-                    <span class="string">" b debug: `{:?}`"</span>,
-                ),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                <span class="macro-nonterminal">$a</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                <span class="macro-nonterminal">$b</span>,
-            ))
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
+            (a, b) =&gt; {
+                <span class="kw">if </span>!(a.starts_with(b)) {
+                    <span class="prelude-val">Ok</span>(())
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_not_starts_with!(a, b)`\n"</span>,
+                            <span class="string">" a label: `{}`,\n"</span>,
+                            <span class="string">" a debug: `{:?}`,\n"</span>,
+                            <span class="string">" b label: `{}`,\n"</span>,
+                            <span class="string">" b debug: `{:?}`"</span>,
+                        ),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                        a,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                        b,
+                    ))
+                }
+            }
         }
-    }};
+    });
 }
 
 <span class="attr">#[cfg(test)]

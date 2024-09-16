@@ -41,32 +41,36 @@ macro_rules! assert_fn_ne_as_result {
     //// Arity 1
 
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => ({
-        let a_output = $a_function($a_param);
-        let b_output = $b_function($b_param);
-        if a_output != b_output {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
-                    " a_function label: `{}`,\n",
-                    "    a_param label: `{}`,\n",
-                    "    a_param debug: `{:?}`,\n",
-                    " b_function label: `{}`,\n",
-                    "    b_param label: `{}`,\n",
-                    "    b_param debug: `{:?}`,\n",
-                    "                a: `{:?}`,\n",
-                    "                b: `{:?}`"
-                ),
-                stringify!($a_function),
-                stringify!($a_param),
-                $a_param,
-                stringify!($b_function),
-                stringify!($b_param),
-                $b_param,
-                a_output,
-                b_output
-            ))
+        match (&$a_function, &$a_param, &$b_function, &$b_param) {
+            (_a_function, a_param, _b_function, b_param) => {
+                let a_output = $a_function($a_param);
+                let b_output = $b_function($b_param);
+                if a_output != b_output {
+                    Ok(())
+                } else {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
+                            " a_function label: `{}`,\n",
+                            "    a_param label: `{}`,\n",
+                            "    a_param debug: `{:?}`,\n",
+                            " b_function label: `{}`,\n",
+                            "    b_param label: `{}`,\n",
+                            "    b_param debug: `{:?}`,\n",
+                            "                a: `{:?}`,\n",
+                            "                b: `{:?}`"
+                        ),
+                        stringify!($a_function),
+                        stringify!($a_param),
+                        a_param,
+                        stringify!($b_function),
+                        stringify!($b_param),
+                        b_param,
+                        a_output,
+                        b_output
+                    ))
+                }
+            }
         }
     });
 

@@ -177,17 +177,14 @@
 <a href="#177" id="177">177</a>
 <a href="#178" id="178">178</a>
 <a href="#179" id="179">179</a>
-<a href="#180" id="180">180</a>
-<a href="#181" id="181">181</a>
-<a href="#182" id="182">182</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a.is_ok().
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression is Ok(_).
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
-//! let a: Result&lt;(), i8&gt; = Result::Ok(());
+//! let a: Result&lt;(), i8&gt; = Ok(());
 //! assert_result_ok!(a);
 //! # }
 //! ```
@@ -198,7 +195,7 @@
 //! * [`assert_result_ok_as_result`](macro@crate::assert_result_ok_as_result)
 //! * [`debug_assert_result_ok`](macro@crate::debug_assert_result_ok)
 
-/// Assert a.is_ok() is true.
+/// Assert expression is Ok(_).
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -218,28 +215,28 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_result_ok_as_result {
-    (<span class="macro-nonterminal">$result</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+    (<span class="macro-nonterminal">$result</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$result</span>) {
-            result_val =&gt; {
-                <span class="kw">let </span>is_ok = result_val.is_ok();
-                <span class="kw">if </span>is_ok {
-                    <span class="prelude-val">Ok</span>(())
-                } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_result_ok!(result)`\n"</span>,
-                            <span class="string">"   result label: `{}`,\n"</span>,
-                            <span class="string">"   result debug: `{:?}`,\n"</span>,
-                            <span class="string">" result.is_ok(): `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$result</span>),
-                        <span class="macro-nonterminal">$result</span>,
-                        is_ok,
-                    ))
+            result =&gt; {
+                <span class="kw">match </span>(result) {
+                    <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {
+                        <span class="prelude-val">Ok</span>(())
+                    },
+                    <span class="kw">_ </span>=&gt; {
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_result_ok!(a)`\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$result</span>),
+                            result
+                        ))
+                    }
                 }
             }
         }
-    }};
+    });
 }
 
 <span class="attr">#[cfg(test)]
@@ -247,29 +244,28 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_result_ok_as_result_x_success() {
-        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;(), i8&gt; = Result::Ok(());
+        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;(), i8&gt; = <span class="prelude-val">Ok</span>(());
         <span class="kw">let </span>result = <span class="macro">assert_result_ok_as_result!</span>(a);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_result_ok_as_result_x_failure() {
-        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;(), i8&gt; = Result::Err(<span class="number">1</span>);
+        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;(), i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_result_ok_as_result!</span>(a);
         <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_result_ok!(result)`\n"</span>,
-                <span class="string">"   result label: `a`,\n"</span>,
-                <span class="string">"   result debug: `Err(1)`,\n"</span>,
-                <span class="string">" result.is_ok(): `false`"
-            </span>)
+                <span class="string">"assertion failed: `assert_result_ok!(a)`\n"</span>,
+                <span class="string">" a label: `a`,\n"</span>,
+                <span class="string">" a debug: `Err(1)`"</span>,
+            )
         );
     }
 }
 
-<span class="doccomment">/// Assert a.is_ok() is true.
+<span class="doccomment">/// Assert expression is Ok(_).
 ///
 /// * If true, return `()`.
 ///
@@ -282,23 +278,21 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// let a: Result&lt;(), i8&gt; = Result::Ok(());
+/// let a: Result&lt;(), i8&gt; = Ok(());
 /// assert_result_ok!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a: Result&lt;(), i8&gt; = Result::Err(1);
+/// let a: Result&lt;(), i8&gt; = Err(1);
 /// assert_result_ok!(a);
 /// # });
-/// // assertion failed: `assert_result_ok!(result)`
-/// //    result label: `a`,
-/// //    result debug: `Err(1)`,
-/// //  result.is_ok(): `false`
+/// // assertion failed: `assert_result_ok!(a)`
+/// //  a label: `a`,
+/// //  a debug: `Err(1)`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_result_ok!(result)`\n",
-/// #     "   result label: `a`,\n",
-/// #     "   result debug: `Err(1)`,\n",
-/// #     " result.is_ok(): `false`",
+/// #     "assertion failed: `assert_result_ok!(a)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `Err(1)`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -326,7 +320,7 @@
     });
 }
 
-<span class="doccomment">/// Assert a.is_ok() is true.
+<span class="doccomment">/// Assert expression is Ok(_).
 ///
 /// This macro provides the same statements as [`assert_result_ok`](macro.assert_result_ok.html),
 /// except this macro's statements are only enabled in non-optimized

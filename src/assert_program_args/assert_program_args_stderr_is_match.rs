@@ -41,55 +41,57 @@
 #[macro_export]
 macro_rules! assert_program_args_stderr_is_match_as_result {
     ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => ({
-        let mut a_command = ::std::process::Command::new($a_program);
-        a_command.args($a_args);
-        let a_output = a_command.output();
-        if a_output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_program_args_stderr_is_match!(a_program, b_matcher)`\n",
-                    " a_program label: `{}`,\n",
-                    " a_program debug: `{:?}`,\n",
-                    "    a_args label: `{}`,\n",
-                    "    a_args debug: `{:?}`,\n",
-                    " b_matcher label: `{}`,\n",
-                    " b_matcher debug: `{:?}`,\n",
-                    "         a output: `{:?}`"
-                ),
-                stringify!($a_program),
-                $a_program,
-                stringify!($a_args),
-                $a_args,
-                stringify!($matcher),
-                $matcher,
-                a_output
-            ))
-        } else {
-            let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if $matcher.is_match(&a_string) {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_program_args_stderr_is_match!(a_program, b_matcher)`\n",
-                        " a_program label: `{}`,\n",
-                        " a_program debug: `{:?}`,\n",
-                        "    a_args label: `{}`,\n",
-                        "    a_args debug: `{:?}`,\n",
-                        " b_matcher label: `{}`,\n",
-                        " b_matcher debug: `{:?}`,\n",
-                        "               a: `{:?}`,\n",
-                        "               b: `{:?}`"
-                    ),
-                    stringify!($a_program),
-                    $a_program,
-                    stringify!($a_args),
-                    $a_args,
-                    stringify!($matcher),
-                    $matcher,
-                    a_string,
-                    $matcher
-                ))
+        match ($a_program, $a_args, $matcher) {
+            (a_program, a_args, matcher) => {
+                let a_output = assert_program_args_impl_prep!(a_program, a_args);
+                if a_output.is_err() {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_program_args_stderr_is_match!(a_program, b_matcher)`\n",
+                            " a_program label: `{}`,\n",
+                            " a_program debug: `{:?}`,\n",
+                            "    a_args label: `{}`,\n",
+                            "    a_args debug: `{:?}`,\n",
+                            " b_matcher label: `{}`,\n",
+                            " b_matcher debug: `{:?}`,\n",
+                            "         a output: `{:?}`"
+                        ),
+                        stringify!($a_program),
+                        a_program,
+                        stringify!($a_args),
+                        a_args,
+                        stringify!($matcher),
+                        matcher,
+                        a_output
+                    ))
+                } else {
+                    let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
+                    if $matcher.is_match(&a_string) {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_program_args_stderr_is_match!(a_program, b_matcher)`\n",
+                                " a_program label: `{}`,\n",
+                                " a_program debug: `{:?}`,\n",
+                                "    a_args label: `{}`,\n",
+                                "    a_args debug: `{:?}`,\n",
+                                " b_matcher label: `{}`,\n",
+                                " b_matcher debug: `{:?}`,\n",
+                                "               a: `{:?}`,\n",
+                                "               b: `{:?}`"
+                            ),
+                            stringify!($a_program),
+                            a_program,
+                            stringify!($a_args),
+                            a_args,
+                            stringify!($matcher),
+                            matcher,
+                            a_string,
+                            $matcher
+                        ))
+                    }
+                }
             }
         }
     });
@@ -105,7 +107,7 @@ mod tests {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "hello"];
         let b = Regex::new(r"ell").unwrap();
-        let result = assert_program_args_stderr_is_match_as_result!(&a_program, &a_args, b);
+        let result = assert_program_args_stderr_is_match_as_result!(&a_program, &a_args, &b);
         assert_eq!(result.unwrap(), ());
     }
 
@@ -114,7 +116,7 @@ mod tests {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "hello"];
         let b = Regex::new(r"zzz").unwrap();
-        let result = assert_program_args_stderr_is_match_as_result!(&a_program, &a_args, b);
+        let result = assert_program_args_stderr_is_match_as_result!(&a_program, &a_args, &b);
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_is_match!(a_program, b_matcher)`\n",
@@ -122,7 +124,7 @@ mod tests {
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
             "    a_args debug: `[\"%s\", \"hello\"]`,\n",
-            " b_matcher label: `b`,\n",
+            " b_matcher label: `&b`,\n",
             " b_matcher debug: `Regex(\"zzz\")`,\n",
             "               a: `\"hello\"`,\n",
             "               b: `Regex(\"zzz\")`"

@@ -41,45 +41,49 @@
 #[macro_export]
 macro_rules! assert_command_stdout_eq_expr_as_result {
     ($a_command:expr, $b_expr:expr $(,)?) => ({
-        let a_output = $a_command.output();
-        if a_output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
-                    " a label: `{}`,\n",
-                    " a debug: `{:?}`,\n",
-                    " b label: `{}`,\n",
-                    " b debug: `{:?}`,\n",
-                    " a output: `{:?}`"
-                ),
-                stringify!($a_command),
-                $a_command,
-                stringify!($b_expr),
-                $b_expr,
-                a_output
-            ))
-        } else {
-            let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            if a_string == $b_expr {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
-                        " a label: `{}`,\n",
-                        " a debug: `{:?}`,\n",
-                        " b label: `{}`,\n",
-                        " b debug: `{:?}`,\n",
-                        "       a: `{:?}`,\n",
-                        "       b: `{:?}`"
-                    ),
-                    stringify!($a_command),
-                    $a_command,
-                    stringify!($b_expr),
-                    $b_expr,
-                    a_string,
-                    $b_expr
-                ))
+        match (/*&$command,*/ &$b_expr) {
+            b_expr => {
+                let a_output = $a_command.output();
+                if a_output.is_err() {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            " a output: `{:?}`"
+                        ),
+                        stringify!($a_command),
+                        $a_command,
+                        stringify!($b_expr),
+                        b_expr,
+                        a_output
+                    ))
+                } else {
+                    let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
+                    if a_string == String::from(b_expr) {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`,\n",
+                                "       a: `{:?}`,\n",
+                                "       b: `{:?}`"
+                            ),
+                            stringify!($a_command),
+                            $a_command,
+                            stringify!($b_expr),
+                            b_expr,
+                            a_string,
+                            b_expr
+                        ))
+                    }
+                }
             }
         }
     });

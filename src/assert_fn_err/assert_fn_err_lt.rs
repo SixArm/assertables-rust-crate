@@ -48,59 +48,63 @@ macro_rules! assert_fn_err_lt_as_result {
     //// Arity 1
 
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => ({
-        let a_result = $a_function($a_param);
-        let b_result = $b_function($b_param);
-        let a_is_err = a_result.is_err();
-        let b_is_err = b_result.is_err();
-        if !a_is_err || !b_is_err {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-                    " a_function label: `{}`,\n",
-                    "    a_param label: `{}`,\n",
-                    "    a_param debug: `{:?}`,\n",
-                    " b_function label: `{}`,\n",
-                    "    b_param label: `{}`,\n",
-                    "    b_param debug: `{:?}`,\n",
-                    "                a: `{:?}`,\n",
-                    "                b: `{:?}`"
-                ),
-                stringify!($a_function),
-                stringify!($a_param),
-                $a_param,
-                stringify!($b_function),
-                stringify!($b_param),
-                $b_param,
-                a_result,
-                b_result
-            ))
-        } else {
-            let a_err = a_result.unwrap_err();
-            let b_err = b_result.unwrap_err();
-            if a_err < b_err {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-                        " a_function label: `{}`,\n",
-                        "    a_param label: `{}`,\n",
-                        "    a_param debug: `{:?}`,\n",
-                        " b_function label: `{}`,\n",
-                        "    b_param label: `{}`,\n",
-                        "    b_param debug: `{:?}`,\n",
-                        "                a: `{:?}`,\n",
-                        "                b: `{:?}`"
-                    ),
-                    stringify!($a_function),
-                    stringify!($a_param),
-                    $a_param,
-                    stringify!($b_function),
-                    stringify!($b_param),
-                    $b_param,
-                    a_err,
-                    b_err
-                ))
+        match (&$a_function, &$a_param, &$b_function, &$b_param) {
+            (_a_function, a_param, _b_function, b_param) => {
+                let a_result = $a_function($a_param);
+                let b_result = $b_function($b_param);
+                let a_is_err = a_result.is_err();
+                let b_is_err = b_result.is_err();
+                if !a_is_err || !b_is_err {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
+                            " a_function label: `{}`,\n",
+                            "    a_param label: `{}`,\n",
+                            "    a_param debug: `{:?}`,\n",
+                            " b_function label: `{}`,\n",
+                            "    b_param label: `{}`,\n",
+                            "    b_param debug: `{:?}`,\n",
+                            "                a: `{:?}`,\n",
+                            "                b: `{:?}`"
+                        ),
+                        stringify!($a_function),
+                        stringify!($a_param),
+                        a_param,
+                        stringify!($b_function),
+                        stringify!($b_param),
+                        b_param,
+                        a_result,
+                        b_result
+                    ))
+                } else {
+                    let a_err = a_result.unwrap_err();
+                    let b_err = b_result.unwrap_err();
+                    if a_err < b_err {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
+                                " a_function label: `{}`,\n",
+                                "    a_param label: `{}`,\n",
+                                "    a_param debug: `{:?}`,\n",
+                                " b_function label: `{}`,\n",
+                                "    b_param label: `{}`,\n",
+                                "    b_param debug: `{:?}`,\n",
+                                "                a: `{:?}`,\n",
+                                "                b: `{:?}`"
+                            ),
+                            stringify!($a_function),
+                            stringify!($a_param),
+                            a_param,
+                            stringify!($b_function),
+                            stringify!($b_param),
+                            b_param,
+                            a_err,
+                            b_err
+                        ))
+                    }
+                }
             }
         }
     });
@@ -364,7 +368,6 @@ macro_rules! assert_fn_err_lt {
             Err(_err) => panic!("{}", $($message)+),
         }
     });
-
 }
 
 /// Assert a function err() is less than another.

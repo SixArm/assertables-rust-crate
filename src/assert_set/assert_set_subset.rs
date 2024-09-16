@@ -39,12 +39,12 @@
 ///
 #[macro_export]
 macro_rules! assert_set_subset_as_result {
-    ($a_collection:expr, $b_collection:expr $(,)?) => {{
+    ($a_collection:expr, $b_collection:expr $(,)?) => ({
         match (&$a_collection, &$b_collection) {
-            (a_val, b_val) => {
-                let a_set: ::std::collections::BTreeSet<_> = a_val.into_iter().collect();
-                let b_set: ::std::collections::BTreeSet<_> = b_val.into_iter().collect();
-                if a_set.is_subset(&b_set) {
+            (a_collection, b_collection) => {
+                let a: ::std::collections::BTreeSet<_> = assert_set_impl_prep!(a_collection);
+                let b: ::std::collections::BTreeSet<_> = assert_set_impl_prep!(b_collection);
+                if a.is_subset(&b) {
                     Ok(())
                 } else {
                     Err(format!(
@@ -58,16 +58,16 @@ macro_rules! assert_set_subset_as_result {
                             "       b: `{:?}`"
                         ),
                         stringify!($a_collection),
-                        $a_collection,
+                        a_collection,
                         stringify!($b_collection),
-                        $b_collection,
-                        &a_set,
-                        &b_set
+                        b_collection,
+                        a,
+                        b
                     ))
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]

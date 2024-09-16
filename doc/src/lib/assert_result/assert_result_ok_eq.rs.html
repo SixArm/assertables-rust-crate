@@ -236,15 +236,16 @@
 <a href="#236" id="236">236</a>
 <a href="#237" id="237">237</a>
 <a href="#238" id="238">238</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a result ok value is equal to another.
+<a href="#239" id="239">239</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ok(_) and their values are equal.
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
-//! let a: Result&lt;i8, i8&gt; = Result::Ok(1);
-//! let b: Result&lt;i8, i8&gt; = Result::Ok(1);
+//! let a: Result&lt;i8, i8&gt; = Ok(1);
+//! let b: Result&lt;i8, i8&gt; = Ok(1);
 //! assert_result_ok_eq!(a, b);
 //! # }
 //! ```
@@ -255,7 +256,7 @@
 //! * [`assert_result_ok_eq_as_result`](macro@crate::assert_result_ok_eq_as_result)
 //! * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
 
-/// Assert a result ok value is equal to another.
+/// Assert two expressions are Ok(_) and their values are equal.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -275,51 +276,52 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_result_ok_eq_as_result {
-    (<span class="macro-nonterminal">$a_result</span>:expr, <span class="macro-nonterminal">$b_result</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_result</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_result</span>) {
-            (a_result, b_result) =&gt; {
-                <span class="kw">if </span>!a_result.is_ok() || !b_result.is_ok() {
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_result_ok_eq!(a, b)`\n"</span>,
-                            <span class="string">" a label: `{}`,\n"</span>,
-                            <span class="string">" a debug: `{:?}`,\n"</span>,
-                            <span class="string">" b label: `{}`,\n"</span>,
-                            <span class="string">" b debug: `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_result</span>),
-                        <span class="macro-nonterminal">$a_result</span>,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_result</span>),
-                        <span class="macro-nonterminal">$b_result</span>,
-                    ))
-                } <span class="kw">else </span>{
-                    <span class="kw">let </span>a = a_result.unwrap();
-                    <span class="kw">let </span>b = b_result.unwrap();
-                    <span class="kw">if </span>a == b {
-                        <span class="prelude-val">Ok</span>(())
-                    } <span class="kw">else </span>{
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
+            (a, b) =&gt; {
+                <span class="kw">match </span>(a, b) {
+                    (<span class="prelude-val">Ok</span>(a_inner), <span class="prelude-val">Ok</span>(b_inner)) =&gt; {
+                        <span class="kw">if </span>a_inner == b_inner {
+                            <span class="prelude-val">Ok</span>(())
+                        } <span class="kw">else </span>{
+                            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                                <span class="macro">concat!</span>(
+                                    <span class="string">"assertion failed: `assert_result_ok_eq!(a, b)`\n"</span>,
+                                    <span class="string">" a label: `{}`,\n"</span>,
+                                    <span class="string">" a debug: `{:?}`,\n"</span>,
+                                    <span class="string">" a inner: `{:?}`,\n"</span>,
+                                    <span class="string">" b label: `{}`,\n"</span>,
+                                    <span class="string">" b debug: `{:?}`,\n"</span>,
+                                    <span class="string">" b inner: `{:?}`"
+                                </span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                                a,
+                                a_inner,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                                b,
+                                b_inner
+                            ))
+                        }
+                    },
+                    <span class="kw">_ </span>=&gt; {
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_result_ok_eq!(a, b)`\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
-                                <span class="string">" b debug: `{:?}`,\n"</span>,
-                                <span class="string">"       a: `{:?}`,\n"</span>,
-                                <span class="string">"       b: `{:?}`"
-                            </span>),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_result</span>),
-                            <span class="macro-nonterminal">$a_result</span>,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_result</span>),
-                            <span class="macro-nonterminal">$b_result</span>,
+                                <span class="string">" b debug: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                             a,
-                            b
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                            b,
                         ))
                     }
                 }
             }
         }
-    }};
+    });
 }
 
 <span class="attr">#[cfg(test)]
@@ -327,16 +329,16 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_result_ok_eq_as_result_x_success() {
-        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = Result::Ok(<span class="number">1</span>);
-        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = Result::Ok(<span class="number">1</span>);
+        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
+        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_result_ok_eq_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_result_ok_eq_as_result_x_failure_because_ne() {
-        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = Result::Ok(<span class="number">1</span>);
-        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = Result::Ok(<span class="number">2</span>);
+        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
+        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">2</span>);
         <span class="kw">let </span>result = <span class="macro">assert_result_ok_eq_as_result!</span>(a, b);
         <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
@@ -345,18 +347,18 @@
                 <span class="string">"assertion failed: `assert_result_ok_eq!(a, b)`\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ok(1)`,\n"</span>,
+                <span class="string">" a inner: `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
                 <span class="string">" b debug: `Ok(2)`,\n"</span>,
-                <span class="string">"       a: `1`,\n"</span>,
-                <span class="string">"       b: `2`"</span>,
+                <span class="string">" b inner: `2`"</span>,
             )
         );
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_result_ok_eq_as_result_x_failure_because_not_ok() {
-        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = Result::Ok(<span class="number">1</span>);
-        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = Result::Err(<span class="number">1</span>);
+        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
+        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_result_ok_eq_as_result!</span>(a, b);
         <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
@@ -373,7 +375,7 @@
 
 }
 
-<span class="doccomment">/// Assert a result ok value is equal to another.
+<span class="doccomment">/// Assert two expressions are Ok(_) and their values are equal.
 ///
 /// * If true, return `()`.
 ///
@@ -386,31 +388,31 @@
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// let a: Result&lt;i8, i8&gt; = Result::Ok(1);
-/// let b: Result&lt;i8, i8&gt; = Result::Ok(1);
+/// let a: Result&lt;i8, i8&gt; = Ok(1);
+/// let b: Result&lt;i8, i8&gt; = Ok(1);
 /// assert_result_ok_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a: Result&lt;i8, i8&gt; = Result::Ok(1);
-/// let b: Result&lt;i8, i8&gt; = Result::Ok(2);
+/// let a: Result&lt;i8, i8&gt; = Ok(1);
+/// let b: Result&lt;i8, i8&gt; = Ok(2);
 /// assert_result_ok_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_result_ok_eq!(a, b)`
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
+/// //  a inner: `1`,
 /// //  b label: `b`,
 /// //  b debug: `Ok(2)`,
-/// //        a: `1`,
-/// //        b: `2`
+/// //  b inner: `2`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_result_ok_eq!(a, b)`\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
+/// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `Ok(2)`,\n",
-/// #     "       a: `1`,\n",
-/// #     "       b: `2`",
+/// #     " b inner: `2`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -424,21 +426,21 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_result_ok_eq {
-    (<span class="macro-nonterminal">$a_result</span>:expr, <span class="macro-nonterminal">$b_result</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_result_ok_eq_as_result!</span>(<span class="macro-nonterminal">$a_result</span>, <span class="macro-nonterminal">$b_result</span>) {
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_result_ok_eq_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a_result</span>:expr, <span class="macro-nonterminal">$b_result</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_result_ok_eq_as_result!</span>(<span class="macro-nonterminal">$a_result</span>, <span class="macro-nonterminal">$b_result</span>) {
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_result_ok_eq_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     });
 }
 
-<span class="doccomment">/// Assert a result ok value is equal to another.
+<span class="doccomment">/// Assert two expressions are Ok(_) and their values are equal.
 ///
 /// This macro provides the same statements as [`assert_result_ok_eq`](macro.assert_result_ok_eq.html),
 /// except this macro's statements are only enabled in non-optimized

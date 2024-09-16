@@ -85,7 +85,7 @@
 ///
 #[macro_export]
 macro_rules! assert_infix_as_result {
-    ($a:tt $infix:tt $b:tt) => {{
+    ($a:tt $infix:tt $b:tt) => ({
         if $a $infix $b {
             Ok(())
         } else {
@@ -95,7 +95,7 @@ macro_rules! assert_infix_as_result {
                     " a label: `{}`,\n",
                     " a debug: `{:?}`,\n",
                     " b label: `{}`,\n",
-                    " b debug: `{:?}`\n",
+                    " b debug: `{:?}`",
                 ),
                 stringify!($infix),
                 stringify!($a),
@@ -104,7 +104,7 @@ macro_rules! assert_infix_as_result {
                 $b,
             ))
         }
-    }};
+    });
 }
 
 #[cfg(test)]
@@ -133,7 +133,7 @@ mod tests {
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
-                " b debug: `2`\n",
+                " b debug: `2`",
             )
         );
         let result = assert_infix_as_result!(a >= b);
@@ -145,7 +145,7 @@ mod tests {
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
-                " b debug: `2`\n",
+                " b debug: `2`",
             )
         );
     }
@@ -184,7 +184,7 @@ mod tests {
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `2`\n",
+/// #     " b debug: `2`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -218,18 +218,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_infix {
-    ($a:tt $infix:tt $b:tt) => {
+    ($a:tt $infix:tt $b:tt) => ({
         match assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    };
-    ($a:tt $infix:tt $b:tt, $($message:tt)+) => {
+    });
+    ($a:tt $infix:tt $b:tt, $($message:tt)+) => ({
         match assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    };
+    });
 }
 
 /// Assert a infix operator, such as assert_infix!(a == b).

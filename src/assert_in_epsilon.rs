@@ -60,15 +60,15 @@
 ///
 #[macro_export]
 macro_rules! assert_in_epsilon_as_result {
-    ($a:expr, $b:expr, $epsilon:expr $(,)?) => {{
+    ($a:expr, $b:expr, $epsilon:expr $(,)?) => ({
         match (&$a, &$b, &$epsilon) {
-            (a_val, b_val, epsilon_val) => {
-                if a_val == b_val {
+            (a, b, epsilon) => {
+                if a == b {
                     Ok(())
                 } else {
-                    let diff = if (a_val > b_val) { a_val - b_val } else { b_val - a_val };
-                    let min = if (a_val < b_val) { a_val } else { b_val };
-                    let rhs = *epsilon_val * min;
+                    let diff = if (a > b) { a - b } else { b - a };
+                    let min = if (a < b) { a } else { b };
+                    let rhs = *epsilon * min;
                     if diff <= rhs {
                         Ok(())
                     } else {
@@ -86,11 +86,11 @@ macro_rules! assert_in_epsilon_as_result {
                                 " | a - b | ≤ epsilon * min(a, b): {}",
                             ),
                             stringify!($a),
-                            $a,
+                            a,
                             stringify!($b),
-                            $b,
+                            b,
                             stringify!($epsilon),
-                            $epsilon,
+                            epsilon,
                             diff,
                             rhs,
                             false
@@ -99,7 +99,7 @@ macro_rules! assert_in_epsilon_as_result {
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]

@@ -13,11 +13,11 @@
 //!
 //! The Rust programming language provides a few built-in assert macros to test code:
 //!
-//! The Rust programming language provides a few built-in assert macros to test code:
+//! The Rust programming language provides assert macros to test code:
 //!
-//! * `assert!()`
-//! * `assert_eq!(a, b)`
-//! * `assert_ne!(a, b)`
+//! * [`assert!()`](https://doc.rust-lang.org/std/macro.assert.html)
+//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html)
+//! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html)
 //!
 //! The assertables crate provides many more, so you can write smarter tests.
 //!
@@ -186,7 +186,7 @@
 //! * Package: assertables-rust-crate
 //! * Version: 8.6.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-15T17:11:03Z
+//! * Updated: 2024-09-18T03:02:31Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 

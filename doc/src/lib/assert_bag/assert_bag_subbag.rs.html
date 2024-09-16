@@ -229,16 +229,6 @@
 <a href="#229" id="229">229</a>
 <a href="#230" id="230">230</a>
 <a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
-<a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-<a href="#237" id="237">237</a>
-<a href="#238" id="238">238</a>
-<a href="#239" id="239">239</a>
-<a href="#240" id="240">240</a>
-<a href="#241" id="241">241</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is a subbag of another.
 //!
 //! # Example
@@ -280,22 +270,12 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_bag_subbag_as_result {
-    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_collection</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_collection</span>) {
-            (a_val, b_val) =&gt; {
-                <span class="kw">let </span><span class="kw-2">mut </span>a_bag: ::std::collections::BTreeMap&lt;<span class="kw">_</span>, usize&gt; =
-                    ::std::collections::BTreeMap::new();
-                <span class="kw">let </span><span class="kw-2">mut </span>b_bag: ::std::collections::BTreeMap&lt;<span class="kw">_</span>, usize&gt; =
-                    ::std::collections::BTreeMap::new();
-                <span class="kw">for </span>x <span class="kw">in </span>a_val.into_iter() {
-                    <span class="kw">let </span>n = a_bag.entry(x).or_insert(<span class="number">0</span>);
-                    <span class="kw-2">*</span>n += <span class="number">1</span>;
-                }
-                <span class="kw">for </span>x <span class="kw">in </span>b_val.into_iter() {
-                    <span class="kw">let </span>n = b_bag.entry(x).or_insert(<span class="number">0</span>);
-                    <span class="kw-2">*</span>n += <span class="number">1</span>;
-                }
-                <span class="kw">if </span>a_val.into_iter().all(|key| {
+            (a_collection, b_collection) =&gt; {
+                <span class="kw">let </span>a_bag = <span class="macro">assert_bag_impl_prep!</span>(a_collection);
+                <span class="kw">let </span>b_bag = <span class="macro">assert_bag_impl_prep!</span>(b_collection);
+                <span class="kw">if </span>a_collection.into_iter().all(|key| {
                     a_bag.contains_key(<span class="kw-2">&amp;</span>key)
                         &amp;&amp; b_bag.contains_key(<span class="kw-2">&amp;</span>key)
                         &amp;&amp; a_bag.get_key_value(<span class="kw-2">&amp;</span>key) &lt;= b_bag.get_key_value(<span class="kw-2">&amp;</span>key)
@@ -313,16 +293,16 @@
                             <span class="string">"       b: `{:?}`"
                         </span>),
                         <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
-                        <span class="macro-nonterminal">$a_collection</span>,
+                        a_collection,
                         <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
-                        <span class="macro-nonterminal">$b_collection</span>,
-                        <span class="kw-2">&amp;</span>a_bag,
-                        <span class="kw-2">&amp;</span>b_bag
+                        b_collection,
+                        a_bag,
+                        b_bag
                     ))
                 }
             }
         }
-    }};
+    });
 }
 
 <span class="attr">#[cfg(test)]

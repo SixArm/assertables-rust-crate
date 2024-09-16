@@ -569,8 +569,8 @@ Code:
 macro_rules! assert_gt_as_result {
     ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
-            (a_val, b_val) => {
-                if a_val > b_val {
+            (a, b) => {
+                if a > b {
                     Ok(())
                 } else {
                     Err(format!(
@@ -585,13 +585,13 @@ macro_rules! assert_gt_as_result {
                         ),
                         stringify!($a), $a,
                         stringify!($b), $b,
-                        a_val,
-                        b_val
+                        a,
+                        b
                     ))
                 }
             }
         }
-    });
+    }
 }
 ```
 

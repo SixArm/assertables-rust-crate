@@ -42,45 +42,49 @@
 #[macro_export]
 macro_rules! assert_command_stderr_is_match_as_result {
     ($command:expr, $matcher:expr $(,)?) => ({
-        let output = $command.output();
-        if output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
-                    " command label: `{}`,\n",
-                    " command debug: `{:?}`,\n",
-                    " matcher label: `{}`,\n",
-                    " matcher debug: `{:?}`,\n",
-                    " command output: `{:?}`"
-                ),
-                stringify!($command),
-                $command,
-                stringify!($matcher),
-                $matcher,
-                output
-            ))
-        } else {
-            let string = String::from_utf8(output.unwrap().stderr).unwrap();
-            if $matcher.is_match(&string) {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
-                        " command label: `{}`,\n",
-                        " command debug: `{:?}`,\n",
-                        " matcher label: `{}`,\n",
-                        " matcher debug: `{:?}`,\n",
-                        " command value: `{:?}`,\n",
-                        " matcher value: `{:?}`"
-                    ),
-                    stringify!($command),
-                    $command,
-                    stringify!($matcher),
-                    $matcher,
-                    string,
-                    $matcher
-                ))
+        match (/*&$command,*/ &$matcher) {
+            matcher => {
+                let output = $command.output();
+                if output.is_err() {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
+                            " command label: `{}`,\n",
+                            " command debug: `{:?}`,\n",
+                            " matcher label: `{}`,\n",
+                            " matcher debug: `{:?}`,\n",
+                            " command output: `{:?}`"
+                        ),
+                        stringify!($command),
+                        $command,
+                        stringify!($matcher),
+                        matcher,
+                        output
+                    ))
+                } else {
+                    let string = String::from_utf8(output.unwrap().stderr).unwrap();
+                    if $matcher.is_match(&string) {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
+                                " command label: `{}`,\n",
+                                " command debug: `{:?}`,\n",
+                                " matcher label: `{}`,\n",
+                                " matcher debug: `{:?}`,\n",
+                                " command value: `{:?}`,\n",
+                                " matcher value: `{:?}`"
+                            ),
+                            stringify!($command),
+                            $command,
+                            stringify!($matcher),
+                            matcher,
+                            string,
+                            matcher
+                        ))
+                    }
+                }
             }
         }
     });

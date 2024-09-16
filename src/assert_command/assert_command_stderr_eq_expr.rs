@@ -41,45 +41,49 @@
 #[macro_export]
 macro_rules! assert_command_stderr_eq_expr_as_result {
     ($a_command:expr, $b_expr:expr $(,)?) => ({
-        let a_output = $a_command.output();
-        if a_output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-                    "  command label: `{}`,\n",
-                    "     expr label: `{}`,\n",
-                    "  command debug: `{:?}`,\n",
-                    "     expr debug: `{:?}`,\n",
-                    " command output: `{:?}`"
-                ),
-                stringify!($a_command),
-                stringify!($b_expr),
-                $a_command,
-                $b_expr,
-                a_output
-            ))
-        } else {
-            let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if a_string == $b_expr {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-                        " command label: `{}`,\n",
-                        "    expr label: `{}`,\n",
-                        " command debug: `{:?}`,\n",
-                        "    expr debug: `{:?}`,\n",
-                        " command value: `{:?}`,\n",
-                        "    expr value: `{:?}`"
-                    ),
-                    stringify!($a_command),
-                    stringify!($b_expr),
-                    $a_command,
-                    $b_expr,
-                    a_string,
-                    $b_expr
-                ))
+        match (/*&$command,*/ &$b_expr) {
+            b_expr => {
+                let a_output = $a_command.output();
+                if a_output.is_err() {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
+                            "  command label: `{}`,\n",
+                            "  command debug: `{:?}`,\n",
+                            "     expr label: `{}`,\n",
+                            "     expr debug: `{:?}`,\n",
+                            " command output: `{:?}`"
+                        ),
+                        stringify!($a_command),
+                        $a_command,
+                        stringify!($b_expr),
+                        b_expr,
+                        a_output
+                    ))
+                } else {
+                    let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
+                    if a_string == String::from(b_expr) {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
+                                " command label: `{}`,\n",
+                                " command debug: `{:?}`,\n",
+                                "    expr label: `{}`,\n",
+                                "    expr debug: `{:?}`,\n",
+                                " command value: `{:?}`,\n",
+                                "    expr value: `{:?}`"
+                            ),
+                            stringify!($a_command),
+                            $a_command,
+                            stringify!($b_expr),
+                            b_expr,
+                            a_string,
+                            b_expr
+                        ))
+                    }
+                }
             }
         }
     });
@@ -109,8 +113,8 @@ mod tests {
         let expect = concat!(
             "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
             " command label: `a`,\n",
-            "    expr label: `b`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+            "    expr label: `b`,\n",
             "    expr debug: `\"zzz\"`,\n",
             " command value: `\"hello\"`,\n",
             "    expr value: `\"zzz\"`"
@@ -147,8 +151,8 @@ mod tests {
 /// # });
 /// // assertion failed: `assert_command_stderr_eq_expr!(command, expr)`
 /// //  command label: `command`,
-/// //     expr label: `s`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
+/// //     expr label: `s`,
 /// //     expr debug: `\"zzz\"`,
 /// //  command value: `\"hello\"`,
 /// //     expr value: `\"zzz\"`
@@ -156,8 +160,8 @@ mod tests {
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
 /// #     " command label: `command`,\n",
-/// #     "    expr label: `s`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+/// #     "    expr label: `s`,\n",
 /// #     "    expr debug: `\"zzz\"`,\n",
 /// #     " command value: `\"hello\"`,\n",
 /// #     "    expr value: `\"zzz\"`"

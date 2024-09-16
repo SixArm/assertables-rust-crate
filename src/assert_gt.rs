@@ -37,10 +37,10 @@
 ///
 #[macro_export]
 macro_rules! assert_gt_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
-            (a_val, b_val) => {
-                if a_val > b_val {
+            (a, b) => {
+                if a > b {
                     Ok(())
                 } else {
                     Err(format!(
@@ -49,21 +49,17 @@ macro_rules! assert_gt_as_result {
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
-                            " b debug: `{:?}`,\n",
-                            "       a: `{:?}`,\n",
-                            "       b: `{:?}`"
+                            " b debug: `{:?}`",
                         ),
                         stringify!($a),
-                        $a,
+                        a,
                         stringify!($b),
-                        $b,
-                        a_val,
-                        b_val
+                        b
                     ))
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]
@@ -90,9 +86,7 @@ mod tests {
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
-                " b debug: `2`,\n",
-                "       a: `1`,\n",
-                "       b: `2`"
+                " b debug: `2`",
             )
         );
     }
@@ -124,18 +118,14 @@ mod tests {
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,
-/// //  b debug: `2`,
-/// //        a: `1`,
-/// //        b: `2`
+/// //  b debug: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_gt!(a, b)`\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `2`,\n",
-/// #     "       a: `1`,\n",
-/// #     "       b: `2`"
+/// #     " b debug: `2`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

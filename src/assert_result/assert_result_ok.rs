@@ -1,11 +1,11 @@
-//! Assert a.is_ok().
+//! Assert expression is Ok(_).
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
-//! let a: Result<(), i8> = Result::Ok(());
+//! let a: Result<(), i8> = Ok(());
 //! assert_result_ok!(a);
 //! # }
 //! ```
@@ -16,7 +16,7 @@
 //! * [`assert_result_ok_as_result`](macro@crate::assert_result_ok_as_result)
 //! * [`debug_assert_result_ok`](macro@crate::debug_assert_result_ok)
 
-/// Assert a.is_ok() is true.
+/// Assert expression is Ok(_).
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -36,28 +36,28 @@
 ///
 #[macro_export]
 macro_rules! assert_result_ok_as_result {
-    ($result:expr $(,)?) => {{
+    ($result:expr $(,)?) => ({
         match (&$result) {
-            result_val => {
-                let is_ok = result_val.is_ok();
-                if is_ok {
-                    Ok(())
-                } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_result_ok!(result)`\n",
-                            "   result label: `{}`,\n",
-                            "   result debug: `{:?}`,\n",
-                            " result.is_ok(): `{:?}`",
-                        ),
-                        stringify!($result),
-                        $result,
-                        is_ok,
-                    ))
+            result => {
+                match (result) {
+                    Ok(_) => {
+                        Ok(())
+                    },
+                    _ => {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_result_ok!(a)`\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`",
+                            ),
+                            stringify!($result),
+                            result
+                        ))
+                    }
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]
@@ -65,29 +65,28 @@ mod tests {
 
     #[test]
     fn test_assert_result_ok_as_result_x_success() {
-        let a: Result<(), i8> = Result::Ok(());
+        let a: Result<(), i8> = Ok(());
         let result = assert_result_ok_as_result!(a);
         assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_result_ok_as_result_x_failure() {
-        let a: Result<(), i8> = Result::Err(1);
+        let a: Result<(), i8> = Err(1);
         let result = assert_result_ok_as_result!(a);
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_result_ok!(result)`\n",
-                "   result label: `a`,\n",
-                "   result debug: `Err(1)`,\n",
-                " result.is_ok(): `false`"
+                "assertion failed: `assert_result_ok!(a)`\n",
+                " a label: `a`,\n",
+                " a debug: `Err(1)`",
             )
         );
     }
 }
 
-/// Assert a.is_ok() is true.
+/// Assert expression is Ok(_).
 ///
 /// * If true, return `()`.
 ///
@@ -100,23 +99,21 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// let a: Result<(), i8> = Result::Ok(());
+/// let a: Result<(), i8> = Ok(());
 /// assert_result_ok!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a: Result<(), i8> = Result::Err(1);
+/// let a: Result<(), i8> = Err(1);
 /// assert_result_ok!(a);
 /// # });
-/// // assertion failed: `assert_result_ok!(result)`
-/// //    result label: `a`,
-/// //    result debug: `Err(1)`,
-/// //  result.is_ok(): `false`
+/// // assertion failed: `assert_result_ok!(a)`
+/// //  a label: `a`,
+/// //  a debug: `Err(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_result_ok!(result)`\n",
-/// #     "   result label: `a`,\n",
-/// #     "   result debug: `Err(1)`,\n",
-/// #     " result.is_ok(): `false`",
+/// #     "assertion failed: `assert_result_ok!(a)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `Err(1)`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -144,7 +141,7 @@ macro_rules! assert_result_ok {
     });
 }
 
-/// Assert a.is_ok() is true.
+/// Assert expression is Ok(_).
 ///
 /// This macro provides the same statements as [`assert_result_ok`](macro.assert_result_ok.html),
 /// except this macro's statements are only enabled in non-optimized

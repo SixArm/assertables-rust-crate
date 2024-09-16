@@ -39,55 +39,57 @@
 #[macro_export]
 macro_rules! assert_program_args_stdout_ne_expr_as_result {
     ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => ({
-        let mut a_command = ::std::process::Command::new($a_program);
-        a_command.args($a_args);
-        let a_output = a_command.output();
-        if a_output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_program_args_stdout_ne_expr!(a_program, a_args, b_expr)`\n",
-                    " a_program label: `{}`,\n",
-                    " a_program debug: `{:?}`,\n",
-                    "    a_args label: `{}`,\n",
-                    "    a_args debug: `{:?}`,\n",
-                    "    b_expr label: `{}`,\n",
-                    "    b_expr debug: `{:?}`,\n",
-                    "        a output: `{:?}`"
-                ),
-                stringify!($a_program),
-                $a_program,
-                stringify!($a_args),
-                $a_args,
-                stringify!($b_expr),
-                $b_expr,
-                a_output
-            ))
-        } else {
-            let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            if a_string != $b_expr {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_program_args_stdout_ne_expr!(a_program, a_args, b_expr)`\n",
-                        " a_program label: `{}`,\n",
-                        " a_program debug: `{:?}`,\n",
-                        "    a_args label: `{}`,\n",
-                        "    a_args debug: `{:?}`,\n",
-                        "    b_expr label: `{}`,\n",
-                        "    b_expr debug: `{:?}`,\n",
-                        "               a: `{:?}`,\n",
-                        "               b: `{:?}`"
-                    ),
-                    stringify!($a_program),
-                    $a_program,
-                    stringify!($a_args),
-                    $a_args,
-                    stringify!($b_expr),
-                    $b_expr,
-                    a_string,
-                    $b_expr
-                ))
+        match ($a_program, $a_args, $b_expr) {
+            (a_program, a_args, b_expr) => {
+                let a_output = assert_program_args_impl_prep!(a_program, a_args);
+                if a_output.is_err() {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_program_args_stdout_ne_expr!(a_program, a_args, b_expr)`\n",
+                            " a_program label: `{}`,\n",
+                            " a_program debug: `{:?}`,\n",
+                            "    a_args label: `{}`,\n",
+                            "    a_args debug: `{:?}`,\n",
+                            "    b_expr label: `{}`,\n",
+                            "    b_expr debug: `{:?}`,\n",
+                            "        a output: `{:?}`"
+                        ),
+                        stringify!($a_program),
+                        a_program,
+                        stringify!($a_args),
+                        a_args,
+                        stringify!($b_expr),
+                        b_expr,
+                        a_output
+                    ))
+                } else {
+                    let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
+                    if a_string != b_expr {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_program_args_stdout_ne_expr!(a_program, a_args, b_expr)`\n",
+                                " a_program label: `{}`,\n",
+                                " a_program debug: `{:?}`,\n",
+                                "    a_args label: `{}`,\n",
+                                "    a_args debug: `{:?}`,\n",
+                                "    b_expr label: `{}`,\n",
+                                "    b_expr debug: `{:?}`,\n",
+                                "               a: `{:?}`,\n",
+                                "               b: `{:?}`"
+                            ),
+                            stringify!($a_program),
+                            a_program,
+                            stringify!($a_args),
+                            a_args,
+                            stringify!($b_expr),
+                            b_expr,
+                            a_string,
+                            b_expr
+                        ))
+                    }
+                }
             }
         }
     });

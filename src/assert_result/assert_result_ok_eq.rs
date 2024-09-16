@@ -1,12 +1,12 @@
-//! Assert a result ok value is equal to another.
+//! Assert two expressions are Ok(_) and their values are equal.
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
-//! let a: Result<i8, i8> = Result::Ok(1);
-//! let b: Result<i8, i8> = Result::Ok(1);
+//! let a: Result<i8, i8> = Ok(1);
+//! let b: Result<i8, i8> = Ok(1);
 //! assert_result_ok_eq!(a, b);
 //! # }
 //! ```
@@ -17,7 +17,7 @@
 //! * [`assert_result_ok_eq_as_result`](macro@crate::assert_result_ok_eq_as_result)
 //! * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
 
-/// Assert a result ok value is equal to another.
+/// Assert two expressions are Ok(_) and their values are equal.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -37,51 +37,52 @@
 ///
 #[macro_export]
 macro_rules! assert_result_ok_eq_as_result {
-    ($a_result:expr, $b_result:expr $(,)?) => {{
-        match (&$a_result, &$b_result) {
-            (a_result, b_result) => {
-                if !a_result.is_ok() || !b_result.is_ok() {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_result_ok_eq!(a, b)`\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`",
-                        ),
-                        stringify!($a_result),
-                        $a_result,
-                        stringify!($b_result),
-                        $b_result,
-                    ))
-                } else {
-                    let a = a_result.unwrap();
-                    let b = b_result.unwrap();
-                    if a == b {
-                        Ok(())
-                    } else {
+    ($a:expr, $b:expr $(,)?) => ({
+        match (&$a, &$b) {
+            (a, b) => {
+                match (a, b) {
+                    (Ok(a_inner), Ok(b_inner)) => {
+                        if a_inner == b_inner {
+                            Ok(())
+                        } else {
+                            Err(format!(
+                                concat!(
+                                    "assertion failed: `assert_result_ok_eq!(a, b)`\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`,\n",
+                                    " a inner: `{:?}`,\n",
+                                    " b label: `{}`,\n",
+                                    " b debug: `{:?}`,\n",
+                                    " b inner: `{:?}`"
+                                ),
+                                stringify!($a),
+                                a,
+                                a_inner,
+                                stringify!($b),
+                                b,
+                                b_inner
+                            ))
+                        }
+                    },
+                    _ => {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_result_ok_eq!(a, b)`\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                "       a: `{:?}`,\n",
-                                "       b: `{:?}`"
+                                " b debug: `{:?}`",
                             ),
-                            stringify!($a_result),
-                            $a_result,
-                            stringify!($b_result),
-                            $b_result,
+                            stringify!($a),
                             a,
-                            b
+                            stringify!($b),
+                            b,
                         ))
                     }
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]
@@ -89,16 +90,16 @@ mod tests {
 
     #[test]
     fn test_assert_result_ok_eq_as_result_x_success() {
-        let a: Result<i8, i8> = Result::Ok(1);
-        let b: Result<i8, i8> = Result::Ok(1);
+        let a: Result<i8, i8> = Ok(1);
+        let b: Result<i8, i8> = Ok(1);
         let result = assert_result_ok_eq_as_result!(a, b);
         assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_result_ok_eq_as_result_x_failure_because_ne() {
-        let a: Result<i8, i8> = Result::Ok(1);
-        let b: Result<i8, i8> = Result::Ok(2);
+        let a: Result<i8, i8> = Ok(1);
+        let b: Result<i8, i8> = Ok(2);
         let result = assert_result_ok_eq_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
@@ -107,18 +108,18 @@ mod tests {
                 "assertion failed: `assert_result_ok_eq!(a, b)`\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
+                " a inner: `1`,\n",
                 " b label: `b`,\n",
                 " b debug: `Ok(2)`,\n",
-                "       a: `1`,\n",
-                "       b: `2`",
+                " b inner: `2`",
             )
         );
     }
 
     #[test]
     fn test_assert_result_ok_eq_as_result_x_failure_because_not_ok() {
-        let a: Result<i8, i8> = Result::Ok(1);
-        let b: Result<i8, i8> = Result::Err(1);
+        let a: Result<i8, i8> = Ok(1);
+        let b: Result<i8, i8> = Err(1);
         let result = assert_result_ok_eq_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
@@ -135,7 +136,7 @@ mod tests {
 
 }
 
-/// Assert a result ok value is equal to another.
+/// Assert two expressions are Ok(_) and their values are equal.
 ///
 /// * If true, return `()`.
 ///
@@ -148,31 +149,31 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// let a: Result<i8, i8> = Result::Ok(1);
-/// let b: Result<i8, i8> = Result::Ok(1);
+/// let a: Result<i8, i8> = Ok(1);
+/// let b: Result<i8, i8> = Ok(1);
 /// assert_result_ok_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a: Result<i8, i8> = Result::Ok(1);
-/// let b: Result<i8, i8> = Result::Ok(2);
+/// let a: Result<i8, i8> = Ok(1);
+/// let b: Result<i8, i8> = Ok(2);
 /// assert_result_ok_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_result_ok_eq!(a, b)`
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
+/// //  a inner: `1`,
 /// //  b label: `b`,
 /// //  b debug: `Ok(2)`,
-/// //        a: `1`,
-/// //        b: `2`
+/// //  b inner: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_result_ok_eq!(a, b)`\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
+/// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `Ok(2)`,\n",
-/// #     "       a: `1`,\n",
-/// #     "       b: `2`",
+/// #     " b inner: `2`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -186,21 +187,21 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_result_ok_eq {
-    ($a_result:expr, $b_result:expr $(,)?) => ({
-        match assert_result_ok_eq_as_result!($a_result, $b_result) {
+    ($a:expr, $b:expr $(,)?) => ({
+        match assert_result_ok_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_result:expr, $b_result:expr, $($message:tt)+) => ({
-        match assert_result_ok_eq_as_result!($a_result, $b_result) {
+    ($a:expr, $b:expr, $($message:tt)+) => ({
+        match assert_result_ok_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert a result ok value is equal to another.
+/// Assert two expressions are Ok(_) and their values are equal.
 ///
 /// This macro provides the same statements as [`assert_result_ok_eq`](macro.assert_result_ok_eq.html),
 /// except this macro's statements are only enabled in non-optimized

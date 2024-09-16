@@ -38,45 +38,47 @@
 #[macro_export]
 macro_rules! assert_fs_read_to_string_contains_as_result {
     ($path:expr, $containee:expr $(,)?) => ({
-        let a_result = ::std::fs::read_to_string($path);
-        if let Err(a_err) = a_result {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                    "      path label: `{}`,\n",
-                    "      path debug: `{:?}`,\n",
-                    " containee label: `{}`,\n",
-                    " containee debug: `{:?}`,\n",
-                    "        path err: `{:?}`"
-                ),
-                stringify!($path),
-                $path,
-                stringify!($containee),
-                $containee,
-                a_err
-            ))
-        } else {
-            let a_string = a_result.unwrap();
-            if a_string.contains($containee) {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                        "      path label: `{}`,\n",
-                        "      path debug: `{:?}`,\n",
-                        " containee label: `{}`,\n",
-                        " containee debug: `{:?}`,\n",
-                        "  read to string: `{:?}`,\n",
-                        "       containee: `{:?}`",
-                    ),
-                    stringify!($path),
-                    $path,
-                    stringify!($containee),
-                    $containee,
-                    a_string,
-                    $containee
-                ))
+        match (&$path, &$containee) {
+            (path, containee) => {
+                let read_result = ::std::fs::read_to_string(path);
+                if let Err(a_err) = read_result {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
+                            "      path label: `{}`,\n",
+                            "      path debug: `{:?}`,\n",
+                            " containee label: `{}`,\n",
+                            " containee debug: `{:?}`,\n",
+                            "        read err: `{:?}`"
+                        ),
+                        stringify!($path),
+                        path,
+                        stringify!($containee),
+                        containee,
+                        a_err
+                    ))
+                } else {
+                    let read_string = read_result.unwrap();
+                    if read_string.contains($containee) {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
+                                "      path label: `{}`,\n",
+                                "      path debug: `{:?}`,\n",
+                                " containee label: `{}`,\n",
+                                " containee debug: `{:?}`,\n",
+                                "     read string: `{:?}`",
+                            ),
+                            stringify!($path),
+                            path,
+                            stringify!($containee),
+                            containee,
+                            read_string
+                        ))
+                    }
+                }
             }
         }
     });
@@ -113,14 +115,13 @@ mod tests {
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
-            format!("{}{}{}{}{}{}{}{}{}",
+            format!("{}{}{}{}{}{}{}{}",
                 "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
                 "      path label: `&path`,\n",
                 "      path debug: `\"", path.to_string_lossy(), "\"`,\n",
                 " containee label: `&containee`,\n",
                 " containee debug: `\"zzz\"`,\n",
-                "  read to string: `\"alfa\\n\"`,\n",
-                "       containee: `\"zzz\"`"
+                "     read string: `\"alfa\\n\"`",
             )
         );
     }
@@ -155,8 +156,7 @@ mod tests {
 /// //       path debug: `\"alfa.txt\"`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zzz\"`,
-/// //   read to string: `\"alfa\\n\"`,
-/// //        containee: `\"zzz\"`
+/// //      read string: `\"alfa\\n\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
@@ -164,8 +164,7 @@ mod tests {
 /// #     "      path debug: `\"alfa.txt\"`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zzz\"`,\n",
-/// #     "  read to string: `\"alfa\\n\"`,\n",
-/// #     "       containee: `\"zzz\"`"
+/// #     "     read string: `\"alfa\\n\"`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

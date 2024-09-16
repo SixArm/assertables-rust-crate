@@ -233,6 +233,10 @@
 <a href="#233" id="233">233</a>
 <a href="#234" id="234">234</a>
 <a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string() value is equal to an expression.
 //!
 //! # Example
@@ -273,46 +277,50 @@
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_eq_expr_as_result {
     (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span>a_result = ::std::fs::read_to_string(<span class="macro-nonterminal">$a_path</span>);
-        <span class="kw">if let </span><span class="prelude-val">Err</span>(a_err) = a_result {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n"</span>,
-                    <span class="string">" a_path label: `{}`,\n"</span>,
-                    <span class="string">" a_path debug: `{:?}`,\n"</span>,
-                    <span class="string">" b_expr label: `{}`,\n"</span>,
-                    <span class="string">" b_expr debug: `{:?}`,\n"</span>,
-                    <span class="string">"        a err: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
-                <span class="macro-nonterminal">$a_path</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                <span class="macro-nonterminal">$b_expr</span>,
-                a_err
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>a_string = a_result.unwrap();
-            <span class="kw">let </span>b_string = String::from(<span class="macro-nonterminal">$b_expr</span>);
-            <span class="kw">if </span>a_string == b_string {
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n"</span>,
-                        <span class="string">" a_path label: `{}`,\n"</span>,
-                        <span class="string">" a_path debug: `{:?}`,\n"</span>,
-                        <span class="string">" b_expr label: `{}`,\n"</span>,
-                        <span class="string">" b_expr debug: `{:?}`,\n"</span>,
-                        <span class="string">"       a: `{:?}`,\n"</span>,
-                        <span class="string">"       b: `{:?}`"
-                    </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
-                    <span class="macro-nonterminal">$a_path</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                    <span class="macro-nonterminal">$b_expr</span>,
-                    a_string,
-                    b_string
-                ))
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_path</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
+            (a_path, b_expr) =&gt; {
+                <span class="kw">let </span>a_result = ::std::fs::read_to_string(a_path);
+                <span class="kw">if let </span><span class="prelude-val">Err</span>(a_err) = a_result {
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n"</span>,
+                            <span class="string">" a_path label: `{}`,\n"</span>,
+                            <span class="string">" a_path debug: `{:?}`,\n"</span>,
+                            <span class="string">" b_expr label: `{}`,\n"</span>,
+                            <span class="string">" b_expr debug: `{:?}`,\n"</span>,
+                            <span class="string">"        a err: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
+                        a_path,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                        b_expr,
+                        a_err
+                    ))
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>a_string = a_result.unwrap();
+                    <span class="kw">let </span>b_string = String::from(<span class="macro-nonterminal">$b_expr</span>);
+                    <span class="kw">if </span>a_string == b_string {
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n"</span>,
+                                <span class="string">" a_path label: `{}`,\n"</span>,
+                                <span class="string">" a_path debug: `{:?}`,\n"</span>,
+                                <span class="string">" b_expr label: `{}`,\n"</span>,
+                                <span class="string">" b_expr debug: `{:?}`,\n"</span>,
+                                <span class="string">"     a string: `{:?}`,\n"</span>,
+                                <span class="string">"     b string: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
+                            a_path,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                            b_expr,
+                            a_string,
+                            b_string
+                        ))
+                    }
+                }
             }
         }
     });
@@ -358,8 +366,8 @@
                 <span class="string">"\"`,\n"</span>,
                 <span class="string">" b_expr label: `&amp;value`,\n"</span>,
                 <span class="string">" b_expr debug: `\"bravo\\n\"`,\n"</span>,
-                <span class="string">"       a: `\"alfa\\n\"`,\n"</span>,
-                <span class="string">"       b: `\"bravo\\n\"`"
+                <span class="string">"     a string: `\"alfa\\n\"`,\n"</span>,
+                <span class="string">"     b string: `\"bravo\\n\"`"
             </span>)
         );
     }
@@ -394,8 +402,8 @@
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_expr label: `&amp;value`,
 /// //  b_expr debug: `\"bravo\\n\"`,
-/// //        a: `\"alfa\\n\"`,
-/// //        b: `\"bravo\\n\"`
+/// //      a string: `\"alfa\\n\"`,
+/// //      b string: `\"bravo\\n\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n",
@@ -403,8 +411,8 @@
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_expr label: `&amp;value`,\n",
 /// #     " b_expr debug: `\"bravo\\n\"`,\n",
-/// #     "       a: `\"alfa\\n\"`,\n",
-/// #     "       b: `\"bravo\\n\"`"
+/// #     "     a string: `\"alfa\\n\"`,\n",
+/// #     "     b string: `\"bravo\\n\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

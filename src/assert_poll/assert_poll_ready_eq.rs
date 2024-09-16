@@ -1,13 +1,14 @@
-//! Assert a poll ready value is equal to another.
+//! Assert two expressions are Ready(_) and their values are equal.
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! use std::task::Poll;
+//! use std::task::Poll::*;
 //! # fn main() {
-//! let a: Poll<i8> = Poll::Ready(1);
-//! let b: Poll<i8> = Poll::Ready(1);
+//! let a: Poll<i8> = Ready(1);
+//! let b: Poll<i8> = Ready(1);
 //! assert_poll_ready_eq!(a, b);
 //! # }
 //! ```
@@ -18,7 +19,7 @@
 //! * [`assert_poll_ready_eq_as_result`](macro@crate::assert_poll_ready_eq_as_result)
 //! * [`debug_assert_poll_ready_eq`](macro@crate::debug_assert_poll_ready_eq)
 
-/// Assert a poll ready value is equal to another.
+/// Assert two expressions are Ready(_) and their values are equal.
 ///
 /// * If true, return Result `Some(())`.
 ///
@@ -38,64 +39,71 @@
 ///
 #[macro_export]
 macro_rules! assert_poll_ready_eq_as_result {
-    ($a_poll:expr, $b_poll:expr $(,)?) => {
-        match (&$a_poll, &$b_poll) {
-            (Poll::Ready(a), Poll::Ready(b)) =>
-                if a == b {
-                    Ok(())
-                } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_poll_ready_eq!(a, b)`\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`,\n",
-                            "       a: `{:?}`,\n",
-                            "       b: `{:?}`"
-                        ),
-                        stringify!($a_poll),
-                        $a_poll,
-                        stringify!($b_poll),
-                        $b_poll,
-                        a,
-                        b
-                    ))
+    ($a:expr, $b:expr $(,)?) => ({
+        match (&$a, &$b) {
+            (a, b) => {
+                match (a, b) {
+                    (Ready(a_inner), Ready(b_inner)) => {
+                        if a_inner == b_inner {
+                            Ok(())
+                        } else {
+                            Err(format!(
+                                concat!(
+                                    "assertion failed: `assert_poll_ready_eq!(a, b)`\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`,\n",
+                                    " a inner: `{:?}`,\n",
+                                    " b label: `{}`,\n",
+                                    " b debug: `{:?}`,\n",
+                                    " b inner: `{:?}`"
+                                ),
+                                stringify!($a),
+                                a,
+                                a_inner,
+                                stringify!($b),
+                                b,
+                                b_inner
+                            ))
+                        }
+                    },
+                    _ => {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_poll_ready_eq!(a, b)`\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`",
+                            ),
+                            stringify!($a),
+                            a,
+                            stringify!($b),
+                            $b
+                        ))
+                    }
                 }
-            _ =>
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_poll_ready_eq!(a, b)`\n",
-                        " a label: `{}`,\n",
-                        " a debug: `{:?}`,\n",
-                        " b label: `{}`,\n",
-                        " b debug: `{:?}`",
-                    ),
-                    stringify!($a_poll),
-                    $a_poll,
-                    stringify!($b_poll),
-                    $b_poll
-                ))
+            }
         }
-    }
+    });
 }
 
 #[cfg(test)]
 mod tests {
     use std::task::Poll;
+    use std::task::Poll::*;
 
     #[test]
     fn test_assert_poll_ready_eq_as_result_x_success() {
-        let a: Poll<i8> = Poll::Ready(1);
-        let b: Poll<i8> = Poll::Ready(1);
+        let a: Poll<i8> = Ready(1);
+        let b: Poll<i8> = Ready(1);
         let result = assert_poll_ready_eq_as_result!(a, b);
         assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_poll_ready_eq_as_result_x_failure_because_ne() {
-        let a: Poll<i8> = Poll::Ready(1);
-        let b: Poll<i8> = Poll::Ready(2);
+        let a: Poll<i8> = Ready(1);
+        let b: Poll<i8> = Ready(2);
         let result = assert_poll_ready_eq_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
@@ -104,18 +112,18 @@ mod tests {
                 "assertion failed: `assert_poll_ready_eq!(a, b)`\n",
                 " a label: `a`,\n",
                 " a debug: `Ready(1)`,\n",
+                " a inner: `1`,\n",
                 " b label: `b`,\n",
                 " b debug: `Ready(2)`,\n",
-                "       a: `1`,\n",
-                "       b: `2`",
+                " b inner: `2`",
             )
         );
     }
 
     #[test]
     fn test_assert_poll_ready_eq_as_result_x_failure_because_not_ready() {
-        let a: Poll<i8> = Poll::Ready(1);
-        let b: Poll<i8> = Poll::Pending;
+        let a: Poll<i8> = Ready(1);
+        let b: Poll<i8> = Pending;
         let result = assert_poll_ready_eq_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
@@ -132,7 +140,7 @@ mod tests {
 
 }
 
-/// Assert a poll ready value is equal to another.
+/// Assert two expressions are Ready(_) and their values are equal.
 ///
 /// * If true, return `()`.
 ///
@@ -145,32 +153,33 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// use std::task::Poll;
+/// use std::task::Poll::*;
 /// # fn main() {
-/// let a: Poll<i8> = Poll::Ready(1);
-/// let b: Poll<i8> = Poll::Ready(1);
+/// let a: Poll<i8> = Ready(1);
+/// let b: Poll<i8> = Ready(1);
 /// assert_poll_ready_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a: Poll<i8> = Poll::Ready(1);
-/// let b: Poll<i8> = Poll::Ready(2);
+/// let a: Poll<i8> = Ready(1);
+/// let b: Poll<i8> = Ready(2);
 /// assert_poll_ready_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_poll_ready_eq!(a, b)`
 /// //  a label: `a`,
 /// //  a debug: `Ready(1)`,
+/// //  a inner: `1`,
 /// //  b label: `b`,
 /// //  b debug: `Ready(2)`,
-/// //        a: `1`,
-/// //        b: `2`
+/// //  b inner: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_poll_ready_eq!(a, b)`\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`,\n",
+/// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `Ready(2)`,\n",
-/// #     "       a: `1`,\n",
-/// #     "       b: `2`",
+/// #     " b inner: `2`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -184,21 +193,21 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_poll_ready_eq {
-    ($a_poll:expr, $b_poll:expr $(,)?) => {
-        match assert_poll_ready_eq_as_result!($a_poll, $b_poll) {
+    ($a:expr, $b:expr $(,)?) => ({
+        match assert_poll_ready_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    };
-    ($a_poll:expr, $b_poll:expr, $($message:tt)+) => {
-        match assert_poll_ready_eq_as_result!($a_poll, $b_poll) {
+    });
+    ($a:expr, $b:expr, $($message:tt)+) => ({
+        match assert_poll_ready_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    };
+    });
 }
 
-/// Assert a poll ready value is equal to another.
+/// Assert two expressions are Ready(_) and their values are equal.
 ///
 /// This macro provides the same statements as [`assert_poll_ready_eq`](macro.assert_poll_ready_eq.html),
 /// except this macro's statements are only enabled in non-optimized

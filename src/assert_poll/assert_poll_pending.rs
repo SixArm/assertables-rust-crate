@@ -1,13 +1,14 @@
-//! Assert poll is pending.
+//! Assert an expression is Pending.
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! use std::task::Poll;
+//! use std::task::Poll::*;
 //!
 //! # fn main() {
-//! let a: Poll<i8> = Poll::Pending;
+//! let a: Poll<i8> = Pending;
 //! assert_poll_pending!(a);
 //! # }
 //! ```
@@ -38,52 +39,59 @@
 ///
 #[macro_export]
 macro_rules! assert_poll_pending_as_result {
-    ($poll:expr $(,)?) => {
-        match (&$poll) {
-            Poll::Pending =>
-                Ok(()),
-            _ =>
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_poll_pending!(poll)`\n",
-                        " poll label: `{}`,\n",
-                        " poll debug: `{:?}`",
-                    ),
-                    stringify!($poll),
-                    $poll
-                ))
+    ($a:expr $(,)?) => ({
+        match (&$a) {
+            a => {
+                match (a) {
+                    Pending => {
+                        Ok(())
+                    },
+                    _ => {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_poll_pending!(a)`\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`",
+                            ),
+                            stringify!($a),
+                            a
+                        ))
+                    }
+                }
+            }
         }
-    }
+    });
 }
 
 #[cfg(test)]
 mod tests {
     use std::task::Poll;
+    use std::task::Poll::*;
 
     #[test]
     fn test_assert_poll_pending_as_result_x_success() {
-        let a: Poll<i8> = Poll::Pending;
+        let a: Poll<i8> = Pending;
         let result = assert_poll_pending_as_result!(a);
         assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_poll_pending_as_result_x_failure() {
-        let a: Poll<i8> = Poll::Ready(1);
+        let a: Poll<i8> = Ready(1);
         let result = assert_poll_pending_as_result!(a);
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_poll_pending!(poll)`\n",
-                " poll label: `a`,\n",
-                " poll debug: `Ready(1)`",
+                "assertion failed: `assert_poll_pending!(a)`\n",
+                " a label: `a`,\n",
+                " a debug: `Ready(1)`"
             )
         );
     }
 }
 
-/// Assert poll is pending.
+/// Assert an expression is Pending.
 ///
 /// * If true, return `()`.
 ///
@@ -96,23 +104,23 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// use std::task::Poll;
+/// use std::task::Poll::*;
 /// # fn main() {
-/// let a: Poll<i8> = Poll::Pending;
+/// let a: Poll<i8> = Pending;
 /// assert_poll_pending!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a: Result<(), i8> = Result::Err(1);
-/// let a: Poll<i8> = Poll::Ready(1);
+/// let a: Poll<i8> = Ready(1);
 /// assert_poll_pending!(a);
 /// # });
-/// // assertion failed: `assert_poll_pending!(poll)`
-/// //  poll label: `a`,
-/// //  poll debug: `Ready(1)`
+/// // assertion failed: `assert_poll_pending!(a)`
+/// //  a label: `a`,
+/// //  a debug: `Ready(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_poll_pending!(poll)`\n",
-/// #     " poll label: `a`,\n",
-/// #     " poll debug: `Ready(1)`",
+/// #     "assertion failed: `assert_poll_pending!(a)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `Ready(1)`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -126,21 +134,21 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_poll_pending {
-    ($poll:expr $(,)?) => {
+    ($poll:expr $(,)?) => ({
         match assert_poll_pending_as_result!($poll) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    };
-    ($poll:expr, $($message:tt)+) => {
+    });
+    ($poll:expr, $($message:tt)+) => ({
         match assert_poll_pending_as_result!($poll) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    };
+    });
 }
 
-/// Assert poll is pending.
+/// Assert an expression is Pending.
 ///
 /// This macro provides the same statements as [`assert_poll_pending`](macro.assert_poll_pending.html),
 /// except this macro's statements are only enabled in non-optimized

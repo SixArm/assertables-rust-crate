@@ -1,4 +1,4 @@
-//! Assert expression.is_some() is true.
+//!Assert expression is Some(_).
 //!
 //! # Example
 //!
@@ -36,28 +36,28 @@
 ///
 #[macro_export]
 macro_rules! assert_option_some_as_result {
-    ($option:expr $(,)?) => {{
+    ($option:expr $(,)?) => ({
         match (&$option) {
-            option_val => {
-                let is_some = option_val.is_some();
-                if is_some {
-                    Ok(())
-                } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_option_some!(option)`\n",
-                            "     option label: `{}`,\n",
-                            "     option debug: `{:?}`,\n",
-                            " expr.is_some(): `{:?}`",
-                        ),
-                        stringify!($option),
-                        $option,
-                        is_some,
-                    ))
+            option => {
+                match (option) {
+                    Some(_) => {
+                        Ok(())
+                    },
+                    _ => {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_option_some!(a)`\n",
+                                " option label: `{}`,\n",
+                                " option debug: `{:?}`",
+                            ),
+                            stringify!($option),
+                            option
+                        ))
+                    }
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]
@@ -78,16 +78,15 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_option_some!(option)`\n",
-                "     option label: `a`,\n",
-                "     option debug: `None`,\n",
-                " expr.is_some(): `false`"
+                "assertion failed: `assert_option_some!(a)`\n",
+                " option label: `a`,\n",
+                " option debug: `None`",
             )
         );
     }
 }
 
-/// Assert expression.is_some() is true.
+///Assert expression is Some(_).
 ///
 /// * If true, return `()`.
 ///
@@ -107,16 +106,14 @@ mod tests {
 /// let a: Option<i8> = Option::None;
 /// assert_option_some!(a);
 /// # });
-/// // assertion failed: `assert_option_some!(option)`
-/// //      option label: `a`,
-/// //      option debug: `None`,
-/// //  expr.is_some(): `false`
+/// // assertion failed: `assert_option_some!(a)`
+/// //  option label: `a`,
+/// //  option debug: `None`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_option_some!(option)`\n",
-/// #     "     option label: `a`,\n",
-/// #     "     option debug: `None`,\n",
-/// #     " expr.is_some(): `false`",
+/// #     "assertion failed: `assert_option_some!(a)`\n",
+/// #     " option label: `a`,\n",
+/// #     " option debug: `None`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -144,7 +141,7 @@ macro_rules! assert_option_some {
     });
 }
 
-/// Assert expression.is_some() is true.
+///Assert expression is Some(_).
 ///
 /// This macro provides the same statements as [`assert_option_some`](macro.assert_option_some.html),
 /// except this macro's statements are only enabled in non-optimized

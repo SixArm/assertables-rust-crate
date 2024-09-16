@@ -221,7 +221,6 @@
 <a href="#221" id="221">221</a>
 <a href="#222" id="222">222</a>
 <a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() contains a pattern.
 //!
 //! # Example
@@ -264,46 +263,48 @@
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_io_read_to_string_contains_as_result {
     (<span class="macro-nonterminal">$reader</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span><span class="kw-2">mut </span>reader_string = String::new();
-        <span class="kw">let </span>reader_result = <span class="macro-nonterminal">$reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>reader_string);
-        <span class="kw">if let </span><span class="prelude-val">Err</span>(reader_err) = reader_result {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
-                    <span class="string">"    reader label: `{}`,\n"</span>,
-                    <span class="string">"    reader debug: `{:?}`,\n"</span>,
-                    <span class="string">" containee label: `{}`,\n"</span>,
-                    <span class="string">" containee debug: `{:?}`,\n"</span>,
-                    <span class="string">"      reader err: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
-                <span class="macro-nonterminal">$reader</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
-                <span class="macro-nonterminal">$containee</span>,
-                reader_err
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">if </span>reader_string.contains(<span class="macro-nonterminal">$containee</span>) {
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="kw">let </span>_reader_size = reader_result.unwrap();
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
-                        <span class="string">"    reader label: `{}`,\n"</span>,
-                        <span class="string">"    reader debug: `{:?}`,\n"</span>,
-                        <span class="string">" containee label: `{}`,\n"</span>,
-                        <span class="string">" containee debug: `{:?}`,\n"</span>,
-                        <span class="string">"  read to string: `{:?}`,\n"</span>,
-                        <span class="string">" containee value: `{:?}`"</span>,
-                    ),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
-                    <span class="macro-nonterminal">$reader</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
-                    <span class="macro-nonterminal">$containee</span>,
-                    reader_string,
-                    <span class="macro-nonterminal">$containee
-                </span>))
+        <span class="kw">match </span>(<span class="comment">/*&amp;$reader,*/ </span><span class="kw-2">&amp;</span><span class="macro-nonterminal">$containee</span>) {
+            containee =&gt; {
+                <span class="kw">let </span><span class="kw-2">mut </span>read_string = String::new();
+                <span class="kw">let </span>read_result = <span class="macro-nonterminal">$reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>read_string);
+                <span class="kw">if let </span><span class="prelude-val">Err</span>(read_err) = read_result {
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
+                            <span class="string">"    reader label: `{}`,\n"</span>,
+                            <span class="string">"    reader debug: `{:?}`,\n"</span>,
+                            <span class="string">" containee label: `{}`,\n"</span>,
+                            <span class="string">" containee debug: `{:?}`,\n"</span>,
+                            <span class="string">"        read err: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
+                        <span class="macro-nonterminal">$reader</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
+                        containee,
+                        read_err
+                    ))
+                } <span class="kw">else </span>{
+                    <span class="kw">if </span>read_string.contains(<span class="macro-nonterminal">$containee</span>) {
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="kw">let </span>_reader_size = read_result.unwrap();
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
+                                <span class="string">"    reader label: `{}`,\n"</span>,
+                                <span class="string">"    reader debug: `{:?}`,\n"</span>,
+                                <span class="string">" containee label: `{}`,\n"</span>,
+                                <span class="string">" containee debug: `{:?}`,\n"</span>,
+                                <span class="string">"     read string: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
+                            <span class="macro-nonterminal">$reader</span>,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
+                            containee,
+                            read_string,
+                        ))
+                    }
+                }
             }
         }
     });
@@ -336,9 +337,8 @@
                 <span class="string">"    reader debug: `[]`,\n"</span>,
                 <span class="string">" containee label: `&amp;containee`,\n"</span>,
                 <span class="string">" containee debug: `\"zzz\"`,\n"</span>,
-                <span class="string">"  read to string: `\"alfa\"`,\n"</span>,
-                <span class="string">" containee value: `\"zzz\"`"
-            </span>)
+                <span class="string">"     read string: `\"alfa\"`"</span>,
+            )
         );
     }
 }
@@ -372,8 +372,7 @@
 /// //     reader debug: `[]`,
 /// //  containee label: `&amp;containee`,
 /// //  containee debug: `\"zzz\"`,
-/// //   read to string: `\"hello\"`,
-/// //  containee value: `\"zzz\"`
+/// //      read string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n",
@@ -381,8 +380,7 @@
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&amp;containee`,\n",
 /// #     " containee debug: `\"zzz\"`,\n",
-/// #     "  read to string: `\"hello\"`,\n",
-/// #     " containee value: `\"zzz\"`"
+/// #     "     read string: `\"hello\"`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

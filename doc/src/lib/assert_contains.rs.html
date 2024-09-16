@@ -224,6 +224,10 @@
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
 <a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a container is a match for an expression.
 //!
 //! # Example
@@ -269,25 +273,29 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_contains_as_result {
-    (<span class="macro-nonterminal">$container</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">if </span><span class="macro-nonterminal">$container</span>.contains(<span class="macro-nonterminal">$containee</span>) {
-            <span class="prelude-val">Ok</span>(())
-        } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_contains!(container, containee)`\n"</span>,
-                    <span class="string">" container label: `{}`,\n"</span>,
-                    <span class="string">" container debug: `{:?}`,\n"</span>,
-                    <span class="string">" containee label: `{}`,\n"</span>,
-                    <span class="string">" containee debug: `{:?}`"</span>,
-                ),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$container</span>),
-                <span class="macro-nonterminal">$container</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
-                <span class="macro-nonterminal">$containee</span>,
-            ))
+    (<span class="macro-nonterminal">$container</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$container</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$containee</span>) {
+            (container, containee) =&gt; {
+                <span class="kw">if </span>container.contains(<span class="macro-nonterminal">$containee</span>) {
+                    <span class="prelude-val">Ok</span>(())
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_contains!(container, containee)`\n"</span>,
+                            <span class="string">" container label: `{}`,\n"</span>,
+                            <span class="string">" container debug: `{:?}`,\n"</span>,
+                            <span class="string">" containee label: `{}`,\n"</span>,
+                            <span class="string">" containee debug: `{:?}`"</span>,
+                        ),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$container</span>),
+                        container,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
+                        containee,
+                    ))
+                }
+            }
         }
-    }};
+    });
 }
 
 <span class="attr">#[cfg(test)]

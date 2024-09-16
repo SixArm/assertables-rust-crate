@@ -224,6 +224,10 @@
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
 <a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string is equal to an expression.
 //!
 //! # Example
@@ -267,45 +271,49 @@
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_eq_expr_as_result {
     (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span>a_output = <span class="macro-nonterminal">$a_command</span>.output();
-        <span class="kw">if </span>a_output.is_err() {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n"</span>,
-                    <span class="string">"  command label: `{}`,\n"</span>,
-                    <span class="string">"     expr label: `{}`,\n"</span>,
-                    <span class="string">"  command debug: `{:?}`,\n"</span>,
-                    <span class="string">"     expr debug: `{:?}`,\n"</span>,
-                    <span class="string">" command output: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                <span class="macro-nonterminal">$a_command</span>,
-                <span class="macro-nonterminal">$b_expr</span>,
-                a_output
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            <span class="kw">if </span>a_string == <span class="macro-nonterminal">$b_expr </span>{
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n"</span>,
-                        <span class="string">" command label: `{}`,\n"</span>,
-                        <span class="string">"    expr label: `{}`,\n"</span>,
-                        <span class="string">" command debug: `{:?}`,\n"</span>,
-                        <span class="string">"    expr debug: `{:?}`,\n"</span>,
-                        <span class="string">" command value: `{:?}`,\n"</span>,
-                        <span class="string">"    expr value: `{:?}`"
-                    </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                    <span class="macro-nonterminal">$a_command</span>,
-                    <span class="macro-nonterminal">$b_expr</span>,
-                    a_string,
-                    <span class="macro-nonterminal">$b_expr
-                </span>))
+        <span class="kw">match </span>(<span class="comment">/*&amp;$command,*/ </span><span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
+            b_expr =&gt; {
+                <span class="kw">let </span>a_output = <span class="macro-nonterminal">$a_command</span>.output();
+                <span class="kw">if </span>a_output.is_err() {
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n"</span>,
+                            <span class="string">"  command label: `{}`,\n"</span>,
+                            <span class="string">"  command debug: `{:?}`,\n"</span>,
+                            <span class="string">"     expr label: `{}`,\n"</span>,
+                            <span class="string">"     expr debug: `{:?}`,\n"</span>,
+                            <span class="string">" command output: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
+                        <span class="macro-nonterminal">$a_command</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                        b_expr,
+                        a_output
+                    ))
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
+                    <span class="kw">if </span>a_string == String::from(b_expr) {
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n"</span>,
+                                <span class="string">" command label: `{}`,\n"</span>,
+                                <span class="string">" command debug: `{:?}`,\n"</span>,
+                                <span class="string">"    expr label: `{}`,\n"</span>,
+                                <span class="string">"    expr debug: `{:?}`,\n"</span>,
+                                <span class="string">" command value: `{:?}`,\n"</span>,
+                                <span class="string">"    expr value: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
+                            <span class="macro-nonterminal">$a_command</span>,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                            b_expr,
+                            a_string,
+                            b_expr
+                        ))
+                    }
+                }
             }
         }
     });
@@ -335,8 +343,8 @@
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n"</span>,
             <span class="string">" command label: `a`,\n"</span>,
-            <span class="string">"    expr label: `b`,\n"</span>,
             <span class="string">" command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n"</span>,
+            <span class="string">"    expr label: `b`,\n"</span>,
             <span class="string">"    expr debug: `\"zzz\"`,\n"</span>,
             <span class="string">" command value: `\"hello\"`,\n"</span>,
             <span class="string">"    expr value: `\"zzz\"`"
@@ -373,8 +381,8 @@
 /// # });
 /// // assertion failed: `assert_command_stderr_eq_expr!(command, expr)`
 /// //  command label: `command`,
-/// //     expr label: `s`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
+/// //     expr label: `s`,
 /// //     expr debug: `\"zzz\"`,
 /// //  command value: `\"hello\"`,
 /// //     expr value: `\"zzz\"`
@@ -382,8 +390,8 @@
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
 /// #     " command label: `command`,\n",
-/// #     "    expr label: `s`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+/// #     "    expr label: `s`,\n",
 /// #     "    expr debug: `\"zzz\"`,\n",
 /// #     " command value: `\"hello\"`,\n",
 /// #     "    expr value: `\"zzz\"`"

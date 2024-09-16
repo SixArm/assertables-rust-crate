@@ -5,6 +5,8 @@ Changes highlights for recent major versions.
 
 ## Version 8.x
 
+8.6: Add `assert_poll_ready_eq`, `assert_poll_ready_ne`
+
 8.5: Add `assert_option_some_eq`, `assert_option_some_ne`
 
 8.4: Add `assert_result_ok_eq`, `assert_result_ok_ne`

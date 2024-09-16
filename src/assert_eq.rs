@@ -42,10 +42,10 @@
 ///
 #[macro_export]
 macro_rules! assert_eq_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => ({
         match (&$a, &$b) {
-            (a_val, b_val) => {
-                if a_val == b_val {
+            (a, b) => {
+                if a == b {
                     Ok(())
                 } else {
                     Err(format!(
@@ -54,21 +54,17 @@ macro_rules! assert_eq_as_result {
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
-                            " b debug: `{:?}`,\n",
-                            "       a: `{:?}`,\n",
-                            "       b: `{:?}`"
+                            " b debug: `{:?}`",
                         ),
                         stringify!($a),
-                        $a,
+                        a,
                         stringify!($b),
-                        $b,
-                        a_val,
-                        b_val
+                        b
                     ))
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]
@@ -95,9 +91,7 @@ mod tests {
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
-                " b debug: `2`,\n",
-                "       a: `1`,\n",
-                "       b: `2`"
+                " b debug: `2`",
             )
         );
     }

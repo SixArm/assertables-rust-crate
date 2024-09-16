@@ -340,6 +340,14 @@
 <a href="#340" id="340">340</a>
 <a href="#341" id="341">341</a>
 <a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function err() is equal to an expression.
 //!
 //! # Example
@@ -384,50 +392,54 @@
     <span class="comment">//// Arity 1
 
     </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span>a_result = <span class="macro-nonterminal">$a_function</span>(<span class="macro-nonterminal">$a_param</span>);
-        <span class="kw">let </span>a_is_err = a_result.is_err();
-        <span class="kw">if </span>!a_is_err {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
-                    <span class="string">" a_function label: `{}`,\n"</span>,
-                    <span class="string">"    a_param label: `{}`,\n"</span>,
-                    <span class="string">"    a_param debug: `{:?}`,\n"</span>,
-                    <span class="string">"     b_expr label: `{}`,\n"</span>,
-                    <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                    <span class="string">"         a result: `{:?}`"</span>,
-                ),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
-                <span class="macro-nonterminal">$a_param</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                <span class="macro-nonterminal">$b_expr</span>,
-                a_result
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>a_err = a_result.unwrap_err();
-            <span class="kw">if </span>a_err == <span class="macro-nonterminal">$b_expr </span>{
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
-                        <span class="string">" a_function label: `{}`,\n"</span>,
-                        <span class="string">"    a_param label: `{}`,\n"</span>,
-                        <span class="string">"    a_param debug: `{:?}`,\n"</span>,
-                        <span class="string">"     b_expr label: `{}`,\n"</span>,
-                        <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                        <span class="string">"                a: `{:?}`,\n"</span>,
-                        <span class="string">"                b: `{:?}`"</span>,
-                    ),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
-                    <span class="macro-nonterminal">$a_param</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                    <span class="macro-nonterminal">$b_expr</span>,
-                    a_err,
-                    <span class="macro-nonterminal">$b_expr
-                </span>))
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_param</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
+            (_a_function, a_param, b_expr) =&gt; {
+                <span class="kw">let </span>a_result = <span class="macro-nonterminal">$a_function</span>(<span class="macro-nonterminal">$a_param</span>);
+                <span class="kw">let </span>a_is_err = a_result.is_err();
+                <span class="kw">if </span>!a_is_err {
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
+                            <span class="string">" a_function label: `{}`,\n"</span>,
+                            <span class="string">"    a_param label: `{}`,\n"</span>,
+                            <span class="string">"    a_param debug: `{:?}`,\n"</span>,
+                            <span class="string">"     b_expr label: `{}`,\n"</span>,
+                            <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                            <span class="string">"         a result: `{:?}`"</span>,
+                        ),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
+                        a_param,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                        b_expr,
+                        a_result
+                    ))
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>a_err = a_result.unwrap_err();
+                    <span class="kw">if </span>a_err == <span class="macro-nonterminal">$b_expr </span>{
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
+                                <span class="string">" a_function label: `{}`,\n"</span>,
+                                <span class="string">"    a_param label: `{}`,\n"</span>,
+                                <span class="string">"    a_param debug: `{:?}`,\n"</span>,
+                                <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                <span class="string">"                a: `{:?}`,\n"</span>,
+                                <span class="string">"                b: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
+                            a_param,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                            b_expr,
+                            a_err,
+                            <span class="macro-nonterminal">$b_expr
+                        </span>))
+                    }
+                }
             }
         }
     });
@@ -435,42 +447,46 @@
     <span class="comment">//// Arity 0
 
     </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span>a_result = <span class="macro-nonterminal">$a_function</span>();
-        <span class="kw">let </span>a_is_err = a_result.is_err();
-        <span class="kw">if </span>!a_is_err {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n"</span>,
-                    <span class="string">" a_function label: `{}`,\n"</span>,
-                    <span class="string">"     b_expr label: `{}`,\n"</span>,
-                    <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                    <span class="string">"         a result: `{:?}`"</span>,
-                ),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                <span class="macro-nonterminal">$b_expr</span>,
-                a_result
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>a_err = a_result.unwrap_err();
-            <span class="kw">if </span>a_err == <span class="macro-nonterminal">$b_expr </span>{
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n"</span>,
-                        <span class="string">" a_function label: `{}`,\n"</span>,
-                        <span class="string">"     b_expr label: `{}`,\n"</span>,
-                        <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                        <span class="string">"                a: `{:?}`,\n"</span>,
-                        <span class="string">"                b: `{:?}`"</span>,
-                    ),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                    <span class="macro-nonterminal">$b_expr</span>,
-                    a_err,
-                    <span class="macro-nonterminal">$b_expr
-                </span>))
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
+            (_a_function, b_expr) =&gt; {
+                <span class="kw">let </span>a_result = <span class="macro-nonterminal">$a_function</span>();
+                <span class="kw">let </span>a_is_err = a_result.is_err();
+                <span class="kw">if </span>!a_is_err {
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n"</span>,
+                            <span class="string">" a_function label: `{}`,\n"</span>,
+                            <span class="string">"     b_expr label: `{}`,\n"</span>,
+                            <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                            <span class="string">"         a result: `{:?}`"</span>,
+                        ),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                        b_expr,
+                        a_result
+                    ))
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>a_err = a_result.unwrap_err();
+                    <span class="kw">if </span>a_err == <span class="macro-nonterminal">$b_expr </span>{
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n"</span>,
+                                <span class="string">" a_function label: `{}`,\n"</span>,
+                                <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                <span class="string">"                a: `{:?}`,\n"</span>,
+                                <span class="string">"                b: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                            b_expr,
+                            a_err,
+                            <span class="macro-nonterminal">$b_expr
+                        </span>))
+                    }
+                }
             }
         }
     });

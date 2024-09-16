@@ -44,55 +44,57 @@
 #[macro_export]
 macro_rules! assert_program_args_stderr_contains_as_result {
     ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => ({
-        let mut a_command = ::std::process::Command::new($a_program);
-        a_command.args($a_args);
-        let a_output = a_command.output();
-        if a_output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_program_args_stderr_contains!(a_program, a_args, containee)`\n",
-                    " a_program label: `{}`,\n",
-                    " a_program debug: `{:?}`,\n",
-                    "    a_args label: `{}`,\n",
-                    "    a_args debug: `{:?}`,\n",
-                    " containee label: `{}`,\n",
-                    " containee debug: `{:?}`,\n",
-                    "        a output: `{:?}`"
-                ),
-                stringify!($a_program),
-                $a_program,
-                stringify!($a_args),
-                $a_args,
-                stringify!($containee),
-                $containee,
-                a_output
-            ))
-        } else {
-            let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if a_string.contains($containee) {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_program_args_stderr_contains!(a_program, a_args, containee)`\n",
-                        " a_program label: `{}`,\n",
-                        " a_program debug: `{:?}`,\n",
-                        "    a_args label: `{}`,\n",
-                        "    a_args debug: `{:?}`,\n",
-                        " containee label: `{}`,\n",
-                        " containee debug: `{:?}`,\n",
-                        "               a: `{:?}`,\n",
-                        "       containee: `{:?}`"
-                    ),
-                    stringify!($a_program),
-                    $a_program,
-                    stringify!($a_args),
-                    $a_args,
-                    stringify!($containee),
-                    $containee,
-                    a_string,
-                    $containee
-                ))
+        match ($a_program, $a_args, $containee) {
+            (a_program, a_args, containee) => {
+                let a_output = assert_program_args_impl_prep!(a_program, a_args);
+                if a_output.is_err() {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_program_args_stderr_contains!(a_program, a_args, containee)`\n",
+                            " a_program label: `{}`,\n",
+                            " a_program debug: `{:?}`,\n",
+                            "    a_args label: `{}`,\n",
+                            "    a_args debug: `{:?}`,\n",
+                            " containee label: `{}`,\n",
+                            " containee debug: `{:?}`,\n",
+                            "        a output: `{:?}`"
+                        ),
+                        stringify!($a_program),
+                        a_program,
+                        stringify!($a_args),
+                        a_args,
+                        stringify!($containee),
+                        containee,
+                        a_output
+                    ))
+                } else {
+                    let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
+                    if a_string.contains($containee) {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_program_args_stderr_contains!(a_program, a_args, containee)`\n",
+                                " a_program label: `{}`,\n",
+                                " a_program debug: `{:?}`,\n",
+                                "    a_args label: `{}`,\n",
+                                "    a_args debug: `{:?}`,\n",
+                                " containee label: `{}`,\n",
+                                " containee debug: `{:?}`,\n",
+                                "               a: `{:?}`,\n",
+                                "       containee: `{:?}`"
+                            ),
+                            stringify!($a_program),
+                            a_program,
+                            stringify!($a_args),
+                            a_args,
+                            stringify!($containee),
+                            containee,
+                            a_string,
+                            $containee
+                        ))
+                    }
+                }
             }
         }
     });

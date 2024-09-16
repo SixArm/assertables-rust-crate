@@ -302,69 +302,69 @@
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stderr_lt_as_result {
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span><span class="kw-2">mut </span>a_command = ::std::process::Command::new(<span class="macro-nonterminal">$a_program</span>);
-        <span class="kw">let </span><span class="kw-2">mut </span>b_command = ::std::process::Command::new(<span class="macro-nonterminal">$b_program</span>);
-        a_command.args(<span class="macro-nonterminal">$a_args</span>);
-        b_command.args(<span class="macro-nonterminal">$b_args</span>);
-        <span class="kw">let </span>a_output = a_command.output();
-        <span class="kw">let </span>b_output = b_command.output();
-        <span class="kw">if </span>a_output.is_err() || b_output.is_err() {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n"</span>,
-                    <span class="string">" a_program label: `{}`,\n"</span>,
-                    <span class="string">" a_program debug: `{:?}`,\n"</span>,
-                    <span class="string">"    a_args label: `{}`,\n"</span>,
-                    <span class="string">"    a_args debug: `{:?}`,\n"</span>,
-                    <span class="string">" b_program label: `{}`,\n"</span>,
-                    <span class="string">" b_program debug: `{:?}`,\n"</span>,
-                    <span class="string">"    b_args label: `{}`,\n"</span>,
-                    <span class="string">"    b_args debug: `{:?}`,\n"</span>,
-                    <span class="string">"        a output: `{:?}`,\n"</span>,
-                    <span class="string">"        b output: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
-                <span class="macro-nonterminal">$a_program</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
-                <span class="macro-nonterminal">$a_args</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
-                <span class="macro-nonterminal">$b_program</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
-                <span class="macro-nonterminal">$b_args</span>,
-                a_output,
-                b_output
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            <span class="kw">let </span>b_string = String::from_utf8(b_output.unwrap().stderr).unwrap();
-            <span class="kw">if </span>a_string &lt; b_string {
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n"</span>,
-                        <span class="string">" a_program label: `{}`,\n"</span>,
-                        <span class="string">" a_program debug: `{:?}`,\n"</span>,
-                        <span class="string">"    a_args label: `{}`,\n"</span>,
-                        <span class="string">"    a_args debug: `{:?}`,\n"</span>,
-                        <span class="string">" b_program label: `{}`,\n"</span>,
-                        <span class="string">" b_program debug: `{:?}`,\n"</span>,
-                        <span class="string">"    b_args label: `{}`,\n"</span>,
-                        <span class="string">"    b_args debug: `{:?}`,\n"</span>,
-                        <span class="string">"               a: `{:?}`,\n"</span>,
-                        <span class="string">"               b: `{:?}`"
-                    </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
-                    <span class="macro-nonterminal">$a_program</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
-                    <span class="macro-nonterminal">$a_args</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
-                    <span class="macro-nonterminal">$b_program</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
-                    <span class="macro-nonterminal">$b_args</span>,
-                    a_string,
-                    b_string
-                ))
+        <span class="kw">match </span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
+            (a_program, a_args, b_program, b_args) =&gt; {
+                <span class="kw">let </span>a_output = <span class="macro">assert_program_args_impl_prep!</span>(a_program, a_args);
+                <span class="kw">let </span>b_output = <span class="macro">assert_program_args_impl_prep!</span>(b_program, b_args);
+                <span class="kw">if </span>a_output.is_err() || b_output.is_err() {
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n"</span>,
+                            <span class="string">" a_program label: `{}`,\n"</span>,
+                            <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                            <span class="string">"    a_args label: `{}`,\n"</span>,
+                            <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                            <span class="string">" b_program label: `{}`,\n"</span>,
+                            <span class="string">" b_program debug: `{:?}`,\n"</span>,
+                            <span class="string">"    b_args label: `{}`,\n"</span>,
+                            <span class="string">"    b_args debug: `{:?}`,\n"</span>,
+                            <span class="string">"        a output: `{:?}`,\n"</span>,
+                            <span class="string">"        b output: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                        a_program,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                        a_args,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
+                        b_program,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
+                        b_args,
+                        a_output,
+                        b_output
+                    ))
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
+                    <span class="kw">let </span>b_string = String::from_utf8(b_output.unwrap().stderr).unwrap();
+                    <span class="kw">if </span>a_string &lt; b_string {
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n"</span>,
+                                <span class="string">" a_program label: `{}`,\n"</span>,
+                                <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                                <span class="string">"    a_args label: `{}`,\n"</span>,
+                                <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                                <span class="string">" b_program label: `{}`,\n"</span>,
+                                <span class="string">" b_program debug: `{:?}`,\n"</span>,
+                                <span class="string">"    b_args label: `{}`,\n"</span>,
+                                <span class="string">"    b_args debug: `{:?}`,\n"</span>,
+                                <span class="string">"               a: `{:?}`,\n"</span>,
+                                <span class="string">"               b: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                            a_program,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                            a_args,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
+                            b_program,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
+                            b_args,
+                            a_string,
+                            b_string
+                        ))
+                    }
+                }
             }
         }
     });

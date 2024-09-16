@@ -40,69 +40,69 @@
 #[macro_export]
 macro_rules! assert_program_args_stderr_eq_as_result {
     ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => ({
-        let mut a_command = ::std::process::Command::new($a_program);
-        let mut b_command = ::std::process::Command::new($b_program);
-        a_command.args($a_args);
-        b_command.args($b_args);
-        let a_output = a_command.output();
-        let b_output = b_command.output();
-        if a_output.is_err() || b_output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-                    " a_program label: `{}`,\n",
-                    " a_program debug: `{:?}`,\n",
-                    "    a_args label: `{}`,\n",
-                    "    a_args debug: `{:?}`,\n",
-                    " b_program label: `{}`,\n",
-                    " b_program debug: `{:?}`,\n",
-                    "    b_args label: `{}`,\n",
-                    "    b_args debug: `{:?}`,\n",
-                    "        a output: `{:?}`,\n",
-                    "        b output: `{:?}`"
-                ),
-                stringify!($a_program),
-                $a_program,
-                stringify!($a_args),
-                $a_args,
-                stringify!($b_program),
-                $b_program,
-                stringify!($b_args),
-                $b_args,
-                a_output,
-                b_output
-            ))
-        } else {
-            let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            let b_string = String::from_utf8(b_output.unwrap().stderr).unwrap();
-            if a_string == b_string {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-                        " a_program label: `{}`,\n",
-                        " a_program debug: `{:?}`,\n",
-                        "    a_args label: `{}`,\n",
-                        "    a_args debug: `{:?}`,\n",
-                        " b_program label: `{}`,\n",
-                        " b_program debug: `{:?}`,\n",
-                        "    b_args label: `{}`,\n",
-                        "    b_args debug: `{:?}`,\n",
-                        "               a: `{:?}`,\n",
-                        "               b: `{:?}`"
-                    ),
-                    stringify!($a_program),
-                    $a_program,
-                    stringify!($a_args),
-                    $a_args,
-                    stringify!($b_program),
-                    $b_program,
-                    stringify!($b_args),
-                    $b_args,
-                    a_string,
-                    b_string
-                ))
+        match ($a_program, $a_args, $b_program, $b_args) {
+            (a_program, a_args, b_program, b_args) => {
+                let a_output = assert_program_args_impl_prep!(a_program, a_args);
+                let b_output = assert_program_args_impl_prep!(b_program, b_args);
+                if a_output.is_err() || b_output.is_err() {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
+                            " a_program label: `{}`,\n",
+                            " a_program debug: `{:?}`,\n",
+                            "    a_args label: `{}`,\n",
+                            "    a_args debug: `{:?}`,\n",
+                            " b_program label: `{}`,\n",
+                            " b_program debug: `{:?}`,\n",
+                            "    b_args label: `{}`,\n",
+                            "    b_args debug: `{:?}`,\n",
+                            "        a output: `{:?}`,\n",
+                            "        b output: `{:?}`"
+                        ),
+                        stringify!($a_program),
+                        a_program,
+                        stringify!($a_args),
+                        a_args,
+                        stringify!($b_program),
+                        b_program,
+                        stringify!($b_args),
+                        b_args,
+                        a_output,
+                        b_output
+                    ))
+                } else {
+                    let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
+                    let b_string = String::from_utf8(b_output.unwrap().stderr).unwrap();
+                    if a_string == b_string {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
+                                " a_program label: `{}`,\n",
+                                " a_program debug: `{:?}`,\n",
+                                "    a_args label: `{}`,\n",
+                                "    a_args debug: `{:?}`,\n",
+                                " b_program label: `{}`,\n",
+                                " b_program debug: `{:?}`,\n",
+                                "    b_args label: `{}`,\n",
+                                "    b_args debug: `{:?}`,\n",
+                                "               a: `{:?}`,\n",
+                                "               b: `{:?}`"
+                            ),
+                            stringify!($a_program),
+                            a_program,
+                            stringify!($a_args),
+                            a_args,
+                            stringify!($b_program),
+                            b_program,
+                            stringify!($b_args),
+                            b_args,
+                            a_string,
+                            b_string
+                        ))
+                    }
+                }
             }
         }
     });

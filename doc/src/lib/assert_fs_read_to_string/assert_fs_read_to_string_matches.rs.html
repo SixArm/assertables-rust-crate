@@ -233,7 +233,6 @@
 <a href="#233" id="233">233</a>
 <a href="#234" id="234">234</a>
 <a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string() is a match to a regex.
 //!
 //! # Example
@@ -275,46 +274,48 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_matches_as_result {
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span>a_result = ::std::fs::read_to_string(<span class="macro-nonterminal">$a_path</span>);
-        <span class="kw">if let </span><span class="prelude-val">Err</span>(a_err) = a_result {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`\n"</span>,
-                    <span class="string">"     a_path label: `{}`,\n"</span>,
-                    <span class="string">"     a_path debug: `{:?}`,\n"</span>,
-                    <span class="string">" matcher label: `{}`,\n"</span>,
-                    <span class="string">" matcher debug: `{:?}`,\n"</span>,
-                    <span class="string">"            a err: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
-                <span class="macro-nonterminal">$a_path</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>),
-                <span class="macro-nonterminal">$b_matcher</span>,
-                a_err
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>a_string = a_result.unwrap();
-            <span class="kw">if </span><span class="macro-nonterminal">$b_matcher</span>.is_match(a_string.as_str()) {
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`\n"</span>,
-                        <span class="string">"  a_path label: `{}`,\n"</span>,
-                        <span class="string">"  a_path debug: `{:?}`,\n"</span>,
-                        <span class="string">" matcher label: `{}`,\n"</span>,
-                        <span class="string">" matcher debug: `{:?}`,\n"</span>,
-                        <span class="string">"             a: `{:?}`,\n"</span>,
-                        <span class="string">"             b: `{:?}`"</span>,
-                    ),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
-                    <span class="macro-nonterminal">$a_path</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_matcher</span>),
-                    <span class="macro-nonterminal">$b_matcher</span>,
-                    a_string,
-                    <span class="macro-nonterminal">$b_matcher
-                </span>))
+    (<span class="macro-nonterminal">$path</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$path</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$matcher</span>) {
+            (path, matcher) =&gt; {
+                <span class="kw">let </span>read_result = ::std::fs::read_to_string(path);
+                <span class="kw">if let </span><span class="prelude-val">Err</span>(read_err) = read_result {
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n"</span>,
+                            <span class="string">"    path label: `{}`,\n"</span>,
+                            <span class="string">"    path debug: `{:?}`,\n"</span>,
+                            <span class="string">" matcher label: `{}`,\n"</span>,
+                            <span class="string">" matcher debug: `{:?}`,\n"</span>,
+                            <span class="string">"      read err: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$path</span>),
+                        path,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
+                        matcher,
+                        read_err
+                    ))
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>read_string = read_result.unwrap();
+                    <span class="kw">if </span>matcher.is_match(read_string.as_str()) {
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n"</span>,
+                                <span class="string">"    path label: `{}`,\n"</span>,
+                                <span class="string">"    path debug: `{:?}`,\n"</span>,
+                                <span class="string">" matcher label: `{}`,\n"</span>,
+                                <span class="string">" matcher debug: `{:?}`,\n"</span>,
+                                <span class="string">"   read string: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$path</span>),
+                            path,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
+                            matcher,
+                            read_string
+                        ))
+                    }
+                }
             }
         }
     });
@@ -351,17 +352,16 @@
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">format!</span>(
-                <span class="string">"{}{}{}{}{}{}{}{}{}"</span>,
-                <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`\n"</span>,
-                <span class="string">"  a_path label: `&amp;path`,\n"</span>,
-                <span class="string">"  a_path debug: `\""</span>,
+                <span class="string">"{}{}{}{}{}{}{}{}"</span>,
+                <span class="string">"assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n"</span>,
+                <span class="string">"    path label: `&amp;path`,\n"</span>,
+                <span class="string">"    path debug: `\""</span>,
                 path.to_string_lossy(),
                 <span class="string">"\"`,\n"</span>,
                 <span class="string">" matcher label: `&amp;matcher`,\n"</span>,
                 <span class="string">" matcher debug: `Regex(\"zzz\")`,\n"</span>,
-                <span class="string">"             a: `\"alfa\\n\"`,\n"</span>,
-                <span class="string">"             b: `Regex(\"zzz\")`"
-            </span>)
+                <span class="string">"   read string: `\"alfa\\n\"`"</span>,
+            )
         );
     }
 }
@@ -391,22 +391,20 @@
 /// let matcher = Regex::new(r"zzz").unwrap();
 /// assert_fs_read_to_string_matches!(&amp;path, &amp;matcher);
 /// # });
-/// // assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`
-/// //   a_path label: `&amp;path`,
-/// //   a_path debug: `\"alfa.txt\"`,
+/// // assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`
+/// //     path label: `&amp;path`,
+/// //     path debug: `\"alfa.txt\"`,
 /// //  matcher label: `&amp;matcher`,
 /// //  matcher debug: `Regex(\"zzz\")`,
-/// //              a: `\"alfa\\n\"`,
-/// //              b: `Regex(\"zzz\")`
+/// //    read string: `\"alfa\\n\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`\n",
-/// #     "  a_path label: `&amp;path`,\n",
-/// #     "  a_path debug: `\"alfa.txt\"`,\n",
+/// #     "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
+/// #     "    path label: `&amp;path`,\n",
+/// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `&amp;matcher`,\n",
 /// #     " matcher debug: `Regex(\"zzz\")`,\n",
-/// #     "             a: `\"alfa\\n\"`,\n",
-/// #     "             b: `Regex(\"zzz\")`"
+/// #     "   read string: `\"alfa\\n\"`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -420,14 +418,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_matches {
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b_matcher</span>) {
+    (<span class="macro-nonterminal">$path</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$path</span>, <span class="macro-nonterminal">$matcher</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     });
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b_matcher</span>) {
+    (<span class="macro-nonterminal">$path</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+        <span class="kw">match </span><span class="macro">assert_fs_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$path</span>, <span class="macro-nonterminal">$matcher</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

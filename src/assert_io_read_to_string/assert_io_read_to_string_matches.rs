@@ -40,47 +40,49 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_matches_as_result {
-    ($a_reader:expr, $b_matcher:expr $(,)?) => ({
-        let mut a_string = String::new();
-        let a_result = $a_reader.read_to_string(&mut a_string);
-        if let Err(a_err) = a_result {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
-                    " a_reader label: `{}`,\n",
-                    " a_reader debug: `{:?}`,\n",
-                    "  matcher label: `{}`,\n",
-                    "  matcher debug: `{:?}`,\n",
-                    "          a err: `{:?}`"
-                ),
-                stringify!($a_reader),
-                $a_reader,
-                stringify!($b_matcher),
-                $b_matcher,
-                a_err
-            ))
-        } else {
-            let _a_size = a_result.unwrap();
-            if $b_matcher.is_match(a_string.as_str()) {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
-                        " a_reader label: `{}`,\n",
-                        " a_reader debug: `{:?}`,\n",
-                        "  matcher label: `{}`,\n",
-                        "  matcher debug: `{:?}`,\n",
-                        "              a: `{:?}`,\n",
-                        "              b: `{:?}`",
-                    ),
-                    stringify!($a_reader),
-                    $a_reader,
-                    stringify!($b_matcher),
-                    $b_matcher,
-                    a_string,
-                    $b_matcher
-                ))
+    ($reader:expr, $matcher:expr $(,)?) => ({
+        match (/*&$reader,*/ &$matcher) {
+            matcher => {
+                let mut read_string = String::new();
+                let read_result = $reader.read_to_string(&mut read_string);
+                if let Err(read_err) = read_result {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
+                            "  reader label: `{}`,\n",
+                            "  reader debug: `{:?}`,\n",
+                            " matcher label: `{}`,\n",
+                            " matcher debug: `{:?}`,\n",
+                            "      read err: `{:?}`"
+                        ),
+                        stringify!($reader),
+                        $reader,
+                        stringify!($matcher),
+                        matcher,
+                        read_err
+                    ))
+                } else {
+                    let _size = read_result.unwrap();
+                    if $matcher.is_match(read_string.as_str()) {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
+                                "  reader label: `{}`,\n",
+                                "  reader debug: `{:?}`,\n",
+                                " matcher label: `{}`,\n",
+                                " matcher debug: `{:?}`,\n",
+                                " reader string: `{:?}`",
+                            ),
+                            stringify!($reader),
+                            $reader,
+                            stringify!($matcher),
+                            matcher,
+                            read_string
+                        ))
+                    }
+                }
             }
         }
     });
@@ -109,12 +111,11 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
-                " a_reader label: `reader`,\n",
-                " a_reader debug: `[]`,\n",
-                "  matcher label: `&matcher`,\n",
-                "  matcher debug: `Regex(\"zzz\")`,\n",
-                "              a: `\"alfa\"`,\n",
-                "              b: `Regex(\"zzz\")`"
+                "  reader label: `reader`,\n",
+                "  reader debug: `[]`,\n",
+                " matcher label: `&matcher`,\n",
+                " matcher debug: `Regex(\"zzz\")`,\n",
+                " reader string: `\"alfa\"`"
             )
         );
     }
@@ -146,21 +147,19 @@ mod tests {
 /// assert_io_read_to_string_matches!(reader, &matcher);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`
-/// //  a_reader label: `reader`,
-/// //  a_reader debug: `[]`,
-/// //   matcher label: `&matcher`,
-/// //   matcher debug: `Regex(\"zzz\")`,
-/// //               a: `\"hello\"`,
-/// //               b: `Regex(\"zzz\")`
+/// //   reader label: `reader`,
+/// //   reader debug: `[]`,
+/// //  matcher label: `&matcher`,
+/// //  matcher debug: `Regex(\"zzz\")`,
+/// //  reader string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`\n",
-/// #     " a_reader label: `reader`,\n",
-/// #     " a_reader debug: `[]`,\n",
-/// #     "  matcher label: `&matcher`,\n",
-/// #     "  matcher debug: `Regex(\"zzz\")`,\n",
-/// #     "              a: `\"hello\"`,\n",
-/// #     "              b: `Regex(\"zzz\")`"
+/// #     "  reader label: `reader`,\n",
+/// #     "  reader debug: `[]`,\n",
+/// #     " matcher label: `&matcher`,\n",
+/// #     " matcher debug: `Regex(\"zzz\")`,\n",
+/// #     " reader string: `\"hello\"`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

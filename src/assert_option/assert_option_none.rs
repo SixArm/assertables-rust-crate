@@ -1,4 +1,4 @@
-//! Assert expression.is_none() is true.
+//! Assert expression is None.
 //!
 //! # Example
 //!
@@ -36,28 +36,28 @@
 ///
 #[macro_export]
 macro_rules! assert_option_none_as_result {
-    ($option:expr $(,)?) => {{
-        match (&$option) {
-            option_val => {
-                let is_none = option_val.is_none();
-                if is_none {
-                    Ok(())
-                } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_option_none!(option)`\n",
-                            "     option label: `{}`,\n",
-                            "     option debug: `{:?}`,\n",
-                            " option.is_none(): `{:?}`",
-                        ),
-                        stringify!($option),
-                        $option,
-                        is_none,
-                    ))
+    ($a:expr $(,)?) => ({
+        match (&$a) {
+            a => {
+                match (a) {
+                    None => {
+                        Ok(())
+                    },
+                    _ => {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_option_none!(a)`\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`",
+                            ),
+                            stringify!($a),
+                            a
+                        ))
+                    }
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]
@@ -78,16 +78,15 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_option_none!(option)`\n",
-                "     option label: `a`,\n",
-                "     option debug: `Some(1)`,\n",
-                " option.is_none(): `false`"
+                "assertion failed: `assert_option_none!(a)`\n",
+                " a label: `a`,\n",
+                " a debug: `Some(1)`",
             )
         );
     }
 }
 
-/// Assert expression.is_none() is true.
+/// Assert expression is None.
 ///
 /// * If true, return `()`.
 ///
@@ -107,16 +106,14 @@ mod tests {
 /// let a: Option<i8> = Option::Some(1);
 /// assert_option_none!(a);
 /// # });
-/// // assertion failed: `assert_option_none!(option)`
-/// //      option label: `a`,
-/// //      option debug: `Some(1)`,
-/// //  option.is_none(): `false`
+/// // assertion failed: `assert_option_none!(a)`
+/// //  a label: `a`,
+/// //  a debug: `Some(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_option_none!(option)`\n",
-/// #     "     option label: `a`,\n",
-/// #     "     option debug: `Some(1)`,\n",
-/// #     " option.is_none(): `false`",
+/// #     "assertion failed: `assert_option_none!(a)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `Some(1)`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -144,7 +141,7 @@ macro_rules! assert_option_none {
     });
 }
 
-/// Assert expression.is_none() is true.
+/// Assert expression is None.
 ///
 /// This macro provides the same statements as [`assert_option_none`](macro.assert_option_none.html),
 /// except this macro's statements are only enabled in non-optimized

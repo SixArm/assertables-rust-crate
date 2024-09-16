@@ -39,46 +39,48 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_matches_as_result {
-    ($a_path:expr, $b_matcher:expr $(,)?) => ({
-        let a_result = ::std::fs::read_to_string($a_path);
-        if let Err(a_err) = a_result {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`\n",
-                    "     a_path label: `{}`,\n",
-                    "     a_path debug: `{:?}`,\n",
-                    " matcher label: `{}`,\n",
-                    " matcher debug: `{:?}`,\n",
-                    "            a err: `{:?}`"
-                ),
-                stringify!($a_path),
-                $a_path,
-                stringify!($b_matcher),
-                $b_matcher,
-                a_err
-            ))
-        } else {
-            let a_string = a_result.unwrap();
-            if $b_matcher.is_match(a_string.as_str()) {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`\n",
-                        "  a_path label: `{}`,\n",
-                        "  a_path debug: `{:?}`,\n",
-                        " matcher label: `{}`,\n",
-                        " matcher debug: `{:?}`,\n",
-                        "             a: `{:?}`,\n",
-                        "             b: `{:?}`",
-                    ),
-                    stringify!($a_path),
-                    $a_path,
-                    stringify!($b_matcher),
-                    $b_matcher,
-                    a_string,
-                    $b_matcher
-                ))
+    ($path:expr, $matcher:expr $(,)?) => ({
+        match (&$path, &$matcher) {
+            (path, matcher) => {
+                let read_result = ::std::fs::read_to_string(path);
+                if let Err(read_err) = read_result {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
+                            "    path label: `{}`,\n",
+                            "    path debug: `{:?}`,\n",
+                            " matcher label: `{}`,\n",
+                            " matcher debug: `{:?}`,\n",
+                            "      read err: `{:?}`"
+                        ),
+                        stringify!($path),
+                        path,
+                        stringify!($matcher),
+                        matcher,
+                        read_err
+                    ))
+                } else {
+                    let read_string = read_result.unwrap();
+                    if matcher.is_match(read_string.as_str()) {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
+                                "    path label: `{}`,\n",
+                                "    path debug: `{:?}`,\n",
+                                " matcher label: `{}`,\n",
+                                " matcher debug: `{:?}`,\n",
+                                "   read string: `{:?}`",
+                            ),
+                            stringify!($path),
+                            path,
+                            stringify!($matcher),
+                            matcher,
+                            read_string
+                        ))
+                    }
+                }
             }
         }
     });
@@ -115,16 +117,15 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             format!(
-                "{}{}{}{}{}{}{}{}{}",
-                "assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`\n",
-                "  a_path label: `&path`,\n",
-                "  a_path debug: `\"",
+                "{}{}{}{}{}{}{}{}",
+                "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
+                "    path label: `&path`,\n",
+                "    path debug: `\"",
                 path.to_string_lossy(),
                 "\"`,\n",
                 " matcher label: `&matcher`,\n",
                 " matcher debug: `Regex(\"zzz\")`,\n",
-                "             a: `\"alfa\\n\"`,\n",
-                "             b: `Regex(\"zzz\")`"
+                "   read string: `\"alfa\\n\"`",
             )
         );
     }
@@ -155,22 +156,20 @@ mod tests {
 /// let matcher = Regex::new(r"zzz").unwrap();
 /// assert_fs_read_to_string_matches!(&path, &matcher);
 /// # });
-/// // assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`
-/// //   a_path label: `&path`,
-/// //   a_path debug: `\"alfa.txt\"`,
+/// // assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`
+/// //     path label: `&path`,
+/// //     path debug: `\"alfa.txt\"`,
 /// //  matcher label: `&matcher`,
 /// //  matcher debug: `Regex(\"zzz\")`,
-/// //              a: `\"alfa\\n\"`,
-/// //              b: `Regex(\"zzz\")`
+/// //    read string: `\"alfa\\n\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_fs_read_to_string_matches!(a_path, matcher)`\n",
-/// #     "  a_path label: `&path`,\n",
-/// #     "  a_path debug: `\"alfa.txt\"`,\n",
+/// #     "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
+/// #     "    path label: `&path`,\n",
+/// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `&matcher`,\n",
 /// #     " matcher debug: `Regex(\"zzz\")`,\n",
-/// #     "             a: `\"alfa\\n\"`,\n",
-/// #     "             b: `Regex(\"zzz\")`"
+/// #     "   read string: `\"alfa\\n\"`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -184,14 +183,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_matches {
-    ($a_path:expr, $b_matcher:expr $(,)?) => ({
-        match assert_fs_read_to_string_matches_as_result!($a_path, $b_matcher) {
+    ($path:expr, $matcher:expr $(,)?) => ({
+        match assert_fs_read_to_string_matches_as_result!($path, $matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_path:expr, $b_matcher:expr, $($message:tt)+) => ({
-        match assert_fs_read_to_string_matches_as_result!($a_path, $b_matcher) {
+    ($path:expr, $matcher:expr, $($message:tt)+) => ({
+        match assert_fs_read_to_string_matches_as_result!($path, $matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

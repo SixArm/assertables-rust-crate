@@ -40,25 +40,29 @@
 ///
 #[macro_export]
 macro_rules! assert_not_match_as_result {
-    ($matcher:expr, $matchee:expr $(,)?) => {{
-        if !($matcher.is_match($matchee)) {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-                    " matcher label: `{}`,\n",
-                    " matcher debug: `{:?}`,\n",
-                    " matchee label: `{}`,\n",
-                    " matchee debug: `{:?}`",
-                ),
-                stringify!($matcher),
-                $matcher,
-                stringify!($matchee),
-                $matchee,
-            ))
+    ($matcher:expr, $matchee:expr $(,)?) => ({
+        match (&$matcher, &$matchee) {
+            (matcher, matchee) => {
+                if !($matcher.is_match($matchee)) {
+                    Ok(())
+                } else {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_not_match!(matcher, matchee)`\n",
+                            " matcher label: `{}`,\n",
+                            " matcher debug: `{:?}`,\n",
+                            " matchee label: `{}`,\n",
+                            " matchee debug: `{:?}`",
+                        ),
+                        stringify!($matcher),
+                        matcher,
+                        stringify!($matchee),
+                        matchee,
+                    ))
+                }
+            }
         }
-    }};
+    });
 }
 
 #[cfg(test)]

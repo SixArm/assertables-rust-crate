@@ -41,55 +41,63 @@ macro_rules! assert_fn_lt_expr_as_result {
     //// Arity 1
 
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => ({
-        let a_output = $a_function($a_param);
-        if a_output < $b_expr {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fn_lt_expr!(a_function, a_param, b_expr)`\n",
-                    " a_function label: `{}`,\n",
-                    "    a_param label: `{}`,\n",
-                    "    a_param debug: `{:?}`,\n",
-                    "     b_expr label: `{}`,\n",
-                    "     b_expr debug: `{:?}`,\n",
-                    "                a: `{:?}`,\n",
-                    "                b: `{:?}`"
-                ),
-                stringify!($a_function),
-                stringify!($a_param),
-                $a_param,
-                stringify!($b_expr),
-                $b_expr,
-                a_output,
-                $b_expr
-            ))
-    }
+        match (&$a_function, &$a_param, &$b_expr) {
+            (_a_function, a_param, b_expr) => {
+                let a_output = $a_function($a_param);
+                if a_output < $b_expr {
+                    Ok(())
+                } else {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fn_lt_expr!(a_function, a_param, b_expr)`\n",
+                            " a_function label: `{}`,\n",
+                            "    a_param label: `{}`,\n",
+                            "    a_param debug: `{:?}`,\n",
+                            "     b_expr label: `{}`,\n",
+                            "     b_expr debug: `{:?}`,\n",
+                            "                a: `{:?}`,\n",
+                            "                b: `{:?}`"
+                        ),
+                        stringify!($a_function),
+                        stringify!($a_param),
+                        a_param,
+                        stringify!($b_expr),
+                        b_expr,
+                        a_output,
+                        b_expr
+                    ))
+                }
+            }
+        }
     });
 
     //// Arity 0
 
     ($a_function:path, $b_expr:expr $(,)?) => ({
-        let a_output = $a_function();
-        if a_output < $b_expr {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fn_lt_expr!(a_function, b_expr)`\n",
-                    " a_function label: `{}`,\n",
-                    "     b_expr label: `{}`,\n",
-                    "     b_expr debug: `{:?}`,\n",
-                    "                a: `{:?}`,\n",
-                    "                b: `{:?}`"
-                ),
-                stringify!($a_function),
-                stringify!($b_expr),
-                $b_expr,
-                a_output,
-                $b_expr
-            ))
-    }
+        match (&$a_function, &$b_expr) {
+            (_a_function, b_expr) => {
+                let a_output = $a_function();
+                if a_output < $b_expr {
+                    Ok(())
+                } else {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fn_lt_expr!(a_function, b_expr)`\n",
+                            " a_function label: `{}`,\n",
+                            "     b_expr label: `{}`,\n",
+                            "     b_expr debug: `{:?}`,\n",
+                            "                a: `{:?}`,\n",
+                            "                b: `{:?}`"
+                        ),
+                        stringify!($a_function),
+                        stringify!($b_expr),
+                        b_expr,
+                        a_output,
+                        b_expr
+                    ))
+                }
+            }
+        }
     });
 
 }

@@ -29,6 +29,22 @@
 //! # }
 //! ```
 
+#[macro_export]
+macro_rules! assert_bag_impl_prep {
+    ($into_iterable:expr $(,)?) => ({
+        match (&$into_iterable) {
+            into_iterable => {
+                let mut bag: std::collections::BTreeMap<_, usize> = std::collections::BTreeMap::new();
+                for x in into_iterable.into_iter() {
+                    let n = bag.entry(x).or_insert(0);
+                    *n += 1;
+                }
+                bag
+            }
+        }
+    });
+}
+
 pub mod assert_bag_eq;
 pub mod assert_bag_ne;
 pub mod assert_bag_subbag;

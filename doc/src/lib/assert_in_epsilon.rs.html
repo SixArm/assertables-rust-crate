@@ -332,15 +332,15 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_in_epsilon_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, <span class="macro-nonterminal">$epsilon</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, <span class="macro-nonterminal">$epsilon</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$epsilon</span>) {
-            (a_val, b_val, epsilon_val) =&gt; {
-                <span class="kw">if </span>a_val == b_val {
+            (a, b, epsilon) =&gt; {
+                <span class="kw">if </span>a == b {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
-                    <span class="kw">let </span>diff = <span class="kw">if </span>(a_val &gt; b_val) { a_val - b_val } <span class="kw">else </span>{ b_val - a_val };
-                    <span class="kw">let </span>min = <span class="kw">if </span>(a_val &lt; b_val) { a_val } <span class="kw">else </span>{ b_val };
-                    <span class="kw">let </span>rhs = <span class="kw-2">*</span>epsilon_val * min;
+                    <span class="kw">let </span>diff = <span class="kw">if </span>(a &gt; b) { a - b } <span class="kw">else </span>{ b - a };
+                    <span class="kw">let </span>min = <span class="kw">if </span>(a &lt; b) { a } <span class="kw">else </span>{ b };
+                    <span class="kw">let </span>rhs = <span class="kw-2">*</span>epsilon * min;
                     <span class="kw">if </span>diff &lt;= rhs {
                         <span class="prelude-val">Ok</span>(())
                     } <span class="kw">else </span>{
@@ -358,11 +358,11 @@
                                 <span class="string">" | a - b | ≤ epsilon * min(a, b): {}"</span>,
                             ),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                            <span class="macro-nonterminal">$a</span>,
+                            a,
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                            <span class="macro-nonterminal">$b</span>,
+                            b,
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$epsilon</span>),
-                            <span class="macro-nonterminal">$epsilon</span>,
+                            epsilon,
                             diff,
                             rhs,
                             <span class="bool-val">false
@@ -371,7 +371,7 @@
                 }
             }
         }
-    }};
+    });
 }
 
 <span class="attr">#[cfg(test)]

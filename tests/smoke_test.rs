@@ -66,21 +66,20 @@ fn assert_option_enum() {
 #[test]
 fn assert_poll_enum() {
     use std::task::Poll;
+    use std::task::Poll::*;
 
-    let a: Poll<i8> = Poll::Ready(1);
+    let a: Poll<i8> = Ready(1);
     assert_poll_ready!(a);
 
-    //TODO
-    // let a: Poll<i8> = Poll::Ready(1);
-    // let b: Poll<i8> = Poll::Ready(1);
-    // assert_poll_ready_eq!(a, b);
+    let a: Poll<i8> = Ready(1);
+    let b: Poll<i8> = Ready(1);
+    assert_poll_ready_eq!(a, b);
 
-    //TODO
-    // let a: Poll<i8> = Poll::Ready(1);
-    // let b: Poll<i8> = Poll::Ready(2);
-    // assert_poll_ready_ne!(a, b);
+    let a: Poll<i8> = Ready(1);
+    let b: Poll<i8> = Ready(2);
+    assert_poll_ready_ne!(a, b);
 
-    let a: Poll<i8> = Poll::Pending;
+    let a: Poll<i8> = Pending;
     assert_poll_pending!(a);
 }
 

@@ -1,11 +1,11 @@
-//! Assert expression.is_err() is true.
+//! Assert expression is Err(_).
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
-//! let a: Result<(), i8> = Result::Err(1);
+//! let a: Result<(), i8> = Err(1);
 //! assert_result_err!(a);
 //! # }
 //! ```
@@ -16,7 +16,7 @@
 //! * [`assert_result_err_as_result`](macro@crate::assert_result_err_as_result)
 //! * [`debug_assert_result_err`](macro@crate::debug_assert_result_err)
 
-/// Assert an expression.is_err() is true.
+/// Assert expression is Err(_).
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -36,28 +36,28 @@
 ///
 #[macro_export]
 macro_rules! assert_result_err_as_result {
-    ($result:expr $(,)?) => {{
+    ($result:expr $(,)?) => ({
         match (&$result) {
-            result_val => {
-                let is_err = result_val.is_err();
-                if is_err {
-                    Ok(())
-                } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_result_err!(result)`\n",
-                            "    result label: `{}`,\n",
-                            "    result debug: `{:?}`,\n",
-                            " result.is_err(): `{:?}`"
-                        ),
-                        stringify!($result),
-                        $result,
-                        is_err,
-                    ))
+            result => {
+                match (result) {
+                    Err(_) => {
+                        Ok(())
+                    },
+                    _ => {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_result_err!(a)`\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`",
+                            ),
+                            stringify!($result),
+                            result
+                        ))
+                    }
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]
@@ -65,29 +65,28 @@ mod tests {
 
     #[test]
     fn test_assert_result_err_as_result_x_success() {
-        let a: Result<(), i8> = Result::Err(1);
+        let a: Result<(), i8> = Err(1);
         let result = assert_result_err_as_result!(a);
         assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_result_err_as_result_x_failure() {
-        let a: Result<(), i8>  = Result::Ok(());
+        let a: Result<(), i8>  = Ok(());
         let result = assert_result_err_as_result!(a);
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_result_err!(result)`\n",
-                "    result label: `a`,\n",
-                "    result debug: `Ok(())`,\n",
-                " result.is_err(): `false`"
+                "assertion failed: `assert_result_err!(a)`\n",
+                " a label: `a`,\n",
+                " a debug: `Ok(())`",
             )
         );
     }
 }
 
-/// Assert expression.is_err() is true.
+/// Assert expression is Err(_).
 ///
 /// * If true, return `()`.
 ///
@@ -100,23 +99,21 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// # fn main() {
-/// let a: Result<(), i8> = Result::Err(1);
+/// let a: Result<(), i8> = Err(1);
 /// assert_result_err!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a: Result<(), i8> = Result::Ok(());
+/// let a: Result<(), i8> = Ok(());
 /// assert_result_err!(a);
 /// # });
-/// // assertion failed: `assert_result_err!(result)`
-/// //   result label: `a`,
-/// //   result debug: `Ok(())`,
-/// //  result.is_err(): `false`
+/// // assertion failed: `assert_result_err!(a)`
+/// //  a label: `a`,
+/// //  a debug: `Ok(())`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_result_err!(result)`\n",
-/// #     "    result label: `a`,\n",
-/// #     "    result debug: `Ok(())`,\n",
-/// #     " result.is_err(): `false`",
+/// #     "assertion failed: `assert_result_err!(a)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `Ok(())`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -144,7 +141,7 @@ macro_rules! assert_result_err {
     });
 }
 
-/// Assert expression.is_err() is true.
+/// Assert expression is Err(_).
 ///
 /// This macro provides the same statements as [`assert_result_err`](macro.assert_result_err.html),
 /// except this macro's statements are only enabled in non-optimized

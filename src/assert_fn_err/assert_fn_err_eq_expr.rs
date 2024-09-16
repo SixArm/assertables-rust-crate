@@ -42,50 +42,54 @@ macro_rules! assert_fn_err_eq_expr_as_result {
     //// Arity 1
 
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => ({
-        let a_result = $a_function($a_param);
-        let a_is_err = a_result.is_err();
-        if !a_is_err {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n",
-                    " a_function label: `{}`,\n",
-                    "    a_param label: `{}`,\n",
-                    "    a_param debug: `{:?}`,\n",
-                    "     b_expr label: `{}`,\n",
-                    "     b_expr debug: `{:?}`,\n",
-                    "         a result: `{:?}`",
-                ),
-                stringify!($a_function),
-                stringify!($a_param),
-                $a_param,
-                stringify!($b_expr),
-                $b_expr,
-                a_result
-            ))
-        } else {
-            let a_err = a_result.unwrap_err();
-            if a_err == $b_expr {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n",
-                        " a_function label: `{}`,\n",
-                        "    a_param label: `{}`,\n",
-                        "    a_param debug: `{:?}`,\n",
-                        "     b_expr label: `{}`,\n",
-                        "     b_expr debug: `{:?}`,\n",
-                        "                a: `{:?}`,\n",
-                        "                b: `{:?}`",
-                    ),
-                    stringify!($a_function),
-                    stringify!($a_param),
-                    $a_param,
-                    stringify!($b_expr),
-                    $b_expr,
-                    a_err,
-                    $b_expr
-                ))
+        match (&$a_function, &$a_param, &$b_expr) {
+            (_a_function, a_param, b_expr) => {
+                let a_result = $a_function($a_param);
+                let a_is_err = a_result.is_err();
+                if !a_is_err {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n",
+                            " a_function label: `{}`,\n",
+                            "    a_param label: `{}`,\n",
+                            "    a_param debug: `{:?}`,\n",
+                            "     b_expr label: `{}`,\n",
+                            "     b_expr debug: `{:?}`,\n",
+                            "         a result: `{:?}`",
+                        ),
+                        stringify!($a_function),
+                        stringify!($a_param),
+                        a_param,
+                        stringify!($b_expr),
+                        b_expr,
+                        a_result
+                    ))
+                } else {
+                    let a_err = a_result.unwrap_err();
+                    if a_err == $b_expr {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n",
+                                " a_function label: `{}`,\n",
+                                "    a_param label: `{}`,\n",
+                                "    a_param debug: `{:?}`,\n",
+                                "     b_expr label: `{}`,\n",
+                                "     b_expr debug: `{:?}`,\n",
+                                "                a: `{:?}`,\n",
+                                "                b: `{:?}`",
+                            ),
+                            stringify!($a_function),
+                            stringify!($a_param),
+                            a_param,
+                            stringify!($b_expr),
+                            b_expr,
+                            a_err,
+                            $b_expr
+                        ))
+                    }
+                }
             }
         }
     });
@@ -93,42 +97,46 @@ macro_rules! assert_fn_err_eq_expr_as_result {
     //// Arity 0
 
     ($a_function:path, $b_expr:expr $(,)?) => ({
-        let a_result = $a_function();
-        let a_is_err = a_result.is_err();
-        if !a_is_err {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n",
-                    " a_function label: `{}`,\n",
-                    "     b_expr label: `{}`,\n",
-                    "     b_expr debug: `{:?}`,\n",
-                    "         a result: `{:?}`",
-                ),
-                stringify!($a_function),
-                stringify!($b_expr),
-                $b_expr,
-                a_result
-            ))
-        } else {
-            let a_err = a_result.unwrap_err();
-            if a_err == $b_expr {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n",
-                        " a_function label: `{}`,\n",
-                        "     b_expr label: `{}`,\n",
-                        "     b_expr debug: `{:?}`,\n",
-                        "                a: `{:?}`,\n",
-                        "                b: `{:?}`",
-                    ),
-                    stringify!($a_function),
-                    stringify!($b_expr),
-                    $b_expr,
-                    a_err,
-                    $b_expr
-                ))
+        match (&$a_function, &$b_expr) {
+            (_a_function, b_expr) => {
+                let a_result = $a_function();
+                let a_is_err = a_result.is_err();
+                if !a_is_err {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n",
+                            " a_function label: `{}`,\n",
+                            "     b_expr label: `{}`,\n",
+                            "     b_expr debug: `{:?}`,\n",
+                            "         a result: `{:?}`",
+                        ),
+                        stringify!($a_function),
+                        stringify!($b_expr),
+                        b_expr,
+                        a_result
+                    ))
+                } else {
+                    let a_err = a_result.unwrap_err();
+                    if a_err == $b_expr {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n",
+                                " a_function label: `{}`,\n",
+                                "     b_expr label: `{}`,\n",
+                                "     b_expr debug: `{:?}`,\n",
+                                "                a: `{:?}`,\n",
+                                "                b: `{:?}`",
+                            ),
+                            stringify!($a_function),
+                            stringify!($b_expr),
+                            b_expr,
+                            a_err,
+                            $b_expr
+                        ))
+                    }
+                }
             }
         }
     });

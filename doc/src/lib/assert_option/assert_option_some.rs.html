@@ -177,10 +177,7 @@
 <a href="#177" id="177">177</a>
 <a href="#178" id="178">178</a>
 <a href="#179" id="179">179</a>
-<a href="#180" id="180">180</a>
-<a href="#181" id="181">181</a>
-<a href="#182" id="182">182</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression.is_some() is true.
+</pre></div><pre class="rust"><code><span class="doccomment">//!Assert expression is Some(_).
 //!
 //! # Example
 //!
@@ -218,28 +215,28 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_option_some_as_result {
-    (<span class="macro-nonterminal">$option</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+    (<span class="macro-nonterminal">$option</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$option</span>) {
-            option_val =&gt; {
-                <span class="kw">let </span>is_some = option_val.is_some();
-                <span class="kw">if </span>is_some {
-                    <span class="prelude-val">Ok</span>(())
-                } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_option_some!(option)`\n"</span>,
-                            <span class="string">"     option label: `{}`,\n"</span>,
-                            <span class="string">"     option debug: `{:?}`,\n"</span>,
-                            <span class="string">" expr.is_some(): `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$option</span>),
-                        <span class="macro-nonterminal">$option</span>,
-                        is_some,
-                    ))
+            option =&gt; {
+                <span class="kw">match </span>(option) {
+                    <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; {
+                        <span class="prelude-val">Ok</span>(())
+                    },
+                    <span class="kw">_ </span>=&gt; {
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_option_some!(a)`\n"</span>,
+                                <span class="string">" option label: `{}`,\n"</span>,
+                                <span class="string">" option debug: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$option</span>),
+                            option
+                        ))
+                    }
                 }
             }
         }
-    }};
+    });
 }
 
 <span class="attr">#[cfg(test)]
@@ -260,16 +257,15 @@
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_option_some!(option)`\n"</span>,
-                <span class="string">"     option label: `a`,\n"</span>,
-                <span class="string">"     option debug: `None`,\n"</span>,
-                <span class="string">" expr.is_some(): `false`"
-            </span>)
+                <span class="string">"assertion failed: `assert_option_some!(a)`\n"</span>,
+                <span class="string">" option label: `a`,\n"</span>,
+                <span class="string">" option debug: `None`"</span>,
+            )
         );
     }
 }
 
-<span class="doccomment">/// Assert expression.is_some() is true.
+<span class="doccomment">///Assert expression is Some(_).
 ///
 /// * If true, return `()`.
 ///
@@ -289,16 +285,14 @@
 /// let a: Option&lt;i8&gt; = Option::None;
 /// assert_option_some!(a);
 /// # });
-/// // assertion failed: `assert_option_some!(option)`
-/// //      option label: `a`,
-/// //      option debug: `None`,
-/// //  expr.is_some(): `false`
+/// // assertion failed: `assert_option_some!(a)`
+/// //  option label: `a`,
+/// //  option debug: `None`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_option_some!(option)`\n",
-/// #     "     option label: `a`,\n",
-/// #     "     option debug: `None`,\n",
-/// #     " expr.is_some(): `false`",
+/// #     "assertion failed: `assert_option_some!(a)`\n",
+/// #     " option label: `a`,\n",
+/// #     " option debug: `None`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -326,7 +320,7 @@
     });
 }
 
-<span class="doccomment">/// Assert expression.is_some() is true.
+<span class="doccomment">///Assert expression is Some(_).
 ///
 /// This macro provides the same statements as [`assert_option_some`](macro.assert_option_some.html),
 /// except this macro's statements are only enabled in non-optimized

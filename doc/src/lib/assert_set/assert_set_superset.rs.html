@@ -250,12 +250,12 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_set_superset_as_result {
-    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_collection</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_collection</span>) {
-            (a_val, b_val) =&gt; {
-                <span class="kw">let </span>a_set: ::std::collections::BTreeSet&lt;<span class="kw">_</span>&gt; = a_val.into_iter().collect();
-                <span class="kw">let </span>b_set: ::std::collections::BTreeSet&lt;<span class="kw">_</span>&gt; = b_val.into_iter().collect();
-                <span class="kw">if </span>a_set.is_superset(<span class="kw-2">&amp;</span>b_set) {
+            (a_collection, b_collection) =&gt; {
+                <span class="kw">let </span>a: ::std::collections::BTreeSet&lt;<span class="kw">_</span>&gt; = <span class="macro">assert_set_impl_prep!</span>(a_collection);
+                <span class="kw">let </span>b: ::std::collections::BTreeSet&lt;<span class="kw">_</span>&gt; = <span class="macro">assert_set_impl_prep!</span>(b_collection);
+                <span class="kw">if </span>a.is_superset(<span class="kw-2">&amp;</span>b) {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
@@ -269,16 +269,16 @@
                             <span class="string">"       b: `{:?}`"
                         </span>),
                         <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
-                        <span class="macro-nonterminal">$a_collection</span>,
+                        a_collection,
                         <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
-                        <span class="macro-nonterminal">$b_collection</span>,
-                        <span class="kw-2">&amp;</span>a_set,
-                        <span class="kw-2">&amp;</span>b_set
+                        b_collection,
+                        a,
+                        b
                     ))
                 }
             }
         }
-    }};
+    });
 }
 
 <span class="attr">#[cfg(test)]

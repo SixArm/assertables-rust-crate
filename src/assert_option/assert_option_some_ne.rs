@@ -1,4 +1,4 @@
-//! Assert an option some value is not equal to another.
+//! Assert two expressions are Some(_) and their values are not equal.
 //!
 //! # Example
 //!
@@ -17,7 +17,7 @@
 //! * [`assert_option_some_ne_as_result`](macro@crate::assert_option_some_ne_as_result)
 //! * [`debug_assert_option_some_ne`](macro@crate::debug_assert_option_some_ne)
 
-/// Assert an option some value is not equal to another.
+/// Assert two expressions are Some(_) and their values are not equal.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -37,46 +37,52 @@
 ///
 #[macro_export]
 macro_rules! assert_option_some_ne_as_result {
-    ($a_option:expr, $b_option:expr $(,)?) => {
-        match (&$a_option, &$b_option) {
-            (Some(a), Some(b)) =>
-                if a != b {
-                    Ok(())
-                } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_option_some_ne!(a, b)`\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`,\n",
-                            "       a: `{:?}`,\n",
-                            "       b: `{:?}`"
-                        ),
-                        stringify!($a_option),
-                        $a_option,
-                        stringify!($b_option),
-                        $b_option,
-                        a,
-                        b
-                    ))
-                },
-            _ =>
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_option_some_ne!(a, b)`\n",
-                        " a label: `{}`,\n",
-                        " a debug: `{:?}`,\n",
-                        " b label: `{}`,\n",
-                        " b debug: `{:?}`",
-                    ),
-                    stringify!($a_option),
-                    $a_option,
-                    stringify!($b_option),
-                    $b_option,
-                ))
+    ($a:expr, $b:expr $(,)?) => ({
+        match (&$a, &$b) {
+            (a, b) => {
+                match (a, b) {
+                    (Some(a_inner), Some(b_inner)) => {
+                        if a_inner != b_inner {
+                            Ok(())
+                        } else {
+                            Err(format!(
+                                concat!(
+                                    "assertion failed: `assert_option_some_ne!(a, b)`\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`,\n",
+                                    " a inner: `{:?}`,\n",
+                                    " b label: `{}`,\n",
+                                    " b debug: `{:?}`,\n",
+                                    " b inner: `{:?}`"
+                                ),
+                                stringify!($a),
+                                a,
+                                a_inner,
+                                stringify!($b),
+                                b,
+                                b_inner
+                            ))
+                        }
+                    },
+                    _ => {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_option_some_ne!(a, b)`\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`",
+                            ),
+                            stringify!($a),
+                            a,
+                            stringify!($b),
+                            b,
+                        ))
+                    }
+                }
+            }
         }
-    }
+    });
 }
 
 #[cfg(test)]
@@ -102,10 +108,10 @@ mod tests {
                 "assertion failed: `assert_option_some_ne!(a, b)`\n",
                 " a label: `a`,\n",
                 " a debug: `Some(1)`,\n",
+                " a inner: `1`,\n",
                 " b label: `b`,\n",
                 " b debug: `Some(1)`,\n",
-                "       a: `1`,\n",
-                "       b: `1`",
+                " b inner: `1`",
             )
         );
     }
@@ -130,7 +136,7 @@ mod tests {
 
 }
 
-/// Assert an option some value is not equal to another.
+/// Assert two expressions are Some(_) and their values are not equal.
 ///
 /// * If true, return `()`.
 ///
@@ -157,17 +163,17 @@ mod tests {
 /// //  a debug: `Some(1)`,
 /// //  b label: `b`,
 /// //  b debug: `Some(1)`,
-/// //        a: `1`,
-/// //        b: `1`
+/// //  a inner: `1`,
+/// //  b inner: `1`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_option_some_ne!(a, b)`\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`,\n",
+/// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `Some(1)`,\n",
-/// #     "       a: `1`,\n",
-/// #     "       b: `1`",
+/// #     " b inner: `1`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -181,21 +187,21 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_option_some_ne {
-    ($a_option:expr, $b_option:expr $(,)?) => ({
-        match assert_option_some_ne_as_result!($a_option, $b_option) {
+    ($a:expr, $b:expr $(,)?) => ({
+        match assert_option_some_ne_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     });
-    ($a_option:expr, $b_option:expr, $($message:tt)+) => ({
-        match assert_option_some_ne_as_result!($a_option, $b_option) {
+    ($a:expr, $b:expr, $($message:tt)+) => ({
+        match assert_option_some_ne_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     });
 }
 
-/// Assert an option some value is not equal to another.
+/// Assert two expressions are Some(_) and their values are not equal.
 ///
 /// This macro provides the same statements as [`assert_option_some_ne`](macro.assert_option_some_ne.html),
 /// except this macro's statements are only enabled in non-optimized

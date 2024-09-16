@@ -37,25 +37,29 @@
 ///
 #[macro_export]
 macro_rules! assert_not_ends_with_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        if !($a.ends_with($b)) {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_not_ends_with!(a, b)`\n",
-                    " a label: `{}`,\n",
-                    " a debug: `{:?}`,\n",
-                    " b label: `{}`,\n",
-                    " b debug: `{:?}`",
-                ),
-                stringify!($a),
-                $a,
-                stringify!($b),
-                $b,
-            ))
+    ($a:expr, $b:expr $(,)?) => ({
+        match (&$a, &$b) {
+            (a, b) => {
+                if !(a.ends_with(b)) {
+                    Ok(())
+                } else {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_not_ends_with!(a, b)`\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`",
+                        ),
+                        stringify!($a),
+                        a,
+                        stringify!($b),
+                        b,
+                    ))
+                }
+            }
         }
-    }};
+    });
 }
 
 #[cfg(test)]

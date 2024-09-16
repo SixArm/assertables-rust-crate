@@ -35,6 +35,7 @@
 <a href="#35" id="35">35</a>
 <a href="#36" id="36">36</a>
 <a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert macros for `Poll` {`Ready`, `Pending`}
 //!
 //! These macros help compare a `Poll` that is either `Ready`, `Pending`.
@@ -60,6 +61,7 @@
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! use std::task::Poll;
+//! use std::task::Poll::*;
 //!
 //!
 //! # fn main() {

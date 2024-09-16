@@ -341,6 +341,10 @@
 <a href="#341" id="341">341</a>
 <a href="#342" id="342">342</a>
 <a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is greater than another.
 //!
 //! # Example
@@ -384,32 +388,36 @@
     <span class="comment">//// Arity 1
 
     </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_function</span>:path, <span class="macro-nonterminal">$b_param</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span>a_output = <span class="macro-nonterminal">$a_function</span>(<span class="macro-nonterminal">$a_param</span>);
-        <span class="kw">let </span>b_output = <span class="macro-nonterminal">$b_function</span>(<span class="macro-nonterminal">$b_param</span>);
-        <span class="kw">if </span>a_output &gt; b_output {
-            <span class="prelude-val">Ok</span>(())
-        } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fn_gt!(a_function, a_param, b_function, b_param)`\n"</span>,
-                    <span class="string">" a_function label: `{}`,\n"</span>,
-                    <span class="string">"    a_param label: `{}`,\n"</span>,
-                    <span class="string">"    a_param debug: `{:?}`,\n"</span>,
-                    <span class="string">" b_function label: `{}`,\n"</span>,
-                    <span class="string">"    b_param label: `{}`,\n"</span>,
-                    <span class="string">"    b_param debug: `{:?}`,\n"</span>,
-                    <span class="string">"                a: `{:?}`,\n"</span>,
-                    <span class="string">"                b: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
-                <span class="macro-nonterminal">$a_param</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
-                <span class="macro-nonterminal">$b_param</span>,
-                a_output,
-                b_output
-            ))
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_param</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_param</span>) {
+            (_a_function, a_param, _b_function, b_param) =&gt; {
+                <span class="kw">let </span>a_output = <span class="macro-nonterminal">$a_function</span>(<span class="macro-nonterminal">$a_param</span>);
+                <span class="kw">let </span>b_output = <span class="macro-nonterminal">$b_function</span>(<span class="macro-nonterminal">$b_param</span>);
+                <span class="kw">if </span>a_output &gt; b_output {
+                    <span class="prelude-val">Ok</span>(())
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_fn_gt!(a_function, a_param, b_function, b_param)`\n"</span>,
+                            <span class="string">" a_function label: `{}`,\n"</span>,
+                            <span class="string">"    a_param label: `{}`,\n"</span>,
+                            <span class="string">"    a_param debug: `{:?}`,\n"</span>,
+                            <span class="string">" b_function label: `{}`,\n"</span>,
+                            <span class="string">"    b_param label: `{}`,\n"</span>,
+                            <span class="string">"    b_param debug: `{:?}`,\n"</span>,
+                            <span class="string">"                a: `{:?}`,\n"</span>,
+                            <span class="string">"                b: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
+                        a_param,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
+                        b_param,
+                        a_output,
+                        b_output
+                    ))
+                }
+            }
         }
     });
 

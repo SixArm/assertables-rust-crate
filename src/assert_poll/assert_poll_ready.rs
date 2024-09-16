@@ -1,13 +1,14 @@
-//! Assert a poll is ready.
+//! Assert an expression is Ready(_).
 //!
 //! # Example
 //!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! use std::task::Poll;
+//! use std::task::Poll::*;
 //!
 //! # fn main() {
-//! let a: Poll<i8> = Poll::Ready(1);
+//! let a: Poll<i8> = Ready(1);
 //! assert_poll_ready!(a);
 //! # }
 //! ```
@@ -18,7 +19,7 @@
 //! * [`assert_poll_ready_as_result`](macro@crate::assert_poll_ready_as_result)
 //! * [`debug_assert_poll_ready`](macro@crate::debug_assert_poll_ready)
 
-/// Assert a poll is ready.
+/// Assert an expression is Ready(_).
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -38,52 +39,59 @@
 ///
 #[macro_export]
 macro_rules! assert_poll_ready_as_result {
-    ($poll:expr $(,)?) => {
-        match (&$poll) {
-            Poll::Ready(_) =>
-                Ok(()),
-            _ =>
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_poll_ready!(poll)`\n",
-                        "      poll label: `{}`,\n",
-                        "      poll debug: `{:?}`",
-                    ),
-                    stringify!($poll),
-                    $poll,
-                ))
+    ($a:expr $(,)?) => ({
+        match (&$a) {
+            a => {
+                match (a) {
+                    Ready(_) => {
+                        Ok(())
+                    },
+                    _ => {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_poll_ready!(a)`\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`",
+                            ),
+                            stringify!($a),
+                            a,
+                        ))
+                    }
+                }
+            }
         }
-    }
+    });
 }
 
 #[cfg(test)]
 mod tests {
     use std::task::Poll;
+    use std::task::Poll::*;
 
     #[test]
     fn test_assert_poll_ready_as_result_x_success() {
-        let a: Poll<i8> = Poll::Ready(1);
+        let a: Poll<i8> = Ready(1);
         let result = assert_poll_ready_as_result!(a);
         assert_eq!(result, Ok(()));
     }
 
     #[test]
     fn test_assert_poll_ready_as_result_x_failure() {
-        let a: Poll<i8> = Poll::Pending;
+        let a: Poll<i8> = Pending;
         let result = assert_poll_ready_as_result!(a);
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_poll_ready!(poll)`\n",
-                "      poll label: `a`,\n",
-                "      poll debug: `Pending`",
+                "assertion failed: `assert_poll_ready!(a)`\n",
+                " a label: `a`,\n",
+                " a debug: `Pending`",
             )
         );
     }
 }
 
-/// Assert a poll is ready.
+/// Assert an expression is Ready(_).
 ///
 /// * If true, return `()`.
 ///
@@ -96,22 +104,23 @@ mod tests {
 /// # #[macro_use] extern crate assertables;
 /// # use std::panic;
 /// use std::task::Poll;
+/// use std::task::Poll::*;
 /// # fn main() {
-/// let a: Poll<i8> = Poll::Ready(1);
+/// let a: Poll<i8> = Ready(1);
 /// assert_poll_ready!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
-/// let a: Poll<i8> = Poll::Pending;
+/// let a: Poll<i8> = Pending;
 /// assert_poll_ready!(a);
 /// # });
-/// // assertion failed: `assert_poll_ready!(poll)`
-/// //      poll label: `a`,
-/// //      poll debug: `Pending`
+/// // assertion failed: `assert_poll_ready!(a)`
+/// //  a label: `a`,
+/// //  a debug: `Pending`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_poll_ready!(poll)`\n",
-/// #     "      poll label: `a`,\n",
-/// #     "      poll debug: `Pending`",
+/// #     "assertion failed: `assert_poll_ready!(a)`\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `Pending`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -125,18 +134,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_poll_ready {
-    ($poll:expr $(,)?) => {
+    ($poll:expr $(,)?) => ({
         match assert_poll_ready_as_result!($poll) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    };
-    ($poll:expr, $($message:tt)+) => {
+    });
+    ($poll:expr, $($message:tt)+) => ({
         match assert_poll_ready_as_result!($poll) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    };
+    });
 }
 
 /// Assert poll.is_ready() is true.

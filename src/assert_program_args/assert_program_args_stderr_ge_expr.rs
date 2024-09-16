@@ -39,58 +39,93 @@
 #[macro_export]
 macro_rules! assert_program_args_stderr_ge_expr_as_result {
     ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => ({
-        let mut a_command = ::std::process::Command::new($a_program);
-        a_command.args($a_args);
-        let a_output = a_command.output();
-        if a_output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
-                    " a_program label: `{}`,\n",
-                    " a_program debug: `{:?}`,\n",
-                    "    a_args label: `{}`,\n",
-                    "    a_args debug: `{:?}`,\n",
-                    "    b_expr label: `{}`,\n",
-                    "    b_expr debug: `{:?}`,\n",
-                    "        a output: `{:?}`"
-                ),
-                stringify!($a_program),
-                $a_program,
-                stringify!($a_args),
-                $a_args,
-                stringify!($b_expr),
-                $b_expr,
-                a_output
-            ))
-        } else {
-            let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            if a_string >= $b_expr {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
-                        " a_program label: `{}`,\n",
-                        " a_program debug: `{:?}`,\n",
-                        "    a_args label: `{}`,\n",
-                        "    a_args debug: `{:?}`,\n",
-                        "    b_expr label: `{}`,\n",
-                        "    b_expr debug: `{:?}`,\n",
-                        "               a: `{:?}`,\n",
-                        "               b: `{:?}`"
-                    ),
-                    stringify!($a_program),
-                    $a_program,
-                    stringify!($a_args),
-                    $a_args,
-                    stringify!($b_expr),
-                    $b_expr,
-                    a_string,
-                    $b_expr
-                ))
+        match ($a_program, $a_args, $b_expr) {
+            (a_program, a_args, b_expr) => {
+                let a_output = assert_program_args_impl_prep!(a_program, a_args);
+                if a_output.is_err() {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
+                            " a_program label: `{}`,\n",
+                            " a_program debug: `{:?}`,\n",
+                            "    a_args label: `{}`,\n",
+                            "    a_args debug: `{:?}`,\n",
+                            "    b_expr label: `{}`,\n",
+                            "    b_expr debug: `{:?}`,\n",
+                            "        a output: `{:?}`"
+                        ),
+                        stringify!($a_program),
+                        a_program,
+                        stringify!($a_args),
+                        a_args,
+                        stringify!($b_expr),
+                        b_expr,
+                        a_output
+                    ))
+                } else {
+                    let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
+                    if a_string >= b_expr {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
+                                " a_program label: `{}`,\n",
+                                " a_program debug: `{:?}`,\n",
+                                "    a_args label: `{}`,\n",
+                                "    a_args debug: `{:?}`,\n",
+                                "    b_expr label: `{}`,\n",
+                                "    b_expr debug: `{:?}`,\n",
+                                "               a: `{:?}`,\n",
+                                "               b: `{:?}`"
+                            ),
+                            stringify!($a_program),
+                            a_program,
+                            stringify!($a_args),
+                            a_args,
+                            stringify!($b_expr),
+                            b_expr,
+                            a_string,
+                            b_expr
+                        ))
+                    }
+                }
             }
         }
     });
+}
+
+#[cfg(test)]
+mod tests {
+
+    #[test]
+    fn test_assert_program_args_stderr_ge_expr_as_result_x_success() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b = String::from("hallo");
+        let result = assert_program_args_stderr_ge_expr_as_result!(&a_program, &a_args, b);
+        assert_eq!(result.unwrap(), ());
+    }
+
+    #[test]
+    fn test_assert_program_args_stderr_ge_expr_as_result_x_failure() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "hello"];
+        let b = String::from("hullo");
+        let result = assert_program_args_stderr_ge_expr_as_result!(&a_program, &a_args, b);
+        let actual = result.unwrap_err();
+        let expect = concat!(
+            "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
+            " a_program label: `&a_program`,\n",
+            " a_program debug: `\"bin/printf-stderr\"`,\n",
+            "    a_args label: `&a_args`,\n",
+            "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+            "    b_expr label: `b`,\n",
+            "    b_expr debug: `\"hullo\"`,\n",
+            "               a: `\"hello\"`,\n",
+            "               b: `\"hullo\"`");
+        assert_eq!(actual, expect);
+    }
 }
 
 /// Assert a command (built with program and args) stderr string is greater than or equal to an expression.

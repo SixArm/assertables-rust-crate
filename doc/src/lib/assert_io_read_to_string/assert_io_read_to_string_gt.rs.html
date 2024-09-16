@@ -268,11 +268,11 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_io_read_to_string_gt_as_result {
-    (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b_reader</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">let </span><span class="kw-2">mut </span>a_string = String::new();
         <span class="kw">let </span><span class="kw-2">mut </span>b_string = String::new();
         <span class="kw">let </span>a_result = <span class="macro-nonterminal">$a_reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>a_string);
-        <span class="kw">let </span>b_result = <span class="macro-nonterminal">$b</span>.read_to_string(<span class="kw-2">&amp;mut </span>b_string);
+        <span class="kw">let </span>b_result = <span class="macro-nonterminal">$b_reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>b_string);
         <span class="kw">if </span>a_result.is_err() || b_result.is_err() {
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
@@ -286,8 +286,8 @@
                 </span>),
                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
                 <span class="macro-nonterminal">$a_reader</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                <span class="macro-nonterminal">$b</span>,
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_reader</span>),
+                <span class="macro-nonterminal">$b_reader</span>,
                 a_result,
                 b_result
             ))
@@ -309,8 +309,8 @@
                     </span>),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
                     <span class="macro-nonterminal">$a_reader</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                    <span class="macro-nonterminal">$b</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_reader</span>),
+                    <span class="macro-nonterminal">$b_reader</span>,
                     a_string,
                     b_string
                 ))

@@ -240,6 +240,8 @@
 <a href="#240" id="240">240</a>
 <a href="#241" id="241">241</a>
 <a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is a match to a regex.
 //!
 //! # Example
@@ -283,55 +285,57 @@
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stdout_is_match_as_result {
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">let </span><span class="kw-2">mut </span>a_command = ::std::process::Command::new(<span class="macro-nonterminal">$a_program</span>);
-        a_command.args(<span class="macro-nonterminal">$a_args</span>);
-        <span class="kw">let </span>a_output = a_command.output();
-        <span class="kw">if </span>a_output.is_err() {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n"</span>,
-                    <span class="string">" a_program label: `{}`,\n"</span>,
-                    <span class="string">" a_program debug: `{:?}`,\n"</span>,
-                    <span class="string">"    a_args label: `{}`,\n"</span>,
-                    <span class="string">"    a_args debug: `{:?}`,\n"</span>,
-                    <span class="string">" b_matcher label: `{}`,\n"</span>,
-                    <span class="string">" b_matcher debug: `{:?}`,\n"</span>,
-                    <span class="string">"        a output: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
-                <span class="macro-nonterminal">$a_program</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
-                <span class="macro-nonterminal">$a_args</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
-                <span class="macro-nonterminal">$matcher</span>,
-                a_output
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            <span class="kw">if </span><span class="macro-nonterminal">$matcher</span>.is_match(<span class="kw-2">&amp;</span>a_string) {
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n"</span>,
-                        <span class="string">" a_program label: `{}`,\n"</span>,
-                        <span class="string">" a_program debug: `{:?}`,\n"</span>,
-                        <span class="string">"    a_args label: `{}`,\n"</span>,
-                        <span class="string">"    a_args debug: `{:?}`,\n"</span>,
-                        <span class="string">" b_matcher label: `{}`,\n"</span>,
-                        <span class="string">" b_matcher debug: `{:?}`,\n"</span>,
-                        <span class="string">"               a: `{:?}`,\n"</span>,
-                        <span class="string">"               b: `{:?}`"
-                    </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
-                    <span class="macro-nonterminal">$a_program</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
-                    <span class="macro-nonterminal">$a_args</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
-                    <span class="macro-nonterminal">$matcher</span>,
-                    a_string,
-                    <span class="macro-nonterminal">$matcher
-                </span>))
+        <span class="kw">match </span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$matcher</span>) {
+            (a_program, a_args, matcher) =&gt; {
+                <span class="kw">let </span>a_output = <span class="macro">assert_program_args_impl_prep!</span>(a_program, a_args);
+                <span class="kw">if </span>a_output.is_err() {
+                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n"</span>,
+                            <span class="string">" a_program label: `{}`,\n"</span>,
+                            <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                            <span class="string">"    a_args label: `{}`,\n"</span>,
+                            <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                            <span class="string">" b_matcher label: `{}`,\n"</span>,
+                            <span class="string">" b_matcher debug: `{:?}`,\n"</span>,
+                            <span class="string">"        a output: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                        a_program,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                        a_args,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
+                        matcher,
+                        a_output
+                    ))
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
+                    <span class="kw">if </span><span class="macro-nonterminal">$matcher</span>.is_match(<span class="kw-2">&amp;</span>a_string) {
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n"</span>,
+                                <span class="string">" a_program label: `{}`,\n"</span>,
+                                <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                                <span class="string">"    a_args label: `{}`,\n"</span>,
+                                <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                                <span class="string">" b_matcher label: `{}`,\n"</span>,
+                                <span class="string">" b_matcher debug: `{:?}`,\n"</span>,
+                                <span class="string">"               a: `{:?}`,\n"</span>,
+                                <span class="string">"               b: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                            a_program,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                            a_args,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
+                            matcher,
+                            a_string,
+                            <span class="macro-nonterminal">$matcher
+                        </span>))
+                    }
+                }
             }
         }
     });
@@ -347,7 +351,7 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
         <span class="kw">let </span>b = Regex::new(<span class="string">r"ell"</span>).unwrap();
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b);
         <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
@@ -356,7 +360,7 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
         <span class="kw">let </span>b = Regex::new(<span class="string">r"zzz"</span>).unwrap();
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_program_args_stdout_is_match!(a_program, b_matcher)`\n"</span>,
@@ -364,7 +368,7 @@
             <span class="string">" a_program debug: `\"bin/printf-stdout\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
             <span class="string">"    a_args debug: `[\"%s\", \"hello\"]`,\n"</span>,
-            <span class="string">" b_matcher label: `b`,\n"</span>,
+            <span class="string">" b_matcher label: `&amp;b`,\n"</span>,
             <span class="string">" b_matcher debug: `Regex(\"zzz\")`,\n"</span>,
             <span class="string">"               a: `\"hello\"`,\n"</span>,
             <span class="string">"               b: `Regex(\"zzz\")`"

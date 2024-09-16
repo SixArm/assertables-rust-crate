@@ -37,53 +37,56 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_eq_as_result {
-    ($a_path:expr, $b_path:expr $(,)?) => {{
-        let a_result = ::std::fs::read_to_string($a_path);
-        let b_result = ::std::fs::read_to_string($b_path);
-        if a_result.is_err() || b_result.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-                    " a_path label: `{}`,\n",
-                    " a_path debug: `{:?}`,\n",
-                    " b_path label: `{}`,\n",
-                    " b_path debug: `{:?}`,\n",
-                    "     a result: `{:?}`,\n",
-                    "     b result: `{:?}`"
-                ),
-                stringify!($a_path),
-                $a_path,
-                stringify!($b_path),
-                $b_path,
-                a_result,
-                b_result
-            ))
-        } else {
-            let a_string = a_result.unwrap();
-            let b_string = b_result.unwrap();
-            if a_string == b_string {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-                        " a_path label: `{}`,\n",
-                        " a_path debug: `{:?}`,\n",
-                        " b_path label: `{}`,\n",
-                        " b_path debug: `{:?}`,\n",
-                        "     a string: `{:?}`,\n",
-                        "     b string: `{:?}`"
-                    ),
-                    stringify!($a_path),
-                    $a_path,
-                    stringify!($b_path),
-                    $b_path,
-                    a_string,
-                    b_string
-                ))
+    ($a_path:expr, $b_path:expr $(,)?) => ({
+        match (&$a_path, &$b_path) {
+            (a_path, b_path) => {
+                match (std::fs::read_to_string(a_path), std::fs::read_to_string(b_path)) {
+                    (Ok(a_string), Ok(b_string)) => {
+                        if a_string == b_string {
+                            Ok(())
+                        } else {
+                            Err(format!(
+                                concat!(
+                                    "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
+                                    " a_path label: `{}`,\n",
+                                    " a_path debug: `{:?}`,\n",
+                                    " b_path label: `{}`,\n",
+                                    " b_path debug: `{:?}`,\n",
+                                    "     a string: `{:?}`,\n",
+                                    "     b string: `{:?}`"
+                                ),
+                                stringify!($a_path),
+                                a_path,
+                                stringify!($b_path),
+                                b_path,
+                                a_string,
+                                b_string
+                            ))
+                        }
+                    },
+                    (a_result, b_result) => {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
+                                " a_path label: `{}`,\n",
+                                " a_path debug: `{:?}`,\n",
+                                " b_path label: `{}`,\n",
+                                " b_path debug: `{:?}`,\n",
+                                "     a result: `{:?}`,\n",
+                                "     b result: `{:?}`"
+                            ),
+                            stringify!($a_path),
+                            a_path,
+                            stringify!($b_path),
+                            b_path,
+                            a_result,
+                            b_result
+                        ))
+                    }
+                }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]

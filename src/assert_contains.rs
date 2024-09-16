@@ -43,25 +43,29 @@
 ///
 #[macro_export]
 macro_rules! assert_contains_as_result {
-    ($container:expr, $containee:expr $(,)?) => {{
-        if $container.contains($containee) {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_contains!(container, containee)`\n",
-                    " container label: `{}`,\n",
-                    " container debug: `{:?}`,\n",
-                    " containee label: `{}`,\n",
-                    " containee debug: `{:?}`",
-                ),
-                stringify!($container),
-                $container,
-                stringify!($containee),
-                $containee,
-            ))
+    ($container:expr, $containee:expr $(,)?) => ({
+        match (&$container, &$containee) {
+            (container, containee) => {
+                if container.contains($containee) {
+                    Ok(())
+                } else {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_contains!(container, containee)`\n",
+                            " container label: `{}`,\n",
+                            " container debug: `{:?}`,\n",
+                            " containee label: `{}`,\n",
+                            " containee debug: `{:?}`",
+                        ),
+                        stringify!($container),
+                        container,
+                        stringify!($containee),
+                        containee,
+                    ))
+                }
+            }
         }
-    }};
+    });
 }
 
 #[cfg(test)]

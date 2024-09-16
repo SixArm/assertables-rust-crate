@@ -37,21 +37,11 @@
 ///
 #[macro_export]
 macro_rules! assert_bag_eq_as_result {
-    ($a_collection:expr, $b_collection:expr $(,)?) => {{
+    ($a_collection:expr, $b_collection:expr $(,)?) => ({
         match (&$a_collection, &$b_collection) {
-            (a_val, b_val) => {
-                let mut a_bag: ::std::collections::BTreeMap<_, usize> =
-                    ::std::collections::BTreeMap::new();
-                let mut b_bag: ::std::collections::BTreeMap<_, usize> =
-                    ::std::collections::BTreeMap::new();
-                for x in a_val.into_iter() {
-                    let n = a_bag.entry(x).or_insert(0);
-                    *n += 1;
-                }
-                for x in b_val.into_iter() {
-                    let n = b_bag.entry(x).or_insert(0);
-                    *n += 1;
-                }
+            (a_collection, b_collection) => {
+                let a_bag = assert_bag_impl_prep!(a_collection);
+                let b_bag = assert_bag_impl_prep!(b_collection);
                 if a_bag == b_bag {
                     Ok(())
                 } else {
@@ -66,16 +56,16 @@ macro_rules! assert_bag_eq_as_result {
                             "       b: `{:?}`"
                         ),
                         stringify!($a_collection),
-                        $a_collection,
+                        a_collection,
                         stringify!($b_collection),
-                        $b_collection,
-                        &a_bag,
-                        &b_bag
+                        b_collection,
+                        a_bag,
+                        b_bag
                     ))
                 }
             }
         }
-    }};
+    });
 }
 
 #[cfg(test)]

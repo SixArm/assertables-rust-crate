@@ -38,46 +38,50 @@
 #[macro_export]
 macro_rules! assert_fs_read_to_string_ne_expr_as_result {
     ($a_path:expr, $b_expr:expr $(,)?) => ({
-        let a_result = ::std::fs::read_to_string($a_path);
-        if let Err(a_err) = a_result {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`\n",
-                    " a_path label: `{}`,\n",
-                    " a_path debug: `{:?}`,\n",
-                    " b_expr label: `{}`,\n",
-                    " b_expr debug: `{:?}`,\n",
-                    "        a err: `{:?}`"
-                ),
-                stringify!($a_path),
-                $a_path,
-                stringify!($b_expr),
-                $b_expr,
-                a_err
-            ))
-        } else {
-            let a_string = a_result.unwrap();
-            let b_string = String::from($b_expr);
-            if a_string != b_string {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`\n",
-                        " a_path label: `{}`,\n",
-                        " a_path debug: `{:?}`,\n",
-                        " b_expr label: `{}`,\n",
-                        " b_expr debug: `{:?}`,\n",
-                        "            a: `{:?}`,\n",
-                        "            b: `{:?}`",
-                    ),
-                    stringify!($a_path),
-                    $a_path,
-                    stringify!($b_expr),
-                    $b_expr,
-                    a_string,
-                    b_string
-                ))
+        match (&$a_path, &$b_expr) {
+            (a_path, b_expr) => {
+                let a_result = ::std::fs::read_to_string(a_path);
+                if let Err(a_err) = a_result {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`\n",
+                            " a_path label: `{}`,\n",
+                            " a_path debug: `{:?}`,\n",
+                            " b_expr label: `{}`,\n",
+                            " b_expr debug: `{:?}`,\n",
+                            "        a err: `{:?}`"
+                        ),
+                        stringify!($a_path),
+                        a_path,
+                        stringify!($b_expr),
+                        b_expr,
+                        a_err
+                    ))
+                } else {
+                    let a_string = a_result.unwrap();
+                    let b_string = String::from($b_expr);
+                    if a_string != b_string {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`\n",
+                                " a_path label: `{}`,\n",
+                                " a_path debug: `{:?}`,\n",
+                                " b_expr label: `{}`,\n",
+                                " b_expr debug: `{:?}`,\n",
+                                "            a: `{:?}`,\n",
+                                "            b: `{:?}`",
+                            ),
+                            stringify!($a_path),
+                            a_path,
+                            stringify!($b_expr),
+                            b_expr,
+                            a_string,
+                            b_string
+                        ))
+                    }
+                }
             }
         }
     });

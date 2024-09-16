@@ -41,43 +41,47 @@
 #[macro_export]
 macro_rules! assert_command_stderr_contains_as_result {
     ($command:expr, $containee:expr $(,)?) => ({
-        let output = $command.output();
-        if output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
-                    "   command label: `{}`,\n",
-                    "   command debug: `{:?}`,\n",
-                    " containee label: `{}`,\n",
-                    " containee debug: `{:?}`,\n",
-                    "          output: `{:?}`"
-                ),
-                stringify!($command),
-                $command,
-                stringify!($containee),
-                $containee,
-                output
-            ))
-        } else {
-            let string = String::from_utf8(output.unwrap().stderr).unwrap();
-            if string.contains($containee) {
-                Ok(())
-            } else {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
-                        "   command label: `{}`,\n",
-                        "   command debug: `{:?}`,\n",
-                        " containee label: `{}`,\n",
-                        " containee debug: `{:?}`,\n",
-                        "          stderr: `{:?}`"
-                    ),
-                    stringify!($command),
-                    $command,
-                    stringify!($containee),
-                    $containee,
-                    string
-                ))
+        match (/*&$command,*/ &$containee) {
+            containee => {
+                let output = $command.output();
+                if output.is_err() {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
+                            "   command label: `{}`,\n",
+                            "   command debug: `{:?}`,\n",
+                            " containee label: `{}`,\n",
+                            " containee debug: `{:?}`,\n",
+                            "          output: `{:?}`"
+                        ),
+                        stringify!($command),
+                        $command,
+                        stringify!($containee),
+                        containee,
+                        output
+                    ))
+                } else {
+                    let string = String::from_utf8(output.unwrap().stderr).unwrap();
+                    if string.contains($containee) {
+                        Ok(())
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
+                                "   command label: `{}`,\n",
+                                "   command debug: `{:?}`,\n",
+                                " containee label: `{}`,\n",
+                                " containee debug: `{:?}`,\n",
+                                "          stderr: `{:?}`"
+                            ),
+                            stringify!($command),
+                            $command,
+                            stringify!($containee),
+                            containee,
+                            string
+                        ))
+                    }
+                }
             }
         }
     });

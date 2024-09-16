@@ -39,6 +39,19 @@
 //! # }
 //! ```
 
+#[macro_export]
+macro_rules! assert_program_args_impl_prep {
+    ($program:expr, $args:expr $(,)?) => ({
+        match (&$program, &$args) {
+            (program, args) => {
+                let mut command = ::std::process::Command::new(program);
+                command.args(args.into_iter());
+                command.output()
+            }
+        }
+    });
+}
+
 // stdout
 pub mod assert_program_args_stdout_eq;
 pub mod assert_program_args_stdout_eq_expr;
