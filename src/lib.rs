@@ -16,17 +16,17 @@
 //! The Rust programming language provides assert macros to test code:
 //!
 //! * [`assert!()`](https://doc.rust-lang.org/std/macro.assert.html)
-//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html)
-//! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html)
+//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// equal` 
+//! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// not equal`
 //!
 //! The assertables crate provides many more, so you can write smarter tests.
 //!
 //! For values:
 //!
 //! * [`assert_lt!(a, b)`](macro@crate::assert_lt) `// less than`
-//! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal to`
+//! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal`
 //! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// greater than`
-//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal to`
+//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal`
 //!
 //! For strings:
 //!
@@ -48,26 +48,26 @@
 //! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
 //! * [`assert_in_epsilon!(a, b, epsilon)`](macro@crate::assert_in_epsilon)
 //!
-//! For results:
+//! For Result:
 //!
-//! * [`assert_result_ok!(a)`](macro@crate::assert_result_ok)
-//! * [`assert_result_ok_eq!(a)`](macro@crate::assert_result_ok_eq)
-//! * [`assert_result_ok_ne!(a)`](macro@crate::assert_result_ok_ne)
-//! * [`assert_result_err!(a)`](macro@crate::assert_result_err)
+//! * [`assert_ok!(a)`](macro@crate::assert_ok)
+//! * [`assert_ok_eq!(a)`](macro@crate::assert_ok_eq)
+//! * [`assert_ok_ne!(a)`](macro@crate::assert_ok_ne)
+//! * [`assert_err!(a)`](macro@crate::assert_err)
 //!
-//! For options:
+//! For Option:
 //!
-//! * [`assert_option_some!(a)`](macro@crate::assert_option_some)
-//! * [`assert_option_some_eq!(a)`](macro@crate::assert_option_some_eq)
-//! * [`assert_option_some_ne!(a)`](macro@crate::assert_option_some_ne)
-//! * [`assert_option_none!(a)`](macro@crate::assert_option_none)
+//! * [`assert_some!(a)`](macro@crate::assert_some)
+//! * [`assert_some_eq!(a)`](macro@crate::assert_some_eq)
+//! * [`assert_some_ne!(a)`](macro@crate::assert_some_ne)
+//! * [`assert_none!(a)`](macro@crate::assert_none)
 //!
-//! For polls:
+//! For Poll:
 //!
-//! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready)
-//! * [`assert_poll_ready_eq!(a, b)`](macro@crate::assert_poll_ready_eq)
-//! * [`assert_poll_ready_ne!(a, b)`](macro@crate::assert_poll_ready_ne)
-//! * [`assert_poll_pending!(a)`](macro@crate::assert_poll_pending)
+//! * [`assert_ready!(a)`](macro@crate::assert_ready)
+//! * [`assert_ready_eq!(a, b)`](macro@crate::assert_ready_eq)
+//! * [`assert_ready_ne!(a, b)`](macro@crate::assert_ready_ne)
+//! * [`assert_pending!(a)`](macro@crate::assert_pending)
 //!
 //! For collections such as arrays, vectors, maps, sets:
 //!
@@ -184,9 +184,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.6.0
+//! * Version: 8.7.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-18T03:02:31Z
+//! * Updated: 2024-09-18T14:51:06Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -214,10 +214,26 @@ pub mod assert_not_match;
 pub mod assert_not_starts_with;
 pub mod assert_starts_with;
 
-// For maybes
-pub mod assert_result;
-pub mod assert_option;
-pub mod assert_poll;
+// For Result Ok/Err 
+pub mod assert_ok;
+pub mod assert_ok_eq;
+pub mod assert_ok_ne;
+pub mod assert_err;
+pub mod assert_result; // Deprecated
+
+// For Option Some/None
+pub mod assert_some;
+pub mod assert_some_eq;
+pub mod assert_some_ne;
+pub mod assert_none;
+pub mod assert_option; // Deprecated
+
+// For Poll Ready/Pending
+pub mod assert_ready;
+pub mod assert_ready_eq;
+pub mod assert_ready_ne;
+pub mod assert_pending;
+pub mod assert_poll; // Deprecated
 
 // For collections
 pub mod assert_set;

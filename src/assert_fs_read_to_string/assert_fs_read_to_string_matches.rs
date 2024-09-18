@@ -47,6 +47,7 @@ macro_rules! assert_fs_read_to_string_matches_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
+                            "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_matches.html\n",
                             "    path label: `{}`,\n",
                             "    path debug: `{:?}`,\n",
                             " matcher label: `{}`,\n",
@@ -67,6 +68,7 @@ macro_rules! assert_fs_read_to_string_matches_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
+                                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_matches.html\n",
                                 "    path label: `{}`,\n",
                                 "    path debug: `{:?}`,\n",
                                 " matcher label: `{}`,\n",
@@ -117,15 +119,16 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             format!(
-                "{}{}{}{}{}{}{}{}",
-                "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
-                "    path label: `&path`,\n",
-                "    path debug: `\"",
-                path.to_string_lossy(),
-                "\"`,\n",
-                " matcher label: `&matcher`,\n",
-                " matcher debug: `Regex(\"zzz\")`,\n",
-                "   read string: `\"alfa\\n\"`",
+                concat!(
+                    "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
+                    "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_matches.html\n",
+                    "    path label: `&path`,\n",
+                    "    path debug: `{:?}`,\n",
+                    " matcher label: `&matcher`,\n",
+                    " matcher debug: `Regex(\"zzz\")`,\n",
+                    "   read string: `\"alfa\\n\"`",
+                ),
+                path
             )
         );
     }
@@ -157,6 +160,7 @@ mod tests {
 /// assert_fs_read_to_string_matches!(&path, &matcher);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_matches.html
 /// //     path label: `&path`,
 /// //     path debug: `\"alfa.txt\"`,
 /// //  matcher label: `&matcher`,
@@ -165,6 +169,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_matches.html\n",
 /// #     "    path label: `&path`,\n",
 /// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `&matcher`,\n",

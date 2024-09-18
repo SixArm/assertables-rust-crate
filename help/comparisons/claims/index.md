@@ -120,10 +120,10 @@ Match
 <tr>
 <td>Result </td>
 <td>
-<a href="https://docs.rs/assertables/latest/assertables/macro.assert_result_err.html">assert_result_ok</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_result_ok_eq">assert_result_ok_eq</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_result_ok_ne">assert_result_ok_ne</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_result_err">assert_result_err</a>
+<a href="https://docs.rs/assertables/latest/assertables/macro.assert_err.html">assert_ok</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_ok_eq">assert_ok_eq</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_ok_ne">assert_ok_ne</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_result/assert_err">assert_err</a>
 </td>
 <td>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_ok.html">assert_ok</a><br>
@@ -136,10 +136,10 @@ Match
 <tr>
 <td>Option</td>
 <td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some">assert_option_some</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some_eq">assert_option_some_eq</a>&nbsp;(eta&nbsp;v8.5)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_some_ne">assert_option_some_ne</a>&nbsp;(eta&nbsp;v8.5)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_option_none">assert_option_none</a>
+<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_some">assert_some</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_some_eq">assert_some_eq</a>&nbsp;(eta&nbsp;v8.5)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_some_ne">assert_some_ne</a>&nbsp;(eta&nbsp;v8.5)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_option/assert_none">assert_none</a>
 </td>
 <td>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_some.html">assert_some</a><br>
@@ -152,12 +152,12 @@ Match
 <tr>
 <td>Poll</td>
 <td>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready">assert_poll_ready</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_eq">assert_poll_ready_eq</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_ne">assert_poll_ready_ne</a><br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_ok">assert_poll_ready_ok</a>(eta 8.6)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_ready_err">assert_poll_ready_err</a>(eta 8.6)<br>
-<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_poll_pending">assert_poll_pending</a></td>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready">assert_ready</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready_eq">assert_ready_eq</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready_ne">assert_ready_ne</a><br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready_ok">assert_ready_ok</a>(eta 8.7)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_ready_err">assert_ready_err</a>(eta 8.7)<br>
+<a href="https://docs.rs/assertables/latest/assertables/assert_poll/assert_pending">assert_pending</a></td>
 </td>
 <td>
 <a href="https://docs.rs/claims/latest/claims/macro.assert_ready.html">assert_ready</a><br>

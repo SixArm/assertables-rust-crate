@@ -48,6 +48,7 @@ macro_rules! assert_command_stdout_eq_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+                            "https://docs.rs/assertables/8.7.0/assertables/macro.assert_command_stdout_eq_expr.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -68,6 +69,7 @@ macro_rules! assert_command_stdout_eq_expr_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+                                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_command_stdout_eq_expr.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -112,6 +114,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+            "https://docs.rs/assertables/8.7.0/assertables/macro.assert_command_stdout_eq_expr.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
             " b label: `b`,\n",
@@ -150,6 +153,7 @@ mod tests {
 /// assert_command_stdout_eq_expr!(command, s);
 /// # });
 /// // assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_command_stdout_eq_expr.html
 /// //  a label: `command`,
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
 /// //  b label: `s`,
@@ -159,6 +163,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_command_stdout_eq_expr.html\n",
 /// #     " a label: `command`,\n",
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
 /// #     " b label: `s`,\n",

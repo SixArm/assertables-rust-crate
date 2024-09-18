@@ -184,6 +184,9 @@
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Pending.
 //!
 //! # Example
@@ -223,7 +226,8 @@
 /// * [`assert_poll_pending_as_result`](macro@crate::assert_poll_pending_as_result)
 /// * [`debug_assert_poll_pending`](macro@crate::debug_assert_poll_pending)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_poll_pending_as_result` to `assert_pending_as_result` because more developers prefer the shorter name."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_poll_pending_as_result {
     (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>) {
@@ -318,7 +322,8 @@
 /// * [`assert_poll_pending_as_result`](macro@crate::assert_poll_pending_as_result)
 /// * [`debug_assert_poll_pending`](macro@crate::debug_assert_poll_pending)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_poll_pending` to `assert_pending` because more developers prefer the shorter name."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_poll_pending {
     (<span class="macro-nonterminal">$poll</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">match </span><span class="macro">assert_poll_pending_as_result!</span>(<span class="macro-nonterminal">$poll</span>) {
@@ -362,7 +367,8 @@
 /// * [`assert_poll_pending`](macro@crate::assert_poll_pending)
 /// * [`debug_assert_poll_pending`](macro@crate::debug_assert_poll_pending)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_poll_pending` to `debug_assert_pending` because more developers prefer the shorter name."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_poll_pending {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="kw">if </span><span class="macro-nonterminal">$</span><span class="macro">crate::cfg!</span>(<span class="macro-nonterminal">debug_assertions</span>) {

@@ -34,6 +34,7 @@
 /// * [`assert_option_none_as_result`](macro@crate::assert_option_none_as_result)
 /// * [`debug_assert_option_none`](macro@crate::debug_assert_option_none)
 ///
+#[deprecated(note = "Please rename from `assert_option_none_as_result` to `assert_none_as_result` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_option_none_as_result {
     ($a:expr $(,)?) => ({
@@ -47,6 +48,7 @@ macro_rules! assert_option_none_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_option_none!(a)`\n",
+                                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_option_none.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -79,6 +81,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_option_none!(a)`\n",
+                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_option_none.html\n",
                 " a label: `a`,\n",
                 " a debug: `Some(1)`",
             )
@@ -107,11 +110,13 @@ mod tests {
 /// assert_option_none!(a);
 /// # });
 /// // assertion failed: `assert_option_none!(a)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_option_none.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_option_none!(a)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_option_none.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`",
 /// # );
@@ -125,6 +130,7 @@ mod tests {
 /// * [`assert_option_none_as_result`](macro@crate::assert_option_none_as_result)
 /// * [`debug_assert_option_none`](macro@crate::debug_assert_option_none)
 ///
+#[deprecated(note = "Please rename from `assert_option_none` to `assert_none` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_option_none {
     ($option:expr $(,)?) => ({
@@ -169,6 +175,7 @@ macro_rules! assert_option_none {
 /// * [`assert_option_none`](macro@crate::assert_option_none)
 /// * [`debug_assert_option_none`](macro@crate::debug_assert_option_none)
 ///
+#[deprecated(note = "Please rename from `debug_assert_option_none` to `debug_assert_none` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! debug_assert_option_none {
     ($($arg:tt)*) => {

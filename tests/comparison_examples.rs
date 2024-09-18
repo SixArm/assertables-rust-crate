@@ -24,6 +24,7 @@ use assertables::*;
 ///
 /// assert_infix!(a > b);
 /// // assertion failed: `assert_infix!(a > b)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_infix.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,
@@ -58,6 +59,7 @@ fn greater_than() {
 ///
 /// assert_infix!(a, b, delta);
 /// // assertion failed: `assert_in_delta!(a, b, delta)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_in_delta.html
 /// //            a label: `a`,
 /// //            a debug: `10`,
 /// //            b label: `b`,
@@ -98,6 +100,7 @@ fn are_two_numbers_near() {
 ///
 /// assert_fs_read_to_string_eq!(a_path, b_path);
 /// // assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_eq.html
 /// //   a_path label: `a_path`,
 /// //   a_path debug: `"alfa.txt"`,
 /// //   b_path label: `b_path`,
@@ -135,6 +138,7 @@ fn compare_text_file_strings() {
 ///
 /// assert_command_stdout_contains!(command, containee);
 /// // assertion failed: `assert_command_stdout_contains!(command, containee)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_command_stdout_contains.html
 /// //    command label: `command`,
 /// //    command debug: `"echo" "alfa"`,
 /// //  containee label: `containee`,

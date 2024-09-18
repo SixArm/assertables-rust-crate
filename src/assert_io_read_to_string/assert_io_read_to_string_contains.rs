@@ -48,6 +48,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+                            "https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html\n",
                             "    reader label: `{}`,\n",
                             "    reader debug: `{:?}`,\n",
                             " containee label: `{}`,\n",
@@ -68,6 +69,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+                                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html\n",
                                 "    reader label: `{}`,\n",
                                 "    reader debug: `{:?}`,\n",
                                 " containee label: `{}`,\n",
@@ -110,6 +112,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html\n",
                 "    reader label: `reader`,\n",
                 "    reader debug: `[]`,\n",
                 " containee label: `&containee`,\n",
@@ -145,6 +148,7 @@ mod tests {
 /// assert_io_read_to_string_contains!(reader, &containee);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html
 /// //     reader label: `&reader`,
 /// //     reader debug: `[]`,
 /// //  containee label: `&containee`,
@@ -153,6 +157,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html\n",
 /// #     "    reader label: `reader`,\n",
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&containee`,\n",

@@ -14,17 +14,17 @@ compile-time tests and run-time reliability.
 The Rust programming language provides assert macros to test code:
 
 * [`assert!()`](https://doc.rust-lang.org/std/macro.assert.html)
-* [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html)
-* [`assert_ne!(a, b)`]((https://doc.rust-lang.org/std/macro.assert_ne.html)
+* [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// equal`
+* [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// not equal`
 
 The assertables crate provides many more, so you can write smarter tests.
 
 For values:
 
-* [`assert_lt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_lt.html) // less than
-* [`assert_le!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_le.html) // less than or equal to
-* [`assert_gt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_gt.html) // greater than
-* [`assert_ge!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ge.html) // greater than or equal to
+* [`assert_lt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_lt.html) `// less than`
+* [`assert_le!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_le.html) `// less than or equal`
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_gt.html) `// greater than`
+* [`assert_ge!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ge.html) `// greater than or equal`
 
 For strings:
 
@@ -46,26 +46,26 @@ For numbers:
 * [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_delta.html)
 * [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_epsilon.html)
 
-For results:
+For Result:
 
-* [`assert_result_ok!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_ok.html)
-* [`assert_result_ok_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_ok_eq.html)
-* [`assert_result_ok_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_ok_ne.html)
-* [`assert_result_err!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_result_err.html)
+* [`assert_ok!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok.html)
+* [`assert_ok_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_eq.html)
+* [`assert_ok_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_ne.html)
+* [`assert_err!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_err.html)
 
-For options:
+For Option:
 
-* [`assert_option_some!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some.html)
-* [`assert_option_some_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some_eq.html)
-* [`assert_option_some_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_some_ne.html)
-* [`assert_option_none!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_option_none.html)
+* [`assert_some!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_some.html)
+* [`assert_some_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_eq.html)
+* [`assert_some_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_ne.html)
+* [`assert_none!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_none.html)
 
-For polls:
+For Poll:
 
-* [`assert_poll_ready!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_ready.html)
-* [`assert_poll_ready_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_ready_eq.html)
-* [`assert_poll_ready_ne!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_ready_ne.html)
-* [`assert_poll_pending!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_poll_pending.html)
+* [`assert_ready!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready.html)
+* [`assert_ready_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready_eq.html)
+* [`assert_ready_ne!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready_ne.html)
+* [`assert_pending!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_pending.html)
 
 For collections such as arrays, vectors, maps, sets:
 
@@ -182,8 +182,8 @@ Examples:
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.6.0
+* Version: 8.7.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-09-18T03:02:31Z
+* Updated: 2024-09-18T14:51:06Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

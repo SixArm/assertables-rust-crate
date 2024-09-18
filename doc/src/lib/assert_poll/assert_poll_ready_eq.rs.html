@@ -243,6 +243,9 @@
 <a href="#243" id="243">243</a>
 <a href="#244" id="244">244</a>
 <a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ready(_) and their values are equal.
 //!
 //! # Example
@@ -282,7 +285,8 @@
 /// * [`assert_poll_ready_eq_as_result`](macro@crate::assert_poll_ready_eq_as_result)
 /// * [`debug_assert_poll_ready_eq`](macro@crate::debug_assert_poll_ready_eq)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_poll_ready_eq_as_result` to `assert_ready_eq_as_result` because more developers prefer the shorter name."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_poll_ready_eq_as_result {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
@@ -436,7 +440,8 @@
 /// * [`assert_poll_ready_eq_as_result`](macro@crate::assert_poll_ready_eq_as_result)
 /// * [`debug_assert_poll_ready_eq`](macro@crate::debug_assert_poll_ready_eq)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_poll_ready_eq` to `assert_ready_eq` because more developers prefer the shorter name."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_poll_ready_eq {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
         <span class="kw">match </span><span class="macro">assert_poll_ready_eq_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
@@ -480,7 +485,8 @@
 /// * [`assert_poll_ready_eq`](macro@crate::assert_poll_ready_eq)
 /// * [`debug_assert_poll_ready_eq`](macro@crate::debug_assert_poll_ready_eq)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_poll_ready_eq` to `debug_assert_ready_eq` because more developers prefer the shorter name."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_poll_ready_eq {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="kw">if </span><span class="macro-nonterminal">$</span><span class="macro">crate::cfg!</span>(<span class="macro-nonterminal">debug_assertions</span>) {

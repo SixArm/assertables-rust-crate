@@ -18,15 +18,15 @@ fn validate_email_address() {
 
 	// Success
 	let result = validate_email_address("alice@example.com");
-	assert_result_ok!(result);
+	assert_ok!(result);
 
 	// Failure because the string is missing the @ sign
 	let result = validate_email_address("alfa");
-	assert_result_err!(result);
+	assert_err!(result);
 
 	// Failure because the string is too short
 	let result = validate_email_address("@");
-	assert_result_err!(result);
+	assert_err!(result);
 
 }
 
@@ -40,15 +40,15 @@ fn validate_point_nearness() {
 
 	// Success
 	let result = validate_point_nearness(1.01, 2.01, 1.02, 2.02);
-	assert_result_ok!(result);
+	assert_ok!(result);
 	
 	// Failure because the x coordinates are far
 	let result = validate_point_nearness(1.01, 2.01, 9.02, 2.02);
-	assert_result_err!(result);
+	assert_err!(result);
 
 	// Failure because the y coordinates are far
 	let result = validate_point_nearness(1.01, 2.01, 1.02, 9.02);
-	assert_result_err!(result);
+	assert_err!(result);
 
 }
 
@@ -62,14 +62,14 @@ fn validate_positive_percentage() {
 
 	// Success
 	let result = validate_positive_percentage(1.0);
-	assert_result_ok!(result);
+	assert_ok!(result);
 	
 	// Failure because the number is too low
 	let result = validate_positive_percentage(0.0);
-	assert_result_err!(result);
+	assert_err!(result);
 
 	// Failure because the number is too high
 	let result = validate_positive_percentage(101.0);
-	assert_result_err!(result);
+	assert_err!(result);
 
 }

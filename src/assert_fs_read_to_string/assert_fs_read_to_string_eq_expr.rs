@@ -45,6 +45,7 @@ macro_rules! assert_fs_read_to_string_eq_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n",
+                            "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_eq_expr.html\n",
                             " a_path label: `{}`,\n",
                             " a_path debug: `{:?}`,\n",
                             " b_expr label: `{}`,\n",
@@ -66,6 +67,7 @@ macro_rules! assert_fs_read_to_string_eq_expr_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n",
+                                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_eq_expr.html\n",
                                 " a_path label: `{}`,\n",
                                 " a_path debug: `{:?}`,\n",
                                 " b_expr label: `{}`,\n",
@@ -119,16 +121,17 @@ mod tests {
         assert_eq!(
             result.unwrap_err(),
             format!(
-                "{}{}{}{}{}{}{}{}{}",
-                "assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n",
-                " a_path label: `&path`,\n",
-                " a_path debug: `\"",
-                path.to_string_lossy(),
-                "\"`,\n",
-                " b_expr label: `&value`,\n",
-                " b_expr debug: `\"bravo\\n\"`,\n",
-                "     a string: `\"alfa\\n\"`,\n",
-                "     b string: `\"bravo\\n\"`"
+                concat!(
+                    "assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n",
+                    "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_eq_expr.html\n",
+                    " a_path label: `&path`,\n",
+                    " a_path debug: `{:?}`,\n",
+                    " b_expr label: `&value`,\n",
+                    " b_expr debug: `\"bravo\\n\"`,\n",
+                    "     a string: `\"alfa\\n\"`,\n",
+                    "     b string: `\"bravo\\n\"`"
+                ),
+                path
             )
         );
     }
@@ -159,6 +162,7 @@ mod tests {
 /// assert_fs_read_to_string_eq_expr!(&path, &value);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_eq_expr.html
 /// //  a_path label: `&path`,
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_expr label: `&value`,
@@ -168,6 +172,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_eq_expr!(a_path, b_expr)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_eq_expr.html\n",
 /// #     " a_path label: `&path`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_expr label: `&value`,\n",

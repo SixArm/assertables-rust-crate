@@ -51,6 +51,7 @@ macro_rules! assert_eq_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_eq!(a, b)`\n",
+                            "https://docs.rs/assertables/8.7.0/assertables/macro.assert_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -88,6 +89,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_eq!(a, b)`\n",
+                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_eq.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",

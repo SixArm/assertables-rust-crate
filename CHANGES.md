@@ -5,19 +5,15 @@ Changes highlights for recent major versions.
 
 ## Version 8.x
 
-8.6: Add `assert_poll_ready_eq`, `assert_poll_ready_ne`
+* Add Result macros: `assert_ok`, `assert_err`, et al.
+  
+* Add Option macros: `assert_some`, `assert_none`, et al.
 
-8.5: Add `assert_option_some_eq`, `assert_option_some_ne`
+* Add Poll macros: `assert_ready`, `assert_pending`, et al.
 
-8.4: Add `assert_result_ok_eq`, `assert_result_ok_ne`
-
-8.3: Add `assert_poll_ready`, `assert_poll_pending`.
-
-8.2: Add `assert_infix`.
-
-8.1: Add `assert_result_ok`, `assert_result_err`, `assert_option_some`, `assert_option_none`.
-
-8.0: Add `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`. Breaking change: migrate from `assert_read_to_string_*`. to `assert_io_read_to_string_*`.
+* Add read macros: `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`, et al. 
+  
+* Breaking change: migrate from `assert_read_to_string_*`. to `assert_io_read_to_string_*`.
 
 
 ## Version 7.x

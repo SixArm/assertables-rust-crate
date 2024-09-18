@@ -238,6 +238,22 @@
 <a href="#238" id="238">238</a>
 <a href="#239" id="239">239</a>
 <a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
@@ -256,17 +272,17 @@
 //! The Rust programming language provides assert macros to test code:
 //!
 //! * [`assert!()`](https://doc.rust-lang.org/std/macro.assert.html)
-//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html)
-//! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html)
+//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// equal` 
+//! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// not equal`
 //!
 //! The assertables crate provides many more, so you can write smarter tests.
 //!
 //! For values:
 //!
 //! * [`assert_lt!(a, b)`](macro@crate::assert_lt) `// less than`
-//! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal to`
+//! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal`
 //! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// greater than`
-//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal to`
+//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal`
 //!
 //! For strings:
 //!
@@ -288,26 +304,26 @@
 //! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
 //! * [`assert_in_epsilon!(a, b, epsilon)`](macro@crate::assert_in_epsilon)
 //!
-//! For results:
+//! For Result:
 //!
-//! * [`assert_result_ok!(a)`](macro@crate::assert_result_ok)
-//! * [`assert_result_ok_eq!(a)`](macro@crate::assert_result_ok_eq)
-//! * [`assert_result_ok_ne!(a)`](macro@crate::assert_result_ok_ne)
-//! * [`assert_result_err!(a)`](macro@crate::assert_result_err)
+//! * [`assert_ok!(a)`](macro@crate::assert_ok)
+//! * [`assert_ok_eq!(a)`](macro@crate::assert_ok_eq)
+//! * [`assert_ok_ne!(a)`](macro@crate::assert_ok_ne)
+//! * [`assert_err!(a)`](macro@crate::assert_err)
 //!
-//! For options:
+//! For Option:
 //!
-//! * [`assert_option_some!(a)`](macro@crate::assert_option_some)
-//! * [`assert_option_some_eq!(a)`](macro@crate::assert_option_some_eq)
-//! * [`assert_option_some_ne!(a)`](macro@crate::assert_option_some_ne)
-//! * [`assert_option_none!(a)`](macro@crate::assert_option_none)
+//! * [`assert_some!(a)`](macro@crate::assert_some)
+//! * [`assert_some_eq!(a)`](macro@crate::assert_some_eq)
+//! * [`assert_some_ne!(a)`](macro@crate::assert_some_ne)
+//! * [`assert_none!(a)`](macro@crate::assert_none)
 //!
-//! For polls:
+//! For Poll:
 //!
-//! * [`assert_poll_ready!(a)`](macro@crate::assert_poll_ready)
-//! * [`assert_poll_ready_eq!(a, b)`](macro@crate::assert_poll_ready_eq)
-//! * [`assert_poll_ready_ne!(a, b)`](macro@crate::assert_poll_ready_ne)
-//! * [`assert_poll_pending!(a)`](macro@crate::assert_poll_pending)
+//! * [`assert_ready!(a)`](macro@crate::assert_ready)
+//! * [`assert_ready_eq!(a, b)`](macro@crate::assert_ready_eq)
+//! * [`assert_ready_ne!(a, b)`](macro@crate::assert_ready_ne)
+//! * [`assert_pending!(a)`](macro@crate::assert_pending)
 //!
 //! For collections such as arrays, vectors, maps, sets:
 //!
@@ -424,9 +440,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.6.0
+//! * Version: 8.7.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-16T22:18:33Z
+//! * Updated: 2024-09-18T14:51:06Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -454,12 +470,28 @@
 <span class="kw">pub mod </span>assert_not_starts_with;
 <span class="kw">pub mod </span>assert_starts_with;
 
-<span class="comment">// For maybes
-</span><span class="kw">pub mod </span>assert_result;
-<span class="kw">pub mod </span>assert_option;
-<span class="kw">pub mod </span>assert_poll;
+<span class="comment">// For Result Ok/Err 
+</span><span class="kw">pub mod </span>assert_ok;
+<span class="kw">pub mod </span>assert_ok_eq;
+<span class="kw">pub mod </span>assert_ok_ne;
+<span class="kw">pub mod </span>assert_err;
+<span class="kw">pub mod </span>assert_result; <span class="comment">// Deprecated
 
-<span class="comment">// For collections
+// For Option Some/None
+</span><span class="kw">pub mod </span>assert_some;
+<span class="kw">pub mod </span>assert_some_eq;
+<span class="kw">pub mod </span>assert_some_ne;
+<span class="kw">pub mod </span>assert_none;
+<span class="kw">pub mod </span>assert_option; <span class="comment">// Deprecated
+
+// For Poll Ready/Pending
+</span><span class="kw">pub mod </span>assert_ready;
+<span class="kw">pub mod </span>assert_ready_eq;
+<span class="kw">pub mod </span>assert_ready_ne;
+<span class="kw">pub mod </span>assert_pending;
+<span class="kw">pub mod </span>assert_poll; <span class="comment">// Deprecated
+
+// For collections
 </span><span class="kw">pub mod </span>assert_set;
 <span class="kw">pub mod </span>assert_bag;
 

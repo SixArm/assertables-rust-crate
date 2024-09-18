@@ -32,35 +32,35 @@ fn assert_inners() {
 #[test]
 fn assert_return_enum() {
     let a: Result<i8, i8> = Result::Ok(1);
-    assert_result_ok!(a);
+    assert_ok!(a);
 
     let a: Result<i8, i8> = Result::Ok(1);
     let b: Result<i8, i8> = Result::Ok(1);
-    assert_result_ok_eq!(a, b);
+    assert_ok_eq!(a, b);
 
     let a: Result<i8, i8> = Result::Ok(1);
     let b: Result<i8, i8> = Result::Ok(2);
-    assert_result_ok_ne!(a, b);
+    assert_ok_ne!(a, b);
 
     let a: Result<i8, i8> = Result::Err(2);
-    assert_result_err!(a);
+    assert_err!(a);
 }
 
 #[test]
 fn assert_option_enum() {
     let a: Option<i8> = Option::Some(1);
-    assert_option_some!(a);
+    assert_some!(a);
 
     let a: Option<i8> = Option::Some(1);
     let b: Option<i8> = Option::Some(1);
-    assert_option_some_eq!(a, b);
+    assert_some_eq!(a, b);
 
     let a: Option<i8> = Option::Some(1);
     let b: Option<i8> = Option::Some(2);
-    assert_option_some_ne!(a, b);
+    assert_some_ne!(a, b);
 
     let a: Option<i8> = Option::None;
-    assert_option_none!(a);
+    assert_none!(a);
 }
 
 #[test]
@@ -69,18 +69,18 @@ fn assert_poll_enum() {
     use std::task::Poll::*;
 
     let a: Poll<i8> = Ready(1);
-    assert_poll_ready!(a);
+    assert_ready!(a);
 
     let a: Poll<i8> = Ready(1);
     let b: Poll<i8> = Ready(1);
-    assert_poll_ready_eq!(a, b);
+    assert_ready_eq!(a, b);
 
     let a: Poll<i8> = Ready(1);
     let b: Poll<i8> = Ready(2);
-    assert_poll_ready_ne!(a, b);
+    assert_ready_ne!(a, b);
 
     let a: Poll<i8> = Pending;
-    assert_poll_pending!(a);
+    assert_pending!(a);
 }
 
 #[test]

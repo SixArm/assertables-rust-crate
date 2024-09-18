@@ -34,6 +34,7 @@
 /// * [`assert_result_err_as_result`](macro@crate::assert_result_err_as_result)
 /// * [`debug_assert_result_err`](macro@crate::debug_assert_result_err)
 ///
+#[deprecated(note = "Please rename from `assert_result_err_as_result` to `assert_err_as_result` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_result_err_as_result {
     ($result:expr $(,)?) => ({
@@ -47,6 +48,7 @@ macro_rules! assert_result_err_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_result_err!(a)`\n",
+                                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_result_err.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -79,6 +81,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_result_err!(a)`\n",
+                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_result_err.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(())`",
             )
@@ -107,11 +110,13 @@ mod tests {
 /// assert_result_err!(a);
 /// # });
 /// // assertion failed: `assert_result_err!(a)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_result_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(())`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_result_err!(a)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_result_err.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(())`",
 /// # );
@@ -125,6 +130,7 @@ mod tests {
 /// * [`assert_result_err_as_result`](macro@crate::assert_result_err_as_result)
 /// * [`debug_assert_result_err`](macro@crate::debug_assert_result_err)
 ///
+#[deprecated(note = "Please rename from `assert_result_err` to `assert_err` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_result_err {
     ($result:expr $(,)?) => ({
@@ -169,6 +175,7 @@ macro_rules! assert_result_err {
 /// * [`assert_result_err`](macro@crate::assert_result_err)
 /// * [`debug_assert_result_err`](macro@crate::debug_assert_result_err)
 ///
+#[deprecated(note = "Please rename from `deubg_assert_result_err` to `debug_assert_err` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! debug_assert_result_err {
     ($($arg:tt)*) => {
