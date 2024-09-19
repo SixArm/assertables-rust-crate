@@ -1,5 +1,8 @@
-//! Assert a std::fs::read_to_string() is a match to a regex.
+//! Assert a std::fs::read_to_string(path) is a match to a regex.
 //!
+//! Pseudocode:<br>
+//! std::fs::read_to_string(path) matches expr
+//! 
 //! # Example
 //!
 //! ```rust
@@ -19,8 +22,11 @@
 //! * [`assert_fs_read_to_string_matches_as_result`](macro@crate::assert_fs_read_to_string_matches_as_result)
 //! * [`debug_assert_fs_read_to_string_matches`](macro@crate::debug_assert_fs_read_to_string_matches)
 
-/// Assert a std::fs::read_to_string() is a match to a regex.
+/// Assert a std::fs::read_to_string(path) is a match to a regex.
 ///
+/// Pseudocode:<br>
+/// std::fs::read_to_string(path) matches expr
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -134,8 +140,11 @@ mod tests {
     }
 }
 
-/// Assert a std::fs::read_to_string() is a match to a regex.
+/// Assert a std::fs::read_to_string(path) is a match to a regex.
 ///
+/// Pseudocode:<br>
+/// std::fs::read_to_string(path) matches expr
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -202,8 +211,11 @@ macro_rules! assert_fs_read_to_string_matches {
     });
 }
 
-/// Assert a std::fs::read_to_string() is a match to a regex.
+/// Assert a std::fs::read_to_string(path) is a match to a regex.
 ///
+/// Pseudocode:<br>
+/// std::fs::read_to_string(path) matches expr
+/// 
 /// This macro provides the same statements as [`assert_fs_read_to_string_matches`](macro.assert_fs_read_to_string_matches.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

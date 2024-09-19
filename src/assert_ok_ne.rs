@@ -1,5 +1,8 @@
 //! Assert two expressions are Ok(_) and their values are not equal.
 //!
+//! Pseudocode:<br>
+//! (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅) 
+//! 
 //! # Example
 //!
 //! ```rust
@@ -19,6 +22,9 @@
 
 /// Assert two expressions are Ok(_) and their values are not equal.
 ///
+/// Pseudocode:<br>
+/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅) 
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -142,6 +148,9 @@ mod tests {
 
 /// Assert two expressions are Ok(_) and their values are not equal.
 ///
+/// Pseudocode:<br>
+/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅) 
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the

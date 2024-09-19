@@ -1,6 +1,7 @@
 //! Assert a number is within epsilon of another number.
 //!
-//! Calculate | a - b | ≤ epsilon * min(a, b)
+//! Pseudocode:<br>
+//! | a - b | ≤ ε * min(a, b)
 //!
 //! # Example
 //!
@@ -39,7 +40,8 @@
 
 /// Assert a number is within epsilon of another number.
 ///
-/// Calculate | a - b | ≤ epsilon * min(a, b)
+/// Pseudocode:<br>
+/// | a - b | ≤ ε * min(a, b)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -143,7 +145,8 @@ mod tests {
 
 /// Assert a number is within epsilon of another number.
 ///
-/// Calculate | a - b | ≤ epsilon * min(a, b)
+/// Pseudocode:<br>
+/// | a - b | ≤ ε * min(a, b)
 ///
 /// * If true, return `()`.
 ///
@@ -238,7 +241,8 @@ macro_rules! assert_in_epsilon {
 
 /// Assert a number is within epsilon of another number.
 ///
-/// Calculate | a - b | ≤ epsilon * min(a, b)
+/// Pseudocode:<br>
+/// | a - b | ≤ ε * min(a, b)
 ///
 /// This macro provides the same statements as [`assert_in_epsilon`](macro.assert_in_epsilon.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -241,8 +241,27 @@
 <a href="#241" id="241">241</a>
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string() value is less than or equal to another.
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string(path) value is less than or equal to another.
 //!
+//! Pseudocode:&lt;br&gt;
+//! std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -260,8 +279,11 @@
 //! * [`assert_fs_read_to_string_le_as_result`](macro@crate::assert_fs_read_to_string_le_as_result)
 //! * [`debug_assert_fs_read_to_string_le`](macro@crate::debug_assert_fs_read_to_string_le)
 
-/// Assert a std::fs::read_to_string() value is less than or equal to another.
+/// Assert a std::fs::read_to_string(path) value is less than or equal to another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -291,6 +313,7 @@
                             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_le.html\n"</span>,
                                     <span class="string">" a_path label: `{}`,\n"</span>,
                                     <span class="string">" a_path debug: `{:?}`,\n"</span>,
                                     <span class="string">" b_path label: `{}`,\n"</span>,
@@ -311,6 +334,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_le.html\n"</span>,
                                 <span class="string">" a_path label: `{}`,\n"</span>,
                                 <span class="string">" a_path debug: `{:?}`,\n"</span>,
                                 <span class="string">" b_path label: `{}`,\n"</span>,
@@ -364,25 +388,28 @@
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">format!</span>(
-                <span class="string">"{}{}{}{}{}{}{}{}{}{}{}"</span>,
-                <span class="string">"assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n"</span>,
-                <span class="string">" a_path label: `&amp;a`,\n"</span>,
-                <span class="string">" a_path debug: `\""</span>,
-                a.to_string_lossy(),
-                <span class="string">"\"`,\n"</span>,
-                <span class="string">" b_path label: `&amp;b`,\n"</span>,
-                <span class="string">" b_path debug: `\""</span>,
-                b.to_string_lossy(),
-                <span class="string">"\"`,\n"</span>,
-                <span class="string">"     a string: `\"bravo\\n\"`,\n"</span>,
-                <span class="string">"     b string: `\"alfa\\n\"`"
-            </span>)
+                <span class="macro">concat!</span>(
+                    <span class="string">"assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_le.html\n"</span>,
+                    <span class="string">" a_path label: `&amp;a`,\n"</span>,
+                    <span class="string">" a_path debug: `{:?}`,\n"</span>,
+                    <span class="string">" b_path label: `&amp;b`,\n"</span>,
+                    <span class="string">" b_path debug: `{:?}`,\n"</span>,
+                    <span class="string">"     a string: `\"bravo\\n\"`,\n"</span>,
+                    <span class="string">"     b string: `\"alfa\\n\"`"
+                </span>),
+                a,
+                b
+            )
         );
     }
 }
 
-<span class="doccomment">/// Assert a std::fs::read_to_string() value is less than or equal to another.
+<span class="doccomment">/// Assert a std::fs::read_to_string(path) value is less than or equal to another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -406,6 +433,7 @@
 /// assert_fs_read_to_string_le!(&amp;a, &amp;b);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_le.html
 /// //  a_path label: `&amp;a`,
 /// //  a_path debug: `\"bravo.txt\"`,
 /// //  b_path label: `&amp;b`,
@@ -415,6 +443,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fs_read_to_string_le.html\n",
 /// #     " a_path label: `&amp;a`,\n",
 /// #     " a_path debug: `\"bravo.txt\"`,\n",
 /// #     " b_path label: `&amp;b`,\n",
@@ -448,8 +477,11 @@
     });
 }
 
-<span class="doccomment">/// Assert a std::fs::read_to_string() value is less than or equal to another.
+<span class="doccomment">/// Assert a std::fs::read_to_string(path) value is less than or equal to another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
+/// 
 /// This macro provides the same statements as [`assert_fs_read_to_string_le`](macro.assert_fs_read_to_string_le.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

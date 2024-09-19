@@ -1,5 +1,8 @@
-//! Assert a std::fs::read_to_string() value is less than or equal to an expression.
+//! Assert a std::fs::read_to_string(path) value is less than or equal to an expression.
 //!
+//! Pseudocode:<br>
+//! std::fs::read_to_string(path) ≤ expr
+//! 
 //! # Example
 //!
 //! ```rust
@@ -17,8 +20,11 @@
 //! * [`assert_fs_read_to_string_le_expr_as_result`](macro@crate::assert_fs_read_to_string_le_expr_as_result)
 //! * [`debug_assert_fs_read_to_string_le_expr`](macro@crate::debug_assert_fs_read_to_string_le_expr)
 
-/// Assert a std::fs::read_to_string() value is less than or equal to an expression.
+/// Assert a std::fs::read_to_string(path) value is less than or equal to an expression.
 ///
+/// Pseudocode:<br>
+/// std::fs::read_to_string(path) ≤ expr
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -137,8 +143,11 @@ mod tests {
     }
 }
 
-/// Assert a std::fs::read_to_string() value is less than or equal to an expression.
+/// Assert a std::fs::read_to_string(path) value is less than or equal to an expression.
 ///
+/// Pseudocode:<br>
+/// std::fs::read_to_string(path) ≤ expr
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -206,8 +215,11 @@ macro_rules! assert_fs_read_to_string_le_expr {
     });
 }
 
-/// Assert a std::fs::read_to_string() value is less than or equal to an expression.
+/// Assert a std::fs::read_to_string(path) value is less than or equal to an expression.
 ///
+/// Pseudocode:<br>
+/// std::fs::read_to_string(path) ≤ expr
+/// 
 /// This macro provides the same statements as [`assert_fs_read_to_string_le_expr`](macro.assert_fs_read_to_string_le_expr.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

@@ -187,6 +187,10 @@
 <a href="#187" id="187">187</a>
 <a href="#188" id="188">188</a>
 <a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ready(_).
 //!
 //! # Example
@@ -240,6 +244,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_poll_ready!(a)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_poll_ready.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`"</span>,
                             ),
@@ -274,6 +279,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_poll_ready!(a)`\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_poll_ready.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Pending`"</span>,
             )
@@ -304,11 +310,13 @@
 /// assert_poll_ready!(a);
 /// # });
 /// // assertion failed: `assert_poll_ready!(a)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_poll_ready.html
 /// //  a label: `a`,
 /// //  a debug: `Pending`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_poll_ready!(a)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_poll_ready.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Pending`",
 /// # );

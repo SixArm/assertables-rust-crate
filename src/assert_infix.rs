@@ -1,5 +1,8 @@
 //! Assert a infix operator, such as assert_infix!(a == b).
 //!
+//! Pseudocode:<br>
+//! a infix b
+//!
 //! Compare values via infix value operator:
 //!
 //! * `assert_infix!(a == b)` ≈ a == b
@@ -66,6 +69,9 @@
 //!
 
 /// Assert a infix operator, such as assert_infix!(a == b).
+///
+/// Pseudocode:<br>
+/// a infix b
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -156,6 +162,9 @@ mod tests {
 
 /// Assert a infix operator, such as assert_infix!(a == b).
 ///
+/// Pseudocode:<br>
+/// a infix b
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -238,6 +247,9 @@ macro_rules! assert_infix {
 }
 
 /// Assert a infix operator, such as assert_infix!(a == b).
+///
+/// Pseudocode:<br>
+/// a infix b
 ///
 /// This macro provides the same statements as [`assert_infix`](macro.assert_infix.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -1,5 +1,8 @@
 //! Assert a function output is greater than or equal to an expression.
 //!
+//! Pseudocode:<br>
+//! function(a) ≥ expr
+//!
 //! # Example
 //!
 //! ```rust
@@ -18,6 +21,9 @@
 //! * [`debug_assert_fn_ge_expr`](macro@crate::debug_assert_fn_ge_expr)
 
 /// Assert a function output is greater than or equal to an expression.
+///
+/// Pseudocode:<br>
+/// function(a) ≥ expr
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -202,6 +208,9 @@ mod tests {
 
 /// Assert a function output is greater than or equal to an expression.
 ///
+/// Pseudocode:<br>
+/// function(a) ≥ expr
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -291,6 +300,9 @@ macro_rules! assert_fn_ge_expr {
 }
 
 /// Assert a function output is greater than or equal to an expression.
+///
+/// Pseudocode:<br>
+/// function(a) ≥ expr
 ///
 /// This macro provides the same statements as [`assert_fn_ge_expr`](macro.assert_fn_ge_expr.html),
 /// except this macro's statements are only enabled in non-optimized

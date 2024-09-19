@@ -1,5 +1,8 @@
 //! Assert expression is Ok(_).
 //!
+//! Pseudocode:<br>
+//! a is Ok(_)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -18,6 +21,9 @@
 
 /// Assert expression is Ok(_).
 ///
+/// Pseudocode:<br>
+/// a is Ok(_)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -90,6 +96,9 @@ mod tests {
 
 /// Assert expression is Ok(_).
 ///
+/// Pseudocode:<br>
+/// a is Ok(_)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -147,6 +156,9 @@ macro_rules! assert_ok {
 
 /// Assert expression is Ok(_).
 ///
+/// Pseudocode:<br>
+/// a is Ok(_)
+/// 
 /// This macro provides the same statements as [`assert_ok`](macro.assert_ok.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

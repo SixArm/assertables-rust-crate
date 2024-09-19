@@ -1,4 +1,7 @@
-//! Assert a function ok() is equal to an expression.
+//! Assert a function Ok(…) is equal to an expression.
+//!
+//! Pseudocode:<br>
+//! (function1(param1) ⇒ Ok(a) ⇒ a) = expr
 //!
 //! # Example
 //!
@@ -24,7 +27,10 @@
 //! * [`assert_fn_ok_eq_expr_as_result`](macro@crate::assert_fn_ok_eq_expr_as_result)
 //! * [`debug_assert_fn_ok_eq_expr`](macro@crate::debug_assert_fn_ok_eq_expr)
 
-/// Assert a function ok() is equal to an expression.
+/// Assert a function Ok(…) is equal to an expression.
+///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Ok(a) ⇒ a) = expr
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -230,7 +236,10 @@ mod tests {
     }
 }
 
-/// Assert a function ok() is equal to an expression.
+/// Assert a function Ok(…) is equal to an expression.
+///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Ok(a) ⇒ a) = expr
 ///
 /// * If true, return `()`.
 ///
@@ -326,7 +335,10 @@ macro_rules! assert_fn_ok_eq_expr {
     });
 }
 
-/// Assert a function ok() is equal to an expression.
+/// Assert a function Ok(…) is equal to an expression.
+///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Ok(a) ⇒ a) = expr
 ///
 /// This macro provides the same statements as [`assert_fn_ok_eq_expr`](macro.assert_fn_ok_eq_expr.html),
 /// except this macro's statements are only enabled in non-optimized

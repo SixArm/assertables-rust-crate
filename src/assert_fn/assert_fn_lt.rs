@@ -1,5 +1,8 @@
 //! Assert a function output is less than another.
 //!
+//! Pseudocode:<br>
+//! function1(a) < function2(b)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -19,6 +22,9 @@
 
 /// Assert a function output is less than another.
 ///
+/// Pseudocode:<br>
+/// function1(a) < function2(b)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -227,6 +233,9 @@ mod tests {
 
 /// Assert a function output is less than another.
 ///
+/// Pseudocode:<br>
+/// function1(a) < function2(b)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -319,6 +328,9 @@ macro_rules! assert_fn_lt {
 
 /// Assert a function output is less than another.
 ///
+/// Pseudocode:<br>
+/// function1(a) < function2(b)
+/// 
 /// This macro provides the same statements as [`assert_fn_lt`](macro.assert_fn_lt.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

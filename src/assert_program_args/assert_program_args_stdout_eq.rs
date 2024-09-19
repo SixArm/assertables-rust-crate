@@ -1,5 +1,8 @@
 //! Assert a command (built with program and args) stdout string is equal to another.
 //!
+//! Pseudocode:<br>
+//! (program1 + args1 ⇒ command ⇒ stdout ⇒ string) = (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -21,6 +24,9 @@
 
 /// Assert a command (built with program and args) stdout string is equal to another.
 ///
+/// Pseudocode:<br>
+/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) = (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
+/// 
 /// * If true, return `()`.
 ///
 /// * If true, return Result `Err` with a message and the values of the
@@ -152,6 +158,9 @@ mod tests {
 
 /// Assert a command (built with program and args) stdout string is equal to another.
 ///
+/// Pseudocode:<br>
+/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) = (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -232,6 +241,9 @@ macro_rules! assert_program_args_stdout_eq {
 
 /// Assert a command (built with program and args) stdout string is equal to another.
 ///
+/// Pseudocode:<br>
+/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) = (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
+/// 
 /// This macro provides the same statements as [`assert_program_args_stdout_eq`](macro.assert_program_args_stdout_eq.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

@@ -1,5 +1,8 @@
 //!Assert expression is Some(_).
 //!
+//! Pseudocode:<br>
+//! a is Some(_)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -18,6 +21,9 @@
 
 /// Assert an expression.is_some() is true.
 ///
+/// Pseudocode:<br>
+/// a is Some(_)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -88,8 +94,11 @@ mod tests {
     }
 }
 
-///Assert expression is Some(_).
+/// Assert expression is Some(_).
 ///
+/// Pseudocode:<br>
+/// a is Some(_)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -145,8 +154,11 @@ macro_rules! assert_some {
     });
 }
 
-///Assert expression is Some(_).
+/// Assert expression is Some(_).
 ///
+/// Pseudocode:<br>
+/// a is Some(_)
+/// 
 /// This macro provides the same statements as [`assert_some`](macro.assert_some.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

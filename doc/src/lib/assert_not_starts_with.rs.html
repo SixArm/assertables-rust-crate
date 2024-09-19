@@ -187,8 +187,27 @@
 <a href="#187" id="187">187</a>
 <a href="#188" id="188">188</a>
 <a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a string) does not start with an expression (such as a string).
 //!
+//! Pseudocode:&lt;br&gt;
+//! ¬ a.starts_with(b)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -208,6 +227,9 @@
 
 /// Assert an expression (such as a string) does not start with an expression (such as a substring).
 ///
+/// Pseudocode:&lt;br&gt;
+/// ¬ a.starts_with(b)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -235,6 +257,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_not_starts_with!(a, b)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_not_starts_with.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -270,6 +293,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_not_starts_with!(a, b)`\n"</span>,
+            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_not_starts_with.html\n"</span>,
             <span class="string">" a label: `a`,\n"</span>,
             <span class="string">" a debug: `\"alfa\"`,\n"</span>,
             <span class="string">" b label: `b`,\n"</span>,
@@ -281,6 +305,9 @@
 
 <span class="doccomment">/// Assert an expression (such as a string) does not start with an expression (such as a string).
 ///
+/// Pseudocode:&lt;br&gt;
+/// ¬ a.starts_with(b)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -302,6 +329,7 @@
 /// assert_not_starts_with!(a, b);
 /// # });
 /// // assertion failed: `assert_not_starts_with!(a, b)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_not_starts_with.html
 /// //  a label: `a`,
 /// //  a debug: `\"alfa\"`,
 /// //  b label: `b`,
@@ -309,6 +337,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_not_starts_with!(a, b)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_not_starts_with.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"alfa\"`,\n",
 /// #     " b label: `b`,\n",
@@ -342,6 +371,9 @@
 
 <span class="doccomment">/// Assert an expression (such as a string) does not start with an expression (such as a string).
 ///
+/// Pseudocode:&lt;br&gt;
+/// ¬ a.starts_with(b)
+/// 
 /// This macro provides the same statements as [`assert_not_starts_with`](macro.assert_not_starts_with.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

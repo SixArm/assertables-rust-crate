@@ -94,19 +94,10 @@
 <a href="#94" id="94">94</a>
 <a href="#95" id="95">95</a>
 <a href="#96" id="96">96</a>
-<a href="#97" id="97">97</a>
-<a href="#98" id="98">98</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is equal to another.
 //!
-//! * If true, return Result `Ok(())`.
-//!
-//! * Otherwise, return Result `Err` with a diagnostic message.
-//!
-//! This macro provides the same statements as [`assert_`](macro.assert_.html),
-//! except this macro returns a Result, rather than doing a panic.
-//!
-//! This macro is useful for runtime checks, such as checking parameters,
-//! or sanitizing inputs, or handling different results in different ways.
+//! Pseudocode:&lt;br&gt;
+//! a = b
 //!
 //! # Module macro
 //!
@@ -118,6 +109,9 @@
 //! * [`debug_assert_eq`](https://doc.rust-lang.org/std/macro.debug_assert_eq.html)
 
 /// Assert an expression is equal to another.
+///
+/// Pseudocode:&lt;br&gt;
+/// a = b
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -149,6 +143,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_eq!(a, b)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_eq.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -186,6 +181,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_eq!(a, b)`\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_eq.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,

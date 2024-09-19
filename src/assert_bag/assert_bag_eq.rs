@@ -1,4 +1,7 @@
 //! Assert a bag is equal to another.
+//! 
+//! Pseudocode:<br>
+//! (collection1 into bag) = (collection2 into bag)
 //!
 //! # Example
 //!
@@ -18,6 +21,9 @@
 //! * [`debug_assert_bag_eq`](macro@crate::debug_assert_bag_eq)
 
 /// Assert a bag is equal to another.
+///
+/// Pseudocode:<br>
+/// (collection1 into bag) = (collection2 into bag)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -104,6 +110,9 @@ mod test_as_result {
 
 /// Assert a bag is equal to another.
 ///
+/// Pseudocode:<br>
+/// (collection1 into bag) = (collection2 into bag)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] in order to print the values of the
@@ -173,6 +182,9 @@ macro_rules! assert_bag_eq {
 
 /// Assert a bag is equal to another.
 ///
+/// Pseudocode:<br>
+/// (collection1 into bag) = (collection2 into bag)
+/// 
 /// This macro provides the same statements as [`assert_bag_eq`](macro.assert_bag_eq.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

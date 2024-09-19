@@ -78,8 +78,19 @@
 <a href="#78" id="78">78</a>
 <a href="#79" id="79">79</a>
 <a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a condition is true.
 //!
+//! Pseudocode:&lt;br&gt;
+//! condition
+//! 
 //! * If true, return Result `Ok(())`.
 //!
 //! * Otherwise, return Result `Err` with a diagnostic message.
@@ -96,6 +107,9 @@
 
 /// Assert a condition is true.
 ///
+/// Pseudocode:&lt;br&gt;
+/// condition
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -121,6 +135,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert!(condition)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert.html\n"</span>,
                             <span class="string">" condition label: `{}`,\n"</span>,
                             <span class="string">" condition debug: `{:?}`,\n"</span>,
                         ),
@@ -151,6 +166,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert!(condition)`\n"</span>,
+            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert.html\n"</span>,
             <span class="string">" condition label: `a`,\n"</span>,
             <span class="string">" condition debug: `false`,\n"</span>,
         );

@@ -221,8 +221,28 @@
 <a href="#221" id="221">221</a>
 <a href="#222" id="222">222</a>
 <a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() contains a pattern.
 //!
+//! Pseudocode:&lt;br&gt;
+//! (reader.read_to_string(a) ⇒ a) contains (expr into string)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -244,6 +264,9 @@
 
 /// Assert a std::io::Read read_to_string() contains a pattern.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (reader.read_to_string(a) ⇒ a) contains (expr into string)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -271,6 +294,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html\n"</span>,
                             <span class="string">"    reader label: `{}`,\n"</span>,
                             <span class="string">"    reader debug: `{:?}`,\n"</span>,
                             <span class="string">" containee label: `{}`,\n"</span>,
@@ -291,6 +315,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html\n"</span>,
                                 <span class="string">"    reader label: `{}`,\n"</span>,
                                 <span class="string">"    reader debug: `{:?}`,\n"</span>,
                                 <span class="string">" containee label: `{}`,\n"</span>,
@@ -333,6 +358,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html\n"</span>,
                 <span class="string">"    reader label: `reader`,\n"</span>,
                 <span class="string">"    reader debug: `[]`,\n"</span>,
                 <span class="string">" containee label: `&amp;containee`,\n"</span>,
@@ -345,6 +371,9 @@
 
 <span class="doccomment">/// Assert a std::io::Read read_to_string() contains a pattern.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (reader.read_to_string(a) ⇒ a) contains (expr into string)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -368,6 +397,7 @@
 /// assert_io_read_to_string_contains!(reader, &amp;containee);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html
 /// //     reader label: `&amp;reader`,
 /// //     reader debug: `[]`,
 /// //  containee label: `&amp;containee`,
@@ -376,6 +406,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_io_read_to_string_contains.html\n",
 /// #     "    reader label: `reader`,\n",
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&amp;containee`,\n",
@@ -410,6 +441,9 @@
 
 <span class="doccomment">/// Assert a std::io::Read read_to_string() contains a pattern.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (reader.read_to_string(a) ⇒ a) contains (expr into string)
+/// 
 /// This macro provides the same statements as [`assert_io_read_to_string_contains`](macro.assert_io_read_to_string_contains.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

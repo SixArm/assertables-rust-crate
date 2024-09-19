@@ -393,8 +393,33 @@
 <a href="#393" id="393">393</a>
 <a href="#394" id="394">394</a>
 <a href="#395" id="395">395</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function err() is less than an expression.
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
+<a href="#415" id="415">415</a>
+<a href="#416" id="416">416</a>
+<a href="#417" id="417">417</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Err(…) is less than an expression.
 //!
+//! Pseudocode:&lt;br&gt;
+//! (function(param) ⇒ Err(a) ⇒ a) &lt; expr
+//! 
 //! # Example
 //!
 //! ```rust
@@ -419,8 +444,11 @@
 //! * [`assert_fn_err_lt_expr_as_result`](macro@crate::assert_fn_err_lt_expr_as_result)
 //! * [`debug_assert_fn_err_lt_expr`](macro@crate::debug_assert_fn_err_lt_expr)
 
-/// Assert a function err() is less than an expression.
+/// Assert a function error is less than an expression.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (function(param) ⇒ Err(a) ⇒ a) &lt; expr
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -451,6 +479,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_err_lt_expr!(a_function, a_param, b_expr)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">"    a_param label: `{}`,\n"</span>,
                             <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -473,6 +502,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_fn_err_lt_expr!(a_function, a_param, b_expr)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html\n"</span>,
                                 <span class="string">" a_function label: `{}`,\n"</span>,
                                 <span class="string">"    a_param label: `{}`,\n"</span>,
                                 <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -506,6 +536,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_err_lt_expr!(a_function, b_expr)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">"     b_expr label: `{}`,\n"</span>,
                             <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
@@ -524,6 +555,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_fn_err_lt_expr!(a_function, b_expr)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html\n"</span>,
                                 <span class="string">" a_function label: `{}`,\n"</span>,
                                 <span class="string">"     b_expr label: `{}`,\n"</span>,
                                 <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
@@ -573,6 +605,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_err_lt_expr!(a_function, a_param, b_expr)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `1`,\n"</span>,
@@ -594,6 +627,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_err_lt_expr!(a_function, a_param, b_expr)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `1`,\n"</span>,
@@ -628,6 +662,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_err_lt_expr!(a_function, b_expr)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"     b_expr label: `b`,\n"</span>,
                         <span class="string">"     b_expr debug: `1`,\n"</span>,
@@ -646,6 +681,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_err_lt_expr!(a_function, b_expr)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"     b_expr label: `b`,\n"</span>,
                         <span class="string">"     b_expr debug: `0`,\n"</span>,
@@ -658,8 +694,11 @@
     }
 }
 
-<span class="doccomment">/// Assert a function err() is less than an expression.
+<span class="doccomment">/// Assert a function error is less than an expression.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (function(param) ⇒ Err(a) ⇒ a) &lt; expr
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -688,6 +727,7 @@
 /// assert_fn_err_lt_expr!(f, a, b);
 /// # });
 /// // assertion failed: `assert_fn_err_lt_expr!(a_function, a_param, b_expr)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `20`,
@@ -698,6 +738,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_err_lt_expr!(a_function, a_param, b_expr)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_err_lt_expr.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `20`,\n",
@@ -752,8 +793,11 @@
     });
 }
 
-<span class="doccomment">/// Assert a function err() is less than an expression.
+<span class="doccomment">/// Assert a function error is less than an expression.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (function(param) ⇒ Err(a) ⇒ a) &lt; expr
+/// 
 /// This macro provides the same statements as [`assert_fn_err_lt_expr`](macro.assert_fn_err_lt_expr.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

@@ -1,5 +1,8 @@
 //! Assert an expression is Ready(_).
 //!
+//! Pseudocode:<br>
+//! a is Ready(_)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -21,6 +24,9 @@
 
 /// Assert an expression is Ready(_).
 ///
+/// Pseudocode:<br>
+/// a is Ready(_)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -95,6 +101,9 @@ mod tests {
 
 /// Assert an expression is Ready(_).
 ///
+/// Pseudocode:<br>
+/// a is Ready(_)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -154,6 +163,9 @@ macro_rules! assert_ready {
 
 /// Assert poll.is_ready() is true.
 ///
+/// Pseudocode:<br>
+/// a is Ready(_)
+/// 
 /// This macro provides the same statements as [`assert_ready`](macro.assert_ready.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

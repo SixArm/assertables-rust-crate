@@ -1,14 +1,7 @@
 //! Assert an expression is equal to another.
 //!
-//! * If true, return Result `Ok(())`.
-//!
-//! * Otherwise, return Result `Err` with a diagnostic message.
-//!
-//! This macro provides the same statements as [`assert_`](macro.assert_.html),
-//! except this macro returns a Result, rather than doing a panic.
-//!
-//! This macro is useful for runtime checks, such as checking parameters,
-//! or sanitizing inputs, or handling different results in different ways.
+//! Pseudocode:<br>
+//! a = b
 //!
 //! # Module macro
 //!
@@ -20,6 +13,9 @@
 //! * [`debug_assert_eq`](https://doc.rust-lang.org/std/macro.debug_assert_eq.html)
 
 /// Assert an expression is equal to another.
+///
+/// Pseudocode:<br>
+/// a = b
 ///
 /// * If true, return Result `Ok(())`.
 ///

@@ -1,4 +1,7 @@
-//! Assert a std::fs::read_to_string() value is equal to another.
+//! Assert a std::fs::read_to_string(path) value is equal to another.
+//!
+//! Pseudocode:<br>
+//! std::fs::read_to_string(path1) = std::fs::read_to_string(path2)
 //!
 //! # Example
 //!
@@ -17,7 +20,10 @@
 //! * [`assert_fs_read_to_string_eq_as_result`](macro@crate::assert_fs_read_to_string_eq_as_result)
 //! * [`debug_assert_fs_read_to_string_eq`](macro@crate::debug_assert_fs_read_to_string_eq)
 
-/// Assert a std::fs::read_to_string() is equal to another.
+/// Assert a std::fs::read_to_string(path) is equal to another.
+///
+/// Pseudocode:<br>
+/// std::fs::read_to_string(path1) = std::fs::read_to_string(path2)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -140,7 +146,10 @@ mod tests {
     }
 }
 
-/// Assert a std::fs::read_to_string() value is equal to another.
+/// Assert a std::fs::read_to_string(path) value is equal to another.
+///
+/// Pseudocode:<br>
+/// std::fs::read_to_string(path1) = std::fs::read_to_string(path2)
 ///
 /// * If true, return `()`.
 ///
@@ -209,7 +218,10 @@ macro_rules! assert_fs_read_to_string_eq {
     });
 }
 
-/// Assert a std::fs::read_to_string() value is equal to another.
+/// Assert a std::fs::read_to_string(path) value is equal to another.
+///
+/// Pseudocode:<br>
+/// std::fs::read_to_string(path1) = std::fs::read_to_string(path2)
 ///
 /// This macro provides the same statements as [`assert_fs_read_to_string_eq`](macro.assert_fs_read_to_string_eq.html),
 /// except this macro's statements are only enabled in non-optimized

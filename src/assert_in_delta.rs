@@ -1,6 +1,7 @@
 //! Assert a number is within delta of another number.
 //!
-//! Calculate | a - b | ≤ delta
+//! Pseudocode:<br>
+//! | a - b | ≤ Δ
 //!
 //! # Example
 //!
@@ -40,7 +41,8 @@
 
 /// Assert a number is within delta of another number.
 ///
-/// Calculate | a - b | ≤ delta
+/// Pseudocode:<br>
+/// | a - b | ≤ Δ
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -139,7 +141,8 @@ mod tests {
 
 /// Assert a number is within delta of another number.
 ///
-/// Calculate | a - b | ≤ delta
+/// Pseudocode:<br>
+/// | a - b | ≤ Δ
 ///
 /// * If true, return `()`.
 ///
@@ -232,7 +235,8 @@ macro_rules! assert_in_delta {
 
 /// Assert a number is within delta of another number.
 ///
-/// Calculate | a - b | ≤ delta
+/// Pseudocode:<br>
+/// | a - b | ≤ Δ
 ///
 /// This macro provides the same statements as [`assert_in_delta`](macro.assert_in_delta.html),
 /// except this macro's statements are only enabled in non-optimized

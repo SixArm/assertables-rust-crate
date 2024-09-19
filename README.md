@@ -112,27 +112,22 @@ Modules for external calls:
 * [`assert_program_args`](https://docs.rs/assertables/latest/assertables/assert_program_args) for programs with args with stdout/stderr.
 
 
-### Benefits
+### Top 3 benefits
 
-* Your tests are more purposeful and powerful. This helps your code be more
-reliable.
+* You can write better tests that improve reliability and maintainability.
 
-* Your assert failures provide more information. This helps you
-troubleshoot faster.
+* You can troubleshoot faster because error messages show more specifics.
 
-* You gain runtime asserts. This helps you with validations and
-verifications.
+* You can leverage runtime asserts for validations and verifications.
 
 
-### Features
+### Top 3 features
 
-* Easy to use: each macro is well-documented with runnable examples and
-tests.
+* Easy to learn: everything is well-documented with runnable examples.
 
-* Zero overhead: if you don't use a macro, then it's never compiled into
-your code.
+* Zero overhead: if you don't use a macro, then it's never compiled.
 
-* Zero dependencies: the crate has no release dependencies, and just a short list of development dependencies.
+* Zero dependencies in production: no chain and no delegated risks.
 
 
 ## Forms

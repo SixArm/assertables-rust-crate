@@ -1,5 +1,8 @@
-//! Assert a function err() is less than another.
+//! Assert a function Err(…) is less than another.
 //!
+//! Pseudocode:<br>
+//! (function1(param1) ⇒ Err(a) ⇒ a) < (function2(param2) ⇒ Err(b) ⇒ b)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -24,7 +27,7 @@
 //! * [`assert_fn_err_lt_as_result`](macro@crate::assert_fn_err_lt_as_result)
 //! * [`debug_assert_fn_err_lt`](macro@crate::debug_assert_fn_err_lt)
 
-/// Assert a function err() is less than another.
+/// Assert a function error is less than another.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -282,7 +285,7 @@ mod tests {
     }
 }
 
-/// Assert a function err() is less than another.
+/// Assert a function error is less than another.
 ///
 /// * If true, return `()`.
 ///
@@ -380,7 +383,7 @@ macro_rules! assert_fn_err_lt {
     });
 }
 
-/// Assert a function err() is less than another.
+/// Assert a function error is less than another.
 ///
 /// This macro provides the same statements as [`assert_fn_err_lt`](macro.assert_fn_err_lt.html),
 /// except this macro's statements are only enabled in non-optimized

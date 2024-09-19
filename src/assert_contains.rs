@@ -1,5 +1,8 @@
 //! Assert a container is a match for an expression.
 //!
+//! Pseudocode:<br>
+//! a.contains(b)
+//!
 //! # Example
 //!
 //! ```rust
@@ -24,6 +27,9 @@
 //! * [`debug_assert_contains`](macro@crate::debug_assert_contains)
 
 /// Assert an expression (such as a string) contains an expression (such as a substring).
+///
+/// Pseudocode:<br>
+/// a.contains(b)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -130,6 +136,9 @@ mod tests {
 
 /// Assert a container is a match for an expression.
 ///
+/// Pseudocode:<br>
+/// a.contains(b)
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -198,6 +207,9 @@ macro_rules! assert_contains {
 }
 
 /// Assert a container is a match for an expression.
+///
+/// Pseudocode:<br>
+/// a.contains(b)
 ///
 /// This macro provides the same statements as [`assert_contains`](macro.assert_contains.html),
 /// except this macro's statements are only enabled in non-optimized

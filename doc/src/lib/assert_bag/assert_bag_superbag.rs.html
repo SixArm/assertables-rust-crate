@@ -229,8 +229,28 @@
 <a href="#229" id="229">229</a>
 <a href="#230" id="230">230</a>
 <a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is a superbag of another.
 //!
+//! Pseudocode:&lt;br&gt;
+//! (collection1 into bag) ⊃ (collection2 into bag)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -252,6 +272,9 @@
 
 /// Assert a bag is a superbag of another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (collection1 into bag) ⊃ (collection2 into bag)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -285,6 +308,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_bag_superbag.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -326,6 +350,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_bag_superbag.html\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[1, 1]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -346,6 +371,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_bag_superbag.html\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[1, 1]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -359,6 +385,9 @@
 
 <span class="doccomment">/// Assert a bag is a superbag of another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (collection1 into bag) ⊃ (collection2 into bag)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] in order to print the values of the
@@ -380,6 +409,7 @@
 /// assert_bag_superbag!(&amp;a, &amp;b);
 /// # });
 /// // assertion failed: `assert_bag_superbag!(a_collection, b_collection)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_bag_superbag.html
 /// //  a label: `&amp;a`,
 /// //  a debug: `[1, 1]`,
 /// //  b label: `&amp;b`,
@@ -389,6 +419,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_bag_superbag.html\n",
 /// #     " a label: `&amp;a`,\n",
 /// #     " a debug: `[1, 1]`,\n",
 /// #     " b label: `&amp;b`,\n",
@@ -426,6 +457,9 @@
 
 <span class="doccomment">/// Assert a bag is a superbag of another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (collection1 into bag) ⊃ (collection2 into bag)
+/// 
 /// This macro provides the same statements as [`assert_bag_superbag`](macro.assert_bag_superbag.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

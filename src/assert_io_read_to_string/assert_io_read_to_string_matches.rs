@@ -1,5 +1,8 @@
 //! Assert a std::io::Read read_to_string() is a match to a regex.
 //!
+//! Pseudocode:<br>
+//! (reader.read_to_string(a) ⇒ a) matches matcher
+//! 
 //! # Example
 //!
 //! ```rust
@@ -22,6 +25,9 @@
 
 /// Assert a std::io::Read read_to_string() is a match to a regex.
 ///
+/// Pseudocode:<br>
+/// (reader.read_to_string(a) ⇒ a) matches matcher
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -126,6 +132,9 @@ mod tests {
 
 /// Assert a std::io::Read read_to_string() is a match to a regex.
 ///
+/// Pseudocode:<br>
+/// (reader.read_to_string(a) ⇒ a) matches matcher
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -194,6 +203,9 @@ macro_rules! assert_io_read_to_string_matches {
 
 /// Assert a std::io::Read read_to_string() is a match to a regex.
 ///
+/// Pseudocode:<br>
+/// (reader.read_to_string(a) ⇒ a) matches matcher
+/// 
 /// This macro provides the same statements as [`assert_io_read_to_string_matches`](macro.assert_io_read_to_string_matches.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

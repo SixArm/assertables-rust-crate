@@ -369,8 +369,31 @@
 <a href="#369" id="369">369</a>
 <a href="#370" id="370">370</a>
 <a href="#371" id="371">371</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function ok() is greater than or equal to an expression.
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Ok(…) is greater than or equal to an expression.
 //!
+//! Pseudocode:&lt;br&gt;
+//! (function1(param1) ⇒ Ok(a) ⇒ a) ≥ expr
+//! 
 //! # Example
 //!
 //! ```rust
@@ -395,8 +418,11 @@
 //! * [`assert_fn_ok_ge_expr_as_result`](macro@crate::assert_fn_ok_ge_expr_as_result)
 //! * [`debug_assert_fn_ok_ge_expr`](macro@crate::debug_assert_fn_ok_ge_expr)
 
-/// Assert a function ok() is greater than or equal to an expression.
+/// Assert a function Ok(…) is greater than or equal to an expression.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (function1(param1) ⇒ Ok(a) ⇒ a) ≥ expr
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -427,6 +453,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_ok_ge_expr!(a_function, a_param, b_expr)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ok_ge_expr.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">"    a_param label: `{}`,\n"</span>,
                             <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -449,6 +476,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_fn_ok_ge_expr!(a_function, a_param, b_expr)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ok_ge_expr.html\n"</span>,
                                 <span class="string">" a_function label: `{}`,\n"</span>,
                                 <span class="string">"    a_param label: `{}`,\n"</span>,
                                 <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -482,6 +510,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_ok_ge_expr!(a_function, b_expr)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ok_ge_expr.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">"     b_expr label: `{}`,\n"</span>,
                             <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
@@ -500,6 +529,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_fn_ok_ge_expr!(a_function, b_expr)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ok_ge_expr.html\n"</span>,
                                 <span class="string">" a_function label: `{}`,\n"</span>,
                                 <span class="string">"     b_expr label: `{}`,\n"</span>,
                                 <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
@@ -557,6 +587,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_ok_ge_expr!(a_function, a_param, b_expr)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ok_ge_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `1`,\n"</span>,
@@ -598,6 +629,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_ok_ge_expr!(a_function, b_expr)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ok_ge_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"     b_expr label: `b`,\n"</span>,
                         <span class="string">"     b_expr debug: `2`,\n"</span>,
@@ -610,8 +642,11 @@
     }
 }
 
-<span class="doccomment">/// Assert a function ok() is greater than or equal to an expression.
+<span class="doccomment">/// Assert a function Ok(…) is greater than or equal to an expression.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (function1(param1) ⇒ Ok(a) ⇒ a) ≥ expr
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -640,6 +675,7 @@
 /// assert_fn_ok_ge_expr!(f, a, b);
 /// # });
 /// // assertion failed: `assert_fn_ok_ge_expr!(a_function, a_param, b_expr)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ok_ge_expr.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `1`,
@@ -650,6 +686,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_ok_ge_expr!(a_function, a_param, b_expr)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ok_ge_expr.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `1`,\n",
@@ -704,8 +741,11 @@
     });
 }
 
-<span class="doccomment">/// Assert a function ok() is greater than or equal to an expression.
+<span class="doccomment">/// Assert a function Ok(…) is greater than or equal to an expression.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (function1(param1) ⇒ Ok(a) ⇒ a) ≥ expr
+/// 
 /// This macro provides the same statements as [`assert_fn_ok_ge_expr`](macro.assert_fn_ok_ge_expr.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

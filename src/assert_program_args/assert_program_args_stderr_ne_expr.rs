@@ -1,5 +1,8 @@
 //! Assert a command (built with program and args) stderr string is not equal to an expression.
 //!
+//! Pseudocode:<br>
+//! (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≠ (expr into string)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -20,6 +23,9 @@
 
 /// Assert a command (built with program and args) stderr string is not equal to an expression.
 ///
+/// Pseudocode:<br>
+/// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≠ (expr into string)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -133,6 +139,9 @@ mod tests {
 
 /// Assert a command (built with program and args) stderr string is not equal to an expression.
 ///
+/// Pseudocode:<br>
+/// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≠ (expr into string)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -207,6 +216,9 @@ macro_rules! assert_program_args_stderr_ne_expr {
 
 /// Assert a command (built with program and args) stderr string is not equal to an expression.
 ///
+/// Pseudocode:<br>
+/// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≠ (expr into string)
+/// 
 /// This macro provides the same statements as [`assert_program_args_stderr_ne_expr`](macro.assert_program_args_stderr_ne_expr.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

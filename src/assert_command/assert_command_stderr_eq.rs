@@ -1,5 +1,8 @@
 //! Assert a command stderr string is equal to another.
 //!
+//! Pseudocode:<br>
+//! (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
+//!
 //! # Example
 //!
 //! ```rust
@@ -23,6 +26,9 @@
 
 /// Assert a command stderr string is equal to another.
 ///
+/// Pseudocode:<br>
+/// (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -131,6 +137,9 @@ mod tests {
 
 /// Assert a command stderr string is equal to another.
 ///
+/// Pseudocode:<br>
+/// (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the

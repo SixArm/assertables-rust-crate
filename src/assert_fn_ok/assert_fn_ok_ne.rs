@@ -1,5 +1,8 @@
-//! Assert a function ok() is not equal to another.
+//! Assert a function Ok(…) is not equal to another.
 //!
+//! Pseudocode:<br>
+//! (function1(param1) ⇒ Ok(a) ⇒ a) ≠ (function2(param2) ⇒ Ok(b) ⇒ b)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -24,8 +27,11 @@
 //! * [`assert_fn_ok_ne_as_result`](macro@crate::assert_fn_ok_ne_as_result)
 //! * [`debug_assert_fn_ok_ne`](macro@crate::debug_assert_fn_ok_ne)
 
-/// Assert a function ok() is not equal to another.
+/// Assert a function Ok(…) is not equal to another.
 ///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Ok(a) ⇒ a) ≠ (function2(param2) ⇒ Ok(b) ⇒ b)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -242,8 +248,11 @@ mod tests {
     }
 }
 
-/// Assert a function ok() is not equal to another.
+/// Assert a function Ok(…) is not equal to another.
 ///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Ok(a) ⇒ a) ≠ (function2(param2) ⇒ Ok(b) ⇒ b)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -340,8 +349,11 @@ macro_rules! assert_fn_ok_ne {
     });
 }
 
-/// Assert a function ok() is not equal to another.
+/// Assert a function Ok(…) is not equal to another.
 ///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Ok(a) ⇒ a) ≠ (function2(param2) ⇒ Ok(b) ⇒ b)
+/// 
 /// This macro provides the same statements as [`assert_fn_ok_ne`](macro.assert_fn_ok_ne.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

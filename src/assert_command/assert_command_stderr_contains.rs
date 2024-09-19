@@ -1,5 +1,8 @@
 //! Assert a command stderr string contains a given containee.
 //!
+//! Pseudocode:<br>
+//! (command ⇒ stderr ⇒ string) contains (expr into string)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -21,6 +24,9 @@
 //! * [`debug_assert_command_stderr_contains`](macro@crate::debug_assert_command_stderr_contains)
 
 /// Assert a command stderr string contains a given containee.
+/// 
+/// Pseudocode:<br>
+/// (command ⇒ stderr ⇒ string) contains (expr into string)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -125,6 +131,9 @@ mod tests {
 
 /// Assert a command stderr string contains a given containee.
 ///
+/// Pseudocode:<br>
+/// (command ⇒ stderr ⇒ string) contains (expr into string)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -199,6 +208,9 @@ macro_rules! assert_command_stderr_contains {
 
 /// Assert a command stderr string contains a given containee.
 ///
+/// Pseudocode:<br>
+/// (command ⇒ stderr ⇒ string) contains (expr into string)
+/// 
 /// This macro provides the same statements as [`assert_command_stderr_contains`](macro.assert_command_stderr_contains.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

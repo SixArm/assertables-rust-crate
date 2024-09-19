@@ -301,7 +301,28 @@
 <a href="#301" id="301">301</a>
 <a href="#302" id="302">302</a>
 <a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is equal to an expression.
+//!
+//! Pseudocode:&lt;br&gt;
+//! function(a) = b
 //!
 //! # Example
 //!
@@ -322,6 +343,9 @@
 
 /// Assert a function output is equal to an expression.
 ///
+/// Pseudocode:&lt;br&gt;
+/// function(a) = b
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -353,6 +377,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_eq_expr.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">"    a_param label: `{}`,\n"</span>,
                             <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -386,6 +411,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, b_expr)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_eq_expr.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">"     b_expr label: `{}`,\n"</span>,
                             <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
@@ -434,6 +460,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_eq_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `1`,\n"</span>,
@@ -468,6 +495,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, b_expr)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_eq_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"     b_expr label: `b`,\n"</span>,
                         <span class="string">"     b_expr debug: `2`,\n"</span>,
@@ -482,6 +510,9 @@
 
 <span class="doccomment">/// Assert a function output is equal to an expression.
 ///
+/// Pseudocode:&lt;br&gt;
+/// function(a) = b
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -503,6 +534,7 @@
 /// assert_fn_eq_expr!(i8::abs, a, b);
 /// # });
 /// // assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_eq_expr.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `-1`,
@@ -513,6 +545,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_eq_expr.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",
@@ -570,6 +603,9 @@
 
 <span class="doccomment">/// Assert a function output is equal to an expression.
 ///
+/// Pseudocode:&lt;br&gt;
+/// function(a) = b
+/// 
 /// This macro provides the same statements as [`assert_fn_eq_expr`](macro.assert_fn_eq_expr.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

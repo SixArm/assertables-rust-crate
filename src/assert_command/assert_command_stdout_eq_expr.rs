@@ -1,5 +1,8 @@
 //! Assert a command stdout string is equal to an expression.
 //!
+//! Pseudocode:<br>
+//! (command ⇒ stdout ⇒ string) = (expr into string)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -22,6 +25,9 @@
 
 /// Assert a command stdout string is equal to an expression.
 ///
+/// Pseudocode:<br>
+/// (command ⇒ stdout ⇒ string) = (expr into string)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.

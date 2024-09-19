@@ -184,8 +184,27 @@
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ready(_).
 //!
+//! Pseudocode:&lt;br&gt;
+//! a is Ready(_)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -207,6 +226,9 @@
 
 /// Assert an expression is Ready(_).
 ///
+/// Pseudocode:&lt;br&gt;
+/// a is Ready(_)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -236,6 +258,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_ready!(a)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_ready.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`"</span>,
                             ),
@@ -270,6 +293,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ready!(a)`\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_ready.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Pending`"</span>,
             )
@@ -279,6 +303,9 @@
 
 <span class="doccomment">/// Assert an expression is Ready(_).
 ///
+/// Pseudocode:&lt;br&gt;
+/// a is Ready(_)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -300,11 +327,13 @@
 /// assert_ready!(a);
 /// # });
 /// // assertion failed: `assert_ready!(a)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_ready.html
 /// //  a label: `a`,
 /// //  a debug: `Pending`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ready!(a)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_ready.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Pending`",
 /// # );
@@ -336,6 +365,9 @@
 
 <span class="doccomment">/// Assert poll.is_ready() is true.
 ///
+/// Pseudocode:&lt;br&gt;
+/// a is Ready(_)
+/// 
 /// This macro provides the same statements as [`assert_ready`](macro.assert_ready.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

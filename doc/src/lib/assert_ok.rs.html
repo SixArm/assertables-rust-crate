@@ -177,8 +177,27 @@
 <a href="#177" id="177">177</a>
 <a href="#178" id="178">178</a>
 <a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression is Ok(_).
 //!
+//! Pseudocode:&lt;br&gt;
+//! a is Ok(_)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -197,6 +216,9 @@
 
 /// Assert expression is Ok(_).
 ///
+/// Pseudocode:&lt;br&gt;
+/// a is Ok(_)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -226,6 +248,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_ok!(a)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_ok.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`"</span>,
                             ),
@@ -258,6 +281,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ok!(a)`\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_ok.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Err(1)`"</span>,
             )
@@ -267,6 +291,9 @@
 
 <span class="doccomment">/// Assert expression is Ok(_).
 ///
+/// Pseudocode:&lt;br&gt;
+/// a is Ok(_)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -286,11 +313,13 @@
 /// assert_ok!(a);
 /// # });
 /// // assertion failed: `assert_ok!(a)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_ok.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ok!(a)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_ok.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`",
 /// # );
@@ -322,6 +351,9 @@
 
 <span class="doccomment">/// Assert expression is Ok(_).
 ///
+/// Pseudocode:&lt;br&gt;
+/// a is Ok(_)
+/// 
 /// This macro provides the same statements as [`assert_ok`](macro.assert_ok.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

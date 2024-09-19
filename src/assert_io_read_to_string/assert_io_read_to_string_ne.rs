@@ -1,5 +1,8 @@
 //! Assert a std::io::Read read_to_string() is not equal to another.
 //!
+//! Pseudocode:<br>
+//! (reader1.read_to_string(a) ⇒ a) ≠ (reader2.read_to_string(b) ⇒ b)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -21,6 +24,9 @@
 
 /// Assert a std::io::Read read_to_string() is not equal to another.
 ///
+/// Pseudocode:<br>
+/// (reader1.read_to_string(a) ⇒ a) ≠ (reader2.read_to_string(b) ⇒ b)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -129,6 +135,9 @@ mod tests {
 
 /// Assert a std::io::Read read_to_string() is not equal to another.
 ///
+/// Pseudocode:<br>
+/// (reader1.read_to_string(a) ⇒ a) ≠ (reader2.read_to_string(b) ⇒ b)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -198,6 +207,9 @@ macro_rules! assert_io_read_to_string_ne {
 
 /// Assert a std::io::Read read_to_string() is not equal to another.
 ///
+/// Pseudocode:<br>
+/// (reader1.read_to_string(a) ⇒ a) ≠ (reader2.read_to_string(b) ⇒ b)
+/// 
 /// This macro provides the same statements as [`assert_io_read_to_string_ne`](macro.assert_io_read_to_string_ne.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

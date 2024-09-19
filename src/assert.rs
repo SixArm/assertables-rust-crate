@@ -1,5 +1,8 @@
 //! Assert a condition is true.
 //!
+//! Pseudocode:<br>
+//! condition
+//! 
 //! * If true, return Result `Ok(())`.
 //!
 //! * Otherwise, return Result `Err` with a diagnostic message.
@@ -16,6 +19,9 @@
 
 /// Assert a condition is true.
 ///
+/// Pseudocode:<br>
+/// condition
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.

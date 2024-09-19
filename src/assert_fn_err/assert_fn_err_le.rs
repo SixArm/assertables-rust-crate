@@ -1,5 +1,8 @@
-//! Assert a function err() is less than or equal to another.
+//! Assert a function Err(…) is less than or equal to another.
 //!
+//! Pseudocode:<br>
+//! (function1(param1) ⇒ Err(a) ⇒ a) ≤ (function2(param2) ⇒ Err(b) ⇒ b)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -24,8 +27,11 @@
 //! * [`assert_fn_err_le_as_result`](macro@crate::assert_fn_err_le_as_result)
 //! * [`debug_assert_fn_err_le`](macro@crate::debug_assert_fn_err_le)
 
-/// Assert a function err() is less than or equal to another.
+/// Assert a function error is less than or equal to another.
 ///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Err(a) ⇒ a) ≤ (function2(param2) ⇒ Err(b) ⇒ b)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -256,8 +262,11 @@ mod tests {
     }
 }
 
-/// Assert a function err() is less than or equal to another.
+/// Assert a function error is less than or equal to another.
 ///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Err(a) ⇒ a) ≤ (function2(param2) ⇒ Err(b) ⇒ b)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -354,8 +363,11 @@ macro_rules! assert_fn_err_le {
     });
 }
 
-/// Assert a function err() is less than or equal to another.
+/// Assert a function error is less than or equal to another.
 ///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Err(a) ⇒ a) ≤ (function2(param2) ⇒ Err(b) ⇒ b)
+/// 
 /// This macro provides the same statements as [`assert_fn_err_le`](macro.assert_fn_err_le.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

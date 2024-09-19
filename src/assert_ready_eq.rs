@@ -1,5 +1,8 @@
 //! Assert two expressions are Ready(_) and their values are equal.
 //!
+//! Pseudocode:<br>
+//! (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅) 
+//! 
 //! # Example
 //!
 //! ```rust
@@ -21,6 +24,9 @@
 
 /// Assert two expressions are Ready(_) and their values are equal.
 ///
+/// Pseudocode:<br>
+/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅) 
+/// 
 /// * If true, return Result `Some(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -146,6 +152,9 @@ mod tests {
 
 /// Assert two expressions are Ready(_) and their values are equal.
 ///
+/// Pseudocode:<br>
+/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅) 
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -215,6 +224,9 @@ macro_rules! assert_ready_eq {
 
 /// Assert two expressions are Ready(_) and their values are equal.
 ///
+/// Pseudocode:<br>
+/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅) 
+/// 
 /// This macro provides the same statements as [`assert_ready_eq`](macro.assert_ready_eq.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

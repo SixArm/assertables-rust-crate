@@ -1,5 +1,8 @@
 //! Assert expression is None.
 //!
+//! Pseudocode:<br>
+//! a is None
+//! 
 //! # Example
 //!
 //! ```rust
@@ -18,6 +21,9 @@
 
 /// Assert an expression.is_none() is true.
 ///
+/// Pseudocode:<br>
+/// a is None
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -90,6 +96,9 @@ mod tests {
 
 /// Assert expression is None.
 ///
+/// Pseudocode:<br>
+/// a is None
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -147,6 +156,9 @@ macro_rules! assert_none {
 
 /// Assert expression is None.
 ///
+/// Pseudocode:<br>
+/// a is None
+/// 
 /// This macro provides the same statements as [`assert_none`](macro.assert_none.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

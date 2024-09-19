@@ -1,5 +1,8 @@
-//! Assert a function ok() is less than an expression.
+//! Assert a function Ok(…) is less than an expression.
 //!
+//! Pseudocode:<br>
+//! (function1(param1) ⇒ Ok(a) ⇒ a) < expr
+//! 
 //! # Example
 //!
 //! ```rust
@@ -24,8 +27,11 @@
 //! * [`assert_fn_ok_lt_expr_as_result`](macro@crate::assert_fn_ok_lt_expr_as_result)
 //! * [`debug_assert_fn_ok_lt_expr`](macro@crate::debug_assert_fn_ok_lt_expr)
 
-/// Assert a function ok() is less than an expression.
+/// Assert a function Ok(…) is less than an expression.
 ///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Ok(a) ⇒ a) < expr
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -232,8 +238,11 @@ mod tests {
     }
 }
 
-/// Assert a function ok() is less than an expression.
+/// Assert a function Ok(…) is less than an expression.
 ///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Ok(a) ⇒ a) < expr
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -328,8 +337,11 @@ macro_rules! assert_fn_ok_lt_expr {
     });
 }
 
-/// Assert a function ok() is less than an expression.
+/// Assert a function Ok(…) is less than an expression.
 ///
+/// Pseudocode:<br>
+/// (function1(param1) ⇒ Ok(a) ⇒ a) < expr
+/// 
 /// This macro provides the same statements as [`assert_fn_ok_lt_expr`](macro.assert_fn_ok_lt_expr.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

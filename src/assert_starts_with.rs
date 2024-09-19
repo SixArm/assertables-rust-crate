@@ -1,5 +1,8 @@
 //! Assert an expression (such as a string) starts with an expression (such as a string).
 //!
+//! Pseudocode:<br>
+//! a.starts_with(b)
+//!
 //! # Example
 //!
 //! ```rust
@@ -18,6 +21,9 @@
 //! * [`debug_assert_starts_with`](macro@crate::debug_assert_starts_with)
 
 /// Assert an expression (such as a string) starts with an expression (such as a substring).
+///
+/// Pseudocode:<br>
+/// a.starts_with(b)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -94,6 +100,9 @@ mod tests {
 
 /// Assert an expression (such as a string) starts with an expression (such as a string).
 ///
+/// Pseudocode:<br>
+/// a.starts_with(b)
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -156,6 +165,9 @@ macro_rules! assert_starts_with {
 }
 
 /// Assert an expression (such as a string) starts with an expression (such as a string).
+///
+/// Pseudocode:<br>
+/// a.starts_with(b)
 ///
 /// This macro provides the same statements as [`assert_starts_with`](macro.assert_starts_with.html),
 /// except this macro's statements are only enabled in non-optimized

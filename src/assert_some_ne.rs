@@ -1,5 +1,8 @@
 //! Assert two expressions are Some(_) and their values are not equal.
 //!
+//! Pseudocode:<br>
+//! (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅) 
+//!
 //! # Example
 //!
 //! ```rust
@@ -18,6 +21,9 @@
 //! * [`debug_assert_some_ne`](macro@crate::debug_assert_some_ne)
 
 /// Assert two expressions are Some(_) and their values are not equal.
+///
+/// Pseudocode:<br>
+/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅) 
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -142,6 +148,9 @@ mod tests {
 
 /// Assert two expressions are Some(_) and their values are not equal.
 ///
+/// Pseudocode:<br>
+/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅) 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -208,6 +217,9 @@ macro_rules! assert_some_ne {
 }
 
 /// Assert two expressions are Some(_) and their values are not equal.
+///
+/// Pseudocode:<br>
+/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅) 
 ///
 /// This macro provides the same statements as [`assert_some_ne`](macro.assert_some_ne.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -1,5 +1,8 @@
 //! Assert a set is disjoint with another.
 //!
+//! Pseudocode:<br>
+//! (collection1 into set) ⨃ (collection2 into set)
+//!
 //! # Example
 //!
 //! ```rust
@@ -20,6 +23,9 @@
 //! * [`debug_assert_set_disjoint`](macro@crate::debug_assert_set_disjoint)
 
 /// Assert a set is disjoint with another.
+///
+/// Pseudocode:<br>
+/// (collection1 into set) ⨃ (collection2 into set)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -106,6 +112,9 @@ mod tests {
 
 /// Assert a set is disjoint with another.
 ///
+/// Pseudocode:<br>
+/// (collection1 into set) ⨃ (collection2 into set)
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -174,6 +183,9 @@ macro_rules! assert_set_disjoint {
 }
 
 /// Assert a set is disjoint with another.
+///
+/// Pseudocode:<br>
+/// (collection1 into set) ⨃ (collection2 into set)
 ///
 /// This macro provides the same statements as [`assert_set_disjoint`](macro.assert_set_disjoint.html),
 /// except this macro's statements are only enabled in non-optimized

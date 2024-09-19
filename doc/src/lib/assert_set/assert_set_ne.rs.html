@@ -205,10 +205,31 @@
 <a href="#205" id="205">205</a>
 <a href="#206" id="206">206</a>
 <a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a set is not equal to another.
 //!
+//! Pseudocode:&lt;br&gt;
+//! (collection1 into set) ≠ (collection2 into set)
+//! 
 //! # Example
 //!
+//! 
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
@@ -228,6 +249,9 @@
 
 /// Assert a set is not equal to another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (collection1 into set) ≠ (collection2 into set)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -257,6 +281,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_set_ne!(a_collection, b_collection)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_set_ne.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -298,6 +323,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_set_ne!(a_collection, b_collection)`\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_set_ne.html\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[1, 2]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -311,6 +337,9 @@
 
 <span class="doccomment">/// Assert a set is not equal to another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (collection1 into set) ≠ (collection2 into set)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -332,6 +361,7 @@
 /// assert_set_ne!(&amp;a, &amp;b);
 /// # });
 /// // assertion failed: `assert_set_ne!(a_collection, b_collection)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_set_ne.html
 /// //  a label: `&amp;a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&amp;b`,
@@ -341,6 +371,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_set_ne!(a_collection, b_collection)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_set_ne.html\n",
 /// #     " a label: `&amp;a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `&amp;b`,\n",
@@ -378,6 +409,9 @@
 
 <span class="doccomment">/// Assert a set is not equal to another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// (collection1 into set) ≠ (collection2 into set)
+/// 
 /// This macro provides the same statements as [`assert_set_ne`](macro.assert_set_ne.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

@@ -321,8 +321,29 @@
 <a href="#321" id="321">321</a>
 <a href="#322" id="322">322</a>
 <a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is greater than or equal to another.
 //!
+//! Pseudocode:&lt;br&gt;
+//! function1(a) &gt; function2(b)
+//! 
 //! # Example
 //!
 //! ```rust
@@ -342,6 +363,9 @@
 
 /// Assert a function output is greater than or equal to another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// function1(a) &gt; function2(b)
+/// 
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -374,6 +398,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_ge!(a_function, a_param, b_function, b_param)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ge.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">"    a_param label: `{}`,\n"</span>,
                             <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -408,6 +433,7 @@
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_fn_ge!(a_function, b_function)`\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ge.html\n"</span>,
                     <span class="string">" a_function label: `{}`,\n"</span>,
                     <span class="string">" b_function label: `{}`,\n"</span>,
                     <span class="string">"                a: `{:?}`,\n"</span>,
@@ -464,6 +490,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_ge!(a_function, a_param, b_function, b_param)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ge.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `1`,\n"</span>,
@@ -507,6 +534,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_ge!(a_function, b_function)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ge.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">" b_function label: `g`,\n"</span>,
                         <span class="string">"                a: `1`,\n"</span>,
@@ -520,6 +548,9 @@
 
 <span class="doccomment">/// Assert a function output is greater than or equal to another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// function1(a) &gt; function2(b)
+/// 
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -541,6 +572,7 @@
 /// assert_fn_ge!(i8::abs, a, i8::abs, b);
 /// # });
 /// // assertion failed: `assert_fn_ge!(a_function, a_param, b_function, b_param)`
+/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ge.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `1`,
@@ -552,6 +584,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_ge!(a_function, a_param, b_function, b_param)`\n",
+/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_fn_ge.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `1`,\n",
@@ -610,6 +643,9 @@
 
 <span class="doccomment">/// Assert a function output is greater than or equal to another.
 ///
+/// Pseudocode:&lt;br&gt;
+/// function1(a) &gt; function2(b)
+/// 
 /// This macro provides the same statements as [`assert_fn_ge`](macro.assert_fn_ge.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
