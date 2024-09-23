@@ -8,7 +8,13 @@
 //! * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
 //! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
 //!
-//!
+//! To use this crate, add it to your `Cargo.toml` file:
+//! 
+//! ```toml
+//! [dev-dependencies]
+//! assertables = "8.7"
+//! ```
+//! 
 //! ## Introduction
 //!
 //! The Rust programming language provides a few built-in assert macros to test code:
@@ -43,26 +49,31 @@
 //! * [`assert_infix!(a == b)`](macro@crate::assert_infix)
 //! * [`assert_infix!(a && b)`](macro@crate::assert_infix)
 //!
-//! For numbers:
+//! For approximation:
+//! 
+//! * [`assert_approx_eq!(a, b)`](macro@crate::assert_approx_eq)
+//! * [`assert_approx_ne!(a, b)`](macro@crate::assert_approx_ne)
+//!
+//! For nearness:
 //!
 //! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
 //! * [`assert_in_epsilon!(a, b, epsilon)`](macro@crate::assert_in_epsilon)
 //!
-//! For Result:
+//! For Result Ok/Err:
 //!
 //! * [`assert_ok!(a)`](macro@crate::assert_ok)
 //! * [`assert_ok_eq!(a)`](macro@crate::assert_ok_eq)
 //! * [`assert_ok_ne!(a)`](macro@crate::assert_ok_ne)
 //! * [`assert_err!(a)`](macro@crate::assert_err)
 //!
-//! For Option:
+//! For Option Some/None:
 //!
 //! * [`assert_some!(a)`](macro@crate::assert_some)
 //! * [`assert_some_eq!(a)`](macro@crate::assert_some_eq)
 //! * [`assert_some_ne!(a)`](macro@crate::assert_some_ne)
 //! * [`assert_none!(a)`](macro@crate::assert_none)
 //!
-//! For Poll:
+//! For Poll Ready/Pending:
 //!
 //! * [`assert_ready!(a)`](macro@crate::assert_ready)
 //! * [`assert_ready_eq!(a, b)`](macro@crate::assert_ready_eq)
@@ -85,12 +96,6 @@
 //! * [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](macro@crate::assert_program_args_stdout_eq);
 //!
 //! There are many more macros that are grouped into modules.
-//!
-//! Modules for enums:
-//!
-//! * [`assert_option`](module@crate::assert_option) for `Option` {`Some`, `None`}
-//! * [`assert_result`](module@crate::assert_result) for `Result` {`Ok`, `Err`}
-//! * [`assert_poll`](module@crate::assert_poll) for `Poll` {`Ready`, `Pending`}
 //!
 //! Modules for collections, such as arrays, vectors, lists, maps:
 //!
@@ -184,9 +189,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.7.0
+//! * Version: 8.8.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-18T14:51:06Z
+//! * Updated: 2024-09-23T17:15:59Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -202,8 +207,11 @@ pub mod assert_lt;
 pub mod assert_ne;
 
 // Assert value nearness
+pub mod assert_approx_eq;
+pub mod assert_approx_ne;
 pub mod assert_in_delta;
 pub mod assert_in_epsilon;
+
 // Assert value matching
 pub mod assert_contains;
 pub mod assert_ends_with;

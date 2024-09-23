@@ -41,26 +41,31 @@ For infix operators:
 * [`assert_infix!(a == b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
 * [`assert_infix!(a && b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
 
-For numbers:
+For approximation:
+
+* [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_approx_eq.html)
+* [`assert_approx_ne!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_approx_ne.html)
+
+For nearness:
 
 * [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_delta.html)
 * [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_epsilon.html)
 
-For Result:
+For Result Ok/Err:
 
 * [`assert_ok!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok.html)
 * [`assert_ok_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_eq.html)
 * [`assert_ok_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_ne.html)
 * [`assert_err!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_err.html)
 
-For Option:
+For Option Some/None:
 
 * [`assert_some!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_some.html)
 * [`assert_some_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_eq.html)
 * [`assert_some_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_ne.html)
 * [`assert_none!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_none.html)
 
-For Poll:
+For Poll Ready/Pending:
 
 * [`assert_ready!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready.html)
 * [`assert_ready_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready_eq.html)
@@ -69,8 +74,8 @@ For Poll:
 
 For collections such as arrays, vectors, maps, sets:
 
-* [`assert_set_subset_eq!(collection1, collection2)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_subset_eq.html)
-* [`assert_set_disjoint_eq!(collection1, collection2)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_disjoint_eq.html)
+* [`assert_set_subset!(collection1, collection2)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_subset.html)
+* [`assert_set_disjoint!(collection1, collection2)`](https://docs.rs/assertables/latest/assertables/macro.assert_set_disjoint.html)
 
 For file system paths and input/output readers:
 
@@ -83,12 +88,6 @@ For command capture of standard output and standard error:
 * [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](https://docs.rs/assertables/latest/assertables/macro.assert_program_args_stdout_eq.html)
 
 There are many more macros that are grouped into modules.
-
-Modules for enums:
-
-* [`assert_option`](https://docs.rs/assertables/latest/assertables/assert_option)for `Option` {`Some`, `None`}
-* [`assert_result`](https://docs.rs/assertables/latest/assertables/assert_result) for `Result` {`Ok`, `Err`}
-* [`assert_poll`](https://docs.rs/assertables/latest/assertables/assert_poll) for `Poll` {`Ready`, `Pending`}
 
 Modules for collections, such as arrays, vectors, lists, maps:
 
@@ -177,8 +176,8 @@ Examples:
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.7.0
+* Version: 8.8.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-09-18T14:51:06Z
+* Updated: 2024-09-23T17:15:59Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)
