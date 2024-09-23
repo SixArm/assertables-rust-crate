@@ -46,7 +46,7 @@
 ///
 #[macro_export]
 macro_rules! assert_is_match_as_result {
-    ($matcher:expr, $matchee:expr $(,)?) => ({
+    ($matcher:expr, $matchee:expr $(,)?) => {{
         match (&$matcher, &$matchee) {
             (matcher, matchee) => {
                 if matcher.is_match(matchee) {
@@ -69,7 +69,7 @@ macro_rules! assert_is_match_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -158,18 +158,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_is_match {
-    ($matcher:expr, $matchee:expr $(,)?) => ({
+    ($matcher:expr, $matchee:expr $(,)?) => {{
         match assert_is_match_as_result!($matcher, $matchee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($matcher:expr, $matchee:expr, $($message:tt)+) => ({
+    }};
+    ($matcher:expr, $matchee:expr, $($message:tt)+) => {{
         match assert_is_match_as_result!($matcher, $matchee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a matcher is a match for an expression.

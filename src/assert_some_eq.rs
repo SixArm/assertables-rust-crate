@@ -43,7 +43,7 @@
 ///
 #[macro_export]
 macro_rules! assert_some_eq_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
                 match (a, b) {
@@ -90,7 +90,7 @@ macro_rules! assert_some_eq_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -202,18 +202,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_some_eq {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match assert_some_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
+    }};
+    ($a:expr, $b:expr, $($message:tt)+) => {{
         match assert_some_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert two expressions are Some(_) and their values are equal.

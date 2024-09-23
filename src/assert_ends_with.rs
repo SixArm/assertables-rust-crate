@@ -43,7 +43,7 @@
 ///
 #[macro_export]
 macro_rules! assert_ends_with_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
                 if a.ends_with(b) {
@@ -66,7 +66,7 @@ macro_rules! assert_ends_with_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -150,18 +150,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_ends_with {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match assert_ends_with_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
+    }};
+    ($a:expr, $b:expr, $($message:tt)+) => {{
         match assert_ends_with_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert an expression (such as a string) ends with an expression (such as a string).

@@ -36,11 +36,11 @@
 
 #[macro_export]
 macro_rules! assert_set_impl_prep {
-    ($into_iterable:expr $(,)?) => ({
+    ($into_iterable:expr $(,)?) => {{
         match (&$into_iterable) {
             into_iterable => into_iterable.into_iter().collect()
         }
-    });
+    }};
 }
 
 // Comparisons

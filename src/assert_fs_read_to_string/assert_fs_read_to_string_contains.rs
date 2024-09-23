@@ -43,7 +43,7 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_contains_as_result {
-    ($path:expr, $containee:expr $(,)?) => ({
+    ($path:expr, $containee:expr $(,)?) => {{
         match (&$path, &$containee) {
             (path, containee) => {
                 let read_result = ::std::fs::read_to_string(path);
@@ -89,7 +89,7 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -195,18 +195,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_contains {
-    ($path:expr, $containee:expr $(,)?) => ({
+    ($path:expr, $containee:expr $(,)?) => {{
         match assert_fs_read_to_string_contains_as_result!($path, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($path:expr, $containee:expr, $($message:tt)+) => ({
+    }};
+    ($path:expr, $containee:expr, $($message:tt)+) => {{
         match assert_fs_read_to_string_contains_as_result!($path, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a std::fs::read_to_string(path) contains a pattern.

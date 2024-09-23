@@ -45,7 +45,7 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_contains_as_result {
-    ($reader:expr, $containee:expr $(,)?) => ({
+    ($reader:expr, $containee:expr $(,)?) => {{
         match (/*&$reader,*/ &$containee) {
             containee => {
                 let mut read_string = String::new();
@@ -92,7 +92,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -185,18 +185,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_contains {
-    ($reader:expr, $containee:expr $(,)?) => ({
+    ($reader:expr, $containee:expr $(,)?) => {{
         match assert_io_read_to_string_contains_as_result!($reader, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
+    }};
+    ($a:expr, $b:expr, $($message:tt)+) => {{
         match assert_io_read_to_string_contains_as_result!($reader, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a std::io::Read read_to_string() contains a pattern.

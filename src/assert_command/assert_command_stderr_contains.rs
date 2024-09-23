@@ -46,7 +46,7 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_contains_as_result {
-    ($command:expr, $containee:expr $(,)?) => ({
+    ($command:expr, $containee:expr $(,)?) => {{
         match (/*&$command,*/ &$containee) {
             containee => {
                 let output = $command.output();
@@ -92,7 +92,7 @@ macro_rules! assert_command_stderr_contains_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -192,18 +192,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_contains {
-    ($command:expr, $containee:expr $(,)?) => ({
+    ($command:expr, $containee:expr $(,)?) => {{
         match assert_command_stderr_contains_as_result!($command, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($command:expr, $containee:expr, $($message:tt)+) => ({
+    }};
+    ($command:expr, $containee:expr, $($message:tt)+) => {{
         match assert_command_stderr_contains_as_result!($command, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a command stderr string contains a given containee.

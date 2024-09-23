@@ -45,7 +45,7 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_gt_expr_as_result {
-    ($a_reader:expr, $b_expr:expr $(,)?) => ({
+    ($a_reader:expr, $b_expr:expr $(,)?) => {{
         match (/*&$reader,*/ &$b_expr) {
             b_expr => {
                 let mut a_string = String::new();
@@ -95,7 +95,7 @@ macro_rules! assert_io_read_to_string_gt_expr_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -191,18 +191,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_gt_expr {
-    ($a_reader:expr,  $b_expr:expr $(,)?) => ({
+    ($a_reader:expr,  $b_expr:expr $(,)?) => {{
         match assert_io_read_to_string_gt_expr_as_result!($a_reader, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a_reader:expr, $b_expr:expr, $($message:tt)+) => ({
+    }};
+    ($a_reader:expr, $b_expr:expr, $($message:tt)+) => {{
         match assert_io_read_to_string_gt_expr_as_result!($a_reader, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a std::io::Read read_to_string() value is greater than an expression.

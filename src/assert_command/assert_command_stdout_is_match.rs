@@ -47,7 +47,7 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_is_match_as_result {
-    ($command:expr, $matcher:expr $(,)?) => ({
+    ($command:expr, $matcher:expr $(,)?) => {{
         match (/*&$command,*/ &$matcher) {
             matcher => {
                 let output = $command.output();
@@ -95,7 +95,7 @@ macro_rules! assert_command_stdout_is_match_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -195,18 +195,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_is_match {
-    ($command:expr, $matcher:expr $(,)?) => ({
+    ($command:expr, $matcher:expr $(,)?) => {{
         match assert_command_stdout_is_match_as_result!($command, $matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($command:expr, $matcher:expr, $($message:tt)+) => ({
+    }};
+    ($command:expr, $matcher:expr, $($message:tt)+) => {{
         match assert_command_stdout_is_match_as_result!($command, $matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert command stdout string is a match to a regex.

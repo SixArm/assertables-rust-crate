@@ -40,7 +40,7 @@
 #[deprecated(note = "Please rename from `assert_poll_pending_as_result` to `assert_pending_as_result` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_poll_pending_as_result {
-    ($a:expr $(,)?) => ({
+    ($a:expr $(,)?) => {{
         match (&$a) {
             a => {
                 match (a) {
@@ -62,7 +62,7 @@ macro_rules! assert_poll_pending_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -140,18 +140,18 @@ mod tests {
 #[deprecated(note = "Please rename from `assert_poll_pending` to `assert_pending` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_poll_pending {
-    ($poll:expr $(,)?) => ({
-        match assert_poll_pending_as_result!($poll) {
+    ($a:expr $(,)?) => {{
+        match assert_poll_pending_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($poll:expr, $($message:tt)+) => ({
-        match assert_poll_pending_as_result!($poll) {
+    }};
+    ($a:expr, $($message:tt)+) => {{
+        match assert_poll_pending_as_result!($a) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert an expression is Pending.

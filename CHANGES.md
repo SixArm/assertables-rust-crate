@@ -5,6 +5,8 @@ Changes highlights for recent major versions.
 
 ## Version 8.x
 
+* Add approx macros: `assert_approx_eq`, `assert_approx_ne`.
+
 * Add Result macros: `assert_ok`, `assert_err`, et al.
   
 * Add Option macros: `assert_some`, `assert_none`, et al.

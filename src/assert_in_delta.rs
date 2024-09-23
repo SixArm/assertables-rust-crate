@@ -15,24 +15,46 @@
 //! # }
 //! ```
 //!
-//! The macros `assert_in_delta` and `assert_in_epsilon` can test
-//! approximations:
+//! 
+//! ## Comparisons
+//! 
+//! This crate provides macro groups that test approximations and nearness:
+//! 
+//! * [`assert_approx_eq`](macro@crate::assert_approx_eq) and
+//!   [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
+//!   equality within 1e-6. The macro name and the approximate value are chosen
+//!   to be similar to the longtime popular rust crate `assert_approx_eq`.
+//! 
+//! * [`assert_in_delta`](macro@crate::assert_in_delta) tests the absolute error
+//!   (i.e. delta). This is the magnitude of the difference between the exact
+//!   value and the approximation.
 //!
-//! * For an approximation, the absolute error (i.e. delta) is the magnitude of
-//!   the difference between the exact value and the approximation. For this,
-//!  use the macro
+//! * [`assert_in_epsilon`](macro@crate::assert_in_epsilon) tests the relative
+//!   error (i.e. epsilon). This is the absolute error divided by the magnitude
+//!   of the exact value. This can be used to compare approximations of numbers
+//!   of wildly differing size.
 //!
-//! * For an approximation, the relative error (i.e. epsilon) is the absolute
-//!   error divided by the magnitude of the exact value. This can be used to
-//!   compare approximations of numbers of wildly differing size.
+//! Examples:
+//! 
+//! * Approximating the number 100 and 103 has an absolute error (delta) of 3
+//!   and a relative error (epsilon) of 0.03.
+//! 
+//! * Approximating the number 1,000,000 and 1,000,003 has an absolute error
+//!   (delta) of 3, and a relative error (espilon) of 0.000003.
 //!
-//! * For example, approximating the number 1,000 with an absolute error of 3
-//!   is, in most applications, much worse than approximating the number
-//!   1,000,000 with an absolute error of 3; in the first case the relative
-//!   error is 0.003 and in the second it is only 0.000003.
+//! * For many kinds of applications, the relative error is more important than
+//!   the absolute error.
+//! 
+//! 
+//! ## Thanks
+//! 
+//! * Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
+//!   creating and maintaining the `assert_approx_eq` crate.
+//! 
+//! * Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
+//!   creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
 //!
-//! * Thanks to Ruby minitest for the example and documentation.
-//!
+//! 
 //! # Module macros
 //!
 //! * [`assert_in_delta`](macro@crate::assert_in_delta)
@@ -63,7 +85,7 @@
 ///
 #[macro_export]
 macro_rules! assert_in_delta_as_result {
-    ($a:expr, $b:expr, $delta:expr $(,)?) => ({
+    ($a:expr, $b:expr, $delta:expr $(,)?) => {{
         match (&$a, &$b, &$delta) {
             (a, b, delta) => {
                 if a == b {
@@ -82,7 +104,7 @@ macro_rules! assert_in_delta_as_result {
                                 "           b label: `{}`,\n",
                                 "           b debug: `{:?}`,\n",
                                 "       delta label: `{}`,\n",
-                                "       delta debug: `{:?}`,\n",
+                                "             delta: `{:?}`,\n",
                                 "         | a - b |: `{:?}`,\n",
                                 " | a - b | ≤ delta: {}"
                             ),
@@ -99,7 +121,7 @@ macro_rules! assert_in_delta_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -131,7 +153,7 @@ mod tests {
                 "           b label: `b`,\n",
                 "           b debug: `12`,\n",
                 "       delta label: `delta`,\n",
-                "       delta debug: `1`,\n",
+                "             delta: `1`,\n",
                 "         | a - b |: `2`,\n",
                 " | a - b | ≤ delta: false"
             )
@@ -173,7 +195,7 @@ mod tests {
 /// //            b label: `b`,
 /// //            b debug: `12`,
 /// //        delta label: `delta`,
-/// //        delta debug: `1`,
+/// //              delta: `1`,
 /// //          | a - b |: `2`,
 /// //  | a - b | ≤ delta: false
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -185,7 +207,7 @@ mod tests {
 /// #     "           b label: `b`,\n",
 /// #     "           b debug: `12`,\n",
 /// #     "       delta label: `delta`,\n",
-/// #     "       delta debug: `1`,\n",
+/// #     "             delta: `1`,\n",
 /// #     "         | a - b |: `2`,\n",
 /// #     " | a - b | ≤ delta: false",
 /// # );
@@ -219,18 +241,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_in_delta {
-    ($a:expr, $b:expr, $delta:expr $(,)?) => ({
+    ($a:expr, $b:expr, $delta:expr $(,)?) => {{
         match assert_in_delta_as_result!($a, $b, $delta) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => ({
+    }};
+    ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => {{
         match assert_in_delta_as_result!($a, $b, $delta) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a number is within delta of another number.

@@ -42,8 +42,8 @@
 ///
 #[macro_export]
 macro_rules! assert_some_as_result {
-    ($option:expr $(,)?) => ({
-        match (&$option) {
+    ($a:expr $(,)?) => {{
+        match (&$a) {
             option => {
                 match (option) {
                     Some(_) => {
@@ -57,14 +57,14 @@ macro_rules! assert_some_as_result {
                                 " option label: `{}`,\n",
                                 " option debug: `{:?}`",
                             ),
-                            stringify!($option),
+                            stringify!($a),
                             option
                         ))
                     }
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -140,18 +140,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_some {
-    ($option:expr $(,)?) => ({
-        match assert_some_as_result!($option) {
+    ($a:expr $(,)?) => {{
+        match assert_some_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($option:expr, $($message:tt)+) => ({
-        match assert_some_as_result!($option) {
+    }};
+    ($a:expr, $($message:tt)+) => {{
+        match assert_some_as_result!($a) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert expression is Some(_).

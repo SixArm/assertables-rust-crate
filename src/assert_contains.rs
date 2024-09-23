@@ -49,7 +49,7 @@
 ///
 #[macro_export]
 macro_rules! assert_contains_as_result {
-    ($container:expr, $containee:expr $(,)?) => ({
+    ($container:expr, $containee:expr $(,)?) => {{
         match (&$container, &$containee) {
             (container, containee) => {
                 if container.contains($containee) {
@@ -72,7 +72,7 @@ macro_rules! assert_contains_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -192,18 +192,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_contains {
-    ($container:expr, $containee:expr $(,)?) => ({
+    ($container:expr, $containee:expr $(,)?) => {{
         match assert_contains_as_result!($container, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($container:expr, $containee:expr, $($message:tt)+) => ({
+    }};
+    ($container:expr, $containee:expr, $($message:tt)+) => {{
         match assert_contains_as_result!($container, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a container is a match for an expression.

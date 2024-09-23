@@ -45,7 +45,7 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_matches_as_result {
-    ($path:expr, $matcher:expr $(,)?) => ({
+    ($path:expr, $matcher:expr $(,)?) => {{
         match (&$path, &$matcher) {
             (path, matcher) => {
                 let read_result = ::std::fs::read_to_string(path);
@@ -91,7 +91,7 @@ macro_rules! assert_fs_read_to_string_matches_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -197,18 +197,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_matches {
-    ($path:expr, $matcher:expr $(,)?) => ({
+    ($path:expr, $matcher:expr $(,)?) => {{
         match assert_fs_read_to_string_matches_as_result!($path, $matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($path:expr, $matcher:expr, $($message:tt)+) => ({
+    }};
+    ($path:expr, $matcher:expr, $($message:tt)+) => {{
         match assert_fs_read_to_string_matches_as_result!($path, $matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a std::fs::read_to_string(path) is a match to a regex.

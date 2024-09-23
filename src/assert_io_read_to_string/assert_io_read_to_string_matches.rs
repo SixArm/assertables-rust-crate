@@ -46,7 +46,7 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_matches_as_result {
-    ($reader:expr, $matcher:expr $(,)?) => ({
+    ($reader:expr, $matcher:expr $(,)?) => {{
         match (/*&$reader,*/ &$matcher) {
             matcher => {
                 let mut read_string = String::new();
@@ -93,7 +93,7 @@ macro_rules! assert_io_read_to_string_matches_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -187,18 +187,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_matches {
-    ($a_reader:expr, $b_matcher:expr $(,)?) => ({
+    ($a_reader:expr, $b_matcher:expr $(,)?) => {{
         match assert_io_read_to_string_matches_as_result!($a_reader, $b_matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a_reader:expr, $b_matcher:expr, $($message:tt)+) => ({
+    }};
+    ($a_reader:expr, $b_matcher:expr, $($message:tt)+) => {{
         match assert_io_read_to_string_matches_as_result!($a_reader, $b_matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a std::io::Read read_to_string() is a match to a regex.

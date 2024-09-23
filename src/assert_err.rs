@@ -42,10 +42,10 @@
 ///
 #[macro_export]
 macro_rules! assert_err_as_result {
-    ($result:expr $(,)?) => ({
-        match (&$result) {
-            result => {
-                match (result) {
+    ($a:expr $(,)?) => {{
+        match (&$a) {
+            a => {
+                match (a) {
                     Err(_) => {
                         Ok(())
                     },
@@ -57,14 +57,14 @@ macro_rules! assert_err_as_result {
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
-                            stringify!($result),
-                            result
+                            stringify!($a),
+                            a
                         ))
                     }
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -140,18 +140,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_err {
-    ($result:expr $(,)?) => ({
-        match assert_err_as_result!($result) {
+    ($a:expr $(,)?) => {{
+        match assert_err_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($result:expr, $($message:tt)+) => ({
-        match assert_err_as_result!($result) {
+    }};
+    ($a:expr, $($message:tt)+) => {{
+        match assert_err_as_result!($a) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert expression is Err(_).

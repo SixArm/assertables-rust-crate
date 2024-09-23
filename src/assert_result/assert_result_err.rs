@@ -37,10 +37,10 @@
 #[deprecated(note = "Please rename from `assert_result_err_as_result` to `assert_err_as_result` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_result_err_as_result {
-    ($result:expr $(,)?) => ({
-        match (&$result) {
-            result => {
-                match (result) {
+    ($a:expr $(,)?) => {{
+        match (&$a) {
+            a => {
+                match (a) {
                     Err(_) => {
                         Ok(())
                     },
@@ -52,14 +52,14 @@ macro_rules! assert_result_err_as_result {
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
-                            stringify!($result),
-                            result
+                            stringify!($a),
+                            a
                         ))
                     }
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -133,18 +133,18 @@ mod tests {
 #[deprecated(note = "Please rename from `assert_result_err` to `assert_err` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_result_err {
-    ($result:expr $(,)?) => ({
-        match assert_result_err_as_result!($result) {
+    ($a:expr $(,)?) => {{
+        match assert_result_err_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($result:expr, $($message:tt)+) => ({
-        match assert_result_err_as_result!($result) {
+    }};
+    ($a:expr, $($message:tt)+) => {{
+        match assert_result_err_as_result!($a) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert expression is Err(_).

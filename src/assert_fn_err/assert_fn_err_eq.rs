@@ -53,7 +53,7 @@ macro_rules! assert_fn_err_eq_as_result {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => ({
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
         match (&$a_function, &$a_param, &$b_function, &$b_param) {
             (_a_function, a_param, _b_function, b_param) => {
                 let a_result = $a_function($a_param);
@@ -115,11 +115,11 @@ macro_rules! assert_fn_err_eq_as_result {
                 }
             }
         }
-    });
+    }};
 
     //// Arity 0
 
-    ($a_function:path, $b_function:path) => ({
+    ($a_function:path, $b_function:path) => {{
         let a_result = $a_function();
         let b_result = $b_function();
         let a_is_err = a_result.is_err();
@@ -161,7 +161,7 @@ macro_rules! assert_fn_err_eq_as_result {
                 ))
             }
         }
-    });
+    }};
 
 }
 
@@ -318,35 +318,35 @@ macro_rules! assert_fn_err_eq {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => ({
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
         match assert_fn_err_eq_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
+    }};
 
-    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => ({
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => {{
         match assert_fn_err_eq_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 
     //// Arity 0
 
-    ($a_function:path, $b_function:path) => ({
+    ($a_function:path, $b_function:path) => {{
         match assert_fn_err_eq_as_result!($a_function, $b_function) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
+    }};
 
-    ($a_function:path, $b_function:path, $($message:tt)+) => ({
+    ($a_function:path, $b_function:path, $($message:tt)+) => {{
         match assert_fn_err_eq_as_result!($a_function, $b_function) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 
 }
 

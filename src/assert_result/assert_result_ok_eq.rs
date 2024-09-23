@@ -38,7 +38,7 @@
 #[deprecated(note = "Please rename from `assert_result_ok_eq_as_result` to `assert_ok_eq_as_result` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_result_ok_eq_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
                 match (a, b) {
@@ -85,7 +85,7 @@ macro_rules! assert_result_ok_eq_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -195,18 +195,18 @@ mod tests {
 #[deprecated(note = "Please rename from `assert_result_ok_eq` to `assert_ok_eq` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_result_ok_eq {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match assert_result_ok_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
+    }};
+    ($a:expr, $b:expr, $($message:tt)+) => {{
         match assert_result_ok_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert two expressions are Ok(_) and their values are equal.

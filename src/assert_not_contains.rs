@@ -49,7 +49,7 @@
 ///
 #[macro_export]
 macro_rules! assert_not_contains_as_result {
-    ($container:expr, $containee:expr $(,)?) => ({
+    ($container:expr, $containee:expr $(,)?) => {{
         match (&$container, &$containee) {
             (container, containee) => {
                 if !(container.contains($containee)) {
@@ -72,7 +72,7 @@ macro_rules! assert_not_contains_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -193,18 +193,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_not_contains {
-    ($container:expr, $containee:expr $(,)?) => ({
+    ($container:expr, $containee:expr $(,)?) => {{
         match assert_not_contains_as_result!($container, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($container:expr, $containee:expr, $($message:tt)+) => ({
+    }};
+    ($container:expr, $containee:expr, $($message:tt)+) => {{
         match assert_not_contains_as_result!($container, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert an expression (such as a string) does not contain an expression (such as a substring).

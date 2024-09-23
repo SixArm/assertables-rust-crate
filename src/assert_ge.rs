@@ -43,7 +43,7 @@
 ///
 #[macro_export]
 macro_rules! assert_ge_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
                 if a >= b {
@@ -66,7 +66,7 @@ macro_rules! assert_ge_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -152,18 +152,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_ge {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match assert_ge_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
+    }};
+    ($a:expr, $b:expr, $($message:tt)+) => {{
         match assert_ge_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a value is greater than or equal to an expression.

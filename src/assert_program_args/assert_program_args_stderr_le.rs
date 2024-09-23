@@ -45,7 +45,7 @@
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_le_as_result {
-    ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => ({
+    ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => {{
         match ($a_program, $a_args, $b_program, $b_args) {
             (a_program, a_args, b_program, b_args) => {
                 let a_output = assert_program_args_impl_prep!(a_program, a_args);
@@ -113,7 +113,7 @@ macro_rules! assert_program_args_stderr_le_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -224,18 +224,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_le {
-    ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => ({
+    ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => {{
         match assert_program_args_stderr_le_as_result!($a_program, $a_args, $b_program, $b_args) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a_program:expr, $a_args:expr, $b_program:expr, $($message:tt)+) => ({
+    }};
+    ($a_program:expr, $a_args:expr, $b_program:expr, $($message:tt)+) => {{
         match assert_program_args_stderr_le_as_result!($a_program, $a_args, $b_program, $b_args) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a command (built with program and args) stderr string is less than or equal to another.

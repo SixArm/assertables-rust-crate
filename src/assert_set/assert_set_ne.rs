@@ -46,7 +46,7 @@
 ///
 #[macro_export]
 macro_rules! assert_set_ne_as_result {
-    ($a_collection:expr, $b_collection:expr $(,)?) => ({
+    ($a_collection:expr, $b_collection:expr $(,)?) => {{
         match (&$a_collection, &$b_collection) {
             (a_collection, b_collection) => {
                 let a: ::std::collections::BTreeSet<_> = assert_set_impl_prep!(a_collection);
@@ -75,7 +75,7 @@ macro_rules! assert_set_ne_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -169,18 +169,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_set_ne {
-    ($a_collection:expr, $b_collection:expr $(,)?) => ({
+    ($a_collection:expr, $b_collection:expr $(,)?) => {{
         match assert_set_ne_as_result!($a_collection, $b_collection) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a_collection:expr, $b_collection:expr, $($message:tt)+) => ({
+    }};
+    ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {{
         match assert_set_ne_as_result!($a_collection, $b_collection) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a set is not equal to another.

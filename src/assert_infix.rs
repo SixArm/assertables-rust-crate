@@ -91,7 +91,7 @@
 ///
 #[macro_export]
 macro_rules! assert_infix_as_result {
-    ($a:tt $infix:tt $b:tt) => ({
+    ($a:tt $infix:tt $b:tt) => {{
         if $a $infix $b {
             Ok(())
         } else {
@@ -111,7 +111,7 @@ macro_rules! assert_infix_as_result {
                 $b,
             ))
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -232,18 +232,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_infix {
-    ($a:tt $infix:tt $b:tt) => ({
+    ($a:tt $infix:tt $b:tt) => {{
         match assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a:tt $infix:tt $b:tt, $($message:tt)+) => ({
+    }};
+    ($a:tt $infix:tt $b:tt, $($message:tt)+) => {{
         match assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a infix operator, such as assert_infix!(a == b).

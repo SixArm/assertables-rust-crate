@@ -41,7 +41,7 @@
 
 #[macro_export]
 macro_rules! assert_program_args_impl_prep {
-    ($program:expr, $args:expr $(,)?) => ({
+    ($program:expr, $args:expr $(,)?) => {{
         match (&$program, &$args) {
             (program, args) => {
                 let mut command = ::std::process::Command::new(program);
@@ -49,7 +49,7 @@ macro_rules! assert_program_args_impl_prep {
                 command.output()
             }
         }
-    });
+    }};
 }
 
 // stdout

@@ -46,7 +46,7 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_contains_as_result {
-    ($command:expr, $containee:expr $(,)?) => ({
+    ($command:expr, $containee:expr $(,)?) => {{
         match (/*&$command,*/ &$containee) {
             containee => {
                 let output = $command.output();
@@ -92,7 +92,7 @@ macro_rules! assert_command_stdout_contains_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -192,18 +192,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_contains {
-    ($command:expr, $b:expr $(,)?) => ({
+    ($command:expr, $b:expr $(,)?) => {{
         match assert_command_stdout_contains_as_result!($command, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($command:expr, $b:expr, $($message:tt)+) => ({
+    }};
+    ($command:expr, $b:expr, $($message:tt)+) => {{
         match assert_command_stdout_contains_as_result!($command, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a command stdout string contains a given containee.

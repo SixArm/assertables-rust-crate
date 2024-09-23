@@ -48,7 +48,7 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_eq_as_result {
-    ($a_command:expr, $b_command:expr $(,)?) => ({
+    ($a_command:expr, $b_command:expr $(,)?) => {{
         let a_output = $a_command.output();
         let b_output = $b_command.output();
         if a_output.is_err() || b_output.is_err() {
@@ -96,7 +96,7 @@ macro_rules! assert_command_stdout_eq_as_result {
                 ))
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -198,18 +198,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_eq {
-    ($a_command:expr, $b_command:expr $(,)?) => ({
+    ($a_command:expr, $b_command:expr $(,)?) => {{
         match assert_command_stdout_eq_as_result!($a_command, $b_command) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a_command:expr, $b_command:expr, $($message:tt)+) => ({
+    }};
+    ($a_command:expr, $b_command:expr, $($message:tt)+) => {{
         match assert_command_stdout_eq_as_result!($a_command, $b_command) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a command stdout string is equal to another.

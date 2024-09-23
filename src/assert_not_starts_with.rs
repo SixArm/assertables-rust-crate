@@ -43,7 +43,7 @@
 ///
 #[macro_export]
 macro_rules! assert_not_starts_with_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
                 if !(a.starts_with(b)) {
@@ -66,7 +66,7 @@ macro_rules! assert_not_starts_with_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -150,18 +150,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_not_starts_with {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match assert_not_starts_with_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
+    }};
+    ($a:expr, $b:expr, $($message:tt)+) => {{
         match assert_not_starts_with_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert an expression (such as a string) does not start with an expression (such as a string).

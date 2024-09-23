@@ -42,7 +42,7 @@
 ///
 #[macro_export]
 macro_rules! assert_none_as_result {
-    ($a:expr $(,)?) => ({
+    ($a:expr $(,)?) => {{
         match (&$a) {
             a => {
                 match (a) {
@@ -64,7 +64,7 @@ macro_rules! assert_none_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -140,18 +140,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_none {
-    ($option:expr $(,)?) => ({
-        match assert_none_as_result!($option) {
+    ($a:expr $(,)?) => {{
+        match assert_none_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($option:expr, $($message:tt)+) => ({
-        match assert_none_as_result!($option) {
+    }};
+    ($a:expr, $($message:tt)+) => {{
+        match assert_none_as_result!($a) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert expression is None.

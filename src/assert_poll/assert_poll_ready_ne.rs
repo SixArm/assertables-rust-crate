@@ -40,7 +40,7 @@
 #[deprecated(note = "Please rename from `assert_poll_ready_ne_as_result` to `assert_ready_ne_as_result` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_poll_ready_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
                 match (a, b) {
@@ -87,7 +87,7 @@ macro_rules! assert_poll_ready_ne_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -201,18 +201,18 @@ mod tests {
 #[deprecated(note = "Please rename from `assert_poll_ready_ne` to `assert_ready_ne` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_poll_ready_ne {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {{
         match assert_poll_ready_ne_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a:expr, $b:expr, $($message:tt)+) => ({
+    }};
+    ($a:expr, $b:expr, $($message:tt)+) => {{
         match assert_poll_ready_ne_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert two expressions are Ready(_) and their values are not equal.

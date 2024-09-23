@@ -43,7 +43,7 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_lt_as_result {
-    ($a_path:expr, $b_path:expr $(,)?) => ({
+    ($a_path:expr, $b_path:expr $(,)?) => {{
         match (&$a_path, &$b_path) {
             (a_path, b_path) => {
                 match (std::fs::read_to_string(a_path), std::fs::read_to_string(b_path)) {
@@ -94,7 +94,7 @@ macro_rules! assert_fs_read_to_string_lt_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -204,18 +204,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_lt {
-    ($a_path:expr, $b_path:expr $(,)?) => ({
+    ($a_path:expr, $b_path:expr $(,)?) => {{
         match assert_fs_read_to_string_lt_as_result!($a_path, $b_path) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a_path:expr, $b_path:expr, $($message:tt)+) => ({
+    }};
+    ($a_path:expr, $b_path:expr, $($message:tt)+) => {{
         match assert_fs_read_to_string_lt_as_result!($a_path, $b_path) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a std::fs::read_to_string(path) value is less than another.

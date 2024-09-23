@@ -31,7 +31,7 @@
 
 #[macro_export]
 macro_rules! assert_bag_impl_prep {
-    ($into_iterable:expr $(,)?) => ({
+    ($into_iterable:expr $(,)?) => {{
         match (&$into_iterable) {
             into_iterable => {
                 let mut bag: std::collections::BTreeMap<_, usize> = std::collections::BTreeMap::new();
@@ -42,7 +42,7 @@ macro_rules! assert_bag_impl_prep {
                 bag
             }
         }
-    });
+    }};
 }
 
 pub mod assert_bag_eq;

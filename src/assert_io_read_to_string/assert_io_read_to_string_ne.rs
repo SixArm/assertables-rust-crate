@@ -45,7 +45,7 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_ne_as_result {
-    ($a_reader:expr, $b_reader:expr $(,)?) => ({
+    ($a_reader:expr, $b_reader:expr $(,)?) => {{
         let mut a_string = String::new();
         let mut b_string = String::new();
         let a_result = $a_reader.read_to_string(&mut a_string);
@@ -95,7 +95,7 @@ macro_rules! assert_io_read_to_string_ne_as_result {
                 ))
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -191,18 +191,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_ne {
-    ($a_reader:expr, $b:expr $(,)?) => ({
+    ($a_reader:expr, $b:expr $(,)?) => {{
         match assert_io_read_to_string_ne_as_result!($a_reader, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a_reader:expr, $b:expr, $($message:tt)+) => ({
+    }};
+    ($a_reader:expr, $b:expr, $($message:tt)+) => {{
         match assert_io_read_to_string_ne_as_result!($a_reader, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a std::io::Read read_to_string() is not equal to another.

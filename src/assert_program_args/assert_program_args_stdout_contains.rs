@@ -49,7 +49,7 @@
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_contains_as_result {
-    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => ({
+    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => {{
         match ($a_program, $a_args, $containee) {
             (a_program, a_args, containee) => {
                 let a_output = assert_program_args_impl_prep!(a_program, a_args);
@@ -105,7 +105,7 @@ macro_rules! assert_program_args_stdout_contains_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -211,18 +211,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_contains {
-    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => ({
+    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => {{
         match assert_program_args_stdout_contains_as_result!($a_program, $a_args, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a_program:expr, $a_args:expr, $containee:expr, $($message:tt)+) => ({
+    }};
+    ($a_program:expr, $a_args:expr, $containee:expr, $($message:tt)+) => {{
         match assert_program_args_stdout_contains_as_result!($a_program, $a_args, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a command (built with program and args) stdout string contains a given containee.

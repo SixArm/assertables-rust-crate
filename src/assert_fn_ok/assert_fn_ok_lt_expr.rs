@@ -55,7 +55,7 @@ macro_rules! assert_fn_ok_lt_expr_as_result {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => ({
+    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
         match (&$a_function, &$a_param, &$b_expr) {
             (_a_function, a_param, b_expr) => {
                 let a_result = $a_function($a_param);
@@ -108,11 +108,11 @@ macro_rules! assert_fn_ok_lt_expr_as_result {
                 }
             }
         }
-    });
+    }};
 
     //// Arity 0
 
-    ($a_function:path, $b_expr:expr $(,)?) => ({
+    ($a_function:path, $b_expr:expr $(,)?) => {{
         match (&$a_function, &$b_expr) {
             (_a_function, b_expr) => {
                 let a_result = $a_function();
@@ -157,7 +157,7 @@ macro_rules! assert_fn_ok_lt_expr_as_result {
                 }
             }
         }
-    });
+    }};
 
 }
 
@@ -306,35 +306,35 @@ macro_rules! assert_fn_ok_lt_expr {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => ({
+    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
         match assert_fn_ok_lt_expr_as_result!($a_function, $a_param, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
+    }};
 
-    ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => ({
+    ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
         match assert_fn_ok_lt_expr_as_result!($a_function, $a_param, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 
     //// Arity 0
 
-    ($a_function:path, $b_expr:expr $(,)?) => ({
+    ($a_function:path, $b_expr:expr $(,)?) => {{
         match assert_fn_ok_lt_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
+    }};
 
-    ($a_function:path, $b_expr:expr, $($message:tt)+) => ({
+    ($a_function:path, $b_expr:expr, $($message:tt)+) => {{
         match assert_fn_ok_lt_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a function Ok(…) is less than an expression.

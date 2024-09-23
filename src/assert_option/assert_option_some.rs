@@ -37,10 +37,10 @@
 #[deprecated(note = "Please rename from `assert_option_some_as_result` to `assert_some_as_result` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_option_some_as_result {
-    ($option:expr $(,)?) => ({
-        match (&$option) {
-            option => {
-                match (option) {
+    ($a:expr $(,)?) => {{
+        match (&$a) {
+            a => {
+                match (a) {
                     Some(_) => {
                         Ok(())
                     },
@@ -52,14 +52,14 @@ macro_rules! assert_option_some_as_result {
                                 " option label: `{}`,\n",
                                 " option debug: `{:?}`",
                             ),
-                            stringify!($option),
-                            option
+                            stringify!($a),
+                            a
                         ))
                     }
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -89,7 +89,7 @@ mod tests {
     }
 }
 
-///Assert expression is Some(_).
+/// Assert expression is Some(_).
 ///
 /// * If true, return `()`.
 ///
@@ -133,21 +133,21 @@ mod tests {
 #[deprecated(note = "Please rename from `assert_option_some` to `assert_some` because more developers prefer the shorter name.")]
 #[macro_export]
 macro_rules! assert_option_some {
-    ($option:expr $(,)?) => ({
-        match assert_option_some_as_result!($option) {
+    ($a:expr $(,)?) => {{
+        match assert_option_some_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($option:expr, $($message:tt)+) => ({
-        match assert_option_some_as_result!($option) {
+    }};
+    ($a:expr, $($message:tt)+) => {{
+        match assert_option_some_as_result!($a) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
-///Assert expression is Some(_).
+/// Assert expression is Some(_).
 ///
 /// This macro provides the same statements as [`assert_option_some`](macro.assert_option_some.html),
 /// except this macro's statements are only enabled in non-optimized

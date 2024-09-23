@@ -65,7 +65,7 @@ fn greater_than() {
 /// //            b label: `b`,
 /// //            b debug: `12`,
 /// //        delta label: `delta`,
-/// //        delta debug: `1`,
+/// //              delta: `1`,
 /// //          | a - b |: `2`,\n",
 /// //  | a - b | ≤ delta: false"
 /// ```

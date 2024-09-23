@@ -46,7 +46,7 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_eq_expr_as_result {
-    ($a_command:expr, $b_expr:expr $(,)?) => ({
+    ($a_command:expr, $b_expr:expr $(,)?) => {{
         match (/*&$command,*/ &$b_expr) {
             b_expr => {
                 let a_output = $a_command.output();
@@ -94,7 +94,7 @@ macro_rules! assert_command_stderr_eq_expr_as_result {
                 }
             }
         }
-    });
+    }};
 }
 
 #[cfg(test)]
@@ -192,18 +192,18 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_eq_expr {
-    ($a_command:expr, $b_expr:expr $(,)?) => ({
+    ($a_command:expr, $b_expr:expr $(,)?) => {{
         match assert_command_stderr_eq_expr_as_result!($a_command, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    });
-    ($a_command:expr, $b_expr:expr, $($message:tt)+) => ({
+    }};
+    ($a_command:expr, $b_expr:expr, $($message:tt)+) => {{
         match assert_command_stderr_eq_expr_as_result!($a_command, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    }};
 }
 
 /// Assert a command stderr string is equal to an expression.
