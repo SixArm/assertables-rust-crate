@@ -281,7 +281,7 @@
 //!
 //! Pseudocode:&lt;br&gt;
 //! (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≤ (program2 + args2 ⇒ command ⇒ stderr ⇒ string)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -305,7 +305,7 @@
 ///
 /// Pseudocode:&lt;br&gt;
 /// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≤ (program2 + args2 ⇒ command ⇒ stderr ⇒ string)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -324,7 +324,7 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stderr_le_as_result {
-    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
             (a_program, a_args, b_program, b_args) =&gt; {
                 <span class="kw">let </span>a_output = <span class="macro">assert_program_args_impl_prep!</span>(a_program, a_args);
@@ -392,7 +392,7 @@
                 }
             }
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]
@@ -438,7 +438,7 @@
 ///
 /// Pseudocode:&lt;br&gt;
 /// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≤ (program2 + args2 ⇒ command ⇒ stderr ⇒ string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -503,25 +503,25 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stderr_le {
-    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_program_args_stderr_le_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
-    });
-    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+    }};
+    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_program_args_stderr_le_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
-    });
+    }};
 }
 
 <span class="doccomment">/// Assert a command (built with program and args) stderr string is less than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≤ (program2 + args2 ⇒ command ⇒ stderr ⇒ string)
-/// 
+///
 /// This macro provides the same statements as [`assert_program_args_stderr_le`](macro.assert_program_args_stderr_le.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

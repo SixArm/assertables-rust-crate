@@ -268,7 +268,7 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_set_joint_as_result {
-    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_collection</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_collection</span>) {
             (a_collection, b_collection) =&gt; {
                 <span class="kw">let </span>a: ::std::collections::BTreeSet&lt;<span class="kw">_</span>&gt; = <span class="macro">assert_set_impl_prep!</span>(a_collection);
@@ -297,7 +297,7 @@
                 }
             }
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]
@@ -391,18 +391,18 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_set_joint {
-    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_set_joint_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
-    });
-    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+    }};
+    (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_set_joint_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
-    });
+    }};
 }
 
 <span class="doccomment">/// Assert a set is joint with another.

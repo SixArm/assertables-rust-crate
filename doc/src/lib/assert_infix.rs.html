@@ -378,7 +378,7 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_infix_as_result {
-    (<span class="macro-nonterminal">$a</span>:tt <span class="macro-nonterminal">$infix</span>:tt <span class="macro-nonterminal">$b</span>:tt) =&gt; ({
+    (<span class="macro-nonterminal">$a</span>:tt <span class="macro-nonterminal">$infix</span>:tt <span class="macro-nonterminal">$b</span>:tt) =&gt; {{
         <span class="kw">if </span><span class="macro-nonterminal">$a $infix $b </span>{
             <span class="prelude-val">Ok</span>(())
         } <span class="kw">else </span>{
@@ -398,7 +398,7 @@
                 <span class="macro-nonterminal">$b</span>,
             ))
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]
@@ -519,18 +519,18 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_infix {
-    (<span class="macro-nonterminal">$a</span>:tt <span class="macro-nonterminal">$infix</span>:tt <span class="macro-nonterminal">$b</span>:tt) =&gt; ({
+    (<span class="macro-nonterminal">$a</span>:tt <span class="macro-nonterminal">$infix</span>:tt <span class="macro-nonterminal">$b</span>:tt) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_infix_as_result!</span>(<span class="macro-nonterminal">$a $infix $b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
-    });
-    (<span class="macro-nonterminal">$a</span>:tt <span class="macro-nonterminal">$infix</span>:tt <span class="macro-nonterminal">$b</span>:tt, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+    }};
+    (<span class="macro-nonterminal">$a</span>:tt <span class="macro-nonterminal">$infix</span>:tt <span class="macro-nonterminal">$b</span>:tt, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_infix_as_result!</span>(<span class="macro-nonterminal">$a $infix $b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
-    });
+    }};
 }
 
 <span class="doccomment">/// Assert a infix operator, such as assert_infix!(a == b).

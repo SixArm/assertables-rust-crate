@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! std::fs::read_to_string(path1) ≥ std::fs::read_to_string(path2)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -24,7 +24,7 @@
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path1) ≥ std::fs::read_to_string(path2)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -150,7 +150,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path1) ≥ std::fs::read_to_string(path2)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -222,7 +222,7 @@ macro_rules! assert_fs_read_to_string_ge {
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path1) ≥ std::fs::read_to_string(path2)
-/// 
+///
 /// This macro provides the same statements as [`assert_fs_read_to_string_ge`](macro.assert_fs_read_to_string_ge.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

@@ -255,8 +255,8 @@
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ok(_) and their values are not equal.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅) 
-//! 
+//! (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+//!
 //! # Example
 //!
 //! ```rust
@@ -277,8 +277,8 @@
 /// Assert two expressions are Ok(_) and their values are not equal.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅) 
-/// 
+/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -297,7 +297,7 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_ok_ne_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
                 <span class="kw">match </span>(a, b) {
@@ -344,7 +344,7 @@
                 }
             }
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]
@@ -381,8 +381,8 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_ok_ne_as_result_x_failure_because_not_ok() {
-        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
-        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
+        <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
+        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_ok_ne_as_result!</span>(a, b);
         <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
@@ -391,9 +391,9 @@
                 <span class="string">"assertion failed: `assert_ok_ne!(a, b)`\n"</span>,
                 <span class="string">"https://docs.rs/assertables/8.7.0/assertables/macro.assert_ok_ne.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
-                <span class="string">" a debug: `Ok(1)`,\n"</span>,
+                <span class="string">" a debug: `Err(1)`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `Err(1)`"</span>,
+                <span class="string">" b debug: `Ok(1)`"</span>,
             )
         );
     }
@@ -403,8 +403,8 @@
 <span class="doccomment">/// Assert two expressions are Ok(_) and their values are not equal.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅) 
-/// 
+/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -456,18 +456,18 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_ok_ne {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_ok_ne_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
-    });
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+    }};
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_ok_ne_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
-    });
+    }};
 }
 
 <span class="doccomment">/// Assert two expressions are Ok(_) and their values are not equal.

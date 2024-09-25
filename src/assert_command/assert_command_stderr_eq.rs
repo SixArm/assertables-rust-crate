@@ -28,7 +28,7 @@
 ///
 /// Pseudocode:<br>
 /// (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -139,7 +139,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the

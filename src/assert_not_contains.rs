@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! ¬ a.contains(b)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -30,7 +30,7 @@
 ///
 /// Pseudocode:<br>
 /// ¬ a.contains(b)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -138,7 +138,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// ¬ a.contains(b)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -211,7 +211,7 @@ macro_rules! assert_not_contains {
 ///
 /// Pseudocode:<br>
 /// ¬ a.contains(b)
-/// 
+///
 /// This macro provides the same statements as [`assert_not_contains`](macro.assert_not_contains.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

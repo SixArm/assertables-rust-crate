@@ -252,7 +252,7 @@
 //!
 //! Pseudocode:&lt;br&gt;
 //! (command ⇒ stderr ⇒ string) is match (expr into string)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -297,7 +297,7 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_is_match_as_result {
-    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="comment">/*&amp;$command,*/ </span><span class="kw-2">&amp;</span><span class="macro-nonterminal">$matcher</span>) {
             matcher =&gt; {
                 <span class="kw">let </span>output = <span class="macro-nonterminal">$command</span>.output();
@@ -345,7 +345,7 @@
                 }
             }
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]
@@ -388,7 +388,7 @@
 ///
 /// Pseudocode:&lt;br&gt;
 /// (command ⇒ stderr ⇒ string) is match (expr into string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -445,25 +445,25 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_is_match {
-    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_command_stderr_is_match_as_result!</span>(<span class="macro-nonterminal">$command</span>, <span class="macro-nonterminal">$matcher</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
-    });
-    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+    }};
+    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_command_stderr_is_match_as_result!</span>(<span class="macro-nonterminal">$command</span>, <span class="macro-nonterminal">$matcher</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
-    });
+    }};
 }
 
 <span class="doccomment">/// Assert a command stderr string is a match to a regex.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (command ⇒ stderr ⇒ string) is match (expr into string)
-/// 
+///
 /// This macro provides the same statements as [`assert_command_stderr_is_match`](macro.assert_command_stderr_is_match.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

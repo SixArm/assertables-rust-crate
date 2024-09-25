@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (command ⇒ stderr ⇒ string) is match (expr into string)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -138,7 +138,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stderr ⇒ string) is match (expr into string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -213,7 +213,7 @@ macro_rules! assert_command_stderr_is_match {
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stderr ⇒ string) is match (expr into string)
-/// 
+///
 /// This macro provides the same statements as [`assert_command_stderr_is_match`](macro.assert_command_stderr_is_match.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

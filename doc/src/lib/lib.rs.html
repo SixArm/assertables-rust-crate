@@ -254,6 +254,24 @@
 <a href="#254" id="254">254</a>
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
@@ -264,6 +282,12 @@
 //! * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
 //! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
 //!
+//! To use this crate, add it to your `Cargo.toml` file:
+//!
+//! ```toml
+//! [dev-dependencies]
+//! assertables = "8.7"
+//! ```
 //!
 //! ## Introduction
 //!
@@ -272,7 +296,7 @@
 //! The Rust programming language provides assert macros to test code:
 //!
 //! * [`assert!()`](https://doc.rust-lang.org/std/macro.assert.html)
-//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// equal` 
+//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// equal`
 //! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// not equal`
 //!
 //! The assertables crate provides many more, so you can write smarter tests.
@@ -283,6 +307,11 @@
 //! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal`
 //! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// greater than`
 //! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal`
+//!
+//! For approximation:
+//!
+//! * [`assert_approx_eq!(a, b)`](macro@crate::assert_approx_eq)
+//! * [`assert_approx_ne!(a, b)`](macro@crate::assert_approx_ne)
 //!
 //! For strings:
 //!
@@ -299,26 +328,30 @@
 //! * [`assert_infix!(a == b)`](macro@crate::assert_infix)
 //! * [`assert_infix!(a &amp;&amp; b)`](macro@crate::assert_infix)
 //!
-//! For numbers:
+//! For nearness:
 //!
 //! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
 //! * [`assert_in_epsilon!(a, b, epsilon)`](macro@crate::assert_in_epsilon)
 //!
-//! For Result:
+//! For Result Ok/Err:
 //!
 //! * [`assert_ok!(a)`](macro@crate::assert_ok)
-//! * [`assert_ok_eq!(a)`](macro@crate::assert_ok_eq)
-//! * [`assert_ok_ne!(a)`](macro@crate::assert_ok_ne)
+//! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq)
+//! * [`assert_ok_eq_expr!(a, expr)`](macro@crate::assert_ok_eq_expr)
+//! * [`assert_ok_ne!(a, b)`](macro@crate::assert_ok_ne)
+//! * [`assert_ok_ne_expr!(a, expr)`](macro@crate::assert_ok_ne_expr)
 //! * [`assert_err!(a)`](macro@crate::assert_err)
 //!
-//! For Option:
+//! For Option Some/None:
 //!
 //! * [`assert_some!(a)`](macro@crate::assert_some)
-//! * [`assert_some_eq!(a)`](macro@crate::assert_some_eq)
-//! * [`assert_some_ne!(a)`](macro@crate::assert_some_ne)
+//! * [`assert_some_eq!(a, b)`](macro@crate::assert_some_eq)
+//! * [`assert_some_eq_expr!(a, expr)`](macro@crate::assert_some_eq_expr)
+//! * [`assert_some_ne!(a, b)`](macro@crate::assert_some_ne)
+//! * [`assert_some_ne_expr!(a, expr)`](macro@crate::assert_some_ne_expr)
 //! * [`assert_none!(a)`](macro@crate::assert_none)
 //!
-//! For Poll:
+//! For Poll Ready/Pending:
 //!
 //! * [`assert_ready!(a)`](macro@crate::assert_ready)
 //! * [`assert_ready_eq!(a, b)`](macro@crate::assert_ready_eq)
@@ -341,12 +374,6 @@
 //! * [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](macro@crate::assert_program_args_stdout_eq);
 //!
 //! There are many more macros that are grouped into modules.
-//!
-//! Modules for enums:
-//!
-//! * [`assert_option`](module@crate::assert_option) for `Option` {`Some`, `None`}
-//! * [`assert_result`](module@crate::assert_result) for `Result` {`Ok`, `Err`}
-//! * [`assert_poll`](module@crate::assert_poll) for `Poll` {`Ready`, `Pending`}
 //!
 //! Modules for collections, such as arrays, vectors, lists, maps:
 //!
@@ -440,9 +467,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.7.0
+//! * Version: 8.9.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-18T14:51:06Z
+//! * Updated: 2024-09-25T15:18:42Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -458,8 +485,11 @@
 <span class="kw">pub mod </span>assert_ne;
 
 <span class="comment">// Assert value nearness
-</span><span class="kw">pub mod </span>assert_in_delta;
+</span><span class="kw">pub mod </span>assert_approx_eq;
+<span class="kw">pub mod </span>assert_approx_ne;
+<span class="kw">pub mod </span>assert_in_delta;
 <span class="kw">pub mod </span>assert_in_epsilon;
+
 <span class="comment">// Assert value matching
 </span><span class="kw">pub mod </span>assert_contains;
 <span class="kw">pub mod </span>assert_ends_with;
@@ -470,24 +500,30 @@
 <span class="kw">pub mod </span>assert_not_starts_with;
 <span class="kw">pub mod </span>assert_starts_with;
 
-<span class="comment">// For Result Ok/Err 
+<span class="comment">// For Result Ok/Err
 </span><span class="kw">pub mod </span>assert_ok;
 <span class="kw">pub mod </span>assert_ok_eq;
+<span class="kw">pub mod </span>assert_ok_eq_expr;
 <span class="kw">pub mod </span>assert_ok_ne;
+<span class="kw">pub mod </span>assert_ok_ne_expr;
 <span class="kw">pub mod </span>assert_err;
 <span class="kw">pub mod </span>assert_result; <span class="comment">// Deprecated
 
 // For Option Some/None
 </span><span class="kw">pub mod </span>assert_some;
 <span class="kw">pub mod </span>assert_some_eq;
+<span class="kw">pub mod </span>assert_some_eq_expr;
 <span class="kw">pub mod </span>assert_some_ne;
+<span class="kw">pub mod </span>assert_some_ne_expr;
 <span class="kw">pub mod </span>assert_none;
 <span class="kw">pub mod </span>assert_option; <span class="comment">// Deprecated
 
 // For Poll Ready/Pending
 </span><span class="kw">pub mod </span>assert_ready;
 <span class="kw">pub mod </span>assert_ready_eq;
+<span class="kw">pub mod </span>assert_ready_eq_expr;
 <span class="kw">pub mod </span>assert_ready_ne;
+<span class="kw">pub mod </span>assert_ready_ne_expr;
 <span class="kw">pub mod </span>assert_pending;
 <span class="kw">pub mod </span>assert_poll; <span class="comment">// Deprecated
 

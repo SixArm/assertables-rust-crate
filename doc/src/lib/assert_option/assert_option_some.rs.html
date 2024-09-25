@@ -223,10 +223,10 @@
 </span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some_as_result` to `assert_some_as_result` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_option_some_as_result {
-    (<span class="macro-nonterminal">$option</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$option</span>) {
-            option =&gt; {
-                <span class="kw">match </span>(option) {
+    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>) {
+            a =&gt; {
+                <span class="kw">match </span>(a) {
                     <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; {
                         <span class="prelude-val">Ok</span>(())
                     },
@@ -238,14 +238,14 @@
                                 <span class="string">" option label: `{}`,\n"</span>,
                                 <span class="string">" option debug: `{:?}`"</span>,
                             ),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$option</span>),
-                            option
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                            a
                         ))
                     }
                 }
             }
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]
@@ -275,7 +275,7 @@
     }
 }
 
-<span class="doccomment">///Assert expression is Some(_).
+<span class="doccomment">/// Assert expression is Some(_).
 ///
 /// * If true, return `()`.
 ///
@@ -319,21 +319,21 @@
 </span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some` to `assert_some` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_option_some {
-    (<span class="macro-nonterminal">$option</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_option_some_as_result!</span>(<span class="macro-nonterminal">$option</span>) {
+    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span><span class="macro">assert_option_some_as_result!</span>(<span class="macro-nonterminal">$a</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
-    });
-    (<span class="macro-nonterminal">$option</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_option_some_as_result!</span>(<span class="macro-nonterminal">$option</span>) {
+    }};
+    (<span class="macro-nonterminal">$a</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
+        <span class="kw">match </span><span class="macro">assert_option_some_as_result!</span>(<span class="macro-nonterminal">$a</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
-    });
+    }};
 }
 
-<span class="doccomment">///Assert expression is Some(_).
+<span class="doccomment">/// Assert expression is Some(_).
 ///
 /// This macro provides the same statements as [`assert_option_some`](macro.assert_option_some.html),
 /// except this macro's statements are only enabled in non-optimized

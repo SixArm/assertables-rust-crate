@@ -90,7 +90,7 @@
 //!
 //! Pseudocode:&lt;br&gt;
 //! condition
-//! 
+//!
 //! * If true, return Result `Ok(())`.
 //!
 //! * Otherwise, return Result `Err` with a diagnostic message.
@@ -109,7 +109,7 @@
 ///
 /// Pseudocode:&lt;br&gt;
 /// condition
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -126,7 +126,7 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="macro-nonterminal">$a</span>) {
             a =&gt; {
                 <span class="kw">if </span>a {
@@ -145,7 +145,7 @@
                 }
             }
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]

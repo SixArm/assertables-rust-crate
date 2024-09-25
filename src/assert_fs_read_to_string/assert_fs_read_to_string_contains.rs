@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! std::fs::read_to_string(path) contains expr
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -24,7 +24,7 @@
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) contains expr
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -143,7 +143,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) contains expr
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -213,7 +213,7 @@ macro_rules! assert_fs_read_to_string_contains {
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) contains expr
-/// 
+///
 /// This macro provides the same statements as [`assert_fs_read_to_string_contains`](macro.assert_fs_read_to_string_contains.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

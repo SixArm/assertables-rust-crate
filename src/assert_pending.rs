@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! a is Pending
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -26,7 +26,7 @@
 ///
 /// Pseudocode:<br>
 /// a is Pending
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -103,7 +103,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// a is Pending
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -165,7 +165,7 @@ macro_rules! assert_pending {
 ///
 /// Pseudocode:<br>
 /// a is Pending
-/// 
+///
 /// This macro provides the same statements as [`assert_pending`](macro.assert_pending.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

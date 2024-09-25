@@ -261,7 +261,7 @@
 //!
 //! Pseudocode:&lt;br&gt;
 //! std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -283,7 +283,7 @@
 ///
 /// Pseudocode:&lt;br&gt;
 /// std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -302,7 +302,7 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_le_as_result {
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_path</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_path</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_path</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_path</span>) {
             (a_path, b_path) =&gt; {
                 <span class="kw">match </span>(std::fs::read_to_string(a_path), std::fs::read_to_string(b_path)) {
@@ -353,7 +353,7 @@
                 }
             }
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]
@@ -409,7 +409,7 @@
 ///
 /// Pseudocode:&lt;br&gt;
 /// std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -463,25 +463,25 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_le {
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_path</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_path</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_fs_read_to_string_le_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b_path</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
-    });
-    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_path</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+    }};
+    (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_path</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_fs_read_to_string_le_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b_path</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
-    });
+    }};
 }
 
 <span class="doccomment">/// Assert a std::fs::read_to_string(path) value is less than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
 /// std::fs::read_to_string(path1) ≤ std::fs::read_to_string(path2)
-/// 
+///
 /// This macro provides the same statements as [`assert_fs_read_to_string_le`](macro.assert_fs_read_to_string_le.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

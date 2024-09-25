@@ -2,10 +2,10 @@
 //!
 //! Pseudocode:<br>
 //! (collection1 into set) ≠ (collection2 into set)
-//! 
+//!
 //! # Example
 //!
-//! 
+//!
 //! ```rust
 //! # #[macro_use] extern crate assertables;
 //! # fn main() {
@@ -27,7 +27,7 @@
 ///
 /// Pseudocode:<br>
 /// (collection1 into set) ≠ (collection2 into set)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -115,7 +115,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (collection1 into set) ≠ (collection2 into set)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -187,7 +187,7 @@ macro_rules! assert_set_ne {
 ///
 /// Pseudocode:<br>
 /// (collection1 into set) ≠ (collection2 into set)
-/// 
+///
 /// This macro provides the same statements as [`assert_set_ne`](macro.assert_set_ne.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

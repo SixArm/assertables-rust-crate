@@ -1,8 +1,8 @@
 //! Assert two expressions are Ok(_) and their values are not equal.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅) 
-//! 
+//! (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+//!
 //! # Example
 //!
 //! ```rust
@@ -23,8 +23,8 @@
 /// Assert two expressions are Ok(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅) 
-/// 
+/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -127,8 +127,8 @@ mod tests {
 
     #[test]
     fn test_assert_ok_ne_as_result_x_failure_because_not_ok() {
-        let a: Result<i8, i8> = Ok(1);
-        let b: Result<i8, i8> = Err(1);
+        let a: Result<i8, i8> = Err(1);
+        let b: Result<i8, i8> = Ok(1);
         let result = assert_ok_ne_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
@@ -137,9 +137,9 @@ mod tests {
                 "assertion failed: `assert_ok_ne!(a, b)`\n",
                 "https://docs.rs/assertables/8.7.0/assertables/macro.assert_ok_ne.html\n",
                 " a label: `a`,\n",
-                " a debug: `Ok(1)`,\n",
+                " a debug: `Err(1)`,\n",
                 " b label: `b`,\n",
-                " b debug: `Err(1)`",
+                " b debug: `Ok(1)`",
             )
         );
     }
@@ -149,8 +149,8 @@ mod tests {
 /// Assert two expressions are Ok(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅) 
-/// 
+/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the

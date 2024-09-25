@@ -1,7 +1,7 @@
 //! Assert two expressions are Some(_) and their values are not equal.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅) 
+//! (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅)
 //!
 //! # Example
 //!
@@ -23,7 +23,7 @@
 /// Assert two expressions are Some(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅) 
+/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -127,8 +127,8 @@ mod tests {
 
     #[test]
     fn test_assert_some_ne_as_result_x_failure_because_not_some() {
-        let a: Option<i8> = Option::Some(1);
-        let b: Option<i8> = Option::None;
+        let a: Option<i8> = Option::None;
+        let b: Option<i8> = Option::Some(1);
         let result = assert_some_ne_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
@@ -137,9 +137,9 @@ mod tests {
                 "assertion failed: `assert_some_ne!(a, b)`\n",
                 "https://docs.rs/assertables/8.7.0/assertables/macro.assert_some_ne.html\n",
                 " a label: `a`,\n",
-                " a debug: `Some(1)`,\n",
+                " a debug: `None`,\n",
                 " b label: `b`,\n",
-                " b debug: `None`",
+                " b debug: `Some(1)`",
             )
         );
     }
@@ -149,7 +149,7 @@ mod tests {
 /// Assert two expressions are Some(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅) 
+/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅)
 ///
 /// * If true, return `()`.
 ///
@@ -219,7 +219,7 @@ macro_rules! assert_some_ne {
 /// Assert two expressions are Some(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅) 
+/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅)
 ///
 /// This macro provides the same statements as [`assert_some_ne`](macro.assert_some_ne.html),
 /// except this macro's statements are only enabled in non-optimized

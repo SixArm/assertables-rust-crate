@@ -130,7 +130,7 @@
 
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_impl_prep {
-    (<span class="macro-nonterminal">$program</span>:expr, <span class="macro-nonterminal">$args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$program</span>:expr, <span class="macro-nonterminal">$args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$program</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$args</span>) {
             (program, args) =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>command = ::std::process::Command::new(program);
@@ -138,7 +138,7 @@
                 command.output()
             }
         }
-    });
+    }};
 }
 
 <span class="comment">// stdout

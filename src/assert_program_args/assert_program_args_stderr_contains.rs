@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (program1 + args1 ⇒ command ⇒ stderr ⇒ string) contains (expr into string)
-//! 
+//!
 //! This uses [`std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 //!
 //! * The containee can be a &str, char, a slice of chars, or a function or
@@ -30,7 +30,7 @@
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) contains (expr into string)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -147,7 +147,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) contains (expr into string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -229,7 +229,7 @@ macro_rules! assert_program_args_stderr_contains {
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) contains (expr into string)
-/// 
+///
 /// This macro provides the same statements as [`assert_program_args_stderr_contains`](macro.assert_program_args_stderr_contains.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

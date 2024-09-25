@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -28,7 +28,7 @@
 ///
 /// Pseudocode:<br>
 /// (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, return Result `Err` with a message and the values of the
@@ -140,7 +140,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -216,7 +216,7 @@ macro_rules! assert_command_stdout_eq {
 ///
 /// Pseudocode:<br>
 /// (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
-/// 
+///
 /// This macro provides the same statements as [`assert_command_stdout_eq`](macro.assert_command_stdout_eq.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

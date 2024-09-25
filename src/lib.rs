@@ -9,12 +9,12 @@
 //! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
 //!
 //! To use this crate, add it to your `Cargo.toml` file:
-//! 
+//!
 //! ```toml
 //! [dev-dependencies]
 //! assertables = "8.7"
 //! ```
-//! 
+//!
 //! ## Introduction
 //!
 //! The Rust programming language provides a few built-in assert macros to test code:
@@ -22,7 +22,7 @@
 //! The Rust programming language provides assert macros to test code:
 //!
 //! * [`assert!()`](https://doc.rust-lang.org/std/macro.assert.html)
-//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// equal` 
+//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// equal`
 //! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// not equal`
 //!
 //! The assertables crate provides many more, so you can write smarter tests.
@@ -33,6 +33,11 @@
 //! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal`
 //! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// greater than`
 //! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal`
+//!
+//! For approximation:
+//!
+//! * [`assert_approx_eq!(a, b)`](macro@crate::assert_approx_eq)
+//! * [`assert_approx_ne!(a, b)`](macro@crate::assert_approx_ne)
 //!
 //! For strings:
 //!
@@ -49,11 +54,6 @@
 //! * [`assert_infix!(a == b)`](macro@crate::assert_infix)
 //! * [`assert_infix!(a && b)`](macro@crate::assert_infix)
 //!
-//! For approximation:
-//! 
-//! * [`assert_approx_eq!(a, b)`](macro@crate::assert_approx_eq)
-//! * [`assert_approx_ne!(a, b)`](macro@crate::assert_approx_ne)
-//!
 //! For nearness:
 //!
 //! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
@@ -62,15 +62,19 @@
 //! For Result Ok/Err:
 //!
 //! * [`assert_ok!(a)`](macro@crate::assert_ok)
-//! * [`assert_ok_eq!(a)`](macro@crate::assert_ok_eq)
-//! * [`assert_ok_ne!(a)`](macro@crate::assert_ok_ne)
+//! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq)
+//! * [`assert_ok_eq_expr!(a, expr)`](macro@crate::assert_ok_eq_expr)
+//! * [`assert_ok_ne!(a, b)`](macro@crate::assert_ok_ne)
+//! * [`assert_ok_ne_expr!(a, expr)`](macro@crate::assert_ok_ne_expr)
 //! * [`assert_err!(a)`](macro@crate::assert_err)
 //!
 //! For Option Some/None:
 //!
 //! * [`assert_some!(a)`](macro@crate::assert_some)
-//! * [`assert_some_eq!(a)`](macro@crate::assert_some_eq)
-//! * [`assert_some_ne!(a)`](macro@crate::assert_some_ne)
+//! * [`assert_some_eq!(a, b)`](macro@crate::assert_some_eq)
+//! * [`assert_some_eq_expr!(a, expr)`](macro@crate::assert_some_eq_expr)
+//! * [`assert_some_ne!(a, b)`](macro@crate::assert_some_ne)
+//! * [`assert_some_ne_expr!(a, expr)`](macro@crate::assert_some_ne_expr)
 //! * [`assert_none!(a)`](macro@crate::assert_none)
 //!
 //! For Poll Ready/Pending:
@@ -189,9 +193,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.8.0
+//! * Version: 8.9.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-23T17:15:59Z
+//! * Updated: 2024-09-25T15:18:42Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -222,24 +226,30 @@ pub mod assert_not_match;
 pub mod assert_not_starts_with;
 pub mod assert_starts_with;
 
-// For Result Ok/Err 
+// For Result Ok/Err
 pub mod assert_ok;
 pub mod assert_ok_eq;
+pub mod assert_ok_eq_expr;
 pub mod assert_ok_ne;
+pub mod assert_ok_ne_expr;
 pub mod assert_err;
 pub mod assert_result; // Deprecated
 
 // For Option Some/None
 pub mod assert_some;
 pub mod assert_some_eq;
+pub mod assert_some_eq_expr;
 pub mod assert_some_ne;
+pub mod assert_some_ne_expr;
 pub mod assert_none;
 pub mod assert_option; // Deprecated
 
 // For Poll Ready/Pending
 pub mod assert_ready;
 pub mod assert_ready_eq;
+pub mod assert_ready_eq_expr;
 pub mod assert_ready_ne;
+pub mod assert_ready_ne_expr;
 pub mod assert_pending;
 pub mod assert_poll; // Deprecated
 

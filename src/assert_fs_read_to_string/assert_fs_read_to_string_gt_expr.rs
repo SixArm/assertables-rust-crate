@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! std::fs::read_to_string(path) > expr
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -24,7 +24,7 @@
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) > expr
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -147,7 +147,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) > expr
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -219,7 +219,7 @@ macro_rules! assert_fs_read_to_string_gt_expr {
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) > expr
-/// 
+///
 /// This macro provides the same statements as [`assert_fs_read_to_string_gt_expr`](macro.assert_fs_read_to_string_gt_expr.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! a < b
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -24,7 +24,7 @@
 ///
 /// Pseudocode:<br>
 /// a < b
-/// 
+///
 /// * If true, return `Ok(())`.
 ///
 /// * Otherwise, return [`Err`] with a message and the values of the
@@ -105,7 +105,7 @@ mod test_assert_x_result {
 ///
 /// Pseudocode:<br>
 /// a < b
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -171,7 +171,7 @@ macro_rules! assert_lt {
 ///
 /// Pseudocode:<br>
 /// a < b
-/// 
+///
 /// This macro provides the same statements as [`assert_lt`](macro.assert_lt.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! ¬ a.is_match(b)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -27,7 +27,7 @@
 ///
 /// Pseudocode:<br>
 /// ¬ a.is_match(b)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -107,7 +107,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// ¬ a.is_match(b)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -176,7 +176,7 @@ macro_rules! assert_not_match {
 ///
 /// Pseudocode:<br>
 /// ¬ a.is_match(b)
-/// 
+///
 /// This macro provides the same statements as [`assert_not_match`](macro.assert_not_match.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

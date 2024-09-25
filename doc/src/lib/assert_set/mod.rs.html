@@ -92,11 +92,11 @@
 
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_set_impl_prep {
-    (<span class="macro-nonterminal">$into_iterable</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$into_iterable</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$into_iterable</span>) {
             into_iterable =&gt; into_iterable.into_iter().collect()
         }
-    });
+    }};
 }
 
 <span class="comment">// Comparisons

@@ -1,8 +1,8 @@
 //! Assert two expressions are Ready(_) and their values are equal.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅) 
-//! 
+//! (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)
+//!
 //! # Example
 //!
 //! ```rust
@@ -25,8 +25,8 @@
 /// Assert two expressions are Ready(_) and their values are equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅) 
-/// 
+/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)
+///
 /// * If true, return Result `Some(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -131,8 +131,8 @@ mod tests {
 
     #[test]
     fn test_assert_ready_eq_as_result_x_failure_because_not_ready() {
-        let a: Poll<i8> = Ready(1);
-        let b: Poll<i8> = Pending;
+        let a: Poll<i8> = Pending;
+        let b: Poll<i8> = Ready(1);
         let result = assert_ready_eq_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
@@ -141,9 +141,9 @@ mod tests {
                 "assertion failed: `assert_ready_eq!(a, b)`\n",
                 "https://docs.rs/assertables/8.7.0/assertables/macro.assert_ready_eq.html\n",
                 " a label: `a`,\n",
-                " a debug: `Ready(1)`,\n",
+                " a debug: `Pending`,\n",
                 " b label: `b`,\n",
-                " b debug: `Pending`",
+                " b debug: `Ready(1)`",
             )
         );
     }
@@ -153,8 +153,8 @@ mod tests {
 /// Assert two expressions are Ready(_) and their values are equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅) 
-/// 
+/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -225,8 +225,8 @@ macro_rules! assert_ready_eq {
 /// Assert two expressions are Ready(_) and their values are equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅) 
-/// 
+/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)
+///
 /// This macro provides the same statements as [`assert_ready_eq`](macro.assert_ready_eq.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

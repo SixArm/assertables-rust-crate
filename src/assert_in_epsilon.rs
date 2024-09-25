@@ -15,16 +15,16 @@
 //! # }
 //! ```
 //!
-//! 
+//!
 //! ## Comparisons
-//! 
+//!
 //! This crate provides macro groups that test approximations and nearness:
-//! 
+//!
 //! * [`assert_approx_eq`](macro@crate::assert_approx_eq) and
 //!   [`assert_approx_ne`](macro@crate::assert_approx_ne) test the approximate
 //!   equality within 1e-6. The macro name and the approximate value are chosen
 //!   to be similar to the longtime popular rust crate `assert_approx_eq`.
-//! 
+//!
 //! * [`assert_in_delta`](macro@crate::assert_in_delta) tests the absolute error
 //!   (i.e. delta). This is the magnitude of the difference between the exact
 //!   value and the approximation.
@@ -35,26 +35,26 @@
 //!   of wildly differing size.
 //!
 //! Examples:
-//! 
+//!
 //! * Approximating the number 100 and 103 has an absolute error (delta) of 3
 //!   and a relative error (epsilon) of 0.03.
-//! 
+//!
 //! * Approximating the number 1,000,000 and 1,000,003 has an absolute error
 //!   (delta) of 3, and a relative error (espilon) of 0.000003.
 //!
 //! * For many kinds of applications, the relative error is more important than
 //!   the absolute error.
-//! 
-//! 
+//!
+//!
 //! ## Thanks
-//! 
+//!
 //! * Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
 //!   creating and maintaining the `assert_approx_eq` crate.
-//! 
+//!
 //! * Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
 //!   creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
 //!
-//! 
+//!
 //! # Module macros
 //!
 //! * [`assert_in_epsilon`](macro@crate::assert_in_epsilon)

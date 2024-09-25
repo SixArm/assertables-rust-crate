@@ -223,7 +223,7 @@
 </span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_none_as_result` to `assert_none_as_result` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_option_none_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>) {
             a =&gt; {
                 <span class="kw">match </span>(a) {
@@ -245,7 +245,7 @@
                 }
             }
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]
@@ -319,18 +319,18 @@
 </span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_none` to `assert_none` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_option_none {
-    (<span class="macro-nonterminal">$option</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_option_none_as_result!</span>(<span class="macro-nonterminal">$option</span>) {
+    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span><span class="macro">assert_option_none_as_result!</span>(<span class="macro-nonterminal">$a</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
-    });
-    (<span class="macro-nonterminal">$option</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
-        <span class="kw">match </span><span class="macro">assert_option_none_as_result!</span>(<span class="macro-nonterminal">$option</span>) {
+    }};
+    (<span class="macro-nonterminal">$a</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
+        <span class="kw">match </span><span class="macro">assert_option_none_as_result!</span>(<span class="macro-nonterminal">$a</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
-    });
+    }};
 }
 
 <span class="doccomment">/// Assert expression is None.

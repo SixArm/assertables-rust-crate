@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (function1(param1) ⇒ Ok(a) ⇒ a) > (function2(param2) ⇒ Ok(b) ⇒ b)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -31,7 +31,7 @@
 ///
 /// Pseudocode:<br>
 /// (function1(param1) ⇒ Ok(a) ⇒ a) > (function2(param2) ⇒ Ok(b) ⇒ b)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -292,7 +292,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (function1(param1) ⇒ Ok(a) ⇒ a) > (function2(param2) ⇒ Ok(b) ⇒ b)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -393,7 +393,7 @@ macro_rules! assert_fn_ok_gt {
 ///
 /// Pseudocode:<br>
 /// (function1(param1) ⇒ Ok(a) ⇒ a) > (function2(param2) ⇒ Ok(b) ⇒ b)
-/// 
+///
 /// This macro provides the same statements as [`assert_fn_ok_gt`](macro.assert_fn_ok_gt.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

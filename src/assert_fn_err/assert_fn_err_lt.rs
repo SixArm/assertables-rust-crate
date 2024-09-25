@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (function1(param1) ⇒ Err(a) ⇒ a) < (function2(param2) ⇒ Err(b) ⇒ b)
-//! 
+//!
 //! # Example
 //!
 //! ```rust

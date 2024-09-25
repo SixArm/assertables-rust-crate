@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! a is Some(_)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -23,7 +23,7 @@
 ///
 /// Pseudocode:<br>
 /// a is Some(_)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -98,7 +98,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// a is Some(_)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -158,7 +158,7 @@ macro_rules! assert_some {
 ///
 /// Pseudocode:<br>
 /// a is Some(_)
-/// 
+///
 /// This macro provides the same statements as [`assert_some`](macro.assert_some.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

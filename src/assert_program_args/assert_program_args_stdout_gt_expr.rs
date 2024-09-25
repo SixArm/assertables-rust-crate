@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (program1 + args1 ⇒ command ⇒ stdout ⇒ string) > (expr into string)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -25,7 +25,7 @@
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) > (expr into string)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -142,7 +142,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) > (expr into string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -219,7 +219,7 @@ macro_rules! assert_program_args_stdout_gt_expr {
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) > (expr into string)
-/// 
+///
 /// This macro provides the same statements as [`assert_program_args_stdout_gt_expr`](macro.assert_program_args_stdout_gt_expr.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

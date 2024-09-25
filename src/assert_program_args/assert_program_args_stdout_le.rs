@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≤ (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -26,7 +26,7 @@
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≤ (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * If true, return Result `Err` with a message and the values of the
@@ -170,7 +170,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≤ (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -253,7 +253,7 @@ macro_rules! assert_program_args_stdout_le {
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≤ (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
-/// 
+///
 /// This macro provides the same statements as [`assert_program_args_stdout_le`](macro.assert_program_args_stdout_le.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

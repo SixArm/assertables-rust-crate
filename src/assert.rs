@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! condition
-//! 
+//!
 //! * If true, return Result `Ok(())`.
 //!
 //! * Otherwise, return Result `Err` with a diagnostic message.
@@ -21,7 +21,7 @@
 ///
 /// Pseudocode:<br>
 /// condition
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.

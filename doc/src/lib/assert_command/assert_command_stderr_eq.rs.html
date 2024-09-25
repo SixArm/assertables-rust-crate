@@ -277,7 +277,7 @@
 ///
 /// Pseudocode:&lt;br&gt;
 /// (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -296,7 +296,7 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_eq_as_result {
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">let </span>a_output = <span class="macro-nonterminal">$a_command</span>.output();
         <span class="kw">let </span>b_output = <span class="macro-nonterminal">$b_command</span>.output();
         <span class="kw">if </span>a_output.is_err() || b_output.is_err() {
@@ -344,7 +344,7 @@
                 ))
             }
         }
-    });
+    }};
 }
 
 <span class="attr">#[cfg(test)]
@@ -388,7 +388,7 @@
 ///
 /// Pseudocode:&lt;br&gt;
 /// (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -446,18 +446,18 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_eq {
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_command_stderr_eq_as_result!</span>(<span class="macro-nonterminal">$a_command</span>, <span class="macro-nonterminal">$b_command</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
-    });
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; ({
+    }};
+    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro">assert_command_stderr_eq_as_result!</span>(<span class="macro-nonterminal">$a_command</span>, <span class="macro-nonterminal">$b_command</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
-    });
+    }};
 }
 
 <span class="doccomment">/// Assert a command stderr string is equal to another.

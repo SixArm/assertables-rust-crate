@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (command ⇒ stdout ⇒ string) = (expr into string)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -27,7 +27,7 @@
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout ⇒ string) = (expr into string)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.

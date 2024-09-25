@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≠ (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -26,7 +26,7 @@
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≠ (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * If true, return Result `Err` with a message and the values of the
@@ -160,7 +160,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≠ (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the

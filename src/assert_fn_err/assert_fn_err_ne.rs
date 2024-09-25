@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (function1(param1) ⇒ Err(a) ⇒ a) ≤ (function2(param2) ⇒ Err(b) ⇒ b)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -31,7 +31,7 @@
 ///
 /// Pseudocode:<br>
 /// (function1(param1) ⇒ Err(a) ⇒ a) ≤ (function2(param2) ⇒ Err(b) ⇒ b)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -252,7 +252,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (function1(param1) ⇒ Err(a) ⇒ a) ≤ (function2(param2) ⇒ Err(b) ⇒ b)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -353,7 +353,7 @@ macro_rules! assert_fn_err_ne {
 ///
 /// Pseudocode:<br>
 /// (function1(param1) ⇒ Err(a) ⇒ a) ≤ (function2(param2) ⇒ Err(b) ⇒ b)
-/// 
+///
 /// This macro provides the same statements as [`assert_fn_err_ne`](macro.assert_fn_err_ne.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

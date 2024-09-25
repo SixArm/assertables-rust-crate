@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (collection1 into set) ⊃ (collection2 into set)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -26,7 +26,7 @@
 ///
 /// Pseudocode:<br>
 /// (collection1 into set) ⊃ (collection2 into set)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -116,7 +116,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (collection1 into set) ⊃ (collection2 into set)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -188,7 +188,7 @@ macro_rules! assert_set_superset {
 ///
 /// Pseudocode:<br>
 /// (collection1 into set) ⊃ (collection2 into set)
-/// 
+///
 /// This macro provides the same statements as [`assert_set_superset`](macro.assert_set_superset.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

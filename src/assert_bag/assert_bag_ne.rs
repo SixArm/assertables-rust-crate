@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (collection1 into bag) ≠ (collection2 into bag)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -26,7 +26,7 @@
 ///
 /// Pseudocode:<br>
 /// (collection1 into bag) ≠ (collection2 into bag)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -114,7 +114,7 @@ mod test_assert_x_result {
 ///
 /// Pseudocode:<br>
 /// (collection1 into bag) ≠ (collection2 into bag)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -186,7 +186,7 @@ macro_rules! assert_bag_ne {
 ///
 /// Pseudocode:<br>
 /// (collection1 into bag) ≠ (collection2 into bag)
-/// 
+///
 /// This macro provides the same statements as [`assert_bag_ne`](macro.assert_bag_ne.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

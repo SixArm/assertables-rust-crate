@@ -82,7 +82,7 @@
 
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_bag_impl_prep {
-    (<span class="macro-nonterminal">$into_iterable</span>:expr $(,)<span class="question-mark">?</span>) =&gt; ({
+    (<span class="macro-nonterminal">$into_iterable</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$into_iterable</span>) {
             into_iterable =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>bag: std::collections::BTreeMap&lt;<span class="kw">_</span>, usize&gt; = std::collections::BTreeMap::new();
@@ -93,7 +93,7 @@
                 bag
             }
         }
-    });
+    }};
 }
 
 <span class="kw">pub mod </span>assert_bag_eq;

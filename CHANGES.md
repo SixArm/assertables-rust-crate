@@ -8,13 +8,13 @@ Changes highlights for recent major versions.
 * Add approx macros: `assert_approx_eq`, `assert_approx_ne`.
 
 * Add Result macros: `assert_ok`, `assert_err`, et al.
-  
+
 * Add Option macros: `assert_some`, `assert_none`, et al.
 
 * Add Poll macros: `assert_ready`, `assert_pending`, et al.
 
-* Add read macros: `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`, et al. 
-  
+* Add read macros: `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`, et al.
+
 * Breaking change: migrate from `assert_read_to_string_*`. to `assert_io_read_to_string_*`.
 
 

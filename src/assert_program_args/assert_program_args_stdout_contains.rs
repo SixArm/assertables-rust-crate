@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (program1 + args1 ⇒ command ⇒ stdout ⇒ string) contains (expr into string)
-//! 
+//!
 //! This uses [`std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 //!
 //! * The containee can be a &str, char, a slice of chars, or a function or
@@ -30,7 +30,7 @@
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) contains (expr into string)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -147,7 +147,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) contains (expr into string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the

@@ -26,6 +26,11 @@ For values:
 * [`assert_gt!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_gt.html) `// greater than`
 * [`assert_ge!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ge.html) `// greater than or equal`
 
+For approximation:
+
+* [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_approx_eq.html)
+* [`assert_approx_ne!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_approx_ne.html)
+
 For strings:
 
 * [`assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html)
@@ -41,11 +46,6 @@ For infix operators:
 * [`assert_infix!(a == b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
 * [`assert_infix!(a && b)`](https://docs.rs/assertables/latest/assertables/macro.assert_infix.html)
 
-For approximation:
-
-* [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_approx_eq.html)
-* [`assert_approx_ne!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_approx_ne.html)
-
 For nearness:
 
 * [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/latest/assertables/macro.assert_in_delta.html)
@@ -54,22 +54,28 @@ For nearness:
 For Result Ok/Err:
 
 * [`assert_ok!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok.html)
-* [`assert_ok_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_eq.html)
-* [`assert_ok_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_ne.html)
+* [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_eq.html)
+* [`assert_ok_eq_expr!(a, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_eq_expr.html)
+* [`assert_ok_ne!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_ne.html)
+* [`assert_ok_ne_expr!(a, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_ok_ne_expr).html)
 * [`assert_err!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_err.html)
 
 For Option Some/None:
 
 * [`assert_some!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_some.html)
-* [`assert_some_eq!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_eq.html)
-* [`assert_some_ne!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_ne.html)
+* [`assert_some_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_eq.html)
+* [`assert_some_eq_expr!(a, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_eq_expr.html)
+* [`assert_some_ne!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_ne.html)
+* [`assert_some_ne_expr!(a, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_some_ne_expr.html)
 * [`assert_none!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_none.html)
 
 For Poll Ready/Pending:
 
 * [`assert_ready!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready.html)
 * [`assert_ready_eq!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready_eq.html)
+* [`assert_ready_eq_expr!(a, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready_eq_expr.html)
 * [`assert_ready_ne!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready_ne.html)
+* [`assert_ready_ne_expr!(a, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_ready_ne_expr.html)
 * [`assert_pending!(a)`](https://docs.rs/assertables/latest/assertables/macro.assert_pending.html)
 
 For collections such as arrays, vectors, maps, sets:
@@ -176,8 +182,8 @@ Examples:
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.8.0
+* Version: 8.9.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-09-23T17:15:59Z
+* Updated: 2024-09-25T15:18:42Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

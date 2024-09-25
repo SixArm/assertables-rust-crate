@@ -2,7 +2,7 @@
 //!
 //! Pseudocode:<br>
 //! (command ⇒ stdout ⇒ string) contains (expr into string)
-//! 
+//!
 //! # Example
 //!
 //! ```rust
@@ -27,7 +27,7 @@
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout ⇒ string) contains (expr into string)
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -133,7 +133,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout ⇒ string) contains (expr into string)
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -210,7 +210,7 @@ macro_rules! assert_command_stdout_contains {
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout ⇒ string) contains (expr into string)
-/// 
+///
 /// This macro provides the same statements as [`assert_command_stdout_contains`](macro.assert_command_stdout_contains.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's

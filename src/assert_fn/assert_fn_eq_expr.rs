@@ -24,7 +24,7 @@
 ///
 /// Pseudocode:<br>
 /// function(a) = b
-/// 
+///
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
@@ -191,7 +191,7 @@ mod tests {
 ///
 /// Pseudocode:<br>
 /// function(a) = b
-/// 
+///
 /// * If true, return `()`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
@@ -284,7 +284,7 @@ macro_rules! assert_fn_eq_expr {
 ///
 /// Pseudocode:<br>
 /// function(a) = b
-/// 
+///
 /// This macro provides the same statements as [`assert_fn_eq_expr`](macro.assert_fn_eq_expr.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
