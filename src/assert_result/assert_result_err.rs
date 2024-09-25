@@ -48,7 +48,7 @@ macro_rules! assert_result_err_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_result_err!(a)`\n",
-                                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_result_err.html\n",
+                                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_result_err.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -81,7 +81,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_result_err!(a)`\n",
-                "https://docs.rs/assertables/8.7.0/assertables/macro.assert_result_err.html\n",
+                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_result_err.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(())`",
             )
@@ -110,13 +110,13 @@ mod tests {
 /// assert_result_err!(a);
 /// # });
 /// // assertion failed: `assert_result_err!(a)`
-/// // https://docs.rs/assertables/8.7.0/assertables/macro.assert_result_err.html
+/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_result_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(())`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_result_err!(a)`\n",
-/// #     "https://docs.rs/assertables/8.7.0/assertables/macro.assert_result_err.html\n",
+/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_result_err.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(())`",
 /// # );
