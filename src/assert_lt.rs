@@ -154,13 +154,13 @@ mod test_assert_x_result {
 #[macro_export]
 macro_rules! assert_lt {
     ($a:expr, $b:expr $(,)?) => {{
-        match assert_lt_as_result!($a, $b) {
+        match $crate::assert_lt_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match assert_lt_as_result!($a, $b) {
+        match $crate::assert_lt_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

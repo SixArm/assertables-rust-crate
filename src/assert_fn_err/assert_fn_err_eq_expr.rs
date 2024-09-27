@@ -298,14 +298,14 @@ macro_rules! assert_fn_err_eq_expr {
     //// Arity 1
 
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
-        match assert_fn_err_eq_expr_as_result!($a_function, $a_param, $b_expr) {
+        match $crate::assert_fn_err_eq_expr_as_result!($a_function, $a_param, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
-        match assert_fn_err_eq_expr_as_result!($a_function, $a_param, $b_expr) {
+        match $crate::assert_fn_err_eq_expr_as_result!($a_function, $a_param, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -314,14 +314,14 @@ macro_rules! assert_fn_err_eq_expr {
     //// Arity 0
 
     ($a_function:path, $b_expr:expr $(,)?) => {{
-        match assert_fn_err_eq_expr_as_result!($a_function, $b_expr) {
+        match $crate::assert_fn_err_eq_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $b_expr:expr, $($message:tt)+) => {{
-        match assert_fn_err_eq_expr_as_result!($a_function, $b_expr) {
+        match $crate::assert_fn_err_eq_expr_as_result!($a_function, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

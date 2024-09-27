@@ -159,13 +159,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_not_match {
     ($matcher:expr, $matchee:expr $(,)?) => {{
-        match assert_not_match_as_result!($matcher, $matchee) {
+        match $crate::assert_not_match_as_result!($matcher, $matchee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($matcher:expr, $matchee:expr, $($message:tt)+) => {{
-        match assert_not_match_as_result!($matcher, $matchee) {
+        match $crate::assert_not_match_as_result!($matcher, $matchee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

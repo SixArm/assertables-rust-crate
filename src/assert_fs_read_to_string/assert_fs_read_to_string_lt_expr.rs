@@ -202,13 +202,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_fs_read_to_string_lt_expr {
     ($a_path:expr,  $b_expr:expr $(,)?) => {{
-        match assert_fs_read_to_string_lt_expr_as_result!($a_path, $b_expr) {
+        match $crate::assert_fs_read_to_string_lt_expr_as_result!($a_path, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_path:expr, $b_expr:expr, $($message:tt)+) => {{
-        match assert_fs_read_to_string_lt_expr_as_result!($a_path, $b_expr) {
+        match $crate::assert_fs_read_to_string_lt_expr_as_result!($a_path, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

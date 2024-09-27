@@ -151,13 +151,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_ends_with {
     ($a:expr, $b:expr $(,)?) => {{
-        match assert_ends_with_as_result!($a, $b) {
+        match $crate::assert_ends_with_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match assert_ends_with_as_result!($a, $b) {
+        match $crate::assert_ends_with_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

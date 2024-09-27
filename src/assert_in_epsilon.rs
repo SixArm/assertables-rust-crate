@@ -249,13 +249,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_in_epsilon {
     ($a:expr, $b:expr, $epsilon:expr $(,)?) => {{
-        match assert_in_epsilon_as_result!($a, $b, $epsilon) {
+        match $crate::assert_in_epsilon_as_result!($a, $b, $epsilon) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $epsilon:expr, $($message:tt)+) => {{
-        match assert_in_epsilon_as_result!($a, $b, $epsilon) {
+        match $crate::assert_in_epsilon_as_result!($a, $b, $epsilon) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

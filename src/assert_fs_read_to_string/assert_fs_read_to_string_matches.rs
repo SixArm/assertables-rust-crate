@@ -198,13 +198,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_fs_read_to_string_matches {
     ($path:expr, $matcher:expr $(,)?) => {{
-        match assert_fs_read_to_string_matches_as_result!($path, $matcher) {
+        match $crate::assert_fs_read_to_string_matches_as_result!($path, $matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($path:expr, $matcher:expr, $($message:tt)+) => {{
-        match assert_fs_read_to_string_matches_as_result!($path, $matcher) {
+        match $crate::assert_fs_read_to_string_matches_as_result!($path, $matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

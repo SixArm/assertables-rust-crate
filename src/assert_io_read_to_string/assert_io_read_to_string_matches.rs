@@ -188,13 +188,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_io_read_to_string_matches {
     ($a_reader:expr, $b_matcher:expr $(,)?) => {{
-        match assert_io_read_to_string_matches_as_result!($a_reader, $b_matcher) {
+        match $crate::assert_io_read_to_string_matches_as_result!($a_reader, $b_matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_reader:expr, $b_matcher:expr, $($message:tt)+) => {{
-        match assert_io_read_to_string_matches_as_result!($a_reader, $b_matcher) {
+        match $crate::assert_io_read_to_string_matches_as_result!($a_reader, $b_matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

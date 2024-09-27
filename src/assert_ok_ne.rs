@@ -203,13 +203,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_ok_ne {
     ($a:expr, $b:expr $(,)?) => {{
-        match assert_ok_ne_as_result!($a, $b) {
+        match $crate::assert_ok_ne_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match assert_ok_ne_as_result!($a, $b) {
+        match $crate::assert_ok_ne_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

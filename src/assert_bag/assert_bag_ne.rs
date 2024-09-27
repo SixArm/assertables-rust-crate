@@ -169,13 +169,13 @@ mod test_assert_x_result {
 #[macro_export]
 macro_rules! assert_bag_ne {
     ($a_collection:expr, $b_collection:expr $(,)?) => {{
-        match assert_bag_ne_as_result!($a_collection, $b_collection) {
+        match $crate::assert_bag_ne_as_result!($a_collection, $b_collection) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {{
-        match assert_bag_ne_as_result!($a_collection, $b_collection) {
+        match $crate::assert_bag_ne_as_result!($a_collection, $b_collection) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

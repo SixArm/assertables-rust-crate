@@ -134,13 +134,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_result_ok {
     ($a:expr $(,)?) => {{
-        match assert_result_ok_as_result!($a) {
+        match $crate::assert_result_ok_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $($message:tt)+) => {{
-        match assert_result_ok_as_result!($a) {
+        match $crate::assert_result_ok_as_result!($a) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

@@ -180,7 +180,7 @@ mod tests {
 /// //  a debug: `Ready(1)`,
 /// //  a inner: `1`,
 /// //  b label: `b`,
-/// //  b debug: `2`
+/// //  b debug: `1`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ready_ne_expr!(a, b)`\n",
@@ -189,7 +189,7 @@ mod tests {
 /// #     " a debug: `Ready(1)`,\n",
 /// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `2`"
+/// #     " b debug: `1`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -204,13 +204,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_ready_ne_expr {
     ($a:expr, $b:expr $(,)?) => {{
-        match assert_ready_ne_expr_as_result!($a, $b) {
+        match $crate::assert_ready_ne_expr_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match assert_ready_ne_expr_as_result!($a, $b) {
+        match $crate::assert_ready_ne_expr_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

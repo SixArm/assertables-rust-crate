@@ -141,13 +141,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_poll_ready {
     ($a:expr $(,)?) => {{
-        match assert_poll_ready_as_result!($a) {
+        match $crate::assert_poll_ready_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $($message:tt)+) => {{
-        match assert_poll_ready_as_result!($a) {
+        match $crate::assert_poll_ready_as_result!($a) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

@@ -201,13 +201,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_program_args_stderr_eq_expr {
     ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {{
-        match assert_program_args_stderr_eq_expr_as_result!($a_program, $a_args, $b_expr) {
+        match $crate::assert_program_args_stderr_eq_expr_as_result!($a_program, $a_args, $b_expr) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_program:expr, $a_args:expr, $b_expr:expr, $($message:tt)+) => {{
-        match assert_program_args_stderr_eq_expr_as_result!($a_program, $a_args, $b_expr) {
+        match $crate::assert_program_args_stderr_eq_expr_as_result!($a_program, $a_args, $b_expr) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

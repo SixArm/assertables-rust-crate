@@ -193,9 +193,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.9.0
+//! * Version: 8.10.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-25T15:18:42Z
+//! * Updated: 2024-09-27T18:25:43Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -216,15 +216,21 @@ pub mod assert_approx_ne;
 pub mod assert_in_delta;
 pub mod assert_in_epsilon;
 
-// Assert value matching
-pub mod assert_contains;
-pub mod assert_ends_with;
+// Match
 pub mod assert_is_match;
-pub mod assert_not_contains;
-pub mod assert_not_ends_with;
 pub mod assert_not_match;
-pub mod assert_not_starts_with;
+
+// Contains
+pub mod assert_contains;
+pub mod assert_not_contains;
+
+// Starts with
 pub mod assert_starts_with;
+pub mod assert_not_starts_with;
+
+// Ends with
+pub mod assert_ends_with;
+pub mod assert_not_ends_with;
 
 // For Result Ok/Err
 pub mod assert_ok;

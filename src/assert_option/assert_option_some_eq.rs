@@ -196,13 +196,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_option_some_eq {
     ($a:expr, $b:expr $(,)?) => {{
-        match assert_option_some_eq_as_result!($a, $b) {
+        match $crate::assert_option_some_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match assert_option_some_eq_as_result!($a, $b) {
+        match $crate::assert_option_some_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

@@ -194,13 +194,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_not_contains {
     ($container:expr, $containee:expr $(,)?) => {{
-        match assert_not_contains_as_result!($container, $containee) {
+        match $crate::assert_not_contains_as_result!($container, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($container:expr, $containee:expr, $($message:tt)+) => {{
-        match assert_not_contains_as_result!($container, $containee) {
+        match $crate::assert_not_contains_as_result!($container, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

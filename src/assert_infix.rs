@@ -233,13 +233,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_infix {
     ($a:tt $infix:tt $b:tt) => {{
-        match assert_infix_as_result!($a $infix $b) {
+        match $crate::assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:tt $infix:tt $b:tt, $($message:tt)+) => {{
-        match assert_infix_as_result!($a $infix $b) {
+        match $crate::assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

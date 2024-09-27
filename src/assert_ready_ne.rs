@@ -209,13 +209,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_ready_ne {
     ($a:expr, $b:expr $(,)?) => {{
-        match assert_ready_ne_as_result!($a, $b) {
+        match $crate::assert_ready_ne_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match assert_ready_ne_as_result!($a, $b) {
+        match $crate::assert_ready_ne_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

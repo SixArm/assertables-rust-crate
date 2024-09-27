@@ -207,13 +207,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_program_args_stdout_is_match {
     ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {{
-        match assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $matcher) {
+        match $crate::assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $matcher) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_program:expr, $a_args:expr, $matcher:expr, $($message:tt)+) => {{
-        match assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $matcher) {
+        match $crate::assert_program_args_stdout_is_match_as_result!($a_program, $a_args, $matcher) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

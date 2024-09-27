@@ -198,13 +198,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_command_stderr_eq {
     ($a_command:expr, $b_command:expr $(,)?) => {{
-        match assert_command_stderr_eq_as_result!($a_command, $b_command) {
+        match $crate::assert_command_stderr_eq_as_result!($a_command, $b_command) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_command:expr, $b_command:expr, $($message:tt)+) => {{
-        match assert_command_stderr_eq_as_result!($a_command, $b_command) {
+        match $crate::assert_command_stderr_eq_as_result!($a_command, $b_command) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

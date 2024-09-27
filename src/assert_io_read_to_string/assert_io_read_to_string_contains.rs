@@ -186,13 +186,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_io_read_to_string_contains {
     ($reader:expr, $containee:expr $(,)?) => {{
-        match assert_io_read_to_string_contains_as_result!($reader, $containee) {
+        match $crate::assert_io_read_to_string_contains_as_result!($reader, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match assert_io_read_to_string_contains_as_result!($reader, $containee) {
+        match $crate::assert_io_read_to_string_contains_as_result!($reader, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

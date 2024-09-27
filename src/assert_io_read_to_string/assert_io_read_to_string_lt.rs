@@ -192,13 +192,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_io_read_to_string_lt {
     ($a_reader:expr, $b:expr $(,)?) => {{
-        match assert_io_read_to_string_lt_as_result!($a_reader, $b) {
+        match $crate::assert_io_read_to_string_lt_as_result!($a_reader, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_reader:expr, $b:expr, $($message:tt)+) => {{
-        match assert_io_read_to_string_lt_as_result!($a_reader, $b) {
+        match $crate::assert_io_read_to_string_lt_as_result!($a_reader, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

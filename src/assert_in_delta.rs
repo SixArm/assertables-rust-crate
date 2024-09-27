@@ -242,13 +242,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_in_delta {
     ($a:expr, $b:expr, $delta:expr $(,)?) => {{
-        match assert_in_delta_as_result!($a, $b, $delta) {
+        match $crate::assert_in_delta_as_result!($a, $b, $delta) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => {{
-        match assert_in_delta_as_result!($a, $b, $delta) {
+        match $crate::assert_in_delta_as_result!($a, $b, $delta) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

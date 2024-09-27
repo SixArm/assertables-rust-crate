@@ -193,13 +193,13 @@ mod tests {
 #[macro_export]
 macro_rules! assert_command_stdout_contains {
     ($command:expr, $b:expr $(,)?) => {{
-        match assert_command_stdout_contains_as_result!($command, $b) {
+        match $crate::assert_command_stdout_contains_as_result!($command, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($command:expr, $b:expr, $($message:tt)+) => {{
-        match assert_command_stdout_contains_as_result!($command, $b) {
+        match $crate::assert_command_stdout_contains_as_result!($command, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
