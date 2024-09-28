@@ -2,7 +2,8 @@
 <p>Pseudocode:<br>
 (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≠ (expr into string)</p>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>program = <span class="string">"bin/printf-stdout"</span>;
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+<span class="kw">let </span>program = <span class="string">"bin/printf-stdout"</span>;
 <span class="kw">let </span>args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
 <span class="kw">let </span>s = String::from(<span class="string">"zzz"</span>);
 <span class="macro">assert_program_args_stdout_ne_expr!</span>(<span class="kw-2">&amp;</span>program, <span class="kw-2">&amp;</span>args, s);</code></pre></div>

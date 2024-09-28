@@ -2,7 +2,8 @@
 <p>Pseudocode:<br>
 (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)</p>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::task::Poll;
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+<span class="kw">use </span>std::task::Poll;
 <span class="kw">use </span>std::task::Poll::<span class="kw-2">*</span>;
 <span class="kw">let </span>a: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
 <span class="kw">let </span>b: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);

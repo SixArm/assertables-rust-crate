@@ -302,7 +302,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! # fn main() {
 //! let a: i8 = 10;
 //! let b: i8 = 11;
@@ -394,7 +394,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_in_delta!(a, b, delta)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_in_delta.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_in_delta.html\n"</span>,
                                 <span class="string">"           a label: `{}`,\n"</span>,
                                 <span class="string">"           a debug: `{:?}`,\n"</span>,
                                 <span class="string">"           b label: `{}`,\n"</span>,
@@ -443,7 +443,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_in_delta!(a, b, delta)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_in_delta.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_in_delta.html\n"</span>,
                 <span class="string">"           a label: `a`,\n"</span>,
                 <span class="string">"           a debug: `10`,\n"</span>,
                 <span class="string">"           b label: `b`,\n"</span>,
@@ -470,7 +470,7 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// # fn main() {
 /// let a: i8 = 10;
@@ -485,7 +485,7 @@
 /// assert_in_delta!(a, b, delta);
 /// # });
 /// // assertion failed: `assert_in_delta!(a, b, delta)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_in_delta.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_in_delta.html
 /// //            a label: `a`,
 /// //            a debug: `10`,
 /// //            b label: `b`,
@@ -497,7 +497,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_in_delta.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_in_delta.html\n",
 /// #     "           a label: `a`,\n",
 /// #     "           a debug: `10`,\n",
 /// #     "           b label: `b`,\n",
@@ -538,13 +538,13 @@
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_in_delta {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, <span class="macro-nonterminal">$delta</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_in_delta_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>, <span class="macro-nonterminal">$delta</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_in_delta_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>, <span class="macro-nonterminal">$delta</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, <span class="macro-nonterminal">$delta</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_in_delta_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>, <span class="macro-nonterminal">$delta</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_in_delta_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>, <span class="macro-nonterminal">$delta</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

@@ -2,7 +2,8 @@
 <p>Pseudocode:<br>
 (a ⇒ Ok(a̅) ⇒ a̅) = (b ⇒ Ok(b̅) ⇒ b̅)</p>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+<span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
 <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
 <span class="macro">assert_ok_eq!</span>(a, b);</code></pre></div>
 <h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>

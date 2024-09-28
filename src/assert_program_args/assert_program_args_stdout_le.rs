@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! # fn main() {
 //! let a_program = "bin/printf-stdout";
 //! let a_args = ["%s", "hello"];
@@ -55,7 +55,7 @@ macro_rules! assert_program_args_stdout_le_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_program_args_stdout_le!(a_program, a_args, b_program, b_args)`\n",
-                            "https://docs.rs/assertables/8.9.0/assertables/macro.assert_program_args_stdout_le.html\n",
+                            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_program_args_stdout_le.html\n",
                             " a_program label: `{}`,\n",
                             " a_program debug: `{:?}`,\n",
                             "    a_args label: `{}`,\n",
@@ -87,7 +87,7 @@ macro_rules! assert_program_args_stdout_le_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_program_args_stdout_le!(a_program, a_args, b_program, b_args)`\n",
-                                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_program_args_stdout_le.html\n",
+                                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_program_args_stdout_le.html\n",
                                 " a_program label: `{}`,\n",
                                 " a_program debug: `{:?}`,\n",
                                 "    a_args label: `{}`,\n",
@@ -150,7 +150,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stdout_le!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/8.9.0/assertables/macro.assert_program_args_stdout_le.html\n",
+            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_program_args_stdout_le.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -179,7 +179,7 @@ mod tests {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 ///
 /// # fn main() {
@@ -197,7 +197,7 @@ mod tests {
 /// assert_program_args_stdout_le!(&a_program, &a_args, &b_program, &b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_le!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_program_args_stdout_le.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_program_args_stdout_le.html
 /// //  a_program label: `&a_program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&a_args`,
@@ -211,7 +211,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_le!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_program_args_stdout_le.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_program_args_stdout_le.html\n",
 /// #     " a_program label: `&a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&a_args`,\n",

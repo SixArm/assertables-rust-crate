@@ -2,7 +2,8 @@
 <p>Pseudocode:<br>
 (collection1 into bag) ⊂ (collection2 into bag)</p>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>a = [<span class="number">1</span>, <span class="number">1</span>];
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+<span class="kw">let </span>a = [<span class="number">1</span>, <span class="number">1</span>];
 <span class="kw">let </span>b = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>];
 <span class="macro">assert_bag_subbag!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);</code></pre></div>
 <p>This implementation uses <a href="https://doc.rust-lang.org/std/collections/struct.BTreeMap.html"><code>std::collections::BTreeMap</code></a> to count items and sort them.</p>

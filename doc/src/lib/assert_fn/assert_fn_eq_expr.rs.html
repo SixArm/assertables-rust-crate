@@ -327,7 +327,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! # fn main() {
 //! let a: i8 = -1;
 //! let b: i8 = 1;
@@ -377,7 +377,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_fn_eq_expr.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_fn_eq_expr.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">"    a_param label: `{}`,\n"</span>,
                             <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -411,7 +411,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, b_expr)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_fn_eq_expr.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_fn_eq_expr.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">"     b_expr label: `{}`,\n"</span>,
                             <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
@@ -460,7 +460,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_fn_eq_expr.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_fn_eq_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `1`,\n"</span>,
@@ -495,7 +495,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_eq_expr!(a_function, b_expr)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_fn_eq_expr.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_fn_eq_expr.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"     b_expr label: `b`,\n"</span>,
                         <span class="string">"     b_expr debug: `2`,\n"</span>,
@@ -521,7 +521,7 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// # fn main() {
 /// let a: i8 = -1;
@@ -534,7 +534,7 @@
 /// assert_fn_eq_expr!(i8::abs, a, b);
 /// # });
 /// // assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_fn_eq_expr.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_fn_eq_expr.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `-1`,
@@ -545,7 +545,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_fn_eq_expr.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_fn_eq_expr.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",
@@ -570,14 +570,14 @@
     <span class="comment">//// Arity 1
 
     </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_fn_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_expr</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_expr</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
 
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_fn_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_expr</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_expr</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
@@ -586,14 +586,14 @@
     <span class="comment">//// Arity 0
 
     </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_fn_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$b_expr</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$b_expr</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
 
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_fn_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_expr</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_expr</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

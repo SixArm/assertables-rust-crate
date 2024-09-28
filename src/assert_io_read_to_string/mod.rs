@@ -42,7 +42,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! use std::io::Read;
 //!
 //! # fn main() {

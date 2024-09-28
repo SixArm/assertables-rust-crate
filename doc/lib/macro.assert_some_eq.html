@@ -14,7 +14,8 @@ expressions with their debug representations.</p>
 </li>
 </ul>
 <h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>a: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">1</span>);
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+<span class="kw">let </span>a: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">1</span>);
 <span class="kw">let </span>b: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">1</span>);
 <span class="macro">assert_some_eq!</span>(a, b);
 
@@ -22,7 +23,7 @@ expressions with their debug representations.</p>
 <span class="kw">let </span>b: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">2</span>);
 <span class="macro">assert_some_eq!</span>(a, b);
 <span class="comment">// assertion failed: `assert_some_eq!(a, b)`
-// https://docs.rs/assertables/8.9.0/assertables/macro.assert_some_eq.html
+// https://docs.rs/assertables/8.10.1/assertables/macro.assert_some_eq.html
 //  a label: `a`,
 //  a debug: `Some(1)`,
 //  a inner: `1`,

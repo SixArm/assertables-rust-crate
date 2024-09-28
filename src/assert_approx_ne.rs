@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! # fn main() {
 //! let a: f32 = 1.0000001;
 //! let b: f32 = 1.0000012;
@@ -98,7 +98,7 @@ macro_rules! assert_approx_ne_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_approx_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_approx_ne.html\n",
+                                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_approx_ne.html\n",
                                 "           a label: `{}`,\n",
                                 "           a debug: `{:?}`,\n",
                                 "           b label: `{}`,\n",
@@ -143,7 +143,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_approx_ne!(a, b)`\n",
-                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_approx_ne.html\n",
+                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_approx_ne.html\n",
                 "           a label: `a`,\n",
                 "           a debug: `1.0000001`,\n",
                 "           b label: `b`,\n",
@@ -169,7 +169,7 @@ mod tests {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// # fn main() {
 /// let a: f32 = 1.0000001;
@@ -182,7 +182,7 @@ mod tests {
 /// assert_approx_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_approx_ne!(a, b)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_approx_ne.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_approx_ne.html
 /// //            a label: `a`,
 /// //            a debug: `1.0000001`,
 /// //            b label: `b`,
@@ -193,7 +193,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_approx_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_approx_ne.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_approx_ne.html\n",
 /// #     "           a label: `a`,\n",
 /// #     "           a debug: `1.0000001`,\n",
 /// #     "           b label: `b`,\n",

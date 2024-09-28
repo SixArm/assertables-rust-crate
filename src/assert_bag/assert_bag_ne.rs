@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! # fn main() {
 //! let a = [1, 1];
 //! let b = [1, 1, 1];
@@ -56,7 +56,7 @@ macro_rules! assert_bag_ne_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                            "https://docs.rs/assertables/8.9.0/assertables/macro.assert_bag_ne.html\n",
+                            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_bag_ne.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -98,7 +98,7 @@ mod test_assert_x_result {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_bag_ne.html\n",
+                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_bag_ne.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 1]`,\n",
                 " b label: `&b`,\n",
@@ -123,7 +123,7 @@ mod test_assert_x_result {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// # fn main() {
 /// let a = [1, 1];
@@ -136,7 +136,7 @@ mod test_assert_x_result {
 /// assert_bag_ne!(&a, &b);
 /// # });
 /// // assertion failed: `assert_bag_ne!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_bag_ne.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_bag_ne.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 1]`,
 /// //  b label: `&b`,
@@ -146,7 +146,7 @@ mod test_assert_x_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_bag_ne.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_bag_ne.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 1]`,\n",
 /// #     " b label: `&b`,\n",

@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! use std::io::Read;
 //!
 //! # fn main() {
@@ -54,7 +54,7 @@ macro_rules! assert_io_read_to_string_lt_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n",
-                            "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt_expr.html\n",
+                            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt_expr.html\n",
                             " a_reader label: `{}`,\n",
                             " a_reader debug: `{:?}`,\n",
                             "   b_expr label: `{}`,\n",
@@ -76,7 +76,7 @@ macro_rules! assert_io_read_to_string_lt_expr_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n",
-                                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt_expr.html\n",
+                                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt_expr.html\n",
                                 " a_reader label: `{}`,\n",
                                 " a_reader debug: `{:?}`,\n",
                                 "   b_expr label: `{}`,\n",
@@ -121,7 +121,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n",
-                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt_expr.html\n",
+                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt_expr.html\n",
                 " a_reader label: `reader`,\n",
                 " a_reader debug: `[]`,\n",
                 "   b_expr label: `&value`,\n",
@@ -146,7 +146,7 @@ mod tests {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// use std::io::Read;
 ///
@@ -161,7 +161,7 @@ mod tests {
 /// assert_io_read_to_string_lt_expr!(reader, &value);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt_expr.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt_expr.html
 /// //  a_reader label: `reader`,
 /// //  a_reader debug: `[]`,
 /// //    b_expr label: `&value`,
@@ -171,7 +171,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_lt_expr!(a_reader, b_expr)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt_expr.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt_expr.html\n",
 /// #     " a_reader label: `reader`,\n",
 /// #     " a_reader debug: `[]`,\n",
 /// #     "   b_expr label: `&value`,\n",

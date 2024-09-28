@@ -7,7 +7,8 @@
 closure that determines if a character contains.</li>
 </ul>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>program = <span class="string">"bin/printf-stderr"</span>;
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+<span class="kw">let </span>program = <span class="string">"bin/printf-stderr"</span>;
 <span class="kw">let </span>args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
 <span class="kw">let </span>containee = <span class="string">"ell"</span>;
 <span class="macro">assert_program_args_stderr_contains!</span>(<span class="kw-2">&amp;</span>program, <span class="kw-2">&amp;</span>args, <span class="kw-2">&amp;</span>containee);</code></pre></div>

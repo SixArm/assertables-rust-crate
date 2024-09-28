@@ -2,7 +2,8 @@
 <p>Pseudocode:<br>
 std::fs::read_to_string(path1) = std::fs::read_to_string(path2)</p>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>a =<span class="string">"alfa.txt"</span>;
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+<span class="kw">let </span>a =<span class="string">"alfa.txt"</span>;
 <span class="kw">let </span>b = <span class="string">"alfa.txt"</span>;
 <span class="macro">assert_fs_read_to_string_eq!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);</code></pre></div>
 <h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>

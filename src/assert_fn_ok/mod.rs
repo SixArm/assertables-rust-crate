@@ -40,7 +40,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! fn f(i: i8) -> Result<String, String> {
 //!     match i {
 //!         0..=9 => Ok(format!("{}", i)),

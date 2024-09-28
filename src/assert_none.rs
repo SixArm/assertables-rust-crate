@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! # fn main() {
 //! let a: Option<i8> = Option::None;
 //! assert_none!(a);
@@ -53,7 +53,7 @@ macro_rules! assert_none_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_none!(a)`\n",
-                                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_none.html\n",
+                                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_none.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -86,7 +86,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_none!(a)`\n",
-                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_none.html\n",
+                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_none.html\n",
                 " a label: `a`,\n",
                 " a debug: `Some(1)`",
             )
@@ -107,7 +107,7 @@ mod tests {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// # fn main() {
 /// let a: Option<i8> = Option::None;
@@ -118,13 +118,13 @@ mod tests {
 /// assert_none!(a);
 /// # });
 /// // assertion failed: `assert_none!(a)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_none.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_none.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_none!(a)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_none.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_none.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`",
 /// # );

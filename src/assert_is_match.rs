@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! use std::process::Command;
 //! use regex::Regex;
 //!
@@ -55,7 +55,7 @@ macro_rules! assert_is_match_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-                            "https://docs.rs/assertables/8.9.0/assertables/macro.assert_is_match.html\n",
+                            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_is_match.html\n",
                             " matcher label: `{}`,\n",
                             " matcher debug: `{:?}`,\n",
                             " matchee label: `{}`,\n",
@@ -93,7 +93,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-            "https://docs.rs/assertables/8.9.0/assertables/macro.assert_is_match.html\n",
+            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_is_match.html\n",
             " matcher label: `a`,\n",
             " matcher debug: `Regex(\"lf\")`,\n",
             " matchee label: `b`,\n",
@@ -116,7 +116,7 @@ mod tests {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// use std::process::Command;
 /// use regex::Regex;
@@ -132,7 +132,7 @@ mod tests {
 /// assert_is_match!(a, b);
 /// # });
 /// // assertion failed: `assert_is_match!(matcher, matchee)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_is_match.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_is_match.html
 /// //  matcher label: `a`,
 /// //  matcher debug: `Regex(\"lf\")`,
 /// //  matchee label: `b`,
@@ -140,7 +140,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_is_match.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_is_match.html\n",
 /// #     " matcher label: `a`,\n",
 /// #     " matcher debug: `Regex(\"lf\")`,\n",
 /// #     " matchee label: `b`,\n",

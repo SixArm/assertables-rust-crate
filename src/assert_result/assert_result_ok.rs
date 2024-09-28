@@ -3,7 +3,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! # fn main() {
 //! let a: Result<(), i8> = Ok(());
 //! assert_result_ok!(a);
@@ -48,7 +48,7 @@ macro_rules! assert_result_ok_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_result_ok!(a)`\n",
-                                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_result_ok.html\n",
+                                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_result_ok.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -81,7 +81,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_result_ok!(a)`\n",
-                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_result_ok.html\n",
+                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_result_ok.html\n",
                 " a label: `a`,\n",
                 " a debug: `Err(1)`",
             )
@@ -99,7 +99,7 @@ mod tests {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// # fn main() {
 /// let a: Result<(), i8> = Ok(());
@@ -110,13 +110,13 @@ mod tests {
 /// assert_result_ok!(a);
 /// # });
 /// // assertion failed: `assert_result_ok!(a)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_result_ok.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_result_ok.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_result_ok!(a)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_result_ok.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_result_ok.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`",
 /// # );

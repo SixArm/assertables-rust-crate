@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! use std::process::Command;
 //!
 //! # fn main() {
@@ -54,7 +54,7 @@ macro_rules! assert_command_stderr_contains_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
-                            "https://docs.rs/assertables/8.9.0/assertables/macro.assert_command_stderr_contains.html\n",
+                            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_contains.html\n",
                             "   command label: `{}`,\n",
                             "   command debug: `{:?}`,\n",
                             " containee label: `{}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_command_stderr_contains_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
-                                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_command_stderr_contains.html\n",
+                                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_contains.html\n",
                                 "   command label: `{}`,\n",
                                 "   command debug: `{:?}`,\n",
                                 " containee label: `{}`,\n",
@@ -118,7 +118,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
-            "https://docs.rs/assertables/8.9.0/assertables/macro.assert_command_stderr_contains.html\n",
+            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_contains.html\n",
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
             " containee label: `b`,\n",
@@ -147,7 +147,7 @@ mod tests {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// use std::process::Command;
 ///
@@ -164,7 +164,7 @@ mod tests {
 /// assert_command_stderr_contains!(command, &containee);
 /// # });
 /// // assertion failed: `assert_command_stderr_contains!(command, containee)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_command_stderr_contains.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_contains.html
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
 /// //  containee label: `&containee`,
@@ -173,7 +173,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_command_stderr_contains.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_contains.html\n",
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
 /// #     " containee label: `&containee`,\n",

@@ -272,6 +272,24 @@
 <a href="#272" id="272">272</a>
 <a href="#273" id="273">273</a>
 <a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
@@ -301,6 +319,18 @@
 //!
 //! The assertables crate provides many more, so you can write smarter tests.
 //!
+//! Examples:
+//!
+//! ```rust
+//! use assertables::*;
+//! assert_approx_eq!(1.0000001, 1.0000002); // compare floating point numbers
+//! assert_starts_with!("hello world", "hello"); // compare strings and substrings
+//! assert_set_eq!([1, 2, 3], [3, 2, 1]); // compare set collections order-independently
+//! assert_fs_read_to_string_eq!("actual.txt", "expect.txt"); // compare file text
+//! ```
+//!
+//! ## Assert macros
+//! 
 //! For values:
 //!
 //! * [`assert_lt!(a, b)`](macro@crate::assert_lt) `// less than`
@@ -397,7 +427,7 @@
 //! * [`assert_program_args`](module@crate::assert_program_args) for programs with args and their stdout &amp; stderr.
 //!
 //!
-//! ### Benefits
+//! ## Benefits
 //!
 //! * Your tests are more purposeful and powerful. This helps your code be more
 //! reliable.
@@ -409,7 +439,7 @@
 //! verifications.
 //!
 //!
-//! ### Features
+//! ## Features
 //!
 //! * Easy to use: each macro is well-documented with runnable examples and
 //! tests.
@@ -467,9 +497,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.9.0
+//! * Version: 8.10.1
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-25T15:18:42Z
+//! * Updated: 2024-09-28T09:28:51Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -490,15 +520,21 @@
 <span class="kw">pub mod </span>assert_in_delta;
 <span class="kw">pub mod </span>assert_in_epsilon;
 
-<span class="comment">// Assert value matching
-</span><span class="kw">pub mod </span>assert_contains;
-<span class="kw">pub mod </span>assert_ends_with;
-<span class="kw">pub mod </span>assert_is_match;
-<span class="kw">pub mod </span>assert_not_contains;
-<span class="kw">pub mod </span>assert_not_ends_with;
+<span class="comment">// Match
+</span><span class="kw">pub mod </span>assert_is_match;
 <span class="kw">pub mod </span>assert_not_match;
+
+<span class="comment">// Contains
+</span><span class="kw">pub mod </span>assert_contains;
+<span class="kw">pub mod </span>assert_not_contains;
+
+<span class="comment">// Starts with
+</span><span class="kw">pub mod </span>assert_starts_with;
 <span class="kw">pub mod </span>assert_not_starts_with;
-<span class="kw">pub mod </span>assert_starts_with;
+
+<span class="comment">// Ends with
+</span><span class="kw">pub mod </span>assert_ends_with;
+<span class="kw">pub mod </span>assert_not_ends_with;
 
 <span class="comment">// For Result Ok/Err
 </span><span class="kw">pub mod </span>assert_ok;

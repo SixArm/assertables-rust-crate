@@ -248,7 +248,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! use std::io::Read;
 //! use regex::Regex;
 //!
@@ -297,7 +297,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
                             <span class="string">"  reader label: `{}`,\n"</span>,
                             <span class="string">"  reader debug: `{:?}`,\n"</span>,
                             <span class="string">" matcher label: `{}`,\n"</span>,
@@ -318,7 +318,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
                                 <span class="string">"  reader label: `{}`,\n"</span>,
                                 <span class="string">"  reader debug: `{:?}`,\n"</span>,
                                 <span class="string">" matcher label: `{}`,\n"</span>,
@@ -361,7 +361,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
                 <span class="string">"  reader label: `reader`,\n"</span>,
                 <span class="string">"  reader debug: `[]`,\n"</span>,
                 <span class="string">" matcher label: `&amp;matcher`,\n"</span>,
@@ -385,7 +385,7 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// use std::io::Read;
 /// use regex::Regex;
@@ -401,7 +401,7 @@
 /// assert_io_read_to_string_matches!(reader, &amp;matcher);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_matches.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_matches.html
 /// //   reader label: `reader`,
 /// //   reader debug: `[]`,
 /// //  matcher label: `&amp;matcher`,
@@ -410,7 +410,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_matches.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_matches.html\n",
 /// #     "  reader label: `reader`,\n",
 /// #     "  reader debug: `[]`,\n",
 /// #     " matcher label: `&amp;matcher`,\n",
@@ -430,13 +430,13 @@
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_io_read_to_string_matches {
     (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_io_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b_matcher</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_io_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b_matcher</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_io_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b_matcher</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_io_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b_matcher</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

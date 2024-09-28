@@ -21,7 +21,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! use std::task::Poll;
 //! use std::task::Poll::*;
 //!

@@ -14,7 +14,8 @@ expressions with their debug representations.</p>
 </li>
 </ul>
 <h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+
 <span class="comment">// Return Ok because a &gt; b
 </span><span class="kw">let </span>program = <span class="string">"bin/printf-stderr"</span>;
 <span class="kw">let </span>args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
@@ -32,7 +33,7 @@ expressions with their debug representations.</p>
 <span class="kw">let </span>s = String::from(<span class="string">"hullo"</span>);
 <span class="macro">assert_program_args_stderr_ge_expr!</span>(<span class="kw-2">&amp;</span>program, <span class="kw-2">&amp;</span>args, s);
 <span class="comment">// assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/8.9.0/assertables/macro.assert_program_args_stderr_ge_expr.html
+// https://docs.rs/assertables/8.10.1/assertables/macro.assert_program_args_stderr_ge_expr.html
 //  a_program label: `&amp;program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `&amp;args`,

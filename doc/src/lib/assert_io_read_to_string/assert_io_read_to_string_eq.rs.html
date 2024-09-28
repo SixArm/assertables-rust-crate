@@ -252,7 +252,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! use std::io::Read;
 //!
 //! # fn main() {
@@ -300,7 +300,7 @@
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_eq.html\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_eq.html\n"</span>,
                     <span class="string">" a label: `{}`,\n"</span>,
                     <span class="string">" a debug: `{:?}`,\n"</span>,
                     <span class="string">" b label: `{}`,\n"</span>,
@@ -324,7 +324,7 @@
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_eq.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_eq.html\n"</span>,
                         <span class="string">" a label: `{}`,\n"</span>,
                         <span class="string">" a debug: `{:?}`,\n"</span>,
                         <span class="string">" b label: `{}`,\n"</span>,
@@ -367,7 +367,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_eq.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_eq.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `[]`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -392,7 +392,7 @@
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// use std::io::Read;
 ///
@@ -407,7 +407,7 @@
 /// assert_io_read_to_string_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_eq.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_eq.html
 /// //  a label: `a`,
 /// //  a debug: `[]`,
 /// //  b label: `b`,
@@ -417,7 +417,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_eq.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[]`,\n",
 /// #     " b label: `b`,\n",
@@ -438,13 +438,13 @@
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_io_read_to_string_eq {
     (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_io_read_to_string_eq_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_io_read_to_string_eq_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro">assert_io_read_to_string_eq_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b</span>) {
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_io_read_to_string_eq_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

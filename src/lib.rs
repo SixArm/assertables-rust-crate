@@ -27,6 +27,18 @@
 //!
 //! The assertables crate provides many more, so you can write smarter tests.
 //!
+//! Examples:
+//!
+//! ```rust
+//! use assertables::*;
+//! assert_approx_eq!(1.0000001, 1.0000002); // compare floating point numbers
+//! assert_starts_with!("hello world", "hello"); // compare strings and substrings
+//! assert_set_eq!([1, 2, 3], [3, 2, 1]); // compare set collections order-independently
+//! assert_fs_read_to_string_eq!("actual.txt", "expect.txt"); // compare file text
+//! ```
+//!
+//! ## Assert macros
+//! 
 //! For values:
 //!
 //! * [`assert_lt!(a, b)`](macro@crate::assert_lt) `// less than`
@@ -123,7 +135,7 @@
 //! * [`assert_program_args`](module@crate::assert_program_args) for programs with args and their stdout & stderr.
 //!
 //!
-//! ### Benefits
+//! ## Benefits
 //!
 //! * Your tests are more purposeful and powerful. This helps your code be more
 //! reliable.
@@ -135,7 +147,7 @@
 //! verifications.
 //!
 //!
-//! ### Features
+//! ## Features
 //!
 //! * Easy to use: each macro is well-documented with runnable examples and
 //! tests.
@@ -193,9 +205,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.10.0
+//! * Version: 8.10.1
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-27T18:25:43Z
+//! * Updated: 2024-09-28T09:28:51Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 

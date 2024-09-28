@@ -2,7 +2,8 @@
 <p>Pseudocode:<br>
 | a - b | ≤ ε * min(a, b)</p>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>a: i8 = <span class="number">10</span>;
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+<span class="kw">let </span>a: i8 = <span class="number">10</span>;
 <span class="kw">let </span>b: i8 = <span class="number">20</span>;
 <span class="kw">let </span>epsilon: i8 = <span class="number">1</span>;
 <span class="macro">assert_in_epsilon!</span>(a, b, epsilon);</code></pre></div>

@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! use std::io::Read;
 //!
 //! # fn main() {
@@ -54,7 +54,7 @@ macro_rules! assert_io_read_to_string_lt_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
-                    "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt.html\n",
+                    "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt.html\n",
                     "  a label: `{}`,\n",
                     "  a debug: `{:?}`,\n",
                     "  b label: `{}`,\n",
@@ -78,7 +78,7 @@ macro_rules! assert_io_read_to_string_lt_as_result {
                 Err(format!(
                     concat!(
                         "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
-                        "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt.html\n",
+                        "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -121,7 +121,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
-                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt.html\n",
+                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `[]`,\n",
                 " b label: `b`,\n",
@@ -146,7 +146,7 @@ mod tests {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// use std::io::Read;
 ///
@@ -161,7 +161,7 @@ mod tests {
 /// assert_io_read_to_string_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt.html
 /// //  a label: `a`,
 /// //  a debug: `[]`,
 /// //  b label: `b`,
@@ -171,7 +171,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_io_read_to_string_lt.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_io_read_to_string_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[]`,\n",
 /// #     " b label: `b`,\n",

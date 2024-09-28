@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```rust
-//! # #[macro_use] extern crate assertables;
+//! use assertables::*;
 //! # fn main() {
 //! let a ="alfa.txt";
 //! let b ="bravo.txt";
@@ -54,7 +54,7 @@ macro_rules! assert_fs_read_to_string_lt_as_result {
                             Err(format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-                                    "https://docs.rs/assertables/8.9.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+                                    "https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
                                     " a_path label: `{}`,\n",
                                     " a_path debug: `{:?}`,\n",
                                     " b_path label: `{}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_fs_read_to_string_lt_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-                                "https://docs.rs/assertables/8.9.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+                                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
                                 " a_path label: `{}`,\n",
                                 " a_path debug: `{:?}`,\n",
                                 " b_path label: `{}`,\n",
@@ -131,7 +131,7 @@ mod tests {
             format!(
                 concat!(
                     "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-                    "https://docs.rs/assertables/8.9.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+                    "https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
                     " a_path label: `&a`,\n",
                     " a_path debug: `{:?}`,\n",
                     " b_path label: `&b`,\n",
@@ -159,7 +159,7 @@ mod tests {
 /// # Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate assertables;
+/// use assertables::*;
 /// # use std::panic;
 /// use std::io::Read;
 ///
@@ -174,7 +174,7 @@ mod tests {
 /// assert_fs_read_to_string_lt!(&a, &b);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`
-/// // https://docs.rs/assertables/8.9.0/assertables/macro.assert_fs_read_to_string_lt.html
+/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt.html
 /// //  a_path label: `&a`,
 /// //  a_path debug: `\"bravo.txt\"`,
 /// //  b_path label: `&b`,
@@ -184,7 +184,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-/// #     "https://docs.rs/assertables/8.9.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
 /// #     " a_path label: `&a`,\n",
 /// #     " a_path debug: `\"bravo.txt\"`,\n",
 /// #     " b_path label: `&b`,\n",
