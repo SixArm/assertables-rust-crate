@@ -8,13 +8,6 @@
 //! * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
 //! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
 //!
-//! To use this crate, add it to your `Cargo.toml` file:
-//!
-//! ```toml
-//! [dev-dependencies]
-//! assertables = "8.7"
-//! ```
-//!
 //! ## Introduction
 //!
 //! The Rust programming language provides a few built-in assert macros to test code:
@@ -29,12 +22,28 @@
 //!
 //! Examples:
 //!
-//! ```rust
-//! use assertables::*;
-//! assert_approx_eq!(1.0000001, 1.0000002); // compare floating point numbers
-//! assert_starts_with!("hello world", "hello"); // compare strings and substrings
-//! assert_set_eq!([1, 2, 3], [3, 2, 1]); // compare set collections order-independently
-//! assert_fs_read_to_string_eq!("actual.txt", "expect.txt"); // compare file text
+//! * [`assert_lt!(1, 2)`](macro@crate::assert_lt) `// compare less than`
+//! * [`assert_approx_eq!(1.0000001, 1.0000002)`](macro@crate::assert_approx_eq) `// compare floats`
+//! * [`assert_starts_with!("hello world", "hello")`](macro@crate::assert_starts_with) `// compare strings`
+//! * [`assert_fs_read_to_string_eq!("a.txt", "b.txt")`](macro@crate::assert_fs_read_to_string_eq) `// compare files`
+//!
+//! Top 3 benefits:
+//!
+//! 1. You can write better tests to improve reliability and maintainability.
+//! 2. You can handle more corner cases without needing to write custom code.
+//! 3. You can troubleshoot faster because error messages show specifics.
+//!
+//! Top 3 features:
+//!
+//! 1. Easy to use: everything is well-documented with runnable examples.
+//! 2. Runtime savvy: all the assertables macros have runtime versions.
+//! 3. Zero overhead: if you don't use a macro, then it's never compiled.
+//! 
+//! To use this crate, add it to your `Cargo.toml` file:
+//!
+//! ```toml
+//! [dev-dependencies]
+//! assertables = "8.11.0"
 //! ```
 //!
 //! ## Assert macros
@@ -135,29 +144,6 @@
 //! * [`assert_program_args`](module@crate::assert_program_args) for programs with args and their stdout & stderr.
 //!
 //!
-//! ## Benefits
-//!
-//! * Your tests are more purposeful and powerful. This helps your code be more
-//! reliable.
-//!
-//! * Your assert failures provide more information. This helps you
-//! troubleshoot faster.
-//!
-//! * You gain runtime asserts. This helps you with validations and
-//! verifications.
-//!
-//!
-//! ## Features
-//!
-//! * Easy to use: each macro is well-documented with runnable examples and
-//! tests.
-//!
-//! * Zero overhead: if you don't use a macro, then it's never compiled into
-//! your code.
-//!
-//! * Zero dependencies: the crate has no release dependencies, and just a short list of development dependencies.
-//!
-//!
 //! ## Forms
 //!
 //!
@@ -205,9 +191,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.10.1
+//! * Version: 8.11.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-28T09:28:51Z
+//! * Updated: 2024-10-01T13:11:35Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -251,6 +237,10 @@ pub mod assert_ok_eq_expr;
 pub mod assert_ok_ne;
 pub mod assert_ok_ne_expr;
 pub mod assert_err;
+pub mod assert_err_eq;
+pub mod assert_err_eq_expr;
+pub mod assert_err_ne;
+pub mod assert_err_ne_expr;
 pub mod assert_result; // Deprecated
 
 // For Option Some/None

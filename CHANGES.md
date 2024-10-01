@@ -5,8 +5,6 @@ Changes highlights for recent major versions.
 
 ## Version 8.x
 
-* Add approx macros: `assert_approx_eq`, `assert_approx_ne`.
-
 * Add Result macros: `assert_ok`, `assert_err`, et al.
 
 * Add Option macros: `assert_some`, `assert_none`, et al.
@@ -15,9 +13,9 @@ Changes highlights for recent major versions.
 
 * Add read macros: `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`, et al.
 
-* Enable `use assertables::` syntax for each macro by using `$crate::*`.
-  
-* Breaking change: migrate from `assert_read_to_string_*`. to `assert_io_read_to_string_*`.
+* Add approx macros: `assert_approx_eq`, `assert_approx_ne`.
+
+* Breaking change: change from `assert_read_to_string_*`. to `assert_io_read_to_string_*`.
 
 
 ## Version 7.x

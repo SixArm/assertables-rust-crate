@@ -51,7 +51,7 @@ macro_rules! assert_fs_read_to_string_lt_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`\n",
-                            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt_expr.html\n",
+                            "https://docs.rs/assertables/8.11.0/assertables/macro.assert_fs_read_to_string_lt_expr.html\n",
                             " a_path label: `{}`,\n",
                             " a_path debug: `{:?}`,\n",
                             " b_expr label: `{}`,\n",
@@ -73,7 +73,7 @@ macro_rules! assert_fs_read_to_string_lt_expr_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`\n",
-                                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt_expr.html\n",
+                                "https://docs.rs/assertables/8.11.0/assertables/macro.assert_fs_read_to_string_lt_expr.html\n",
                                 " a_path label: `{}`,\n",
                                 " a_path debug: `{:?}`,\n",
                                 " b_expr label: `{}`,\n",
@@ -129,7 +129,7 @@ mod tests {
             format!(
                 concat!(
                     "assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`\n",
-                    "https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt_expr.html\n",
+                    "https://docs.rs/assertables/8.11.0/assertables/macro.assert_fs_read_to_string_lt_expr.html\n",
                     " a_path label: `&path`,\n",
                     " a_path debug: `{:?}`,\n",
                     " b_expr label: `&value`,\n",
@@ -171,7 +171,7 @@ mod tests {
 /// assert_fs_read_to_string_lt_expr!(&path, &value);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`
-/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt_expr.html
+/// // https://docs.rs/assertables/8.11.0/assertables/macro.assert_fs_read_to_string_lt_expr.html
 /// //  a_path label: `&path`,
 /// //  a_path debug: `\"bravo.txt\"`,
 /// //  b_expr label: `&value`,
@@ -181,7 +181,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`\n",
-/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_fs_read_to_string_lt_expr.html\n",
+/// #     "https://docs.rs/assertables/8.11.0/assertables/macro.assert_fs_read_to_string_lt_expr.html\n",
 /// #     " a_path label: `&path`,\n",
 /// #     " a_path debug: `\"bravo.txt\"`,\n",
 /// #     " b_expr label: `&value`,\n",

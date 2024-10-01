@@ -234,7 +234,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_result_err!(a)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_result_err.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.11.0/assertables/macro.assert_result_err.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`"</span>,
                             ),
@@ -267,7 +267,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_result_err!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.10.1/assertables/macro.assert_result_err.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.11.0/assertables/macro.assert_result_err.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ok(())`"</span>,
             )
@@ -296,13 +296,13 @@
 /// assert_result_err!(a);
 /// # });
 /// // assertion failed: `assert_result_err!(a)`
-/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_result_err.html
+/// // https://docs.rs/assertables/8.11.0/assertables/macro.assert_result_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(())`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_result_err!(a)`\n",
-/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_result_err.html\n",
+/// #     "https://docs.rs/assertables/8.11.0/assertables/macro.assert_result_err.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(())`",
 /// # );

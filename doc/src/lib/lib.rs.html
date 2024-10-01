@@ -280,16 +280,6 @@
 <a href="#280" id="280">280</a>
 <a href="#281" id="281">281</a>
 <a href="#282" id="282">282</a>
-<a href="#283" id="283">283</a>
-<a href="#284" id="284">284</a>
-<a href="#285" id="285">285</a>
-<a href="#286" id="286">286</a>
-<a href="#287" id="287">287</a>
-<a href="#288" id="288">288</a>
-<a href="#289" id="289">289</a>
-<a href="#290" id="290">290</a>
-<a href="#291" id="291">291</a>
-<a href="#292" id="292">292</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
@@ -299,13 +289,6 @@
 //! * Docs: [https://docs.rs/assertables/](https://docs.rs/assertables/)
 //! * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
 //! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
-//!
-//! To use this crate, add it to your `Cargo.toml` file:
-//!
-//! ```toml
-//! [dev-dependencies]
-//! assertables = "8.7"
-//! ```
 //!
 //! ## Introduction
 //!
@@ -321,12 +304,28 @@
 //!
 //! Examples:
 //!
-//! ```rust
-//! use assertables::*;
-//! assert_approx_eq!(1.0000001, 1.0000002); // compare floating point numbers
-//! assert_starts_with!("hello world", "hello"); // compare strings and substrings
-//! assert_set_eq!([1, 2, 3], [3, 2, 1]); // compare set collections order-independently
-//! assert_fs_read_to_string_eq!("actual.txt", "expect.txt"); // compare file text
+//! * [`assert_lt!(1, 2)`](macro@crate::assert_lt) `// compare less than`
+//! * [`assert_approx_eq!(1.0000001, 1.0000002)`](macro@crate::assert_approx_eq) `// compare floats`
+//! * [`assert_starts_with!("hello world", "hello")`](macro@crate::assert_starts_with) `// compare strings`
+//! * [`assert_fs_read_to_string_eq!("a.txt", "b.txt")`](macro@crate::assert_fs_read_to_string_eq) `// compare files`
+//!
+//! Top 3 benefits:
+//!
+//! 1. You can write better tests to improve reliability and maintainability.
+//! 2. You can handle more corner cases without needing to write custom code.
+//! 3. You can troubleshoot faster because error messages show specifics.
+//!
+//! Top 3 features:
+//!
+//! 1. Easy to use: everything is well-documented with runnable examples.
+//! 2. Runtime savvy: all the assertables macros have runtime versions.
+//! 3. Zero overhead: if you don't use a macro, then it's never compiled.
+//! 
+//! To use this crate, add it to your `Cargo.toml` file:
+//!
+//! ```toml
+//! [dev-dependencies]
+//! assertables = "8.11.0"
 //! ```
 //!
 //! ## Assert macros
@@ -427,29 +426,6 @@
 //! * [`assert_program_args`](module@crate::assert_program_args) for programs with args and their stdout &amp; stderr.
 //!
 //!
-//! ## Benefits
-//!
-//! * Your tests are more purposeful and powerful. This helps your code be more
-//! reliable.
-//!
-//! * Your assert failures provide more information. This helps you
-//! troubleshoot faster.
-//!
-//! * You gain runtime asserts. This helps you with validations and
-//! verifications.
-//!
-//!
-//! ## Features
-//!
-//! * Easy to use: each macro is well-documented with runnable examples and
-//! tests.
-//!
-//! * Zero overhead: if you don't use a macro, then it's never compiled into
-//! your code.
-//!
-//! * Zero dependencies: the crate has no release dependencies, and just a short list of development dependencies.
-//!
-//!
 //! ## Forms
 //!
 //!
@@ -497,9 +473,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.10.1
+//! * Version: 8.11.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-09-28T09:28:51Z
+//! * Updated: 2024-10-01T13:11:35Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -543,6 +519,10 @@
 <span class="kw">pub mod </span>assert_ok_ne;
 <span class="kw">pub mod </span>assert_ok_ne_expr;
 <span class="kw">pub mod </span>assert_err;
+<span class="kw">pub mod </span>assert_err_eq;
+<span class="kw">pub mod </span>assert_err_eq_expr;
+<span class="kw">pub mod </span>assert_err_ne;
+<span class="kw">pub mod </span>assert_err_ne_expr;
 <span class="kw">pub mod </span>assert_result; <span class="comment">// Deprecated
 
 // For Option Some/None

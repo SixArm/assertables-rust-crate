@@ -54,7 +54,7 @@ macro_rules! assert_command_stderr_eq_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-                            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_eq_expr.html\n",
+                            "https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stderr_eq_expr.html\n",
                             "  command label: `{}`,\n",
                             "  command debug: `{:?}`,\n",
                             "     expr label: `{}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_command_stderr_eq_expr_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-                                "https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_eq_expr.html\n",
+                                "https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stderr_eq_expr.html\n",
                                 " command label: `{}`,\n",
                                 " command debug: `{:?}`,\n",
                                 "    expr label: `{}`,\n",
@@ -120,7 +120,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-            "https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_eq_expr.html\n",
+            "https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stderr_eq_expr.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
             "    expr label: `b`,\n",
@@ -162,7 +162,7 @@ mod tests {
 /// assert_command_stderr_eq_expr!(command, s);
 /// # });
 /// // assertion failed: `assert_command_stderr_eq_expr!(command, expr)`
-/// // https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_eq_expr.html
+/// // https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stderr_eq_expr.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
 /// //     expr label: `s`,
@@ -172,7 +172,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/8.10.1/assertables/macro.assert_command_stderr_eq_expr.html\n",
+/// #     "https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stderr_eq_expr.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
 /// #     "    expr label: `s`,\n",
