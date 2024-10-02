@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {};
+window.SIDEBAR_ITEMS = {"mod":["assert_err","assert_err_eq","assert_err_eq_expr","assert_err_ne","assert_err_ne_expr"]};

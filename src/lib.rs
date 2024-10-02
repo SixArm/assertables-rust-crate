@@ -82,27 +82,17 @@
 //!
 //! For Result Ok/Err:
 //!
-//! * [`assert_ok!(a)`](macro@crate::assert_ok)
-//! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq)
-//! * [`assert_ok_eq_expr!(a, expr)`](macro@crate::assert_ok_eq_expr)
-//! * [`assert_ok_ne!(a, b)`](macro@crate::assert_ok_ne)
-//! * [`assert_ok_ne_expr!(a, expr)`](macro@crate::assert_ok_ne_expr)
-//! * [`assert_err!(a)`](macro@crate::assert_err)
+//! * [`assert_ok!(a)`](macro@crate::assert_ok) ([eq, ne, etc.](module@crate::assert_ok))
+//! * [`assert_err!(a)`](macro@crate::assert_err) ([eq, ne, etc.](module@crate::assert_err))
 //!
 //! For Option Some/None:
 //!
-//! * [`assert_some!(a)`](macro@crate::assert_some)
-//! * [`assert_some_eq!(a, b)`](macro@crate::assert_some_eq)
-//! * [`assert_some_eq_expr!(a, expr)`](macro@crate::assert_some_eq_expr)
-//! * [`assert_some_ne!(a, b)`](macro@crate::assert_some_ne)
-//! * [`assert_some_ne_expr!(a, expr)`](macro@crate::assert_some_ne_expr)
+//! * [`assert_some!(a)`](macro@crate::assert_some) [eq, ne, etc.](module@crate::assert_some)
 //! * [`assert_none!(a)`](macro@crate::assert_none)
 //!
 //! For Poll Ready/Pending:
 //!
-//! * [`assert_ready!(a)`](macro@crate::assert_ready)
-//! * [`assert_ready_eq!(a, b)`](macro@crate::assert_ready_eq)
-//! * [`assert_ready_ne!(a, b)`](macro@crate::assert_ready_ne)
+//! * [`assert_ready!(a)`](macro@crate::assert_ready) [eq, ne, etc.](module@crate::assert_ready)
 //! * [`assert_pending!(a)`](macro@crate::assert_pending)
 //!
 //! For collections such as arrays, vectors, maps, sets:
@@ -121,11 +111,6 @@
 //! * [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](macro@crate::assert_program_args_stdout_eq);
 //!
 //! There are many more macros that are grouped into modules.
-//!
-//! Modules for `Result` such as `Ok` and `Err``:
-//!
-//! * [`assert_ok`](module@crate::assert_ok) for Ok(…) variants.
-//! * [`assert_err`](module@crate::assert_err) for Err(…) variants.
 //! 
 //! Modules for collections, such as arrays, vectors, lists, maps:
 //!
@@ -148,51 +133,26 @@
 //! * [`assert_command`](module@crate::assert_command) for commands and their stdout & stderr.
 //! * [`assert_program_args`](module@crate::assert_program_args) for programs with args and their stdout & stderr.
 //!
-//!
+//! 
 //! ## Forms
-//!
-//!
-//! ### Forms for panic versus error
-//!
-//! All the assert macros have 3 forms for different purposes:
-//!
-//! * Panic form for typical tests.
-//! * Debug form for debugging runtimes.
-//! * Result form for runtime checks, verifications, validations, etc.
-//!
-//! Examples:
-//!
-//! * [`assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html) // panic!
-//! * [`debug_assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.debug_assert_starts_with.html) // panic! in debug mode
-//! * [`assert_starts_with_as_result!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with_as_result.html) // return Ok or Err
-//!
-//!
-//! ### Forms for messages
-//!
-//! All the assert macros have 2 forms for messages.
-//!
-//! * Default message form.
-//! * Custom message form.
-//!
-//! Examples:
-//!
-//! * [`assert_starts_with!(a, b)`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html)
-//! * [`assert_starts_with!(a, b, "Your custom message here")`](https://docs.rs/assertables/latest/assertables/macro.assert_starts_with.html)
-//!
-//!
-//! ### Forms for other versus expression
-//!
-//! Many of the assert macros have 2 forms for comparing left hand side and right hand side.
-//!
-//! * Comparing a LHS item to a RHS other of the same type.
-//! * Comparing a LHS item to a RHS expression.
-//!
-//! Examples:
-//!
-//! * [`assert_io_read_to_string_eq!(reader1, reader2)`](https://docs.rs/assertables/latest/assertables/macro.assert_io_read_to_string_eq.html)
-//! * [`assert_io_read_to_string_eq_expr!(reader, expr)`](https://docs.rs/assertables/latest/assertables/macro.assert_io_read_to_string_eq_expr.html)
-//!
-//!
+//! 
+//! All assertables macros have forms for different outcomes:
+//! 
+//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt.html) // panic during typical test
+//! * [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt_as_result.html) // return Ok or Err
+//! * [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.debug_assert_gt.html) // panic when in debug mode
+//! 
+//! All assertables macros have forms for an optional message:
+//! 
+//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt.html) // automatic message
+//! * [`assert_gt!(a, b, "Your text")`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt.html) // custom message
+//! 
+//! Many assertables macros have forms for comparing left hand side (LHS) and right hand side (RHS) as the same type or as an expression:
+//! 
+//! * [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_eq.html) // Ok(…) = Ok(…)
+//! * [`assert_ok_eq_expr!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_eq_expr.html) // Ok(…) = expression
+//! 
+//! 
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
@@ -242,19 +202,11 @@ pub mod assert_result; // Deprecated
 
 // For Option Some/None
 pub mod assert_some;
-pub mod assert_some_eq;
-pub mod assert_some_eq_expr;
-pub mod assert_some_ne;
-pub mod assert_some_ne_expr;
 pub mod assert_none;
 pub mod assert_option; // Deprecated
 
 // For Poll Ready/Pending
 pub mod assert_ready;
-pub mod assert_ready_eq;
-pub mod assert_ready_eq_expr;
-pub mod assert_ready_ne;
-pub mod assert_ready_ne_expr;
 pub mod assert_pending;
 pub mod assert_poll; // Deprecated
 

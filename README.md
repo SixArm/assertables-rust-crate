@@ -71,8 +71,8 @@ For matching:
 
 For infix operators:
 
-* [`assert_infix!(a == b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_infix.html)
-* [`assert_infix!(a && b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_infix.html)
+* [`assert_infix!(a == b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_infix.html) ([more](https://docs.rs/assertables/8.11.0/assertables/assert_infix))
+* [`assert_infix!(a && b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_infix.html) ([more](https://docs.rs/assertables/8.11.0/assertables/assert_infix))
 
 For nearness:
 
@@ -81,35 +81,23 @@ For nearness:
 
 For Result Ok/Err:
 
-* [`assert_ok!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok.html)
-* [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_eq.html)
-* [`assert_ok_eq_expr!(a, expr)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_eq_expr.html)
-* [`assert_ok_ne!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_ne.html)
-* [`assert_ok_ne_expr!(a, expr)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_ne_expr.html)
-* [`assert_err!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_err.html)
+* [`assert_ok!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok.html) ([eq, ne, etc.](https://docs.rs/assertables/8.11.0/assertables/assert_ok))
+* [`assert_err!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_err.html ([eq, ne, etc.](https://docs.rs/assertables/8.11.0/assertables/assert_err))
 
 For Option Some/None:
 
-* [`assert_some!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_some.html)
-* [`assert_some_eq!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_some_eq.html)
-* [`assert_some_eq_expr!(a, expr)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_some_eq_expr.html)
-* [`assert_some_ne!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_some_ne.html)
-* [`assert_some_ne_expr!(a, expr)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_some_ne_expr.html)
+* [`assert_some!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_some.html) ([eq, ne, etc.](https://docs.rs/assertables/8.11.0/assertables/assert_some))
 * [`assert_none!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_none.html)
 
 For Poll Ready/Pending:
 
-* [`assert_ready!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ready.html)
-* [`assert_ready_eq!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ready_eq.html)
-* [`assert_ready_eq_expr!(a, expr)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ready_eq_expr.html)
-* [`assert_ready_ne!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ready_ne.html)
-* [`assert_ready_ne_expr!(a, expr)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ready_ne_expr.html)
+* [`assert_ready!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ready.html) ([eq, ne, etc.](https://docs.rs/assertables/8.11.0/assertables/assert_ready))
 * [`assert_pending!(a)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_pending.html)
 
 For collections such as arrays, vectors, maps, sets:
 
-* [`assert_set_subset!(collection1, collection2)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_set_subset.html)
-* [`assert_set_disjoint!(collection1, collection2)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_set_disjoint.html)
+* [`assert_bag_eq!(collection1, collection2)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_bag_eq.html) ([more](https://docs.rs/assertables/8.11.0/assertables/assert_bag)).
+* [`assert_set_eq!(collection1, collection2)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_set_eq.html) [more](https://docs.rs/assertables/8.11.0/assertables/assert_set).
 
 For file system paths and input/output readers:
 
@@ -147,46 +135,21 @@ Modules for external calls:
 
 ## Forms
 
+All assertables macros have forms for different outcomes:
 
-### Forms for panic versus error
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt.html) // panic during typical test
+* [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt_as_result.html) // return Ok or Err
+* [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.debug_assert_gt.html) // panic when in debug mode
 
-All the assert macros have 3 forms for different purposes:
+All assertables macros have forms for an optional message:
 
-* Panic form for typical tests.
-* Debug form for debugging runtimes.
-* Result form for runtime checks, verifications, validations, etc.
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt.html) // automatic error message
+* [`assert_gt!(a, b, "your text")`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt.html) // custom error message
 
-Examples:
+Many assertables macros have forms for comparing left hand side (LHS) and right hand side (RHS) as the same type or as an expression:
 
-* [`assert_starts_with!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_starts_with.html) // panic!
-* [`debug_assert_starts_with!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.debug_assert_starts_with.html) // panic! in debug mode
-* [`assert_starts_with_as_result!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_starts_with_as_result.html) // return Ok or Err
-
-
-### Forms for messages
-
-All the assert macros have 2 forms for messages.
-
-* Default message form.
-* Custom message form.
-
-Examples:
-
-* [`assert_starts_with!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_starts_with.html)
-* [`assert_starts_with!(a, b, "Your custom message here")`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_starts_with.html)
-
-
-### Forms for other versus expression
-
-Many of the assert macros have 2 forms for comparing left hand side and right hand side.
-
-* Comparing a LHS item to a RHS other of the same type.
-* Comparing a LHS item to a RHS expression.
-
-Examples:
-
-* [`assert_io_read_to_string_eq!(reader1, reader2)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_io_read_to_string_eq.html)
-* [`assert_io_read_to_string_eq_expr!(reader, expr)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_io_read_to_string_eq_expr.html)
+* [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_eq.html) // Ok(…) = Ok(…)
+* [`assert_ok_eq_expr!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_eq_expr.html) // Ok(…) = expression
 
 
 ## Tracking
