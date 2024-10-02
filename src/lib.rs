@@ -122,10 +122,15 @@
 //!
 //! There are many more macros that are grouped into modules.
 //!
+//! Modules for `Result` such as `Ok` and `Err``:
+//!
+//! * [`assert_ok`](module@crate::assert_ok) for Ok(…) variants.
+//! * [`assert_err`](module@crate::assert_err) for Err(…) variants.
+//! 
 //! Modules for collections, such as arrays, vectors, lists, maps:
 //!
-//! * [`assert_set`](module@crate::assert_set) for set collections
-//! * [`assert_bag`](module@crate::assert_bag) for bag collections
+//! * [`assert_set`](module@crate::assert_set) for set collections.
+//! * [`assert_bag`](module@crate::assert_bag) for bag collections.
 //!
 //! Modules for functions:
 //!
@@ -232,15 +237,7 @@ pub mod assert_not_ends_with;
 
 // For Result Ok/Err
 pub mod assert_ok;
-pub mod assert_ok_eq;
-pub mod assert_ok_eq_expr;
-pub mod assert_ok_ne;
-pub mod assert_ok_ne_expr;
 pub mod assert_err;
-pub mod assert_err_eq;
-pub mod assert_err_eq_expr;
-pub mod assert_err_ne;
-pub mod assert_err_ne_expr;
 pub mod assert_result; // Deprecated
 
 // For Option Some/None

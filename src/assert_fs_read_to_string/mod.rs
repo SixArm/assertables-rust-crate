@@ -61,7 +61,7 @@ pub mod assert_fs_read_to_string_le;
 pub mod assert_fs_read_to_string_gt;
 pub mod assert_fs_read_to_string_ge;
 
-// Comparisons with expressions
+// Compare with expression
 pub mod assert_fs_read_to_string_eq_expr;
 pub mod assert_fs_read_to_string_ne_expr;
 pub mod assert_fs_read_to_string_lt_expr;

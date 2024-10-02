@@ -129,7 +129,7 @@ fn assert_fn() {
     assert_fn_gt!(g, f);
     assert_fn_ge!(g, f);
 
-    // Comparisons with expressions
+    // Compare with expression
     assert_fn_eq_expr!(f, 1);
     assert_fn_ne_expr!(f, 2);
     assert_fn_lt_expr!(f, 2);
@@ -154,7 +154,7 @@ fn assert_fn_ok() {
     assert_fn_ok_gt!(g, f);
     assert_fn_ok_ge!(g, f);
 
-    // Comparisons with expressions
+    // Compare with expression
     assert_fn_ok_eq_expr!(f, 1);
     assert_fn_ok_ne_expr!(f, 2);
     assert_fn_ok_lt_expr!(f, 2);
@@ -179,7 +179,7 @@ fn assert_fn_err() {
     assert_fn_err_gt!(g, f);
     assert_fn_err_ge!(g, f);
 
-    // Comparisons with expressions
+    // Compare with expression
     assert_fn_err_ne_expr!(f, 2);
     assert_fn_err_eq_expr!(f, 1);
     assert_fn_err_lt_expr!(f, 2);
@@ -200,7 +200,7 @@ fn assert_fs_read_to_string() {
     assert_fs_read_to_string_gt!("bravo.txt", "alfa.txt");
     assert_fs_read_to_string_ge!("bravo.txt", "alfa.txt");
 
-    // Comparisons with expressions
+    // Compare with expression
     assert_fs_read_to_string_eq_expr!("alfa.txt", "alfa\n");
     assert_fs_read_to_string_ne_expr!("alfa.txt", "z");
     assert_fs_read_to_string_lt_expr!("alfa.txt", "b");
@@ -230,7 +230,7 @@ fn assert_io_read_to_string() {
     a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_gt!(b, a);
     a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_ge!(b, a);
 
-    // Comparisons with expressions
+    // Compare with expression
     a = "alfa".as_bytes(); assert_io_read_to_string_eq_expr!(a, "alfa");
     a = "alfa".as_bytes(); assert_io_read_to_string_ne_expr!(a, "b");
     a = "alfa".as_bytes(); assert_io_read_to_string_lt_expr!(a, "b");

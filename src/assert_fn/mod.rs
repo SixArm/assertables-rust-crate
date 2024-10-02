@@ -51,7 +51,7 @@ pub mod assert_fn_le;
 pub mod assert_fn_gt;
 pub mod assert_fn_ge;
 
-// Comparisons with expressions
+// Compare with expression
 pub mod assert_fn_eq_expr;
 pub mod assert_fn_ne_expr;
 pub mod assert_fn_ge_expr;

@@ -64,7 +64,7 @@ pub mod assert_fn_err_le;
 pub mod assert_fn_err_gt;
 pub mod assert_fn_err_ge;
 
-// Comparisons with expressions
+// Compare with expression
 pub mod assert_fn_err_eq_expr;
 pub mod assert_fn_err_ne_expr;
 pub mod assert_fn_err_lt_expr;

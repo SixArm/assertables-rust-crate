@@ -64,7 +64,7 @@ pub mod assert_fn_ok_le;
 pub mod assert_fn_ok_gt;
 pub mod assert_fn_ok_ge;
 
-// Comparisons with expressions
+// Compare with expression
 pub mod assert_fn_ok_eq_expr;
 pub mod assert_fn_ok_ne_expr;
 pub mod assert_fn_ok_lt_expr;
