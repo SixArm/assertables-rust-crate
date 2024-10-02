@@ -14,7 +14,7 @@
 //! # }
 //! ```
 //!
-//! This implementation uses [`std::iter::Iterator`](https://doc.rust-lang.org/std/collections/trait.Iterator.html).
+//! This implementation uses [`std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 //!
 //! # Module macros
 //!
@@ -37,7 +37,7 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
+/// This implementation uses [`std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 ///
 /// # Module macros
 ///
@@ -158,7 +158,7 @@ mod tests {
 /// # }
 /// ```
 ///
-/// This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
+/// This implementation uses [`std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 ///
 /// # Module macros
 ///
