@@ -54,7 +54,7 @@ macro_rules! assert_ok_ne_as_result {
                             Err(format!(
                                 concat!(
                                     "assertion failed: `assert_ok_ne!(a, b)`\n",
-                                    "https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_ne.html\n",
+                                    "https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " a inner: `{:?}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_ok_ne_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_ok_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_ne.html\n",
+                                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -114,7 +114,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_ne.html\n",
+                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
                 " a inner: `1`,\n",
@@ -135,7 +135,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_ne.html\n",
+                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Err(1)`,\n",
                 " b label: `b`,\n",
@@ -172,7 +172,7 @@ mod tests {
 /// assert_ok_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_ok_ne!(a, b)`
-/// // https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_ne.html
+/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,
@@ -182,7 +182,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ok_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_ne.html\n",
+/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",

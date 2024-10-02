@@ -38,16 +38,16 @@
 //! 1. Easy to use: everything is well-documented with runnable examples.
 //! 2. Runtime savvy: all the assertables macros have runtime versions.
 //! 3. Zero overhead: if you don't use a macro, then it's never compiled.
-//! 
+//!
 //! To use this crate, add it to your `Cargo.toml` file:
 //!
 //! ```toml
 //! [dev-dependencies]
-//! assertables = "8.11.0"
+//! assertables = "8.12.0"
 //! ```
 //!
 //! ## Assert macros
-//! 
+//!
 //! For values:
 //!
 //! * [`assert_lt!(a, b)`](macro@crate::assert_lt) `// less than`
@@ -87,18 +87,19 @@
 //!
 //! For Option Some/None:
 //!
-//! * [`assert_some!(a)`](macro@crate::assert_some) [eq, ne, etc.](module@crate::assert_some)
+//! * [`assert_some!(a)`](macro@crate::assert_some) ([eq, ne, etc.](module@crate::assert_some))
 //! * [`assert_none!(a)`](macro@crate::assert_none)
 //!
 //! For Poll Ready/Pending:
 //!
-//! * [`assert_ready!(a)`](macro@crate::assert_ready) [eq, ne, etc.](module@crate::assert_ready)
+//! * [`assert_ready!(a)`](macro@crate::assert_ready) ([eq, ne, etc.](module@crate::assert_ready))
 //! * [`assert_pending!(a)`](macro@crate::assert_pending)
 //!
-//! For collections such as arrays, vectors, maps, sets:
+//! For collections such as arrays, vectors, iterators, sets, bags:
 //!
-//! * [`assert_set_subset!(collection1, collection2)`](macro@crate::assert_set_subset)
-//! * [`assert_set_disjoint!(collection1, collection2)`](macro@crate::assert_set_disjoint)
+//! * [`assert_iter_eq!(collection1, collection2)`](macro@crate::assert_iter_eq) ([eq, ne, etc.](module@crate::assert_iter))
+//! * [`assert_set_eq!(collection1, collection2)`](macro@crate::assert_set_eq) ([eq, ne, subset, etc.](module@crate::assert_set))
+//! * [`assert_bag_eq!(collection1, collection2)`](macro@crate::assert_bag_eq) ([eq, ne, subbag, etc.](module@crate::assert_bag))
 //!
 //! For file system paths and input/output readers:
 //!
@@ -111,11 +112,18 @@
 //! * [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](macro@crate::assert_program_args_stdout_eq);
 //!
 //! There are many more macros that are grouped into modules.
-//! 
+//!
 //! Modules for collections, such as arrays, vectors, lists, maps:
 //!
+//! * [`assert_iter`](module@crate::assert_iter) for iterator collections.
 //! * [`assert_set`](module@crate::assert_set) for set collections.
 //! * [`assert_bag`](module@crate::assert_bag) for bag collections.
+//!
+//! Modules for variants:
+//!
+//! * [`assert_ok`](module@crate::assert_ok)/[`assert_err`](module@crate::assert_err) for Result Ok/Err.
+//! * [`assert_some`](module@crate::assert_some)/[`assert_none`](module@crate::assert_none) for Option Some/None.
+//! * [`assert_ready`](module@crate::assert_ready)/[`assert_pending`](module@crate::assert_pending) for Poll Ready/Pending.
 //!
 //! Modules for functions:
 //!
@@ -133,32 +141,32 @@
 //! * [`assert_command`](module@crate::assert_command) for commands and their stdout & stderr.
 //! * [`assert_program_args`](module@crate::assert_program_args) for programs with args and their stdout & stderr.
 //!
-//! 
+//!
 //! ## Forms
-//! 
+//!
 //! All assertables macros have forms for different outcomes:
-//! 
-//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt.html) // panic during typical test
-//! * [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt_as_result.html) // return Ok or Err
-//! * [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.debug_assert_gt.html) // panic when in debug mode
-//! 
+//!
+//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) // panic during typical test
+//! * [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt_as_result.html) // return Ok or Err
+//! * [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.debug_assert_gt.html) // panic when in debug mode
+//!
 //! All assertables macros have forms for an optional message:
-//! 
-//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt.html) // automatic message
-//! * [`assert_gt!(a, b, "Your text")`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_gt.html) // custom message
-//! 
+//!
+//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) // automatic message
+//! * [`assert_gt!(a, b, "Your text")`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) // custom message
+//!
 //! Many assertables macros have forms for comparing left hand side (LHS) and right hand side (RHS) as the same type or as an expression:
-//! 
-//! * [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_eq.html) // Ok(…) = Ok(…)
-//! * [`assert_ok_eq_expr!(a, b)`](https://docs.rs/assertables/8.11.0/assertables/macro.assert_ok_eq_expr.html) // Ok(…) = expression
-//! 
-//! 
+//!
+//! * [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_eq.html) // Ok(…) = Ok(…)
+//! * [`assert_ok_eq_expr!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_eq_expr.html) // Ok(…) = expression
+//!
+//!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.11.0
+//! * Version: 8.12.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-01T13:11:35Z
+//! * Updated: 2024-10-02T16:29:24Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -211,6 +219,7 @@ pub mod assert_pending;
 pub mod assert_poll; // Deprecated
 
 // For collections
+pub mod assert_iter;
 pub mod assert_set;
 pub mod assert_bag;
 

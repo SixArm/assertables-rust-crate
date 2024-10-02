@@ -1,5 +1,5 @@
 //! Namespace examples.
-//! 
+//!
 //! This file has some simple demonstrations of how to use Assertables in
 //! validations by using a namespace, explicitly using the macro names.
 

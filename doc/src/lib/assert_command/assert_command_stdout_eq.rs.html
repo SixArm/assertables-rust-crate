@@ -308,7 +308,7 @@
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stdout_eq.html\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_command_stdout_eq.html\n"</span>,
                     <span class="string">" a label: `{}`,\n"</span>,
                     <span class="string">" a debug: `{:?}`,\n"</span>,
                     <span class="string">" b label: `{}`,\n"</span>,
@@ -332,7 +332,7 @@
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stdout_eq.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_command_stdout_eq.html\n"</span>,
                         <span class="string">" a label: `{}`,\n"</span>,
                         <span class="string">" a debug: `{:?}`,\n"</span>,
                         <span class="string">" b label: `{}`,\n"</span>,
@@ -377,7 +377,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stdout_eq.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_command_stdout_eq.html\n"</span>,
             <span class="string">" a label: `a`,\n"</span>,
             <span class="string">" a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n"</span>,
             <span class="string">" b label: `b`,\n"</span>,
@@ -421,7 +421,7 @@
 /// assert_command_stdout_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
-/// // https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stdout_eq.html
+/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_command_stdout_eq.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
 /// //  b label: `b`,
@@ -431,7 +431,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/8.11.0/assertables/macro.assert_command_stdout_eq.html\n",
+/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_command_stdout_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
 /// #     " b label: `b`,\n",

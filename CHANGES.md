@@ -5,13 +5,15 @@ Changes highlights for recent major versions.
 
 ## Version 8.x
 
-* Add Result macros: `assert_ok`, `assert_err`, et al.
+* Add Iterator macros: `assert_iter_eq`, `assert_iter_ne`, etc.
 
-* Add Option macros: `assert_some`, `assert_none`, et al.
+* Add Result macros: `assert_ok`, `assert_err`, etc.
 
-* Add Poll macros: `assert_ready`, `assert_pending`, et al.
+* Add Option macros: `assert_some`, `assert_none`, etc.
 
-* Add read macros: `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`, et al.
+* Add Poll macros: `assert_ready`, `assert_pending`, etc.
+
+* Add read macros: `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`, etc.
 
 * Add approx macros: `assert_approx_eq`, `assert_approx_ne`.
 

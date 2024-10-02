@@ -3,24 +3,24 @@
 //! These macros help compare Ok(…) items, such as `std::Result::Ok` or similar.
 //!
 //! Assert expression is Ok(_):
-//! 
-//! * [`assert_ok!(a)`](macro@crate::assert_ok) 
+//!
+//! * [`assert_ok!(a)`](macro@crate::assert_ok)
 //!   ≈ a is Ok(_)
-//! 
+//!
 //! Compare Ok(…) to another Ok(…):
-//! 
-//! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq) 
+//!
+//! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq)
 //!   ≈ (a ⇒ Ok(a̅) ⇒ a̅) = (b ⇒ Ok(b̅) ⇒ b̅)
 //!
-//! * [`assert_ok_ne!(a, b)`](macro@crate::assert_ok_ne) 
+//! * [`assert_ok_ne!(a, b)`](macro@crate::assert_ok_ne)
 //!   ≈ (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
 //!
 //! Compare Ok(…) to an expression:
-//! 
-//! * [`assert_ok_eq_expr!(a, expr)`](macro@crate::assert_ok_eq_expr) 
+//!
+//! * [`assert_ok_eq_expr!(a, expr)`](macro@crate::assert_ok_eq_expr)
 //!   ≈ (a ⇒ Ok(a̅) ⇒ a̅) = b
 //!
-//! * [`assert_ok_ne_expr!(a, b)`](macro@crate::assert_ok_ne_expr) 
+//! * [`assert_ok_ne_expr!(a, b)`](macro@crate::assert_ok_ne_expr)
 //!   ≈ (a ⇒ Ok(a̅) ⇒ a̅) ≠ b
 
 // Verify Ok(_)
