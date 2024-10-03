@@ -184,6 +184,7 @@
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression is None.
 //!
 //! # Example
@@ -234,7 +235,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_option_none!(a)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_option_none.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_none.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`"</span>,
                             ),
@@ -267,7 +268,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_option_none!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_option_none.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_none.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Some(1)`"</span>,
             )
@@ -287,6 +288,7 @@
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a: Option&lt;i8&gt; = Option::None;
 /// assert_option_none!(a);
@@ -296,13 +298,13 @@
 /// assert_option_none!(a);
 /// # });
 /// // assertion failed: `assert_option_none!(a)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_option_none.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_none.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_option_none!(a)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_option_none.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_none.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`",
 /// # );

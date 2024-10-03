@@ -56,7 +56,7 @@ macro_rules! assert_fn_lt_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fn_lt_expr!(a_function, a_param, b_expr)`\n",
-                            "https://docs.rs/assertables/8.12.0/assertables/macro.assert_fn_lt_expr.html\n",
+                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_fn_lt_expr.html\n",
                             " a_function label: `{}`,\n",
                             "    a_param label: `{}`,\n",
                             "    a_param debug: `{:?}`,\n",
@@ -90,7 +90,7 @@ macro_rules! assert_fn_lt_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fn_lt_expr!(a_function, b_expr)`\n",
-                            "https://docs.rs/assertables/8.12.0/assertables/macro.assert_fn_lt_expr.html\n",
+                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_fn_lt_expr.html\n",
                             " a_function label: `{}`,\n",
                             "     b_expr label: `{}`,\n",
                             "     b_expr debug: `{:?}`,\n",
@@ -139,7 +139,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_lt_expr!(a_function, a_param, b_expr)`\n",
-                        "https://docs.rs/assertables/8.12.0/assertables/macro.assert_fn_lt_expr.html\n",
+                        "https://docs.rs/assertables/8.13.0/assertables/macro.assert_fn_lt_expr.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
@@ -161,7 +161,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_lt_expr!(a_function, a_param, b_expr)`\n",
-                        "https://docs.rs/assertables/8.12.0/assertables/macro.assert_fn_lt_expr.html\n",
+                        "https://docs.rs/assertables/8.13.0/assertables/macro.assert_fn_lt_expr.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
@@ -196,7 +196,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_lt_expr!(a_function, b_expr)`\n",
-                        "https://docs.rs/assertables/8.12.0/assertables/macro.assert_fn_lt_expr.html\n",
+                        "https://docs.rs/assertables/8.13.0/assertables/macro.assert_fn_lt_expr.html\n",
                         " a_function label: `f`,\n",
                         "     b_expr label: `b`,\n",
                         "     b_expr debug: `1`,\n",
@@ -215,7 +215,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_lt_expr!(a_function, b_expr)`\n",
-                        "https://docs.rs/assertables/8.12.0/assertables/macro.assert_fn_lt_expr.html\n",
+                        "https://docs.rs/assertables/8.13.0/assertables/macro.assert_fn_lt_expr.html\n",
                         " a_function label: `f`,\n",
                         "     b_expr label: `b`,\n",
                         "     b_expr debug: `0`,\n",
@@ -243,6 +243,7 @@ mod tests {
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a: i8 = -1;
 /// let b: i8 = 2;
@@ -254,7 +255,7 @@ mod tests {
 /// assert_fn_lt_expr!(i8::abs, a, b);
 /// # });
 /// // assertion failed: `assert_fn_lt_expr!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_fn_lt_expr.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_fn_lt_expr.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `-2`,
@@ -265,7 +266,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_lt_expr!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_fn_lt_expr.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_fn_lt_expr.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-2`,\n",

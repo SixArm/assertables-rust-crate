@@ -1,4 +1,4 @@
-//! Assert a value is less than an expression.
+//! Assert an expression is less than another expression.
 //!
 //! Pseudocode:<br>
 //! a < b
@@ -20,7 +20,7 @@
 //! * [`assert_lt_as_result`](macro@crate::assert_lt_as_result)
 //! * [`debug_assert_lt`](macro@crate::debug_assert_lt)
 
-/// Assert a value is less than an expression.
+/// Assert an expression is less than another expression.
 ///
 /// Pseudocode:<br>
 /// a < b
@@ -53,7 +53,7 @@ macro_rules! assert_lt_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_lt!(a, b)`\n",
-                            "https://docs.rs/assertables/8.12.0/assertables/macro.assert_lt.html\n",
+                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_lt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -91,7 +91,7 @@ mod test_assert_x_result {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `2`,\n",
                 " b label: `b`,\n",
@@ -101,7 +101,7 @@ mod test_assert_x_result {
     }
 }
 
-/// Assert a value is less than an expression.
+/// Assert an expression is less than another expression.
 ///
 /// Pseudocode:<br>
 /// a < b
@@ -116,6 +116,7 @@ mod test_assert_x_result {
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a = 1;
 /// let b = 2;
@@ -127,7 +128,7 @@ mod test_assert_x_result {
 /// assert_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_lt!(a, b)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_lt.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_lt.html
 /// //  a label: `a`,
 /// //  a debug: `2`,
 /// //  b label: `b`,
@@ -135,7 +136,7 @@ mod test_assert_x_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_lt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_lt.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `2`,\n",
 /// #     " b label: `b`,\n",
@@ -167,7 +168,7 @@ macro_rules! assert_lt {
     }};
 }
 
-/// Assert a value is less than an expression.
+/// Assert an expression is less than another expression.
 ///
 /// Pseudocode:<br>
 /// a < b

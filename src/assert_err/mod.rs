@@ -22,6 +22,16 @@
 //!
 //! * [`assert_err_ne_expr!(a, b)`](macro@crate::assert_err_ne_expr)
 //!   ≈ (a ⇒ Err(a̅) ⇒ a̅) ≠ b
+//! 
+//! # Example
+//!
+//! ```rust
+//! use assertables::*;
+//! # fn main() {
+//! let a: Result<(), i8> = Err(1);
+//! assert_err!(a);
+//! # }
+//! ```
 
 // Verify Err(_)
 pub mod assert_err;

@@ -11,16 +11,16 @@ method <code>read_to_string() -&gt; String</code>.</p>
 <p><a href="../macro.assert_io_read_to_string_ne.html" title="macro lib::assert_io_read_to_string_ne"><code>assert_io_read_to_string_ne!(reader1, reader2)</code></a> ≈ reader1.read_to_string() ≠ reader2.read_to_string()</p>
 </li>
 <li>
-<p><a href="../macro.assert_io_read_to_string_ge.html" title="macro lib::assert_io_read_to_string_ge"><code>assert_io_read_to_string_ge!(reader1, reader2)</code></a> ≈ reader1.read_to_string() ≥ reader2.read_to_string()</p>
-</li>
-<li>
-<p><a href="../macro.assert_io_read_to_string_gt.html" title="macro lib::assert_io_read_to_string_gt"><code>assert_io_read_to_string_gt!(reader1, reader2)</code></a> ≈ reader1.read_to_string() &gt; reader2.read_to_string()</p>
+<p><a href="../macro.assert_io_read_to_string_lt.html" title="macro lib::assert_io_read_to_string_lt"><code>assert_io_read_to_string_lt!(reader1, reader2)</code></a> ≈ reader1.read_to_string() &lt; reader2.read_to_string()</p>
 </li>
 <li>
 <p><a href="../macro.assert_io_read_to_string_le.html" title="macro lib::assert_io_read_to_string_le"><code>assert_io_read_to_string_le!(reader1, reader2)</code></a> ≈ reader1.read_to_string() ≤ reader2.read_to_string()</p>
 </li>
 <li>
-<p><a href="../macro.assert_io_read_to_string_lt.html" title="macro lib::assert_io_read_to_string_lt"><code>assert_io_read_to_string_lt!(reader1, reader2)</code></a> ≈ reader1.read_to_string() &lt; reader2.read_to_string()</p>
+<p><a href="../macro.assert_io_read_to_string_gt.html" title="macro lib::assert_io_read_to_string_gt"><code>assert_io_read_to_string_gt!(reader1, reader2)</code></a> ≈ reader1.read_to_string() &gt; reader2.read_to_string()</p>
+</li>
+<li>
+<p><a href="../macro.assert_io_read_to_string_ge.html" title="macro lib::assert_io_read_to_string_ge"><code>assert_io_read_to_string_ge!(reader1, reader2)</code></a> ≈ reader1.read_to_string() ≥ reader2.read_to_string()</p>
 </li>
 </ul>
 <p>Compare a reader with an expression:</p>
@@ -32,16 +32,16 @@ method <code>read_to_string() -&gt; String</code>.</p>
 <p><a href="../macro.assert_io_read_to_string_ne_expr.html" title="macro lib::assert_io_read_to_string_ne_expr"><code>assert_io_read_to_string_ne_expr!(reader, expr)</code></a> ≈ reader.read_to_string() ≠ expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_io_read_to_string_ge_expr.html" title="macro lib::assert_io_read_to_string_ge_expr"><code>assert_io_read_to_string_ge_expr!(reader, expr)</code></a> ≈ reader.read_to_string() ≥ expr</p>
-</li>
-<li>
-<p><a href="../macro.assert_io_read_to_string_gt_expr.html" title="macro lib::assert_io_read_to_string_gt_expr"><code>assert_io_read_to_string_gt_expr!(reader, expr)</code></a> ≈ reader.read_to_string() &gt; expr</p>
+<p><a href="../macro.assert_io_read_to_string_lt_expr.html" title="macro lib::assert_io_read_to_string_lt_expr"><code>assert_io_read_to_string_lt_expr!(reader, expr)</code></a> ≈ reader.read_to_string() &lt; expr</p>
 </li>
 <li>
 <p><a href="../macro.assert_io_read_to_string_le_expr.html" title="macro lib::assert_io_read_to_string_le_expr"><code>assert_io_read_to_string_le_expr!(reader, expr)</code></a> ≈ reader.read_to_string() ≤ expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_io_read_to_string_lt_expr.html" title="macro lib::assert_io_read_to_string_lt_expr"><code>assert_io_read_to_string_lt_expr!(reader, expr)</code></a> ≈ reader.read_to_string() &lt; expr</p>
+<p><a href="../macro.assert_io_read_to_string_gt_expr.html" title="macro lib::assert_io_read_to_string_gt_expr"><code>assert_io_read_to_string_gt_expr!(reader, expr)</code></a> ≈ reader.read_to_string() &gt; expr</p>
+</li>
+<li>
+<p><a href="../macro.assert_io_read_to_string_ge_expr.html" title="macro lib::assert_io_read_to_string_ge_expr"><code>assert_io_read_to_string_ge_expr!(reader, expr)</code></a> ≈ reader.read_to_string() ≥ expr</p>
 </li>
 </ul>
 <p>Compare a reader with its contents:</p>

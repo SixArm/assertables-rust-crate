@@ -1,4 +1,4 @@
-//! Assert an expression is equal to another.
+//! Assert an expression is equal to another expression.
 //!
 //! Pseudocode:<br>
 //! a = b
@@ -12,7 +12,7 @@
 //! * [`assert_eq`](https://doc.rust-lang.org/std/macro.assert_eq.html)
 //! * [`debug_assert_eq`](https://doc.rust-lang.org/std/macro.debug_assert_eq.html)
 
-/// Assert an expression is equal to another.
+/// Assert an expression is equal to another expression.
 ///
 /// Pseudocode:<br>
 /// a = b
@@ -47,7 +47,7 @@ macro_rules! assert_eq_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_eq!(a, b)`\n",
-                            "https://docs.rs/assertables/8.12.0/assertables/macro.assert_eq.html\n",
+                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -85,7 +85,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_eq!(a, b)`\n",
-                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_eq.html\n",
+                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_eq.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",

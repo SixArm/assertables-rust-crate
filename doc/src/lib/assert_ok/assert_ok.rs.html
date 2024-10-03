@@ -193,6 +193,7 @@
 <a href="#193" id="193">193</a>
 <a href="#194" id="194">194</a>
 <a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression is Ok(_).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -248,7 +249,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_ok!(a)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`"</span>,
                             ),
@@ -281,7 +282,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ok!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Err(1)`"</span>,
             )
@@ -304,6 +305,7 @@
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a: Result&lt;(), i8&gt; = Ok(());
 /// assert_ok!(a);
@@ -313,13 +315,13 @@
 /// assert_ok!(a);
 /// # });
 /// // assertion failed: `assert_ok!(a)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ok!(a)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`",
 /// # );

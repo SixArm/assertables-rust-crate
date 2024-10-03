@@ -30,6 +30,24 @@ fn assert_inners() {
 }
 
 #[test]
+fn assert_len() {
+    // Compare other
+    assert_len_eq!("x", "x");
+    assert_len_ne!("x", "xx");
+    assert_len_lt!("x", "xx");
+    assert_len_le!("x", "xx");
+    assert_len_gt!("xx", "x");
+    assert_len_ge!("xx", "x");
+    // Compare expr
+    assert_len_eq_expr!("x", 1);
+    assert_len_ne_expr!("x", 2);
+    assert_len_lt_expr!("x", 2);
+    assert_len_le_expr!("x", 2);
+    assert_len_gt_expr!("xx", 1);
+    assert_len_ge_expr!("xx", 1);
+}
+
+#[test]
 fn assert_return_enum() {
     let a: Result<i8, i8> = Result::Ok(1);
     assert_ok!(a);
@@ -81,6 +99,16 @@ fn assert_poll_enum() {
 
     let a: Poll<i8> = Pending;
     assert_pending!(a);
+}
+
+#[test]
+fn assert_iter() {
+    assert_iter_eq!([1], [1]);
+    assert_iter_ne!([1], [2]);
+    assert_iter_lt!([1, 2], [3, 4]);
+    assert_iter_le!([1, 2], [3, 4]);
+    assert_iter_gt!([3, 4], [1, 2]);
+    assert_iter_ge!([3, 4], [1, 2]);
 }
 
 #[test]

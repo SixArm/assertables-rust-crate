@@ -100,7 +100,7 @@ macro_rules! assert_in_epsilon_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_in_epsilon.html\n",
+                                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_in_epsilon.html\n",
                                 "                         a label: `{}`,\n",
                                 "                         a debug: `{:?}`,\n",
                                 "                         b label: `{}`,\n",
@@ -151,7 +151,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_in_epsilon.html\n",
+                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_in_epsilon.html\n",
                 "                         a label: `a`,\n",
                 "                         a debug: `10`,\n",
                 "                         b label: `b`,\n",
@@ -181,6 +181,7 @@ mod tests {
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a: i8 = 10;
 /// let b: i8 = 20;
@@ -194,7 +195,7 @@ mod tests {
 /// assert_in_epsilon!(a, b, e);
 /// # });
 /// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_in_epsilon.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_in_epsilon.html
 /// //                          a label: `a`,
 /// //                          a debug: `10`,
 /// //                          b label: `b`,
@@ -207,7 +208,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_in_epsilon.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_in_epsilon.html\n",
 /// #     "                         a label: `a`,\n",
 /// #     "                         a debug: `10`,\n",
 /// #     "                         b label: `b`,\n",

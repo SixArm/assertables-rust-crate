@@ -24,6 +24,7 @@
 //!
 //! * [`assert_lt!(1, 2)`](macro@crate::assert_lt) `// compare less than`
 //! * [`assert_approx_eq!(1.0000001, 1.0000002)`](macro@crate::assert_approx_eq) `// compare floats`
+//! * [`assert_len_eq!("hello", "world")`](macro@crate::assert_len_eq) `// compare lengths`
 //! * [`assert_starts_with!("hello world", "hello")`](macro@crate::assert_starts_with) `// compare strings`
 //! * [`assert_fs_read_to_string_eq!("a.txt", "b.txt")`](macro@crate::assert_fs_read_to_string_eq) `// compare files`
 //!
@@ -43,7 +44,7 @@
 //!
 //! ```toml
 //! [dev-dependencies]
-//! assertables = "8.12.0"
+//! assertables = "8.13.0"
 //! ```
 //!
 //! ## Assert macros
@@ -51,9 +52,9 @@
 //! For values:
 //!
 //! * [`assert_lt!(a, b)`](macro@crate::assert_lt) `// less than`
-//! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal`
+//! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal to`
 //! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// greater than`
-//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal`
+//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal to`
 //!
 //! For approximation:
 //!
@@ -69,7 +70,8 @@
 //!
 //! * [`assert_contains!(a, b)`](macro@crate::assert_contains)
 //! * [`assert_is_match!(a, b)`](macro@crate::assert_is_match)
-//!
+//! * [`assert_len_eq!(a, b)`](macro@crate::assert_len_eq) [& more](module@crate::assert_len)
+//! 
 //! For infix operators:
 //!
 //! * [`assert_infix!(a == b)`](macro@crate::assert_infix)
@@ -82,24 +84,24 @@
 //!
 //! For Result Ok/Err:
 //!
-//! * [`assert_ok!(a)`](macro@crate::assert_ok) ([eq, ne, etc.](module@crate::assert_ok))
-//! * [`assert_err!(a)`](macro@crate::assert_err) ([eq, ne, etc.](module@crate::assert_err))
+//! * [`assert_ok!(a)`](macro@crate::assert_ok) [& lt, gt, etc.](module@crate::assert_ok)
+//! * [`assert_err!(a)`](macro@crate::assert_err) [& lt, gt, etc.](module@crate::assert_err)
 //!
 //! For Option Some/None:
 //!
-//! * [`assert_some!(a)`](macro@crate::assert_some) ([eq, ne, etc.](module@crate::assert_some))
+//! * [`assert_some!(a)`](macro@crate::assert_some) [& lt, gt, etc.](module@crate::assert_some)
 //! * [`assert_none!(a)`](macro@crate::assert_none)
 //!
 //! For Poll Ready/Pending:
 //!
-//! * [`assert_ready!(a)`](macro@crate::assert_ready) ([eq, ne, etc.](module@crate::assert_ready))
+//! * [`assert_ready!(a)`](macro@crate::assert_ready) [& lt, gt, etc.](module@crate::assert_ready)
 //! * [`assert_pending!(a)`](macro@crate::assert_pending)
 //!
 //! For collections such as arrays, vectors, iterators, sets, bags:
 //!
-//! * [`assert_iter_eq!(collection1, collection2)`](macro@crate::assert_iter_eq) ([eq, ne, etc.](module@crate::assert_iter))
-//! * [`assert_set_eq!(collection1, collection2)`](macro@crate::assert_set_eq) ([eq, ne, subset, etc.](module@crate::assert_set))
-//! * [`assert_bag_eq!(collection1, collection2)`](macro@crate::assert_bag_eq) ([eq, ne, subbag, etc.](module@crate::assert_bag))
+//! * [`assert_iter_eq!(collection1, collection2)`](macro@crate::assert_iter_eq) [& lt, gt, etc.](module@crate::assert_iter)
+//! * [`assert_set_eq!(collection1, collection2)`](macro@crate::assert_set_eq) [& eq, ne, subset, etc.](module@crate::assert_set)
+//! * [`assert_bag_eq!(collection1, collection2)`](macro@crate::assert_bag_eq) [& eq, ne, subbag, etc.](module@crate::assert_bag)
 //!
 //! For file system paths and input/output readers:
 //!
@@ -121,9 +123,9 @@
 //!
 //! Modules for variants:
 //!
-//! * [`assert_ok`](module@crate::assert_ok)/[`assert_err`](module@crate::assert_err) for Result Ok/Err.
-//! * [`assert_some`](module@crate::assert_some)/[`assert_none`](module@crate::assert_none) for Option Some/None.
-//! * [`assert_ready`](module@crate::assert_ready)/[`assert_pending`](module@crate::assert_pending) for Poll Ready/Pending.
+//! * [`assert_ok`](module@crate::assert_ok),[`assert_err`](module@crate::assert_err) for `Result::{Ok,Err}`.
+//! * [`assert_some`](module@crate::assert_some),[`assert_none`](module@crate::assert_none) for `Option::{Some,None}`.
+//! * [`assert_ready`](module@crate::assert_ready),[`assert_pending`](module@crate::assert_pending) for `Poll::{Ready,Pending}`.
 //!
 //! Modules for functions:
 //!
@@ -146,27 +148,27 @@
 //!
 //! All assertables macros have forms for different outcomes:
 //!
-//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) // panic during typical test
-//! * [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt_as_result.html) // return Ok or Err
-//! * [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.debug_assert_gt.html) // panic when in debug mode
+//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html) `// panic during typical test`
+//! * [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt_as_result.html) `// return Ok or Err`
+//! * [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.debug_assert_gt.html) `// panic when in debug mode`
 //!
 //! All assertables macros have forms for an optional message:
 //!
-//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) // automatic message
-//! * [`assert_gt!(a, b, "Your text")`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) // custom message
+//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html) `// automatic message`
+//! * [`assert_gt!(a, b, "Your text")`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html) `// custom message`
 //!
 //! Many assertables macros have forms for comparing left hand side (LHS) and right hand side (RHS) as the same type or as an expression:
 //!
-//! * [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_eq.html) // Ok(…) = Ok(…)
-//! * [`assert_ok_eq_expr!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_eq_expr.html) // Ok(…) = expression
+//! * [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_eq.html) `// Ok(…) = Ok(…)`
+//! * [`assert_ok_eq_expr!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_eq_expr.html) `// Ok(…) = expression`
 //!
 //!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.12.0
+//! * Version: 8.13.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-02T16:29:24Z
+//! * Updated: 2024-10-03T16:03:50Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -202,6 +204,9 @@ pub mod assert_not_starts_with;
 // Ends with
 pub mod assert_ends_with;
 pub mod assert_not_ends_with;
+
+// Length
+pub mod assert_len;
 
 // For Result Ok/Err
 pub mod assert_ok;

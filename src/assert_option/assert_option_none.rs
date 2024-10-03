@@ -48,7 +48,7 @@ macro_rules! assert_option_none_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_option_none!(a)`\n",
-                                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_option_none.html\n",
+                                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_none.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -81,7 +81,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_option_none!(a)`\n",
-                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_option_none.html\n",
+                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_none.html\n",
                 " a label: `a`,\n",
                 " a debug: `Some(1)`",
             )
@@ -101,6 +101,7 @@ mod tests {
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a: Option<i8> = Option::None;
 /// assert_option_none!(a);
@@ -110,13 +111,13 @@ mod tests {
 /// assert_option_none!(a);
 /// # });
 /// // assertion failed: `assert_option_none!(a)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_option_none.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_none.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_option_none!(a)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_option_none.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_none.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`",
 /// # );

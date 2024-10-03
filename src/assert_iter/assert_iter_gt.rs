@@ -58,7 +58,7 @@ macro_rules! assert_iter_gt_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n",
-                            "https://docs.rs/assertables/8.12.0/assertables/macro.assert_iter_gt.html\n",
+                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_gt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -96,7 +96,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_iter_gt.html\n",
+                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_gt.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 2]`,\n",
                 " b label: `&b`,\n",
@@ -115,7 +115,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/8.12.0/assertables/macro.assert_iter_gt.html\n",
+                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_gt.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 2]`,\n",
                 " b label: `&b`,\n",
@@ -140,6 +140,7 @@ mod tests {
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a = [3, 4];
 /// let b = [1, 2];
@@ -151,7 +152,7 @@ mod tests {
 /// assert_iter_gt!(&a, &b);
 /// # });
 /// // assertion failed: `assert_iter_gt!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_iter_gt.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_gt.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&b`,
@@ -159,7 +160,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_iter_gt.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_gt.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `&b`,\n",

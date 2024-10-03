@@ -21,10 +21,11 @@ The assertables crate provides many more, so you can write smarter tests.
 
 Examples:
 
-* [`assert_lt!(1, 2)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_lt.html) `// compare less than`
-* [`assert_approx_eq!(1.0000001, 1.0000002)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_approx_eq.html) `// compare floats`
-* [`assert_starts_with!("hello world", "hello")`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_starts_with.html) `// compare strings`
-* [`assert_fs_read_to_string_eq!("a.txt", "b.txt")`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_fs_read_to_string_eq.html) `// compare files`
+* [`assert_lt!(1, 2)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_lt.html) `// compare less than`
+* [`assert_approx_eq!(1.0000001, 1.0000002)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_eq.html) `// compare floats`
+* [`assert_len_eq!("hello", "world")`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_len_eq.html) `// compare lengths`
+* [`assert_starts_with!("hello world", "hello")`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_starts_with.html) `// compare strings`
+* [`assert_fs_read_to_string_eq!("a.txt", "b.txt")`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_fs_read_to_string_eq.html) `// compare files`
 
 Top 3 benefits:
 
@@ -42,129 +43,130 @@ To use this crate, add it to your `Cargo.toml` file:
 
 ```toml
 [dev-dependencies]
-assertables = "8.12.0"
+assertables = "8.13.0"
 ```
 
 ## Assert macros
 
 For values:
 
-* [`assert_lt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_lt.html) `// less than`
-* [`assert_le!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_le.html) `// less than or equal`
-* [`assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) `// greater than`
-* [`assert_ge!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ge.html) `// greater than or equal`
+* [`assert_lt!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_lt.html) `// less than`
+* [`assert_le!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_le.html) `// less than or equal to`
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html) `// greater than`
+* [`assert_ge!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_ge.html) `// greater than or equal to`
 
 For approximation:
 
-* [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_approx_eq.html)
-* [`assert_approx_ne!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_approx_ne.html)
+* [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_eq.html)
+* [`assert_approx_ne!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_ne.html)
 
 For strings:
 
-* [`assert_starts_with!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_starts_with.html)
-* [`assert_ends_with!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ends_with.html)
+* [`assert_starts_with!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_starts_with.html)
+* [`assert_ends_with!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_ends_with.html)
 
 For matching:
 
-* [`assert_contains!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_contains.html)
-* [`assert_is_match!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_is_match.html)
+* [`assert_contains!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_contains.html)
+* [`assert_is_match!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_is_match.html)
+* [`assert_len_eq!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_len_eq.html) [& more](https://docs.rs/assertables/8.13.0/assertables/assert_len)
 
 For infix operators:
 
-* [`assert_infix!(a == b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_infix.html) ([more](https://docs.rs/assertables/8.12.0/assertables/assert_infix))
-* [`assert_infix!(a && b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_infix.html) ([more](https://docs.rs/assertables/8.12.0/assertables/assert_infix))
+* [`assert_infix!(a == b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_infix.html) [& more](https://docs.rs/assertables/8.13.0/assertables/assert_infix)
+* [`assert_infix!(a && b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_infix.html) [& more](https://docs.rs/assertables/8.13.0/assertables/assert_infix)
 
 For nearness:
 
-* [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_in_delta.html)
-* [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_in_epsilon.html)
+* [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_in_delta.html)
+* [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_in_epsilon.html)
 
 For Result Ok/Err:
 
-* [`assert_ok!(a)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok.html) ([eq, ne, etc.](https://docs.rs/assertables/8.12.0/assertables/assert_ok))
-* [`assert_err!(a)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_err.html ([eq, ne, etc.](https://docs.rs/assertables/8.12.0/assertables/assert_err))
+* [`assert_ok!(a)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok.html) [& lt, gt, etc.](https://docs.rs/assertables/8.13.0/assertables/assert_ok)
+* [`assert_err!(a)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_err.html) [& lt, gt, etc.](https://docs.rs/assertables/8.13.0/assertables/assert_err)
 
 For Option Some/None:
 
-* [`assert_some!(a)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_some.html) ([eq, ne, etc.](https://docs.rs/assertables/8.12.0/assertables/assert_some))
-* [`assert_none!(a)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_none.html)
+* [`assert_some!(a)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_some.html) [& lt, gt, etc.](https://docs.rs/assertables/8.13.0/assertables/assert_some))
+* [`assert_none!(a)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_none.html)
 
 For Poll Ready/Pending:
 
-* [`assert_ready!(a)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ready.html) ([eq, ne, etc.](https://docs.rs/assertables/8.12.0/assertables/assert_ready))
-* [`assert_pending!(a)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_pending.html)
+* [`assert_ready!(a)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_ready.html) [& lt, gt, etc.](https://docs.rs/assertables/8.13.0/assertables/assert_ready)
+* [`assert_pending!(a)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_pending.html)
 
 For collections such as arrays, vectors, iterators, sets, bags:
 
-* [`assert_iter_eq!(collection1, collection2)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_iter_eq.html) ([eq, ne, etc.](https://docs.rs/assertables/8.12.0/assertables/assert_iter))
-* [`assert_set_eq!(collection1, collection2)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_set_eq.html) [eq, ne, etc.](https://docs.rs/assertables/8.12.0/assertables/assert_set))
-* [`assert_bag_eq!(collection1, collection2)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_bag_eq.html) ([eq, ne, etc.](https://docs.rs/assertables/8.12.0/assertables/assert_bag))
+* [`assert_iter_eq!(collection1, collection2)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_eq.html) [& lt, gt, etc.](https://docs.rs/assertables/8.13.0/assertables/assert_iter)
+* [`assert_set_eq!(collection1, collection2)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_set_eq.html) [& eq, ne, subset etc.](https://docs.rs/assertables/8.13.0/assertables/assert_set)
+* [`assert_bag_eq!(collection1, collection2)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_bag_eq.html) [& eq, ne, subbag, etc.](https://docs.rs/assertables/8.13.0/assertables/assert_bag)
 
 For file system paths and input/output readers:
 
-* [`assert_fs_read_to_string_eq!(path1, path2)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_fs_read_to_string_eq.html)
-* [`assert_io_read_to_string_eq!(reader1, reader2)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_io_read_to_string_eq.html)
+* [`assert_fs_read_to_string_eq!(path1, path2)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_fs_read_to_string_eq.html)
+* [`assert_io_read_to_string_eq!(reader1, reader2)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_io_read_to_string_eq.html)
 
 For command capture of standard output and standard error:
 
-* [`assert_command_stdout_eq!(command1, command2)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_command_stdout_eq.html)
-* [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_program_args_stdout_eq.html)
+* [`assert_command_stdout_eq!(command1, command2)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq.html)
+* [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_program_args_stdout_eq.html)
 
 There are many more macros that are grouped into modules.
 
 Modules for collections such as arrays, vectors, iterators, sets, bags:
 
-* [`assert_iter`](https://docs.rs/assertables/8.12.0/assertables/assert_iter) for iterator collections
-* [`assert_set`](https://docs.rs/assertables/8.12.0/assertables/assert_set) for set collections
-* [`assert_bag`](https://docs.rs/assertables/8.12.0/assertables/assert_bag) for bag collections
+* [`assert_iter`](https://docs.rs/assertables/8.13.0/assertables/assert_iter) for iterator collections
+* [`assert_set`](https://docs.rs/assertables/8.13.0/assertables/assert_set) for set collections
+* [`assert_bag`](https://docs.rs/assertables/8.13.0/assertables/assert_bag) for bag collections
 
 Modules for variants:
 
-* [`assert_ok`](module@crate::assert_ok)/[`assert_err`](module@crate::assert_err) for Result Ok/Err.
-* [`assert_some`](module@crate::assert_some)/[`assert_none`](module@crate::assert_none) for Option Some/None.
-* [`assert_ready`](module@crate::assert_ready)/[`assert_pending`](module@crate::assert_pending) for Poll Ready/Pending.
+* [`assert_ok`](module@crate::assert_ok),[`assert_err`](module@crate::assert_err) for `Result::{Ok,Err}`.
+* [`assert_some`](module@crate::assert_some),[`assert_none`](module@crate::assert_none) for `Option::{Some,None}`.
+* [`assert_ready`](module@crate::assert_ready),[`assert_pending`](module@crate::assert_pending) for `Poll::{Ready,Pending}`.
 
 Modules for functions:
 
-* [`assert_fn`](https://docs.rs/assertables/8.12.0/assertables/assert_fn) for functions in general.
-* [`assert_fn_ok`](https://docs.rs/assertables/8.12.0/assertables/assert_fn_ok) for functions that return `Result::Ok`.
-* [`assert_fn_err`](https://docs.rs/assertables/8.12.0/assertables/assert_fn_err) for functions that return `Result::Err`.
+* [`assert_fn`](https://docs.rs/assertables/8.13.0/assertables/assert_fn) for functions in general.
+* [`assert_fn_ok`](https://docs.rs/assertables/8.13.0/assertables/assert_fn_ok) for functions that return `Result::Ok`.
+* [`assert_fn_err`](https://docs.rs/assertables/8.13.0/assertables/assert_fn_err) for functions that return `Result::Err`.
 
 Modules for readers:
 
-* [`assert_fs_read_to_string`](https://docs.rs/assertables/8.12.0/assertables/assert_fs_read_to_string) for file system path contents.
-* [`assert_io_read_to_string`](https://docs.rs/assertables/8.12.0/assertables/assert_io_read_to_string) for input/output reader streams.
+* [`assert_fs_read_to_string`](https://docs.rs/assertables/8.13.0/assertables/assert_fs_read_to_string) for file system path contents.
+* [`assert_io_read_to_string`](https://docs.rs/assertables/8.13.0/assertables/assert_io_read_to_string) for input/output reader streams.
 
 Modules for external calls:
 
-* [`assert_command`](https://docs.rs/assertables/8.12.0/assertables/assert_command) for commands with stdout/stderr.
-* [`assert_program_args`](https://docs.rs/assertables/8.12.0/assertables/assert_program_args) for programs with args with stdout/stderr.
+* [`assert_command`](https://docs.rs/assertables/8.13.0/assertables/assert_command) for commands with stdout/stderr.
+* [`assert_program_args`](https://docs.rs/assertables/8.13.0/assertables/assert_program_args) for programs with args with stdout/stderr.
 
 
 ## Forms
 
 All assertables macros have forms for different outcomes:
 
-* [`assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) // panic during typical test
-* [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt_as_result.html) // return Ok or Err
-* [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.debug_assert_gt.html) // panic when in debug mode
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html) `// panic during typical test`
+* [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt_as_result.html) `// return Ok or Err`
+* [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.debug_assert_gt.html) `// panic when in debug mode`
 
 All assertables macros have forms for an optional message:
 
-* [`assert_gt!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) // automatic error message
-* [`assert_gt!(a, b, "your text")`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html) // custom error message
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html) `// automatic error message`
+* [`assert_gt!(a, b, "your text")`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html) `// custom error message`
 
 Many assertables macros have forms for comparing left hand side (LHS) and right hand side (RHS) as the same type or as an expression:
 
-* [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_eq.html) // Ok(…) = Ok(…)
-* [`assert_ok_eq_expr!(a, b)`](https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_eq_expr.html) // Ok(…) = expression
+* [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_eq.html) `// Ok(…) = Ok(…)`
+* [`assert_ok_eq_expr!(a, b)`](https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_eq_expr.html) `// Ok(…) = expression`
 
 
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.12.0
+* Version: 8.13.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-10-02T16:29:24Z
+* Updated: 2024-10-03T16:03:50Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

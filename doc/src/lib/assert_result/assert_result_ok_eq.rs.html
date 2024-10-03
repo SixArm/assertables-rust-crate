@@ -246,6 +246,7 @@
 <a href="#246" id="246">246</a>
 <a href="#247" id="247">247</a>
 <a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ok(_) and their values are equal.
 //!
 //! # Example
@@ -297,7 +298,7 @@
                             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_result_ok_eq!(a, b)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_result_ok_eq.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_result_ok_eq.html\n"</span>,
                                     <span class="string">" a label: `{}`,\n"</span>,
                                     <span class="string">" a debug: `{:?}`,\n"</span>,
                                     <span class="string">" a inner: `{:?}`,\n"</span>,
@@ -318,7 +319,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_result_ok_eq!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_result_ok_eq.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_result_ok_eq.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
@@ -357,7 +358,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_result_ok_eq!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_result_ok_eq.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_result_ok_eq.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ok(1)`,\n"</span>,
                 <span class="string">" a inner: `1`,\n"</span>,
@@ -378,7 +379,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_result_ok_eq!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_result_ok_eq.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_result_ok_eq.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ok(1)`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -401,6 +402,7 @@
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a: Result&lt;i8, i8&gt; = Ok(1);
 /// let b: Result&lt;i8, i8&gt; = Ok(1);
@@ -412,7 +414,7 @@
 /// assert_result_ok_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_result_ok_eq!(a, b)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_result_ok_eq.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_result_ok_eq.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,
@@ -422,7 +424,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_result_ok_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_result_ok_eq.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_result_ok_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",

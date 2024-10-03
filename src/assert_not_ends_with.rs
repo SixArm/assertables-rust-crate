@@ -52,7 +52,7 @@ macro_rules! assert_not_ends_with_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_not_ends_with!(a, b)`\n",
-                            "https://docs.rs/assertables/8.12.0/assertables/macro.assert_not_ends_with.html\n",
+                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_not_ends_with.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -88,7 +88,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_not_ends_with!(a, b)`\n",
-            "https://docs.rs/assertables/8.12.0/assertables/macro.assert_not_ends_with.html\n",
+            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_not_ends_with.html\n",
             " a label: `a`,\n",
             " a debug: `\"alfa\"`,\n",
             " b label: `b`,\n",
@@ -113,6 +113,7 @@ mod tests {
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a = "alfa";
 /// let b = "al";
@@ -124,7 +125,7 @@ mod tests {
 /// assert_not_ends_with!(a, b);
 /// # });
 /// // assertion failed: `assert_not_ends_with!(a, b)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_not_ends_with.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_not_ends_with.html
 /// //  a label: `a`,
 /// //  a debug: `\"alfa\"`,
 /// //  b label: `b`,
@@ -132,7 +133,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_not_ends_with!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_not_ends_with.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_not_ends_with.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"alfa\"`,\n",
 /// #     " b label: `b`,\n",

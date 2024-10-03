@@ -311,7 +311,7 @@
                             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_some_ne!(a, b)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_some_ne.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_some_ne.html\n"</span>,
                                     <span class="string">" a label: `{}`,\n"</span>,
                                     <span class="string">" a debug: `{:?}`,\n"</span>,
                                     <span class="string">" a inner: `{:?}`,\n"</span>,
@@ -332,7 +332,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_some_ne!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_some_ne.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_some_ne.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
@@ -371,7 +371,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_some_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_some_ne.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_some_ne.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Some(1)`,\n"</span>,
                 <span class="string">" a inner: `1`,\n"</span>,
@@ -392,7 +392,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_some_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_some_ne.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_some_ne.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `None`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -418,6 +418,7 @@
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a: Option&lt;i8&gt; = Option::Some(1);
 /// let b: Option&lt;i8&gt; = Option::Some(2);
@@ -429,7 +430,7 @@
 /// assert_some_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_some_ne!(a, b)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_some_ne.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_some_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`,
 /// //  b label: `b`,
@@ -439,7 +440,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_some_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_some_ne.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_some_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`,\n",
 /// #     " a inner: `1`,\n",

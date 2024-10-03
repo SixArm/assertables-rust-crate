@@ -1,4 +1,6 @@
-# Comparisons: claims and similar crates
+# Comparisons: claims and related crates
+
+<https://crates.io/crates/claims>
 
 There are various Rust crates that provide assert macros:
 

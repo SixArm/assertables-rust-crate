@@ -10,13 +10,13 @@
 //!
 //! * [`assert_io_read_to_string_ne!(reader1, reader2)`](macro@crate::assert_io_read_to_string_ne) ≈ reader1.read_to_string() ≠ reader2.read_to_string()
 //!
-//! * [`assert_io_read_to_string_ge!(reader1, reader2)`](macro@crate::assert_io_read_to_string_ge) ≈ reader1.read_to_string() ≥ reader2.read_to_string()
-//!
-//! * [`assert_io_read_to_string_gt!(reader1, reader2)`](macro@crate::assert_io_read_to_string_gt) ≈ reader1.read_to_string() > reader2.read_to_string()
+//! * [`assert_io_read_to_string_lt!(reader1, reader2)`](macro@crate::assert_io_read_to_string_lt) ≈ reader1.read_to_string() < reader2.read_to_string()
 //!
 //! * [`assert_io_read_to_string_le!(reader1, reader2)`](macro@crate::assert_io_read_to_string_le) ≈ reader1.read_to_string() ≤ reader2.read_to_string()
 //!
-//! * [`assert_io_read_to_string_lt!(reader1, reader2)`](macro@crate::assert_io_read_to_string_lt) ≈ reader1.read_to_string() < reader2.read_to_string()
+//! * [`assert_io_read_to_string_gt!(reader1, reader2)`](macro@crate::assert_io_read_to_string_gt) ≈ reader1.read_to_string() > reader2.read_to_string()
+//!
+//! * [`assert_io_read_to_string_ge!(reader1, reader2)`](macro@crate::assert_io_read_to_string_ge) ≈ reader1.read_to_string() ≥ reader2.read_to_string()
 //!
 //! Compare a reader with an expression:
 //!
@@ -24,13 +24,13 @@
 //!
 //! * [`assert_io_read_to_string_ne_expr!(reader, expr)`](macro@crate::assert_io_read_to_string_ne_expr) ≈ reader.read_to_string() ≠ expr
 //!
-//! * [`assert_io_read_to_string_ge_expr!(reader, expr)`](macro@crate::assert_io_read_to_string_ge_expr) ≈ reader.read_to_string() ≥ expr
-//!
-//! * [`assert_io_read_to_string_gt_expr!(reader, expr)`](macro@crate::assert_io_read_to_string_gt_expr) ≈ reader.read_to_string() > expr
+//! * [`assert_io_read_to_string_lt_expr!(reader, expr)`](macro@crate::assert_io_read_to_string_lt_expr) ≈ reader.read_to_string() < expr
 //!
 //! * [`assert_io_read_to_string_le_expr!(reader, expr)`](macro@crate::assert_io_read_to_string_le_expr) ≈ reader.read_to_string() ≤ expr
 //!
-//! * [`assert_io_read_to_string_lt_expr!(reader, expr)`](macro@crate::assert_io_read_to_string_lt_expr) ≈ reader.read_to_string() < expr
+//! * [`assert_io_read_to_string_gt_expr!(reader, expr)`](macro@crate::assert_io_read_to_string_gt_expr) ≈ reader.read_to_string() > expr
+//!
+//! * [`assert_io_read_to_string_ge_expr!(reader, expr)`](macro@crate::assert_io_read_to_string_ge_expr) ≈ reader.read_to_string() ≥ expr
 //!
 //! Compare a reader with its contents:
 //!

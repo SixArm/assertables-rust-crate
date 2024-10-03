@@ -22,6 +22,17 @@
 //!
 //! * [`assert_ok_ne_expr!(a, b)`](macro@crate::assert_ok_ne_expr)
 //!   ≈ (a ⇒ Ok(a̅) ⇒ a̅) ≠ b
+//! 
+//! # Example
+//!
+//! ```rust
+//! use assertables::*;
+//! 
+//! # fn main() {
+//! let a: Result<(), i8> = Ok(());
+//! assert_ok!(a);
+//! # }
+//! ```
 
 // Verify Ok(_)
 pub mod assert_ok;

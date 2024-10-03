@@ -94,7 +94,7 @@
 <a href="#94" id="94">94</a>
 <a href="#95" id="95">95</a>
 <a href="#96" id="96">96</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is equal to another.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is equal to another expression.
 //!
 //! Pseudocode:&lt;br&gt;
 //! a = b
@@ -108,7 +108,7 @@
 //! * [`assert_eq`](https://doc.rust-lang.org/std/macro.assert_eq.html)
 //! * [`debug_assert_eq`](https://doc.rust-lang.org/std/macro.debug_assert_eq.html)
 
-/// Assert an expression is equal to another.
+/// Assert an expression is equal to another expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// a = b
@@ -143,7 +143,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_eq!(a, b)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_eq.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_eq.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -181,7 +181,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_eq!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_eq.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_eq.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,

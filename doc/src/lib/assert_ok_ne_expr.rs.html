@@ -306,7 +306,7 @@
                             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_ok_ne_expr!(a, b)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne_expr.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_ne_expr.html\n"</span>,
                                     <span class="string">" a label: `{}`,\n"</span>,
                                     <span class="string">" a debug: `{:?}`,\n"</span>,
                                     <span class="string">" a inner: `{:?}`,\n"</span>,
@@ -325,7 +325,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_ok_ne_expr!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne_expr.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_ne_expr.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
@@ -364,7 +364,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ok_ne_expr!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne_expr.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_ne_expr.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ok(1)`,\n"</span>,
                 <span class="string">" a inner: `1`,\n"</span>,
@@ -384,7 +384,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ok_ne_expr!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne_expr.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_ne_expr.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Err(1)`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -410,6 +410,7 @@
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a: Result&lt;i8, i8&gt; = Ok(1);
 /// let b: i8 = 2;
@@ -421,7 +422,7 @@
 /// assert_ok_ne_expr!(a, b);
 /// # });
 /// // assertion failed: `assert_ok_ne_expr!(a, b)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne_expr.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_ne_expr.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,
@@ -430,7 +431,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ok_ne_expr!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_ok_ne_expr.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_ok_ne_expr.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",

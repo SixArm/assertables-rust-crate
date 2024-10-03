@@ -205,7 +205,8 @@
 <a href="#205" id="205">205</a>
 <a href="#206" id="206">206</a>
 <a href="#207" id="207">207</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a value is greater than an expression.
+<a href="#208" id="208">208</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is greater than another expression.
 //!
 //! Pseudocode:&lt;br&gt;
 //! a &gt; b
@@ -227,7 +228,7 @@
 //! * [`assert_gt_as_result`](macro@crate::assert_gt_as_result)
 //! * [`debug_assert_gt`](macro@crate::debug_assert_gt)
 
-/// Assert a value is greater than an expression.
+/// Assert an expression is greater than another expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// a &gt; b
@@ -259,7 +260,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_gt!(a, b)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -297,7 +298,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_gt!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -307,7 +308,7 @@
     }
 }
 
-<span class="doccomment">/// Assert a value is greater than an expression.
+<span class="doccomment">/// Assert an expression is greater than another expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// a &gt; b
@@ -322,6 +323,7 @@
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a = 2;
 /// let b = 1;
@@ -333,7 +335,7 @@
 /// assert_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_gt!(a, b)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,
@@ -341,7 +343,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_gt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_gt.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",
@@ -373,7 +375,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert a value is greater than an expression.
+<span class="doccomment">/// Assert an expression is greater than another expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// a &gt; b

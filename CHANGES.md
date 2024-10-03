@@ -13,6 +13,8 @@ Changes highlights for recent major versions.
 
 * Add Poll macros: `assert_ready`, `assert_pending`, etc.
 
+* Add length macros: `assert_len_eq`, `assert_len_ne`, etc.
+
 * Add read macros: `assert_fs_read_to_string_*`, `assert_io_read_to_string_*`, etc.
 
 * Add approx macros: `assert_approx_eq`, `assert_approx_ne`.

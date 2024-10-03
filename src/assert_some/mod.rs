@@ -22,6 +22,17 @@
 //!
 //! * [`assert_some_ne_expr!(a, b)`](macro@crate::assert_some_ne_expr)
 //!   ≈ (a ⇒ Some(a̅) ⇒ a̅) ≠ b
+//! 
+//! # Example
+//!
+//! ```rust
+//! use assertables::*;
+//! 
+//! # fn main() {
+//! let a: Option<i8> = Option::Some(1);
+//! assert_some!(a);
+//! # }
+//! ```
 
 // Verify Some(_)
 pub mod assert_some;

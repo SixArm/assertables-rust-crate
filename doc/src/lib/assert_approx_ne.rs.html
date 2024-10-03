@@ -285,6 +285,7 @@
 <a href="#285" id="285">285</a>
 <a href="#286" id="286">286</a>
 <a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a number is approximately not equal to another number.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -385,7 +386,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_approx_ne!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_approx_ne.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_ne.html\n"</span>,
                                 <span class="string">"           a label: `{}`,\n"</span>,
                                 <span class="string">"           a debug: `{:?}`,\n"</span>,
                                 <span class="string">"           b label: `{}`,\n"</span>,
@@ -430,7 +431,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_approx_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.12.0/assertables/macro.assert_approx_ne.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_ne.html\n"</span>,
                 <span class="string">"           a label: `a`,\n"</span>,
                 <span class="string">"           a debug: `1.0000001`,\n"</span>,
                 <span class="string">"           b label: `b`,\n"</span>,
@@ -458,6 +459,7 @@
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
+///
 /// # fn main() {
 /// let a: f32 = 1.0000001;
 /// let b: f32 = 1.0000012;
@@ -469,7 +471,7 @@
 /// assert_approx_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_approx_ne!(a, b)`
-/// // https://docs.rs/assertables/8.12.0/assertables/macro.assert_approx_ne.html
+/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_ne.html
 /// //            a label: `a`,
 /// //            a debug: `1.0000001`,
 /// //            b label: `b`,
@@ -480,7 +482,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_approx_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.12.0/assertables/macro.assert_approx_ne.html\n",
+/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_ne.html\n",
 /// #     "           a label: `a`,\n",
 /// #     "           a debug: `1.0000001`,\n",
 /// #     "           b label: `b`,\n",
