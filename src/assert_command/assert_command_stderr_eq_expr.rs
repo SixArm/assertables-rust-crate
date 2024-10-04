@@ -11,9 +11,9 @@
 //!
 //! # fn main() {
 //! let mut command = Command::new("bin/printf-stderr");
-//! command.args(["%s", "hello"]);
-//! let s = String::from("hello");
-//! assert_command_stderr_eq_expr!(command, s);
+//! command.args(["%s", "alfa"]);
+//! let bytes = vec![b'a', b'l', b'f', b'a'];
+//! assert_command_stderr_eq_expr!(command, &bytes);
 //! # }
 //! ```
 //!
@@ -49,46 +49,48 @@ macro_rules! assert_command_stderr_eq_expr_as_result {
     ($a_command:expr, $b_expr:expr $(,)?) => {{
         match (/*&$command,*/ &$b_expr) {
             b_expr => {
-                let a_output = $a_command.output();
-                if a_output.is_err() {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_eq_expr.html\n",
-                            "  command label: `{}`,\n",
-                            "  command debug: `{:?}`,\n",
-                            "     expr label: `{}`,\n",
-                            "     expr debug: `{:?}`,\n",
-                            " command output: `{:?}`"
-                        ),
-                        stringify!($a_command),
-                        $a_command,
-                        stringify!($b_expr),
-                        b_expr,
-                        a_output
-                    ))
-                } else {
-                    let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-                    if a_string == String::from(b_expr) {
-                        Ok(())
-                    } else {
+                match $a_command.output() {
+                    Ok(a_output) => {
+                        let a = a_output.stderr;
+                        if a.eq($b_expr) {
+                            Ok(())
+                        } else {
+                            Err(format!(
+                                concat!(
+                                    "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
+                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_eq_expr.html\n",
+                                    " command label: `{}`,\n",
+                                    " command debug: `{:?}`,\n",
+                                    "    expr label: `{}`,\n",
+                                    "    expr debug: `{:?}`,\n",
+                                    " command value: `{:?}`,\n",
+                                    "    expr value: `{:?}`"
+                                ),
+                                stringify!($a_command),
+                                $a_command,
+                                stringify!($b_expr),
+                                $b_expr,
+                                a,
+                                b_expr
+                            ))
+                        }
+                    },
+                    Err(err) => {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-                                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_eq_expr.html\n",
-                                " command label: `{}`,\n",
-                                " command debug: `{:?}`,\n",
-                                "    expr label: `{}`,\n",
-                                "    expr debug: `{:?}`,\n",
-                                " command value: `{:?}`,\n",
-                                "    expr value: `{:?}`"
+                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_eq_expr.html\n",
+                                "  command label: `{}`,\n",
+                                "  command debug: `{:?}`,\n",
+                                "     expr label: `{}`,\n",
+                                "     expr debug: `{:?}`,\n",
+                                "            err: `{:?}`"
                             ),
                             stringify!($a_command),
                             $a_command,
                             stringify!($b_expr),
-                            b_expr,
-                            a_string,
-                            b_expr
+                            $b_expr,
+                            err
                         ))
                     }
                 }
@@ -105,28 +107,28 @@ mod tests {
     #[test]
     fn test_assert_command_stderr_eq_expr_as_result_x_success() {
         let mut a = Command::new("bin/printf-stderr");
-        a.args(["%s", "hello"]);
-        let b = String::from("hello");
-        let result = assert_command_stderr_eq_expr_as_result!(a, b);
+        a.args(["%s", "alfa"]);
+        let b = vec![b'a', b'l', b'f', b'a'];
+        let result = assert_command_stderr_eq_expr_as_result!(a, &b);
         assert_eq!(result.unwrap(), ());
     }
 
     #[test]
     fn test_assert_command_stderr_eq_expr_as_result_x_failure() {
         let mut a = Command::new("bin/printf-stderr");
-        a.args(["%s", "hello"]);
-        let b = String::from("zzz");
-        let result = assert_command_stderr_eq_expr_as_result!(a, b);
+        a.args(["%s", "alfa"]);
+        let b = vec![b'z'];
+        let result = assert_command_stderr_eq_expr_as_result!(a, &b);
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_eq_expr.html\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_eq_expr.html\n",
             " command label: `a`,\n",
-            " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-            "    expr label: `b`,\n",
-            "    expr debug: `\"zzz\"`,\n",
-            " command value: `\"hello\"`,\n",
-            "    expr value: `\"zzz\"`"
+            " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            "    expr label: `&b`,\n",
+            "    expr debug: `[122]`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
+            "    expr value: `[122]`"
         );
         assert_eq!(actual, expect);
     }
@@ -151,34 +153,34 @@ mod tests {
 ///
 /// # fn main() {
 /// let mut command = Command::new("bin/printf-stderr");
-/// command.args(["%s", "hello"]);
-/// let s = String::from("hello");
-/// assert_command_stderr_eq_expr!(command, s);
+/// command.args(["%s", "alfa"]);
+/// let bytes = vec![b'a', b'l', b'f', b'a'];
+/// assert_command_stderr_eq_expr!(command, &bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("bin/printf-stderr");
-/// command.args(["%s", "hello"]);
-/// let s = String::from("zzz");
-/// assert_command_stderr_eq_expr!(command, s);
+/// command.args(["%s", "alfa"]);
+/// let bytes = vec![b'z'];
+/// assert_command_stderr_eq_expr!(command, &bytes);
 /// # });
 /// // assertion failed: `assert_command_stderr_eq_expr!(command, expr)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_eq_expr.html
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stderr_eq_expr.html
 /// //  command label: `command`,
-/// //  command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
-/// //     expr label: `s`,
-/// //     expr debug: `\"zzz\"`,
-/// //  command value: `\"hello\"`,
-/// //     expr value: `\"zzz\"`
+/// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
+/// //     expr label: `&bytes`,
+/// //     expr debug: `[122]`,
+/// //  command value: `[97, 108, 102, 97]`,
+/// //     expr value: `[122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_eq_expr.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_eq_expr.html\n",
 /// #     " command label: `command`,\n",
-/// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
-/// #     "    expr label: `s`,\n",
-/// #     "    expr debug: `\"zzz\"`,\n",
-/// #     " command value: `\"hello\"`,\n",
-/// #     "    expr value: `\"zzz\"`"
+/// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+/// #     "    expr label: `&bytes`,\n",
+/// #     "    expr debug: `[122]`,\n",
+/// #     " command value: `[97, 108, 102, 97]`,\n",
+/// #     "    expr value: `[122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

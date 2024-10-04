@@ -55,7 +55,7 @@ macro_rules! assert_command_stdout_eq_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
-                    "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq.html\n",
+                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`,\n",
                     " b label: `{}`,\n",
@@ -79,7 +79,7 @@ macro_rules! assert_command_stdout_eq_as_result {
                 Err(format!(
                     concat!(
                         "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
-                        "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq.html\n",
+                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -124,7 +124,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq.html\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
             " b label: `b`,\n",
@@ -168,7 +168,7 @@ mod tests {
 /// assert_command_stdout_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq.html
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stdout_eq.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
 /// //  b label: `b`,
@@ -178,7 +178,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
 /// #     " b label: `b`,\n",

@@ -11,9 +11,9 @@
 //!
 //! # fn main() {
 //! let mut command = Command::new("bin/printf-stdout");
-//! command.args(["%s", "hello"]);
-//! let s = String::from("hello");
-//! assert_command_stdout_eq_expr!(command, s);
+//! command.args(["%s", "alfa"]);
+//! let bytes = vec![b'a', b'l', b'f', b'a'];
+//! assert_command_stdout_eq_expr!(command, &bytes);
 //! # }
 //! ```
 //!
@@ -49,46 +49,48 @@ macro_rules! assert_command_stdout_eq_expr_as_result {
     ($a_command:expr, $b_expr:expr $(,)?) => {{
         match (/*&$command,*/ &$b_expr) {
             b_expr => {
-                let a_output = $a_command.output();
-                if a_output.is_err() {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
-                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq_expr.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`,\n",
-                            " a output: `{:?}`"
-                        ),
-                        stringify!($a_command),
-                        $a_command,
-                        stringify!($b_expr),
-                        b_expr,
-                        a_output
-                    ))
-                } else {
-                    let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-                    if a_string == String::from(b_expr) {
-                        Ok(())
-                    } else {
+                match $a_command.output() {
+                    Ok(a_output) => {
+                        let a = a_output.stdout;
+                        if a.eq($b_expr) {
+                            Ok(())
+                        } else {
+                            Err(format!(
+                                concat!(
+                                    "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq_expr.html\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`,\n",
+                                    " b label: `{}`,\n",
+                                    " b debug: `{:?}`,\n",
+                                    "       a: `{:?}`,\n",
+                                    "       b: `{:?}`"
+                                ),
+                                stringify!($a_command),
+                                $a_command,
+                                stringify!($b_expr),
+                                $b_expr,
+                                a,
+                                b_expr
+                            ))
+                        }
+                    },
+                    Err(err) => { 
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
-                                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq_expr.html\n",
+                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq_expr.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
                                 " b debug: `{:?}`,\n",
-                                "       a: `{:?}`,\n",
-                                "       b: `{:?}`"
+                                "     err: `{:?}`"
                             ),
                             stringify!($a_command),
                             $a_command,
                             stringify!($b_expr),
-                            b_expr,
-                            a_string,
-                            b_expr
+                            $b_expr,
+                            err
                         ))
                     }
                 }
@@ -105,28 +107,28 @@ mod tests {
     #[test]
     fn test_assert_command_stdout_eq_expr_as_result_x_success() {
         let mut a = Command::new("bin/printf-stdout");
-        a.args(["%s", "hello"]);
-        let b = String::from("hello");
-        let result = assert_command_stdout_eq_expr_as_result!(a, b);
+        a.args(["%s", "alfa"]);
+        let b = vec![b'a', b'l', b'f', b'a'];
+        let result = assert_command_stdout_eq_expr_as_result!(a, &b);
         assert_eq!(result.unwrap(), ());
     }
 
     #[test]
     fn test_assert_command_stdout_eq_expr_as_result_x_failure() {
         let mut a = Command::new("bin/printf-stdout");
-        a.args(["%s", "hello"]);
-        let b = String::from("zzz");
-        let result = assert_command_stdout_eq_expr_as_result!(a, b);
+        a.args(["%s", "alfa"]);
+        let b = vec![b'z'];
+        let result = assert_command_stdout_eq_expr_as_result!(a, &b);
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
-            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq_expr.html\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq_expr.html\n",
             " a label: `a`,\n",
-            " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-            " b label: `b`,\n",
-            " b debug: `\"zzz\"`,\n",
-            "       a: `\"hello\"`,\n",
-            "       b: `\"zzz\"`"
+            " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[122]`,\n",
+            "       a: `[97, 108, 102, 97]`,\n",
+            "       b: `[122]`"
         );
         assert_eq!(actual, expect);
     }
@@ -148,34 +150,34 @@ mod tests {
 ///
 /// # fn main() {
 /// let mut command = Command::new("bin/printf-stdout");
-/// command.args(["%s", "hello"]);
-/// let s = String::from("hello");
-/// assert_command_stdout_eq_expr!(command, s);
+/// command.args(["%s", "alfa"]);
+/// let bytes = vec![b'a', b'l', b'f', b'a'];
+/// assert_command_stdout_eq_expr!(command, &bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("bin/printf-stdout");
-/// command.args(["%s", "hello"]);
-/// let s = String::from("zzz");
-/// assert_command_stdout_eq_expr!(command, s);
+/// command.args(["%s", "alfa"]);
+/// let bytes = vec![b'z'];
+/// assert_command_stdout_eq_expr!(command, &bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq_expr.html
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stdout_eq_expr.html
 /// //  a label: `command`,
-/// //  a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
-/// //  b label: `s`,
-/// //  b debug: `\"zzz\"`,
-/// //        a: `\"hello\"`,
-/// //        b: `\"zzz\"`
+/// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
+/// //  b label: `&bytes`,
+/// //  b debug: `[122]`,
+/// //        a: `[97, 108, 102, 97]`,
+/// //        b: `[122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stdout_eq_expr.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq_expr.html\n",
 /// #     " a label: `command`,\n",
-/// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
-/// #     " b label: `s`,\n",
-/// #     " b debug: `\"zzz\"`,\n",
-/// #     "       a: `\"hello\"`,\n",
-/// #     "       b: `\"zzz\"`"
+/// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+/// #     " b label: `&bytes`,\n",
+/// #     " b debug: `[122]`,\n",
+/// #     "       a: `[97, 108, 102, 97]`,\n",
+/// #     "       b: `[122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

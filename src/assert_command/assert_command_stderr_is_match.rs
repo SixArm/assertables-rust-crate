@@ -55,7 +55,7 @@ macro_rules! assert_command_stderr_is_match_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
-                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_is_match.html\n",
+                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_is_match.html\n",
                             " command label: `{}`,\n",
                             " command debug: `{:?}`,\n",
                             " matcher label: `{}`,\n",
@@ -76,7 +76,7 @@ macro_rules! assert_command_stderr_is_match_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
-                                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_is_match.html\n",
+                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_is_match.html\n",
                                 " command label: `{}`,\n",
                                 " command debug: `{:?}`,\n",
                                 " matcher label: `{}`,\n",
@@ -122,7 +122,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
-            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_is_match.html\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_is_match.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
             " matcher label: `b`,\n",
@@ -165,7 +165,7 @@ mod tests {
 /// assert_command_stderr_is_match!(command, &matcher);
 /// # });
 /// // assertion failed: `assert_command_stderr_is_match!(command, matcher)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_is_match.html
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stderr_is_match.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
 /// //  matcher label: `&matcher`,
@@ -175,7 +175,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_command_stderr_is_match.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_is_match.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
 /// #     " matcher label: `&matcher`,\n",
