@@ -1,5 +1,14 @@
 use assertables::*;
-use regex::*;
+use regex::Regex;
+use std::path::PathBuf;
+use once_cell::sync::Lazy;
+
+pub static BIN: Lazy<PathBuf> = Lazy::new(|| {
+    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("bin")
+});
+
+//// Values
 
 #[test]
 fn assert_values() {
@@ -12,22 +21,41 @@ fn assert_values() {
 }
 
 #[test]
+fn assert_infix() {
+    assert_infix!(1 == 1);
+    assert_infix!(1 != 2);
+    assert_infix!(1 < 2);
+    assert_infix!(1 <= 2);
+    assert_infix!(2 > 1);
+    assert_infix!(2 >= 1);
+    assert_infix!(true & true);
+    assert_infix!(true && true);
+    assert_infix!(false | true);
+    assert_infix!(false || true);
+    assert_infix!(false ^ true);
+}
+
+#[test]
 fn assert_nearness() {
     assert_in_delta!(1, 1, 0);
     assert_in_epsilon!(1, 1, 0);
 }
 
+//// Strings
+
 #[test]
-fn assert_inners() {
+fn assert_starts_with() {
     assert_starts_with!("alfa", "al");
     assert_not_starts_with!("alfa", "zz");
+}
+
+#[test]
+fn assert_ends_with() {
     assert_ends_with!("alfa", "fa");
     assert_not_ends_with!("alfa", "zz");
-    assert_contains!("alfa", "lf");
-    assert_not_contains!("alfa", "zz");
-    assert_is_match!(Regex::new(r"lf").unwrap(), "alfa");
-    assert_not_match!(Regex::new(r"zz").unwrap(), "alfa");
 }
+
+//// Lengths
 
 #[test]
 fn assert_len() {
@@ -48,7 +76,29 @@ fn assert_len() {
 }
 
 #[test]
-fn assert_return_enum() {
+fn assert_is_empty() {
+    assert_is_empty!("");
+    assert_not_empty!("alfa");
+}
+
+//// Matching
+
+#[test]
+fn assert_contains() {
+    assert_contains!("alfa", "lf");
+    assert_not_contains!("alfa", "zz");
+}
+
+#[test]
+fn assert_is_match() {
+    assert_is_match!(Regex::new(r"lf").unwrap(), "alfa");
+    assert_not_match!(Regex::new(r"zz").unwrap(), "alfa");
+}
+
+//// Return Ok/Err
+
+#[test]
+fn assert_ok() {
     let a: Result<i8, i8> = Result::Ok(1);
     assert_ok!(a);
 
@@ -59,13 +109,27 @@ fn assert_return_enum() {
     let a: Result<i8, i8> = Result::Ok(1);
     let b: Result<i8, i8> = Result::Ok(2);
     assert_ok_ne!(a, b);
-
-    let a: Result<i8, i8> = Result::Err(2);
-    assert_err!(a);
 }
 
 #[test]
-fn assert_option_enum() {
+fn assert_err() {
+    let a: Result<i8, i8> = Result::Err(1);
+    assert_err!(a);
+
+    let a: Result<i8, i8> = Result::Err(1);
+    let b: Result<i8, i8> = Result::Err(1);
+    assert_err_eq!(a, b);
+
+    let a: Result<i8, i8> = Result::Err(1);
+    let b: Result<i8, i8> = Result::Err(2);
+    assert_err_ne!(a, b);
+
+}
+
+//// Option Some/None
+
+#[test]
+fn assert_some() {
     let a: Option<i8> = Option::Some(1);
     assert_some!(a);
 
@@ -76,16 +140,21 @@ fn assert_option_enum() {
     let a: Option<i8> = Option::Some(1);
     let b: Option<i8> = Option::Some(2);
     assert_some_ne!(a, b);
+}
 
+#[test]
+fn assert_none() {
     let a: Option<i8> = Option::None;
     assert_none!(a);
 }
 
-#[test]
-fn assert_poll_enum() {
-    use std::task::Poll;
-    use std::task::Poll::*;
+//// Poll Ready/Pending
 
+use std::task::Poll;
+use std::task::Poll::*;
+
+#[test]
+fn assert_ready() {
     let a: Poll<i8> = Ready(1);
     assert_ready!(a);
 
@@ -96,10 +165,15 @@ fn assert_poll_enum() {
     let a: Poll<i8> = Ready(1);
     let b: Poll<i8> = Ready(2);
     assert_ready_ne!(a, b);
+}
 
+#[test]
+fn assert_pending() {
     let a: Poll<i8> = Pending;
     assert_pending!(a);
 }
+
+//// Collections
 
 #[test]
 fn assert_iter() {
@@ -129,18 +203,93 @@ fn assert_set() {
     assert_set_disjoint!([1], [2]);
 }
 
-// TODO
+//// Command
+
 #[test]
 fn assert_command() {
-    // assert_command_stderr_contains!();
-    // assert_command_stderr_eq!();
-    // assert_command_stderr_eq_expr!();
-    // assert_command_stderr_is_match!();
-    // assert_command_stdout_contains!();
-    // assert_command_stdout_eq!();
-    // assert_command_stdout_eq_expr!();
-    // assert_command_stdout_is_match!();
+    use std::process::Command;
+
+    //// stdout
+    let program = BIN.join("printf-stdout");
+    let mut a = Command::new(&program);
+    a.args(["%s", "hello"]);
+    let mut b = Command::new(&program);
+    b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+    assert_command_stdout_eq!(a, b);
+    assert_command_stdout_eq_expr!(a, &vec![b'h', b'e', b'l', b'l', b'o']);
+    assert_command_stdout_contains!(a, "ll");
+    assert_command_stdout_is_match!(a, Regex::new(r"ll").unwrap());
+
+    //// stderr
+    let program = BIN.join("printf-stderr");
+    let mut a = Command::new(&program);
+    a.args(["%s", "hello"]);
+    let mut b = Command::new(&program);
+    b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+    assert_command_stderr_eq!(a, b);
+    assert_command_stderr_eq_expr!(a, &vec![b'h', b'e', b'l', b'l', b'o']);
+    assert_command_stderr_contains!(a, "ll");
+    assert_command_stderr_is_match!(a, Regex::new(r"ll").unwrap());
 }
+
+#[test]
+fn assert_program_args() {
+
+    //// stdout
+    let a_program = BIN.join("printf-stdout");
+    let a_args = ["%s", "hello"];
+    let b_program = BIN.join("printf-stdout");
+    let b_args = ["%s%s%s%s%s", "h", "e", "l", "l", "o"];
+
+    //// stdout other
+    // assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+    // assert_program_args_stdout_ne!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "x"]);
+    // assert_program_args_stdout_lt!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
+    // assert_program_args_stdout_le!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
+    // assert_program_args_stdout_gt!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
+    // assert_program_args_stdout_ge!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
+
+    //// stdout expr
+    assert_program_args_stdout_eq_expr!(&a_program, &a_args, &vec![b'h', b'e', b'l', b'l', b'o']);
+    assert_program_args_stdout_ne_expr!(&a_program, &a_args, &vec![b'x']);
+    assert_program_args_stdout_lt_expr!(&a_program, &a_args, &vec![b'z', b'z']);
+    assert_program_args_stdout_le_expr!(&a_program, &a_args, &vec![b'z', b'z']);
+    assert_program_args_stdout_gt_expr!(&a_program, &a_args, &vec![b'a', b'a']);
+    assert_program_args_stdout_ge_expr!(&a_program, &a_args, &vec![b'a', b'a']);
+
+    //// stdout extras
+    // assert_program_args_stdout_contains!(&a_program, &a_args, "ll");
+    // assert_program_args_stdout_is_match!(&a_program, &a_args, Regex::new(r"ll").unwrap());
+
+    //// stderr
+    let a_program = BIN.join("printf-stderr");
+    let a_args = ["%s", "hello"];
+    let b_program = BIN.join("printf-stderr");
+    let b_args = ["%s%s%s%s%s", "h", "e", "l", "l", "o"];
+
+    //// stderr other
+    // assert_program_args_stderr_eq!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+    // assert_program_args_stderr_ne!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "x"]);
+    // assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
+    // assert_program_args_stderr_le!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
+    // assert_program_args_stderr_gt!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
+    // assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
+
+    //// stderr expr
+    assert_program_args_stderr_eq_expr!(&a_program, &a_args, &vec![b'h', b'e', b'l', b'l', b'o']);
+    assert_program_args_stderr_ne_expr!(&a_program, &a_args, &vec![b'x']);
+    assert_program_args_stderr_lt_expr!(&a_program, &a_args, &vec![b'z', b'z']);
+    assert_program_args_stderr_le_expr!(&a_program, &a_args, &vec![b'z', b'z']);
+    assert_program_args_stderr_gt_expr!(&a_program, &a_args, &vec![b'a', b'a']);
+    assert_program_args_stderr_ge_expr!(&a_program, &a_args, &vec![b'a', b'a']);
+
+    //// stderr extras
+    // assert_program_args_stderr_contains!(&a_program, &a_args, "ll");
+    // assert_program_args_stderr_is_match!(&a_program, &a_args, Regex::new(r"ll").unwrap());
+
+}
+
+//// Functions
 
 #[test]
 fn assert_fn() {
@@ -271,49 +420,3 @@ fn assert_io_read_to_string() {
     a = "alfa".as_bytes(); assert_io_read_to_string_matches!(a, Regex::new("lf").unwrap());
 
 }
-
-// TODO
-#[test]
-fn assert_program_args() {
-    // assert_program_args_stderr_contains!();
-    // assert_program_args_stderr_eq!();
-    // assert_program_args_stderr_eq_expr!();
-    // assert_program_args_stderr_ge!();
-    // assert_program_args_stderr_ge_expr!();
-    // assert_program_args_stderr_gt!();
-    // assert_program_args_stderr_gt_expr!();
-    // assert_program_args_stderr_is_match!();
-    // assert_program_args_stderr_le!();
-    // assert_program_args_stderr_le_expr!();
-    // assert_program_args_stderr_lt!();
-    // assert_program_args_stderr_lt_expr!();
-    // assert_program_args_stderr_ne!();
-    // assert_program_args_stderr_ne_expr!();
-    // assert_program_args_stdout_contains!();
-    // assert_program_args_stdout_eq!();
-    // assert_program_args_stdout_eq_expr!();
-    // assert_program_args_stdout_ge!();
-    // assert_program_args_stdout_ge_expr!();
-    // assert_program_args_stdout_gt!();
-    // assert_program_args_stdout_gt_expr!();
-    // assert_program_args_stdout_is_match!();
-    // assert_program_args_stdout_le!();
-    // assert_program_args_stdout_le_expr!();
-    // assert_program_args_stdout_lt!();
-    // assert_program_args_stdout_lt_expr!();
-    // assert_program_args_stdout_ne!();
-    // assert_program_args_stdout_ne_expr!();
-}
-
-#[test]
-fn experimental() {
-    assert_infix!(1 == 1);
-    assert_infix!(1 != 2);
-    assert_infix!(1 < 2);
-    assert_infix!(1 <= 2);
-    assert_infix!(2 > 1);
-    assert_infix!(2 >= 1);
-    assert_infix!(true && true);
-    assert_infix!(false || true);
-}
-

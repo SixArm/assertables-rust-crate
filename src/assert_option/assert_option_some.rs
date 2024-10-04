@@ -48,7 +48,7 @@ macro_rules! assert_option_some_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_option_some!(a)`\n",
-                                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_some.html\n",
+                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_option_some.html\n",
                                 " option label: `{}`,\n",
                                 " option debug: `{:?}`",
                             ),
@@ -81,7 +81,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_option_some!(a)`\n",
-                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_some.html\n",
+                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_option_some.html\n",
                 " option label: `a`,\n",
                 " option debug: `None`",
             )
@@ -111,13 +111,13 @@ mod tests {
 /// assert_option_some!(a);
 /// # });
 /// // assertion failed: `assert_option_some!(a)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_some.html
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_option_some.html
 /// //  option label: `a`,
 /// //  option debug: `None`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_option_some!(a)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_option_some.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_option_some.html\n",
 /// #     " option label: `a`,\n",
 /// #     " option debug: `None`",
 /// # );

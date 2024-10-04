@@ -583,6 +583,7 @@ macro_rules! assert_gt_as_result {
                             "        left: `{:?}`,\n",
                             "       right: `{:?}`"
                         ),
+                        env!("CARGO_PKG_VERSION")
                         stringify!($a), $a,
                         stringify!($b), $b,
                         a,

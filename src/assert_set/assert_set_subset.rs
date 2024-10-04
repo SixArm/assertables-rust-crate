@@ -56,7 +56,7 @@ macro_rules! assert_set_subset_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
-                            "https://docs.rs/assertables/8.13.0/assertables/macro.assert_set_subset.html\n",
+                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_set_subset.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -98,7 +98,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_set_subset.html\n",
+                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_set_subset.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 2, 3]`,\n",
                 " b label: `&b`,\n",
@@ -137,7 +137,7 @@ mod tests {
 /// assert_set_subset!(&a, &b);
 /// # });
 /// // assertion failed: `assert_set_subset!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_set_subset.html
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_set_subset.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2, 3]`,
 /// //  b label: `&b`,
@@ -147,7 +147,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_set_subset.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_set_subset.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 2, 3]`,\n",
 /// #     " b label: `&b`,\n",

@@ -1,7 +1,7 @@
-//! Assert a number is approximately not equal to another number.
+//! Assert a number is approximately equal to another number.
 //!
 //! Pseudocode:<br>
-//! | a - b | > 1e-6
+//! | a - b | ≤ 1e-6
 //!
 //! # Example
 //!
@@ -9,8 +9,8 @@
 //! use assertables::*;
 //! # fn main() {
 //! let a: f32 = 1.0000001;
-//! let b: f32 = 1.0000012;
-//! assert_approx_ne!(a, b);
+//! let b: f32 = 1.0000011;
+//! assert_approx_eq!(a, b);
 //! # }
 //! ```
 //!
@@ -56,14 +56,14 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_approx_ne`](macro@crate::assert_approx_ne)
-//! * [`assert_approx_ne_as_result`](macro@crate::assert_approx_ne_as_result)
-//! * [`debug_assert_approx_ne`](macro@crate::debug_assert_approx_ne)
+//! * [`assert_approx_eq`](macro@crate::assert_approx_eq)
+//! * [`assert_approx_eq_as_result`](macro@crate::assert_approx_eq_as_result)
+//! * [`debug_assert_approx_eq`](macro@crate::debug_assert_approx_eq)
 
-/// Assert a number is approximately not equal to another number.
+/// Assert a number is approximately equal to another number.
 ///
 /// Pseudocode:<br>
-/// | a - b | > 1e-6
+/// | a - b | ≤ 1e-6
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -78,12 +78,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_approx_ne`](macro@crate::assert_approx_ne)
-/// * [`assert_approx_ne_as_result`](macro@crate::assert_approx_ne_as_result)
-/// * [`debug_assert_approx_ne`](macro@crate::debug_assert_approx_ne)
+/// * [`assert_approx_eq`](macro@crate::assert_approx_eq)
+/// * [`assert_approx_eq_as_result`](macro@crate::assert_approx_eq_as_result)
+/// * [`debug_assert_approx_eq`](macro@crate::debug_assert_approx_eq)
 ///
 #[macro_export]
-macro_rules! assert_approx_ne_as_result {
+macro_rules! assert_approx_eq_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
@@ -91,14 +91,14 @@ macro_rules! assert_approx_ne_as_result {
                     Ok(())
                 } else {
                     let diff = if (a > b) { a - b } else { b - a };
-                    let delta = 1e-6;
-                    if diff > delta {
+                    let delta = 1.0e-6;
+                    if diff <= delta {
                         Ok(())
                     } else {
                         Err(format!(
                             concat!(
-                                "assertion failed: `assert_approx_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_ne.html\n",
+                                "assertion failed: `assert_approx_eq!(a, b)`\n",
+                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_approx_eq.html\n",
                                 "           a label: `{}`,\n",
                                 "           a debug: `{:?}`,\n",
                                 "           b label: `{}`,\n",
@@ -126,40 +126,40 @@ macro_rules! assert_approx_ne_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_approx_ne_as_result_x_success() {
+    fn test_assert_approx_eq_as_result_x_success() {
         let a: f32 = 1.0000001;
-        let b: f32 = 1.0000012;
-        let result = assert_approx_ne_as_result!(a, b);
+        let b: f32 = 1.0000011;
+        let result = assert_approx_eq_as_result!(a, b);
         assert_eq!(result, Ok(()));
     }
 
     #[test]
-    fn test_assert_approx_ne_as_result_x_failure() {
+    fn test_assert_approx_eq_as_result_x_failure() {
         let a: f32 = 1.0000001;
-        let b: f32 = 1.0000011;
-        let result = assert_approx_ne_as_result!(a, b);
+        let b: f32 = 1.0000012;
+        let result = assert_approx_eq_as_result!(a, b);
         assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_approx_ne!(a, b)`\n",
-                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_ne.html\n",
+                "assertion failed: `assert_approx_eq!(a, b)`\n",
+                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_approx_eq.html\n",
                 "           a label: `a`,\n",
                 "           a debug: `1.0000001`,\n",
                 "           b label: `b`,\n",
-                "           b debug: `1.0000011`,\n",
+                "           b debug: `1.0000012`,\n",
                 "             delta: `1e-6`,\n",
-                "         | a - b |: `9.536743e-7`,\n",
+                "         | a - b |: `1.0728836e-6`,\n",
                 " | a - b | ≤ delta: false"
             )
         );
     }
 }
 
-/// Assert a number is approximately not equal to another number.
+/// Assert a number is approximately equal to another number.
 ///
 /// Pseudocode:<br>
-/// | a - b | > 1e-6
+/// | a - b | ≤ 1e-6
 ///
 /// * If true, return `()`.
 ///
@@ -174,40 +174,40 @@ mod tests {
 ///
 /// # fn main() {
 /// let a: f32 = 1.0000001;
-/// let b: f32 = 1.0000012;
-/// assert_approx_ne!(a, b);
+/// let b: f32 = 1.0000011;
+/// assert_approx_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let a: f32 = 1.0000001;
-/// let b: f32 = 1.0000011;
-/// assert_approx_ne!(a, b);
+/// let b: f32 = 1.0000012;
+/// assert_approx_eq!(a, b);
 /// # });
-/// // assertion failed: `assert_approx_ne!(a, b)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_ne.html
+/// // assertion failed: `assert_approx_eq!(a, b)`
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_approx_eq.html
 /// //            a label: `a`,
 /// //            a debug: `1.0000001`,
 /// //            b label: `b`,
-/// //            b debug: `1.0000011`,
+/// //            b debug: `1.0000012`,
 /// //              delta: `1e-6`,
-/// //          | a - b |: `9.536743e-7`,
+/// //          | a - b |: `1.0728836e-6`,
 /// //  | a - b | ≤ delta: false
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_approx_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_approx_ne.html\n",
+/// #     "assertion failed: `assert_approx_eq!(a, b)`\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_approx_eq.html\n",
 /// #     "           a label: `a`,\n",
 /// #     "           a debug: `1.0000001`,\n",
 /// #     "           b label: `b`,\n",
-/// #     "           b debug: `1.0000011`,\n",
+/// #     "           b debug: `1.0000012`,\n",
 /// #     "             delta: `1e-6`,\n",
-/// #     "         | a - b |: `9.536743e-7`,\n",
+/// #     "         | a - b |: `1.0728836e-6`,\n",
 /// #     " | a - b | ≤ delta: false",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
 /// ```
 ///
-/// The macros `assert_approx_ne` and `assert_in_epsilon` can test
+/// The macros `assert_approx_eq` and `assert_in_epsilon` can test
 /// approximations:
 ///
 /// * For an approximation, the absolute error (i.e. delta) is the magnitude of
@@ -227,32 +227,32 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_approx_ne`](macro@crate::assert_approx_ne)
-/// * [`assert_approx_ne_as_result`](macro@crate::assert_approx_ne_as_result)
-/// * [`debug_assert_approx_ne`](macro@crate::debug_assert_approx_ne)
+/// * [`assert_approx_eq`](macro@crate::assert_approx_eq)
+/// * [`assert_approx_eq_as_result`](macro@crate::assert_approx_eq_as_result)
+/// * [`debug_assert_approx_eq`](macro@crate::debug_assert_approx_eq)
 ///
 #[macro_export]
-macro_rules! assert_approx_ne {
+macro_rules! assert_approx_eq {
     ($a:expr, $b:expr $(,)?) => {{
-        match $crate::assert_approx_ne_as_result!($a, $b) {
+        match $crate::assert_approx_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_approx_ne_as_result!($a, $b) {
+        match $crate::assert_approx_eq_as_result!($a, $b) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
 }
 
-/// Assert a number is approximately not equal to another number.
+/// Assert a number is approximately equal to another number.
 ///
 /// Pseudocode:<br>
-/// | a - b | > 1e-6
+/// | a - b | ≤ 1e-6
 ///
-/// This macro provides the same statements as [`assert_approx_ne`](macro.assert_approx_ne.html),
+/// This macro provides the same statements as [`assert_approx_eq`](macro.assert_approx_eq.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -274,15 +274,15 @@ macro_rules! assert_approx_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_approx_ne`](macro@crate::assert_approx_ne)
-/// * [`assert_approx_ne`](macro@crate::assert_approx_ne)
-/// * [`debug_assert_approx_ne`](macro@crate::debug_assert_approx_ne)
+/// * [`assert_approx_eq`](macro@crate::assert_approx_eq)
+/// * [`assert_approx_eq`](macro@crate::assert_approx_eq)
+/// * [`debug_assert_approx_eq`](macro@crate::debug_assert_approx_eq)
 ///
 #[macro_export]
-macro_rules! debug_assert_approx_ne {
+macro_rules! debug_assert_approx_eq {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_approx_ne!($($arg)*);
+            $crate::assert_approx_eq!($($arg)*);
         }
     };
 }

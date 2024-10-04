@@ -294,7 +294,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_lt.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_iter_lt.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -332,7 +332,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_lt.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_iter_lt.html\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[1, 2]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -351,7 +351,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_lt.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_iter_lt.html\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[3, 4]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -389,7 +389,7 @@
 /// assert_iter_lt!(&amp;a, &amp;b);
 /// # });
 /// // assertion failed: `assert_iter_lt!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_lt.html
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_iter_lt.html
 /// //  a label: `&amp;a`,
 /// //  a debug: `[3, 4]`,
 /// //  b label: `&amp;b`,
@@ -397,7 +397,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_iter_lt.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_iter_lt.html\n",
 /// #     " a label: `&amp;a`,\n",
 /// #     " a debug: `[3, 4]`,\n",
 /// #     " b label: `&amp;b`,\n",

@@ -54,7 +54,7 @@ macro_rules! assert_not_match_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-                            "https://docs.rs/assertables/8.14.0/assertables/macro.assert_not_match.html\n",
+                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_match.html\n",
                             " matcher label: `{}`,\n",
                             " matcher debug: `{:?}`,\n",
                             " matchee label: `{}`,\n",
@@ -92,7 +92,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-            "https://docs.rs/assertables/8.14.0/assertables/macro.assert_not_match.html\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_match.html\n",
             " matcher label: `a`,\n",
             " matcher debug: `Regex(\"lf\")`,\n",
             " matchee label: `b`,\n",
@@ -138,7 +138,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-/// #     "https://docs.rs/assertables/8.14.0/assertables/macro.assert_not_match.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_match.html\n",
 /// #     " matcher label: `a`,\n",
 /// #     " matcher debug: `Regex(\"lf\")`,\n",
 /// #     " matchee label: `b`,\n",

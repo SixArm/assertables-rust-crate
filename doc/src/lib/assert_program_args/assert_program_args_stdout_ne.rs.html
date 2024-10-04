@@ -332,7 +332,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
                             <span class="string">" a_program label: `{}`,\n"</span>,
                             <span class="string">" a_program debug: `{:?}`,\n"</span>,
                             <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -364,7 +364,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
                                 <span class="string">" a_program label: `{}`,\n"</span>,
                                 <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                 <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -417,7 +417,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/8.13.0/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
             <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
             <span class="string">" a_program debug: `\"bin/printf-stdout\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
@@ -464,7 +464,7 @@
 /// assert_program_args_stdout_ne!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_program_args_stdout_ne.html
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_program_args_stdout_ne.html
 /// //  a_program label: `&amp;a_program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&amp;a_args`,
@@ -478,7 +478,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_program_args_stdout_ne.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stdout_ne.html\n",
 /// #     " a_program label: `&amp;a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&amp;a_args`,\n",

@@ -53,7 +53,7 @@ macro_rules! assert_err_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_err!(a)`\n",
-                                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_err.html\n",
+                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_err.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -86,7 +86,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_err!(a)`\n",
-                "https://docs.rs/assertables/8.13.0/assertables/macro.assert_err.html\n",
+                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_err.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(())`",
             )
@@ -119,13 +119,13 @@ mod tests {
 /// assert_err!(a);
 /// # });
 /// // assertion failed: `assert_err!(a)`
-/// // https://docs.rs/assertables/8.13.0/assertables/macro.assert_err.html
+/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(())`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_err!(a)`\n",
-/// #     "https://docs.rs/assertables/8.13.0/assertables/macro.assert_err.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_err.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(())`",
 /// # );
