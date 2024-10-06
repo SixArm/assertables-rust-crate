@@ -1,7 +1,7 @@
 //! Assert a command (built with program and args) stdout string is equal to another.
 //!
 //! Pseudocode:<br>
-//! (program1 + args1 ⇒ command ⇒ stdout ⇒ string) = (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
+//! (program1 + args1 ⇒ command ⇒ stdout) = (program2 + args2 ⇒ command ⇒ stdout)
 //!
 //! # Example
 //!
@@ -9,9 +9,9 @@
 //! use assertables::*;
 //! # fn main() {
 //! let a_program = "bin/printf-stdout";
-//! let a_args = ["%s", "hello"];
+//! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stdout";
-//! let b_args = ["%s%s%s%s%s", "h", "e", "l", "l", "o"];
+//! let b_args = ["%s%s%s%s", "a", "l", "f", "a"];
 //! assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
 //! # }
 //! ```
@@ -25,7 +25,7 @@
 /// Assert a command (built with program and args) stdout string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) = (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
+/// (program1 + args1 ⇒ command ⇒ stdout) = (program2 + args2 ⇒ command ⇒ stdout)
 ///
 /// * If true, return `()`.
 ///
@@ -79,9 +79,9 @@ macro_rules! assert_program_args_stdout_eq_as_result {
                         b_output
                     ))
                 } else {
-                    let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-                    let b_string = String::from_utf8(b_output.unwrap().stdout).unwrap();
-                    if a_string == b_string {
+                    let a = a_output.unwrap().stdout;
+                    let b = b_output.unwrap().stdout;
+                    if a.eq(&b) {
                         Ok(())
                     } else {
                         Err(format!(
@@ -107,8 +107,8 @@ macro_rules! assert_program_args_stdout_eq_as_result {
                             b_program,
                             stringify!($b_args),
                             b_args,
-                            a_string,
-                            b_string
+                            a,
+                            b
                         ))
                     }
                 }
@@ -123,9 +123,9 @@ mod tests {
     #[test]
     fn test_assert_program_args_stdout_eq_as_result_x_success() {
         let a_program = "bin/printf-stdout";
-        let a_args = ["%s", "hello"];
+        let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
-        let b_args = ["%s%s%s%s%s", "h", "e", "l", "l", "o"];
+        let b_args = ["%s%s%s%s", "a", "l", "f", "a"];
         let result = assert_program_args_stdout_eq_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(result.unwrap(), ());
     }
@@ -133,7 +133,7 @@ mod tests {
     #[test]
     fn test_assert_program_args_stdout_eq_as_result_x_failure() {
         let a_program = "bin/printf-stdout";
-        let a_args = ["%s", "hello"];
+        let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
         let b_args = ["%s%s%s", "z", "z", "z"];
         let result = assert_program_args_stdout_eq_as_result!(&a_program, &a_args, &b_program, &b_args);
@@ -144,13 +144,13 @@ mod tests {
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
-            "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
             " b_program label: `&b_program`,\n",
             " b_program debug: `\"bin/printf-stdout\"`,\n",
             "    b_args label: `&b_args`,\n",
             "    b_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,\n",
-            "               a: `\"hello\"`,\n",
-            "               b: `\"zzz\"`"
+            "               a: `[97, 108, 102, 97]`,\n",
+            "               b: `[122, 122, 122]`"
         );
         assert_eq!(actual, expect);
     }
@@ -159,7 +159,7 @@ mod tests {
 /// Assert a command (built with program and args) stdout string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) = (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
+/// (program1 + args1 ⇒ command ⇒ stdout) = (program2 + args2 ⇒ command ⇒ stdout)
 ///
 /// * If true, return `()`.
 ///
@@ -174,14 +174,14 @@ mod tests {
 ///
 /// # fn main() {
 /// let a_program = "bin/printf-stdout";
-/// let a_args = ["%s", "hello"];
+/// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";
-/// let b_args = ["%s%s%s%s%s", "h", "e", "l", "l", "o"];
+/// let b_args = ["%s%s%s%s", "a", "l", "f", "a"];
 /// assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let a_program = "bin/printf-stdout";
-/// let a_args = ["%s", "hello"];
+/// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";
 /// let b_args = ["%s%s%s", "z", "z", "z"];
 /// assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
@@ -191,13 +191,13 @@ mod tests {
 /// //  a_program label: `&a_program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&a_args`,
-/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //     a_args debug: `[\"%s\", \"alfa\"]`,
 /// //  b_program label: `&b_program`,
 /// //  b_program debug: `\"bin/printf-stdout\"`,
 /// //     b_args label: `&b_args`,
 /// //     b_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,
-/// //                a: `\"hello\"`,
-/// //                b: `\"zzz\"`
+/// //                a: `[97, 108, 102, 97]`,
+/// //                b: `[122, 122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`\n",
@@ -205,13 +205,13 @@ mod tests {
 /// #     " a_program label: `&a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&a_args`,\n",
-/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
 /// #     " b_program label: `&b_program`,\n",
 /// #     " b_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    b_args label: `&b_args`,\n",
 /// #     "    b_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,\n",
-/// #     "               a: `\"hello\"`,\n",
-/// #     "               b: `\"zzz\"`"
+/// #     "               a: `[97, 108, 102, 97]`,\n",
+/// #     "               b: `[122, 122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -242,7 +242,7 @@ macro_rules! assert_program_args_stdout_eq {
 /// Assert a command (built with program and args) stdout string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) = (program2 + args2 ⇒ command ⇒ stdout ⇒ string)
+/// (program1 + args1 ⇒ command ⇒ stdout) = (program2 + args2 ⇒ command ⇒ stdout)
 ///
 /// This macro provides the same statements as [`assert_program_args_stdout_eq`](macro.assert_program_args_stdout_eq.html),
 /// except this macro's statements are only enabled in non-optimized

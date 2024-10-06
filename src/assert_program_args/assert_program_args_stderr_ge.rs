@@ -1,7 +1,7 @@
 //! Assert a command (built with program and args) stderr string is greater than or equal to another.
 //!
 //! Pseudocode:<br>
-//! (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≥ (program2 + args2 ⇒ command ⇒ stderr ⇒ string)
+//! (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
 //!
 //! # Example
 //!
@@ -9,9 +9,9 @@
 //! use assertables::*;
 //! # fn main() {
 //! let a_program = "bin/printf-stderr";
-//! let a_args = ["%s", "hello"];
+//! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stderr";
-//! let b_args = ["%s", "hallo"];
+//! let b_args = ["%s", "aa"];
 //! assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, &b_args);
 //! # }
 //! ```
@@ -25,7 +25,7 @@
 /// Assert a command (built with program and args) stderr string is greater than or equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≥ (program2 + args2 ⇒ command ⇒ stderr ⇒ string)
+/// (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -78,9 +78,9 @@ macro_rules! assert_program_args_stderr_ge_as_result {
                         b_output
                     ))
                 } else {
-                    let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-                    let b_string = String::from_utf8(b_output.unwrap().stderr).unwrap();
-                    if a_string >= b_string {
+                    let a = a_output.unwrap().stderr;
+                    let b = b_output.unwrap().stderr;
+                    if a.ge(&b) {
                         Ok(())
                     } else {
                         Err(format!(
@@ -106,8 +106,8 @@ macro_rules! assert_program_args_stderr_ge_as_result {
                             b_program,
                             stringify!($b_args),
                             b_args,
-                            a_string,
-                            b_string
+                            a,
+                            b
                         ))
                     }
                 }
@@ -122,9 +122,9 @@ mod tests {
     #[test]
     fn test_assert_program_args_stderr_ge_as_result_x_success_because_gt() {
         let a_program = "bin/printf-stderr";
-        let a_args = ["%s", "hello"];
+        let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
-        let b_args = ["%s", "hallo"];
+        let b_args = ["%s", "aa"];
         let result = assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(result.unwrap(), ());
     }
@@ -132,9 +132,9 @@ mod tests {
     #[test]
     fn test_assert_program_args_stderr_ge_as_result_x_success_because_eq() {
         let a_program = "bin/printf-stderr";
-        let a_args = ["%s", "hello"];
+        let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
-        let b_args = ["%s", "hello"];
+        let b_args = ["%s", "alfa"];
         let result = assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(result.unwrap(), ());
     }
@@ -142,9 +142,9 @@ mod tests {
     #[test]
     fn test_assert_program_args_stderr_ge_as_result_x_failure_because_lt() {
         let a_program = "bin/printf-stderr";
-        let a_args = ["%s", "hello"];
+        let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
-        let b_args = ["%s", "hullo"];
+        let b_args = ["%s", "zz"];
         let result = assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -153,13 +153,13 @@ mod tests {
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
-            "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
             " b_program label: `&b_program`,\n",
             " b_program debug: `\"bin/printf-stderr\"`,\n",
             "    b_args label: `&b_args`,\n",
-            "    b_args debug: `[\"%s\", \"hullo\"]`,\n",
-            "               a: `\"hello\"`,\n",
-            "               b: `\"hullo\"`"
+            "    b_args debug: `[\"%s\", \"zz\"]`,\n",
+            "               a: `[97, 108, 102, 97]`,\n",
+            "               b: `[122, 122]`"
         );
         assert_eq!(actual, expect);
     }
@@ -168,7 +168,7 @@ mod tests {
 /// Assert a command (built with program and args) stderr string is greater than or equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≥ (program2 + args2 ⇒ command ⇒ stderr ⇒ string)
+/// (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
 ///
 /// * If true, return `()`.
 ///
@@ -183,16 +183,16 @@ mod tests {
 ///
 /// # fn main() {
 /// let a_program = "bin/printf-stderr";
-/// let a_args = ["%s", "hello"];
+/// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stderr";
-/// let b_args = ["%s", "hallo"];
+/// let b_args = ["%s", "aa"];
 /// assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, &b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let a_program = "bin/printf-stderr";
-/// let a_args = ["%s", "hello"];
+/// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stderr";
-/// let b_args = ["%s", "hullo"];
+/// let b_args = ["%s", "zz"];
 /// assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, &b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`
@@ -200,13 +200,13 @@ mod tests {
 /// //  a_program label: `&a_program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&a_args`,
-/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //     a_args debug: `[\"%s\", \"alfa\"]`,
 /// //  b_program label: `&b_program`,
 /// //  b_program debug: `\"bin/printf-stderr\"`,
 /// //     b_args label: `&b_args`,
-/// //     b_args debug: `[\"%s\", \"hullo\"]`,
-/// //                a: `\"hello\"`,
-/// //                b: `\"hullo\"`
+/// //     b_args debug: `[\"%s\", \"zz\"]`,
+/// //                a: `[97, 108, 102, 97]`,
+/// //                b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
@@ -214,13 +214,13 @@ mod tests {
 /// #     " a_program label: `&a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&a_args`,\n",
-/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
 /// #     " b_program label: `&b_program`,\n",
 /// #     " b_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    b_args label: `&b_args`,\n",
-/// #     "    b_args debug: `[\"%s\", \"hullo\"]`,\n",
-/// #     "               a: `\"hello\"`,\n",
-/// #     "               b: `\"hullo\"`"
+/// #     "    b_args debug: `[\"%s\", \"zz\"]`,\n",
+/// #     "               a: `[97, 108, 102, 97]`,\n",
+/// #     "               b: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -251,7 +251,7 @@ macro_rules! assert_program_args_stderr_ge {
 /// Assert a command (built with program and args) stderr string greater than or equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) ≥ (program2 + args2 ⇒ command ⇒ stderr ⇒ string)
+/// (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
 ///
 /// This macro provides the same statements as [`assert_program_args_stderr_ge`](macro.assert_program_args_stderr_ge.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -254,7 +254,7 @@
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stdout string is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
+//! (command1 ⇒ stdout) = (command2 ⇒ stdout)
 //!
 //! # Example
 //!
@@ -264,9 +264,9 @@
 //!
 //! # fn main() {
 //! let mut a = Command::new("bin/printf-stdout");
-//! a.args(["%s", "hello"]);
+//! a.args(["%s", "alfa"]);
 //! let mut b = Command::new("bin/printf-stdout");
-//! b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+//! b.args(["%s%s%s%s", "a", "l", "f", "a"]);
 //! assert_command_stdout_eq!(a, b);
 //! # }
 //! ```
@@ -280,7 +280,7 @@
 /// Assert a command stdout string is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
+/// (command1 ⇒ stdout) = (command2 ⇒ stdout)
 ///
 /// * If true, return `()`.
 ///
@@ -324,9 +324,9 @@
                 b_output
             ))
         } <span class="kw">else </span>{
-            <span class="kw">let </span>a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            <span class="kw">let </span>b_string = String::from_utf8(b_output.unwrap().stdout).unwrap();
-            <span class="kw">if </span>a_string == b_string {
+            <span class="kw">let </span>a = a_output.unwrap().stdout;
+            <span class="kw">let </span>b = b_output.unwrap().stdout;
+            <span class="kw">if </span>a.eq(<span class="kw-2">&amp;</span>b) {
                 <span class="prelude-val">Ok</span>(())
             } <span class="kw">else </span>{
                 <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
@@ -344,8 +344,8 @@
                     <span class="macro-nonterminal">$a_command</span>,
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_command</span>),
                     <span class="macro-nonterminal">$b_command</span>,
-                    a_string,
-                    b_string
+                    a,
+                    b
                 ))
             }
         }
@@ -360,9 +360,9 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_command_stdout_eq_as_result_x_success() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
-        a.args([<span class="string">"%s"</span>, <span class="string">"hello"</span>]);
+        a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stdout"</span>);
-        b.args([<span class="string">"%s%s%s%s%s"</span>, <span class="string">"h"</span>, <span class="string">"e"</span>, <span class="string">"l"</span>, <span class="string">"l"</span>, <span class="string">"o"</span>]);
+        b.args([<span class="string">"%s%s%s%s"</span>, <span class="string">"a"</span>, <span class="string">"l"</span>, <span class="string">"f"</span>, <span class="string">"a"</span>]);
         <span class="kw">let </span>result = <span class="macro">assert_command_stdout_eq_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
@@ -370,7 +370,7 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_command_stdout_eq_as_result_x_failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
-        a.args([<span class="string">"%s"</span>, <span class="string">"hello"</span>]);
+        a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stdout"</span>);
         b.args([<span class="string">"%s%s%s"</span>, <span class="string">"z"</span>, <span class="string">"z"</span>, <span class="string">"z"</span>]);
         <span class="kw">let </span>result = <span class="macro">assert_command_stdout_eq_as_result!</span>(a, b);
@@ -379,11 +379,11 @@
             <span class="string">"assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n"</span>,
             <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_command_stdout_eq.html\n"</span>,
             <span class="string">" a label: `a`,\n"</span>,
-            <span class="string">" a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n"</span>,
+            <span class="string">" a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">" b label: `b`,\n"</span>,
             <span class="string">" b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n"</span>,
-            <span class="string">"       a: `\"hello\"`,\n"</span>,
-            <span class="string">"       b: `\"zzz\"`"
+            <span class="string">"       a: `[97, 108, 102, 97]`,\n"</span>,
+            <span class="string">"       b: `[122, 122, 122]`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -392,7 +392,7 @@
 <span class="doccomment">/// Assert a command stdout string is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
+/// (command1 ⇒ stdout) = (command2 ⇒ stdout)
 ///
 /// * If true, return `()`.
 ///
@@ -408,14 +408,14 @@
 ///
 /// # fn main() {
 /// let mut a = Command::new("bin/printf-stdout");
-/// a.args(["%s", "hello"]);
+/// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stdout");
-/// b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+/// b.args(["%s%s%s%s", "a", "l", "f", "a"]);
 /// assert_command_stdout_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("bin/printf-stdout");
-/// a.args(["%s", "hello"]);
+/// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stdout");
 /// b.args(["%s%s%s", "z", "z", "z"]);
 /// assert_command_stdout_eq!(a, b);
@@ -423,21 +423,21 @@
 /// // assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
 /// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stdout_eq.html
 /// //  a label: `a`,
-/// //  a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
+/// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
 /// //  b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,
-/// //        a: `\"hello\"`,
-/// //        b: `\"zzz\"`
+/// //        a: `[97, 108, 102, 97]`,
+/// //        b: `[122, 122, 122]`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
 /// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq.html\n",
 /// #     " a label: `a`,\n",
-/// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+/// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
-/// #     "       a: `\"hello\"`,\n",
-/// #     "       b: `\"zzz\"`"
+/// #     "       a: `[97, 108, 102, 97]`,\n",
+/// #     "       b: `[122, 122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -468,7 +468,7 @@
 <span class="doccomment">/// Assert a command stdout string is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
+/// (command1 ⇒ stdout) = (command2 ⇒ stdout)
 ///
 /// This macro provides the same statements as [`assert_command_stdout_eq`](macro.assert_command_stdout_eq.html),
 /// except this macro's statements are only enabled in non-optimized

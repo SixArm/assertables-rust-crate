@@ -11,8 +11,8 @@
 //!
 //! # fn main() {
 //! let program = "bin/printf-stderr";
-//! let args = ["%s", "hello"];
-//! let matcher = Regex::new(r"ell").unwrap();
+//! let args = ["%s", "alfa"];
+//! let matcher = Regex::new(r"lf").unwrap();
 //! assert_program_args_stderr_is_match!(&program, &args, &matcher);
 //! # }
 //! ```
@@ -113,8 +113,8 @@ mod tests {
     #[test]
     fn test_assert_program_args_stderr_is_match_as_result_x_success() {
         let a_program = "bin/printf-stderr";
-        let a_args = ["%s", "hello"];
-        let b = Regex::new(r"ell").unwrap();
+        let a_args = ["%s", "alfa"];
+        let b = Regex::new(r"lf").unwrap();
         let result = assert_program_args_stderr_is_match_as_result!(&a_program, &a_args, &b);
         assert_eq!(result.unwrap(), ());
     }
@@ -122,7 +122,7 @@ mod tests {
     #[test]
     fn test_assert_program_args_stderr_is_match_as_result_x_failure() {
         let a_program = "bin/printf-stderr";
-        let a_args = ["%s", "hello"];
+        let a_args = ["%s", "alfa"];
         let b = Regex::new(r"zzz").unwrap();
         let result = assert_program_args_stderr_is_match_as_result!(&a_program, &a_args, &b);
         let actual = result.unwrap_err();
@@ -132,10 +132,10 @@ mod tests {
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
-            "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
             " b_matcher label: `&b`,\n",
             " b_matcher debug: `Regex(\"zzz\")`,\n",
-            "               a: `\"hello\"`,\n",
+            "               a: `\"alfa\"`,\n",
             "               b: `Regex(\"zzz\")`"
         );
         assert_eq!(actual, expect);
@@ -161,13 +161,13 @@ mod tests {
 ///
 /// # fn main() {
 /// let program = "bin/printf-stderr";
-/// let args = ["%s", "hello"];
-/// let matcher = Regex::new(r"ell").unwrap();
+/// let args = ["%s", "alfa"];
+/// let matcher = Regex::new(r"lf").unwrap();
 /// assert_program_args_stderr_is_match!(&program, &args, &matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let program = "bin/printf-stderr";
-/// let args = ["%s", "hello"];
+/// let args = ["%s", "alfa"];
 /// let matcher = Regex::new(r"zzz").unwrap();
 /// assert_program_args_stderr_is_match!(&program, &args, &matcher);
 /// # });
@@ -176,10 +176,10 @@ mod tests {
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&args`,
-/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //     a_args debug: `[\"%s\", \"alfa\"]`,
 /// //  b_matcher label: `&matcher`,
 /// //  b_matcher debug: `Regex(\"zzz\")`,
-/// //                a: `\"hello\"`,
+/// //                a: `\"alfa\"`,
 /// //                b: `Regex(\"zzz\")`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -188,10 +188,10 @@ mod tests {
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&args`,\n",
-/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
 /// #     " b_matcher label: `&matcher`,\n",
 /// #     " b_matcher debug: `Regex(\"zzz\")`,\n",
-/// #     "               a: `\"hello\"`,\n",
+/// #     "               a: `\"alfa\"`,\n",
 /// #     "               b: `Regex(\"zzz\")`"
 /// # );
 /// # assert_eq!(actual, expect);

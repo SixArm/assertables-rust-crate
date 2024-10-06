@@ -12,8 +12,8 @@
 //!
 //! # fn main() {
 //! let mut command = Command::new("bin/printf-stdout");
-//! command.args(["%s", "hello"]);
-//! let matcher = Regex::new(r"ell").unwrap();
+//! command.args(["%s", "alfa"]);
+//! let matcher = Regex::new(r"lf").unwrap();
 //! assert_command_stdout_is_match!(command, &matcher);
 //! # }
 //! ```
@@ -107,8 +107,8 @@ mod tests {
     #[test]
     fn test_assert_command_stdout_is_match_as_result_x_success() {
         let mut a = Command::new("bin/printf-stdout");
-        a.args(["%s", "hello"]);
-        let b = Regex::new(r"ell").unwrap();
+        a.args(["%s", "alfa"]);
+        let b = Regex::new(r"lf").unwrap();
         let result = assert_command_stdout_is_match_as_result!(a, b);
         assert_eq!(result.unwrap(), ());
     }
@@ -116,7 +116,7 @@ mod tests {
     #[test]
     fn test_assert_command_stdout_is_match_as_result_x_failure() {
         let mut a = Command::new("bin/printf-stdout");
-        a.args(["%s", "hello"]);
+        a.args(["%s", "alfa"]);
         let b = Regex::new(r"zzz").unwrap();
         let result = assert_command_stdout_is_match_as_result!(a, b);
         let actual = result.unwrap_err();
@@ -124,10 +124,10 @@ mod tests {
             "assertion failed: `assert_command_stdout_is_match!(command, matcher)`\n",
             "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_is_match.html\n",
             " command label: `a`,\n",
-            " command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+            " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " matcher label: `b`,\n",
             " matcher debug: `Regex(\"zzz\")`,\n",
-            " command value: `\"hello\"`,\n",
+            " command value: `\"alfa\"`,\n",
             " matcher value: `Regex(\"zzz\")`"
         );
         assert_eq!(actual, expect);
@@ -154,33 +154,33 @@ mod tests {
 ///
 /// # fn main() {
 /// let mut command = Command::new("bin/printf-stdout");
-/// command.args(["%s", "hello"]);
-/// let matcher = Regex::new(r"ell").unwrap();
+/// command.args(["%s", "alfa"]);
+/// let matcher = Regex::new(r"lf").unwrap();
 /// assert_command_stdout_is_match!(command, &matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("bin/printf-stdout");
-/// command.args(["%s", "hello"]);
+/// command.args(["%s", "alfa"]);
 /// let matcher = Regex::new(r"zzz").unwrap();
 /// assert_command_stdout_is_match!(command, &matcher);
 /// # });
 /// // assertion failed: `assert_command_stdout_is_match!(command, matcher)`
 /// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stdout_is_match.html
 /// //  command label: `command`,
-/// //  command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
+/// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  matcher label: `&matcher`,
 /// //  matcher debug: `Regex(\"zzz\")`,
-/// //  command value: `\"hello\"`,
+/// //  command value: `\"alfa\"`,
 /// //  matcher value: `Regex(\"zzz\")`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_is_match!(command, matcher)`\n",
 /// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_is_match.html\n",
 /// #     " command label: `command`,\n",
-/// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+/// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " matcher label: `&matcher`,\n",
 /// #     " matcher debug: `Regex(\"zzz\")`,\n",
-/// #     " command value: `\"hello\"`,\n",
+/// #     " command value: `\"alfa\"`,\n",
 /// #     " matcher value: `Regex(\"zzz\")`"
 /// # );
 /// # assert_eq!(actual, expect);

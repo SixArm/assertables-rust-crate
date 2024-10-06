@@ -1,7 +1,7 @@
 //! Assert a command stderr string is equal to an expression.
 //!
 //! Pseudocode:<br>
-//! (command ⇒ stderr ⇒ string) = (expr into string)
+//! (command ⇒ stderr) = (expr into string)
 //!
 //! # Example
 //!
@@ -26,7 +26,7 @@
 /// Assert a command stderr string is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (command ⇒ stderr ⇒ string) = (expr into string)
+/// (command ⇒ stderr) = (expr into string)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -137,7 +137,7 @@ mod tests {
 /// Assert a command stderr string is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (command ⇒ stderr ⇒ string) = (expr into string)
+/// (command ⇒ stderr) = (expr into string)
 ///
 /// * If true, return `()`.
 ///
@@ -211,7 +211,7 @@ macro_rules! assert_command_stderr_eq_expr {
 /// Assert a command stderr string is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (command ⇒ stderr ⇒ string) = (expr into string)
+/// (command ⇒ stderr) = (expr into string)
 ///
 /// This macro provides the same statements as [`assert_command_stderr_eq_expr`](macro.assert_command_stderr_eq_expr.html),
 /// except this macro's statements are only enabled in non-optimized

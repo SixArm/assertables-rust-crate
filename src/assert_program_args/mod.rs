@@ -32,9 +32,9 @@
 //! use assertables::*;
 //! # fn main() {
 //! let a_program = "bin/printf-stdout";
-//! let a_args = ["%s", "hello"];
+//! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stdout";
-//! let b_args = ["%s%s%s%s%s", "h", "e", "l", "l", "o"];
+//! let b_args = ["%s%s%s%s", "a", "l", "f", "a"];
 //! assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
 //! # }
 //! ```

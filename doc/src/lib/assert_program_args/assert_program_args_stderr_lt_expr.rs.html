@@ -258,7 +258,7 @@
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is less than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (program1 + args1 ⇒ command ⇒ stderr ⇒ string) &lt; (expr into string)
+//! (program1 + args1 ⇒ command ⇒ stderr) &lt; (expr into string)
 //!
 //! # Example
 //!
@@ -281,7 +281,7 @@
 /// Assert a command (built with program and args) stderr string is less than an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) &lt; (expr into string)
+/// (program1 + args1 ⇒ command ⇒ stderr) &lt; (expr into string)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -399,7 +399,7 @@
 <span class="doccomment">/// Assert a command (built with program and args) stderr string is less than an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) &lt; (expr into string)
+/// (program1 + args1 ⇒ command ⇒ stderr) &lt; (expr into string)
 ///
 /// * If true, return `()`.
 ///
@@ -476,7 +476,7 @@
 <span class="doccomment">/// Assert a command (built with program and args) stderr string is less than an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr ⇒ string) &lt; (expr into string)
+/// (program1 + args1 ⇒ command ⇒ stderr) &lt; (expr into string)
 ///
 /// This macro provides the same statements as [`assert_program_args_stderr_lt_expr`](macro.assert_program_args_stderr_lt_expr.html),
 /// except this macro's statements are only enabled in non-optimized

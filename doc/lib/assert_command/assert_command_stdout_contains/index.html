@@ -6,8 +6,8 @@
 <span class="kw">use </span>std::process::Command;
 
 <span class="kw">let </span><span class="kw-2">mut </span>command = Command::new(<span class="string">"bin/printf-stdout"</span>);
-command.args([<span class="string">"%s"</span>, <span class="string">"hello"</span>]);
-<span class="kw">let </span>containee = <span class="string">"ell"</span>;
+command.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
+<span class="kw">let </span>containee = <span class="string">"lf"</span>;
 <span class="macro">assert_command_stdout_contains!</span>(command, <span class="kw-2">&amp;</span>containee);</code></pre></div>
 <h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>
 <ul>

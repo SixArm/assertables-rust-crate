@@ -14,8 +14,8 @@
 //! use assertables::*;
 //! # fn main() {
 //! let program = "bin/printf-stdout";
-//! let args = ["%s", "hello"];
-//! let containee = "ell";
+//! let args = ["%s", "alfa"];
+//! let containee = "lf";
 //! assert_program_args_stdout_contains!(&program, &args, &containee);
 //! # }
 //! ```
@@ -114,8 +114,8 @@ mod tests {
     #[test]
     fn test_assert_command_stdout_contains_x_success() {
         let a_program = "bin/printf-stdout";
-        let a_args = ["%s", "hello"];
-        let b = "ell";
+        let a_args = ["%s", "alfa"];
+        let b = "lf";
         let result = assert_program_args_stdout_contains_as_result!(&a_program, &a_args, b);
         assert_eq!(result.unwrap(), ());
     }
@@ -123,7 +123,7 @@ mod tests {
     #[test]
     fn test_assert_command_stdout_contains_x_failure() {
         let a_program = "bin/printf-stdout";
-        let a_args = ["%s", "hello"];
+        let a_args = ["%s", "alfa"];
         let b = "zzz";
         let result = assert_program_args_stdout_contains_as_result!(&a_program, &a_args, b);
         let actual = result.unwrap_err();
@@ -133,10 +133,10 @@ mod tests {
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
-            "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
             " containee label: `b`,\n",
             " containee debug: `\"zzz\"`,\n",
-            "               a: `\"hello\"`,\n",
+            "               a: `\"alfa\"`,\n",
             "               b: `\"zzz\"`"
         );
         assert_eq!(actual, expect);
@@ -166,13 +166,13 @@ mod tests {
 ///
 /// # fn main() {
 /// let program = "bin/printf-stdout";
-/// let args = ["%s", "hello"];
-/// let containee = "ell";
+/// let args = ["%s", "alfa"];
+/// let containee = "lf";
 /// assert_program_args_stdout_contains!(&program, &args, &containee);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let program = "bin/printf-stdout";
-/// let args = ["%s", "hello"];
+/// let args = ["%s", "alfa"];
 /// let containee = "zzz";
 /// assert_program_args_stdout_contains!(&program, &args, &containee);
 /// # });
@@ -181,10 +181,10 @@ mod tests {
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&args`,
-/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //     a_args debug: `[\"%s\", \"alfa\"]`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zzz\"`,
-/// //                a: `\"hello\"`,
+/// //                a: `\"alfa\"`,
 /// //                b: `\"zzz\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -193,10 +193,10 @@ mod tests {
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&args`,\n",
-/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zzz\"`,\n",
-/// #     "               a: `\"hello\"`,\n",
+/// #     "               a: `\"alfa\"`,\n",
 /// #     "               b: `\"zzz\"`"
 /// # );
 /// # assert_eq!(actual, expect);

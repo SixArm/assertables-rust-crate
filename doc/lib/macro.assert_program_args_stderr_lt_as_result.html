@@ -2,7 +2,7 @@
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a command (built with program and args) stderr string is less than another.</p>
 <p>Pseudocode:<br>
-(program1 + args1 ⇒ command ⇒ stderr ⇒ string) &lt; (program2 + args2 ⇒ command ⇒ stderr ⇒ string)</p>
+(program1 + args1 ⇒ command ⇒ stderr) &lt; (program2 + args2 ⇒ command ⇒ stderr)</p>
 <ul>
 <li>
 <p>If true, return Result <code>Ok(())</code>.</p>

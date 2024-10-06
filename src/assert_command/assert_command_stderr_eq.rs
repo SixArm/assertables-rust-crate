@@ -1,7 +1,7 @@
 //! Assert a command stderr string is equal to another.
 //!
 //! Pseudocode:<br>
-//! (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
+//! (command1 ⇒ stderr) = (command2 ⇒ stderr)
 //!
 //! # Example
 //!
@@ -11,9 +11,9 @@
 //!
 //! # fn main() {
 //! let mut a = Command::new("bin/printf-stderr");
-//! a.args(["%s", "hello"]);
+//! a.args(["%s", "alfa"]);
 //! let mut b = Command::new("bin/printf-stderr");
-//! b.args(["%s", "hello"]);
+//! b.args(["%s", "alfa"]);
 //! assert_command_stderr_eq!(a, b);
 //! # }
 //! ```
@@ -27,7 +27,7 @@
 /// Assert a command stderr string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
+/// (command1 ⇒ stderr) = (command2 ⇒ stderr)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -70,9 +70,9 @@ macro_rules! assert_command_stderr_eq_as_result {
                 b_output
             ))
         } else {
-            let a_string = String::from_utf8(a_output.unwrap().stderr).unwrap();
-            let b_string = String::from_utf8(b_output.unwrap().stderr).unwrap();
-            if a_string == b_string {
+            let a = a_output.unwrap().stderr;
+            let b = b_output.unwrap().stderr;
+            if a.eq(&b) {
                 Ok(())
             } else {
                 Err(format!(
@@ -90,8 +90,8 @@ macro_rules! assert_command_stderr_eq_as_result {
                     $a_command,
                     stringify!($b_command),
                     $b_command,
-                    a_string,
-                    b_string
+                    a,
+                    b
                 ))
             }
         }
@@ -106,9 +106,9 @@ mod tests {
     #[test]
     fn test_assert_command_stderr_eq_as_result_x_success() {
         let mut a = Command::new("bin/printf-stderr");
-        a.args(["%s", "hello"]);
+        a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
-        b.args(["%s", "hello"]);
+        b.args(["%s", "alfa"]);
         let result = assert_command_stderr_eq_as_result!(a, b);
         assert_eq!(result.unwrap(), ());
     }
@@ -116,7 +116,7 @@ mod tests {
     #[test]
     fn test_assert_command_stderr_eq_as_result_x_failure() {
         let mut a = Command::new("bin/printf-stderr");
-        a.args(["%s", "hello"]);
+        a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "zzz"]);
         let result = assert_command_stderr_eq_as_result!(a, b);
@@ -125,11 +125,11 @@ mod tests {
             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
             "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_eq.html\n",
             " a label: `a`,\n",
-            " a debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+            " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
-            "       a: `\"hello\"`,\n",
-            "       b: `\"zzz\"`"
+            "       a: `[97, 108, 102, 97]`,\n",
+            "       b: `[122, 122, 122]`"
         );
         assert_eq!(actual, expect);
     }
@@ -138,7 +138,7 @@ mod tests {
 /// Assert a command stderr string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)
+/// (command1 ⇒ stderr) = (command2 ⇒ stderr)
 ///
 /// * If true, return `()`.
 ///
@@ -154,14 +154,14 @@ mod tests {
 ///
 /// # fn main() {
 /// let mut a = Command::new("bin/printf-stderr");
-/// a.args(["%s", "hello"]);
+/// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stderr");
-/// b.args(["%s", "hello"]);
+/// b.args(["%s", "alfa"]);
 /// assert_command_stderr_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("bin/printf-stderr");
-/// a.args(["%s", "hello"]);
+/// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stderr");
 /// b.args(["%s", "zzz"]);
 /// assert_command_stderr_eq!(a, b);
@@ -169,21 +169,21 @@ mod tests {
 /// // assertion failed: `assert_command_stderr_eq!(a_command, b_command)`
 /// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stderr_eq.html
 /// //  a label: `a`,
-/// //  a debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
+/// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
 /// //  b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,
-/// //        a: `\"hello\"`,
-/// //        b: `\"zzz\"`
+/// //        a: `[97, 108, 102, 97]`,
+/// //        b: `[122, 122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
 /// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_eq.html\n",
 /// #     " a label: `a`,\n",
-/// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+/// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
-/// #     "       a: `\"hello\"`,\n",
-/// #     "       b: `\"zzz\"`"
+/// #     "       a: `[97, 108, 102, 97]`,\n",
+/// #     "       b: `[122, 122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

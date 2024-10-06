@@ -11,8 +11,8 @@
 //!
 //! # fn main() {
 //! let mut command = Command::new("bin/printf-stderr");
-//! command.args(["%s", "hello"]);
-//! let containee = "ell";
+//! command.args(["%s", "alfa"]);
+//! let containee = "lf";
 //! assert_command_stderr_contains!(command, &containee);
 //! # }
 //! ```
@@ -103,8 +103,8 @@ mod tests {
     #[test]
     fn test_assert_command_stderr_contains_x_success() {
         let mut a = Command::new("bin/printf-stderr");
-        a.args(["%s", "hello"]);
-        let b = "ell";
+        a.args(["%s", "alfa"]);
+        let b = "lf";
         let result = assert_command_stderr_contains_as_result!(a, b);
         assert_eq!(result.unwrap(), ());
     }
@@ -112,7 +112,7 @@ mod tests {
     #[test]
     fn test_assert_command_stderr_contains_x_failure() {
         let mut a = Command::new("bin/printf-stderr");
-        a.args(["%s", "hello"]);
+        a.args(["%s", "alfa"]);
         let b = "zzz";
         let result = assert_command_stderr_contains_as_result!(a, b);
         let actual = result.unwrap_err();
@@ -120,10 +120,10 @@ mod tests {
             "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
             "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_contains.html\n",
             "   command label: `a`,\n",
-            "   command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+            "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " containee label: `b`,\n",
             " containee debug: `\"zzz\"`,\n",
-            "          stderr: `\"hello\"`",
+            "          stderr: `\"alfa\"`",
         );
         assert_eq!(actual, expect);
     }
@@ -153,32 +153,32 @@ mod tests {
 ///
 /// # fn main() {
 /// let mut command = Command::new("bin/printf-stderr");
-/// command.args(["%s", "hello"]);
-/// let containee = "ell";
+/// command.args(["%s", "alfa"]);
+/// let containee = "lf";
 /// assert_command_stderr_contains!(command, &containee);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut command = Command::new("bin/printf-stderr");
-/// command.args(["%s", "hello"]);
+/// command.args(["%s", "alfa"]);
 /// let containee = "zzz";
 /// assert_command_stderr_contains!(command, &containee);
 /// # });
 /// // assertion failed: `assert_command_stderr_contains!(command, containee)`
 /// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stderr_contains.html
 /// //    command label: `command`,
-/// //    command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,
+/// //    command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zzz\"`,
-/// //    command value: `\"hello\"`
+/// //    command value: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_contains!(command, containee)`\n",
 /// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_contains.html\n",
 /// #     "   command label: `command`,\n",
-/// #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"hello\"`,\n",
+/// #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zzz\"`,\n",
-/// #     "          stderr: `\"hello\"`"
+/// #     "          stderr: `\"alfa\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

@@ -1,7 +1,7 @@
 //! Assert a command stdout string is equal to another.
 //!
 //! Pseudocode:<br>
-//! (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
+//! (command1 ⇒ stdout) = (command2 ⇒ stdout)
 //!
 //! # Example
 //!
@@ -11,9 +11,9 @@
 //!
 //! # fn main() {
 //! let mut a = Command::new("bin/printf-stdout");
-//! a.args(["%s", "hello"]);
+//! a.args(["%s", "alfa"]);
 //! let mut b = Command::new("bin/printf-stdout");
-//! b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+//! b.args(["%s%s%s%s", "a", "l", "f", "a"]);
 //! assert_command_stdout_eq!(a, b);
 //! # }
 //! ```
@@ -27,7 +27,7 @@
 /// Assert a command stdout string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
+/// (command1 ⇒ stdout) = (command2 ⇒ stdout)
 ///
 /// * If true, return `()`.
 ///
@@ -71,9 +71,9 @@ macro_rules! assert_command_stdout_eq_as_result {
                 b_output
             ))
         } else {
-            let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-            let b_string = String::from_utf8(b_output.unwrap().stdout).unwrap();
-            if a_string == b_string {
+            let a = a_output.unwrap().stdout;
+            let b = b_output.unwrap().stdout;
+            if a.eq(&b) {
                 Ok(())
             } else {
                 Err(format!(
@@ -91,8 +91,8 @@ macro_rules! assert_command_stdout_eq_as_result {
                     $a_command,
                     stringify!($b_command),
                     $b_command,
-                    a_string,
-                    b_string
+                    a,
+                    b
                 ))
             }
         }
@@ -107,9 +107,9 @@ mod tests {
     #[test]
     fn test_assert_command_stdout_eq_as_result_x_success() {
         let mut a = Command::new("bin/printf-stdout");
-        a.args(["%s", "hello"]);
+        a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
-        b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+        b.args(["%s%s%s%s", "a", "l", "f", "a"]);
         let result = assert_command_stdout_eq_as_result!(a, b);
         assert_eq!(result.unwrap(), ());
     }
@@ -117,7 +117,7 @@ mod tests {
     #[test]
     fn test_assert_command_stdout_eq_as_result_x_failure() {
         let mut a = Command::new("bin/printf-stdout");
-        a.args(["%s", "hello"]);
+        a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
         b.args(["%s%s%s", "z", "z", "z"]);
         let result = assert_command_stdout_eq_as_result!(a, b);
@@ -126,11 +126,11 @@ mod tests {
             "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
             "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq.html\n",
             " a label: `a`,\n",
-            " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+            " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
-            "       a: `\"hello\"`,\n",
-            "       b: `\"zzz\"`"
+            "       a: `[97, 108, 102, 97]`,\n",
+            "       b: `[122, 122, 122]`"
         );
         assert_eq!(actual, expect);
     }
@@ -139,7 +139,7 @@ mod tests {
 /// Assert a command stdout string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
+/// (command1 ⇒ stdout) = (command2 ⇒ stdout)
 ///
 /// * If true, return `()`.
 ///
@@ -155,14 +155,14 @@ mod tests {
 ///
 /// # fn main() {
 /// let mut a = Command::new("bin/printf-stdout");
-/// a.args(["%s", "hello"]);
+/// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stdout");
-/// b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+/// b.args(["%s%s%s%s", "a", "l", "f", "a"]);
 /// assert_command_stdout_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let mut a = Command::new("bin/printf-stdout");
-/// a.args(["%s", "hello"]);
+/// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stdout");
 /// b.args(["%s%s%s", "z", "z", "z"]);
 /// assert_command_stdout_eq!(a, b);
@@ -170,21 +170,21 @@ mod tests {
 /// // assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
 /// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stdout_eq.html
 /// //  a label: `a`,
-/// //  a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,
+/// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
 /// //  b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,
-/// //        a: `\"hello\"`,
-/// //        b: `\"zzz\"`
+/// //        a: `[97, 108, 102, 97]`,
+/// //        b: `[122, 122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
 /// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq.html\n",
 /// #     " a label: `a`,\n",
-/// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"hello\"`,\n",
+/// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
-/// #     "       a: `\"hello\"`,\n",
-/// #     "       b: `\"zzz\"`"
+/// #     "       a: `[97, 108, 102, 97]`,\n",
+/// #     "       b: `[122, 122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -215,7 +215,7 @@ macro_rules! assert_command_stdout_eq {
 /// Assert a command stdout string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (command1 ⇒ stdout ⇒ string) = (command2 ⇒ stdout ⇒ string)
+/// (command1 ⇒ stdout) = (command2 ⇒ stdout)
 ///
 /// This macro provides the same statements as [`assert_command_stdout_eq`](macro.assert_command_stdout_eq.html),
 /// except this macro's statements are only enabled in non-optimized

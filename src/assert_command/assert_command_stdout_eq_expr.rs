@@ -1,7 +1,7 @@
 //! Assert a command stdout string is equal to an expression.
 //!
 //! Pseudocode:<br>
-//! (command ⇒ stdout ⇒ string) = (expr into string)
+//! (command ⇒ stdout) = (expr into string)
 //!
 //! # Example
 //!
@@ -26,7 +26,7 @@
 /// Assert a command stdout string is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (command ⇒ stdout ⇒ string) = (expr into string)
+/// (command ⇒ stdout) = (expr into string)
 ///
 /// * If true, return Result `Ok(())`.
 ///

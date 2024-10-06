@@ -9,8 +9,8 @@ closure that determines if a character contains.</li>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
 <span class="kw">let </span>program = <span class="string">"bin/printf-stdout"</span>;
-<span class="kw">let </span>args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
-<span class="kw">let </span>containee = <span class="string">"ell"</span>;
+<span class="kw">let </span>args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
+<span class="kw">let </span>containee = <span class="string">"lf"</span>;
 <span class="macro">assert_program_args_stdout_contains!</span>(<span class="kw-2">&amp;</span>program, <span class="kw-2">&amp;</span>args, <span class="kw-2">&amp;</span>containee);</code></pre></div>
 <h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>
 <ul>

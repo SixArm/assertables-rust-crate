@@ -2,7 +2,7 @@
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a command (built with program and args) stdout string is less than another.</p>
 <p>Pseudocode:<br>
-(program1 + args1 ⇒ command ⇒ stdout ⇒ string) &lt; (program2 + args2 ⇒ command ⇒ stdout ⇒ string)</p>
+(program1 + args1 ⇒ command ⇒ stdout) &lt; (program2 + args2 ⇒ command ⇒ stdout)</p>
 <p>This macro provides the same statements as <a href="macro.assert_program_args_stdout_lt.html"><code>assert_program_args_stdout_lt</code></a>,
 except this macro’s statements are only enabled in non-optimized
 builds by default. An optimized build will not execute this macro’s

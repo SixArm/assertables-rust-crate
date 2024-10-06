@@ -272,8 +272,8 @@
 //!
 //! # fn main() {
 //! let program = "bin/printf-stderr";
-//! let args = ["%s", "hello"];
-//! let matcher = Regex::new(r"ell").unwrap();
+//! let args = ["%s", "alfa"];
+//! let matcher = Regex::new(r"lf").unwrap();
 //! assert_program_args_stderr_is_match!(&amp;program, &amp;args, &amp;matcher);
 //! # }
 //! ```
@@ -374,8 +374,8 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_program_args_stderr_is_match_as_result_x_success() {
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
-        <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
-        <span class="kw">let </span>b = Regex::new(<span class="string">r"ell"</span>).unwrap();
+        <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
+        <span class="kw">let </span>b = Regex::new(<span class="string">r"lf"</span>).unwrap();
         <span class="kw">let </span>result = <span class="macro">assert_program_args_stderr_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b);
         <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
@@ -383,7 +383,7 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_program_args_stderr_is_match_as_result_x_failure() {
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
-        <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"hello"</span>];
+        <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b = Regex::new(<span class="string">r"zzz"</span>).unwrap();
         <span class="kw">let </span>result = <span class="macro">assert_program_args_stderr_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b);
         <span class="kw">let </span>actual = result.unwrap_err();
@@ -393,10 +393,10 @@
             <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
             <span class="string">" a_program debug: `\"bin/printf-stderr\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
-            <span class="string">"    a_args debug: `[\"%s\", \"hello\"]`,\n"</span>,
+            <span class="string">"    a_args debug: `[\"%s\", \"alfa\"]`,\n"</span>,
             <span class="string">" b_matcher label: `&amp;b`,\n"</span>,
             <span class="string">" b_matcher debug: `Regex(\"zzz\")`,\n"</span>,
-            <span class="string">"               a: `\"hello\"`,\n"</span>,
+            <span class="string">"               a: `\"alfa\"`,\n"</span>,
             <span class="string">"               b: `Regex(\"zzz\")`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
@@ -422,13 +422,13 @@
 ///
 /// # fn main() {
 /// let program = "bin/printf-stderr";
-/// let args = ["%s", "hello"];
-/// let matcher = Regex::new(r"ell").unwrap();
+/// let args = ["%s", "alfa"];
+/// let matcher = Regex::new(r"lf").unwrap();
 /// assert_program_args_stderr_is_match!(&amp;program, &amp;args, &amp;matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// let program = "bin/printf-stderr";
-/// let args = ["%s", "hello"];
+/// let args = ["%s", "alfa"];
 /// let matcher = Regex::new(r"zzz").unwrap();
 /// assert_program_args_stderr_is_match!(&amp;program, &amp;args, &amp;matcher);
 /// # });
@@ -437,10 +437,10 @@
 /// //  a_program label: `&amp;program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&amp;args`,
-/// //     a_args debug: `[\"%s\", \"hello\"]`,
+/// //     a_args debug: `[\"%s\", \"alfa\"]`,
 /// //  b_matcher label: `&amp;matcher`,
 /// //  b_matcher debug: `Regex(\"zzz\")`,
-/// //                a: `\"hello\"`,
+/// //                a: `\"alfa\"`,
 /// //                b: `Regex(\"zzz\")`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
@@ -449,10 +449,10 @@
 /// #     " a_program label: `&amp;program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&amp;args`,\n",
-/// #     "    a_args debug: `[\"%s\", \"hello\"]`,\n",
+/// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
 /// #     " b_matcher label: `&amp;matcher`,\n",
 /// #     " b_matcher debug: `Regex(\"zzz\")`,\n",
-/// #     "               a: `\"hello\"`,\n",
+/// #     "               a: `\"alfa\"`,\n",
 /// #     "               b: `Regex(\"zzz\")`"
 /// # );
 /// # assert_eq!(actual, expect);

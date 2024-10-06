@@ -34,9 +34,9 @@
 //!
 //! # fn main() {
 //! let mut a = Command::new("bin/printf-stdout");
-//! a.args(["%s", "hello"]);
+//! a.args(["%s", "alfa"]);
 //! let mut b = Command::new("bin/printf-stdout");
-//! b.args(["%s%s%s%s%s", "h", "e", "l", "l", "o"]);
+//! b.args(["%s%s%s%s", "a", "l", "f", "a"]);
 //! assert_command_stdout_eq!(a, b);
 //! # }
 //! ```

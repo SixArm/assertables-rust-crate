@@ -2,7 +2,7 @@
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a command (built with program and args) stderr string is equal to an expression.</p>
 <p>Pseudocode:<br>
-(program1 + args1 ⇒ command ⇒ stderr ⇒ string) = (expr into string)</p>
+(program1 + args1 ⇒ command ⇒ stderr) = (expr into string)</p>
 <p>This macro provides the same statements as <a href="macro.assert_program_args_stderr_eq_expr.html"><code>assert_program_args_stderr_eq_expr</code></a>,
 except this macro’s statements are only enabled in non-optimized
 builds by default. An optimized build will not execute this macro’s

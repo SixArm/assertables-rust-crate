@@ -3,7 +3,7 @@
     (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a command stderr string is equal to an expression.</p>
 <p>Pseudocode:<br>
-(command ⇒ stderr ⇒ string) = (expr into string)</p>
+(command ⇒ stderr) = (expr into string)</p>
 <ul>
 <li>
 <p>If true, return <code>()</code>.</p>

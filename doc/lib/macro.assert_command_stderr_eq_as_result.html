@@ -2,7 +2,7 @@
     (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr $(,)<span class="question-mark">?</span>) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a command stderr string is equal to another.</p>
 <p>Pseudocode:<br>
-(command1 ⇒ stderr ⇒ string) = (command2 ⇒ stderr ⇒ string)</p>
+(command1 ⇒ stderr) = (command2 ⇒ stderr)</p>
 <ul>
 <li>
 <p>If true, return Result <code>Ok(())</code>.</p>

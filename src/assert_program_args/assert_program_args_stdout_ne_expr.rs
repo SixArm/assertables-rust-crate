@@ -1,7 +1,7 @@
 //! Assert a command (built with program and args) stdout string is not equal to an expression.
 //!
 //! Pseudocode:<br>
-//! (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≠ (expr into string)
+//! (program1 + args1 ⇒ command ⇒ stdout) ≠ (expr into string)
 //!
 //! # Example
 //!
@@ -24,7 +24,7 @@
 /// Assert a command (built with program and args) stdout string is not equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≠ (expr into string)
+/// (program1 + args1 ⇒ command ⇒ stdout) ≠ (expr into string)
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -143,7 +143,7 @@ mod tests {
 /// Assert a command (built with program and args) stdout string is not equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≠ (expr into string)
+/// (program1 + args1 ⇒ command ⇒ stdout) ≠ (expr into string)
 ///
 /// * If true, return `()`.
 ///
@@ -220,7 +220,7 @@ macro_rules! assert_program_args_stdout_ne_expr {
 /// Assert a command (built with program and args) stdout string is not equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) ≠ (expr into string)
+/// (program1 + args1 ⇒ command ⇒ stdout) ≠ (expr into string)
 ///
 /// This macro provides the same statements as [`assert_program_args_stdout_ne_expr`](macro.assert_program_args_stdout_ne_expr.html),
 /// except this macro's statements are only enabled in non-optimized
