@@ -125,6 +125,7 @@ mod tests {
 /// assert_not_match!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = Regex::new(r"lf").unwrap();
 /// let b = "alfa";
 /// assert_not_match!(a, b);

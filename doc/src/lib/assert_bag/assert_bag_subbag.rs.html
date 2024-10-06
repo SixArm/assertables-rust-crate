@@ -247,6 +247,7 @@
 <a href="#247" id="247">247</a>
 <a href="#248" id="248">248</a>
 <a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is a subbag of another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -406,6 +407,7 @@
 /// assert_bag_subbag!(&amp;a, &amp;b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = [1, 1, 1];
 /// let b = [1, 1];
 /// assert_bag_subbag!(&amp;a, &amp;b);

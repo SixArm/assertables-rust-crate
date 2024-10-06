@@ -326,6 +326,7 @@
 <a href="#326" id="326">326</a>
 <a href="#327" id="327">327</a>
 <a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -541,6 +542,7 @@
 /// assert_fn_ne!(i8::abs, a, i8::abs, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = -1;
 /// let b: i8 = 1;
 /// assert_fn_ne!(i8::abs, a, i8::abs, b);

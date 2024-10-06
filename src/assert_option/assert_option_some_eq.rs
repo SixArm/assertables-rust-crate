@@ -160,6 +160,7 @@ mod tests {
 /// assert_option_some_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Option<i8> = Option::Some(1);
 /// let b: Option<i8> = Option::Some(2);
 /// assert_option_some_eq!(a, b);

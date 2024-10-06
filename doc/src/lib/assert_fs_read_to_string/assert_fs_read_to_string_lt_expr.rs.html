@@ -254,6 +254,7 @@
 <a href="#254" id="254">254</a>
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string(path) value is less than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -422,6 +423,7 @@
 /// assert_fs_read_to_string_lt_expr!(&amp;path, &amp;value);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let path = "bravo.txt";
 /// let value = String::from("alfa\n");
 /// assert_fs_read_to_string_lt_expr!(&amp;path, &amp;value);

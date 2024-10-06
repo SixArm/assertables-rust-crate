@@ -119,7 +119,7 @@ mod tests {
     #[test]
     fn test_read_to_string_matches_as_result_x_failure() {
         let path = DIR.join("alfa.txt");
-        let matcher = Regex::new(r"zzz").unwrap();
+        let matcher = Regex::new(r"zz").unwrap();
         let result = assert_fs_read_to_string_matches_as_result!(&path, &matcher);
         assert!(result.is_err());
         assert_eq!(
@@ -131,7 +131,7 @@ mod tests {
                     "    path label: `&path`,\n",
                     "    path debug: `{:?}`,\n",
                     " matcher label: `&matcher`,\n",
-                    " matcher debug: `Regex(\"zzz\")`,\n",
+                    " matcher debug: `Regex(\"zz\")`,\n",
                     "   read string: `\"alfa\\n\"`",
                 ),
                 path
@@ -164,8 +164,9 @@ mod tests {
 /// assert_fs_read_to_string_matches!(&path, &matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let path = "alfa.txt";
-/// let matcher = Regex::new(r"zzz").unwrap();
+/// let matcher = Regex::new(r"zz").unwrap();
 /// assert_fs_read_to_string_matches!(&path, &matcher);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`
@@ -173,7 +174,7 @@ mod tests {
 /// //     path label: `&path`,
 /// //     path debug: `\"alfa.txt\"`,
 /// //  matcher label: `&matcher`,
-/// //  matcher debug: `Regex(\"zzz\")`,
+/// //  matcher debug: `Regex(\"zz\")`,
 /// //    read string: `\"alfa\\n\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -182,7 +183,7 @@ mod tests {
 /// #     "    path label: `&path`,\n",
 /// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `&matcher`,\n",
-/// #     " matcher debug: `Regex(\"zzz\")`,\n",
+/// #     " matcher debug: `Regex(\"zz\")`,\n",
 /// #     "   read string: `\"alfa\\n\"`",
 /// # );
 /// # assert_eq!(actual, expect);

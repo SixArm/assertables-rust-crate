@@ -240,6 +240,7 @@
 <a href="#240" id="240">240</a>
 <a href="#241" id="241">241</a>
 <a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() is a match to a regex.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -354,7 +355,7 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_io_read_to_string_matches_as_result_x_failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
-        <span class="kw">let </span>matcher = Regex::new(<span class="string">r"zzz"</span>).unwrap();
+        <span class="kw">let </span>matcher = Regex::new(<span class="string">r"zz"</span>).unwrap();
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_matches_as_result!</span>(reader, <span class="kw-2">&amp;</span>matcher);
         <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
@@ -365,7 +366,7 @@
                 <span class="string">"  reader label: `reader`,\n"</span>,
                 <span class="string">"  reader debug: `[]`,\n"</span>,
                 <span class="string">" matcher label: `&amp;matcher`,\n"</span>,
-                <span class="string">" matcher debug: `Regex(\"zzz\")`,\n"</span>,
+                <span class="string">" matcher debug: `Regex(\"zz\")`,\n"</span>,
                 <span class="string">" reader string: `\"alfa\"`"
             </span>)
         );
@@ -396,8 +397,9 @@
 /// assert_io_read_to_string_matches!(reader, &amp;matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut reader = "hello".as_bytes();
-/// let matcher = Regex::new(r"zzz").unwrap();
+/// let matcher = Regex::new(r"zz").unwrap();
 /// assert_io_read_to_string_matches!(reader, &amp;matcher);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`
@@ -405,7 +407,7 @@
 /// //   reader label: `reader`,
 /// //   reader debug: `[]`,
 /// //  matcher label: `&amp;matcher`,
-/// //  matcher debug: `Regex(\"zzz\")`,
+/// //  matcher debug: `Regex(\"zz\")`,
 /// //  reader string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
@@ -414,7 +416,7 @@
 /// #     "  reader label: `reader`,\n",
 /// #     "  reader debug: `[]`,\n",
 /// #     " matcher label: `&amp;matcher`,\n",
-/// #     " matcher debug: `Regex(\"zzz\")`,\n",
+/// #     " matcher debug: `Regex(\"zz\")`,\n",
 /// #     " reader string: `\"hello\"`",
 /// # );
 /// # assert_eq!(actual, expect);

@@ -157,6 +157,7 @@ mod tests {
 /// assert_bag_subbag!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = [1, 1, 1];
 /// let b = [1, 1];
 /// assert_bag_subbag!(&a, &b);

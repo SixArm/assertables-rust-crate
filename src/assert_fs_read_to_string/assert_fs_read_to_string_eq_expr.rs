@@ -166,6 +166,7 @@ mod tests {
 /// assert_fs_read_to_string_eq_expr!(&path, &value);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let path = "alfa.txt";
 /// let value = String::from("bravo\n");
 /// assert_fs_read_to_string_eq_expr!(&path, &value);

@@ -132,6 +132,7 @@ mod tests {
 /// assert_set_disjoint!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = [1, 2];
 /// let b = [2, 3];
 /// assert_set_disjoint!(&a, &b);

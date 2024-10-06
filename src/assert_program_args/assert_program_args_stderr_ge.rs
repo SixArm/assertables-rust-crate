@@ -189,6 +189,7 @@ mod tests {
 /// assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, &b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stderr";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stderr";

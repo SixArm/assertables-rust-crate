@@ -168,6 +168,7 @@ mod tests {
 /// assert_err_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Result<i8, i8> = Err(1);
 /// let b: Result<i8, i8> = Err(1);
 /// assert_err_ne!(a, b);

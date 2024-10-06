@@ -256,6 +256,7 @@
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ready(_) and its value is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -428,6 +429,7 @@
 /// assert_ready_eq_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Poll&lt;i8&gt; = Ready(1);
 /// let b: i8 = 2;
 /// assert_ready_eq_expr!(a, b);

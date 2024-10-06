@@ -302,6 +302,7 @@
 <a href="#302" id="302">302</a>
 <a href="#303" id="303">303</a>
 <a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a number is within epsilon of another number.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -493,6 +494,7 @@
 /// assert_in_epsilon!(a, b, epsilon);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 10;
 /// let b: i8 = 30;
 /// let e: i8 = 1;

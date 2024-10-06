@@ -388,6 +388,7 @@
 <a href="#388" id="388">388</a>
 <a href="#389" id="389">389</a>
 <a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Ok(…) is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -666,6 +667,7 @@
 /// assert_fn_ok_ne!(f, a, f, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 1;
 /// let b: i8 = 1;
 /// assert_fn_ok_ne!(f, a, f, b);

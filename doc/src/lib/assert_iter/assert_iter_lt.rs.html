@@ -234,6 +234,7 @@
 <a href="#234" id="234">234</a>
 <a href="#235" id="235">235</a>
 <a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an iter is less than another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -384,6 +385,7 @@
 /// assert_iter_lt!(&amp;a, &amp;b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = [3, 4];
 /// let b = [1, 2];
 /// assert_iter_lt!(&amp;a, &amp;b);

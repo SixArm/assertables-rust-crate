@@ -135,7 +135,7 @@ mod tests {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
-        let b_args = ["%s%s%s", "z", "z", "z"];
+        let b_args = ["%s%s", "z", "z" ];
         let result = assert_program_args_stdout_eq_as_result!(&a_program, &a_args, &b_program, &b_args);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -148,9 +148,9 @@ mod tests {
             " b_program label: `&b_program`,\n",
             " b_program debug: `\"bin/printf-stdout\"`,\n",
             "    b_args label: `&b_args`,\n",
-            "    b_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,\n",
+            "    b_args debug: `[\"%s%s\", \"z\", \"z\"]`,\n",
             "               a: `[97, 108, 102, 97]`,\n",
-            "               b: `[122, 122, 122]`"
+            "               b: `[122, 122]`"
         );
         assert_eq!(actual, expect);
     }
@@ -180,10 +180,11 @@ mod tests {
 /// assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";
-/// let b_args = ["%s%s%s", "z", "z", "z"];
+/// let b_args = ["%s%s", "z", "z" ];
 /// assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`
@@ -195,9 +196,9 @@ mod tests {
 /// //  b_program label: `&b_program`,
 /// //  b_program debug: `\"bin/printf-stdout\"`,
 /// //     b_args label: `&b_args`,
-/// //     b_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,
+/// //     b_args debug: `[\"%s%s\", \"z\", \"z\"]`,
 /// //                a: `[97, 108, 102, 97]`,
-/// //                b: `[122, 122, 122]`
+/// //                b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`\n",
@@ -209,9 +210,9 @@ mod tests {
 /// #     " b_program label: `&b_program`,\n",
 /// #     " b_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    b_args label: `&b_args`,\n",
-/// #     "    b_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,\n",
+/// #     "    b_args debug: `[\"%s%s\", \"z\", \"z\"]`,\n",
 /// #     "               a: `[97, 108, 102, 97]`,\n",
-/// #     "               b: `[122, 122, 122]`"
+/// #     "               b: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

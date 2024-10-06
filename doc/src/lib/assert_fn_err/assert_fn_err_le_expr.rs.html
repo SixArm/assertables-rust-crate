@@ -389,6 +389,7 @@
 <a href="#389" id="389">389</a>
 <a href="#390" id="390">390</a>
 <a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Err(…) is less than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -670,6 +671,7 @@
 /// assert_fn_err_le_expr!(f, a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 20;
 /// let b = String::from("10 is out of range");
 /// assert_fn_err_le_expr!(f, a, b);

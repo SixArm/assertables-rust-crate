@@ -47,6 +47,7 @@
 /// * [`assert_program_args_stdout_contains_as_result`](macro@crate::assert_program_args_stdout_contains_as_result)
 /// * [`debug_assert_program_args_stdout_contains`](macro@crate::debug_assert_program_args_stdout_contains)
 ///
+#[deprecated(note = "Please rename from `assert_program_args_stdout_contains_as_result` to `assert_program_args_stdout_string_contains_as_result` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_program_args_stdout_contains_as_result {
     ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => {{
@@ -124,7 +125,7 @@ mod tests {
     fn test_assert_command_stdout_contains_x_failure() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
-        let b = "zzz";
+        let b = "zz";
         let result = assert_program_args_stdout_contains_as_result!(&a_program, &a_args, b);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -135,9 +136,9 @@ mod tests {
             "    a_args label: `&a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
             " containee label: `b`,\n",
-            " containee debug: `\"zzz\"`,\n",
+            " containee debug: `\"zz\"`,\n",
             "               a: `\"alfa\"`,\n",
-            "               b: `\"zzz\"`"
+            "               b: `\"zz\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -171,9 +172,10 @@ mod tests {
 /// assert_program_args_stdout_contains!(&program, &args, &containee);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "alfa"];
-/// let containee = "zzz";
+/// let containee = "zz";
 /// assert_program_args_stdout_contains!(&program, &args, &containee);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`
@@ -183,9 +185,9 @@ mod tests {
 /// //     a_args label: `&args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
 /// //  containee label: `&containee`,
-/// //  containee debug: `\"zzz\"`,
+/// //  containee debug: `\"zz\"`,
 /// //                a: `\"alfa\"`,
-/// //                b: `\"zzz\"`
+/// //                b: `\"zz\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`\n",
@@ -195,9 +197,9 @@ mod tests {
 /// #     "    a_args label: `&args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
 /// #     " containee label: `&containee`,\n",
-/// #     " containee debug: `\"zzz\"`,\n",
+/// #     " containee debug: `\"zz\"`,\n",
 /// #     "               a: `\"alfa\"`,\n",
-/// #     "               b: `\"zzz\"`"
+/// #     "               b: `\"zz\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -209,6 +211,7 @@ mod tests {
 /// * [`assert_program_args_stdout_contains_as_result`](macro@crate::assert_program_args_stdout_contains_as_result)
 /// * [`debug_assert_program_args_stdout_contains`](macro@crate::debug_assert_program_args_stdout_contains)
 ///
+#[deprecated(note = "Please rename from `assert_program_args_stdout_contains` to `assert_program_args_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_program_args_stdout_contains {
     ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => {{
@@ -253,6 +256,7 @@ macro_rules! assert_program_args_stdout_contains {
 /// * [`assert_program_args_stdout_contains`](macro@crate::assert_program_args_stdout_contains)
 /// * [`debug_assert_program_args_stdout_contains`](macro@crate::debug_assert_program_args_stdout_contains)
 ///
+#[deprecated(note = "Please rename from `debug_assert_program_args_stdout_contains` to `debug_assert_program_args_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! debug_assert_program_args_stdout_contains {
     ($($arg:tt)*) => {

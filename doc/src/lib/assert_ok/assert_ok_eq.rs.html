@@ -256,6 +256,7 @@
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ok(_) and their values are equal.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -426,6 +427,7 @@
 /// assert_ok_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Result&lt;i8, i8&gt; = Ok(1);
 /// let b: Result&lt;i8, i8&gt; = Ok(2);
 /// assert_ok_eq!(a, b);

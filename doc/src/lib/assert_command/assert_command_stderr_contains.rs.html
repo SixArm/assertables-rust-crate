@@ -245,6 +245,10 @@
 <a href="#245" id="245">245</a>
 <a href="#246" id="246">246</a>
 <a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string contains a given containee.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -291,7 +295,8 @@
 /// * [`assert_command_stderr_contains_as_result`](macro@crate::assert_command_stderr_contains_as_result)
 /// * [`debug_assert_command_stderr_contains`](macro@crate::debug_assert_command_stderr_contains)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_command_stderr_contains_as_result` to `assert_command_stderr_string_contains_as_result` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_contains_as_result {
     (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="comment">/*&amp;$command,*/ </span><span class="kw-2">&amp;</span><span class="macro-nonterminal">$containee</span>) {
@@ -360,7 +365,7 @@
     </span><span class="kw">fn </span>test_assert_command_stderr_contains_x_failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stderr"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
-        <span class="kw">let </span>b = <span class="string">"zzz"</span>;
+        <span class="kw">let </span>b = <span class="string">"zz"</span>;
         <span class="kw">let </span>result = <span class="macro">assert_command_stderr_contains_as_result!</span>(a, b);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
@@ -369,7 +374,7 @@
             <span class="string">"   command label: `a`,\n"</span>,
             <span class="string">"   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">" containee label: `b`,\n"</span>,
-            <span class="string">" containee debug: `\"zzz\"`,\n"</span>,
+            <span class="string">" containee debug: `\"zz\"`,\n"</span>,
             <span class="string">"          stderr: `\"alfa\"`"</span>,
         );
         <span class="macro">assert_eq!</span>(actual, expect);
@@ -405,9 +410,10 @@
 /// assert_command_stderr_contains!(command, &amp;containee);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut command = Command::new("bin/printf-stderr");
 /// command.args(["%s", "alfa"]);
-/// let containee = "zzz";
+/// let containee = "zz";
 /// assert_command_stderr_contains!(command, &amp;containee);
 /// # });
 /// // assertion failed: `assert_command_stderr_contains!(command, containee)`
@@ -415,7 +421,7 @@
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  containee label: `&amp;containee`,
-/// //  containee debug: `\"zzz\"`,
+/// //  containee debug: `\"zz\"`,
 /// //    command value: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
@@ -424,7 +430,7 @@
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " containee label: `&amp;containee`,\n",
-/// #     " containee debug: `\"zzz\"`,\n",
+/// #     " containee debug: `\"zz\"`,\n",
 /// #     "          stderr: `\"alfa\"`"
 /// # );
 /// # assert_eq!(actual, expect);
@@ -437,7 +443,8 @@
 /// * [`assert_command_stderr_contains_as_result`](macro@crate::assert_command_stderr_contains_as_result)
 /// * [`debug_assert_command_stderr_contains`](macro@crate::debug_assert_command_stderr_contains)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_command_stderr_contains` to `assert_command_stderr_string_contains` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_contains {
     (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_command_stderr_contains_as_result!</span>(<span class="macro-nonterminal">$command</span>, <span class="macro-nonterminal">$containee</span>) {
@@ -484,7 +491,8 @@
 /// * [`assert_command_stderr_contains`](macro@crate::assert_command_stderr_contains)
 /// * [`debug_assert_command_stderr_contains`](macro@crate::debug_assert_command_stderr_contains)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_command_stderr_contains` to `debug_assert_command_stderr_string_contains` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_command_stderr_contains {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="kw">if </span><span class="macro-nonterminal">$</span><span class="macro">crate::cfg!</span>(<span class="macro-nonterminal">debug_assertions</span>) {

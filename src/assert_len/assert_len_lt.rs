@@ -151,6 +151,7 @@ mod tests {
 /// assert_len_lt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "xx";
 /// let b = "x";
 /// assert_len_lt!(a, b);

@@ -162,6 +162,7 @@ mod tests {
 /// assert_contains!(a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "alfa";
 /// let b = "zz";
 /// assert_contains!(a, b);

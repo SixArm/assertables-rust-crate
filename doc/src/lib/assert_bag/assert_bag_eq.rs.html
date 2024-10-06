@@ -220,6 +220,7 @@
 <a href="#220" id="220">220</a>
 <a href="#221" id="221">221</a>
 <a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -352,6 +353,7 @@
 /// assert_bag_eq!(&amp;a, &amp;b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
 /// assert_bag_eq!(&amp;a, &amp;b);

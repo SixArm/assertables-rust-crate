@@ -323,6 +323,7 @@
 /// assert_ready!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Poll&lt;i8&gt; = Pending;
 /// assert_ready!(a);
 /// # });

@@ -105,7 +105,7 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stderr_eq_expr_as_result_x_success() {
+    fn test_assert_command_stderr_eq_expr_as_result_x_success_because_eq() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'l', b'f', b'a'];
@@ -114,10 +114,10 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_command_stderr_eq_expr_as_result_x_failure() {
+    fn test_assert_command_stderr_eq_expr_as_result_x_failure_because_gt() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
-        let b = vec![b'z'];
+        let b = vec![b'z', b'z'];
         let result = assert_command_stderr_eq_expr_as_result!(a, &b);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -126,9 +126,29 @@ mod tests {
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             "    expr label: `&b`,\n",
-            "    expr debug: `[122]`,\n",
+            "    expr debug: `[122, 122]`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
-            "    expr value: `[122]`"
+            "    expr value: `[122, 122]`"
+        );
+        assert_eq!(actual, expect);
+    }
+
+    #[test]
+    fn test_assert_command_stderr_eq_expr_as_result_x_failure_because_lt() {
+        let mut a = Command::new("bin/printf-stderr");
+        a.args(["%s", "alfa"]);
+        let b = vec![b'a', b'a'];
+        let result = assert_command_stderr_eq_expr_as_result!(a, &b);
+        let actual = result.unwrap_err();
+        let expect = concat!(
+            "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_eq_expr.html\n",
+            " command label: `a`,\n",
+            " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            "    expr label: `&b`,\n",
+            "    expr debug: `[97, 97]`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
+            "    expr value: `[97, 97]`"
         );
         assert_eq!(actual, expect);
     }
@@ -158,9 +178,10 @@ mod tests {
 /// assert_command_stderr_eq_expr!(command, &bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut command = Command::new("bin/printf-stderr");
 /// command.args(["%s", "alfa"]);
-/// let bytes = vec![b'z'];
+/// let bytes = vec![b'z', b'z'];
 /// assert_command_stderr_eq_expr!(command, &bytes);
 /// # });
 /// // assertion failed: `assert_command_stderr_eq_expr!(command, expr)`
@@ -168,9 +189,9 @@ mod tests {
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //     expr label: `&bytes`,
-/// //     expr debug: `[122]`,
+/// //     expr debug: `[122, 122]`,
 /// //  command value: `[97, 108, 102, 97]`,
-/// //     expr value: `[122]`
+/// //     expr value: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_eq_expr!(command, expr)`\n",
@@ -178,9 +199,9 @@ mod tests {
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     "    expr label: `&bytes`,\n",
-/// #     "    expr debug: `[122]`,\n",
+/// #     "    expr debug: `[122, 122]`,\n",
 /// #     " command value: `[97, 108, 102, 97]`,\n",
-/// #     "    expr value: `[122]`"
+/// #     "    expr value: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

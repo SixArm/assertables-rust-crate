@@ -264,6 +264,7 @@ mod tests {
 /// assert_fn_ok_ne_expr!(f, a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 1;
 /// let b = String::from("1");
 /// assert_fn_ok_ne_expr!(f, a, b);

@@ -113,6 +113,7 @@ mod tests {
 /// assert_poll_pending!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Poll<i8> = Ready(1);
 /// assert_poll_pending!(a);
 /// # });

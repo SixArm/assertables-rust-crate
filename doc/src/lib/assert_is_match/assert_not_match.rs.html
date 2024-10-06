@@ -209,6 +209,7 @@
 <a href="#209" id="209">209</a>
 <a href="#210" id="210">210</a>
 <a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a regex) is not a match for an expression (such as a string).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -336,6 +337,7 @@
 /// assert_not_match!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = Regex::new(r"lf").unwrap();
 /// let b = "alfa";
 /// assert_not_match!(a, b);

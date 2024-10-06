@@ -366,6 +366,7 @@
 <a href="#366" id="366">366</a>
 <a href="#367" id="367">367</a>
 <a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is greater than another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -621,6 +622,7 @@
 /// assert_fn_gt!(i8::abs, a, i8::abs, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 1;
 /// let b: i8 = -2;
 /// assert_fn_gt!(i8::abs, a, i8::abs, b);

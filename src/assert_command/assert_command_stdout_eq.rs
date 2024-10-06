@@ -13,7 +13,7 @@
 //! let mut a = Command::new("bin/printf-stdout");
 //! a.args(["%s", "alfa"]);
 //! let mut b = Command::new("bin/printf-stdout");
-//! b.args(["%s%s%s%s", "a", "l", "f", "a"]);
+//! b.args(["%s", "alfa"]);
 //! assert_command_stdout_eq!(a, b);
 //! # }
 //! ```
@@ -29,10 +29,9 @@
 /// Pseudocode:<br>
 /// (command1 ⇒ stdout) = (command2 ⇒ stdout)
 ///
-/// * If true, return `()`.
+/// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a message and the values of the
-///   expressions with their debug representations.
+/// * Otherwise, return Result `Err` with a diagnostic message.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -105,21 +104,21 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stdout_eq_as_result_x_success() {
+    fn test_assert_command_stdout_eq_as_result_x_success_because_eq() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
-        b.args(["%s%s%s%s", "a", "l", "f", "a"]);
+        b.args(["%s", "alfa"]);
         let result = assert_command_stdout_eq_as_result!(a, b);
         assert_eq!(result.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_command_stdout_eq_as_result_x_failure() {
+    fn test_assert_command_stdout_eq_as_result_x_failure_because_lt() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
-        b.args(["%s%s%s", "z", "z", "z"]);
+        b.args(["%s", "zz"]);
         let result = assert_command_stdout_eq_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -128,9 +127,30 @@ mod tests {
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
-            " b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
+            " b debug: `\"bin/printf-stdout\" \"%s\" \"zz\"`,\n",
             "       a: `[97, 108, 102, 97]`,\n",
-            "       b: `[122, 122, 122]`"
+            "       b: `[122, 122]`"
+        );
+        assert_eq!(actual, expect);
+    }
+
+    #[test]
+    fn test_assert_command_stdout_eq_as_result_x_failure_because_gt() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let mut b = Command::new("bin/printf-stdout");
+        b.args(["%s", "aa"]);
+        let result = assert_command_stdout_eq_as_result!(a, b);
+        let actual = result.unwrap_err();
+        let expect = concat!(
+            "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/printf-stdout\" \"%s\" \"aa\"`,\n",
+            "       a: `[97, 108, 102, 97]`,\n",
+            "       b: `[97, 97]`"
         );
         assert_eq!(actual, expect);
     }
@@ -157,14 +177,15 @@ mod tests {
 /// let mut a = Command::new("bin/printf-stdout");
 /// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stdout");
-/// b.args(["%s%s%s%s", "a", "l", "f", "a"]);
+/// b.args(["%s", "alfa"]);
 /// assert_command_stdout_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut a = Command::new("bin/printf-stdout");
 /// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stdout");
-/// b.args(["%s%s%s", "z", "z", "z"]);
+/// b.args(["%s", "zz"]);
 /// assert_command_stdout_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
@@ -172,9 +193,9 @@ mod tests {
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
-/// //  b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,
+/// //  b debug: `\"bin/printf-stdout\" \"%s\" \"zz\"`,
 /// //        a: `[97, 108, 102, 97]`,
-/// //        b: `[122, 122, 122]`
+/// //        b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
@@ -182,9 +203,9 @@ mod tests {
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `\"bin/printf-stdout\" \"%s%s%s\" \"z\" \"z\" \"z\"`,\n",
+/// #     " b debug: `\"bin/printf-stdout\" \"%s\" \"zz\"`,\n",
 /// #     "       a: `[97, 108, 102, 97]`,\n",
-/// #     "       b: `[122, 122, 122]`"
+/// #     "       b: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -214,10 +235,7 @@ macro_rules! assert_command_stdout_eq {
 
 /// Assert a command stdout string is equal to another.
 ///
-/// Pseudocode:<br>
-/// (command1 ⇒ stdout) = (command2 ⇒ stdout)
-///
-/// This macro provides the same statements as [`assert_command_stdout_eq`](macro.assert_command_stdout_eq.html),
+/// This macro provides the same statements as [`assert_command_stdout_eq {`](macro.assert_command_stdout_eq {.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -239,9 +257,9 @@ macro_rules! assert_command_stdout_eq {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_eq`](macro@crate::assert_command_stdout_eq)
-/// * [`assert_command_stdout_eq`](macro@crate::assert_command_stdout_eq)
-/// * [`debug_assert_command_stdout_eq`](macro@crate::debug_assert_command_stdout_eq)
+/// * [`assert_command_stdout_eq {`](macro@crate::assert_command_stdout_eq {)
+/// * [`assert_command_stdout_eq {`](macro@crate::assert_command_stdout_eq {)
+/// * [`debug_assert_command_stdout_eq {`](macro@crate::debug_assert_command_stdout_eq {)
 ///
 #[macro_export]
 macro_rules! debug_assert_command_stdout_eq {

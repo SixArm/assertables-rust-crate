@@ -278,6 +278,7 @@
 <a href="#278" id="278">278</a>
 <a href="#279" id="279">279</a>
 <a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is greater than another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -460,6 +461,7 @@
 /// assert_program_args_stdout_gt!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";

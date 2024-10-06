@@ -310,6 +310,7 @@
 /// assert_some!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Option&lt;i8&gt; = Option::None;
 /// assert_some!(a);
 /// # });

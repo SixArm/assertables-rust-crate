@@ -214,6 +214,7 @@
 <a href="#214" id="214">214</a>
 <a href="#215" id="215">215</a>
 <a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an iter is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -344,6 +345,7 @@
 /// assert_iter_ne!(&amp;a, &amp;b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = [1, 2];
 /// let b = [1, 2];
 /// assert_iter_ne!(&amp;a, &amp;b);

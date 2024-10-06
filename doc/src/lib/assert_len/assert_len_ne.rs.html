@@ -218,6 +218,7 @@
 <a href="#218" id="218">218</a>
 <a href="#219" id="219">219</a>
 <a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is equal to another length.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -350,6 +351,7 @@
 /// assert_len_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "x";
 /// let b = "x";
 /// assert_len_ne!(a, b);

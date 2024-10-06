@@ -288,6 +288,7 @@
 <a href="#288" id="288">288</a>
 <a href="#289" id="289">289</a>
 <a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is less than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -480,6 +481,7 @@
 /// assert_program_args_stdout_le!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";

@@ -122,6 +122,7 @@ mod tests {
 /// assert_le!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = 2;
 /// let b = 1;
 /// assert_le!(a, b);

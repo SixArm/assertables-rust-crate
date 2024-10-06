@@ -425,6 +425,7 @@
 /// assert_some_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Option&lt;i8&gt; = Option::Some(1);
 /// let b: Option&lt;i8&gt; = Option::Some(1);
 /// assert_some_ne!(a, b);

@@ -245,6 +245,10 @@
 <a href="#245" id="245">245</a>
 <a href="#246" id="246">246</a>
 <a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stdout string contains a given containee.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -279,7 +283,7 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_`](macro.assert_.html),
+/// This macro provides the same statements as [`assert_command_stdout_contains`](macro.assert_command_stdout_contains.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -291,7 +295,8 @@
 /// * [`assert_command_stdout_contains_as_result`](macro@crate::assert_command_stdout_contains_as_result)
 /// * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_command_stdout_contains_as_result` to `assert_command_stdout_string_contains_as_result` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stdout_contains_as_result {
     (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="comment">/*&amp;$command,*/ </span><span class="kw-2">&amp;</span><span class="macro-nonterminal">$containee</span>) {
@@ -360,7 +365,7 @@
     </span><span class="kw">fn </span>test_assert_command_stdout_contains_x_failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
-        <span class="kw">let </span>b = <span class="string">"zzz"</span>;
+        <span class="kw">let </span>b = <span class="string">"zz"</span>;
         <span class="kw">let </span>result = <span class="macro">assert_command_stdout_contains_as_result!</span>(a, b);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
@@ -369,9 +374,9 @@
             <span class="string">"   command label: `a`,\n"</span>,
             <span class="string">"   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">" containee label: `b`,\n"</span>,
-            <span class="string">" containee debug: `\"zzz\"`,\n"</span>,
-            <span class="string">"          stdout: `\"alfa\"`"
-        </span>);
+            <span class="string">" containee debug: `\"zz\"`,\n"</span>,
+            <span class="string">"          stdout: `\"alfa\"`"</span>,
+        );
         <span class="macro">assert_eq!</span>(actual, expect);
     }
 }
@@ -405,9 +410,10 @@
 /// assert_command_stdout_contains!(command, &amp;containee);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "alfa"]);
-/// let containee = "zzz";
+/// let containee = "zz";
 /// assert_command_stdout_contains!(command, &amp;containee);
 /// # });
 /// // assertion failed: `assert_command_stdout_contains!(command, containee)`
@@ -415,7 +421,7 @@
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  containee label: `&amp;containee`,
-/// //  containee debug: `\"zzz\"`,
+/// //  containee debug: `\"zz\"`,
 /// //    command value: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
@@ -424,7 +430,7 @@
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " containee label: `&amp;containee`,\n",
-/// #     " containee debug: `\"zzz\"`,\n",
+/// #     " containee debug: `\"zz\"`,\n",
 /// #     "          stdout: `\"alfa\"`"
 /// # );
 /// # assert_eq!(actual, expect);
@@ -437,16 +443,17 @@
 /// * [`assert_command_stdout_contains_as_result`](macro@crate::assert_command_stdout_contains_as_result)
 /// * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_command_stdout_contains` to `assert_command_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stdout_contains {
-    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_command_stdout_contains_as_result!</span>(<span class="macro-nonterminal">$command</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_command_stdout_contains_as_result!</span>(<span class="macro-nonterminal">$command</span>, <span class="macro-nonterminal">$containee</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
-    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_command_stdout_contains_as_result!</span>(<span class="macro-nonterminal">$command</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$containee</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_command_stdout_contains_as_result!</span>(<span class="macro-nonterminal">$command</span>, <span class="macro-nonterminal">$containee</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
@@ -484,7 +491,8 @@
 /// * [`assert_command_stdout_contains`](macro@crate::assert_command_stdout_contains)
 /// * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_command_stdout_contains` to `debug_assert_command_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_command_stdout_contains {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="kw">if </span><span class="macro-nonterminal">$</span><span class="macro">crate::cfg!</span>(<span class="macro-nonterminal">debug_assertions</span>) {

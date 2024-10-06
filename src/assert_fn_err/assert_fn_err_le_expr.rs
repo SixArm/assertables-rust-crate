@@ -279,6 +279,7 @@ mod tests {
 /// assert_fn_err_le_expr!(f, a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 20;
 /// let b = String::from("10 is out of range");
 /// assert_fn_err_le_expr!(f, a, b);

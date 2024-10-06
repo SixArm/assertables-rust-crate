@@ -107,6 +107,7 @@ mod tests {
 /// assert_result_ok!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Result<(), i8> = Err(1);
 /// assert_result_ok!(a);
 /// # });

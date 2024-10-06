@@ -165,6 +165,7 @@ mod tests {
 /// assert_poll_ready_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Poll<i8> = Ready(1);
 /// let b: Poll<i8> = Ready(2);
 /// assert_poll_ready_eq!(a, b);

@@ -134,6 +134,7 @@ mod tests {
 /// assert_len_le_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "xx";
 /// let b = 1;
 /// assert_len_le_expr!(a, b);

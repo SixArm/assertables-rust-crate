@@ -104,7 +104,7 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stderr_eq_as_result_x_success() {
+    fn test_assert_command_stderr_eq_as_result_x_success_because_eq() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
@@ -114,11 +114,11 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_command_stderr_eq_as_result_x_failure() {
+    fn test_assert_command_stderr_eq_as_result_x_failure_because_lt() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
-        b.args(["%s", "zzz"]);
+        b.args(["%s", "zz"]);
         let result = assert_command_stderr_eq_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -127,9 +127,30 @@ mod tests {
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
-            " b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
+            " b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,\n",
             "       a: `[97, 108, 102, 97]`,\n",
-            "       b: `[122, 122, 122]`"
+            "       b: `[122, 122]`"
+        );
+        assert_eq!(actual, expect);
+    }
+
+    #[test]
+    fn test_assert_command_stderr_eq_as_result_x_failure_because_gt() {
+        let mut a = Command::new("bin/printf-stderr");
+        a.args(["%s", "alfa"]);
+        let mut b = Command::new("bin/printf-stderr");
+        b.args(["%s", "aa"]);
+        let result = assert_command_stderr_eq_as_result!(a, b);
+        let actual = result.unwrap_err();
+        let expect = concat!(
+            "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_eq.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/printf-stderr\" \"%s\" \"aa\"`,\n",
+            "       a: `[97, 108, 102, 97]`,\n",
+            "       b: `[97, 97]`"
         );
         assert_eq!(actual, expect);
     }
@@ -160,10 +181,11 @@ mod tests {
 /// assert_command_stderr_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut a = Command::new("bin/printf-stderr");
 /// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stderr");
-/// b.args(["%s", "zzz"]);
+/// b.args(["%s", "zz"]);
 /// assert_command_stderr_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stderr_eq!(a_command, b_command)`
@@ -171,9 +193,9 @@ mod tests {
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
-/// //  b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,
+/// //  b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,
 /// //        a: `[97, 108, 102, 97]`,
-/// //        b: `[122, 122, 122]`
+/// //        b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
@@ -181,9 +203,9 @@ mod tests {
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `\"bin/printf-stderr\" \"%s\" \"zzz\"`,\n",
+/// #     " b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,\n",
 /// #     "       a: `[97, 108, 102, 97]`,\n",
-/// #     "       b: `[122, 122, 122]`"
+/// #     "       b: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

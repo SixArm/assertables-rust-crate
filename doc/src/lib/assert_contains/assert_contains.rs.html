@@ -246,6 +246,7 @@
 <a href="#246" id="246">246</a>
 <a href="#247" id="247">247</a>
 <a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a container is a match for an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -410,6 +411,7 @@
 /// assert_contains!(a, &amp;b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "alfa";
 /// let b = "zz";
 /// assert_contains!(a, b);

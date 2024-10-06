@@ -212,6 +212,7 @@
 <a href="#212" id="212">212</a>
 <a href="#213" id="213">213</a>
 <a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -340,6 +341,7 @@
 /// assert_len_ne_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "x";
 /// let b = 1;
 /// assert_len_ne_expr!(a, b);

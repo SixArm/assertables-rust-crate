@@ -44,6 +44,7 @@
 /// * [`assert_program_args_stderr_is_match_as_result`](macro@crate::assert_program_args_stderr_is_match_as_result)
 /// * [`debug_assert_program_args_stderr_is_match`](macro@crate::debug_assert_program_args_stderr_is_match)
 ///
+#[deprecated(note = "Please rename from `assert_program_args_stderr_is_match_as_result` to `assert_program_args_stderr_string_is_match_as_result` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_program_args_stderr_is_match_as_result {
     ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {{
@@ -123,7 +124,7 @@ mod tests {
     fn test_assert_program_args_stderr_is_match_as_result_x_failure() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
-        let b = Regex::new(r"zzz").unwrap();
+        let b = Regex::new(r"zz").unwrap();
         let result = assert_program_args_stderr_is_match_as_result!(&a_program, &a_args, &b);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -134,9 +135,9 @@ mod tests {
             "    a_args label: `&a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
             " b_matcher label: `&b`,\n",
-            " b_matcher debug: `Regex(\"zzz\")`,\n",
+            " b_matcher debug: `Regex(\"zz\")`,\n",
             "               a: `\"alfa\"`,\n",
-            "               b: `Regex(\"zzz\")`"
+            "               b: `Regex(\"zz\")`"
         );
         assert_eq!(actual, expect);
     }
@@ -166,9 +167,10 @@ mod tests {
 /// assert_program_args_stderr_is_match!(&program, &args, &matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
-/// let matcher = Regex::new(r"zzz").unwrap();
+/// let matcher = Regex::new(r"zz").unwrap();
 /// assert_program_args_stderr_is_match!(&program, &args, &matcher);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_is_match!(a_program, b_matcher)`
@@ -178,9 +180,9 @@ mod tests {
 /// //     a_args label: `&args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
 /// //  b_matcher label: `&matcher`,
-/// //  b_matcher debug: `Regex(\"zzz\")`,
+/// //  b_matcher debug: `Regex(\"zz\")`,
 /// //                a: `\"alfa\"`,
-/// //                b: `Regex(\"zzz\")`
+/// //                b: `Regex(\"zz\")`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_is_match!(a_program, b_matcher)`\n",
@@ -190,9 +192,9 @@ mod tests {
 /// #     "    a_args label: `&args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
 /// #     " b_matcher label: `&matcher`,\n",
-/// #     " b_matcher debug: `Regex(\"zzz\")`,\n",
+/// #     " b_matcher debug: `Regex(\"zz\")`,\n",
 /// #     "               a: `\"alfa\"`,\n",
-/// #     "               b: `Regex(\"zzz\")`"
+/// #     "               b: `Regex(\"zz\")`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -204,6 +206,7 @@ mod tests {
 /// * [`assert_program_args_stderr_is_match_as_result`](macro@crate::assert_program_args_stderr_is_match_as_result)
 /// * [`debug_assert_program_args_stderr_is_match`](macro@crate::debug_assert_program_args_stderr_is_match)
 ///
+#[deprecated(note = "Please rename from `assert_program_args_stderr_is_match` to `assert_program_args_stderr_string_is_match` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_program_args_stderr_is_match {
     ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {{
@@ -251,6 +254,7 @@ macro_rules! assert_program_args_stderr_is_match {
 /// * [`assert_program_args_stderr_is_match`](macro@crate::assert_program_args_stderr_is_match)
 /// * [`debug_assert_program_args_stderr_is_match`](macro@crate::debug_assert_program_args_stderr_is_match)
 ///
+#[deprecated(note = "Please rename from `debug_assert_program_args_stderr_is_match` to `debug_assert_program_args_stderr_string_is_match` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! debug_assert_program_args_stderr_is_match {
     ($($arg:tt)*) => {

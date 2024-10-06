@@ -251,6 +251,7 @@
 <a href="#251" id="251">251</a>
 <a href="#252" id="252">252</a>
 <a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Some(_) and its value is not equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -418,6 +419,7 @@
 /// assert_some_ne_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Option&lt;i8&gt; = Option::Some(1);
 /// let b: i8 = 1;
 /// assert_some_ne_expr!(a, b);

@@ -209,6 +209,7 @@ mod tests {
 /// assert_fn_eq_expr!(i8::abs, a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = -1;
 /// let b: i8 = 2;
 /// assert_fn_eq_expr!(i8::abs, a, b);

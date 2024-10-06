@@ -428,6 +428,7 @@
 <a href="#428" id="428">428</a>
 <a href="#429" id="429">429</a>
 <a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Ok(…) is greater than another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -746,6 +747,7 @@
 /// assert_fn_ok_gt!(f, a, f, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 1;
 /// let b: i8 = 2;
 /// assert_fn_ok_gt!(f, a, f, b);

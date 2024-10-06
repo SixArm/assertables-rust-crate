@@ -113,6 +113,7 @@ mod tests {
 /// assert_is_empty!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "alfa";
 /// assert_is_empty!(a);
 /// # });

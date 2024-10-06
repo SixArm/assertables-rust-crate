@@ -192,6 +192,7 @@
 <a href="#192" id="192">192</a>
 <a href="#193" id="193">193</a>
 <a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a string or array) is not empty.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -307,6 +308,7 @@
 /// assert_not_empty!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "";
 /// assert_not_empty!(a);
 /// # });

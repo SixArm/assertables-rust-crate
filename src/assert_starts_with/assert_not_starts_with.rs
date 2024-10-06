@@ -120,6 +120,7 @@ mod tests {
 /// assert_not_starts_with!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "alfa";
 /// let b = "al";
 /// assert_not_starts_with!(a, b);

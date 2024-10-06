@@ -226,6 +226,7 @@
 <a href="#226" id="226">226</a>
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is greater than or equal to another length.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -366,6 +367,7 @@
 /// assert_len_ge!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "x";
 /// let b = "xx";
 /// assert_len_ge!(a, b);

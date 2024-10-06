@@ -121,6 +121,7 @@ mod tests {
 /// assert_pending!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Poll<i8> = Ready(1);
 /// assert_pending!(a);
 /// # });

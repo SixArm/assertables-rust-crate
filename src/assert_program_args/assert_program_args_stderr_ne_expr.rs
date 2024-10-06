@@ -10,7 +10,7 @@
 //! # fn main() {
 //! let program = "bin/printf-stderr";
 //! let args = ["%s", "alfa"];
-//! let bytes = vec![b'z'];
+//! let bytes = vec![b'z', b'z'];
 //! assert_program_args_stderr_ne_expr!(&program, &args, &bytes);
 //! # }
 //! ```
@@ -112,7 +112,7 @@ mod tests {
     fn test_assert_program_args_stderr_ne_expr_as_result_x_success() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
-        let b = vec![b'z'];
+        let b = vec![b'z', b'z'];
         let result = assert_program_args_stderr_ne_expr_as_result!(&a_program, &a_args, &b);
         assert_eq!(result.unwrap(), ());
     }
@@ -158,10 +158,11 @@ mod tests {
 /// # fn main() {
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
-/// let bytes = vec![b'z'];
+/// let bytes = vec![b'z', b'z'];
 /// assert_program_args_stderr_ne_expr!(&program, &args, &bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'a', b'l', b'f', b'a'];

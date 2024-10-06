@@ -255,6 +255,7 @@
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is less than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -419,6 +420,7 @@
 /// assert_program_args_stderr_lt_expr!(&amp;program, &amp;args, &amp;bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let program = "bin/printf-stderr";
 /// let a_args = ["%s", "alfa"];
 /// let bytes = vec![b'a', b'a'];

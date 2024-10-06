@@ -194,6 +194,7 @@
 <a href="#194" id="194">194</a>
 <a href="#195" id="195">195</a>
 <a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression is Err(_).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -311,6 +312,7 @@
 /// assert_err!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Result&lt;(), i8&gt; = Ok(());
 /// assert_err!(a);
 /// # });

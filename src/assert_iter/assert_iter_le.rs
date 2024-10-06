@@ -136,6 +136,7 @@ mod tests {
 /// assert_iter_le!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = [3, 4];
 /// let b = [1, 2];
 /// assert_iter_le!(&a, &b);

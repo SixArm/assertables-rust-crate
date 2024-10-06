@@ -44,6 +44,7 @@
 /// * [`assert_command_stderr_contains_as_result`](macro@crate::assert_command_stderr_contains_as_result)
 /// * [`debug_assert_command_stderr_contains`](macro@crate::debug_assert_command_stderr_contains)
 ///
+#[deprecated(note = "Please rename from `assert_command_stderr_contains_as_result` to `assert_command_stderr_string_contains_as_result` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_command_stderr_contains_as_result {
     ($command:expr, $containee:expr $(,)?) => {{
@@ -113,7 +114,7 @@ mod tests {
     fn test_assert_command_stderr_contains_x_failure() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
-        let b = "zzz";
+        let b = "zz";
         let result = assert_command_stderr_contains_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -122,7 +123,7 @@ mod tests {
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " containee label: `b`,\n",
-            " containee debug: `\"zzz\"`,\n",
+            " containee debug: `\"zz\"`,\n",
             "          stderr: `\"alfa\"`",
         );
         assert_eq!(actual, expect);
@@ -158,9 +159,10 @@ mod tests {
 /// assert_command_stderr_contains!(command, &containee);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut command = Command::new("bin/printf-stderr");
 /// command.args(["%s", "alfa"]);
-/// let containee = "zzz";
+/// let containee = "zz";
 /// assert_command_stderr_contains!(command, &containee);
 /// # });
 /// // assertion failed: `assert_command_stderr_contains!(command, containee)`
@@ -168,7 +170,7 @@ mod tests {
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  containee label: `&containee`,
-/// //  containee debug: `\"zzz\"`,
+/// //  containee debug: `\"zz\"`,
 /// //    command value: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -177,7 +179,7 @@ mod tests {
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " containee label: `&containee`,\n",
-/// #     " containee debug: `\"zzz\"`,\n",
+/// #     " containee debug: `\"zz\"`,\n",
 /// #     "          stderr: `\"alfa\"`"
 /// # );
 /// # assert_eq!(actual, expect);
@@ -190,6 +192,7 @@ mod tests {
 /// * [`assert_command_stderr_contains_as_result`](macro@crate::assert_command_stderr_contains_as_result)
 /// * [`debug_assert_command_stderr_contains`](macro@crate::debug_assert_command_stderr_contains)
 ///
+#[deprecated(note = "Please rename from `assert_command_stderr_contains` to `assert_command_stderr_string_contains` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_command_stderr_contains {
     ($command:expr, $containee:expr $(,)?) => {{
@@ -237,6 +240,7 @@ macro_rules! assert_command_stderr_contains {
 /// * [`assert_command_stderr_contains`](macro@crate::assert_command_stderr_contains)
 /// * [`debug_assert_command_stderr_contains`](macro@crate::debug_assert_command_stderr_contains)
 ///
+#[deprecated(note = "Please rename from `debug_assert_command_stderr_contains` to `debug_assert_command_stderr_string_contains` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! debug_assert_command_stderr_contains {
     ($($arg:tt)*) => {

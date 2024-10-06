@@ -156,6 +156,7 @@ mod tests {
 /// assert_io_read_to_string_ge_expr!(reader, &value);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut reader = "alfa".as_bytes();
 /// let value = String::from("bravo");
 /// assert_io_read_to_string_ge_expr!(reader, &value);

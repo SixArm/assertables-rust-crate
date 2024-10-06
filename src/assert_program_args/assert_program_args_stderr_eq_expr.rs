@@ -109,7 +109,7 @@ macro_rules! assert_program_args_stderr_eq_expr_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_program_args_stderr_eq_expr_as_result_x_success() {
+    fn test_assert_program_args_stderr_eq_expr_as_result_x_success_because_eq() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'l', b'f', b'a'];
@@ -118,10 +118,10 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_program_args_stderr_eq_expr_as_result_x_failure() {
+    fn test_assert_program_args_stderr_eq_expr_as_result_x_failure_because_lt() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
-        let b = vec![b'z'];
+        let b = vec![b'z', b'z'];
         let result = assert_program_args_stderr_eq_expr_as_result!(&a_program, &a_args, &b);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -132,9 +132,30 @@ mod tests {
             "    a_args label: `&a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
             "    b_expr label: `&b`,\n",
-            "    b_expr debug: `[122]`,\n",
+            "    b_expr debug: `[122, 122]`,\n",
             "               a: `[97, 108, 102, 97]`,\n",
-            "               b: `[122]`");
+            "               b: `[122, 122]`");
+        assert_eq!(actual, expect);
+    }
+
+    #[test]
+    fn test_assert_program_args_stderr_eq_expr_as_result_x_failure_because_gt() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "alfa"];
+        let b = vec![b'a', b'a'];
+        let result = assert_program_args_stderr_eq_expr_as_result!(&a_program, &a_args, &b);
+        let actual = result.unwrap_err();
+        let expect = concat!(
+            "assertion failed: `assert_program_args_stderr_eq_expr!(a_program, a_args, b_expr)`\n",
+            "https://docs.rs/assertables/8.14.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
+            " a_program label: `&a_program`,\n",
+            " a_program debug: `\"bin/printf-stderr\"`,\n",
+            "    a_args label: `&a_args`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+            "    b_expr label: `&b`,\n",
+            "    b_expr debug: `[97, 97]`,\n",
+            "               a: `[97, 108, 102, 97]`,\n",
+            "               b: `[97, 97]`");
         assert_eq!(actual, expect);
     }
 }
@@ -162,9 +183,10 @@ mod tests {
 /// assert_program_args_stderr_eq_expr!(&program, &args, &bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
-/// let bytes = vec![b'z'];
+/// let bytes = vec![b'z', b'z'];
 /// assert_program_args_stderr_eq_expr!(&program, &args, &bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_eq_expr!(a_program, a_args, b_expr)`
@@ -174,7 +196,7 @@ mod tests {
 /// //     a_args label: `&args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
 /// //     b_expr label: `&bytes`,
-/// //     b_expr debug: `[122]`,
+/// //     b_expr debug: `[122, 122]`,
 /// //                a: `[97, 108, 102, 97]`,
 /// //                b: `[122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -186,9 +208,9 @@ mod tests {
 /// #     "    a_args label: `&args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
 /// #     "    b_expr label: `&bytes`,\n",
-/// #     "    b_expr debug: `[122]`,\n",
+/// #     "    b_expr debug: `[122, 122]`,\n",
 /// #     "               a: `[97, 108, 102, 97]`,\n",
-/// #     "               b: `[122]`"
+/// #     "               b: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

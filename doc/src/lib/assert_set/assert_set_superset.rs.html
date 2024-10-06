@@ -224,6 +224,7 @@
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
 <a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a set is a superset of another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -360,6 +361,7 @@
 /// assert_set_superset!(&amp;a, &amp;b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = [1, 2];
 /// let b = [1, 2, 3];
 /// assert_set_superset!(&amp;a, &amp;b);

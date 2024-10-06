@@ -111,7 +111,7 @@ mod tests {
     #[test]
     fn test_assert_io_read_to_string_contains_as_result_x_failure() {
         let mut reader = "alfa".as_bytes();
-        let containee = "zzz";
+        let containee = "zz";
         let result = assert_io_read_to_string_contains_as_result!(reader, &containee);
         assert!(result.is_err());
         assert_eq!(
@@ -122,7 +122,7 @@ mod tests {
                 "    reader label: `reader`,\n",
                 "    reader debug: `[]`,\n",
                 " containee label: `&containee`,\n",
-                " containee debug: `\"zzz\"`,\n",
+                " containee debug: `\"zz\"`,\n",
                 "     read string: `\"alfa\"`",
             )
         );
@@ -152,8 +152,9 @@ mod tests {
 /// assert_io_read_to_string_contains!(reader, &containee);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut reader = "hello".as_bytes();
-/// let containee = "zzz";
+/// let containee = "zz";
 /// assert_io_read_to_string_contains!(reader, &containee);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`
@@ -161,7 +162,7 @@ mod tests {
 /// //     reader label: `&reader`,
 /// //     reader debug: `[]`,
 /// //  containee label: `&containee`,
-/// //  containee debug: `\"zzz\"`,
+/// //  containee debug: `\"zz\"`,
 /// //      read string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -170,7 +171,7 @@ mod tests {
 /// #     "    reader label: `reader`,\n",
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&containee`,\n",
-/// #     " containee debug: `\"zzz\"`,\n",
+/// #     " containee debug: `\"zz\"`,\n",
 /// #     "     read string: `\"hello\"`",
 /// # );
 /// # assert_eq!(actual, expect);

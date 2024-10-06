@@ -213,6 +213,7 @@ mod tests {
 /// assert_fn_ne!(i8::abs, a, i8::abs, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = -1;
 /// let b: i8 = 1;
 /// assert_fn_ne!(i8::abs, a, i8::abs, b);

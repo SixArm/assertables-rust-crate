@@ -250,6 +250,7 @@
 <a href="#250" id="250">250</a>
 <a href="#251" id="251">251</a>
 <a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string(path) is a match to a regex.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -371,7 +372,7 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_read_to_string_matches_as_result_x_failure() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"alfa.txt"</span>);
-        <span class="kw">let </span>matcher = Regex::new(<span class="string">r"zzz"</span>).unwrap();
+        <span class="kw">let </span>matcher = Regex::new(<span class="string">r"zz"</span>).unwrap();
         <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_matches_as_result!</span>(<span class="kw-2">&amp;</span>path, <span class="kw-2">&amp;</span>matcher);
         <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
@@ -383,7 +384,7 @@
                     <span class="string">"    path label: `&amp;path`,\n"</span>,
                     <span class="string">"    path debug: `{:?}`,\n"</span>,
                     <span class="string">" matcher label: `&amp;matcher`,\n"</span>,
-                    <span class="string">" matcher debug: `Regex(\"zzz\")`,\n"</span>,
+                    <span class="string">" matcher debug: `Regex(\"zz\")`,\n"</span>,
                     <span class="string">"   read string: `\"alfa\\n\"`"</span>,
                 ),
                 path
@@ -416,8 +417,9 @@
 /// assert_fs_read_to_string_matches!(&amp;path, &amp;matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let path = "alfa.txt";
-/// let matcher = Regex::new(r"zzz").unwrap();
+/// let matcher = Regex::new(r"zz").unwrap();
 /// assert_fs_read_to_string_matches!(&amp;path, &amp;matcher);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`
@@ -425,7 +427,7 @@
 /// //     path label: `&amp;path`,
 /// //     path debug: `\"alfa.txt\"`,
 /// //  matcher label: `&amp;matcher`,
-/// //  matcher debug: `Regex(\"zzz\")`,
+/// //  matcher debug: `Regex(\"zz\")`,
 /// //    read string: `\"alfa\\n\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
@@ -434,7 +436,7 @@
 /// #     "    path label: `&amp;path`,\n",
 /// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `&amp;matcher`,\n",
-/// #     " matcher debug: `Regex(\"zzz\")`,\n",
+/// #     " matcher debug: `Regex(\"zz\")`,\n",
 /// #     "   read string: `\"alfa\\n\"`",
 /// # );
 /// # assert_eq!(actual, expect);

@@ -232,6 +232,7 @@
 <a href="#232" id="232">232</a>
 <a href="#233" id="233">233</a>
 <a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is less than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -380,6 +381,7 @@
 /// assert_len_lt_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "xx";
 /// let b = 1;
 /// assert_len_lt_expr!(a, b);

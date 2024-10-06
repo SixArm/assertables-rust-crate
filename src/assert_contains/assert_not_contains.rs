@@ -163,6 +163,7 @@ mod tests {
 /// //->
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "alfa";
 /// let b = "lf";
 /// assert_not_contains!(a, b);

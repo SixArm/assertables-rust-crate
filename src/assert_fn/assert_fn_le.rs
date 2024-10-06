@@ -229,6 +229,7 @@ mod tests {
 /// assert_fn_le!(i8::abs, a, i8::abs, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = -2;
 /// let b: i8 = 1;
 /// assert_fn_le!(i8::abs, a, i8::abs, b);

@@ -213,23 +213,55 @@ fn assert_command() {
     let program = BIN.join("printf-stdout");
     let mut a = Command::new(&program);
     a.args(["%s", "alfa"]);
-    let mut b = Command::new(&program);
-    b.args(["%s%s%s%s", "a", "l", "f", "a"]);
-    assert_command_stdout_eq!(a, b);
+
+    //// stdout
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "l", "f", "a"]); assert_command_stdout_eq!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "x", "x"]); assert_command_stdout_ne!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stdout_lt!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stdout_le!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stdout_gt!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stdout_ge!(a, b);
+
+    //// stdout expr
     assert_command_stdout_eq_expr!(a, &vec![b'a', b'l', b'f', b'a']);
+    assert_command_stdout_ne_expr!(a, &vec![b'x', b'x']);
+    assert_command_stdout_lt_expr!(a, &vec![b'z', b'z']);
+    assert_command_stdout_le_expr!(a, &vec![b'z', b'z']);
+    assert_command_stdout_gt_expr!(a, &vec![b'a', b'a']);
+    assert_command_stdout_ge_expr!(a, &vec![b'a', b'a']);
+
+    //// stdout string
     assert_command_stdout_contains!(a, "lf");
+    assert_command_stdout_string_contains!(a, "lf");
     assert_command_stdout_is_match!(a, Regex::new(r"lf").unwrap());
+    assert_command_stdout_string_is_match!(a, Regex::new(r"lf").unwrap());
 
     //// stderr
     let program = BIN.join("printf-stderr");
     let mut a = Command::new(&program);
     a.args(["%s", "alfa"]);
-    let mut b = Command::new(&program);
-    b.args(["%s%s%s%s", "a", "l", "f", "a"]);
-    assert_command_stderr_eq!(a, b);
+
+    //// stderr
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "l", "f", "a"]); assert_command_stderr_eq!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "x", "x"]); assert_command_stderr_ne!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stderr_lt!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stderr_le!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stderr_gt!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stderr_ge!(a, b);
+
+    //// stderr expr
     assert_command_stderr_eq_expr!(a, &vec![b'a', b'l', b'f', b'a']);
+    assert_command_stderr_ne_expr!(a, &vec![b'x', b'x']);
+    assert_command_stderr_lt_expr!(a, &vec![b'z', b'z']);
+    assert_command_stderr_le_expr!(a, &vec![b'z', b'z']);
+    assert_command_stderr_gt_expr!(a, &vec![b'a', b'a']);
+    assert_command_stderr_ge_expr!(a, &vec![b'a', b'a']);
+
+    //// stderr string
     assert_command_stderr_contains!(a, "lf");
+    assert_command_stderr_string_contains!(a, "lf");
     assert_command_stderr_is_match!(a, Regex::new(r"lf").unwrap());
+    assert_command_stderr_string_is_match!(a, Regex::new(r"lf").unwrap());
 }
 
 #[test]
@@ -257,9 +289,11 @@ fn assert_program_args() {
     assert_program_args_stdout_gt_expr!(&a_program, &a_args, &vec![b'a', b'a']);
     assert_program_args_stdout_ge_expr!(&a_program, &a_args, &vec![b'a', b'a']);
 
-    //// stdout extras
-    // assert_program_args_stdout_contains!(&a_program, &a_args, "ll");
-    // assert_program_args_stdout_is_match!(&a_program, &a_args, Regex::new(r"ll").unwrap());
+    //// stdout string
+    assert_program_args_stdout_contains!(&a_program, &a_args, "lf");
+    assert_program_args_stdout_string_contains!(&a_program, &a_args, "lf");
+    assert_program_args_stdout_is_match!(&a_program, &a_args, Regex::new(r"lf").unwrap());
+    assert_program_args_stdout_string_is_match!(&a_program, &a_args, Regex::new(r"lf").unwrap());
 
     //// stderr
     let a_program = BIN.join("printf-stderr");
@@ -283,9 +317,11 @@ fn assert_program_args() {
     assert_program_args_stderr_gt_expr!(&a_program, &a_args, &vec![b'a', b'a']);
     assert_program_args_stderr_ge_expr!(&a_program, &a_args, &vec![b'a', b'a']);
 
-    //// stderr extras
-    // assert_program_args_stderr_contains!(&a_program, &a_args, "ll");
-    // assert_program_args_stderr_is_match!(&a_program, &a_args, Regex::new(r"ll").unwrap());
+    //// stderr string
+    assert_program_args_stderr_contains!(&a_program, &a_args, "lf");
+    assert_program_args_stderr_string_contains!(&a_program, &a_args, "lf");
+    assert_program_args_stderr_is_match!(&a_program, &a_args, Regex::new(r"lf").unwrap());
+    assert_program_args_stderr_string_is_match!(&a_program, &a_args, Regex::new(r"lf").unwrap());
 
 }
 

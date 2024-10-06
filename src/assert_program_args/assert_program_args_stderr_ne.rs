@@ -11,7 +11,7 @@
 //! let a_program = "bin/printf-stderr";
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stderr";
-//! let b_args = ["%s", "zzz"];
+//! let b_args = ["%s", "zz"];
 //! assert_program_args_stderr_ne!(&a_program, &a_args, &b_program, &b_args);
 //! # }
 //! ```
@@ -120,17 +120,27 @@ macro_rules! assert_program_args_stderr_ne_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_program_args_stderr_ne_as_result_x_success() {
+    fn test_assert_program_args_stderr_ne_as_result_x_success_because_lt() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
-        let b_args = ["%s", "zzz"];
+        let b_args = ["%s", "zz"];
         let result = assert_program_args_stderr_ne_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(result.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_program_args_stderr_ne_as_result_x_failure() {
+    fn test_assert_program_args_stderr_ne_as_result_x_success_because_gt() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "alfa"];
+        let b_program = "bin/printf-stderr";
+        let b_args = ["%s", "aa"];
+        let result = assert_program_args_stderr_ne_as_result!(&a_program, &a_args, &b_program, &b_args);
+        assert_eq!(result.unwrap(), ());
+    }
+
+    #[test]
+    fn test_assert_program_args_stderr_ne_as_result_x_failure_because_eq() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
@@ -175,10 +185,11 @@ mod tests {
 /// let a_program = "bin/printf-stderr";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stderr";
-/// let b_args = ["%s", "zzz"];
+/// let b_args = ["%s", "zz"];
 /// assert_program_args_stderr_ne!(&a_program, &a_args, &b_program, &b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stderr";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stderr";

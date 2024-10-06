@@ -126,6 +126,7 @@ mod tests {
 /// assert_len_ne_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "x";
 /// let b = 1;
 /// assert_len_ne_expr!(a, b);

@@ -1,4 +1,4 @@
-//! Assert command stdout string is a match to a regex.
+//! Assert a command stdout string is a match to a regex.
 //!
 //! Pseudocode:<br>
 //! (command ⇒ stdout ⇒ string) is match (expr into string)
@@ -24,7 +24,7 @@
 //! * [`assert_command_stdout_is_match_as_result`](macro@crate::assert_command_stdout_is_match_as_result)
 //! * [`debug_assert_command_stdout_is_match`](macro@crate::debug_assert_command_stdout_is_match)
 
-/// Assert command stdout string is a match to a regex.
+/// Assert a command stdout string is a match to a regex.
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout ⇒ string) is match (expr into string)
@@ -45,6 +45,7 @@
 /// * [`assert_command_stdout_is_match_as_result`](macro@crate::assert_command_stdout_is_match_as_result)
 /// * [`debug_assert_command_stdout_is_match`](macro@crate::debug_assert_command_stdout_is_match)
 ///
+#[deprecated(note = "Please rename from `assert_command_stdout_is_match_as_result` to `assert_command_stdout_string_is_match_as_result` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_command_stdout_is_match_as_result {
     ($command:expr, $matcher:expr $(,)?) => {{
@@ -117,7 +118,7 @@ mod tests {
     fn test_assert_command_stdout_is_match_as_result_x_failure() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
-        let b = Regex::new(r"zzz").unwrap();
+        let b = Regex::new(r"zz").unwrap();
         let result = assert_command_stdout_is_match_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -126,15 +127,15 @@ mod tests {
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " matcher label: `b`,\n",
-            " matcher debug: `Regex(\"zzz\")`,\n",
+            " matcher debug: `Regex(\"zz\")`,\n",
             " command value: `\"alfa\"`,\n",
-            " matcher value: `Regex(\"zzz\")`"
+            " matcher value: `Regex(\"zz\")`"
         );
         assert_eq!(actual, expect);
     }
 }
 
-/// Assert command stdout string is a match to a regex.
+/// Assert a command stdout string is a match to a regex.
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout ⇒ string) is match (expr into string)
@@ -159,9 +160,10 @@ mod tests {
 /// assert_command_stdout_is_match!(command, &matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "alfa"]);
-/// let matcher = Regex::new(r"zzz").unwrap();
+/// let matcher = Regex::new(r"zz").unwrap();
 /// assert_command_stdout_is_match!(command, &matcher);
 /// # });
 /// // assertion failed: `assert_command_stdout_is_match!(command, matcher)`
@@ -169,9 +171,9 @@ mod tests {
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  matcher label: `&matcher`,
-/// //  matcher debug: `Regex(\"zzz\")`,
+/// //  matcher debug: `Regex(\"zz\")`,
 /// //  command value: `\"alfa\"`,
-/// //  matcher value: `Regex(\"zzz\")`
+/// //  matcher value: `Regex(\"zz\")`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_is_match!(command, matcher)`\n",
@@ -179,9 +181,9 @@ mod tests {
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " matcher label: `&matcher`,\n",
-/// #     " matcher debug: `Regex(\"zzz\")`,\n",
+/// #     " matcher debug: `Regex(\"zz\")`,\n",
 /// #     " command value: `\"alfa\"`,\n",
-/// #     " matcher value: `Regex(\"zzz\")`"
+/// #     " matcher value: `Regex(\"zz\")`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -193,6 +195,7 @@ mod tests {
 /// * [`assert_command_stdout_is_match_as_result`](macro@crate::assert_command_stdout_is_match_as_result)
 /// * [`debug_assert_command_stdout_is_match`](macro@crate::debug_assert_command_stdout_is_match)
 ///
+#[deprecated(note = "Please rename from `assert_command_stdout_is_match` to `assert_command_stdout_string_is_match` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_command_stdout_is_match {
     ($command:expr, $matcher:expr $(,)?) => {{
@@ -209,7 +212,7 @@ macro_rules! assert_command_stdout_is_match {
     }};
 }
 
-/// Assert command stdout string is a match to a regex.
+/// Assert a command stdout string is a match to a regex.
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout ⇒ string) is match (expr into string)
@@ -240,6 +243,7 @@ macro_rules! assert_command_stdout_is_match {
 /// * [`assert_command_stdout_is_match`](macro@crate::assert_command_stdout_is_match)
 /// * [`debug_assert_command_stdout_is_match`](macro@crate::debug_assert_command_stdout_is_match)
 ///
+#[deprecated(note = "Please rename from `debug_assert_command_stdout_is_match` to `debug_assert_command_stdout_string_is_match` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! debug_assert_command_stdout_is_match {
     ($($arg:tt)*) => {

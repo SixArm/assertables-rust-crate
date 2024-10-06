@@ -120,7 +120,7 @@ macro_rules! assert_program_args_stderr_lt_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_program_args_stderr_lt_as_result_x_success() {
+    fn test_assert_program_args_stderr_lt_as_result_x_success_because_lt() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
@@ -130,7 +130,32 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_program_args_stderr_lt_as_result_x_failure() {
+    fn test_assert_program_args_stderr_lt_as_result_x_failure_because_eq() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "alfa"];
+        let b_program = "bin/printf-stderr";
+        let b_args = ["%s", "alfa"];
+        let result = assert_program_args_stderr_lt_as_result!(&a_program, &a_args, &b_program, &b_args);
+        let actual = result.unwrap_err();
+        let expect = concat!(
+            "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stderr_lt.html\n",
+            " a_program label: `&a_program`,\n",
+            " a_program debug: `\"bin/printf-stderr\"`,\n",
+            "    a_args label: `&a_args`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+            " b_program label: `&b_program`,\n",
+            " b_program debug: `\"bin/printf-stderr\"`,\n",
+            "    b_args label: `&b_args`,\n",
+            "    b_args debug: `[\"%s\", \"alfa\"]`,\n",
+            "               a: `[97, 108, 102, 97]`,\n",
+            "               b: `[97, 108, 102, 97]`"
+        );
+        assert_eq!(actual, expect);
+    }
+
+    #[test]
+    fn test_assert_program_args_stderr_lt_as_result_x_failure_because_gt() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
@@ -179,6 +204,7 @@ mod tests {
 /// assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stderr";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stderr";

@@ -466,6 +466,7 @@
 /// assert_approx_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: f32 = 1.0000001;
 /// let b: f32 = 1.0000011;
 /// assert_approx_ne!(a, b);

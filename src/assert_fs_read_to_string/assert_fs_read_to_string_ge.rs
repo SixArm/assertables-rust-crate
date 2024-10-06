@@ -169,6 +169,7 @@ mod tests {
 /// assert_fs_read_to_string_ge!(&b, &a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "alfa.txt";
 /// let b = "bravo.txt";
 /// assert_fs_read_to_string_ge!(&a, &b);

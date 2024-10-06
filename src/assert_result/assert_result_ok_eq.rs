@@ -160,6 +160,7 @@ mod tests {
 /// assert_result_ok_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Result<i8, i8> = Ok(1);
 /// let b: Result<i8, i8> = Ok(2);
 /// assert_result_ok_eq!(a, b);

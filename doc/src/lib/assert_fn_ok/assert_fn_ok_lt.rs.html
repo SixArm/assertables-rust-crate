@@ -426,6 +426,7 @@
 <a href="#426" id="426">426</a>
 <a href="#427" id="427">427</a>
 <a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Ok(…) is less than another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -744,6 +745,7 @@
 /// assert_fn_ok_lt!(f, a, f, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 2;
 /// let b: i8 = 1;
 /// assert_fn_ok_lt!(f, a, f, b);

@@ -184,6 +184,7 @@ mod tests {
 /// assert_in_delta!(a, b, delta);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 10;
 /// let b: i8 = 12;
 /// let delta: i8 = 1;

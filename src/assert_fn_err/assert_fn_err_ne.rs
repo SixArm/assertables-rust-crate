@@ -276,6 +276,7 @@ mod tests {
 /// assert_fn_err_ne!(f, a, f, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 10;
 /// let b: i8 = 10;
 /// assert_fn_err_ne!(f, a, f, b);

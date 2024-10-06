@@ -165,6 +165,7 @@ mod tests {
 /// assert_err_eq_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Result<i8, i8> = Err(1);
 /// let b: i8 = 2;
 /// assert_err_eq_expr!(a, b);

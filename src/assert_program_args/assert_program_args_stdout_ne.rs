@@ -11,7 +11,7 @@
 //! let a_program = "bin/printf-stdout";
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stdout";
-//! let b_args = ["%s%s%s", "z", "z", "z"];
+//! let b_args = ["%s%s", "z", "z" ];
 //! assert_program_args_stdout_ne!(&a_program, &a_args, &b_program, &b_args);
 //! # }
 //! ```
@@ -125,7 +125,7 @@ mod tests {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
-        let b_args = ["%s%s%s", "z", "z", "z"];
+        let b_args = ["%s%s", "z", "z" ];
         let result = assert_program_args_stdout_ne_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(result.unwrap(), ());
     }
@@ -176,10 +176,11 @@ mod tests {
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";
-/// let b_args = ["%s%s%s", "z", "z", "z"];
+/// let b_args = ["%s%s", "z", "z" ];
 /// assert_program_args_stdout_ne!(&a_program, &a_args, &b_program, &b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";

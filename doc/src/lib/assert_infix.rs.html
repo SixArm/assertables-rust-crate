@@ -286,6 +286,7 @@
 <a href="#286" id="286">286</a>
 <a href="#287" id="287">287</a>
 <a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a infix operator, such as assert_infix!(a == b).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -470,6 +471,7 @@
 /// assert_infix!(a == b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = 1;
 /// let b = 2;
 /// assert_infix!(a == b);

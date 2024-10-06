@@ -252,6 +252,7 @@
 <a href="#252" id="252">252</a>
 <a href="#253" id="253">253</a>
 <a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ready(_) and their values are equal.
 //!
 //! # Example
@@ -419,6 +420,7 @@
 /// assert_poll_ready_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Poll&lt;i8&gt; = Ready(1);
 /// let b: Poll&lt;i8&gt; = Ready(2);
 /// assert_poll_ready_eq!(a, b);

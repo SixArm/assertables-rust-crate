@@ -200,6 +200,7 @@
 <a href="#200" id="200">200</a>
 <a href="#201" id="201">201</a>
 <a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Pending.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -323,6 +324,7 @@
 /// assert_pending!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Poll&lt;i8&gt; = Ready(1);
 /// assert_pending!(a);
 /// # });

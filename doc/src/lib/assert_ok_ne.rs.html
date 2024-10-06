@@ -422,6 +422,7 @@
 /// assert_ok_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Result&lt;i8, i8&gt; = Ok(1);
 /// let b: Result&lt;i8, i8&gt; = Ok(1);
 /// assert_ok_ne!(a, b);

@@ -107,6 +107,7 @@ mod tests {
 /// assert_option_none!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Option<i8> = Option::Some(1);
 /// assert_option_none!(a);
 /// # });

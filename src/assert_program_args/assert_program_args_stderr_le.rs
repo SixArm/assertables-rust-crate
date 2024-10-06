@@ -120,11 +120,21 @@ macro_rules! assert_program_args_stderr_le_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_program_args_stderr_le_as_result_x_success() {
+    fn test_assert_program_args_stderr_le_as_result_x_success_because_lt() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "zz"];
+        let result = assert_program_args_stderr_le_as_result!(&a_program, &a_args, &b_program, &b_args);
+        assert_eq!(result.unwrap(), ());
+    }
+
+    #[test]
+    fn test_assert_program_args_stderr_le_as_result_x_success_because_eq() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "alfa"];
+        let b_program = "bin/printf-stderr";
+        let b_args = ["%s", "alfa"];
         let result = assert_program_args_stderr_le_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(result.unwrap(), ());
     }
@@ -179,6 +189,7 @@ mod tests {
 /// assert_program_args_stderr_le!(&a_program, &a_args, &b_program, &b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stderr";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stderr";

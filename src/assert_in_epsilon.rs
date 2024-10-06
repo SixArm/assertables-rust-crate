@@ -189,6 +189,7 @@ mod tests {
 /// assert_in_epsilon!(a, b, epsilon);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 10;
 /// let b: i8 = 30;
 /// let e: i8 = 1;

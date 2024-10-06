@@ -374,6 +374,7 @@
 <a href="#374" id="374">374</a>
 <a href="#375" id="375">375</a>
 <a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Ok(…) is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -640,6 +641,7 @@
 /// assert_fn_ok_eq_expr!(f, a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 1;
 /// let b = String::from("2");
 /// assert_fn_ok_eq_expr!(f, a, b);

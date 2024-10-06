@@ -191,6 +191,7 @@
 <a href="#191" id="191">191</a>
 <a href="#192" id="192">192</a>
 <a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Pending.
 //!
 //! # Example
@@ -306,6 +307,7 @@
 /// assert_poll_pending!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Poll&lt;i8&gt; = Ready(1);
 /// assert_poll_pending!(a);
 /// # });

@@ -132,6 +132,7 @@ mod tests {
 /// assert_set_subset!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = [1, 2, 3];
 /// let b = [1, 2];
 /// assert_set_subset!(&a, &b);

@@ -402,6 +402,7 @@
 <a href="#402" id="402">402</a>
 <a href="#403" id="403">403</a>
 <a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Err(…) is less than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -694,6 +695,7 @@
 /// assert_fn_err_le!(f, a, f, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 20;
 /// let b: i8 = 10;
 /// assert_fn_err_le!(f, a, f, b);

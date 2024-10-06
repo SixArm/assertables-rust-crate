@@ -118,7 +118,7 @@ mod tests {
     #[test]
     fn test_read_to_string_contains_as_result_x_failure() {
         let path = DIR.join("alfa.txt");
-        let containee = "zzz";
+        let containee = "zz";
         let result = assert_fs_read_to_string_contains_as_result!(&path, &containee);
         assert!(result.is_err());
         assert_eq!(
@@ -130,7 +130,7 @@ mod tests {
                     "      path label: `&path`,\n",
                     "      path debug: `{:?}`,\n",
                     " containee label: `&containee`,\n",
-                    " containee debug: `\"zzz\"`,\n",
+                    " containee debug: `\"zz\"`,\n",
                     "     read string: `\"alfa\\n\"`",
                 ),
                 path
@@ -162,8 +162,9 @@ mod tests {
 /// assert_fs_read_to_string_contains!(&path, &containee);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let path = "alfa.txt";
-/// let containee = "zzz";
+/// let containee = "zz";
 /// assert_fs_read_to_string_contains!(&path, &containee);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_contains!(path, containee)`
@@ -171,7 +172,7 @@ mod tests {
 /// //       path label: `&path`,
 /// //       path debug: `\"alfa.txt\"`,
 /// //  containee label: `&containee`,
-/// //  containee debug: `\"zzz\"`,
+/// //  containee debug: `\"zz\"`,
 /// //      read string: `\"alfa\\n\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -180,7 +181,7 @@ mod tests {
 /// #     "      path label: `&path`,\n",
 /// #     "      path debug: `\"alfa.txt\"`,\n",
 /// #     " containee label: `&containee`,\n",
-/// #     " containee debug: `\"zzz\"`,\n",
+/// #     " containee debug: `\"zz\"`,\n",
 /// #     "     read string: `\"alfa\\n\"`",
 /// # );
 /// # assert_eq!(actual, expect);

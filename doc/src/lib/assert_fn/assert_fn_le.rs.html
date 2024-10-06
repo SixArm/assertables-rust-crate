@@ -342,6 +342,7 @@
 <a href="#342" id="342">342</a>
 <a href="#343" id="343">343</a>
 <a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is less than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -573,6 +574,7 @@
 /// assert_fn_le!(i8::abs, a, i8::abs, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = -2;
 /// let b: i8 = 1;
 /// assert_fn_le!(i8::abs, a, i8::abs, b);

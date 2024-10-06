@@ -32,7 +32,7 @@
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
-/// This macro provides the same statements as [`assert_`](macro.assert_.html),
+/// This macro provides the same statements as [`assert_command_stdout_contains`](macro.assert_command_stdout_contains.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -44,6 +44,7 @@
 /// * [`assert_command_stdout_contains_as_result`](macro@crate::assert_command_stdout_contains_as_result)
 /// * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 ///
+#[deprecated(note = "Please rename from `assert_command_stdout_contains_as_result` to `assert_command_stdout_string_contains_as_result` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_command_stdout_contains_as_result {
     ($command:expr, $containee:expr $(,)?) => {{
@@ -113,7 +114,7 @@ mod tests {
     fn test_assert_command_stdout_contains_x_failure() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
-        let b = "zzz";
+        let b = "zz";
         let result = assert_command_stdout_contains_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
@@ -122,8 +123,8 @@ mod tests {
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " containee label: `b`,\n",
-            " containee debug: `\"zzz\"`,\n",
-            "          stdout: `\"alfa\"`"
+            " containee debug: `\"zz\"`,\n",
+            "          stdout: `\"alfa\"`",
         );
         assert_eq!(actual, expect);
     }
@@ -158,9 +159,10 @@ mod tests {
 /// assert_command_stdout_contains!(command, &containee);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "alfa"]);
-/// let containee = "zzz";
+/// let containee = "zz";
 /// assert_command_stdout_contains!(command, &containee);
 /// # });
 /// // assertion failed: `assert_command_stdout_contains!(command, containee)`
@@ -168,7 +170,7 @@ mod tests {
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  containee label: `&containee`,
-/// //  containee debug: `\"zzz\"`,
+/// //  containee debug: `\"zz\"`,
 /// //    command value: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -177,7 +179,7 @@ mod tests {
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " containee label: `&containee`,\n",
-/// #     " containee debug: `\"zzz\"`,\n",
+/// #     " containee debug: `\"zz\"`,\n",
 /// #     "          stdout: `\"alfa\"`"
 /// # );
 /// # assert_eq!(actual, expect);
@@ -190,16 +192,17 @@ mod tests {
 /// * [`assert_command_stdout_contains_as_result`](macro@crate::assert_command_stdout_contains_as_result)
 /// * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 ///
+#[deprecated(note = "Please rename from `assert_command_stdout_contains` to `assert_command_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! assert_command_stdout_contains {
-    ($command:expr, $b:expr $(,)?) => {{
-        match $crate::assert_command_stdout_contains_as_result!($command, $b) {
+    ($command:expr, $containee:expr $(,)?) => {{
+        match $crate::assert_command_stdout_contains_as_result!($command, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
-    ($command:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_command_stdout_contains_as_result!($command, $b) {
+    ($command:expr, $containee:expr, $($message:tt)+) => {{
+        match $crate::assert_command_stdout_contains_as_result!($command, $containee) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -237,6 +240,7 @@ macro_rules! assert_command_stdout_contains {
 /// * [`assert_command_stdout_contains`](macro@crate::assert_command_stdout_contains)
 /// * [`debug_assert_command_stdout_contains`](macro@crate::debug_assert_command_stdout_contains)
 ///
+#[deprecated(note = "Please rename from `debug_assert_command_stdout_contains` to `debug_assert_command_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String.")]
 #[macro_export]
 macro_rules! debug_assert_command_stdout_contains {
     ($($arg:tt)*) => {

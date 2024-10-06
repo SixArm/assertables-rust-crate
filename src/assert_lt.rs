@@ -123,6 +123,7 @@ mod test_assert_x_result {
 /// assert_lt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = 2;
 /// let b = 1;
 /// assert_lt!(a, b);

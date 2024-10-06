@@ -275,6 +275,7 @@
 <a href="#275" id="275">275</a>
 <a href="#276" id="276">276</a>
 <a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -288,7 +289,7 @@
 //! let a_program = "bin/printf-stdout";
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stdout";
-//! let b_args = ["%s%s%s", "z", "z", "z"];
+//! let b_args = ["%s%s", "z", "z" ];
 //! assert_program_args_stdout_ne!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 //! # }
 //! ```
@@ -402,7 +403,7 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stdout"</span>;
-        <span class="kw">let </span>b_args = [<span class="string">"%s%s%s"</span>, <span class="string">"z"</span>, <span class="string">"z"</span>, <span class="string">"z"</span>];
+        <span class="kw">let </span>b_args = [<span class="string">"%s%s"</span>, <span class="string">"z"</span>, <span class="string">"z" </span>];
         <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_ne_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
         <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
@@ -453,10 +454,11 @@
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";
-/// let b_args = ["%s%s%s", "z", "z", "z"];
+/// let b_args = ["%s%s", "z", "z" ];
 /// assert_program_args_stdout_ne!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";

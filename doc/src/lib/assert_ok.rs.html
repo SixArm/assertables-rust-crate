@@ -310,6 +310,7 @@
 /// assert_ok!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Result&lt;(), i8&gt; = Err(1);
 /// assert_ok!(a);
 /// # });

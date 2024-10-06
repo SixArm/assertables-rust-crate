@@ -70,7 +70,7 @@ For strings:
 For lengths:
 
 * [`assert_len_eq!(a, b)`](https://docs.rs/assertables/8.14.0/assertables/macro.assert_len_eq.html)
-* [`assert_is_empty!(a)`](https://docs.rs/assertables/8.14.0/assertables/macro.assert_is_empty_eq.html)
+* [`assert_is_empty!(a)`](https://docs.rs/assertables/8.14.0/assertables/macro.assert_is_empty.html)
 
 For matching:
 
@@ -202,8 +202,8 @@ Many assertables macros have forms for comparing left hand side (LHS) and right 
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 8.14.0
+* Version: 8.15.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-10-04T23:46:38Z
+* Updated: 2024-10-06T23:11:30Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

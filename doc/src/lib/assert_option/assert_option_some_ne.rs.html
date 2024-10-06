@@ -247,6 +247,7 @@
 <a href="#247" id="247">247</a>
 <a href="#248" id="248">248</a>
 <a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Some(_) and their values are not equal.
 //!
 //! # Example
@@ -409,6 +410,7 @@
 /// assert_option_some_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Option&lt;i8&gt; = Option::Some(1);
 /// let b: Option&lt;i8&gt; = Option::Some(1);
 /// assert_option_some_ne!(a, b);

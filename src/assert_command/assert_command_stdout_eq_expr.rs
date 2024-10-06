@@ -57,14 +57,14 @@ macro_rules! assert_command_stdout_eq_expr_as_result {
                         } else {
                             Err(format!(
                                 concat!(
-                                    "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+                                    "assertion failed: `assert_command_stdout_eq_expr!(command, expr)`\n",
                                     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq_expr.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`,\n",
-                                    " b label: `{}`,\n",
-                                    " b debug: `{:?}`,\n",
-                                    "       a: `{:?}`,\n",
-                                    "       b: `{:?}`"
+                                    " command label: `{}`,\n",
+                                    " command debug: `{:?}`,\n",
+                                    "    expr label: `{}`,\n",
+                                    "    expr debug: `{:?}`,\n",
+                                    " command value: `{:?}`,\n",
+                                    "    expr value: `{:?}`"
                                 ),
                                 stringify!($a_command),
                                 $a_command,
@@ -75,16 +75,16 @@ macro_rules! assert_command_stdout_eq_expr_as_result {
                             ))
                         }
                     },
-                    Err(err) => { 
+                    Err(err) => {
                         Err(format!(
                             concat!(
-                                "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+                                "assertion failed: `assert_command_stdout_eq_expr!(command, expr)`\n",
                                 "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq_expr.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                "     err: `{:?}`"
+                                "  command label: `{}`,\n",
+                                "  command debug: `{:?}`,\n",
+                                "     expr label: `{}`,\n",
+                                "     expr debug: `{:?}`,\n",
+                                "            err: `{:?}`"
                             ),
                             stringify!($a_command),
                             $a_command,
@@ -105,7 +105,7 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stdout_eq_expr_as_result_x_success() {
+    fn test_assert_command_stdout_eq_expr_as_result_x_success_because_eq() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'l', b'f', b'a'];
@@ -114,27 +114,50 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_command_stdout_eq_expr_as_result_x_failure() {
+    fn test_assert_command_stdout_eq_expr_as_result_x_failure_because_gt() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
-        let b = vec![b'z'];
+        let b = vec![b'z', b'z'];
         let result = assert_command_stdout_eq_expr_as_result!(a, &b);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+            "assertion failed: `assert_command_stdout_eq_expr!(command, expr)`\n",
             "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq_expr.html\n",
-            " a label: `a`,\n",
-            " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-            " b label: `&b`,\n",
-            " b debug: `[122]`,\n",
-            "       a: `[97, 108, 102, 97]`,\n",
-            "       b: `[122]`"
+            " command label: `a`,\n",
+            " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            "    expr label: `&b`,\n",
+            "    expr debug: `[122, 122]`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
+            "    expr value: `[122, 122]`"
+        );
+        assert_eq!(actual, expect);
+    }
+
+    #[test]
+    fn test_assert_command_stdout_eq_expr_as_result_x_failure_because_lt() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let b = vec![b'a', b'a'];
+        let result = assert_command_stdout_eq_expr_as_result!(a, &b);
+        let actual = result.unwrap_err();
+        let expect = concat!(
+            "assertion failed: `assert_command_stdout_eq_expr!(command, expr)`\n",
+            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq_expr.html\n",
+            " command label: `a`,\n",
+            " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            "    expr label: `&b`,\n",
+            "    expr debug: `[97, 97]`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
+            "    expr value: `[97, 97]`"
         );
         assert_eq!(actual, expect);
     }
 }
 
 /// Assert a command stdout string is equal to an expression.
+///
+/// Pseudocode:<br>
+/// (command ⇒ stdout) = (expr into string)
 ///
 /// * If true, return `()`.
 ///
@@ -155,29 +178,30 @@ mod tests {
 /// assert_command_stdout_eq_expr!(command, &bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "alfa"]);
-/// let bytes = vec![b'z'];
+/// let bytes = vec![b'z', b'z'];
 /// assert_command_stdout_eq_expr!(command, &bytes);
 /// # });
-/// // assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`
+/// // assertion failed: `assert_command_stdout_eq_expr!(command, expr)`
 /// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_command_stdout_eq_expr.html
-/// //  a label: `command`,
-/// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
-/// //  b label: `&bytes`,
-/// //  b debug: `[122]`,
-/// //        a: `[97, 108, 102, 97]`,
-/// //        b: `[122]`
+/// //  command label: `command`,
+/// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
+/// //     expr label: `&bytes`,
+/// //     expr debug: `[122, 122]`,
+/// //  command value: `[97, 108, 102, 97]`,
+/// //     expr value: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_command_stdout_eq_expr!(a_command, b_expr)`\n",
+/// #     "assertion failed: `assert_command_stdout_eq_expr!(command, expr)`\n",
 /// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_eq_expr.html\n",
-/// #     " a label: `command`,\n",
-/// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-/// #     " b label: `&bytes`,\n",
-/// #     " b debug: `[122]`,\n",
-/// #     "       a: `[97, 108, 102, 97]`,\n",
-/// #     "       b: `[122]`"
+/// #     " command label: `command`,\n",
+/// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+/// #     "    expr label: `&bytes`,\n",
+/// #     "    expr debug: `[122, 122]`,\n",
+/// #     " command value: `[97, 108, 102, 97]`,\n",
+/// #     "    expr value: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -206,6 +230,9 @@ macro_rules! assert_command_stdout_eq_expr {
 }
 
 /// Assert a command stdout string is equal to an expression.
+///
+/// Pseudocode:<br>
+/// (command ⇒ stdout) = (expr into string)
 ///
 /// This macro provides the same statements as [`assert_command_stdout_eq_expr`](macro.assert_command_stdout_eq_expr.html),
 /// except this macro's statements are only enabled in non-optimized

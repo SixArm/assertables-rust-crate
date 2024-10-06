@@ -170,6 +170,7 @@ mod tests {
 /// assert_ready_eq_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Poll<i8> = Ready(1);
 /// let b: i8 = 2;
 /// assert_ready_eq_expr!(a, b);

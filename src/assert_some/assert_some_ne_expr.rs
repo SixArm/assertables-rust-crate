@@ -165,6 +165,7 @@ mod tests {
 /// assert_some_ne_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Option<i8> = Option::Some(1);
 /// let b: i8 = 1;
 /// assert_some_ne_expr!(a, b);

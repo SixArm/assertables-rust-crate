@@ -162,6 +162,7 @@ mod tests {
 /// assert_program_args_stderr_le_expr!(&program, &args, &bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'a', b'a'];

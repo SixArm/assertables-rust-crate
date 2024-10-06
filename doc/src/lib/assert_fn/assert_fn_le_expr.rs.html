@@ -338,6 +338,7 @@
 <a href="#338" id="338">338</a>
 <a href="#339" id="339">339</a>
 <a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is less than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -567,6 +568,7 @@
 /// assert_fn_le_expr!(i8::abs, a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = -2;
 /// let b: i8 = 1;
 /// assert_fn_le_expr!(i8::abs, a, b);

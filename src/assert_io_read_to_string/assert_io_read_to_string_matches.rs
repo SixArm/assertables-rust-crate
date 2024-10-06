@@ -112,7 +112,7 @@ mod tests {
     #[test]
     fn test_assert_io_read_to_string_matches_as_result_x_failure() {
         let mut reader = "alfa".as_bytes();
-        let matcher = Regex::new(r"zzz").unwrap();
+        let matcher = Regex::new(r"zz").unwrap();
         let result = assert_io_read_to_string_matches_as_result!(reader, &matcher);
         assert!(result.is_err());
         assert_eq!(
@@ -123,7 +123,7 @@ mod tests {
                 "  reader label: `reader`,\n",
                 "  reader debug: `[]`,\n",
                 " matcher label: `&matcher`,\n",
-                " matcher debug: `Regex(\"zzz\")`,\n",
+                " matcher debug: `Regex(\"zz\")`,\n",
                 " reader string: `\"alfa\"`"
             )
         );
@@ -154,8 +154,9 @@ mod tests {
 /// assert_io_read_to_string_matches!(reader, &matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut reader = "hello".as_bytes();
-/// let matcher = Regex::new(r"zzz").unwrap();
+/// let matcher = Regex::new(r"zz").unwrap();
 /// assert_io_read_to_string_matches!(reader, &matcher);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`
@@ -163,7 +164,7 @@ mod tests {
 /// //   reader label: `reader`,
 /// //   reader debug: `[]`,
 /// //  matcher label: `&matcher`,
-/// //  matcher debug: `Regex(\"zzz\")`,
+/// //  matcher debug: `Regex(\"zz\")`,
 /// //  reader string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -172,7 +173,7 @@ mod tests {
 /// #     "  reader label: `reader`,\n",
 /// #     "  reader debug: `[]`,\n",
 /// #     " matcher label: `&matcher`,\n",
-/// #     " matcher debug: `Regex(\"zzz\")`,\n",
+/// #     " matcher debug: `Regex(\"zz\")`,\n",
 /// #     " reader string: `\"hello\"`",
 /// # );
 /// # assert_eq!(actual, expect);

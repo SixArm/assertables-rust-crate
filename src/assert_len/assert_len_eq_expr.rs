@@ -146,6 +146,7 @@ mod tests {
 /// assert_len_eq_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "x";
 /// let b = 2;
 /// assert_len_eq_expr!(a, b);

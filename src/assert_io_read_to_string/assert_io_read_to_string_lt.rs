@@ -156,6 +156,7 @@ mod tests {
 /// assert_io_read_to_string_lt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let mut a = "bravo".as_bytes();
 /// let mut b = "alfa".as_bytes();
 /// assert_io_read_to_string_lt!(a, b);

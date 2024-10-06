@@ -256,6 +256,7 @@
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is less than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -421,6 +422,7 @@
 /// assert_program_args_stdout_lt_expr!(&amp;program, &amp;args, &amp;bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'a', b'a'];

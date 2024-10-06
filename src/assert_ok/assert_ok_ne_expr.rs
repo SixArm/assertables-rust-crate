@@ -165,6 +165,7 @@ mod tests {
 /// assert_ok_ne_expr!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: Result<i8, i8> = Ok(1);
 /// let b: i8 = 1;
 /// assert_ok_ne_expr!(a, b);

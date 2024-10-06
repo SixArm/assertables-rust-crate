@@ -130,6 +130,7 @@ mod tests {
 /// assert_len_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "x";
 /// let b = "x";
 /// assert_len_ne!(a, b);

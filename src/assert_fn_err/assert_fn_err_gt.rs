@@ -316,6 +316,7 @@ mod tests {
 /// assert_fn_err_gt!(f, a, f, b);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a: i8 = 10;
 /// let b: i8 = 20;
 /// assert_fn_err_gt!(f, a, f, b);

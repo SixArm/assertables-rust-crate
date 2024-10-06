@@ -259,6 +259,10 @@
 <a href="#259" id="259">259</a>
 <a href="#260" id="260">260</a>
 <a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is a match to a regex.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -305,7 +309,8 @@
 /// * [`assert_program_args_stderr_is_match_as_result`](macro@crate::assert_program_args_stderr_is_match_as_result)
 /// * [`debug_assert_program_args_stderr_is_match`](macro@crate::debug_assert_program_args_stderr_is_match)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_program_args_stderr_is_match_as_result` to `assert_program_args_stderr_string_is_match_as_result` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stderr_is_match_as_result {
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$matcher</span>) {
@@ -384,7 +389,7 @@
     </span><span class="kw">fn </span>test_assert_program_args_stderr_is_match_as_result_x_failure() {
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
-        <span class="kw">let </span>b = Regex::new(<span class="string">r"zzz"</span>).unwrap();
+        <span class="kw">let </span>b = Regex::new(<span class="string">r"zz"</span>).unwrap();
         <span class="kw">let </span>result = <span class="macro">assert_program_args_stderr_is_match_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
@@ -395,9 +400,9 @@
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
             <span class="string">"    a_args debug: `[\"%s\", \"alfa\"]`,\n"</span>,
             <span class="string">" b_matcher label: `&amp;b`,\n"</span>,
-            <span class="string">" b_matcher debug: `Regex(\"zzz\")`,\n"</span>,
+            <span class="string">" b_matcher debug: `Regex(\"zz\")`,\n"</span>,
             <span class="string">"               a: `\"alfa\"`,\n"</span>,
-            <span class="string">"               b: `Regex(\"zzz\")`"
+            <span class="string">"               b: `Regex(\"zz\")`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -427,9 +432,10 @@
 /// assert_program_args_stderr_is_match!(&amp;program, &amp;args, &amp;matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
-/// let matcher = Regex::new(r"zzz").unwrap();
+/// let matcher = Regex::new(r"zz").unwrap();
 /// assert_program_args_stderr_is_match!(&amp;program, &amp;args, &amp;matcher);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_is_match!(a_program, b_matcher)`
@@ -439,9 +445,9 @@
 /// //     a_args label: `&amp;args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
 /// //  b_matcher label: `&amp;matcher`,
-/// //  b_matcher debug: `Regex(\"zzz\")`,
+/// //  b_matcher debug: `Regex(\"zz\")`,
 /// //                a: `\"alfa\"`,
-/// //                b: `Regex(\"zzz\")`
+/// //                b: `Regex(\"zz\")`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_is_match!(a_program, b_matcher)`\n",
@@ -451,9 +457,9 @@
 /// #     "    a_args label: `&amp;args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
 /// #     " b_matcher label: `&amp;matcher`,\n",
-/// #     " b_matcher debug: `Regex(\"zzz\")`,\n",
+/// #     " b_matcher debug: `Regex(\"zz\")`,\n",
 /// #     "               a: `\"alfa\"`,\n",
-/// #     "               b: `Regex(\"zzz\")`"
+/// #     "               b: `Regex(\"zz\")`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -465,7 +471,8 @@
 /// * [`assert_program_args_stderr_is_match_as_result`](macro@crate::assert_program_args_stderr_is_match_as_result)
 /// * [`debug_assert_program_args_stderr_is_match`](macro@crate::debug_assert_program_args_stderr_is_match)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_program_args_stderr_is_match` to `assert_program_args_stderr_string_is_match` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stderr_is_match {
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_program_args_stderr_is_match_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$matcher</span>) {
@@ -512,7 +519,8 @@
 /// * [`assert_program_args_stderr_is_match`](macro@crate::assert_program_args_stderr_is_match)
 /// * [`debug_assert_program_args_stderr_is_match`](macro@crate::debug_assert_program_args_stderr_is_match)
 ///
-</span><span class="attr">#[macro_export]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_program_args_stderr_is_match` to `debug_assert_program_args_stderr_string_is_match` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_program_args_stderr_is_match {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {
         <span class="kw">if </span><span class="macro-nonterminal">$</span><span class="macro">crate::cfg!</span>(<span class="macro-nonterminal">debug_assertions</span>) {

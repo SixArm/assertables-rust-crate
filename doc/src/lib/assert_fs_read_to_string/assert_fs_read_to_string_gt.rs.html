@@ -257,6 +257,7 @@
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string(path) value is greater than another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -428,6 +429,7 @@
 /// assert_fs_read_to_string_gt!(&amp;b, &amp;a);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a = "alfa.txt";
 /// let b = "bravo.txt";
 /// assert_fs_read_to_string_gt!(&amp;a, &amp;b);

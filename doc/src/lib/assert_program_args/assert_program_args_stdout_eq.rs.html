@@ -278,6 +278,7 @@
 <a href="#278" id="278">278</a>
 <a href="#279" id="279">279</a>
 <a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -415,7 +416,7 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stdout"</span>;
-        <span class="kw">let </span>b_args = [<span class="string">"%s%s%s"</span>, <span class="string">"z"</span>, <span class="string">"z"</span>, <span class="string">"z"</span>];
+        <span class="kw">let </span>b_args = [<span class="string">"%s%s"</span>, <span class="string">"z"</span>, <span class="string">"z" </span>];
         <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_eq_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
@@ -428,9 +429,9 @@
             <span class="string">" b_program label: `&amp;b_program`,\n"</span>,
             <span class="string">" b_program debug: `\"bin/printf-stdout\"`,\n"</span>,
             <span class="string">"    b_args label: `&amp;b_args`,\n"</span>,
-            <span class="string">"    b_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,\n"</span>,
+            <span class="string">"    b_args debug: `[\"%s%s\", \"z\", \"z\"]`,\n"</span>,
             <span class="string">"               a: `[97, 108, 102, 97]`,\n"</span>,
-            <span class="string">"               b: `[122, 122, 122]`"
+            <span class="string">"               b: `[122, 122]`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -460,10 +461,11 @@
 /// assert_program_args_stdout_eq!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
+/// // This will panic
 /// let a_program = "bin/printf-stdout";
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";
-/// let b_args = ["%s%s%s", "z", "z", "z"];
+/// let b_args = ["%s%s", "z", "z" ];
 /// assert_program_args_stdout_eq!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`
@@ -475,9 +477,9 @@
 /// //  b_program label: `&amp;b_program`,
 /// //  b_program debug: `\"bin/printf-stdout\"`,
 /// //     b_args label: `&amp;b_args`,
-/// //     b_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,
+/// //     b_args debug: `[\"%s%s\", \"z\", \"z\"]`,
 /// //                a: `[97, 108, 102, 97]`,
-/// //                b: `[122, 122, 122]`
+/// //                b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`\n",
@@ -489,9 +491,9 @@
 /// #     " b_program label: `&amp;b_program`,\n",
 /// #     " b_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    b_args label: `&amp;b_args`,\n",
-/// #     "    b_args debug: `[\"%s%s%s\", \"z\", \"z\", \"z\"]`,\n",
+/// #     "    b_args debug: `[\"%s%s\", \"z\", \"z\"]`,\n",
 /// #     "               a: `[97, 108, 102, 97]`,\n",
-/// #     "               b: `[122, 122, 122]`"
+/// #     "               b: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
