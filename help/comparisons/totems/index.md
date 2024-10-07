@@ -2,6 +2,8 @@
 
 https://crates.io/crates/totems
 
+https://github.com/ObliqueMotion/totems-rs
+
 Values:
 
 * assert_lt!(x, y) // less than
