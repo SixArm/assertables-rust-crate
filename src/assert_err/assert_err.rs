@@ -120,7 +120,7 @@ mod tests {
 /// assert_err!(a);
 /// # });
 /// // assertion failed: `assert_err!(a)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_err.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(())`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();

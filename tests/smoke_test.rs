@@ -177,6 +177,8 @@ fn assert_pending() {
 
 #[test]
 fn assert_iter() {
+    assert_all!([1, 2, 3].into_iter(), |x: i8| x > 0);
+    assert_any!([1, 2, 3].into_iter(), |x: i8| x > 0);
     assert_iter_eq!([1], [1]);
     assert_iter_ne!([1], [2]);
     assert_iter_lt!([1, 2], [3, 4]);
@@ -270,8 +272,6 @@ fn assert_program_args() {
     //// stdout
     let a_program = BIN.join("printf-stdout");
     let a_args = ["%s", "alfa"];
-    let b_program = BIN.join("printf-stdout");
-    let b_args = ["%s%s%s%s", "a", "l", "f", "a"];
 
     //// stdout other
     // assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, ["%s%s%s%s", "a", "l", "f", "a"]);

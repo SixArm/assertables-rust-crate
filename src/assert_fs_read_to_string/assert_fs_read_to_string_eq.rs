@@ -175,7 +175,7 @@ mod tests {
 /// assert_fs_read_to_string_eq!(&a, &b);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_fs_read_to_string_eq.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_fs_read_to_string_eq.html
 /// //  a_path label: `&a`,
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_path label: `&b`,

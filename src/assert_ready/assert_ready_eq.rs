@@ -179,7 +179,7 @@ mod tests {
 /// assert_ready_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_ready_eq!(a, b)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_ready_eq.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_ready_eq.html
 /// //  a label: `a`,
 /// //  a debug: `Ready(1)`,
 /// //  a inner: `1`,

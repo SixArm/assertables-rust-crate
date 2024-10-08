@@ -173,7 +173,7 @@ mod tests {
 /// assert_program_args_stdout_string_is_match!(&program, &args, &matcher);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_program_args_stdout_string_is_match.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_program_args_stdout_string_is_match.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&args`,

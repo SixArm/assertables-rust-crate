@@ -138,7 +138,7 @@ mod tests {
 /// assert_set_subset!(&a, &b);
 /// # });
 /// // assertion failed: `assert_set_subset!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_set_subset.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_set_subset.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2, 3]`,
 /// //  b label: `&b`,

@@ -162,7 +162,7 @@ mod tests {
 /// assert_io_read_to_string_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_io_read_to_string_lt.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_io_read_to_string_lt.html
 /// //  a label: `a`,
 /// //  a debug: `[]`,
 /// //  b label: `b`,

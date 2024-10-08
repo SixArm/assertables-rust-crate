@@ -169,7 +169,7 @@ mod tests {
 /// assert_not_contains!(a, b);
 /// # });
 /// // assertion failed: `assert_not_contains!(container, containee)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_not_contains.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_not_contains.html
 /// //  container label: `a`,
 /// //  container debug: `\"alfa\"`,
 /// //  containee label: `b`,

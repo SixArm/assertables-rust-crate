@@ -166,7 +166,7 @@ mod tests {
 /// assert_result_ok_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_result_ok_eq!(a, b)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_result_ok_eq.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_result_ok_eq.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,

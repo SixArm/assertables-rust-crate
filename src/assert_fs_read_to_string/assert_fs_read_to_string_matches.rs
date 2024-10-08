@@ -170,7 +170,7 @@ mod tests {
 /// assert_fs_read_to_string_matches!(&path, &matcher);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_fs_read_to_string_matches.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_fs_read_to_string_matches.html
 /// //     path label: `&path`,
 /// //     path debug: `\"alfa.txt\"`,
 /// //  matcher label: `&matcher`,

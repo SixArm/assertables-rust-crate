@@ -3,50 +3,46 @@
 //! The `assertables` Rust crate provides many assert macros to improve your
 //! compile-time tests and run-time reliability.
 //!
-//! * Crate: [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
+//! * Crate:
+//!   [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
 //! * Docs: [https://docs.rs/assertables/](https://docs.rs/assertables/)
-//! * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
-//! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
+//! * Repo:
+//!   [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
+//! * Contact:
+//!   [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
 //!
 //! ## Introduction
 //!
-//! The Rust programming language provides a few built-in assert macros to test code:
+//! The Rust programming language provides a few built-in assert macros to test
+//! code:
 //!
 //! The Rust programming language provides assert macros to test code:
 //!
-//! * [`assert!()`](https://doc.rust-lang.org/std/macro.assert.html)
-//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// equal`
-//! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// not equal`
+//! * [`assert!(a)`](https://doc.rust-lang.org/std/macro.assert.html) `// a is true`
+//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// a is equal to b`
+//! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// a is not equal to b`
 //!
-//! The assertables crate provides many more, so you can write smarter tests.
+//! The assertables crate provides many more, to help you work with numbers,
+//! strings, results, options, iterators, files, commands, and more. See below
+//! for the macros.
 //!
-//! Examples:
-//!
-//! * [`assert_lt!(1, 2)`](macro@crate::assert_lt) `// compare values using less than`
-//! * [`assert_approx_eq!(1.0000001, 1.0000002)`](macro@crate::assert_approx_eq) `// compare floats`
-//! * [`assert_len_eq!("hello", "world")`](macro@crate::assert_len_eq) `// compare lengths`
-//! * [`assert_starts_with!("hello world", "hello")`](macro@crate::assert_starts_with) `// compare strings`
-//! * [`assert_fs_read_to_string_eq!("a.txt", "b.txt")`](macro@crate::assert_fs_read_to_string_eq) `// compare files`
-//!
-//! Top 3 benefits:
+//! Top benefits:
 //!
 //! 1. You can write better tests to improve reliability and maintainability.
 //! 2. You can handle more corner cases without needing to write custom code.
 //! 3. You can troubleshoot faster because error messages show specifics.
 //!
-//! Top 3 features:
+//! Top features:
 //!
 //! 1. Easy to use: everything is well-documented with runnable examples.
 //! 2. Runtime savvy: all the assertables macros have runtime versions.
 //! 3. Zero overhead: if you don't use a macro, then it's never compiled.
 //!
-//! ## Install
-//! 
-//! To use this crate, add it to your `Cargo.toml` file:
+//! To use the macros, add this to your `Cargo.toml` file:
 //!
 //! ```toml
 //! [dev-dependencies]
-//! assertables = "8.14.0"
+//! assertables = "*"
 //! ```
 //!
 //! ## Highlights
@@ -58,10 +54,15 @@
 //! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// greater than`
 //! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal to`
 //!
-//! For approximation:
+//! For approximations:
 //!
 //! * [`assert_approx_eq!(a, b)`](macro@crate::assert_approx_eq)
 //! * [`assert_approx_ne!(a, b)`](macro@crate::assert_approx_ne)
+//!
+//! For groups:
+//!
+//! * [`assert_all!(group, predicate)`](macro@crate::assert_all)
+//! * [`assert_any!(group, predicate)`](macro@crate::assert_any)
 //!
 //! For strings:
 //!
@@ -103,11 +104,12 @@
 //! * [`assert_ready!(a)`](macro@crate::assert_ready)
 //! * [`assert_pending!(a)`](macro@crate::assert_pending)
 //!
-//! For collections such as arrays, vectors, iterators, sets, bags:
+//! For comparing collections that provide `into_iter()` such as arrays and
+//! vectors:
 //!
-//! * [`assert_iter_eq!(collection1, collection2)`](macro@crate::assert_iter_eq)
 //! * [`assert_set_eq!(collection1, collection2)`](macro@crate::assert_set_eq)
 //! * [`assert_bag_eq!(collection1, collection2)`](macro@crate::assert_bag_eq)
+//! * [`assert_iter_eq!(collection1, collection2)`](macro@crate::assert_iter_eq)
 //!
 //! For file system paths and input/output readers:
 //!
@@ -182,29 +184,31 @@
 //!
 //! ## Forms
 //!
-//! All assertables macros have forms for different outcomes:
-//!
-//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.14.0/assertables/macro.assert_gt.html) `// panic during typical test`
-//! * [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/8.14.0/assertables/macro.assert_gt_as_result.html) `// return Ok or Err`
-//! * [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/8.14.0/assertables/macro.debug_assert_gt.html) `// panic when in debug mode`
-//!
 //! All assertables macros have forms for an optional message:
 //!
-//! * [`assert_gt!(a, b)`](https://docs.rs/assertables/8.14.0/assertables/macro.assert_gt.html) `// automatic message`
-//! * [`assert_gt!(a, b, "Your text")`](https://docs.rs/assertables/8.14.0/assertables/macro.assert_gt.html) `// custom message`
+//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// automatic message`
+//! * [`assert_gt!(a, b, "Your text")`](macro@crate::assert_gt) `// custom message`
 //!
-//! Many assertables macros have forms for comparing left hand side (LHS) and right hand side (RHS) as the same type or as an expression:
+//! All assertables macros have forms for different outcomes:
 //!
-//! * [`assert_ok_eq!(a, b)`](https://docs.rs/assertables/8.14.0/assertables/macro.assert_ok_eq.html) `// Ok(…) = Ok(…)`
-//! * [`assert_ok_eq_expr!(a, b)`](https://docs.rs/assertables/8.14.0/assertables/macro.assert_ok_eq_expr.html) `// Ok(…) = expression`
+//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// panic during typical test`
+//! * [`assert_gt_as_result!(a, b)`](macro@crate::assert_gt_as_result) `// return Ok or Err`
+//! * [`debug_assert_gt!(a, b)`](macro@crate::debug_assert_gt) `// panic when in debug mode`
+//!
+//! Many assertables macros have forms for comparing left hand side (LHS) and
+//! right hand side (RHS) as the same type or as an arbitrary expression:
+//!
+//! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq) `// Ok(…) = Ok(…)`
+//! * [`assert_ok_eq_expr!(a, b)`](macro@crate::assert_ok_eq_expr) `// Ok(…) = expression`
 //!
 //!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.15.0
+//! * Version: 8.16.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-06T23:11:30Z
+//! * Updated: 2024-10-08T15:07:34Z
+//! 
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -223,6 +227,13 @@ pub mod assert_ne;
 pub mod assert_approx;
 pub mod assert_in_delta;
 pub mod assert_in_epsilon;
+
+// Assert all/any
+pub mod assert_all;
+pub mod assert_any;
+
+// Infix
+pub mod assert_infix;
 
 // Matching
 pub mod assert_is_empty;
@@ -264,6 +275,3 @@ pub mod assert_io_read_to_string;
 // For externals
 pub mod assert_command;
 pub mod assert_program_args;
-
-// Experimental - work in progress - unsupported
-pub mod assert_infix;

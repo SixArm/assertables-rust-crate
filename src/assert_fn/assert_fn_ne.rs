@@ -219,7 +219,7 @@ mod tests {
 /// assert_fn_ne!(i8::abs, a, i8::abs, b);
 /// # });
 /// // assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_fn_ne.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_fn_ne.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `-1`,

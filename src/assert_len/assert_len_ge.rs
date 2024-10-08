@@ -144,7 +144,7 @@ mod tests {
 /// assert_len_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_len_ge!(a, b)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_len_ge.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_len_ge.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",

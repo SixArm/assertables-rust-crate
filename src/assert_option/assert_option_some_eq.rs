@@ -166,7 +166,7 @@ mod tests {
 /// assert_option_some_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_option_some_eq!(a, b)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_option_some_eq.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_option_some_eq.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`,
 /// //  a inner: `1`,

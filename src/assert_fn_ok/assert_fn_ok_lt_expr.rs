@@ -272,7 +272,7 @@ mod tests {
 /// assert_fn_ok_lt_expr!(f, a, b);
 /// # });
 /// // assertion failed: `assert_fn_ok_lt_expr!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_fn_ok_lt_expr.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_fn_ok_lt_expr.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `2`,

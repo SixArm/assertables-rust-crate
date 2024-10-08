@@ -259,7 +259,7 @@ mod tests {
 /// assert_fn_gt!(i8::abs, a, i8::abs, b);
 /// # });
 /// // assertion failed: `assert_fn_gt!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_fn_gt.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_fn_gt.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `1`,

@@ -154,7 +154,7 @@ mod tests {
 /// assert_iter_lt!(&a, &b);
 /// # });
 /// // assertion failed: `assert_iter_lt!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_iter_lt.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_iter_lt.html
 /// //  a label: `&a`,
 /// //  a debug: `[3, 4]`,
 /// //  b label: `&b`,

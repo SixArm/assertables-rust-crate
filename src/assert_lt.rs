@@ -129,7 +129,7 @@ mod test_assert_x_result {
 /// assert_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_lt!(a, b)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_lt.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_lt.html
 /// //  a label: `a`,
 /// //  a debug: `2`,
 /// //  b label: `b`,

@@ -126,7 +126,7 @@ mod tests {
 /// assert_not_starts_with!(a, b);
 /// # });
 /// // assertion failed: `assert_not_starts_with!(a, b)`
-/// // https://docs.rs/assertables/8.14.0/assertables/macro.assert_not_starts_with.html
+/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_not_starts_with.html
 /// //  a label: `a`,
 /// //  a debug: `\"alfa\"`,
 /// //  b label: `b`,
