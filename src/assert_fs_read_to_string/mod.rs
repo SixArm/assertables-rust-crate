@@ -1,4 +1,4 @@
-//! Assert macros for comparing file system path contents.
+//! Assert for comparing file system path contents.
 //!
 //! These macros help with file system paths, such as disk files, `Path`,
 //! `PathBuf`, the trait `AsRef<Path>`, and anything that is readable via

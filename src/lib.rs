@@ -23,9 +23,22 @@
 //! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// a is not equal to b`
 //!
 //! The assertables crate provides many more, to help you work with numbers,
-//! strings, results, options, iterators, files, commands, and more. See below
-//! for the macros.
+//! strings, results, options, polls, iterators, files, streams, commands, and more. 
 //!
+//! Examples:
+//!
+//! ```rust
+//! use assertables::*;
+//! # fn main() {
+//! let s = "hello world";
+//! assert_starts_with!(s, "hello");
+//! assert_contains!(s, "o");
+//! assert_len_eq!(s, "***********");
+//! assert_all!(s.chars(), |c: char| c < 'x');
+//! assert_any!(s.chars(), |c: char| c.is_whitespace());
+//! # }
+//!  ```
+//! 
 //! Top benefits:
 //!
 //! 1. You can write better tests to improve reliability and maintainability.
@@ -59,125 +72,73 @@
 //! * [`assert_approx_eq!(a, b)`](macro@crate::assert_approx_eq)
 //! * [`assert_approx_ne!(a, b)`](macro@crate::assert_approx_ne)
 //!
+//! For nearness:
+//!
+//! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
+//! * [`assert_in_epsilon!(a, b, epsilon)`](macro@crate::assert_in_epsilon)
+//! 
 //! For groups:
 //!
 //! * [`assert_all!(group, predicate)`](macro@crate::assert_all)
 //! * [`assert_any!(group, predicate)`](macro@crate::assert_any)
 //!
-//! For strings:
-//!
-//! * [`assert_starts_with!(a, b)`](macro@crate::assert_starts_with)
-//! * [`assert_ends_with!(a, b)`](macro@crate::assert_ends_with)
-//!
-//! For lengths:
-//! 
-//! * [`assert_len_eq!(a, b)`](macro@crate::assert_len_eq)
-//! * [`assert_is_empty!(a, b)`](macro@crate::assert_is_empty)
-//! 
-//! For matching:
-//!
-//! * [`assert_contains!(a, b)`](macro@crate::assert_contains)
-//! * [`assert_is_match!(a, b)`](macro@crate::assert_is_match)
-//! 
-//! For infix operators:
-//!
-//! * [`assert_infix!(a == b)`](macro@crate::assert_infix)
-//! * [`assert_infix!(a && b)`](macro@crate::assert_infix)
-//!
-//! For nearness:
-//!
-//! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
-//! * [`assert_in_epsilon!(a, b, epsilon)`](macro@crate::assert_in_epsilon)
-//!
-//! For Result Ok/Err:
-//!
-//! * [`assert_ok!(a)`](macro@crate::assert_ok)
-//! * [`assert_err!(a)`](macro@crate::assert_err)
-//!
-//! For Option Some/None:
-//!
-//! * [`assert_some!(a)`](macro@crate::assert_some)
-//! * [`assert_none!(a)`](macro@crate::assert_none)
-//!
-//! For Poll Ready/Pending:
-//!
-//! * [`assert_ready!(a)`](macro@crate::assert_ready)
-//! * [`assert_pending!(a)`](macro@crate::assert_pending)
-//!
-//! For comparing collections that provide `into_iter()` such as arrays and
-//! vectors:
-//!
-//! * [`assert_set_eq!(collection1, collection2)`](macro@crate::assert_set_eq)
-//! * [`assert_bag_eq!(collection1, collection2)`](macro@crate::assert_bag_eq)
-//! * [`assert_iter_eq!(collection1, collection2)`](macro@crate::assert_iter_eq)
-//!
-//! For file system paths and input/output readers:
-//!
-//! * [`assert_fs_read_to_string_eq!(path1, path2)`](macro@crate::assert_fs_read_to_string_eq)
-//! * [`assert_io_read_to_string_eq!(reader1, reader2)`](macro@crate::assert_io_read_to_string_eq)
-//!
-//! For command capture of standard output and standard error:
-//!
-//! * [`assert_command_stdout_eq!(command1, command2)`](macro@crate::assert_command_stdout_eq)
-//! * [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](macro@crate::assert_program_args_stdout_eq);
-//!
 //! ## Modules
 //! 
 //! There are many more macros that are organized in modules.
 //!
-//! Modules for values:
+//! For values:
 //!
 //! * [`assert_infix`](module@crate::assert_infix)
 //! * [`assert_approx`](module@crate::assert_approx)
 //!
-//! Modules for strings:
+//! For parts:
 //!
 //! * [`assert_starts_with`](module@crate::assert_starts_with)
 //! * [`assert_ends_with`](module@crate::assert_ends_with)
 //! 
-//! Modules for lengths:
+//! For lengths:
 //! 
 //! * [`assert_len`](module@crate::assert_len)
 //! * [`assert_is_empty`](module@crate::assert_is_empty)
 //! 
-//! Modules for matching:
+//! For matching:
 //!
 //! * [`assert_contains`](module@crate::assert_contains)
 //! * [`assert_is_match`](module@crate::assert_is_match)
 //! 
-//! Modules for collections, such as arrays, vectors, lists, maps:
+//! For collections, such as arrays, vectors, lists, maps:
 //!
 //! * [`assert_iter`](module@crate::assert_iter) for iterator collections.
 //! * [`assert_set`](module@crate::assert_set) for set collections.
 //! * [`assert_bag`](module@crate::assert_bag) for bag collections.
 //!
-//! Modules for Result Ok/Err:
+//! For Result Ok/Err:
 //!
 //! * [`assert_ok`](module@crate::assert_ok)
 //! * [`assert_err`](module@crate::assert_err)
 //! 
-//! Modules for Option Some/None:
+//! For Option Some/None:
 //! 
 //! * [`assert_some`](module@crate::assert_some)
 //! * [`assert_none`](module@crate::assert_none)
 //! 
-//! Modules for Poll Ready/Pending:
+//! For Poll Ready/Pending:
 //! 
 //! * [`assert_ready`](module@crate::assert_ready)
 //! * [`assert_pending`](module@crate::assert_pending)
 //!
-//! Modules for functions:
+//! For functions:
 //!
 //! * [`assert_fn`](module@crate::assert_fn) for functions in general.
 //! * [`assert_fn_ok`](module@crate::assert_fn_ok) for functions that return Result::Ok.
 //! * [`assert_fn_err`](module@crate::assert_fn_err) for functions that return Result::Err.
 //!
-//! Modules for readers:
+//! For reading file systems and input/output streams:
 //!
 //! * [`assert_fs_read_to_string`](module@crate::assert_fs_read_to_string) for file system path contents.
 //! * [`assert_io_read_to_string`](module@crate::assert_io_read_to_string) for input/output reader streams.
 //!
-//! Modules for external calls:
+//! For commands to capture stdout and stderr:
 //!
 //! * [`assert_command`](module@crate::assert_command) for commands and their stdout & stderr.
 //! * [`assert_program_args`](module@crate::assert_program_args) for programs with args and their stdout & stderr.

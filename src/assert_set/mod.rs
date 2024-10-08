@@ -1,4 +1,4 @@
-//! Assert macros for comparing set collections.
+//! Assert for comparing set collections.
 //!
 //! These macros help with comparison of set parameters, such as two arrays or
 //! two vectors. where the item order does not matter, and the item count does
@@ -27,6 +27,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a = [1, 2];
 //! let b = [2, 1];
@@ -34,11 +35,12 @@
 //! # }
 //! ```
 
+/// Assert set implementation preparation.
 #[macro_export]
 macro_rules! assert_set_impl_prep {
-    ($into_iterable:expr $(,)?) => {{
-        match (&$into_iterable) {
-            into_iterable => into_iterable.into_iter().collect()
+    ($impl_into_iter:expr $(,)?) => {{
+        match (&$impl_into_iter) {
+            impl_into_iter => impl_into_iter.into_iter().collect()
         }
     }};
 }

@@ -7,6 +7,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a = "x";
 //! let b = 2;

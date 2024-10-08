@@ -7,6 +7,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a: Result<i8, i8> = Err(1);
 //! let b: Result<i8, i8> = Err(2);

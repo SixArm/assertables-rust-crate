@@ -1,4 +1,4 @@
-//! Assert macros for `Option` {`Some`, `None`}
+//! Assert for `Option` {`Some`, `None`}
 //!
 //! These macros help compare an `Option` that is either `Some`, `None`.
 //!
@@ -24,6 +24,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a: Option<i8> = Option::Some(1);
 //! assert_option_some!(a);

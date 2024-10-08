@@ -7,6 +7,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a: f32 = 1.0000001;
 //! let b: f32 = 1.0000012;

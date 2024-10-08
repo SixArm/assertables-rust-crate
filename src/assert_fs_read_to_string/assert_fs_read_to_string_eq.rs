@@ -7,6 +7,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a ="alfa.txt";
 //! let b = "alfa.txt";

@@ -1,4 +1,4 @@
-//! Assert macros for comparing functions.
+//! Assert for comparing functions.
 //!
 //! These macros help compare functions that return anything.
 //! The macros call the functions, then compare the return values.
@@ -36,6 +36,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a: i8 = -1;
 //! let b: i8 = 1;

@@ -7,6 +7,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! // String contains substring?
 //! let a = "alfa";
@@ -14,8 +15,13 @@
 //! assert_not_contains!(a, b);
 //!
 //! // Range contains value?
-//! let a = 1..5;
-//! let b = 6;
+//! let a = 1..3;
+//! let b = 4;
+//! assert_not_contains!(a, &b);
+//!
+//! // Vector contains element?
+//! let a = vec![1, 2, 3];
+//! let b = 4;
 //! assert_not_contains!(a, &b);
 //! # }
 //! ```
@@ -109,15 +115,15 @@ mod tests {
 
     #[test]
     fn test_assert_not_contains_as_result_x_range_x_success() {
-        let a = 1..5;
-        let b = 6;
+        let a = 1..3;
+        let b = 4;
         let result = assert_not_contains_as_result!(a, &b);
         assert_eq!(result.unwrap(), ());
     }
 
     #[test]
     fn test_assert_not_contains_as_result_x_range_x_failure() {
-        let a = 1..5;
+        let a = 1..3;
         let b = 2;
         let result = assert_not_contains_as_result!(a, &b);
         let actual = result.unwrap_err();
@@ -125,7 +131,7 @@ mod tests {
             "assertion failed: `assert_not_contains!(container, containee)`\n",
             "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_contains.html\n",
             " container label: `a`,\n",
-            " container debug: `1..5`,\n",
+            " container debug: `1..3`,\n",
             " containee label: `&b`,\n",
             " containee debug: `2`"
         );
@@ -157,11 +163,15 @@ mod tests {
 /// assert_not_contains!(a, b);
 ///
 /// // Range contains value?
-/// let a = 1..5;
-/// let b = 6;
+/// let a = 1..3;
+/// let b = 4;
 /// assert_not_contains!(a, &b);
-/// //->
 ///
+/// // Vector contains element?
+/// let a = vec![1, 2, 3];
+/// let b = 4;
+/// assert_not_contains!(a, &b);
+/// 
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "alfa";

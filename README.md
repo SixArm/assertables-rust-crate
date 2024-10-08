@@ -18,8 +18,19 @@ The Rust programming language provides assert macros such as `assert!(x)` to tes
 * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// a is not equal to b`
 
 The assertables crate provides many more, to help you work with numbers,
-strings, results, options, iterators, files, commands, and more. See below for
-the macros.
+strings, results, options, polls, iterators, files, streams, commands, and more. 
+
+Examples:
+
+```rust
+use assertables::*;
+let s = "hello world";
+assert_starts_with!(s, "hello");
+assert_contains!(s, "o");
+assert_len_eq!(s, "***********");
+assert_all!(s.chars(), |c: char| c < 'x');
+assert_any!(s.chars(), |c: char| c.is_whitespace());
+```
 
 Top benefits:
 
@@ -54,125 +65,74 @@ For approximations:
 * [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_approx_eq.html)
 * [`assert_approx_ne!(a, b)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_approx_ne.html)
 
-For groups:
-
-* [`assert_all!(group, predicate)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_all.html)
-* [`assert_any!(group, predicate)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_any.html)
-
-For strings:
-
-* [`assert_starts_with!(a, b)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_starts_with.html)
-* [`assert_ends_with!(a, b)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_ends_with.html)
-
-For lengths:
-
-* [`assert_len_eq!(a, b)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_len_eq.html)
-* [`assert_is_empty!(a)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_is_empty.html)
-
-For matching:
-
-* [`assert_contains!(a, b)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_contains.html)
-* [`assert_is_match!(a, b)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_is_match.html)
-
-For infix operators:
-
-* [`assert_infix!(a == b)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_infix.html)
-* [`assert_infix!(a && b)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_infix.html)
-
 For nearness:
 
 * [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_in_delta.html)
 * [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_in_epsilon.html)
 
-For Result Ok/Err:
+For groups:
 
-* [`assert_ok!(a)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_ok.html)
-* [`assert_err!(a)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_err.html)
-
-For Option Some/None:
-
-* [`assert_some!(a)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_some.html)
-* [`assert_none!(a)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_none.html)
-
-For Poll Ready/Pending:
-
-* [`assert_ready!(a)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_ready.html)
-* [`assert_pending!(a)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_pending.html)
-
-For comparing collections that provide `into_iter()` such as arrays and vectors:
-
-* [`assert_bag_eq!(collection1, collection2)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_set_eq.html)
-* [`assert_set_eq!(collection1, collection2)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_set_eq.html)
-* [`assert_iter_eq!(collection1, collection2)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_iter_eq.html)
-
-For file system paths and input/output readers:
-
-* [`assert_fs_read_to_string_eq!(path1, path2)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_fs_read_to_string_eq.html)
-* [`assert_io_read_to_string_eq!(reader1, reader2)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_io_read_to_string_eq.html)
-
-For command capture of standard output and standard error:
-
-* [`assert_command_stdout_eq!(command1, command2)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_command_stdout_eq.html)
-* [`assert_program_args_stdout_eq!(program1, args1, program2, args2)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_program_args_stdout_eq.html)
+* [`assert_all!(group, predicate)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_all.html)
+* [`assert_any!(group, predicate)`](https://docs.rs/assertables/8.16.0/assertables/macro.assert_any.html)
 
 
 ## Modules
 
 There are many more macros that are organized in modules.
 
-Modules for values:
+For values:
 
 * [`assert_infix`](https://docs.rs/assertables/8.16.0/assertables/assert_infix)
 * [`assert_approx`](https://docs.rs/assertables/8.16.0/assertables/assert_approx)
 
-Modules for strings:
+For parts:
 
 * [`assert_starts_with`](https://docs.rs/assertables/8.16.0/assertables/assert_starts_with)
 * [`assert_ends_with`](https://docs.rs/assertables/8.16.0/assertables/assert_ends_with)
 
-Modules for lengths:
+For lengths:
 
 * [`assert_len`](https://docs.rs/assertables/8.16.0/assertables/assert_len)
 * [`assert_is_empty`](https://docs.rs/assertables/8.16.0/assertables/assert_is_empty)
 
-Modules for matching:
+For matching:
 
 * [`assert_contains`](https://docs.rs/assertables/8.16.0/assertables/assert_contains)
 * [`assert_is_match`](https://docs.rs/assertables/8.16.0/assertables/assert_is_match)
 
-Modules for collections such as arrays, vectors, iterators, sets, bags:
+For collections such as arrays, vectors, iterators, sets, bags:
 
 * [`assert_iter`](https://docs.rs/assertables/8.16.0/assertables/assert_iter) for iterator collections
 * [`assert_set`](https://docs.rs/assertables/8.16.0/assertables/assert_set) for set collections
 * [`assert_bag`](https://docs.rs/assertables/8.16.0/assertables/assert_bag) for bag collections
 
-Modules for Result Ok/Err:
+For Result Ok/Err:
 
 * [`assert_ok`](module@crate::assert_ok)
 * [`assert_err`](module@crate::assert_err)
   
-Modules for Option Some/None:
+For Option Some/None:
 
 * [`assert_some`](module@crate::assert_some)
 * [`assert_none`](module@crate::assert_none)
 
-Modules for Poll Ready/Pending:
+For Poll Ready/Pending:
 
 * [`assert_ready`](module@crate::assert_ready)
 * [`assert_pending`](module@crate::assert_pending)
 
-Modules for functions:
+For functions:
 
 * [`assert_fn`](https://docs.rs/assertables/8.16.0/assertables/assert_fn) for functions in general.
 * [`assert_fn_ok`](https://docs.rs/assertables/8.16.0/assertables/assert_fn_ok) for functions that return `Result::Ok`.
 * [`assert_fn_err`](https://docs.rs/assertables/8.16.0/assertables/assert_fn_err) for functions that return `Result::Err`.
 
-Modules for readers:
+For reading file systems and input/output streams:
 
 * [`assert_fs_read_to_string`](https://docs.rs/assertables/8.16.0/assertables/assert_fs_read_to_string) for file system path contents.
 * [`assert_io_read_to_string`](https://docs.rs/assertables/8.16.0/assertables/assert_io_read_to_string) for input/output reader streams.
 
-Modules for external calls:
+For commands to capture stdout and stderr:
 
 * [`assert_command`](https://docs.rs/assertables/8.16.0/assertables/assert_command) for commands with stdout/stderr.
 * [`assert_program_args`](https://docs.rs/assertables/8.16.0/assertables/assert_program_args) for programs with args with stdout/stderr.

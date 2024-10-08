@@ -4,6 +4,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a: Option<i8> = Option::None;
 //! assert_option_none!(a);

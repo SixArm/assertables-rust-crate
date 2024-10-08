@@ -1,4 +1,4 @@
-//! Assert macros for comparing input/output reader streams.
+//! Assert for comparing input/output reader streams.
 //!
 //! These macros help with input/output readers, such as file handles, byte arrays,
 //! input streams, the trait `std::io::Read`, and anything that implements a

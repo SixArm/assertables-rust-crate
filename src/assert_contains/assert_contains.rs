@@ -7,16 +7,12 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! // String contains substring
-//! let a: &str  = "alfa";
+//! let a: &str = "alfa";
 //! let b: &str = "lf";
 //! assert_contains!(a, b);
-//!
-//! // Range contains value
-//! let a = 1..5;
-//! let b = 2;
-//! assert_contains!(a, &b);
 //! # }
 //! ```
 //!
@@ -109,7 +105,7 @@ mod tests {
 
     #[test]
     fn test_assert_contains_as_result_x_range_x_success() {
-        let a = 1..5;
+        let a = 1..3;
         let b = 2;
         let result = assert_contains_as_result!(a, &b);
         assert_eq!(result.unwrap(), ());
@@ -117,17 +113,17 @@ mod tests {
 
     #[test]
     fn test_assert_contains_as_result_x_range_x_failure() {
-        let a = 1..5;
-        let b = 6;
+        let a = 1..3;
+        let b = 4;
         let result = assert_contains_as_result!(a, &b);
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_contains!(container, containee)`\n",
             "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_contains.html\n",
             " container label: `a`,\n",
-            " container debug: `1..5`,\n",
+            " container debug: `1..3`,\n",
             " containee label: `&b`,\n",
-            " containee debug: `6`"
+            " containee debug: `4`"
         );
         assert_eq!(actual, expect);
     }
@@ -157,7 +153,7 @@ mod tests {
 /// assert_contains!(a, b);
 ///
 /// // Return Ok when a range contains a value
-/// let a = 1..5;
+/// let a = 1..3;
 /// let b = 2;
 /// assert_contains!(a, &b);
 ///

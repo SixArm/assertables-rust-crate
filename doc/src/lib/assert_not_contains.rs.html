@@ -256,16 +256,12 @@
 //!
 //! ```rust
 //! use assertables::*;
-//! # fn main() {
+//!
+//! # fn main\(\) \{
 //! // String contains substring?
 //! let a = "alfa";
 //! let b = "zz";
 //! assert_not_contains!(a, b);
-//!
-//! // Range contains value?
-//! let a = 1..5;
-//! let b = 6;
-//! assert_not_contains!(a, &amp;b);
 //! # }
 //! ```
 //!
@@ -400,16 +396,9 @@
 /// # use std::panic;
 ///
 /// # fn main() {
-/// // String contains substring?
 /// let a = "alfa";
 /// let b = "zz";
 /// assert_not_contains!(a, b);
-///
-/// // Range contains value?
-/// let a = 1..5;
-/// let b = 6;
-/// assert_not_contains!(a, &amp;b);
-/// //-&gt;
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic

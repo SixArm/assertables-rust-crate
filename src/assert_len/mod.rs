@@ -1,4 +1,4 @@
-//! Assert macros for comparing lengths.
+//! Assert for comparing lengths.
 //!
 //! These macros help with collection lengths, such as for strings, arrays, 
 //! vectors, iterators, and anything that has a typical `.len()` method.

@@ -1,4 +1,4 @@
-//! Assert macros for comparing programs with arguments.
+//! Assert for comparing programs with arguments.
 //!
 //! These macros help with calling external programs with arguments, then
 //! capturing the standard output stream and standard error stream.
@@ -59,6 +59,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a_program = "bin/printf-stdout";
 //! let a_args = ["%s", "alfa"];
@@ -68,6 +69,7 @@
 //! # }
 //! ```
 
+/// Assert program args implementation preparation.
 #[macro_export]
 macro_rules! assert_program_args_impl_prep {
     ($program:expr, $args:expr $(,)?) => {{

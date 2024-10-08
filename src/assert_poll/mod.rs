@@ -1,4 +1,4 @@
-//! Assert macros for `Poll` {`Ready`, `Pending`}
+//! Assert for `Poll` {`Ready`, `Pending`}
 //!
 //! These macros help compare a `Poll` that is either `Ready`, `Pending`.
 //!

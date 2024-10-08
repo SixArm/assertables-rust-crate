@@ -1,4 +1,4 @@
-//! Assert macros for Ok(_) items.
+//! Assert for Ok(_) items.
 //!
 //! These macros help compare Ok(…) items, such as `std::Result::Ok` or similar.
 //!

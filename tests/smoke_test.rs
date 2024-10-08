@@ -8,6 +8,22 @@ pub static BIN: Lazy<PathBuf> = Lazy::new(|| {
         .join("bin")
 });
 
+//// README
+
+#[test]
+fn readme() {
+    let s = "hello world";
+    assert_starts_with!(s, "hello");
+    assert_ends_with!(s, "world");
+    assert_contains!(s, "o");
+    assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
+    assert_len_eq!(s, "***********");
+    assert_len_eq_expr!(s, 11);
+    assert_not_empty!(s);
+    assert_all!(s.chars(), |c: char| c < 'x');
+    assert_any!(s.chars(), |c: char| c.is_whitespace());
+}
+
 //// Values
 
 #[test]
@@ -298,8 +314,6 @@ fn assert_program_args() {
     //// stderr
     let a_program = BIN.join("printf-stderr");
     let a_args = ["%s", "alfa"];
-    let b_program = BIN.join("printf-stderr");
-    let b_args = ["%s%s%s%s", "a", "l", "f", "a"];
 
     //// stderr other
     // assert_program_args_stderr_eq!(&a_program, &a_args, &b_program, ["%s%s%s%s", "a", "l", "f", "a"]);

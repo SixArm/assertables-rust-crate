@@ -1,4 +1,4 @@
-//! Assert macros for `Result` {`Ok`, `Err`}
+//! Assert for `Result` {`Ok`, `Err`}
 //!
 //! These macros help compare a `Result` that is either `Ok`, `Err`.
 //!
@@ -26,6 +26,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a: Result<(), i8> = Result::Ok(());
 //! assert_result_ok!(a);

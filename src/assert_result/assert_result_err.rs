@@ -4,6 +4,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a: Result<(), i8> = Err(1);
 //! assert_result_err!(a);

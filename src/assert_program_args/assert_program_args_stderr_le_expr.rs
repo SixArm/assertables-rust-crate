@@ -7,6 +7,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let program = "bin/printf-stderr";
 //! let args = ["%s", "alfa"];

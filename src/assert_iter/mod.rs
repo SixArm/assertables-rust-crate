@@ -1,4 +1,4 @@
-//! Assert macros for comparing iter collections.
+//! Assert for comparing iter collections.
 //!
 //! These macros help with comparison of iter parameters, such as two arrays or
 //! two vectors. These macros convert each input using the std::iter::Iterator trait.

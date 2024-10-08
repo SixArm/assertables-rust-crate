@@ -7,6 +7,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a = [1, 2, 3];
 //! assert_any!(a.into_iter(), |x: i8| x > 0);

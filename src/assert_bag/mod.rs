@@ -1,4 +1,4 @@
-//! Assert macros for comparing bag collections.
+//! Assert for comparing bag collections.
 //!
 //! These macros help with comparison of bag parameters, such as comparison of
 //! two arrays or two vectors, where the item order does not matter, and the
@@ -22,6 +22,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a = [1, 1];
 //! let b = [1, 1];
@@ -29,13 +30,14 @@
 //! # }
 //! ```
 
+/// Assert bag implementation preparation.
 #[macro_export]
 macro_rules! assert_bag_impl_prep {
-    ($into_iterable:expr $(,)?) => {{
-        match (&$into_iterable) {
-            into_iterable => {
+    ($impl_into_iter:expr $(,)?) => {{
+        match (&$impl_into_iter) {
+            impl_into_iter => {
                 let mut bag: std::collections::BTreeMap<_, usize> = std::collections::BTreeMap::new();
-                for x in into_iterable.into_iter() {
+                for x in impl_into_iter.into_iter() {
                     let n = bag.entry(x).or_insert(0);
                     *n += 1;
                 }

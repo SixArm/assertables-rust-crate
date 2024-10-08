@@ -7,10 +7,17 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
-//! let a = "alfa";
-//! let b = "fa";
-//! assert_ends_with!(a, b);
+//! // String ends with substring?
+//! let whole: &str = "alfa";
+//! let part: &str = "fa";
+//! assert_ends_with!(whole, part);
+//! 
+//! // Vector ends with element?
+//! let whole = vec![1, 2, 3];
+//! let part = [3];
+//! assert_ends_with!(whole, part);
 //! # }
 //! ```
 //!
@@ -43,25 +50,25 @@
 ///
 #[macro_export]
 macro_rules! assert_ends_with_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        match (&$a, &$b) {
-            (a, b) => {
-                if a.ends_with(b) {
+    ($whole:expr, $part:expr $(,)?) => {{
+        match (&$whole, &$part) {
+            (whole, part) => {
+                if whole.ends_with(part) {
                     Ok(())
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_ends_with!(a, b)`\n",
+                            "assertion failed: `assert_ends_with!(whole, part)`\n",
                             "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ends_with.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`",
+                            " whole label: `{}`,\n",
+                            " whole debug: `{:?}`,\n",
+                            "  part label: `{}`,\n",
+                            "  part debug: `{:?}`",
                         ),
-                        stringify!($a),
-                        a,
-                        stringify!($b),
-                        b,
+                        stringify!($whole),
+                        whole,
+                        stringify!($part),
+                        part,
                     ))
                 }
             }
@@ -71,31 +78,32 @@ macro_rules! assert_ends_with_as_result {
 
 #[cfg(test)]
 mod tests {
-
+    
     #[test]
-    fn test_assert_ends_with_as_result_x_success() {
-        let a = "alfa";
-        let b = "fa";
-        let result = assert_ends_with_as_result!(a, b);
+    fn test_assert_ends_with_as_result_success() {
+        let whole = "alfa";
+        let part = "fa";
+        let result = assert_ends_with_as_result!(whole, part);
         assert_eq!(result.unwrap(), ());
     }
 
     #[test]
     fn test_assert_ends_with_as_result_x_failure() {
-        let a = "alfa";
-        let b = "al";
-        let result = assert_ends_with_as_result!(a, b);
+        let whole = "alfa";
+        let part = "al";
+        let result = assert_ends_with_as_result!(whole, part);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_ends_with!(a, b)`\n",
+            "assertion failed: `assert_ends_with!(whole, part)`\n",
             "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ends_with.html\n",
-            " a label: `a`,\n",
-            " a debug: `\"alfa\"`,\n",
-            " b label: `b`,\n",
-            " b debug: `\"al\"`"
+            " whole label: `whole`,\n",
+            " whole debug: `\"alfa\"`,\n",
+            "  part label: `part`,\n",
+            "  part debug: `\"al\"`"
         );
         assert_eq!(actual, expect);
     }
+
 }
 
 /// Assert an expression (such as a string) ends with an expression (such as a string).
@@ -115,30 +123,36 @@ mod tests {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a = "alfa";
-/// let b = "fa";
-/// assert_ends_with!(a, b);
+/// // String ends with substring?
+/// let whole: &str = "alfa";
+/// let part: &str = "fa";
+/// assert_ends_with!(whole, part);
+/// 
+/// // Vector ends with element?
+/// let whole = vec![1, 2, 3];
+/// let part = [3];
+/// assert_ends_with!(whole, part);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a = "alfa";
-/// let b = "al";
-/// assert_ends_with!(a, b);
+/// let whole = "alfa";
+/// let part = "al";
+/// assert_ends_with!(whole, part);
 /// # });
-/// // assertion failed: `assert_ends_with!(a, b)`
+/// // assertion failed: `assert_ends_with!(whole, part)`
 /// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_ends_with.html
-/// //  a label: `a`,
-/// //  a debug: `\"alfa\"`,
-/// //  b label: `b`,
-/// //  b debug: `\"al\"`
+/// //  whole label: `whole`,
+/// //  whole debug: `\"alfa\"`,
+/// //   part label: `part`,
+/// //   part debug: `\"al\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_ends_with!(a, b)`\n",
+/// #     "assertion failed: `assert_ends_with!(whole, part)`\n",
 /// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ends_with.html\n",
-/// #     " a label: `a`,\n",
-/// #     " a debug: `\"alfa\"`,\n",
-/// #     " b label: `b`,\n",
-/// #     " b debug: `\"al\"`"
+/// #     " whole label: `whole`,\n",
+/// #     " whole debug: `\"alfa\"`,\n",
+/// #     "  part label: `part`,\n",
+/// #     "  part debug: `\"al\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -152,14 +166,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_ends_with {
-    ($a:expr, $b:expr $(,)?) => {{
-        match $crate::assert_ends_with_as_result!($a, $b) {
+    ($whole:expr, $part:expr $(,)?) => {{
+        match $crate::assert_ends_with_as_result!($whole, $part) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
-    ($a:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_ends_with_as_result!($a, $b) {
+    ($whole:expr, $part:expr, $($message:tt)+) => {{
+        match $crate::assert_ends_with_as_result!($whole, $part) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

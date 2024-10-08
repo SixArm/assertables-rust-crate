@@ -12,6 +12,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "alfa"];

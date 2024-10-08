@@ -1,4 +1,4 @@
-//! Assert macro for None items.
+//! Assert for None items.
 //!
 //! These macros help compare None items, such as `std::Option::None` or similar.
 //!

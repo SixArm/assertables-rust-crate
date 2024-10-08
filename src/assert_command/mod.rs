@@ -1,4 +1,4 @@
-//! Assert macros for comparing commands and their stdout & stderr.
+//! Assert for comparing commands and their stdout & stderr.
 //!
 //! These macros help with calling external commands, then capturing the
 //! standard output stream and standard error stream.

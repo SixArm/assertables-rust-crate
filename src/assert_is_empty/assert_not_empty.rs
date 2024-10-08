@@ -68,8 +68,6 @@ macro_rules! assert_not_empty_as_result {
 #[cfg(test)]
 mod tests {
 
-    use regex::Regex;
-
     #[test]
     fn test_assert_not_empty_as_result_x_success() {
         let a = "alfa";

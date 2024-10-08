@@ -7,6 +7,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a: Option<i8> = Option::Some(1);
 //! let b: i8 = 1;

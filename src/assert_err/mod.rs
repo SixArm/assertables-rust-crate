@@ -1,4 +1,4 @@
-//! Assert macros for Err(_) items.
+//! Assert for Err(_) items.
 //!
 //! These macros help compare Err(…) items, such as `std::Result::Err` or similar.
 //!
@@ -27,6 +27,7 @@
 //!
 //! ```rust
 //! use assertables::*;
+//!
 //! # fn main() {
 //! let a: Result<(), i8> = Err(1);
 //! assert_err!(a);

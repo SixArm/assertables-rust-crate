@@ -1,4 +1,4 @@
-//! Assert macros for comparing functions that return errors.
+//! Assert for comparing functions that return errors.
 //!
 //! These macros help compare functions that return results that are errors,
 //! such as `std::Result::Err` or similar.
