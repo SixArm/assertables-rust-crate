@@ -160,7 +160,7 @@ mod tests {
 /// assert_io_read_to_string_matches!(reader, &matcher);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_matches!(a_reader, &matcher)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_io_read_to_string_matches.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_io_read_to_string_matches.html
 /// //   reader label: `reader`,
 /// //   reader debug: `[]`,
 /// //  matcher label: `&matcher`,

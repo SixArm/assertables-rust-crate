@@ -93,6 +93,24 @@ fn assert_len() {
 }
 
 #[test]
+fn assert_count() {
+    // Compare other
+    assert_count_eq!("x".chars(), "x".chars());
+    assert_count_ne!("x".chars(), "xx".chars());
+    assert_count_lt!("x".chars(), "xx".chars());
+    assert_count_le!("x".chars(), "xx".chars());
+    assert_count_gt!("xx".chars(), "x".chars());
+    assert_count_ge!("xx".chars(), "x".chars());
+    // Compare expr
+    assert_count_eq_expr!("x".chars(), 1);
+    assert_count_ne_expr!("x".chars(), 2);
+    assert_count_lt_expr!("x".chars(), 2);
+    assert_count_le_expr!("x".chars(), 2);
+    assert_count_gt_expr!("xx".chars(), 1);
+    assert_count_ge_expr!("xx".chars(), 1);
+}
+
+#[test]
 fn assert_is_empty() {
     assert_is_empty!("");
     assert_not_empty!("alfa");

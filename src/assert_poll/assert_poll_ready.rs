@@ -118,7 +118,7 @@ mod tests {
 /// assert_poll_ready!(a);
 /// # });
 /// // assertion failed: `assert_poll_ready!(a)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_poll_ready.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_poll_ready.html
 /// //  a label: `a`,
 /// //  a debug: `Pending`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();

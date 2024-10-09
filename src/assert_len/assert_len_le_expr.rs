@@ -141,7 +141,7 @@ mod tests {
 /// assert_len_le_expr!(a, b);
 /// # });
 /// // assertion failed: `assert_len_le_expr!(a, b)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_len_le_expr.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_le_expr.html
 /// //  a label: `a`,
 /// //  a debug: `\"xx\"`,
 /// //  a.len(): `2`",

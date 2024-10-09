@@ -172,7 +172,7 @@ mod tests {
 /// assert_some_eq_expr!(a, b);
 /// # });
 /// // assertion failed: `assert_some_eq_expr!(a, b)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_some_eq_expr.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_some_eq_expr.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`,
 /// //  a inner: `1`,

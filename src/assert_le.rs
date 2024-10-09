@@ -129,7 +129,7 @@ mod tests {
 /// assert_le!(a, b);
 /// # });
 /// // assertion failed: `assert_le!(a, b)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_le.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_le.html
 /// //  a label: `a`,
 /// //  a debug: `2`,
 /// //  b label: `b`,

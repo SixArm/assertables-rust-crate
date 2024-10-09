@@ -178,7 +178,7 @@ mod tests {
 /// assert_command_stderr_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stderr_ge!(a_command, b_command)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_command_stderr_ge.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,

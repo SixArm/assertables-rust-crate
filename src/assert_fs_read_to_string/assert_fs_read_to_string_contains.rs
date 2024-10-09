@@ -169,7 +169,7 @@ mod tests {
 /// assert_fs_read_to_string_contains!(&path, &containee);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_contains!(path, containee)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_fs_read_to_string_contains.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_contains.html
 /// //       path label: `&path`,
 /// //       path debug: `\"alfa.txt\"`,
 /// //  containee label: `&containee`,

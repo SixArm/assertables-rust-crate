@@ -235,7 +235,7 @@ mod tests {
 /// assert_fn_ge_expr!(i8::abs, a, b);
 /// # });
 /// // assertion failed: `assert_fn_ge_expr!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_fn_ge_expr.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_ge_expr.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `-1`,

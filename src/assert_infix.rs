@@ -189,7 +189,7 @@ mod tests {
 /// assert_infix!(a == b);
 /// # });
 /// // assertion failed: `assert_infix!(a == b)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_infix.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_infix.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,

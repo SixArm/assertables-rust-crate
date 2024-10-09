@@ -24,7 +24,7 @@
 //!
 //! Examples:
 //!
-//! ```rust
+//! ``rust
 //! use assertables::*;
 //! # fn main() {
 //! let s = "hello world";
@@ -36,14 +36,14 @@
 //! assert_all!(s.chars(), |c: char| c < 'x');
 //! assert_any!(s.chars(), |c: char| c.is_whitespace());
 //! # }
-//!  ```
+//!  ``
 //! 
 //! To use the macros, add this to your `Cargo.toml` file:
 //!
-//! ```toml
+//! ``toml
 //! [dev-dependencies]
 //! assertables = "*"
-//! ```
+//! ``
 //! 
 //! Top benefits:
 //!
@@ -68,99 +68,82 @@
 //!
 //! Values:
 //! 
-//! * [assert_eq!(a, b);](module@crate::assert_eq) `// equal to`
-//! * [assert_ne!(a, b);](module@crate::assert_ne) `// not equal to`
-//! * [assert_lt!(a, b);](module@crate::assert_lt) `// less than`
-//! * [assert_le!(a, b);](module@crate::assert_le) `// less than or equal to`
-//! * [assert_gt!(a, b);](module@crate::assert_gt) `// greater than`
-//! * [assert_ge!(a, b);](module@crate::assert_ge) `// greater than or equal to`
+//! * [`assert_eq!(a, b);`](module@crate::assert_eq) `// equal to`
+//! * [`assert_ne!(a, b);`](module@crate::assert_ne) `// not equal to`
+//! * [`assert_lt!(a, b);`](module@crate::assert_lt) `// less than`
+//! * [`assert_le!(a, b);`](module@crate::assert_le) `// less than or equal to`
+//! * [`assert_gt!(a, b);`](module@crate::assert_gt) `// greater than`
+//! * [`assert_ge!(a, b);`](module@crate::assert_ge) `// greater than or equal to`
 //! 
 //! Approximations:
 //! 
-//! * [assert_approx_eq!(number, number);](module@crate::assert_approx) `// |a-b| ≤ 1e-6`
-//! * [assert_in_delta!(number, number, delta);](module@crate::assert_in_delta) `// |a-b| ≤ delta`
-//! * [assert_in_epsilon!(number, number, epsilon);](module@crate::assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
+//! * [`assert_approx_eq!(a, b);`](module@crate::assert_approx) `// |a-b| ≤ 1e-6`
+//! * [`assert_in_delta!(a, b, delta);`](module@crate::assert_in_delta) `// |a-b| ≤ delta`
+//! * [`assert_in_epsilon!(a, b, epsilon);`](module@crate::assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
 //! 
 //! Groups for iterators, chars, etc.:
 //! 
-//! * [assert_all!(group, predicate);](module@crate::assert_all) `// group.all(predicate)`
-//! * [assert_any!(group, predicate);](module@crate::assert_any) `// group.any(predicate)`
+//! * [`assert_all!(group, predicate);`](module@crate::assert_all) `// group.all(predicate)`
+//! * [`assert_any!(group, predicate);`](module@crate::assert_any) `// group.any(predicate)`
 //! 
 //! Infix for order operators, logic operators, etc.:
 //! 
-//! * [assert_infix!(a == b);](module@crate::assert_infix) `// order: == != < <= > >=`
-//! * [assert_infix!(a && b);](module@crate::assert_infix) `// logic: && || ^ & |`
+//! * [`assert_infix!(a == b);`](module@crate::assert_infix) `// order: == != < <= > >=`
+//! * [`assert_infix!(a && b);`](module@crate::assert_infix) `// logic: && || ^ & |`
 //! 
 //! Parts for strings, vectors, etc.:
 //! 
-//! * [assert_starts_with!(whole, part);](module@crate::assert_starts_with) `// whole.starts_with(part)`
-//! * [assert_ends_with!(whole, part);](module@crate::assert_ends_with) `// whole.ends_with(part)`
+//! * [`assert_starts_with!(whole, part);`](module@crate::assert_starts_with) `// whole.starts_with(part)`
+//! * [`assert_ends_with!(whole, part);`](module@crate::assert_ends_with) `// whole.ends_with(part)`
 //! 
-//! Lengths for strings, vectors, etc.:
+//! Lengths and counts for strings, vectors, iterators, etc.:
 //! 
-//! * [assert_len!(item);](module@crate::assert_len) `// item.len()`
-//! * [assert_is_empty!(item);](module@crate::assert_is_empty) `// item.is_empty()`
+//! * [`assert_len!(item);`](module@crate::assert_len) `// item.len()`
+//! * [`assert_count!(item);`](module@crate::assert_len) `// item.count()`
+//! * [`assert_is_empty!(item);`](module@crate::assert_is_empty) `// item.is_empty()`
 //! 
 //! Matching for strings, regex, etc.:
 //! 
-//! * [assert_matches!(expression, pattern);](module@crate::assert_matches) `// matches!(expression, pattern)`
-//! * [assert_is_match!(matcher, matchee);](module@crate::assert_is_match) `// matcher.is_match(matchee)`
-//! * [assert_contains!(container, containee);](module@crate::assert_contains) `// container.contains(containee)`
+//! * [`assert_matches!(expression, pattern);`](module@crate::assert_matches) `// matches!(expression, pattern)`
+//! * [`assert_is_match!(matcher, matchee);`](module@crate::assert_is_match) `// matcher.is_match(matchee)`
+//! * [`assert_contains!(container, containee);`](module@crate::assert_contains) `// container.contains(containee)`
 //! 
 //! Collections for arrays, vectors, iterators, sets, maps:
 //! 
-//! * [assert_iter_eq!(arr1, arr2);](module@crate::assert_iter) `// eq ne lt le gt ge`
-//! * [assert_set_eq!(vec1, vec2);](module@crate::assert_set) `// eq ne lt le gt ge etc.`
-//! * [assert_bag_eq!(map1, map2);](module@crate::assert_bag) `// eq ne lt le gt ge etc.`
+//! * [`assert_iter_eq!(arr1, arr2);`](module@crate::assert_iter) `// eq ne etc.`
+//! * [`assert_set_eq!(vec1, vec2);`](module@crate::assert_set) `// eq ne etc.`
+//! * [`assert_bag_eq!(map1, map2);`](module@crate::assert_bag) `// eq ne etc.`
 //! 
 //! Result Ok/Err:
 //! 
-//! * [assert_ok!(result);](module@crate::assert_ok) `// eq ne lt le gt ge`
-//! * [assert_err!(result);](module@crate::assert_err) `// eq ne lt le gt ge`
+//! * [`assert_ok!(result);`](module@crate::assert_ok) `// eq ne etc.`
+//! * [`assert_err!(result);`](module@crate::assert_err) `// eq ne etc.`
 //!   
 //! Option Some/None:
 //! 
-//! * [assert_some!(option);](module@crate::assert_some) `// eq ne lt le gt ge`
-//! * [assert_none!(option);](module@crate::assert_none)
+//! * [`assert_some!(option);`](module@crate::assert_some) `// eq ne etc.`
+//! * [`assert_none!(option);`](module@crate::assert_none)
 //! 
 //! Poll Ready/Pending:
 //! 
-//! * [assert_ready!(poll);](module@crate::assert_ready) `// eq ne lt le gt ge`
-//! * [assert_pending!(poll);](module@crate::assert_pending)
+//! * [`assert_ready!(poll);`](module@crate::assert_ready) `// eq ne etc.`
+//! * [`assert_pending!(poll);`](module@crate::assert_pending)
 //! 
 //! Read file system paths and input/output streams:
 //! 
-//! * [assert_fs_read_to_string_eq!(path1, path2);](module@crate::assert_fs_read_to_string) `// eq ne lt le gt ge`
-//! * [assert_io_read_to_string_eq!(stream1, stream2);](module@crate::assert_io_read_to_string) `// eq ne lt le gt ge`
+//! * [`assert_fs_read_to_string_eq!(path1, path2);`](module@crate::assert_fs_read_to_string) `// eq ne etc.`
+//! * [`assert_io_read_to_string_eq!(stream1, stream2);`](module@crate::assert_io_read_to_string) `// eq ne etc.`
 //! 
 //! Run commands and programs then assert on stdout or stderr:
 //! 
-//! * [assert_command_stdout_eq!(command1, command2);](module@crate::assert_command) `// eq ne lt le gt ge etc.`
-//! * [assert_program_args_stdout_eq!(program1, args1, program2, args2);](module@crate::assert_program_args) `// eq ne lt le gt ge etc.`
+//! * [`assert_command_stdout_eq!(command1, command2);`](module@crate::assert_command) `// eq ne etc.`
+//! * [`assert_program_args_stdout_eq!(program1, args1, program2, args2);`](module@crate::assert_program_args) `// eq ne etc.`
 //! 
 //! Function comparisons, which are especially good for refactoring:
 //! 
-//! * [assert_fn_eq!(fn1, fn2);](module@crate::assert_fn) `// functions that return values`
-//! * [assert_fn_ok_eq!(fn1, fn2);](module@crate::assert_fn_ok) `// functions that return Ok`
-//! * [assert_fn_err_eq!(fn1, fn2);](module@crate::assert_fn_err) `// functions that return Err`
-//! 
-//! ## Forms
-//! 
-//! All assertables macros have forms for different outcomes:
-//! 
-//! * `[assert_gt!(a, b);](module@crate::macro.assert_gt.html) // panic during typical test`
-//! * `[assert_gt_as_result!(a, b);](module@crate::macro.assert_gt_as_result.html) // return Ok or Err`
-//! * `[debug_assert_gt!(a, b);](module@crate::macro.debug_assert_gt.html) // panic when in debug mode`
-//! 
-//! All assertables macros have forms for an optional message:
-//! 
-//! * `[assert_gt!(a, b);](module@crate::macro.assert_gt) // automatic error message`
-//! * `[assert_gt!(a, b, "your text");](module@crate::macro.assert_gt) // custom error message`
-//! 
-//! Many assertables macros have forms for comparing left hand side (LHS) and right hand side (RHS) as the same type or as an arbitrary expression:
-//! 
-//! * `[assert_ok_eq!(a, b);](module@crate::macro.assert_ok_eq.html) // Ok(…) = Ok(…)`
-//! * `[assert_ok_eq_expr!(a, b);](module@crate::macro.assert_ok_eq_expr.html) // Ok(…) = expression`
+//! * [`assert_fn_eq!(fn1, fn2);`](module@crate::assert_fn) `// functions that return values`
+//! * [`assert_fn_ok_eq!(fn1, fn2);`](module@crate::assert_fn_ok) `// functions that return Ok`
+//! * [`assert_fn_err_eq!(fn1, fn2);`](module@crate::assert_fn_err) `// functions that return Err`
 //! 
 //! ## Forms
 //!
@@ -184,9 +167,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.17.0
+//! * Version: 8.18.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-09T18:40:20Z
+//! * Updated: 2024-10-09T19:23:11Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -214,13 +197,14 @@ pub mod assert_any;
 pub mod assert_infix;
 
 // Matching
-pub mod assert_is_empty;
 pub mod assert_is_match;
 pub mod assert_matches;
 pub mod assert_contains;
 pub mod assert_starts_with;
 pub mod assert_ends_with;
 pub mod assert_len;
+pub mod assert_count;
+pub mod assert_is_empty;
 
 // For Result Ok/Err
 pub mod assert_ok;

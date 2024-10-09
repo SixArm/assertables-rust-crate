@@ -173,7 +173,7 @@ mod tests {
 /// assert_fs_read_to_string_ne_expr!(&path, &value);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_ne_expr!(a_path, b_expr)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_fs_read_to_string_ne_expr.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_ne_expr.html
 /// //  a_path label: `&path`,
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_expr label: `&value`,

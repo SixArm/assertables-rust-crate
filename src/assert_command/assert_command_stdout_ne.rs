@@ -178,7 +178,7 @@ mod tests {
 /// assert_command_stdout_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stdout_ne!(a_command, b_command)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_command_stdout_ne.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_ne.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
