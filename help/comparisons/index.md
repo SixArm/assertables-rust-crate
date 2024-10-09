@@ -1,6 +1,6 @@
 # Comparisons
 
-Assertables has comparisons to other Rust crates and assertion techniques. Here are some.
+Assertables comparisons to other Rust crates and assertion techniques:
 
 * [pretty_assertions](pretty_assertions) <!-- 49,710,216 -->
 
@@ -12,7 +12,7 @@ Assertables has comparisons to other Rust crates and assertion techniques. Here 
 
 * [cool_asserts](cool_asserts) <!-- 2,205,482 -->
 
-* [claims](claims) <!-- 688,304 --> and related earlier crates such as `claim` and `rust-claim`
+* [claims](claims) <!-- 688,304 -->
 
 * [spectral](spectral) <!-- 541,786 -->
 
