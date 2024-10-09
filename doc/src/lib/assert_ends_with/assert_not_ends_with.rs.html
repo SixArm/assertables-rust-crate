@@ -205,6 +205,20 @@
 <a href="#205" id="205">205</a>
 <a href="#206" id="206">206</a>
 <a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a string) does not end with an expression (such as a string).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -215,10 +229,16 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main\(\) \{
-//! let a = "alfa";
-//! let b = "al";
-//! assert_not_ends_with!(a, b);
+//! # fn main() {
+//! // String ends with substring?
+//! let whole: &amp;str = "alfa";
+//! let part: &amp;str = "al";
+//! assert_not_ends_with!(whole, part);
+//! 
+//! // Vector ends with element?
+//! let whole = vec![1, 2, 3];
+//! let part = [1];
+//! assert_not_ends_with!(whole, part);
 //! # }
 //! ```
 //!
@@ -251,25 +271,25 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_not_ends_with_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
-            (a, b) =&gt; {
-                <span class="kw">if </span>!(a.ends_with(b)) {
+    (<span class="macro-nonterminal">$whole</span>:expr, <span class="macro-nonterminal">$part</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$whole</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$part</span>) {
+            (whole, part) =&gt; {
+                <span class="kw">if </span>!(whole.ends_with(part)) {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_not_ends_with!(a, b)`\n"</span>,
+                            <span class="string">"assertion failed: `assert_not_ends_with!(whole, part)`\n"</span>,
                             <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_not_ends_with.html\n"</span>,
-                            <span class="string">" a label: `{}`,\n"</span>,
-                            <span class="string">" a debug: `{:?}`,\n"</span>,
-                            <span class="string">" b label: `{}`,\n"</span>,
-                            <span class="string">" b debug: `{:?}`"</span>,
+                            <span class="string">" whole label: `{}`,\n"</span>,
+                            <span class="string">" whole debug: `{:?}`,\n"</span>,
+                            <span class="string">"  part label: `{}`,\n"</span>,
+                            <span class="string">"  part debug: `{:?}`"</span>,
                         ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                        a,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                        b,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$whole</span>),
+                        whole,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$part</span>),
+                        part,
                     ))
                 }
             }
@@ -281,29 +301,30 @@
 </span><span class="kw">mod </span>tests {
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_not_ends_with_as_result_x_success() {
-        <span class="kw">let </span>a = <span class="string">"alfa"</span>;
-        <span class="kw">let </span>b = <span class="string">"al"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_not_ends_with_as_result!</span>(a, b);
+    </span><span class="kw">fn </span>test_assert_not_ends_with_as_result_success() {
+        <span class="kw">let </span>whole = <span class="string">"alfa"</span>;
+        <span class="kw">let </span>part = <span class="string">"al"</span>;
+        <span class="kw">let </span>result = <span class="macro">assert_not_ends_with_as_result!</span>(whole, part);
         <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_not_ends_with_as_result_x_failure() {
-        <span class="kw">let </span>a = <span class="string">"alfa"</span>;
-        <span class="kw">let </span>b = <span class="string">"fa"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_not_ends_with_as_result!</span>(a, b);
+        <span class="kw">let </span>whole = <span class="string">"alfa"</span>;
+        <span class="kw">let </span>part = <span class="string">"fa"</span>;
+        <span class="kw">let </span>result = <span class="macro">assert_not_ends_with_as_result!</span>(whole, part);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_not_ends_with!(a, b)`\n"</span>,
+            <span class="string">"assertion failed: `assert_not_ends_with!(whole, part)`\n"</span>,
             <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_not_ends_with.html\n"</span>,
-            <span class="string">" a label: `a`,\n"</span>,
-            <span class="string">" a debug: `\"alfa\"`,\n"</span>,
-            <span class="string">" b label: `b`,\n"</span>,
-            <span class="string">" b debug: `\"fa\"`"
+            <span class="string">" whole label: `whole`,\n"</span>,
+            <span class="string">" whole debug: `\"alfa\"`,\n"</span>,
+            <span class="string">"  part label: `part`,\n"</span>,
+            <span class="string">"  part debug: `\"fa\"`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
+
 }
 
 <span class="doccomment">/// Assert an expression (such as a string) does not end with an expression (such as a string).
@@ -323,30 +344,36 @@
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a = "alfa";
-/// let b = "al";
-/// assert_not_ends_with!(a, b);
+/// // String ends with substring?
+/// let whole: &amp;str = "alfa";
+/// let part: &amp;str = "al";
+/// assert_not_ends_with!(whole, part);
+/// 
+/// // Vector ends with element?
+/// let whole = vec![1, 2, 3];
+/// let part = [1];
+/// assert_not_ends_with!(whole, part);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a = "alfa";
-/// let b = "fa";
-/// assert_not_ends_with!(a, b);
+/// let whole = "alfa";
+/// let part = "fa";
+/// assert_not_ends_with!(whole, part);
 /// # });
-/// // assertion failed: `assert_not_ends_with!(a, b)`
+/// // assertion failed: `assert_not_ends_with!(whole, part)`
 /// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_not_ends_with.html
-/// //  a label: `a`,
-/// //  a debug: `\"alfa\"`,
-/// //  b label: `b`,
-/// //  b debug: `\"fa\"`
+/// //  whole label: `whole`,
+/// //  whole debug: `\"alfa\"`,
+/// //   part label: `part`,
+/// //   part debug: `\"fa\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_not_ends_with!(a, b)`\n",
+/// #     "assertion failed: `assert_not_ends_with!(whole, part)`\n",
 /// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_ends_with.html\n",
-/// #     " a label: `a`,\n",
-/// #     " a debug: `\"alfa\"`,\n",
-/// #     " b label: `b`,\n",
-/// #     " b debug: `\"fa\"`"
+/// #     " whole label: `whole`,\n",
+/// #     " whole debug: `\"alfa\"`,\n",
+/// #     "  part label: `part`,\n",
+/// #     "  part debug: `\"fa\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -360,14 +387,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_not_ends_with {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_not_ends_with_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$whole</span>:expr, <span class="macro-nonterminal">$part</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_not_ends_with_as_result!</span>(<span class="macro-nonterminal">$whole</span>, <span class="macro-nonterminal">$part</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_not_ends_with_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
+    (<span class="macro-nonterminal">$whole</span>:expr, <span class="macro-nonterminal">$part</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_not_ends_with_as_result!</span>(<span class="macro-nonterminal">$whole</span>, <span class="macro-nonterminal">$part</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

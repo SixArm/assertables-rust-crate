@@ -123,7 +123,9 @@
 <a href="#123" id="123">123</a>
 <a href="#124" id="124">124</a>
 <a href="#125" id="125">125</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert macros for comparing programs with arguments.
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing programs with arguments.
 //!
 //! These macros help with calling external programs with arguments, then
 //! capturing the standard output stream and standard error stream.
@@ -185,7 +187,7 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main\(\) \{
+//! # fn main() {
 //! let a_program = "bin/printf-stdout";
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stdout";
@@ -194,6 +196,7 @@
 //! # }
 //! ```
 
+/// Assert program args implementation preparation.
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_impl_prep {
     (<span class="macro-nonterminal">$program</span>:expr, <span class="macro-nonterminal">$args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{

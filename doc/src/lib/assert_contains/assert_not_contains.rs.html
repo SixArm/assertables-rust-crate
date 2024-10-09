@@ -248,6 +248,16 @@
 <a href="#248" id="248">248</a>
 <a href="#249" id="249">249</a>
 <a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a string) does not contain an expression (such as a substring).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -258,11 +268,21 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main\(\) \{
+//! # fn main() {
 //! // String contains substring?
 //! let a = "alfa";
 //! let b = "zz";
 //! assert_not_contains!(a, b);
+//!
+//! // Range contains value?
+//! let a = 1..3;
+//! let b = 4;
+//! assert_not_contains!(a, &amp;b);
+//!
+//! // Vector contains element?
+//! let a = vec![1, 2, 3];
+//! let b = 4;
+//! assert_not_contains!(a, &amp;b);
 //! # }
 //! ```
 //!
@@ -355,15 +375,15 @@
 
     </span><span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_not_contains_as_result_x_range_x_success() {
-        <span class="kw">let </span>a = <span class="number">1</span>..<span class="number">5</span>;
-        <span class="kw">let </span>b = <span class="number">6</span>;
+        <span class="kw">let </span>a = <span class="number">1</span>..<span class="number">3</span>;
+        <span class="kw">let </span>b = <span class="number">4</span>;
         <span class="kw">let </span>result = <span class="macro">assert_not_contains_as_result!</span>(a, <span class="kw-2">&amp;</span>b);
         <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_not_contains_as_result_x_range_x_failure() {
-        <span class="kw">let </span>a = <span class="number">1</span>..<span class="number">5</span>;
+        <span class="kw">let </span>a = <span class="number">1</span>..<span class="number">3</span>;
         <span class="kw">let </span>b = <span class="number">2</span>;
         <span class="kw">let </span>result = <span class="macro">assert_not_contains_as_result!</span>(a, <span class="kw-2">&amp;</span>b);
         <span class="kw">let </span>actual = result.unwrap_err();
@@ -371,7 +391,7 @@
             <span class="string">"assertion failed: `assert_not_contains!(container, containee)`\n"</span>,
             <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_not_contains.html\n"</span>,
             <span class="string">" container label: `a`,\n"</span>,
-            <span class="string">" container debug: `1..5`,\n"</span>,
+            <span class="string">" container debug: `1..3`,\n"</span>,
             <span class="string">" containee label: `&amp;b`,\n"</span>,
             <span class="string">" containee debug: `2`"
         </span>);
@@ -403,11 +423,15 @@
 /// assert_not_contains!(a, b);
 ///
 /// // Range contains value?
-/// let a = 1..5;
-/// let b = 6;
+/// let a = 1..3;
+/// let b = 4;
 /// assert_not_contains!(a, &amp;b);
-/// //-&gt;
 ///
+/// // Vector contains element?
+/// let a = vec![1, 2, 3];
+/// let b = 4;
+/// assert_not_contains!(a, &amp;b);
+/// 
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "alfa";

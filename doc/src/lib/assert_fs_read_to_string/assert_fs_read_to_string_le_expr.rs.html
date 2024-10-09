@@ -255,6 +255,7 @@
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string(path) value is less than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -265,7 +266,7 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main\(\) \{
+//! # fn main() {
 //! let path = "alfa.txt";
 //! let value = String::from("bravo\n");
 //! assert_fs_read_to_string_le_expr!(&amp;path, &amp;value);

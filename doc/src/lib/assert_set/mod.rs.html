@@ -54,7 +54,9 @@
 <a href="#54" id="54">54</a>
 <a href="#55" id="55">55</a>
 <a href="#56" id="56">56</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert macros for comparing set collections.
+<a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing set collections.
 //!
 //! These macros help with comparison of set parameters, such as two arrays or
 //! two vectors. where the item order does not matter, and the item count does
@@ -84,18 +86,19 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main\(\) \{
+//! # fn main() {
 //! let a = [1, 2];
 //! let b = [2, 1];
 //! assert_set_eq!(&amp;a, &amp;b);
 //! # }
 //! ```
 
+/// Assert set implementation preparation.
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_set_impl_prep {
-    (<span class="macro-nonterminal">$into_iterable</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$into_iterable</span>) {
-            into_iterable =&gt; into_iterable.into_iter().collect()
+    (<span class="macro-nonterminal">$impl_into_iter</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$impl_into_iter</span>) {
+            impl_into_iter =&gt; impl_into_iter.into_iter().collect()
         }
     }};
 }

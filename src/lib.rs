@@ -48,8 +48,15 @@
 //! Top features:
 //!
 //! 1. Easy to use: everything is well-documented with runnable examples.
-//! 2. Runtime savvy: all the assertables macros have runtime versions.
-//! 3. Zero overhead: if you don't use a macro, then it's never compiled.
+//! 2. Zero overhead: if you don't use a macro, then it's never compiled.
+//! 3. Runtime options: all the assertables macros have runtime versions.
+//!
+//! Top comparison crates:
+//!    `[assert_matches](https://crates.io/crates/assert_matches)`,
+//!    `[assert_approx_eq](https://crates.io/crates/assert_approx_eq)`,
+//!    `[more_asserts](https://crates.io/crates/more_asserts)`,
+//!    `[cool_asserts](https://crates.io/crates/cool_asserts)`.
+//!    `[claims](https://crates.io/crates/claims)`.
 //!
 //! To use the macros, add this to your `Cargo.toml` file:
 //!
@@ -60,89 +67,103 @@
 //!
 //! ## Highlights
 //!
-//! For values:
-//!
-//! * [`assert_lt!(a, b)`](macro@crate::assert_lt) `// less than`
-//! * [`assert_le!(a, b)`](macro@crate::assert_le) `// less than or equal to`
-//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// greater than`
-//! * [`assert_ge!(a, b)`](macro@crate::assert_ge) `// greater than or equal to`
-//!
-//! For approximations:
-//!
-//! * [`assert_approx_eq!(a, b)`](macro@crate::assert_approx_eq)
-//! * [`assert_approx_ne!(a, b)`](macro@crate::assert_approx_ne)
-//!
-//! For nearness:
-//!
-//! * [`assert_in_delta!(a, b, delta)`](macro@crate::assert_in_delta)
-//! * [`assert_in_epsilon!(a, b, epsilon)`](macro@crate::assert_in_epsilon)
 //! 
-//! For groups:
-//!
-//! * [`assert_all!(group, predicate)`](macro@crate::assert_all)
-//! * [`assert_any!(group, predicate)`](macro@crate::assert_any)
-//!
-//! ## Modules
+//! Values:
 //! 
-//! There are many more macros that are organized in modules.
-//!
-//! For values:
-//!
-//! * [`assert_infix`](module@crate::assert_infix)
-//! * [`assert_approx`](module@crate::assert_approx)
-//!
-//! For parts:
-//!
-//! * [`assert_starts_with`](module@crate::assert_starts_with)
-//! * [`assert_ends_with`](module@crate::assert_ends_with)
+//! * [assert_eq!(a, b);](module@crate::assert_eq) `// equal to`
+//! * [assert_ne!(a, b);](module@crate::assert_ne) `// not equal to`
+//! * [assert_lt!(a, b);](module@crate::assert_lt) `// less than`
+//! * [assert_le!(a, b);](module@crate::assert_le) `// less than or equal to`
+//! * [assert_gt!(a, b);](module@crate::assert_gt) `// greater than`
+//! * [assert_ge!(a, b);](module@crate::assert_ge) `// greater than or equal to`
 //! 
-//! For lengths:
+//! Approximations:
 //! 
-//! * [`assert_len`](module@crate::assert_len)
-//! * [`assert_is_empty`](module@crate::assert_is_empty)
+//! * [assert_approx_eq!(number, number);](module@crate::assert_approx) `// |a-b| ≤ 1e-6`
+//! * [assert_in_delta!(number, number, delta);](module@crate::assert_in_delta) `// |a-b| ≤ delta`
+//! * [assert_in_epsilon!(number, number, epsilon);](module@crate::assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
 //! 
-//! For matching:
-//!
-//! * [`assert_contains`](module@crate::assert_contains)
-//! * [`assert_is_match`](module@crate::assert_is_match)
+//! Groups for iterators, chars, etc.:
 //! 
-//! For collections, such as arrays, vectors, lists, maps:
-//!
-//! * [`assert_iter`](module@crate::assert_iter) for iterator collections.
-//! * [`assert_set`](module@crate::assert_set) for set collections.
-//! * [`assert_bag`](module@crate::assert_bag) for bag collections.
-//!
-//! For Result Ok/Err:
-//!
-//! * [`assert_ok`](module@crate::assert_ok)
-//! * [`assert_err`](module@crate::assert_err)
+//! * [assert_all!(group, predicate);](module@crate::assert_all) `// group.all(predicate)`
+//! * [assert_any!(group, predicate);](module@crate::assert_any) `// group.any(predicate)`
 //! 
-//! For Option Some/None:
+//! Infix for order operators, logic operators, etc.:
 //! 
-//! * [`assert_some`](module@crate::assert_some)
-//! * [`assert_none`](module@crate::assert_none)
+//! * [assert_infix!(a == b);](module@crate::assert_infix) `// order: == != < <= > >=`
+//! * [assert_infix!(a && b);](module@crate::assert_infix) `// logic: && || ^ & |`
 //! 
-//! For Poll Ready/Pending:
+//! Parts for strings, vectors, etc.:
 //! 
-//! * [`assert_ready`](module@crate::assert_ready)
-//! * [`assert_pending`](module@crate::assert_pending)
-//!
-//! For functions:
-//!
-//! * [`assert_fn`](module@crate::assert_fn) for functions in general.
-//! * [`assert_fn_ok`](module@crate::assert_fn_ok) for functions that return Result::Ok.
-//! * [`assert_fn_err`](module@crate::assert_fn_err) for functions that return Result::Err.
-//!
-//! For reading file systems and input/output streams:
-//!
-//! * [`assert_fs_read_to_string`](module@crate::assert_fs_read_to_string) for file system path contents.
-//! * [`assert_io_read_to_string`](module@crate::assert_io_read_to_string) for input/output reader streams.
-//!
-//! For commands to capture stdout and stderr:
-//!
-//! * [`assert_command`](module@crate::assert_command) for commands and their stdout & stderr.
-//! * [`assert_program_args`](module@crate::assert_program_args) for programs with args and their stdout & stderr.
-//!
+//! * [assert_starts_with!(whole, part);](module@crate::assert_starts_with) `// whole.starts_with(part)`
+//! * [assert_ends_with!(whole, part);](module@crate::assert_ends_with) `// whole.ends_with(part)`
+//! 
+//! Lengths for strings, vectors, etc.:
+//! 
+//! * [assert_len!(item);](module@crate::assert_len) `// item.len()`
+//! * [assert_is_empty!(item);](module@crate::assert_is_empty) `// item.is_empty()`
+//! 
+//! Matching for strings, regex, etc.:
+//! 
+//! * [assert_contains!(container, containee);](module@crate::assert_contains) `// container.contains(containee)`
+//! * [assert_is_match!(matcher, matchee);](module@crate::assert_is_match) `// matcher.is_match(matchee)`
+//! 
+//! Collections for arrays, vectors, iterators, sets, maps:
+//! 
+//! * [assert_iter_eq!(arr1, arr2);](module@crate::assert_iter) `// eq ne lt le gt ge`
+//! * [assert_set_eq!(vec1, vec2);](module@crate::assert_set) `// eq ne lt le gt ge etc.`
+//! * [assert_bag_eq!(map1, map2);](module@crate::assert_bag) `// eq ne lt le gt ge etc.`
+//! 
+//! Result Ok/Err:
+//! 
+//! * [assert_ok!(result);](module@crate::assert_ok) `// eq ne lt le gt ge`
+//! * [assert_err!(result);](module@crate::assert_err) `// eq ne lt le gt ge`
+//!   
+//! Option Some/None:
+//! 
+//! * [assert_some!(option);](module@crate::assert_some) `// eq ne lt le gt ge`
+//! * [assert_none!(option);](module@crate::assert_none)
+//! 
+//! Poll Ready/Pending:
+//! 
+//! * [assert_ready!(poll);](module@crate::assert_ready) `// eq ne lt le gt ge`
+//! * [assert_pending!(poll);](module@crate::assert_pending)
+//! 
+//! Read file system paths and input/output streams:
+//! 
+//! * [assert_fs_read_to_string_eq!(path1, path2);](module@crate::assert_fs_read_to_string) `// eq ne lt le gt ge`
+//! * [assert_io_read_to_string_eq!(stream1, stream2);](module@crate::assert_io_read_to_string) `// eq ne lt le gt ge`
+//! 
+//! Run commands and programs then assert on stdout or stderr:
+//! 
+//! * [assert_command_stdout_eq!(command1, command2);](module@crate::assert_command) `// eq ne lt le gt ge etc.`
+//! * [assert_program_args_stdout_eq!(program1, args1, program2, args2);](module@crate::assert_program_args) `// eq ne lt le gt ge etc.`
+//! 
+//! Function comparisons, which are especially good for refactoring:
+//! 
+//! * [assert_fn_eq!(fn1, fn2);](module@crate::assert_fn) `// functions that return values`
+//! * [assert_fn_ok_eq!(fn1, fn2);](module@crate::assert_fn_ok) `// functions that return Ok`
+//! * [assert_fn_err_eq!(fn1, fn2);](module@crate::assert_fn_err) `// functions that return Err`
+//! 
+//! 
+//! ## Forms
+//! 
+//! All assertables macros have forms for different outcomes:
+//! 
+//! * `[assert_gt!(a, b);](module@crate::macro.assert_gt.html) // panic during typical test`
+//! * `[assert_gt_as_result!(a, b);](module@crate::macro.assert_gt_as_result.html) // return Ok or Err`
+//! * `[debug_assert_gt!(a, b);](module@crate::macro.debug_assert_gt.html) // panic when in debug mode`
+//! 
+//! All assertables macros have forms for an optional message:
+//! 
+//! * `[assert_gt!(a, b);](module@crate::macro.assert_gt) // automatic error message`
+//! * `[assert_gt!(a, b, "your text");](module@crate::macro.assert_gt) // custom error message`
+//! 
+//! Many assertables macros have forms for comparing left hand side (LHS) and right hand side (RHS) as the same type or as an arbitrary expression:
+//! 
+//! * `[assert_ok_eq!(a, b);](module@crate::macro.assert_ok_eq.html) // Ok(…) = Ok(…)`
+//! * `[assert_ok_eq_expr!(a, b);](module@crate::macro.assert_ok_eq_expr.html) // Ok(…) = expression`
+//! 
 //! ## Forms
 //!
 //! All assertables macros have forms for an optional message:
