@@ -250,18 +250,19 @@
 <a href="#250" id="250">250</a>
 <a href="#251" id="251">251</a>
 <a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
 //! compile-time tests and run-time reliability.
 //!
-//! * Crate:
-//!   [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
+//! * Crate: [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
 //! * Docs: [https://docs.rs/assertables/](https://docs.rs/assertables/)
-//! * Repo:
-//!   [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
-//! * Contact:
-//!   [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
+//! * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
+//! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
 //!
 //! ## Introduction
 //!
@@ -283,13 +284,22 @@
 //! use assertables::*;
 //! # fn main() {
 //! let s = "hello world";
+//! assert_matches!(s, "hello world");
 //! assert_starts_with!(s, "hello");
+//! assert_ends_with!(s, "world");
 //! assert_contains!(s, "o");
 //! assert_len_eq!(s, "***********");
 //! assert_all!(s.chars(), |c: char| c &lt; 'x');
 //! assert_any!(s.chars(), |c: char| c.is_whitespace());
 //! # }
 //!  ```
+//! 
+//! To use the macros, add this to your `Cargo.toml` file:
+//!
+//! ```toml
+//! [dev-dependencies]
+//! assertables = "*"
+//! ```
 //! 
 //! Top benefits:
 //!
@@ -300,19 +310,18 @@
 //! Top features:
 //!
 //! 1. Easy to use: everything is well-documented with runnable examples.
-//! 2. Runtime savvy: all the assertables macros have runtime versions.
-//! 3. Zero overhead: if you don't use a macro, then it's never compiled.
+//! 2. Zero overhead: if you don't use a macro, then it's never compiled.
+//! 3. Runtime options: all the assertables macros have runtime versions.
 //!
-//! To use the macros, add this to your `Cargo.toml` file:
-//!
-//! ```toml
-//! [dev-dependencies]
-//! assertables = "*"
-//! ```
+//! Top comparison crates:
+//!    `[assert_matches](https://crates.io/crates/assert_matches)`,
+//!    `[assert_approx_eq](https://crates.io/crates/assert_approx_eq)`,
+//!    `[more_asserts](https://crates.io/crates/more_asserts)`,
+//!    `[cool_asserts](https://crates.io/crates/cool_asserts)`.
+//!    `[claims](https://crates.io/crates/claims)`.
 //!
 //! ## Highlights
 //!
-//! 
 //! Values:
 //! 
 //! * [assert_eq!(a, b);](module@crate::assert_eq) `// equal to`
@@ -350,8 +359,9 @@
 //! 
 //! Matching for strings, regex, etc.:
 //! 
-//! * [assert_contains!(container, containee);](module@crate::assert_contains) `// container.contains(containee)`
+//! * [assert_matches!(expression, pattern);](module@crate::assert_matches) `// matches!(expression, pattern)`
 //! * [assert_is_match!(matcher, matchee);](module@crate::assert_is_match) `// matcher.is_match(matchee)`
+//! * [assert_contains!(container, containee);](module@crate::assert_contains) `// container.contains(containee)`
 //! 
 //! Collections for arrays, vectors, iterators, sets, maps:
 //! 
@@ -390,7 +400,6 @@
 //! * [assert_fn_ok_eq!(fn1, fn2);](module@crate::assert_fn_ok) `// functions that return Ok`
 //! * [assert_fn_err_eq!(fn1, fn2);](module@crate::assert_fn_err) `// functions that return Err`
 //! 
-//! 
 //! ## Forms
 //! 
 //! All assertables macros have forms for different outcomes:
@@ -428,14 +437,12 @@
 //! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq) `// Ok(…) = Ok(…)`
 //! * [`assert_ok_eq_expr!(a, b)`](macro@crate::assert_ok_eq_expr) `// Ok(…) = expression`
 //!
-//!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.16.0
+//! * Version: 8.17.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-08T15:07:34Z
-//! 
+//! * Updated: 2024-10-09T18:40:20Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -444,11 +451,11 @@
 
 // Assert value comparison
 </span><span class="kw">pub mod </span>assert_eq; <span class="comment">// (in addition to what's provided by Rust `std`)
-</span><span class="kw">pub mod </span>assert_ge;
-<span class="kw">pub mod </span>assert_gt;
+</span><span class="kw">pub mod </span>assert_ne; <span class="comment">// (in addition to what's provided by Rust `std`)
+</span><span class="kw">pub mod </span>assert_lt;
 <span class="kw">pub mod </span>assert_le;
-<span class="kw">pub mod </span>assert_lt;
-<span class="kw">pub mod </span>assert_ne;
+<span class="kw">pub mod </span>assert_gt;
+<span class="kw">pub mod </span>assert_ge;
 
 <span class="comment">// Assert value nearness
 </span><span class="kw">pub mod </span>assert_approx;
@@ -465,6 +472,7 @@
 <span class="comment">// Matching
 </span><span class="kw">pub mod </span>assert_is_empty;
 <span class="kw">pub mod </span>assert_is_match;
+<span class="kw">pub mod </span>assert_matches;
 <span class="kw">pub mod </span>assert_contains;
 <span class="kw">pub mod </span>assert_starts_with;
 <span class="kw">pub mod </span>assert_ends_with;

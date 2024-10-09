@@ -5,6 +5,8 @@ Changes highlights for recent major versions.
 
 ## Version 8.x
 
+* Add `assert_matches`, `assert_not_matches`.
+
 * Add Iterator macros: `assert_iter_all`, `assert_iter_any`, `assert_iter_eq`, etc.
 
 * Add Result macros: `assert_ok`, `assert_err`, etc.

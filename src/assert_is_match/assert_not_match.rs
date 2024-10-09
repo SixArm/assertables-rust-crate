@@ -131,7 +131,7 @@ mod tests {
 /// assert_not_match!(a, b);
 /// # });
 /// // assertion failed: `assert_not_match!(matcher, matchee)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_not_match.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_not_match.html
 /// //  matcher label: `a`,
 /// //  matcher debug: `Regex(\"lf\")`,
 /// //  matchee label: `b`,

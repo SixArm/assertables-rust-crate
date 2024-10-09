@@ -189,7 +189,7 @@ mod tests {
 /// assert_command_stdout_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_command_stdout_eq.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_command_stdout_eq.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,

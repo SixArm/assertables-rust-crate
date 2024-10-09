@@ -176,7 +176,7 @@ mod tests {
 /// assert_fs_read_to_string_le!(&a, &b);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_fs_read_to_string_le.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_fs_read_to_string_le.html
 /// //  a_path label: `&a`,
 /// //  a_path debug: `\"bravo.txt\"`,
 /// //  b_path label: `&b`,

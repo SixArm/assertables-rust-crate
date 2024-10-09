@@ -166,7 +166,7 @@ mod tests {
 /// assert_command_stdout_contains!(command, &containee);
 /// # });
 /// // assertion failed: `assert_command_stdout_contains!(command, containee)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_command_stdout_contains.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_command_stdout_contains.html
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  containee label: `&containee`,

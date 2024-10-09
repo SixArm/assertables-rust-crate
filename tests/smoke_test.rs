@@ -13,10 +13,11 @@ pub static BIN: Lazy<PathBuf> = Lazy::new(|| {
 #[test]
 fn readme() {
     let s = "hello world";
+    assert_matches!(s, "hello world");
+    assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
     assert_starts_with!(s, "hello");
     assert_ends_with!(s, "world");
     assert_contains!(s, "o");
-    assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
     assert_len_eq!(s, "***********");
     assert_len_eq_expr!(s, 11);
     assert_not_empty!(s);

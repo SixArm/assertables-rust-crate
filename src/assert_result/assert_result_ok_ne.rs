@@ -167,7 +167,7 @@ mod tests {
 /// assert_result_ok_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_result_ok_ne!(a, b)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_result_ok_ne.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_result_ok_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,

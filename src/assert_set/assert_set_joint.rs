@@ -139,7 +139,7 @@ mod tests {
 /// assert_set_joint!(&a, &b);
 /// # });
 /// // assertion failed: `assert_set_joint!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_set_joint.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_set_joint.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&b`,

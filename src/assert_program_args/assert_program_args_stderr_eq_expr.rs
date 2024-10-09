@@ -57,7 +57,7 @@ macro_rules! assert_program_args_stderr_eq_expr_as_result {
                             Err(format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stderr_eq_expr!(a_program, a_args, b_expr)`\n",
-                                    "https://docs.rs/assertables/8.16.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
+                                    "https://docs.rs/assertables/8.17.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -82,7 +82,7 @@ macro_rules! assert_program_args_stderr_eq_expr_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_program_args_stderr_eq_expr!(a_program, a_args, b_expr)`\n",
-                                "https://docs.rs/assertables/8.16.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
+                                "https://docs.rs/assertables/8.17.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
                                 " a_program label: `{}`,\n",
                                 " a_program debug: `{:?}`,\n",
                                 "    a_args label: `{}`,\n",
@@ -127,7 +127,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_eq_expr!(a_program, a_args, b_expr)`\n",
-            "https://docs.rs/assertables/8.16.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
+            "https://docs.rs/assertables/8.17.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -148,7 +148,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_eq_expr!(a_program, a_args, b_expr)`\n",
-            "https://docs.rs/assertables/8.16.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
+            "https://docs.rs/assertables/8.17.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -191,7 +191,7 @@ mod tests {
 /// assert_program_args_stderr_eq_expr!(&program, &args, &bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_eq_expr!(a_program, a_args, b_expr)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_program_args_stderr_eq_expr.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_program_args_stderr_eq_expr.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&args`,
@@ -203,7 +203,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_eq_expr!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/8.16.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
+/// #     "https://docs.rs/assertables/8.17.0/assertables/macro.assert_program_args_stderr_eq_expr.html\n",
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&args`,\n",

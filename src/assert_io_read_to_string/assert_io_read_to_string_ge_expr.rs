@@ -162,7 +162,7 @@ mod tests {
 /// assert_io_read_to_string_ge_expr!(reader, &value);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_ge_expr!(a_reader, b_expr)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_io_read_to_string_ge_expr.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_io_read_to_string_ge_expr.html
 /// //  a_reader label: `reader`,
 /// //  a_reader debug: `[]`,
 /// //    b_expr label: `&value`,

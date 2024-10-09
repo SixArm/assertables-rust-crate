@@ -180,7 +180,7 @@ mod tests {
 /// assert_program_args_stdout_contains!(&program, &args, &containee);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_program_args_stdout_contains.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_program_args_stdout_contains.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&args`,

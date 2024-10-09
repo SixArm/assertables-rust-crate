@@ -3,13 +3,10 @@
 //! The `assertables` Rust crate provides many assert macros to improve your
 //! compile-time tests and run-time reliability.
 //!
-//! * Crate:
-//!   [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
+//! * Crate: [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
 //! * Docs: [https://docs.rs/assertables/](https://docs.rs/assertables/)
-//! * Repo:
-//!   [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
-//! * Contact:
-//!   [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
+//! * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
+//! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
 //!
 //! ## Introduction
 //!
@@ -31,13 +28,22 @@
 //! use assertables::*;
 //! # fn main() {
 //! let s = "hello world";
+//! assert_matches!(s, "hello world");
 //! assert_starts_with!(s, "hello");
+//! assert_ends_with!(s, "world");
 //! assert_contains!(s, "o");
 //! assert_len_eq!(s, "***********");
 //! assert_all!(s.chars(), |c: char| c < 'x');
 //! assert_any!(s.chars(), |c: char| c.is_whitespace());
 //! # }
 //!  ```
+//! 
+//! To use the macros, add this to your `Cargo.toml` file:
+//!
+//! ```toml
+//! [dev-dependencies]
+//! assertables = "*"
+//! ```
 //! 
 //! Top benefits:
 //!
@@ -58,16 +64,8 @@
 //!    `[cool_asserts](https://crates.io/crates/cool_asserts)`.
 //!    `[claims](https://crates.io/crates/claims)`.
 //!
-//! To use the macros, add this to your `Cargo.toml` file:
-//!
-//! ```toml
-//! [dev-dependencies]
-//! assertables = "*"
-//! ```
-//!
 //! ## Highlights
 //!
-//! 
 //! Values:
 //! 
 //! * [assert_eq!(a, b);](module@crate::assert_eq) `// equal to`
@@ -105,8 +103,9 @@
 //! 
 //! Matching for strings, regex, etc.:
 //! 
-//! * [assert_contains!(container, containee);](module@crate::assert_contains) `// container.contains(containee)`
+//! * [assert_matches!(expression, pattern);](module@crate::assert_matches) `// matches!(expression, pattern)`
 //! * [assert_is_match!(matcher, matchee);](module@crate::assert_is_match) `// matcher.is_match(matchee)`
+//! * [assert_contains!(container, containee);](module@crate::assert_contains) `// container.contains(containee)`
 //! 
 //! Collections for arrays, vectors, iterators, sets, maps:
 //! 
@@ -145,7 +144,6 @@
 //! * [assert_fn_ok_eq!(fn1, fn2);](module@crate::assert_fn_ok) `// functions that return Ok`
 //! * [assert_fn_err_eq!(fn1, fn2);](module@crate::assert_fn_err) `// functions that return Err`
 //! 
-//! 
 //! ## Forms
 //! 
 //! All assertables macros have forms for different outcomes:
@@ -183,14 +181,12 @@
 //! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq) `// Ok(…) = Ok(…)`
 //! * [`assert_ok_eq_expr!(a, b)`](macro@crate::assert_ok_eq_expr) `// Ok(…) = expression`
 //!
-//!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.16.0
+//! * Version: 8.17.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-08T15:07:34Z
-//! 
+//! * Updated: 2024-10-09T18:40:20Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
@@ -199,11 +195,11 @@ pub mod assert; // (in addition to what's provided by Rust `std`)
 
 // Assert value comparison
 pub mod assert_eq; // (in addition to what's provided by Rust `std`)
-pub mod assert_ge;
-pub mod assert_gt;
-pub mod assert_le;
+pub mod assert_ne; // (in addition to what's provided by Rust `std`)
 pub mod assert_lt;
-pub mod assert_ne;
+pub mod assert_le;
+pub mod assert_gt;
+pub mod assert_ge;
 
 // Assert value nearness
 pub mod assert_approx;
@@ -220,6 +216,7 @@ pub mod assert_infix;
 // Matching
 pub mod assert_is_empty;
 pub mod assert_is_match;
+pub mod assert_matches;
 pub mod assert_contains;
 pub mod assert_starts_with;
 pub mod assert_ends_with;

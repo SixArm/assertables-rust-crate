@@ -197,7 +197,7 @@ mod tests {
 /// assert_in_epsilon!(a, b, e);
 /// # });
 /// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_in_epsilon.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_in_epsilon.html
 /// //                          a label: `a`,
 /// //                          a debug: `10`,
 /// //                          b label: `b`,

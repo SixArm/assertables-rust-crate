@@ -167,7 +167,7 @@ mod tests {
 /// assert_command_stderr_is_match!(command, &matcher);
 /// # });
 /// // assertion failed: `assert_command_stderr_is_match!(command, matcher)`
-/// // https://docs.rs/assertables/8.16.0/assertables/macro.assert_command_stderr_is_match.html
+/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_command_stderr_is_match.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  matcher label: `&matcher`,
