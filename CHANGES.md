@@ -15,7 +15,7 @@ Changes highlights for recent major versions.
 
 * Add Poll macros: `assert_ready`, `assert_pending`, etc.
 
-* Add length macros: `assert_len`, `assert_is_empty`, etc.
+* Add length & count macros: `assert_len`, `assert_count`, `assert_is_empty`, etc.
 
 * Add read macros: `assert_fs_read_to_string`, `assert_io_read_to_string`, etc.
 

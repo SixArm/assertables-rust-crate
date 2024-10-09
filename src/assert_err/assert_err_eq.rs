@@ -175,7 +175,7 @@ mod tests {
 /// assert_err_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_err_eq!(a, b)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_err_eq.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_err_eq.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`,
 /// //  a inner: `1`,

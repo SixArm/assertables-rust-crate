@@ -316,7 +316,7 @@ mod tests {
 /// assert_fn_err_lt!(f, a, f, b);
 /// # });
 /// // assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_fn_err_lt.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_err_lt.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `20`,

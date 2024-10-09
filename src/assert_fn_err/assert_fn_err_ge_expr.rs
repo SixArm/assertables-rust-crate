@@ -285,7 +285,7 @@ mod tests {
 /// assert_fn_err_ge_expr!(f, a, b);
 /// # });
 /// // assertion failed: `assert_fn_err_ge_expr!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_fn_err_ge_expr.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_err_ge_expr.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `10`,

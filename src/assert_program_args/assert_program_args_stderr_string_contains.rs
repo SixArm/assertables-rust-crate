@@ -179,7 +179,7 @@ mod tests {
 /// assert_program_args_stderr_string_contains!(&program, &args, &containee);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_program_args_stderr_string_contains.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stderr_string_contains.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&args`,

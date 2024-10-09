@@ -174,7 +174,7 @@ mod tests {
 /// assert_command_stderr_ne_expr!(command, &bytes);
 /// # });
 /// // assertion failed: `assert_command_stderr_ne_expr!(command, expr)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_command_stderr_ne_expr.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ne_expr.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //     expr label: `&bytes`,

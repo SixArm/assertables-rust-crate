@@ -185,7 +185,7 @@ mod tests {
 /// assert_approx_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_approx_ne!(a, b)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_approx_ne.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_approx_ne.html
 /// //            a label: `a`,
 /// //            a debug: `1.0000001`,
 /// //            b label: `b`,

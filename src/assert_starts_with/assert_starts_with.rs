@@ -139,7 +139,7 @@ mod tests {
 /// let part = "fa";
 /// assert_starts_with!(whole, part);
 /// // assertion failed: `assert_starts_with!(whole, part)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_starts_with.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_starts_with.html
 /// //  whole label: `whole`,
 /// //  whole debug: `\"alfa\"`,
 /// //   part label: `part`,

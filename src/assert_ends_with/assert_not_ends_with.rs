@@ -140,7 +140,7 @@ mod tests {
 /// assert_not_ends_with!(whole, part);
 /// # });
 /// // assertion failed: `assert_not_ends_with!(whole, part)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_not_ends_with.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_ends_with.html
 /// //  whole label: `whole`,
 /// //  whole debug: `\"alfa\"`,
 /// //   part label: `part`,

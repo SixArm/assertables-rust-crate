@@ -171,7 +171,7 @@ mod tests {
 /// assert_poll_ready_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_poll_ready_ne!(a, b)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_poll_ready_ne.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_poll_ready_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Ready(1)`,
 /// //  a inner: `1`,

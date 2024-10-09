@@ -158,7 +158,7 @@ mod tests {
 /// assert_io_read_to_string_contains!(reader, &containee);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_io_read_to_string_contains.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_io_read_to_string_contains.html
 /// //     reader label: `&reader`,
 /// //     reader debug: `[]`,
 /// //  containee label: `&containee`,

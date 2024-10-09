@@ -213,7 +213,7 @@ mod tests {
 /// assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_program_args_stderr_lt.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stderr_lt.html
 /// //  a_program label: `&a_program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&a_args`,

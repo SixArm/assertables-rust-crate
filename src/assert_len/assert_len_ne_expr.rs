@@ -133,7 +133,7 @@ mod tests {
 /// assert_len_ne_expr!(a, b);
 /// # });
 /// // assertion failed: `assert_len_ne_expr!(a, b)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_len_ne_expr.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_ne_expr.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",

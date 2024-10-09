@@ -175,7 +175,7 @@ mod tests {
 /// assert_some_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_some_ne!(a, b)`
-/// // https://docs.rs/assertables/8.17.0/assertables/macro.assert_some_ne.html
+/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_some_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`,
 /// //  b label: `b`,
