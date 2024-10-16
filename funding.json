@@ -1,0 +1,61 @@
+{
+    "version": "v1.0.0",
+    "entity": {
+        "type": "individual",
+        "role": "maintainer",
+        "name": "Joel Parker Henderson",
+        "email": "joel@joelparkerhenderson.com",
+        "phone": "",
+        "description": "I'm a software developer working with FOSS technologies.",
+        "webpageUrl": {
+            "url": "https://linktr.ee/joelparkerhenderson"
+        }
+    },
+    "projects": [{
+        "guid": "assertables",
+        "name": "Assertables Rust crate",
+        "description": "Assertables is a Rust crate of asssert macros that helps developers write smarter tests.",
+        "webpageUrl": {
+            "url": "https://crates.io/crates/assertables"
+        },
+        "repositoryUrl": {
+            "url": "https://github.com/sixarm/assertables"
+        },
+        "licenses": ["spdx:MIT", "spdx:Apache-2.0", "spdx:GPL-2.0", "spdx:GPL-3.0"],
+        "tags": ["assert", "test", "debug", "development", "rust", "crate"]
+    }],
+    "funding": {
+        "channels": [
+            {
+                "guid": "paypal",
+                "type": "payment-provider",
+                "address": "https://www.paypal.com/paypalme/joelparkerhenderson",
+                "description": "You can fund via PayPal with your own PayPal account, or debit card, or credit card."
+            },
+            {
+                "guid": "venmo",
+                "type": "payment-provider",
+                "address": "https://www.venmo.com/joelparkerhenderson",
+                "description": "You can fund via Venmo with your own Venmo account, or debit card, or credit card."
+            },
+            {
+                "guid": "bank",
+                "type": "bank",
+                "description": "You can pay via direct bank transfer if you wish, such as via U.S. Automated Clearning House (ACH) or worldwide wire transfer (Fedwire, SWIFT, etc.). Please e-mail me for details."
+            }
+        ],
+        "plans": [
+            {
+                "guid": "angel-plan",
+                "status": "active",
+                "name": "Goodwill plan",
+                "description": "Pay anything you wish to show your goodwill for the project.",
+                "amount": 0,
+                "currency": "USD",
+                "frequency": "one-time",
+                "channels": ["paypal", "venmo", "bank"]
+            }
+        ],
+        "history": []
+    }
+}
