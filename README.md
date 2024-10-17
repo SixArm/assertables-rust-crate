@@ -27,11 +27,8 @@ use assertables::*;
 let s = "hello world";
 assert_matches!(s, "hello world");
 assert_starts_with!(s, "hello");
-assert_ends_with!(s, "world");
 assert_contains!(s, "o");
-assert_len_eq!(s, "***********");
 assert_all!(s.chars(), |c: char| c < 'x');
-assert_any!(s.chars(), |c: char| c.is_whitespace());
 ```
 
 To use the macros, add this to your `Cargo.toml` file:
@@ -53,12 +50,14 @@ Top features:
 2. Zero overhead: if you don't use a macro, then it's never compiled.
 3. Runtime options: all the assertables macros have runtime versions.
 
-Top comparison crates: 
+Top comparable crates: 
     [`assert_matches`](https://crates.io/crates/assert_matches),
     [`assert_approx_eq`](https://crates.io/crates/assert_approx_eq),
     [`more_asserts`](https://crates.io/crates/more_asserts),
-    [`cool_asserts`](https://crates.io/crates/cool_asserts).
-    [`claims`](https://crates.io/crates/claims).
+    [`cool_asserts`](https://crates.io/crates/cool_asserts),
+    [`assert2`](https://crates.io/crates/assert2),
+    [`claims`](https://crates.io/crates/claims),
+    [`static_assertions`](https://crates.io/crates/static_assertions).
 
 ## Highlights
 
@@ -144,16 +143,16 @@ Function comparisons, which are especially good for refactoring:
 
 ## Forms
 
+All assertables macros have forms for an optional message:
+
+* [`assert_gt!(a, b);`](https://docs.rs/assertables/8.18.0/assertables/macro.assert_gt.html) `// automatic error message`
+* [`assert_gt!(a, b, "your text");`](https://docs.rs/assertables/8.18.0/assertables/macro.assert_gt.html) `// custom error message`
+
 All assertables macros have forms for different outcomes:
 
 * [`assert_gt!(a, b);`](https://docs.rs/assertables/8.18.0/assertables/macro.assert_gt.html) `// panic during typical test`
 * [`assert_gt_as_result!(a, b);`](https://docs.rs/assertables/8.18.0/assertables/macro.assert_gt_as_result.html) `// return Ok or Err`
 * [`debug_assert_gt!(a, b);`](https://docs.rs/assertables/8.18.0/assertables/macro.debug_assert_gt.html) `// panic when in debug mode`
-
-All assertables macros have forms for an optional message:
-
-* [`assert_gt!(a, b);`](https://docs.rs/assertables/8.18.0/assertables/macro.assert_gt.html) `// automatic error message`
-* [`assert_gt!(a, b, "your text");`](https://docs.rs/assertables/8.18.0/assertables/macro.assert_gt.html) `// custom error message`
 
 Many assertables macros have forms for comparing left hand side (LHS) and right hand side (RHS) as the same type or as an arbitrary expression:
 

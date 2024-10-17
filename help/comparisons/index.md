@@ -12,8 +12,12 @@ Assertables comparisons to other Rust crates and assertion techniques:
 
 * [cool_asserts](cool_asserts) <!-- 2,205,482 -->
 
+* [assert2](assert2) <!-- 846,247 -->
+
 * [claims](claims) <!-- 688,304 -->
 
 * [spectral](spectral) <!-- 541,786 -->
 
 * [totems](totems) <!-- 26,229 -->
+
+* [static_assertions](static_assertions) <!--  126,564,971 -->

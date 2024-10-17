@@ -30,11 +30,8 @@
 //! let s = "hello world";
 //! assert_matches!(s, "hello world");
 //! assert_starts_with!(s, "hello");
-//! assert_ends_with!(s, "world");
 //! assert_contains!(s, "o");
-//! assert_len_eq!(s, "***********");
 //! assert_all!(s.chars(), |c: char| c < 'x');
-//! assert_any!(s.chars(), |c: char| c.is_whitespace());
 //! # }
 //!  ``
 //! 
@@ -57,12 +54,14 @@
 //! 2. Zero overhead: if you don't use a macro, then it's never compiled.
 //! 3. Runtime options: all the assertables macros have runtime versions.
 //!
-//! Top comparison crates:
-//!    `[assert_matches](https://crates.io/crates/assert_matches)`,
-//!    `[assert_approx_eq](https://crates.io/crates/assert_approx_eq)`,
-//!    `[more_asserts](https://crates.io/crates/more_asserts)`,
-//!    `[cool_asserts](https://crates.io/crates/cool_asserts)`.
-//!    `[claims](https://crates.io/crates/claims)`.
+//! Top comparable crates:
+//!    [`assert_matches`](https://crates.io/crates/assert_matches),
+//!    [`assert_approx_eq`](https://crates.io/crates/assert_approx_eq),
+//!    [`more_asserts`](https://crates.io/crates/more_asserts),
+//!    [`cool_asserts`](https://crates.io/crates/cool_asserts),
+//!    [`assert2`](https://crates.io/crates/assert2),
+//!    [`claims`](https://crates.io/crates/claims),
+//!    [`static_assertions`](https://crates.io/crates/static_assertions).
 //!
 //! ## Highlights
 //!
