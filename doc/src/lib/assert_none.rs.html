@@ -249,7 +249,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_none!(a)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_none.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/8.18.0/assertables/macro.assert_none.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`"</span>,
                             ),
@@ -282,7 +282,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_none!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_none.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/8.18.0/assertables/macro.assert_none.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Some(1)`"</span>,
             )
@@ -322,7 +322,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_none!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_none.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_none.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`",
 /// # );

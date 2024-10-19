@@ -58,17 +58,8 @@ macro_rules! assert_bag_superbag_as_result {
                 }) {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_bag_superbag.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`,\n",
-                            "       a: `{:?}`,\n",
-                            "       b: `{:?}`"
-                        ),
+                    Err($crate::assert_bag_impl_err!(
+                        assert_bag_superbag,
                         stringify!($a_collection),
                         a_collection,
                         stringify!($b_collection),
@@ -98,18 +89,17 @@ mod tests {
         let a = [1, 1];
         let b = [2, 2];
         let result = assert_bag_superbag_as_result!(&a, &b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_bag_superbag.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_bag_superbag.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 1]`,\n",
                 " b label: `&b`,\n",
                 " b debug: `[2, 2]`,\n",
-                "       a: `{1: 2}`,\n",
-                "       b: `{2: 2}`"
+                "   a bag: `{1: 2}`,\n",
+                "   b bag: `{2: 2}`"
             )
         );
     }
@@ -119,18 +109,17 @@ mod tests {
         let a = [1, 1];
         let b = [1, 1, 1];
         let result = assert_bag_superbag_as_result!(&a, &b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_bag_superbag.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_bag_superbag.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 1]`,\n",
                 " b label: `&b`,\n",
                 " b debug: `[1, 1, 1]`,\n",
-                "       a: `{1: 2}`,\n",
-                "       b: `{1: 3}`"
+                "   a bag: `{1: 2}`,\n",
+                "   b bag: `{1: 3}`"
             )
         );
     }
@@ -169,18 +158,18 @@ mod tests {
 /// //  a debug: `[1, 1]`,
 /// //  b label: `&b`,
 /// //  b debug: `[1, 1, 1]`,
-/// //        a: `{1: 2}`,
-/// //        b: `{1: 3}`
+/// //    a bag: `{1: 2}`,
+/// //    b bag: `{1: 3}`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_bag_superbag.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_bag_superbag.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 1]`,\n",
 /// #     " b label: `&b`,\n",
 /// #     " b debug: `[1, 1, 1]`,\n",
-/// #     "       a: `{1: 2}`,\n",
-/// #     "       b: `{1: 3}`"
+/// #     "   a bag: `{1: 2}`,\n",
+/// #     "   b bag: `{1: 3}`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

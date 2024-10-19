@@ -224,7 +224,7 @@
 /// * [`assert_option_some_as_result`](macro@crate::assert_option_some_as_result)
 /// * [`debug_assert_option_some`](macro@crate::debug_assert_option_some)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some_as_result` to `assert_some_as_result` because more developers prefer the shorter name."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some_as_result` into `assert_some_as_result` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_option_some_as_result {
     (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -308,7 +308,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_option_some!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_option_some.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_option_some.html\n",
 /// #     " option label: `a`,\n",
 /// #     " option debug: `None`",
 /// # );
@@ -322,7 +322,7 @@
 /// * [`assert_option_some_as_result`](macro@crate::assert_option_some_as_result)
 /// * [`debug_assert_option_some`](macro@crate::debug_assert_option_some)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some` to `assert_some` because more developers prefer the shorter name."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some` into `assert_some` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_option_some {
     (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -367,7 +367,7 @@
 /// * [`assert_option_some`](macro@crate::assert_option_some)
 /// * [`debug_assert_option_some`](macro@crate::debug_assert_option_some)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_option_some` to `debug_assert_some` because more developers prefer the shorter name."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_option_some` into `debug_assert_some` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_option_some {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {

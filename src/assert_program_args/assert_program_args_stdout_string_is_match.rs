@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(program1 + args1 ⇒ command ⇒ stdout ⇒ string)`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -47,57 +47,63 @@
 #[macro_export]
 macro_rules! assert_program_args_stdout_string_is_match_as_result {
     ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {{
-        match ($a_program, $a_args, $matcher) {
+        match ($a_program, $a_args, &$matcher) {
             (a_program, a_args, matcher) => {
-                let a_output = assert_program_args_impl_prep!(a_program, a_args);
-                if a_output.is_err() {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
-                            " a_program label: `{}`,\n",
-                            " a_program debug: `{:?}`,\n",
-                            "    a_args label: `{}`,\n",
-                            "    a_args debug: `{:?}`,\n",
-                            " b_matcher label: `{}`,\n",
-                            " b_matcher debug: `{:?}`,\n",
-                            "        a output: `{:?}`"
-                        ),
-                        stringify!($a_program),
-                        a_program,
-                        stringify!($a_args),
-                        a_args,
-                        stringify!($matcher),
-                        matcher,
-                        a_output
-                    ))
-                } else {
-                    let a_string = String::from_utf8(a_output.unwrap().stdout).unwrap();
-                    if $matcher.is_match(&a_string) {
-                        Ok(())
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
-                                " a_program label: `{}`,\n",
-                                " a_program debug: `{:?}`,\n",
-                                "    a_args label: `{}`,\n",
-                                "    a_args debug: `{:?}`,\n",
-                                " b_matcher label: `{}`,\n",
-                                " b_matcher debug: `{:?}`,\n",
-                                "               a: `{:?}`,\n",
-                                "               b: `{:?}`"
-                            ),
-                            stringify!($a_program),
-                            a_program,
-                            stringify!($a_args),
-                            a_args,
-                            stringify!($matcher),
-                            matcher,
-                            a_string,
-                            $matcher
-                        ))
+                match assert_program_args_impl_prep!(a_program, a_args) {
+                    Ok(a_output) => {
+                        let a_string = String::from_utf8(a_output.stdout).unwrap();
+                        if $matcher.is_match(&a_string) {
+                            Ok(a_string)
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
+                                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+                                        " a_program label: `{}`,\n",
+                                        " a_program debug: `{:?}`,\n",
+                                        "    a_args label: `{}`,\n",
+                                        "    a_args debug: `{:?}`,\n",
+                                        " b_matcher label: `{}`,\n",
+                                        " b_matcher debug: `{:?}`,\n",
+                                        "               a: `{:?}`,\n",
+                                        "               b: `{:?}`"
+                                    ),
+                                    stringify!($a_program),
+                                    a_program,
+                                    stringify!($a_args),
+                                    a_args,
+                                    stringify!($matcher),
+                                    matcher,
+                                    a_string,
+                                    $matcher
+                                )
+                            )
+                        }
+                    },
+                    Err(err) => {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
+                                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+                                    " a_program label: `{}`,\n",
+                                    " a_program debug: `{:?}`,\n",
+                                    "    a_args label: `{}`,\n",
+                                    "    a_args debug: `{:?}`,\n",
+                                    " b_matcher label: `{}`,\n",
+                                    " b_matcher debug: `{:?}`,\n",
+                                    "        a output: `{:?}`"
+                                ),
+                                stringify!($a_program),
+                                a_program,
+                                stringify!($a_args),
+                                a_args,
+                                stringify!($matcher),
+                                matcher,
+                                err
+                            )
+                        )
                     }
                 }
             }
@@ -115,8 +121,8 @@ mod tests {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = Regex::new(r"lf").unwrap();
-        let result = assert_program_args_stdout_string_is_match_as_result!(&a_program, &a_args, &b);
-        assert_eq!(result.unwrap(), ());
+        let result = assert_program_args_stdout_string_is_match_as_result!(&a_program, &a_args, b);
+        assert_eq!(result.unwrap(), "alfa");
     }
 
     #[test]
@@ -124,16 +130,16 @@ mod tests {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = Regex::new(r"zz").unwrap();
-        let result = assert_program_args_stdout_string_is_match_as_result!(&a_program, &a_args, &b);
+        let result = assert_program_args_stdout_string_is_match_as_result!(&a_program, &a_args, b);
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_matcher label: `&b`,\n",
+            " b_matcher label: `b`,\n",
             " b_matcher debug: `Regex(\"zz\")`,\n",
             "               a: `\"alfa\"`,\n",
             "               b: `Regex(\"zz\")`"
@@ -147,7 +153,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
 ///
-/// * If true, return `()`.
+/// * If true, return (program1 + args1 ⇒ command ⇒ stdout ⇒ string).
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -185,7 +191,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&args`,\n",
@@ -209,13 +215,13 @@ mod tests {
 macro_rules! assert_program_args_stdout_string_is_match {
     ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {{
         match $crate::assert_program_args_stdout_string_is_match_as_result!($a_program, $a_args, $matcher) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_program:expr, $a_args:expr, $matcher:expr, $($message:tt)+) => {{
         match $crate::assert_program_args_stdout_string_is_match_as_result!($a_program, $a_args, $matcher) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

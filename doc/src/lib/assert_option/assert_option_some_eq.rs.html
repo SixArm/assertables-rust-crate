@@ -287,7 +287,7 @@
 /// * [`assert_option_some_eq_as_result`](macro@crate::assert_option_some_eq_as_result)
 /// * [`debug_assert_option_some_eq`](macro@crate::debug_assert_option_some_eq)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some_eq_as_result` to `assert_some_eq_as_result` because more developers prefer the shorter name."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some_eq_as_result` into `assert_some_eq_as_result` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_option_some_eq_as_result {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -428,7 +428,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_option_some_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_option_some_eq.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_option_some_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -446,7 +446,7 @@
 /// * [`assert_option_some_eq_as_result`](macro@crate::assert_option_some_eq_as_result)
 /// * [`debug_assert_option_some_eq`](macro@crate::debug_assert_option_some_eq)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some_eq` to `assert_some_eq` because more developers prefer the shorter name."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_option_some_eq` into `assert_some_eq` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_option_some_eq {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -491,7 +491,7 @@
 /// * [`assert_option_some_eq`](macro@crate::assert_option_some_eq)
 /// * [`debug_assert_option_some_eq`](macro@crate::debug_assert_option_some_eq)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_option_some_eq` to `debug_assert_some_eq` because more developers prefer the shorter name."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_option_some_eq` into `debug_assert_some_eq` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_option_some_eq {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {

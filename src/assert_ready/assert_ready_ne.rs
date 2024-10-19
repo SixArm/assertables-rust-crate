@@ -56,7 +56,7 @@ macro_rules! assert_ready_ne_as_result {
                             Err(format!(
                                 concat!(
                                     "assertion failed: `assert_ready_ne!(a, b)`\n",
-                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ready_ne.html\n",
+                                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " a inner: `{:?}`,\n",
@@ -77,7 +77,7 @@ macro_rules! assert_ready_ne_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_ready_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ready_ne.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -113,12 +113,11 @@ mod tests {
         let a: Poll<i8> = Ready(1);
         let b: Poll<i8> = Ready(1);
         let result = assert_ready_ne_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ready_ne!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ready_ne.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ready(1)`,\n",
                 " a inner: `1`,\n",
@@ -134,12 +133,11 @@ mod tests {
         let a: Poll<i8> = Pending;
         let b: Poll<i8> = Ready(1);
         let result = assert_ready_ne_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ready_ne!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ready_ne.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Pending`,\n",
                 " b label: `b`,\n",
@@ -147,7 +145,6 @@ mod tests {
             )
         );
     }
-
 }
 
 /// Assert two expressions are Ready(_) and their values are not equal.
@@ -189,7 +186,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ready_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ready_ne.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`,\n",
 /// #     " a inner: `1`,\n",

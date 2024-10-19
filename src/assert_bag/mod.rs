@@ -36,7 +36,8 @@ macro_rules! assert_bag_impl_prep {
     ($impl_into_iter:expr $(,)?) => {{
         match (&$impl_into_iter) {
             impl_into_iter => {
-                let mut bag: std::collections::BTreeMap<_, usize> = std::collections::BTreeMap::new();
+                let mut bag: std::collections::BTreeMap<_, usize> =
+                    std::collections::BTreeMap::new();
                 for x in impl_into_iter.into_iter() {
                     let n = bag.entry(x).or_insert(0);
                     *n += 1;
@@ -45,6 +46,28 @@ macro_rules! assert_bag_impl_prep {
             }
         }
     }};
+}
+
+/// Format assert failure error message.
+#[macro_export]
+macro_rules! assert_bag_impl_err {
+    ($name:ident, $($arg:tt)*) => {
+        format!(
+            concat!(
+                "assertion failed: `{}!(a_collection, b_collection)`\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.{}.html\n",
+                " a label: `{}`,\n",
+                " a debug: `{:?}`,\n",
+                " b label: `{}`,\n",
+                " b debug: `{:?}`,\n",
+                "   a bag: `{:?}`,\n",
+                "   b bag: `{:?}`"
+            ),
+            stringify!($name),
+            stringify!($name),
+            $($arg)*
+        )
+    }
 }
 
 pub mod assert_bag_eq;

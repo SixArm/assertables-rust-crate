@@ -13,7 +13,7 @@
 //! let whole: &str = "alfa";
 //! let part: &str = "al";
 //! assert_not_ends_with!(whole, part);
-//! 
+//!
 //! // Vector ends with element?
 //! let whole = vec![1, 2, 3];
 //! let part = [1];
@@ -59,7 +59,7 @@ macro_rules! assert_not_ends_with_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_not_ends_with!(whole, part)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_ends_with.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_ends_with.html\n",
                             " whole label: `{}`,\n",
                             " whole debug: `{:?}`,\n",
                             "  part label: `{}`,\n",
@@ -95,7 +95,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_not_ends_with!(whole, part)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_ends_with.html\n",
+            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_ends_with.html\n",
             " whole label: `whole`,\n",
             " whole debug: `\"alfa\"`,\n",
             "  part label: `part`,\n",
@@ -103,7 +103,6 @@ mod tests {
         );
         assert_eq!(actual, expect);
     }
-
 }
 
 /// Assert an expression (such as a string) does not end with an expression (such as a string).
@@ -127,7 +126,7 @@ mod tests {
 /// let whole: &str = "alfa";
 /// let part: &str = "al";
 /// assert_not_ends_with!(whole, part);
-/// 
+///
 /// // Vector ends with element?
 /// let whole = vec![1, 2, 3];
 /// let part = [1];
@@ -148,7 +147,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_not_ends_with!(whole, part)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_ends_with.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_ends_with.html\n",
 /// #     " whole label: `whole`,\n",
 /// #     " whole debug: `\"alfa\"`,\n",
 /// #     "  part label: `part`,\n",

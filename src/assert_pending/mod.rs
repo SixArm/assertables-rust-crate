@@ -6,9 +6,9 @@
 //!
 //! * [`assert_pending!(a)`](macro@crate::assert_pending)
 //!   ≈ a is Pending
-//! 
+//!
 //! # Example
-//! 
+//!
 //! ```rust
 //! use assertables::*;
 //! use std::task::Poll;

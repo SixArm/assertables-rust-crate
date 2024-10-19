@@ -290,7 +290,7 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_all_as_result_x_failure() {
         <span class="kw">let </span>a = [<span class="number">1</span>, -<span class="number">2</span>, <span class="number">3</span>];
-        <span class="kw">let </span>result = <span class="macro">assert_all_as_result!</span>(a.into_iter(), |x: i8| x &gt; <span class="number">0</span>); 
+        <span class="kw">let </span>result = <span class="macro">assert_all_as_result!</span>(a.into_iter(), |x: i8| x &gt; <span class="number">0</span>);
         <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
@@ -338,7 +338,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_all!(collection, predicate)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_all.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_all.html\n",
 /// #     " collection label: `a.into_iter()`,\n",
 /// #     " collection debug: `IntoIter([1, -2, 3])`,\n",
 /// #     "        predicate: `|x: i8| x &gt; 0`",

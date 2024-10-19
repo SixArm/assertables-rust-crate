@@ -18,7 +18,7 @@ The Rust programming language provides assert macros such as `assert!(x)` to tes
 * [`assert_ne!(a, b);`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// a is not equal to b`
 
 The assertables crate provides many more, to help you work with numbers,
-strings, results, options, polls, iterators, files, streams, commands, and more. 
+strings, results, options, polls, iterators, files, streams, commands, and more.
 
 Examples:
 
@@ -50,7 +50,7 @@ Top features:
 2. Zero overhead: if you don't use a macro, then it's never compiled.
 3. Runtime options: all the assertables macros have runtime versions.
 
-Top comparable crates: 
+Top comparable crates:
     [`assert_matches`](https://crates.io/crates/assert_matches),
     [`assert_approx_eq`](https://crates.io/crates/assert_approx_eq),
     [`more_asserts`](https://crates.io/crates/more_asserts),
@@ -113,7 +113,7 @@ Result Ok/Err:
 
 * [`assert_ok!(result);`](https://docs.rs/assertables/8.18.0/assertables/assert_ok) `// eq ne etc.`
 * [`assert_err!(result);`](https://docs.rs/assertables/8.18.0/assertables/assert_err) `// eq ne etc.`
-  
+
 Option Some/None:
 
 * [`assert_some!(option);`](https://docs.rs/assertables/8.18.0/assertables/assert_some) `// eq ne etc.`

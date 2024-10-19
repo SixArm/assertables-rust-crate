@@ -52,7 +52,7 @@ macro_rules! assert_fs_read_to_string_gt_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_gt_expr.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_gt_expr.html\n",
                             " a_path label: `{}`,\n",
                             " a_path debug: `{:?}`,\n",
                             " b_expr label: `{}`,\n",
@@ -74,7 +74,7 @@ macro_rules! assert_fs_read_to_string_gt_expr_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_gt_expr.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_gt_expr.html\n",
                                 " a_path label: `{}`,\n",
                                 " a_path debug: `{:?}`,\n",
                                 " b_expr label: `{}`,\n",
@@ -124,13 +124,12 @@ mod tests {
         let path = DIR.join("alfa.txt");
         let value = String::from("bravo\n");
         let result = assert_fs_read_to_string_gt_expr_as_result!(&path, &value);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             format!(
                 concat!(
                     "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
-                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_gt_expr.html\n",
+                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_gt_expr.html\n",
                     " a_path label: `&path`,\n",
                     " a_path debug: `{:?}`,\n",
                     " b_expr label: `&value`,\n",
@@ -183,7 +182,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_gt_expr!(a_path, b_expr)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_gt_expr.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_gt_expr.html\n",
 /// #     " a_path label: `&path`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_expr label: `&value`,\n",

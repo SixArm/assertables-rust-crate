@@ -292,7 +292,7 @@
 /// * [`assert_poll_ready_eq_as_result`](macro@crate::assert_poll_ready_eq_as_result)
 /// * [`debug_assert_poll_ready_eq`](macro@crate::debug_assert_poll_ready_eq)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_poll_ready_eq_as_result` to `assert_ready_eq_as_result` because more developers prefer the shorter name."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_poll_ready_eq_as_result` into `assert_ready_eq_as_result` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_poll_ready_eq_as_result {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -436,7 +436,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_poll_ready_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_poll_ready_eq.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_poll_ready_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -454,7 +454,7 @@
 /// * [`assert_poll_ready_eq_as_result`](macro@crate::assert_poll_ready_eq_as_result)
 /// * [`debug_assert_poll_ready_eq`](macro@crate::debug_assert_poll_ready_eq)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_poll_ready_eq` to `assert_ready_eq` because more developers prefer the shorter name."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_poll_ready_eq` into `assert_ready_eq` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_poll_ready_eq {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -499,7 +499,7 @@
 /// * [`assert_poll_ready_eq`](macro@crate::assert_poll_ready_eq)
 /// * [`debug_assert_poll_ready_eq`](macro@crate::debug_assert_poll_ready_eq)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_poll_ready_eq` to `debug_assert_ready_eq` because more developers prefer the shorter name."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_poll_ready_eq` into `debug_assert_ready_eq` because more developers prefer the shorter name."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_poll_ready_eq {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {

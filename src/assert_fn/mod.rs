@@ -46,16 +46,16 @@
 
 // Comparisons
 pub mod assert_fn_eq;
-pub mod assert_fn_ne;
-pub mod assert_fn_lt;
-pub mod assert_fn_le;
-pub mod assert_fn_gt;
 pub mod assert_fn_ge;
+pub mod assert_fn_gt;
+pub mod assert_fn_le;
+pub mod assert_fn_lt;
+pub mod assert_fn_ne;
 
 // Compare with expression
 pub mod assert_fn_eq_expr;
-pub mod assert_fn_ne_expr;
 pub mod assert_fn_ge_expr;
 pub mod assert_fn_gt_expr;
 pub mod assert_fn_le_expr;
 pub mod assert_fn_lt_expr;
+pub mod assert_fn_ne_expr;

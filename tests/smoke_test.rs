@@ -260,12 +260,12 @@ fn assert_command() {
     let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stdout_ge!(a, b);
 
     //// stdout expr
-    assert_command_stdout_eq_expr!(a, &vec![b'a', b'l', b'f', b'a']);
-    assert_command_stdout_ne_expr!(a, &vec![b'x', b'x']);
-    assert_command_stdout_lt_expr!(a, &vec![b'z', b'z']);
-    assert_command_stdout_le_expr!(a, &vec![b'z', b'z']);
-    assert_command_stdout_gt_expr!(a, &vec![b'a', b'a']);
-    assert_command_stdout_ge_expr!(a, &vec![b'a', b'a']);
+    assert_command_stdout_eq_expr!(a, vec![b'a', b'l', b'f', b'a']);
+    assert_command_stdout_ne_expr!(a, vec![b'x', b'x']);
+    assert_command_stdout_lt_expr!(a, vec![b'z', b'z']);
+    assert_command_stdout_le_expr!(a, vec![b'z', b'z']);
+    assert_command_stdout_gt_expr!(a, vec![b'a', b'a']);
+    assert_command_stdout_ge_expr!(a, vec![b'a', b'a']);
 
     //// stdout string
     assert_command_stdout_contains!(a, "lf");
@@ -287,12 +287,12 @@ fn assert_command() {
     let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stderr_ge!(a, b);
 
     //// stderr expr
-    assert_command_stderr_eq_expr!(a, &vec![b'a', b'l', b'f', b'a']);
-    assert_command_stderr_ne_expr!(a, &vec![b'x', b'x']);
-    assert_command_stderr_lt_expr!(a, &vec![b'z', b'z']);
-    assert_command_stderr_le_expr!(a, &vec![b'z', b'z']);
-    assert_command_stderr_gt_expr!(a, &vec![b'a', b'a']);
-    assert_command_stderr_ge_expr!(a, &vec![b'a', b'a']);
+    assert_command_stderr_eq_expr!(a, vec![b'a', b'l', b'f', b'a']);
+    assert_command_stderr_ne_expr!(a, vec![b'x', b'x']);
+    assert_command_stderr_lt_expr!(a, vec![b'z', b'z']);
+    assert_command_stderr_le_expr!(a, vec![b'z', b'z']);
+    assert_command_stderr_gt_expr!(a, vec![b'a', b'a']);
+    assert_command_stderr_ge_expr!(a, vec![b'a', b'a']);
 
     //// stderr string
     assert_command_stderr_contains!(a, "lf");
@@ -317,12 +317,12 @@ fn assert_program_args() {
     // assert_program_args_stdout_ge!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
 
     //// stdout expr
-    assert_program_args_stdout_eq_expr!(&a_program, &a_args, &vec![b'a', b'l', b'f', b'a']);
-    assert_program_args_stdout_ne_expr!(&a_program, &a_args, &vec![b'x']);
-    assert_program_args_stdout_lt_expr!(&a_program, &a_args, &vec![b'z', b'z']);
-    assert_program_args_stdout_le_expr!(&a_program, &a_args, &vec![b'z', b'z']);
-    assert_program_args_stdout_gt_expr!(&a_program, &a_args, &vec![b'a', b'a']);
-    assert_program_args_stdout_ge_expr!(&a_program, &a_args, &vec![b'a', b'a']);
+    assert_program_args_stdout_eq_expr!(&a_program, &a_args, vec![b'a', b'l', b'f', b'a']);
+    assert_program_args_stdout_ne_expr!(&a_program, &a_args, vec![b'x']);
+    assert_program_args_stdout_lt_expr!(&a_program, &a_args, vec![b'z', b'z']);
+    assert_program_args_stdout_le_expr!(&a_program, &a_args, vec![b'z', b'z']);
+    assert_program_args_stdout_gt_expr!(&a_program, &a_args, vec![b'a', b'a']);
+    assert_program_args_stdout_ge_expr!(&a_program, &a_args, vec![b'a', b'a']);
 
     //// stdout string
     assert_program_args_stdout_contains!(&a_program, &a_args, "lf");
@@ -343,12 +343,12 @@ fn assert_program_args() {
     // assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
 
     //// stderr expr
-    assert_program_args_stderr_eq_expr!(&a_program, &a_args, &vec![b'a', b'l', b'f', b'a']);
-    assert_program_args_stderr_ne_expr!(&a_program, &a_args, &vec![b'x']);
-    assert_program_args_stderr_lt_expr!(&a_program, &a_args, &vec![b'z', b'z']);
-    assert_program_args_stderr_le_expr!(&a_program, &a_args, &vec![b'z', b'z']);
-    assert_program_args_stderr_gt_expr!(&a_program, &a_args, &vec![b'a', b'a']);
-    assert_program_args_stderr_ge_expr!(&a_program, &a_args, &vec![b'a', b'a']);
+    assert_program_args_stderr_eq_expr!(&a_program, &a_args, vec![b'a', b'l', b'f', b'a']);
+    assert_program_args_stderr_ne_expr!(&a_program, &a_args, vec![b'x']);
+    assert_program_args_stderr_lt_expr!(&a_program, &a_args, vec![b'z', b'z']);
+    assert_program_args_stderr_le_expr!(&a_program, &a_args, vec![b'z', b'z']);
+    assert_program_args_stderr_gt_expr!(&a_program, &a_args, vec![b'a', b'a']);
+    assert_program_args_stderr_ge_expr!(&a_program, &a_args, vec![b'a', b'a']);
 
     //// stderr string
     assert_program_args_stderr_contains!(&a_program, &a_args, "lf");

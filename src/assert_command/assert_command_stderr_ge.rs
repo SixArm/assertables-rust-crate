@@ -29,7 +29,7 @@
 /// Pseudocode:<br>
 /// (command1 ⇒ stderr) = (command2 ⇒ stderr)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((lhs, rhs))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -48,37 +48,40 @@
 #[macro_export]
 macro_rules! assert_command_stderr_ge_as_result {
     ($a_command:expr, $b_command:expr $(,)?) => {{
-        let a_output = $a_command.output();
-        let b_output = $b_command.output();
-        if a_output.is_err() || b_output.is_err() {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_ge.html\n",
-                    " a label: `{}`,\n",
-                    " a debug: `{:?}`,\n",
-                    " b label: `{}`,\n",
-                    " b debug: `{:?}`,\n",
-                    " a output: `{:?}`,\n",
-                    " b output: `{:?}`"
-                ),
-                stringify!($a_command),
-                $a_command,
-                stringify!($b_command),
-                $b_command,
-                a_output,
-                b_output
-            ))
-        } else {
-            let a = a_output.unwrap().stderr;
-            let b = b_output.unwrap().stderr;
-            if a.ge(&b) {
-                Ok(())
-            } else {
+        match ($a_command.output(), $b_command.output()) {
+            (Ok(a), Ok(b)) => {
+                let a = a.stderr;
+                let b = b.stderr;
+                if a.ge(&b) {
+                    Ok((a, b))
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`,\n",
+                                "       a: `{:?}`,\n",
+                                "       b: `{:?}`"
+                            ),
+                            stringify!($a_command),
+                            $a_command,
+                            stringify!($b_command),
+                            $b_command,
+                            a,
+                            b
+                        )
+                    )
+                }
+            },
+            (a, b) => {
                 Err(format!(
                     concat!(
                         "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_ge.html\n",
+                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -110,7 +113,10 @@ mod tests {
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "aa"]);
         let result = assert_command_stderr_ge_as_result!(a, b);
-        assert_eq!(result.unwrap(), ());
+        assert_eq!(
+            result.unwrap(),
+            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
+        );
     }
 
     #[test]
@@ -120,7 +126,10 @@ mod tests {
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "alfa"]);
         let result = assert_command_stderr_ge_as_result!(a, b);
-        assert_eq!(result.unwrap(), ());
+        assert_eq!(
+            result.unwrap(),
+            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
+        );
     }
 
     #[test]
@@ -133,7 +142,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_ge.html\n",
+            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -188,7 +197,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_ge.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
@@ -210,13 +219,13 @@ mod tests {
 macro_rules! assert_command_stderr_ge {
     ($a_command:expr, $b_command:expr $(,)?) => {{
         match $crate::assert_command_stderr_ge_as_result!($a_command, $b_command) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_command:expr, $b_command:expr, $($message:tt)+) => {{
         match $crate::assert_command_stderr_ge_as_result!($a_command, $b_command) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

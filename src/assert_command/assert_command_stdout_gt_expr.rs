@@ -13,7 +13,7 @@
 //! let mut command = Command::new("bin/printf-stdout");
 //! command.args(["%s", "alfa"]);
 //! let bytes = vec![b'a', b'a'];
-//! assert_command_stdout_gt_expr!(command, &bytes);
+//! assert_command_stdout_gt_expr!(command, bytes);
 //! # }
 //! ```
 //!
@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (command ⇒ stdout) = (expr into string)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((lhs, &rhs))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -48,50 +48,54 @@
 macro_rules! assert_command_stdout_gt_expr_as_result {
     ($a_command:expr, $b_expr:expr $(,)?) => {{
         match (/*&$command,*/ &$b_expr) {
-            b_expr => {
+            b => {
                 match $a_command.output() {
-                    Ok(a_output) => {
-                        let a = a_output.stdout;
-                        if a.gt($b_expr) {
-                            Ok(())
+                    Ok(a) => {
+                        let a = a.stdout;
+                        if a.gt(&$b_expr) {
+                            Ok((a, $b_expr))
                         } else {
-                            Err(format!(
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
+                                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
+                                        " command label: `{}`,\n",
+                                        " command debug: `{:?}`,\n",
+                                        "    expr label: `{}`,\n",
+                                        "    expr debug: `{:?}`,\n",
+                                        " command value: `{:?}`,\n",
+                                        "    expr value: `{:?}`"
+                                    ),
+                                    stringify!($a_command),
+                                    $a_command,
+                                    stringify!($b_expr),
+                                    $b_expr,
+                                    a,
+                                    b
+                                )
+                            )
+                        }
+                    },
+                    Err(err) => {
+                        Err(
+                            format!(
                                 concat!(
                                     "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_gt_expr.html\n",
-                                    " command label: `{}`,\n",
-                                    " command debug: `{:?}`,\n",
-                                    "    expr label: `{}`,\n",
-                                    "    expr debug: `{:?}`,\n",
-                                    " command value: `{:?}`,\n",
-                                    "    expr value: `{:?}`"
+                                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
+                                    "  command label: `{}`,\n",
+                                    "  command debug: `{:?}`,\n",
+                                    "     expr label: `{}`,\n",
+                                    "     expr debug: `{:?}`,\n",
+                                    "  output is err: `{:?}`"
                                 ),
                                 stringify!($a_command),
                                 $a_command,
                                 stringify!($b_expr),
                                 $b_expr,
-                                a,
-                                b_expr
-                            ))
-                        }
-                    },
-                    Err(err) => {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_gt_expr.html\n",
-                                "  command label: `{}`,\n",
-                                "  command debug: `{:?}`,\n",
-                                "     expr label: `{}`,\n",
-                                "     expr debug: `{:?}`,\n",
-                                "            err: `{:?}`"
-                            ),
-                            stringify!($a_command),
-                            $a_command,
-                            stringify!($b_expr),
-                            $b_expr,
-                            err
-                        ))
+                                err
+                            )
+                        )
                     }
                 }
             }
@@ -109,8 +113,11 @@ mod tests {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
-        let result = assert_command_stdout_gt_expr_as_result!(a, &b);
-        assert_eq!(result.unwrap(), ());
+        let result = assert_command_stdout_gt_expr_as_result!(a, b);
+        assert_eq!(
+            result.unwrap(),
+            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
+        );
     }
 
     #[test]
@@ -118,14 +125,14 @@ mod tests {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'l', b'f', b'a'];
-        let result = assert_command_stdout_gt_expr_as_result!(a, &b);
+        let result = assert_command_stdout_gt_expr_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_gt_expr.html\n",
+            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-            "    expr label: `&b`,\n",
+            "    expr label: `b`,\n",
             "    expr debug: `[97, 108, 102, 97]`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
             "    expr value: `[97, 108, 102, 97]`"
@@ -138,14 +145,14 @@ mod tests {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];
-        let result = assert_command_stdout_gt_expr_as_result!(a, &b);
+        let result = assert_command_stdout_gt_expr_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_gt_expr.html\n",
+            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-            "    expr label: `&b`,\n",
+            "    expr label: `b`,\n",
             "    expr debug: `[122, 122]`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
             "    expr value: `[122, 122]`"
@@ -175,30 +182,30 @@ mod tests {
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "alfa"]);
 /// let bytes = vec![b'a', b'a'];
-/// assert_command_stdout_gt_expr!(command, &bytes);
+/// assert_command_stdout_gt_expr!(command, bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "alfa"]);
 /// let bytes = vec![b'z', b'z'];
-/// assert_command_stdout_gt_expr!(command, &bytes);
+/// assert_command_stdout_gt_expr!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_gt_expr!(command, expr)`
 /// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
-/// //     expr label: `&bytes`,
+/// //     expr label: `bytes`,
 /// //     expr debug: `[122, 122]`,
 /// //  command value: `[97, 108, 102, 97]`,
 /// //     expr value: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_gt_expr.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-/// #     "    expr label: `&bytes`,\n",
+/// #     "    expr label: `bytes`,\n",
 /// #     "    expr debug: `[122, 122]`,\n",
 /// #     " command value: `[97, 108, 102, 97]`,\n",
 /// #     "    expr value: `[122, 122]`"
@@ -217,13 +224,13 @@ mod tests {
 macro_rules! assert_command_stdout_gt_expr {
     ($a_command:expr, $b_expr:expr $(,)?) => {{
         match $crate::assert_command_stdout_gt_expr_as_result!($a_command, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_command:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_command_stdout_gt_expr_as_result!($a_command, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

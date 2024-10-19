@@ -56,7 +56,7 @@ macro_rules! assert_ready_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_ready!(a)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ready.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -86,12 +86,11 @@ mod tests {
     fn test_assert_ready_as_result_x_failure() {
         let a: Poll<i8> = Pending;
         let result = assert_ready_as_result!(a);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ready!(a)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ready.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready.html\n",
                 " a label: `a`,\n",
                 " a debug: `Pending`",
             )
@@ -132,7 +131,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ready!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ready.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Pending`",
 /// # );
@@ -150,13 +149,13 @@ mod tests {
 macro_rules! assert_ready {
     ($a:expr $(,)?) => {{
         match $crate::assert_ready_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_ready_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

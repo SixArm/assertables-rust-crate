@@ -21,12 +21,50 @@
 //! * [`assert_ok_ne_as_result`](macro@crate::assert_ok_ne_as_result)
 //! * [`debug_assert_ok_ne`](macro@crate::debug_assert_ok_ne)
 
+/// Format assert failure error message.
+#[macro_export]
+macro_rules! assert_ok_ne_impl_err_inner {
+    ($($arg:tt)*) => {
+        format!(
+            concat!(
+                "assertion failed: `assert_ok_ne!(a, b)`\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ok_ne.html\n",
+                " a label: `{}`,\n",
+                " a debug: `{:?}`,\n",
+                " a inner: `{:?}`,\n",
+                " b label: `{}`,\n",
+                " b debug: `{:?}`,\n",
+                " b inner: `{:?}`"
+            ),
+            $($arg)*
+        )
+    }
+}
+
+/// Format assert failure error message.
+#[macro_export]
+macro_rules! assert_ok_ne_impl_err_outer {
+    ($($arg:tt)*) => {
+        format!(
+            concat!(
+                "assertion failed: `assert_ok_ne!(a, b)`\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ok_ne.html\n",
+                " a label: `{}`,\n",
+                " a debug: `{:?}`,\n",
+                " b label: `{}`,\n",
+                " b debug: `{:?}`",
+            ),
+            $($arg)*
+        )
+    }
+}
+
 /// Assert two expressions are Ok(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a̅, b̅))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -46,50 +84,28 @@
 macro_rules! assert_ok_ne_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
-            (a, b) => {
-                match (a, b) {
-                    (Ok(a_inner), Ok(b_inner)) => {
-                        if a_inner != b_inner {
-                            Ok(())
-                        } else {
-                            Err(format!(
-                                concat!(
-                                    "assertion failed: `assert_ok_ne!(a, b)`\n",
-                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ok_ne.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`,\n",
-                                    " a inner: `{:?}`,\n",
-                                    " b label: `{}`,\n",
-                                    " b debug: `{:?}`,\n",
-                                    " b inner: `{:?}`"
-                                ),
-                                stringify!($a),
-                                a,
-                                a_inner,
-                                stringify!($b),
-                                b,
-                                b_inner
-                            ))
-                        }
-                    },
-                    _ => {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_ok_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ok_ne.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`",
-                            ),
+            (a, b) => match (a, b) {
+                (Ok(a_inner), Ok(b_inner)) => {
+                    if a_inner != b_inner {
+                        Ok((a_inner, b_inner))
+                    } else {
+                        Err($crate::assert_ok_ne_impl_err_inner!(
                             stringify!($a),
                             a,
+                            a_inner,
                             stringify!($b),
                             b,
+                            b_inner
                         ))
                     }
                 }
-            }
+                _ => Err($crate::assert_ok_ne_impl_err_outer!(
+                    stringify!($a),
+                    a,
+                    stringify!($b),
+                    b
+                )),
+            },
         }
     }};
 }
@@ -102,7 +118,7 @@ mod tests {
         let a: Result<i8, i8> = Ok(1);
         let b: Result<i8, i8> = Ok(2);
         let result = assert_ok_ne_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), (&1, &2));
     }
 
     #[test]
@@ -110,12 +126,11 @@ mod tests {
         let a: Result<i8, i8> = Ok(1);
         let b: Result<i8, i8> = Ok(1);
         let result = assert_ok_ne_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ok_ne.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ok_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
                 " a inner: `1`,\n",
@@ -131,12 +146,11 @@ mod tests {
         let a: Result<i8, i8> = Err(1);
         let b: Result<i8, i8> = Ok(1);
         let result = assert_ok_ne_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ok_ne.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ok_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Err(1)`,\n",
                 " b label: `b`,\n",
@@ -144,7 +158,6 @@ mod tests {
             )
         );
     }
-
 }
 
 /// Assert two expressions are Ok(_) and their values are not equal.
@@ -185,7 +198,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ok_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ok_ne.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ok_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -207,13 +220,13 @@ mod tests {
 macro_rules! assert_ok_ne {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_ok_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_ok_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

@@ -58,7 +58,7 @@ macro_rules! assert_fn_ne_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_ne.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_ne.html\n",
                             " a_function label: `{}`,\n",
                             "    a_param label: `{}`,\n",
                             "    a_param debug: `{:?}`,\n",
@@ -93,7 +93,7 @@ macro_rules! assert_fn_ne_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_fn_ne!(a_function, b_function)`\n",
-                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_ne.html\n",
+                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_ne.html\n",
                     " a_function label: `{}`,\n",
                     " b_function label: `{}`,\n",
                     "                a: `{:?}`,\n",
@@ -138,7 +138,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_ne!(a_function, b_function)`\n",
-                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_ne.html\n",
+                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_ne.html\n",
                         " a_function label: `f`,\n",
                         " b_function label: `f`,\n",
                         "                a: `1`,\n",
@@ -176,7 +176,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
-                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_ne.html\n",
+                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_ne.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
@@ -232,7 +232,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_ne.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_ne.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",

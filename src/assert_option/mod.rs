@@ -31,7 +31,7 @@
 //! # }
 //! ```
 
+pub mod assert_option_none;
 pub mod assert_option_some;
 pub mod assert_option_some_eq;
 pub mod assert_option_some_ne;
-pub mod assert_option_none;

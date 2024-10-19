@@ -55,19 +55,18 @@
 //! # }
 //! ```
 
-
 // Comparisons
 pub mod assert_fn_ok_eq;
-pub mod assert_fn_ok_ne;
-pub mod assert_fn_ok_lt;
-pub mod assert_fn_ok_le;
-pub mod assert_fn_ok_gt;
 pub mod assert_fn_ok_ge;
+pub mod assert_fn_ok_gt;
+pub mod assert_fn_ok_le;
+pub mod assert_fn_ok_lt;
+pub mod assert_fn_ok_ne;
 
 // Compare with expression
 pub mod assert_fn_ok_eq_expr;
-pub mod assert_fn_ok_ne_expr;
-pub mod assert_fn_ok_lt_expr;
-pub mod assert_fn_ok_le_expr;
-pub mod assert_fn_ok_gt_expr;
 pub mod assert_fn_ok_ge_expr;
+pub mod assert_fn_ok_gt_expr;
+pub mod assert_fn_ok_le_expr;
+pub mod assert_fn_ok_lt_expr;
+pub mod assert_fn_ok_ne_expr;

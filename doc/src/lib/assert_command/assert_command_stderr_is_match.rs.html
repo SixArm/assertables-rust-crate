@@ -299,7 +299,7 @@
 /// * [`assert_command_stderr_is_match_as_result`](macro@crate::assert_command_stderr_is_match_as_result)
 /// * [`debug_assert_command_stderr_is_match`](macro@crate::debug_assert_command_stderr_is_match)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_command_stderr_is_match_as_result` to `assert_command_stderr_string_is_match_as_result` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_command_stderr_is_match_as_result` into `assert_command_stderr_string_is_match_as_result` because this macro does the comparison via a Rust UTF-8 String."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_is_match_as_result {
     (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -431,7 +431,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_is_match!(command, matcher)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_is_match.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_is_match.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " matcher label: `&amp;matcher`,\n",
@@ -449,7 +449,7 @@
 /// * [`assert_command_stderr_is_match_as_result`](macro@crate::assert_command_stderr_is_match_as_result)
 /// * [`debug_assert_command_stderr_is_match`](macro@crate::debug_assert_command_stderr_is_match)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_command_stderr_is_match` to `assert_command_stderr_string_is_match` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_command_stderr_is_match` into `assert_command_stderr_string_is_match` because this macro does the comparison via a Rust UTF-8 String."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_is_match {
     (<span class="macro-nonterminal">$command</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -497,7 +497,7 @@
 /// * [`assert_command_stderr_is_match`](macro@crate::assert_command_stderr_is_match)
 /// * [`debug_assert_command_stderr_is_match`](macro@crate::debug_assert_command_stderr_is_match)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_command_stderr_is_match` to `debug_assert_command_stderr_string_is_match` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_command_stderr_is_match` into `debug_assert_command_stderr_string_is_match` because this macro does the comparison via a Rust UTF-8 String."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_command_stderr_is_match {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {

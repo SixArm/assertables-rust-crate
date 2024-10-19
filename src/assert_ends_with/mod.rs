@@ -18,7 +18,7 @@
 //! let whole: &str = "alfa";
 //! let part: &str = "fa";
 //! assert_ends_with!(whole, part);
-//! 
+//!
 //! // Vector ends with element?
 //! let whole = vec![1, 2, 3];
 //! let part = [3];

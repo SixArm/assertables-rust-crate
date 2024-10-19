@@ -53,7 +53,7 @@ macro_rules! assert_fs_read_to_string_matches_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_matches.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_matches.html\n",
                             "    path label: `{}`,\n",
                             "    path debug: `{:?}`,\n",
                             " matcher label: `{}`,\n",
@@ -74,7 +74,7 @@ macro_rules! assert_fs_read_to_string_matches_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_matches.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_matches.html\n",
                                 "    path label: `{}`,\n",
                                 "    path debug: `{:?}`,\n",
                                 " matcher label: `{}`,\n",
@@ -121,13 +121,12 @@ mod tests {
         let path = DIR.join("alfa.txt");
         let matcher = Regex::new(r"zz").unwrap();
         let result = assert_fs_read_to_string_matches_as_result!(&path, &matcher);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             format!(
                 concat!(
                     "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
-                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_matches.html\n",
+                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_matches.html\n",
                     "    path label: `&path`,\n",
                     "    path debug: `{:?}`,\n",
                     " matcher label: `&matcher`,\n",
@@ -179,7 +178,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_matches!(path, matcher)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_matches.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fs_read_to_string_matches.html\n",
 /// #     "    path label: `&path`,\n",
 /// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `&matcher`,\n",

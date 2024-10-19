@@ -1,4 +1,3 @@
-
 //! Assert a function output is greater than an expression.
 //!
 //! Pseudocode:<br>
@@ -58,7 +57,7 @@ macro_rules! assert_fn_gt_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fn_gt_expr!(a_function, a_param, b_expr)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_gt_expr.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_gt_expr.html\n",
                             " a_function label: `{}`,\n",
                             "    a_param label: `{}`,\n",
                             "    a_param debug: `{:?}`,\n",
@@ -92,7 +91,7 @@ macro_rules! assert_fn_gt_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_fn_gt_expr!(a_function, b_expr)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_gt_expr.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_gt_expr.html\n",
                             " a_function label: `{}`,\n",
                             "     b_expr label: `{}`,\n",
                             "     b_expr debug: `{:?}`,\n",
@@ -141,7 +140,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_gt_expr!(a_function, a_param, b_expr)`\n",
-                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_gt_expr.html\n",
+                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_gt_expr.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
@@ -163,7 +162,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_gt_expr!(a_function, a_param, b_expr)`\n",
-                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_gt_expr.html\n",
+                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_gt_expr.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
@@ -198,7 +197,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_gt_expr!(a_function, b_expr)`\n",
-                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_gt_expr.html\n",
+                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_gt_expr.html\n",
                         " a_function label: `f`,\n",
                         "     b_expr label: `b`,\n",
                         "     b_expr debug: `1`,\n",
@@ -217,7 +216,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_gt_expr!(a_function, b_expr)`\n",
-                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_gt_expr.html\n",
+                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_gt_expr.html\n",
                         " a_function label: `f`,\n",
                         "     b_expr label: `b`,\n",
                         "     b_expr debug: `2`,\n",
@@ -269,7 +268,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_gt_expr!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_gt_expr.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_fn_gt_expr.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",

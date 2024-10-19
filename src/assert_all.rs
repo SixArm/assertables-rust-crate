@@ -56,7 +56,7 @@ macro_rules! assert_all_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_all!(collection, predicate)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_all.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_all.html\n",
                             " collection label: `{}`,\n",
                             " collection debug: `{:?}`,\n",
                             "        predicate: `{}`"
@@ -84,13 +84,12 @@ mod tests {
     #[test]
     fn test_assert_all_as_result_x_failure() {
         let a = [1, -2, 3];
-        let result = assert_all_as_result!(a.into_iter(), |x: i8| x > 0); 
-        assert!(result.is_err());
+        let result = assert_all_as_result!(a.into_iter(), |x: i8| x > 0);
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_all!(collection, predicate)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_all.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_all.html\n",
                 " collection label: `a.into_iter()`,\n",
                 " collection debug: `IntoIter([1, -2, 3])`,\n",
                 "        predicate: `|x: i8| x > 0`"
@@ -132,7 +131,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_all!(collection, predicate)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_all.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_all.html\n",
 /// #     " collection label: `a.into_iter()`,\n",
 /// #     " collection debug: `IntoIter([1, -2, 3])`,\n",
 /// #     "        predicate: `|x: i8| x > 0`",

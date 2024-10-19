@@ -303,7 +303,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_not_contains!(container, containee)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_contains.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_contains.html\n"</span>,
                             <span class="string">" container label: `{}`,\n"</span>,
                             <span class="string">" container debug: `{:?}`,\n"</span>,
                             <span class="string">" containee label: `{}`,\n"</span>,
@@ -341,7 +341,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_not_contains!(container, containee)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_contains.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_contains.html\n"</span>,
             <span class="string">" container label: `a`,\n"</span>,
             <span class="string">" container debug: `\"alfa\"`,\n"</span>,
             <span class="string">" containee label: `b`,\n"</span>,
@@ -368,7 +368,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_not_contains!(container, containee)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_contains.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_contains.html\n"</span>,
             <span class="string">" container label: `a`,\n"</span>,
             <span class="string">" container debug: `1..5`,\n"</span>,
             <span class="string">" containee label: `&amp;b`,\n"</span>,
@@ -415,7 +415,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_not_contains!(container, containee)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_contains.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_contains.html\n",
 /// #     " container label: `a`,\n",
 /// #     " container debug: `\"alfa\"`,\n",
 /// #     " containee label: `b`,\n",

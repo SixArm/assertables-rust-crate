@@ -28,14 +28,13 @@
 //! use assertables::*;
 //!
 //! # fn main() {
-//! let a: Result<(), i8> = Result::Ok(());
+//! let a: Result<i8, i8> = Result::Ok(1);
 //! assert_result_ok!(a);
 //! # }
 //! ```
 
 // Assert for Result
+pub mod assert_result_err;
 pub mod assert_result_ok;
 pub mod assert_result_ok_eq;
 pub mod assert_result_ok_ne;
-pub mod assert_result_err;
-

@@ -58,16 +58,16 @@
 
 // Comparisons
 pub mod assert_fn_err_eq;
-pub mod assert_fn_err_ne;
-pub mod assert_fn_err_lt;
-pub mod assert_fn_err_le;
-pub mod assert_fn_err_gt;
 pub mod assert_fn_err_ge;
+pub mod assert_fn_err_gt;
+pub mod assert_fn_err_le;
+pub mod assert_fn_err_lt;
+pub mod assert_fn_err_ne;
 
 // Compare with expression
 pub mod assert_fn_err_eq_expr;
-pub mod assert_fn_err_ne_expr;
-pub mod assert_fn_err_lt_expr;
-pub mod assert_fn_err_le_expr;
-pub mod assert_fn_err_gt_expr;
 pub mod assert_fn_err_ge_expr;
+pub mod assert_fn_err_gt_expr;
+pub mod assert_fn_err_le_expr;
+pub mod assert_fn_err_lt_expr;
+pub mod assert_fn_err_ne_expr;

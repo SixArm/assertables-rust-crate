@@ -47,7 +47,7 @@ macro_rules! assert_eq_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_eq!(a, b)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_eq.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -80,12 +80,11 @@ mod tests {
         let a: i32 = 1;
         let b: i32 = 2;
         let result = assert_eq_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_eq!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_eq.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_eq.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",

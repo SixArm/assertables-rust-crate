@@ -6,12 +6,12 @@
 //!
 //! * [`assert_none!(a)`](macro@crate::assert_none)
 //!   ≈ a is None
-//! 
+//!
 //! # Example
 //!
 //! ```rust
 //! use assertables::*;
-//! 
+//!
 //! # fn main() {
 //! let a: Option<i8> = Option::None;
 //! assert_none!(a);

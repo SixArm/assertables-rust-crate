@@ -36,7 +36,9 @@
 /// * [`assert_result_ok_eq_as_result`](macro@crate::assert_result_ok_eq_as_result)
 /// * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
 ///
-#[deprecated(note = "Please rename from `assert_result_ok_eq_as_result` to `assert_ok_eq_as_result` because more developers prefer the shorter name.")]
+#[deprecated(
+    note = "Please rename from `assert_result_ok_eq_as_result` into `assert_ok_eq_as_result` because more developers prefer the shorter name."
+)]
 #[macro_export]
 macro_rules! assert_result_ok_eq_as_result {
     ($a:expr, $b:expr $(,)?) => {{
@@ -50,7 +52,7 @@ macro_rules! assert_result_ok_eq_as_result {
                             Err(format!(
                                 concat!(
                                     "assertion failed: `assert_result_ok_eq!(a, b)`\n",
-                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_result_ok_eq.html\n",
+                                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_result_ok_eq.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " a inner: `{:?}`,\n",
@@ -71,7 +73,7 @@ macro_rules! assert_result_ok_eq_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_result_ok_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_result_ok_eq.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_result_ok_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -105,12 +107,11 @@ mod tests {
         let a: Result<i8, i8> = Ok(1);
         let b: Result<i8, i8> = Ok(2);
         let result = assert_result_ok_eq_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_result_ok_eq!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_result_ok_eq.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_result_ok_eq.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
                 " a inner: `1`,\n",
@@ -126,12 +127,11 @@ mod tests {
         let a: Result<i8, i8> = Ok(1);
         let b: Result<i8, i8> = Err(1);
         let result = assert_result_ok_eq_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_result_ok_eq!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_result_ok_eq.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_result_ok_eq.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
                 " b label: `b`,\n",
@@ -139,7 +139,6 @@ mod tests {
             )
         );
     }
-
 }
 
 /// Assert two expressions are Ok(_) and their values are equal.
@@ -177,7 +176,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_result_ok_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_result_ok_eq.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_result_ok_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -195,7 +194,9 @@ mod tests {
 /// * [`assert_result_ok_eq_as_result`](macro@crate::assert_result_ok_eq_as_result)
 /// * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
 ///
-#[deprecated(note = "Please rename from `assert_result_ok_eq` to `assert_ok_eq` because more developers prefer the shorter name.")]
+#[deprecated(
+    note = "Please rename from `assert_result_ok_eq` into `assert_ok_eq` because more developers prefer the shorter name."
+)]
 #[macro_export]
 macro_rules! assert_result_ok_eq {
     ($a:expr, $b:expr $(,)?) => {{
@@ -240,7 +241,9 @@ macro_rules! assert_result_ok_eq {
 /// * [`assert_result_ok_eq`](macro@crate::assert_result_ok_eq)
 /// * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
 ///
-#[deprecated(note = "Please rename from `debug_assert_result_ok_eq` to `debug_assert_result_ok_eq` because more developers prefer the shorter name.")]
+#[deprecated(
+    note = "Please rename from `debug_assert_result_ok_eq` into `debug_assert_result_ok_eq` because more developers prefer the shorter name."
+)]
 #[macro_export]
 macro_rules! debug_assert_result_ok_eq {
     ($($arg:tt)*) => {

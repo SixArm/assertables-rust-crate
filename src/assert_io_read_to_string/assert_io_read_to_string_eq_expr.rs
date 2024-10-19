@@ -54,7 +54,7 @@ macro_rules! assert_io_read_to_string_eq_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_io_read_to_string_eq_expr!(a_reader, b_expr)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_io_read_to_string_eq_expr.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_io_read_to_string_eq_expr.html\n",
                             " a_reader label: `{}`,\n",
                             " a_reader debug: `{:?}`,\n",
                             "   b_expr label: `{}`,\n",
@@ -76,7 +76,7 @@ macro_rules! assert_io_read_to_string_eq_expr_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_io_read_to_string_eq_expr!(a_reader, b_expr)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_io_read_to_string_eq_expr.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_io_read_to_string_eq_expr.html\n",
                                 " a_reader label: `{}`,\n",
                                 " a_reader debug: `{:?}`,\n",
                                 "   b_expr label: `{}`,\n",
@@ -116,12 +116,11 @@ mod tests {
         let mut reader = "alfa".as_bytes();
         let value = String::from("bravo");
         let result = assert_io_read_to_string_eq_expr_as_result!(reader, &value);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_io_read_to_string_eq_expr!(a_reader, b_expr)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_io_read_to_string_eq_expr.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_io_read_to_string_eq_expr.html\n",
                 " a_reader label: `reader`,\n",
                 " a_reader debug: `[]`,\n",
                 "   b_expr label: `&value`,\n",
@@ -172,7 +171,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_eq_expr!(a_reader, b_expr)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_io_read_to_string_eq_expr.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_io_read_to_string_eq_expr.html\n",
 /// #     " a_reader label: `reader`,\n",
 /// #     " a_reader debug: `[]`,\n",
 /// #     "   b_expr label: `&value`,\n",

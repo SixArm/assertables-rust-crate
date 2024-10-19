@@ -31,7 +31,7 @@
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::task::Poll;
 <span class="kw">use </span>std::task::Poll::<span class="kw-2">*</span>;
- 
+
 <span class="kw">let </span>a: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
 <span class="kw">let </span>b: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
 <span class="macro">assert_ready_eq!</span>(a, b);</code></pre></div>

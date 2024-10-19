@@ -234,7 +234,7 @@
 //! let whole: &amp;str = "alfa";
 //! let part: &amp;str = "fa";
 //! assert_ends_with!(whole, part);
-//! 
+//!
 //! // Vector ends with element?
 //! let whole = vec![1, 2, 3];
 //! let part = [3];
@@ -299,7 +299,7 @@
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    
+
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_ends_with_as_result_success() {
         <span class="kw">let </span>whole = <span class="string">"alfa"</span>;
@@ -348,7 +348,7 @@
 /// let whole: &amp;str = "alfa";
 /// let part: &amp;str = "fa";
 /// assert_ends_with!(whole, part);
-/// 
+///
 /// // Vector ends with element?
 /// let whole = vec![1, 2, 3];
 /// let part = [3];
@@ -369,7 +369,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ends_with!(whole, part)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ends_with.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ends_with.html\n",
 /// #     " whole label: `whole`,\n",
 /// #     " whole debug: `\"alfa\"`,\n",
 /// #     "  part label: `part`,\n",

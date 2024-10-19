@@ -54,7 +54,7 @@ macro_rules! assert_some_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_some!(a)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_some.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_some.html\n",
                                 " option label: `{}`,\n",
                                 " option debug: `{:?}`",
                             ),
@@ -82,12 +82,11 @@ mod tests {
     fn test_assert_some_as_result_x_failure() {
         let a: Option<i8> = Option::None;
         let result = assert_some_as_result!(a);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_some!(a)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_some.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_some.html\n",
                 " option label: `a`,\n",
                 " option debug: `None`",
             )
@@ -127,7 +126,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_some!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_some.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_some.html\n",
 /// #     " option label: `a`,\n",
 /// #     " option debug: `None`",
 /// # );
@@ -145,13 +144,13 @@ mod tests {
 macro_rules! assert_some {
     ($a:expr $(,)?) => {{
         match $crate::assert_some_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_some_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

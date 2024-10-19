@@ -25,8 +25,8 @@
 //!   equality within 1e-6. The macro name and the approximate value are chosen
 //!   to be similar to the longtime popular rust crate `assert_approx_eq`.
 //!
-//! * [`assert_in_delta`](macro@crate::assert_in_delta) tests the absolute error
-//!   (i.e. delta). This is the magnitude of the difference between the exact
+//! * [`assert_in_approx`](macro@crate::assert_in_approx) tests the absolute error
+//!   (i.e. approx). This is the magnitude of the difference between the exact
 //!   value and the approximation.
 //!
 //! * [`assert_in_epsilon`](macro@crate::assert_in_epsilon) tests the relative
@@ -36,11 +36,11 @@
 //!
 //! Examples:
 //!
-//! * Approximating the number 100 and 103 has an absolute error (delta) of 3
+//! * Approximating the number 100 and 103 has an absolute error (approx) of 3
 //!   and a relative error (epsilon) of 0.03.
 //!
 //! * Approximating the number 1,000,000 and 1,000,003 has an absolute error
-//!   (delta) of 3, and a relative error (espilon) of 0.000003.
+//!   (approx) of 3, and a relative error (espilon) of 0.000003.
 //!
 //! * For many kinds of applications, the relative error is more important than
 //!   the absolute error.
@@ -52,7 +52,7 @@
 //!   creating and maintaining the `assert_approx_eq` crate.
 //!
 //! * Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
-//!   creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+//!   creating and maintaining `assert_in_approx` and `assert_in_epsilon` code.
 //!
 //!
 //! # Module macros
@@ -66,7 +66,7 @@
 /// Pseudocode:<br>
 /// | a - b | ≤ 1e-6
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(diff)`.
 ///
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -88,35 +88,20 @@ macro_rules! assert_approx_eq_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
-                if a == b {
-                    Ok(())
+                let approx = 1.0e-6;
+                let diff = if (a >= b) { a - b } else { b - a };
+                if diff <= approx {
+                    Ok(diff)
                 } else {
-                    let diff = if (a > b) { a - b } else { b - a };
-                    let delta = 1.0e-6;
-                    if diff <= delta {
-                        Ok(())
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_approx_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_approx_eq.html\n",
-                                "           a label: `{}`,\n",
-                                "           a debug: `{:?}`,\n",
-                                "           b label: `{}`,\n",
-                                "           b debug: `{:?}`,\n",
-                                "             delta: `{:?}`,\n",
-                                "         | a - b |: `{:?}`,\n",
-                                " | a - b | ≤ delta: {}"
-                            ),
-                            stringify!($a),
-                            a,
-                            stringify!($b),
-                            b,
-                            delta,
-                            diff,
-                            false
-                        ))
-                    }
+                    Err($crate::assert_approx_xx_impl_err!(
+                        assert_approx_eq,
+                        stringify!($a),
+                        a,
+                        stringify!($b),
+                        b,
+                        approx,
+                        diff
+                    ))
                 }
             }
         }
@@ -131,7 +116,7 @@ mod tests {
         let a: f32 = 1.0000001;
         let b: f32 = 1.0000011;
         let result = assert_approx_eq_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), b - a);
     }
 
     #[test]
@@ -139,19 +124,18 @@ mod tests {
         let a: f32 = 1.0000001;
         let b: f32 = 1.0000012;
         let result = assert_approx_eq_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_approx_eq!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_approx_eq.html\n",
-                "           a label: `a`,\n",
-                "           a debug: `1.0000001`,\n",
-                "           b label: `b`,\n",
-                "           b debug: `1.0000012`,\n",
-                "             delta: `1e-6`,\n",
-                "         | a - b |: `1.0728836e-6`,\n",
-                " | a - b | ≤ delta: false"
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_approx_eq.html\n",
+                "            a label: `a`,\n",
+                "            a debug: `1.0000001`,\n",
+                "            b label: `b`,\n",
+                "            b debug: `1.0000012`,\n",
+                "             approx: `1e-6`,\n",
+                "          | a - b |: `1.0728836e-6`,\n",
+                " | a - b | ≤ approx: false"
             )
         );
     }
@@ -186,24 +170,24 @@ mod tests {
 /// # });
 /// // assertion failed: `assert_approx_eq!(a, b)`
 /// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_approx_eq.html
-/// //            a label: `a`,
-/// //            a debug: `1.0000001`,
-/// //            b label: `b`,
-/// //            b debug: `1.0000012`,
-/// //              delta: `1e-6`,
-/// //          | a - b |: `1.0728836e-6`,
-/// //  | a - b | ≤ delta: false
+/// //             a label: `a`,
+/// //             a debug: `1.0000001`,
+/// //             b label: `b`,
+/// //             b debug: `1.0000012`,
+/// //              approx: `1e-6`,
+/// //           | a - b |: `1.0728836e-6`,
+/// //  | a - b | ≤ approx: false
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_approx_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_approx_eq.html\n",
-/// #     "           a label: `a`,\n",
-/// #     "           a debug: `1.0000001`,\n",
-/// #     "           b label: `b`,\n",
-/// #     "           b debug: `1.0000012`,\n",
-/// #     "             delta: `1e-6`,\n",
-/// #     "         | a - b |: `1.0728836e-6`,\n",
-/// #     " | a - b | ≤ delta: false",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_approx_eq.html\n",
+/// #     "            a label: `a`,\n",
+/// #     "            a debug: `1.0000001`,\n",
+/// #     "            b label: `b`,\n",
+/// #     "            b debug: `1.0000012`,\n",
+/// #     "             approx: `1e-6`,\n",
+/// #     "          | a - b |: `1.0728836e-6`,\n",
+/// #     " | a - b | ≤ approx: false",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -212,7 +196,7 @@ mod tests {
 /// The macros `assert_approx_eq` and `assert_in_epsilon` can test
 /// approximations:
 ///
-/// * For an approximation, the absolute error (i.e. delta) is the magnitude of
+/// * For an approximation, the absolute error (i.e. approx) is the magnitude of
 ///   the difference between the exact value and the approximation. For this,
 ///  use the macro
 ///
@@ -237,13 +221,13 @@ mod tests {
 macro_rules! assert_approx_eq {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_approx_eq_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_approx_eq_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

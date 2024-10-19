@@ -40,7 +40,7 @@
 macro_rules! assert_set_impl_prep {
     ($impl_into_iter:expr $(,)?) => {{
         match (&$impl_into_iter) {
-            impl_into_iter => impl_into_iter.into_iter().collect()
+            impl_into_iter => impl_into_iter.into_iter().collect(),
         }
     }};
 }
@@ -50,8 +50,8 @@ pub mod assert_set_eq;
 pub mod assert_set_ne;
 
 // Overlaps
-pub mod assert_set_joint;
 pub mod assert_set_disjoint;
+pub mod assert_set_joint;
 
 // Containers
 pub mod assert_set_subset;

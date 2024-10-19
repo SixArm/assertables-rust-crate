@@ -9,7 +9,7 @@
 //! use assertables::*;
 //!
 //! # fn main() {
-//! let a: Result<(), i8> = Ok(());
+//! let a: Result<i8, i8> = Ok(1);
 //! assert_ok!(a);
 //! # }
 //! ```
@@ -20,12 +20,28 @@
 //! * [`assert_ok_as_result`](macro@crate::assert_ok_as_result)
 //! * [`debug_assert_ok`](macro@crate::debug_assert_ok)
 
+/// Format assert failure error message.
+#[macro_export]
+macro_rules! assert_ok_impl_err {
+    ($($arg:tt)*) => {
+        format!(
+            concat!(
+                "assertion failed: `assert_ok!(a)`\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ok.html\n",
+                " a label: `{}`,\n",
+                " a debug: `{:?}`",
+            ),
+            $($arg)*
+        )
+    }
+}
+
 /// Assert expression is Ok(_).
 ///
 /// Pseudocode:<br>
-/// a is Ok(_)
+/// a is Ok(a̅)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a̅)`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -45,25 +61,10 @@
 macro_rules! assert_ok_as_result {
     ($a:expr $(,)?) => {{
         match (&$a) {
-            a => {
-                match (a) {
-                    Ok(_) => {
-                        Ok(())
-                    },
-                    _ => {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_ok!(a)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ok.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`",
-                            ),
-                            stringify!($a),
-                            a
-                        ))
-                    }
-                }
-            }
+            a => match (a) {
+                Ok(a_inner) => Ok(a_inner),
+                _ => Err($crate::assert_ok_impl_err!(stringify!($a), a)),
+            },
         }
     }};
 }
@@ -73,21 +74,20 @@ mod tests {
 
     #[test]
     fn test_assert_ok_as_result_x_success() {
-        let a: Result<(), i8> = Ok(());
+        let a: Result<i8, i8> = Ok(1);
         let result = assert_ok_as_result!(a);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), &1);
     }
 
     #[test]
     fn test_assert_ok_as_result_x_failure() {
-        let a: Result<(), i8> = Err(1);
+        let a: Result<i8, i8> = Err(1);
         let result = assert_ok_as_result!(a);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ok!(a)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ok.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ok.html\n",
                 " a label: `a`,\n",
                 " a debug: `Err(1)`",
             )
@@ -112,12 +112,12 @@ mod tests {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a: Result<(), i8> = Ok(());
+/// let a: Result<i8, i8> = Ok(1);
 /// assert_ok!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a: Result<(), i8> = Err(1);
+/// let a: Result<i8, i8> = Err(1);
 /// assert_ok!(a);
 /// # });
 /// // assertion failed: `assert_ok!(a)`
@@ -127,7 +127,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ok!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_ok.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ok.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`",
 /// # );
@@ -145,13 +145,13 @@ mod tests {
 macro_rules! assert_ok {
     ($a:expr $(,)?) => {{
         match $crate::assert_ok_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_ok_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

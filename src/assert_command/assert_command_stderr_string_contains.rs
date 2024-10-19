@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (command ⇒ stderr ⇒ string) contains (expr into string)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(command ⇒ stderr ⇒ string)`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -49,45 +49,51 @@ macro_rules! assert_command_stderr_string_contains_as_result {
     ($command:expr, $containee:expr $(,)?) => {{
         match (/*&$command,*/ &$containee) {
             containee => {
-                let output = $command.output();
-                if output.is_err() {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_string_contains.html\n",
-                            "   command label: `{}`,\n",
-                            "   command debug: `{:?}`,\n",
-                            " containee label: `{}`,\n",
-                            " containee debug: `{:?}`,\n",
-                            "          output: `{:?}`"
-                        ),
-                        stringify!($command),
-                        $command,
-                        stringify!($containee),
-                        containee,
-                        output
-                    ))
-                } else {
-                    let string = String::from_utf8(output.unwrap().stderr).unwrap();
-                    if string.contains($containee) {
-                        Ok(())
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_string_contains.html\n",
-                                "   command label: `{}`,\n",
-                                "   command debug: `{:?}`,\n",
-                                " containee label: `{}`,\n",
-                                " containee debug: `{:?}`,\n",
-                                "          stderr: `{:?}`"
-                            ),
-                            stringify!($command),
-                            $command,
-                            stringify!($containee),
-                            containee,
-                            string
-                        ))
+                match $command.output() {
+                    Ok(output) => {
+                        let string = String::from_utf8(output.stderr).unwrap();
+                        if string.contains($containee) {
+                            Ok(string)
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
+                                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_string_contains.html\n",
+                                        "   command label: `{}`,\n",
+                                        "   command debug: `{:?}`,\n",
+                                        " containee label: `{}`,\n",
+                                        " containee debug: `{:?}`,\n",
+                                        "          string: `{:?}`"
+                                    ),
+                                    stringify!($command),
+                                    $command,
+                                    stringify!($containee),
+                                    containee,
+                                    string
+                                )
+                            )
+                        }
+                    },
+                    Err(err) => {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
+                                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_string_contains.html\n",
+                                    "   command label: `{}`,\n",
+                                    "   command debug: `{:?}`,\n",
+                                    " containee label: `{}`,\n",
+                                    " containee debug: `{:?}`,\n",
+                                    "      output err: `{:?}`"
+                                ),
+                                stringify!($command),
+                                $command,
+                                stringify!($containee),
+                                containee,
+                                err
+                            )
+                        )
                     }
                 }
             }
@@ -106,7 +112,7 @@ mod tests {
         a.args(["%s", "alfa"]);
         let b = "lf";
         let result = assert_command_stderr_string_contains_as_result!(a, b);
-        assert_eq!(result.unwrap(), ());
+        assert_eq!(result.unwrap(), "alfa");
     }
 
     #[test]
@@ -118,12 +124,12 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_string_contains.html\n",
+            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_string_contains.html\n",
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " containee label: `b`,\n",
             " containee debug: `\"zz\"`,\n",
-            "          stderr: `\"alfa\"`",
+            "          string: `\"alfa\"`",
         );
         assert_eq!(actual, expect);
     }
@@ -134,7 +140,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (command ⇒ stderr ⇒ string) contains (expr into string)
 ///
-/// * If true, return `()`.
+/// * If true, return (command ⇒ stderr ⇒ string).
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -170,16 +176,16 @@ mod tests {
 /// //    command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zz\"`,
-/// //    command value: `\"alfa\"`
+/// //           string: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_string_contains.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_string_contains.html\n",
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zz\"`,\n",
-/// #     "          stderr: `\"alfa\"`"
+/// #     "          string: `\"alfa\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -195,13 +201,13 @@ mod tests {
 macro_rules! assert_command_stderr_string_contains {
     ($command:expr, $containee:expr $(,)?) => {{
         match $crate::assert_command_stderr_string_contains_as_result!($command, $containee) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($command:expr, $containee:expr, $($message:tt)+) => {{
         match $crate::assert_command_stderr_string_contains_as_result!($command, $containee) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stderr) = (program2 + args2 ⇒ command ⇒ stderr)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((lhs, rhs))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -49,67 +49,75 @@ macro_rules! assert_program_args_stderr_eq_as_result {
     ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => {{
         match ($a_program, $a_args, $b_program, $b_args) {
             (a_program, a_args, b_program, b_args) => {
-                let a_output = assert_program_args_impl_prep!(a_program, a_args);
-                let b_output = assert_program_args_impl_prep!(b_program, b_args);
-                if a_output.is_err() || b_output.is_err() {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stderr_eq.html\n",
-                            " a_program label: `{}`,\n",
-                            " a_program debug: `{:?}`,\n",
-                            "    a_args label: `{}`,\n",
-                            "    a_args debug: `{:?}`,\n",
-                            " b_program label: `{}`,\n",
-                            " b_program debug: `{:?}`,\n",
-                            "    b_args label: `{}`,\n",
-                            "    b_args debug: `{:?}`,\n",
-                            "        a output: `{:?}`,\n",
-                            "        b output: `{:?}`"
-                        ),
-                        stringify!($a_program),
-                        a_program,
-                        stringify!($a_args),
-                        a_args,
-                        stringify!($b_program),
-                        b_program,
-                        stringify!($b_args),
-                        b_args,
-                        a_output,
-                        b_output
-                    ))
-                } else {
-                    let a = a_output.unwrap().stderr;
-                    let b = b_output.unwrap().stderr;
-                    if a.eq(&b) {
-                        Ok(())
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stderr_eq.html\n",
-                                " a_program label: `{}`,\n",
-                                " a_program debug: `{:?}`,\n",
-                                "    a_args label: `{}`,\n",
-                                "    a_args debug: `{:?}`,\n",
-                                " b_program label: `{}`,\n",
-                                " b_program debug: `{:?}`,\n",
-                                "    b_args label: `{}`,\n",
-                                "    b_args debug: `{:?}`,\n",
-                                "               a: `{:?}`,\n",
-                                "               b: `{:?}`"
-                            ),
-                            stringify!($a_program),
-                            a_program,
-                            stringify!($a_args),
-                            a_args,
-                            stringify!($b_program),
-                            b_program,
-                            stringify!($b_args),
-                            b_args,
-                            a,
-                            b
-                        ))
+                match (
+                    assert_program_args_impl_prep!(a_program, a_args),
+                    assert_program_args_impl_prep!(b_program, b_args)
+                ) {
+                    (Ok(a_output), Ok(b_output)) => {
+                        let a = a_output.stderr;
+                        let b = b_output.stderr;
+                        if a.eq(&b) {
+                            Ok((a, b))
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
+                                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stderr_eq.html\n",
+                                        " a_program label: `{}`,\n",
+                                        " a_program debug: `{:?}`,\n",
+                                        "    a_args label: `{}`,\n",
+                                        "    a_args debug: `{:?}`,\n",
+                                        " b_program label: `{}`,\n",
+                                        " b_program debug: `{:?}`,\n",
+                                        "    b_args label: `{}`,\n",
+                                        "    b_args debug: `{:?}`,\n",
+                                        "               a: `{:?}`,\n",
+                                        "               b: `{:?}`"
+                                    ),
+                                    stringify!($a_program),
+                                    a_program,
+                                    stringify!($a_args),
+                                    a_args,
+                                    stringify!($b_program),
+                                    b_program,
+                                    stringify!($b_args),
+                                    b_args,
+                                    a,
+                                    b
+                                )
+                            )
+                        }
+                    },
+                    (a, b) => {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
+                                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stderr_eq.html\n",
+                                    " a_program label: `{}`,\n",
+                                    " a_program debug: `{:?}`,\n",
+                                    "    a_args label: `{}`,\n",
+                                    "    a_args debug: `{:?}`,\n",
+                                    " b_program label: `{}`,\n",
+                                    " b_program debug: `{:?}`,\n",
+                                    "    b_args label: `{}`,\n",
+                                    "    b_args debug: `{:?}`,\n",
+                                    "               a: `{:?}`,\n",
+                                    "               b: `{:?}`"
+                                ),
+                                stringify!($a_program),
+                                a_program,
+                                stringify!($a_args),
+                                a_args,
+                                stringify!($b_program),
+                                b_program,
+                                stringify!($b_args),
+                                b_args,
+                                a,
+                                b
+                            )
+                        )
                     }
                 }
             }
@@ -126,8 +134,12 @@ mod tests {
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "alfa"];
-        let result = assert_program_args_stderr_eq_as_result!(&a_program, &a_args, &b_program, &b_args);
-        assert_eq!(result.unwrap(), ());
+        let result =
+            assert_program_args_stderr_eq_as_result!(&a_program, &a_args, &b_program, &b_args);
+        assert_eq!(
+            result.unwrap(),
+            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
+        );
     }
 
     #[test]
@@ -136,11 +148,12 @@ mod tests {
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "zz"];
-        let result = assert_program_args_stderr_eq_as_result!(&a_program, &a_args, &b_program, &b_args);
+        let result =
+            assert_program_args_stderr_eq_as_result!(&a_program, &a_args, &b_program, &b_args);
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stderr_eq.html\n",
+            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stderr_eq.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -202,7 +215,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stderr_eq.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stderr_eq.html\n",
 /// #     " a_program label: `&a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&a_args`,\n",
@@ -228,13 +241,13 @@ mod tests {
 macro_rules! assert_program_args_stderr_eq {
     ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => {{
         match $crate::assert_program_args_stderr_eq_as_result!($a_program, $a_args, $b_program, $b_args) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_program:expr, $a_args:expr, $b_program:expr, $($message:tt)+) => {{
         match $crate::assert_program_args_stderr_eq_as_result!($a_program, $a_args, $b_program, $b_args) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

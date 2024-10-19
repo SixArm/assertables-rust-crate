@@ -9,7 +9,7 @@
 //! use assertables::*;
 //!
 //! # fn main() {
-//! let a: Result<(), i8> = Err(1);
+//! let a: Result<i8, i8> = Err(1);
 //! assert_err!(a);
 //! # }
 //! ```
@@ -47,14 +47,14 @@ macro_rules! assert_err_as_result {
         match (&$a) {
             a => {
                 match (a) {
-                    Err(_) => {
-                        Ok(())
+                    Err(x) => {
+                        Ok(x)
                     },
                     _ => {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_err!(a)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_err.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_err.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -73,23 +73,22 @@ mod tests {
 
     #[test]
     fn test_assert_err_as_result_x_success() {
-        let a: Result<(), i8> = Err(1);
+        let a: Result<i8, i8> = Err(1);
         let result = assert_err_as_result!(a);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), &1);
     }
 
     #[test]
     fn test_assert_err_as_result_x_failure() {
-        let a: Result<(), i8>  = Ok(());
+        let a: Result<i8, i8> = Ok(1);
         let result = assert_err_as_result!(a);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_err!(a)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_err.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_err.html\n",
                 " a label: `a`,\n",
-                " a debug: `Ok(())`",
+                " a debug: `Ok(1)`",
             )
         );
     }
@@ -112,24 +111,24 @@ mod tests {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a: Result<(), i8> = Err(1);
+/// let a: Result<i8, i8> = Err(1);
 /// assert_err!(a);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a: Result<(), i8> = Ok(());
+/// let a: Result<i8, i8> = Ok(1);
 /// assert_err!(a);
 /// # });
 /// // assertion failed: `assert_err!(a)`
 /// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_err.html
 /// //  a label: `a`,
-/// //  a debug: `Ok(())`
+/// //  a debug: `Ok(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_err!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_err.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_err.html\n",
 /// #     " a label: `a`,\n",
-/// #     " a debug: `Ok(())`",
+/// #     " a debug: `Ok(1)`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -145,13 +144,13 @@ mod tests {
 macro_rules! assert_err {
     ($a:expr $(,)?) => {{
         match $crate::assert_err_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_err_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

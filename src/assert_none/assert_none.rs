@@ -20,7 +20,7 @@
 //! * [`assert_none_as_result`](macro@crate::assert_none_as_result)
 //! * [`debug_assert_none`](macro@crate::debug_assert_none)
 
-/// Assert an expression.is_none() is true.
+/// Assert an expression is None.
 ///
 /// Pseudocode:<br>
 /// a is None
@@ -54,7 +54,7 @@ macro_rules! assert_none_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_none!(a)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_none.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_none.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -82,12 +82,11 @@ mod tests {
     fn test_assert_none_as_result_x_failure() {
         let a: Option<i8> = Option::Some(1);
         let result = assert_none_as_result!(a);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_none!(a)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_none.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_none.html\n",
                 " a label: `a`,\n",
                 " a debug: `Some(1)`",
             )
@@ -127,7 +126,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_none!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_none.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_none.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`",
 /// # );

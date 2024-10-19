@@ -23,6 +23,26 @@
 //! * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
 //! * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
 
+/// Format assert failure error message.
+#[macro_export]
+macro_rules! assert_bag_ne_as_result_impl_err {
+    ($($arg:tt)*) => {
+        format!(
+            concat!(
+                "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_bag_ne.html\n",
+                " a label: `{}`,\n",
+                " a debug: `{:?}`,\n",
+                " b label: `{}`,\n",
+                " b debug: `{:?}`,\n",
+                "       a: `{:?}`,\n",
+                "       b: `{:?}`"
+            ),
+            $($arg)*
+        )
+    }
+}
+
 /// Assert a bag is not equal to another.
 ///
 /// Pseudocode:<br>
@@ -54,17 +74,8 @@ macro_rules! assert_bag_ne_as_result {
                 if a_bag != b_bag {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_bag_ne.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`,\n",
-                            "       a: `{:?}`,\n",
-                            "       b: `{:?}`"
-                        ),
+                    Err($crate::assert_bag_impl_err!(
+                        assert_bag_ne,
                         stringify!($a_collection),
                         a_collection,
                         stringify!($b_collection),
@@ -79,7 +90,7 @@ macro_rules! assert_bag_ne_as_result {
 }
 
 #[cfg(test)]
-mod test_assert_x_result {
+mod test {
 
     #[test]
     fn test_assert_bag_ne_as_result_x_success() {
@@ -94,18 +105,17 @@ mod test_assert_x_result {
         let a = [1, 1];
         let b = [1, 1];
         let result = assert_bag_ne_as_result!(&a, &b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_bag_ne.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_bag_ne.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 1]`,\n",
                 " b label: `&b`,\n",
                 " b debug: `[1, 1]`,\n",
-                "       a: `{1: 2}`,\n",
-                "       b: `{1: 2}`"
+                "   a bag: `{1: 2}`,\n",
+                "   b bag: `{1: 2}`"
             )
         );
     }
@@ -144,18 +154,18 @@ mod test_assert_x_result {
 /// //  a debug: `[1, 1]`,
 /// //  b label: `&b`,
 /// //  b debug: `[1, 1]`,
-/// //        a: `{1: 2}`,
-/// //        b: `{1: 2}`
+/// //    a bag: `{1: 2}`,
+/// //    b bag: `{1: 2}`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_bag_ne.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_bag_ne.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 1]`,\n",
 /// #     " b label: `&b`,\n",
 /// #     " b debug: `[1, 1]`,\n",
-/// #     "       a: `{1: 2}`,\n",
-/// #     "       b: `{1: 2}`"
+/// #     "   a bag: `{1: 2}`,\n",
+/// #     "   b bag: `{1: 2}`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

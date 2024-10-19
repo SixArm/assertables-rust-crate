@@ -12,7 +12,7 @@
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "alfa"];
 //! let bytes = vec![b'z', b'z'];
-//! assert_program_args_stdout_le_expr!(&program, &args, &bytes);
+//! assert_program_args_stdout_le_expr!(&program, &args, bytes);
 //! # }
 //! ```
 //!
@@ -27,7 +27,7 @@
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout) ≤ (expr into string)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((lhs, rhs))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -46,13 +46,13 @@
 #[macro_export]
 macro_rules! assert_program_args_stdout_le_expr_as_result {
     ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {{
-        match ($a_program, $a_args, $b_expr) {
+        match ($a_program, $a_args, &$b_expr) {
             (a_program, a_args, b_expr) => {
                 match assert_program_args_impl_prep!(a_program, a_args) {
                     Ok(a_output) => {
                         let a = a_output.stdout;
-                        if a.le($b_expr) {
-                            Ok(())
+                        if a.le(&$b_expr) {
+                            Ok((a, $b_expr))
                         } else {
                             Err(format!(
                                 concat!(
@@ -114,8 +114,11 @@ mod tests {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'z', b'z'];
-        let result = assert_program_args_stdout_le_expr_as_result!(&a_program, &a_args, &b);
-        assert_eq!(result.unwrap(), ());
+        let result = assert_program_args_stdout_le_expr_as_result!(&a_program, &a_args, b);
+        assert_eq!(
+            result.unwrap(),
+            (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z'])
+        );
     }
 
     #[test]
@@ -123,8 +126,11 @@ mod tests {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'l', b'f', b'a'];
-        let result = assert_program_args_stdout_le_expr_as_result!(&a_program, &a_args, &b);
-        assert_eq!(result.unwrap(), ());
+        let result = assert_program_args_stdout_le_expr_as_result!(&a_program, &a_args, b);
+        assert_eq!(
+            result.unwrap(),
+            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
+        );
     }
 
     #[test]
@@ -132,7 +138,7 @@ mod tests {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'a'];
-        let result = assert_program_args_stdout_le_expr_as_result!(&a_program, &a_args, &b);
+        let result = assert_program_args_stdout_le_expr_as_result!(&a_program, &a_args, b);
         let actual = result.unwrap_err();
         let expect = concat!(
           "assertion failed: `assert_program_args_stdout_le_expr!(a_program, a_args, b_expr)`\n",
@@ -141,7 +147,7 @@ mod tests {
           " a_program debug: `\"bin/printf-stdout\"`,\n",
           "    a_args label: `&a_args`,\n",
           "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-          "    b_expr label: `&b`,\n",
+          "    b_expr label: `b`,\n",
           "    b_expr debug: `[97, 97]`,\n",
           "               a: `[97, 108, 102, 97]`,\n",
           "               b: `[97, 97]`"
@@ -170,14 +176,14 @@ mod tests {
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'z', b'z'];
-/// assert_program_args_stdout_le_expr!(&program, &args, &bytes);
+/// assert_program_args_stdout_le_expr!(&program, &args, bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'a', b'a'];
-/// assert_program_args_stdout_le_expr!(&program, &args, &bytes);
+/// assert_program_args_stdout_le_expr!(&program, &args, bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_le_expr!(a_program, a_args, b_expr)`
 /// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_le_expr.html
@@ -185,7 +191,7 @@ mod tests {
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
-/// //     b_expr label: `&bytes`,
+/// //     b_expr label: `bytes`,
 /// //     b_expr debug: `[97, 97]`,
 /// //                a: `[97, 108, 102, 97]`,
 /// //                b: `[97, 97]`
@@ -197,7 +203,7 @@ mod tests {
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-/// #     "    b_expr label: `&bytes`,\n",
+/// #     "    b_expr label: `bytes`,\n",
 /// #     "    b_expr debug: `[97, 97]`,\n",
 /// #     "               a: `[97, 108, 102, 97]`,\n",
 /// #     "               b: `[97, 97]`"
@@ -216,13 +222,13 @@ mod tests {
 macro_rules! assert_program_args_stdout_le_expr {
     ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {{
         match $crate::assert_program_args_stdout_le_expr_as_result!($a_program, $a_args, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_program:expr, $a_args:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_program_args_stdout_le_expr_as_result!($a_program, $a_args, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

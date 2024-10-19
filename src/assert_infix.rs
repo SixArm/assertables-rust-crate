@@ -67,7 +67,6 @@
 //! * [`assert_infix`](macro@crate::assert_infix)
 //! * [`assert_infix_as_result`](macro@crate::assert_infix_as_result)
 //! * [`debug_assert_infix`](macro@crate::debug_assert_infix)
-//!
 
 /// Assert a infix operator, such as assert_infix!(a == b).
 ///
@@ -99,7 +98,7 @@ macro_rules! assert_infix_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_infix!(a {} b)`\n",
-                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_infix.html\n",
+                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_infix.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`,\n",
                     " b label: `{}`,\n",
@@ -133,12 +132,11 @@ mod tests {
         let a: i32 = 1;
         let b: i32 = 2;
         let result = assert_infix_as_result!(a == b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_infix!(a == b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_infix.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_infix.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
@@ -146,12 +144,11 @@ mod tests {
             )
         );
         let result = assert_infix_as_result!(a >= b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_infix!(a >= b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_infix.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_infix.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
@@ -197,7 +194,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_infix!(a == b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_infix.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_infix.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",

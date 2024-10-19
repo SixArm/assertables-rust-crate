@@ -54,7 +54,7 @@ macro_rules! assert_lt_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_lt!(a, b)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_lt.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_lt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -72,7 +72,7 @@ macro_rules! assert_lt_as_result {
 }
 
 #[cfg(test)]
-mod test_assert_x_result {
+mod test {
 
     #[test]
     fn test_assert_lt_as_result_x_success() {
@@ -87,12 +87,11 @@ mod test_assert_x_result {
         let a: i32 = 2;
         let b: i32 = 1;
         let result = assert_lt_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `2`,\n",
                 " b label: `b`,\n",
@@ -138,7 +137,7 @@ mod test_assert_x_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_lt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_lt.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `2`,\n",
 /// #     " b label: `b`,\n",

@@ -12,11 +12,11 @@
 //! ```
 //!
 //! Note: this implementation of `assert_not_matches` is relatively basic.
-//! 
+//!
 //! * If you want more capabilities, consider the crate `assert_not_matches`.
-//! 
+//!
 //! * If you're using Rust nightly, use the std lib macro `assert_not_matches`.
-//! 
+//!
 //! # Module macros
 //!
 //! * [`assert_not_matches`](macro@crate::assert_not_matches)
@@ -50,7 +50,7 @@ macro_rules! assert_not_matches_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_not_matches!(a)`\n",
-                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_matches.html\n",
+                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_matches.html\n",
                     " args: `{}`",
                 ),
                 stringify!($($arg)*),
@@ -75,12 +75,11 @@ mod tests {
     fn test_assert_not_matches_as_result_x_char_x_failure() {
         let a = 'a';
         let result = assert_not_matches_as_result!(a, 'a'..='z');
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_not_matches!(a)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_matches.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_matches.html\n",
                 " args: `a, 'a'..='z'`",
             )
         );
@@ -99,12 +98,11 @@ mod tests {
     fn test_assert_not_matches_as_result_x_some_x_failure() {
         let a = Some(1);
         let result = assert_not_matches_as_result!(a, Some(x) if x < 2);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_not_matches!(a)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_matches.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_matches.html\n",
                 " args: `a, Some(x) if x < 2`",
             )
         );
@@ -139,7 +137,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_not_matches!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_matches.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_matches.html\n",
 /// #     " args: `a, 'a'..='z'`",
 /// # );
 /// # assert_eq!(actual, expect);

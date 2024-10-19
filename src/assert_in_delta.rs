@@ -99,7 +99,7 @@ macro_rules! assert_in_delta_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_in_delta.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_in_delta.html\n",
                                 "           a label: `{}`,\n",
                                 "           a debug: `{:?}`,\n",
                                 "           b label: `{}`,\n",
@@ -143,12 +143,11 @@ mod tests {
         let b: i8 = 12;
         let delta: i8 = 1;
         let result = assert_in_delta_as_result!(a, b, delta);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_in_delta.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_in_delta.html\n",
                 "           a label: `a`,\n",
                 "           a debug: `10`,\n",
                 "           b label: `b`,\n",
@@ -204,7 +203,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_in_delta.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_in_delta.html\n",
 /// #     "           a label: `a`,\n",
 /// #     "           a debug: `10`,\n",
 /// #     "           b label: `b`,\n",

@@ -316,7 +316,7 @@
 /// * [`assert_program_args_stdout_contains_as_result`](macro@crate::assert_program_args_stdout_contains_as_result)
 /// * [`debug_assert_program_args_stdout_contains`](macro@crate::debug_assert_program_args_stdout_contains)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_program_args_stdout_contains_as_result` to `assert_program_args_stdout_string_contains_as_result` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_program_args_stdout_contains_as_result` into `assert_program_args_stdout_string_contains_as_result` because this macro does the comparison via a Rust UTF-8 String."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stdout_contains_as_result {
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -460,7 +460,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_contains!(a_program, a_args, containee)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stdout_contains.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_contains.html\n",
 /// #     " a_program label: `&amp;program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&amp;args`,\n",
@@ -480,7 +480,7 @@
 /// * [`assert_program_args_stdout_contains_as_result`](macro@crate::assert_program_args_stdout_contains_as_result)
 /// * [`debug_assert_program_args_stdout_contains`](macro@crate::debug_assert_program_args_stdout_contains)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_program_args_stdout_contains` to `assert_program_args_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `assert_program_args_stdout_contains` into `assert_program_args_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stdout_contains {
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$containee</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
@@ -525,7 +525,7 @@
 /// * [`assert_program_args_stdout_contains`](macro@crate::assert_program_args_stdout_contains)
 /// * [`debug_assert_program_args_stdout_contains`](macro@crate::debug_assert_program_args_stdout_contains)
 ///
-</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_program_args_stdout_contains` to `debug_assert_program_args_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String."</span>)]
+</span><span class="attr">#[deprecated(note = <span class="string">"Please rename from `debug_assert_program_args_stdout_contains` into `debug_assert_program_args_stdout_string_contains` because this macro does the comparison via a Rust UTF-8 String."</span>)]
 #[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_program_args_stdout_contains {
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {

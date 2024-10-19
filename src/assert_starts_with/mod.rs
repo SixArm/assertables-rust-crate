@@ -18,7 +18,7 @@
 //! let whole: &str = "alfa";
 //! let part: &str = "al";
 //! assert_starts_with!(whole, part);
-//! 
+//!
 //! // Vector starts with element?
 //! let whole = vec![1, 2, 3];
 //! let part = [1];
@@ -26,5 +26,5 @@
 //! # }
 //! ```
 
-pub mod assert_starts_with;
 pub mod assert_not_starts_with;
+pub mod assert_starts_with;

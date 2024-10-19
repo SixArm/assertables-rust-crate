@@ -2,7 +2,7 @@
 
 https://crates.io/crates/all_asserts
 
-* assert_true: Asserts that the expression is true 
+* assert_true: Asserts that the expression is true
 * assert_false: Asserts that the expression is false
 * assert_ge: Asserts that the left hand side expression is greater than or equal to the right hand side expression
 * assert_gt: Asserts that the left hand side expression is greater than the right hand side expression

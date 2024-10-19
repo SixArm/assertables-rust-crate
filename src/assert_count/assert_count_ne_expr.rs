@@ -54,7 +54,7 @@ macro_rules! assert_count_ne_expr_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_count_ne_expr!(a, b)`\n",
-                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_count_ne_expr.html\n",
+                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_count_ne_expr.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a.count(): `{:?}`,\n",
@@ -89,12 +89,11 @@ mod tests {
         let a = "x".chars();
         let b = 1;
         let result = assert_count_ne_expr_as_result!(a, b);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_count_ne_expr!(a, b)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_count_ne_expr.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_count_ne_expr.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x'])`,\n",
                 " a.count(): `1`,\n",
@@ -142,7 +141,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_count_ne_expr!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_count_ne_expr.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_count_ne_expr.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",

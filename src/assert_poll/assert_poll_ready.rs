@@ -37,7 +37,9 @@
 /// * [`assert_poll_ready_as_result`](macro@crate::assert_poll_ready_as_result)
 /// * [`debug_assert_poll_ready`](macro@crate::debug_assert_poll_ready)
 ///
-#[deprecated(note = "Please rename from `assert_poll_ready_as_result` to `assert_ready_as_result` because more developers prefer the shorter name.")]
+#[deprecated(
+    note = "Please rename from `assert_poll_ready_as_result` into `assert_ready_as_result` because more developers prefer the shorter name."
+)]
 #[macro_export]
 macro_rules! assert_poll_ready_as_result {
     ($a:expr $(,)?) => {{
@@ -51,7 +53,7 @@ macro_rules! assert_poll_ready_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_poll_ready!(a)`\n",
-                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_poll_ready.html\n",
+                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_poll_ready.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -81,12 +83,11 @@ mod tests {
     fn test_assert_poll_ready_as_result_x_failure() {
         let a: Poll<i8> = Pending;
         let result = assert_poll_ready_as_result!(a);
-        assert!(result.is_err());
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_poll_ready!(a)`\n",
-                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_poll_ready.html\n",
+                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_poll_ready.html\n",
                 " a label: `a`,\n",
                 " a debug: `Pending`",
             )
@@ -124,7 +125,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_poll_ready!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_poll_ready.html\n",
+/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_poll_ready.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Pending`",
 /// # );
@@ -138,18 +139,20 @@ mod tests {
 /// * [`assert_poll_ready_as_result`](macro@crate::assert_poll_ready_as_result)
 /// * [`debug_assert_poll_ready`](macro@crate::debug_assert_poll_ready)
 ///
-#[deprecated(note = "Please rename from `assert_poll_ready` to `assert_ready` because more developers prefer the shorter name.")]
+#[deprecated(
+    note = "Please rename from `assert_poll_ready` into `assert_ready` because more developers prefer the shorter name."
+)]
 #[macro_export]
 macro_rules! assert_poll_ready {
     ($a:expr $(,)?) => {{
         match $crate::assert_poll_ready_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_poll_ready_as_result!($a) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -183,7 +186,9 @@ macro_rules! assert_poll_ready {
 /// * [`assert_poll_ready`](macro@crate::assert_poll_ready)
 /// * [`debug_assert_poll_ready`](macro@crate::debug_assert_poll_ready)
 ///
-#[deprecated(note = "Please rename from `debug_assert_poll_ready` to `debug_assert_ready` because more developers prefer the shorter name.")]
+#[deprecated(
+    note = "Please rename from `debug_assert_poll_ready` into `debug_assert_ready` because more developers prefer the shorter name."
+)]
 #[macro_export]
 macro_rules! debug_assert_poll_ready {
     ($($arg:tt)*) => {
