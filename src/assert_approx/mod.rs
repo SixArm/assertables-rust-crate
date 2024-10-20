@@ -26,7 +26,7 @@ macro_rules! assert_approx_xx_impl_err {
         format!(
             concat!(
                 "assertion failed: `{}!(a, b)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.{}.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.{}.html\n",
                 "            a label: `{}`,\n",
                 "            a debug: `{:?}`,\n",
                 "            b label: `{}`,\n",

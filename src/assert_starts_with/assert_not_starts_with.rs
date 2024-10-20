@@ -59,7 +59,7 @@ macro_rules! assert_not_starts_with_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_not_starts_with!(whole, part)`\n",
-                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_starts_with.html\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_starts_with.html\n",
                             " whole label: `{}`,\n",
                             " whole debug: `{:?}`,\n",
                             "  part label: `{}`,\n",
@@ -95,7 +95,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_not_starts_with!(whole, part)`\n",
-            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_starts_with.html\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_starts_with.html\n",
             " whole label: `whole`,\n",
             " whole debug: `\"alfa\"`,\n",
             "  part label: `part`,\n",
@@ -139,7 +139,7 @@ mod tests {
 /// assert_not_starts_with!(whole, part);
 /// # });
 /// // assertion failed: `assert_not_starts_with!(whole, part)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_starts_with.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_starts_with.html
 /// //  whole label: `whole`,
 /// //  whole debug: `\"alfa\"`,
 /// //   part label: `part`,
@@ -147,7 +147,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_not_starts_with!(whole, part)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_starts_with.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_starts_with.html\n",
 /// #     " whole label: `whole`,\n",
 /// #     " whole debug: `\"alfa\"`,\n",
 /// #     "  part label: `part`,\n",

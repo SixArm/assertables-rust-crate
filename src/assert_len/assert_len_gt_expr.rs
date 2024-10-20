@@ -26,7 +26,7 @@
 /// Pseudocode:<br>
 /// a.len() > b
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a.len(), b))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -45,16 +45,16 @@
 #[macro_export]
 macro_rules! assert_len_gt_expr_as_result {
     ($a:expr, $b:expr $(,)?) => {{
-        match (&$a) {
-            a => {
+        match (&$a, &$b) {
+            (a, b) => {
                 let a_len = a.len();
                 if a_len > $b {
-                    Ok(())
+                    Ok((a_len, $b))
                 } else {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_len_gt_expr!(a, b)`\n",
-                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_gt_expr.html\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt_expr.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a.len(): `{:?}`,\n",
@@ -65,7 +65,7 @@ macro_rules! assert_len_gt_expr_as_result {
                         a,
                         a_len,
                         stringify!($b),
-                        $b
+                        b
                     ))
                 }
             }
@@ -81,7 +81,7 @@ mod tests {
         let a = "xx";
         let b = 1;
         let result = assert_len_gt_expr_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result, Ok((2, 1)));
     }
 
     #[test]
@@ -93,7 +93,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_len_gt_expr!(a, b)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_gt_expr.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt_expr.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"x\"`,\n",
                 " a.len(): `1`,\n",
@@ -112,7 +112,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_len_gt_expr!(a, b)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_gt_expr.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt_expr.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"x\"`,\n",
                 " a.len(): `1`,\n",
@@ -128,7 +128,7 @@ mod tests {
 /// Pseudocode:<br>
 /// a.len() > b
 ///
-/// * If true, return `()`.
+/// * If true, return `(a.len(), b)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -151,7 +151,7 @@ mod tests {
 /// assert_len_gt_expr!(a, b);
 /// # });
 /// // assertion failed: `assert_len_gt_expr!(a, b)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_gt_expr.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt_expr.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
@@ -160,7 +160,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_len_gt_expr!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_gt_expr.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt_expr.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
@@ -181,13 +181,13 @@ mod tests {
 macro_rules! assert_len_gt_expr {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_len_gt_expr_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_len_gt_expr_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

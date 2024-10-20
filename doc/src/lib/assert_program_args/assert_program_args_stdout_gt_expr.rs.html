@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/assert_program_args/assert_program_args_stdout_gt_expr.rs`."><title>assert_program_args_stdout_gt_expr.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c5d6553a23f1e5a6.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.81.0 (eeb90cda1 2024-09-04)" data-channel="1.81.0" data-search-js="search-d234aafac6c221dd.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-d2fab2bf619172d3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/assert_program_args/assert_program_args_stdout_gt_expr.rs`."><title>assert_program_args_stdout_gt_expr.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-492a78a4a87dcc01.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0 (f6e511eec 2024-10-15)" data-channel="1.82.0" data-search-js="search-a99f1315e7cc5121.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-921df33f47b8780c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -258,6 +258,9 @@
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
 <a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is greater than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -272,7 +275,7 @@
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "alfa"];
 //! let bytes = vec![b'a', b'a'];
-//! assert_program_args_stdout_gt_expr!(&amp;program, &amp;args, &amp;bytes);
+//! assert_program_args_stdout_gt_expr!(&amp;program, &amp;args, bytes);
 //! # }
 //! ```
 //!
@@ -287,7 +290,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (program1 + args1 ⇒ command ⇒ stdout) &gt; (expr into string)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((lhs, rhs))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -306,18 +309,18 @@
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stdout_gt_expr_as_result {
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_expr</span>) {
+        <span class="kw">match </span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
             (a_program, a_args, b_expr) =&gt; {
                 <span class="kw">match </span><span class="macro">assert_program_args_impl_prep!</span>(a_program, a_args) {
                     <span class="prelude-val">Ok</span>(a_output) =&gt; {
                         <span class="kw">let </span>a = a_output.stdout;
-                        <span class="kw">if </span>a.gt(<span class="macro-nonterminal">$b_expr</span>) {
-                            <span class="prelude-val">Ok</span>(())
+                        <span class="kw">if </span>a.gt(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
+                            <span class="prelude-val">Ok</span>((a, <span class="macro-nonterminal">$b_expr</span>))
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_program_args_stdout_gt_expr!(a_program, a_args, b_expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_gt_expr.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt_expr.html\n"</span>,
                                     <span class="string">" a_program label: `{}`,\n"</span>,
                                     <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                     <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -342,7 +345,7 @@
                         <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_program_args_stdout_gt_expr!(a_program, a_args, b_expr)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_gt_expr.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt_expr.html\n"</span>,
                                 <span class="string">" a_program label: `{}`,\n"</span>,
                                 <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                 <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -374,8 +377,11 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'a'</span>];
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_gt_expr_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), ());
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_gt_expr_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'a'</span>])
+        );
     }
 
     <span class="attr">#[test]
@@ -383,16 +389,16 @@
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stdout"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'z'</span>, <span class="string">b'z'</span>];
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_gt_expr_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b);
+        <span class="kw">let </span>result = <span class="macro">assert_program_args_stdout_gt_expr_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
           <span class="string">"assertion failed: `assert_program_args_stdout_gt_expr!(a_program, a_args, b_expr)`\n"</span>,
-          <span class="string">"https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_gt_expr.html\n"</span>,
+          <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt_expr.html\n"</span>,
           <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
           <span class="string">" a_program debug: `\"bin/printf-stdout\"`,\n"</span>,
           <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
           <span class="string">"    a_args debug: `[\"%s\", \"alfa\"]`,\n"</span>,
-          <span class="string">"    b_expr label: `&amp;b`,\n"</span>,
+          <span class="string">"    b_expr label: `b`,\n"</span>,
           <span class="string">"    b_expr debug: `[122, 122]`,\n"</span>,
           <span class="string">"               a: `[97, 108, 102, 97]`,\n"</span>,
           <span class="string">"               b: `[122, 122]`"
@@ -421,34 +427,34 @@
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'a', b'a'];
-/// assert_program_args_stdout_gt_expr!(&amp;program, &amp;args, &amp;bytes);
+/// assert_program_args_stdout_gt_expr!(&amp;program, &amp;args, bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'z', b'z'];
-/// assert_program_args_stdout_gt_expr!(&amp;program, &amp;args, &amp;bytes);
+/// assert_program_args_stdout_gt_expr!(&amp;program, &amp;args, bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_gt_expr!(a_program, a_args, b_expr)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_gt_expr.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt_expr.html
 /// //  a_program label: `&amp;program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&amp;args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
-/// //     b_expr label: `&amp;bytes`,
+/// //     b_expr label: `bytes`,
 /// //     b_expr debug: `[122, 122]`,
 /// //                a: `[97, 108, 102, 97]`,
 /// //                b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_gt_expr!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stdout_gt_expr.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt_expr.html\n",
 /// #     " a_program label: `&amp;program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&amp;args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-/// #     "    b_expr label: `&amp;bytes`,\n",
+/// #     "    b_expr label: `bytes`,\n",
 /// #     "    b_expr debug: `[122, 122]`,\n",
 /// #     "               a: `[97, 108, 102, 97]`,\n",
 /// #     "               b: `[122, 122]`"
@@ -467,13 +473,13 @@
 </span><span class="macro">macro_rules!</span> assert_program_args_stdout_gt_expr {
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_program_args_stdout_gt_expr_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_expr</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_program_args_stdout_gt_expr_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_expr</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};

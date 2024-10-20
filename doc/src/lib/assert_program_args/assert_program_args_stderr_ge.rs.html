@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/assert_program_args/assert_program_args_stderr_ge.rs`."><title>assert_program_args_stderr_ge.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c5d6553a23f1e5a6.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.81.0 (eeb90cda1 2024-09-04)" data-channel="1.81.0" data-search-js="search-d234aafac6c221dd.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-d2fab2bf619172d3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/assert_program_args/assert_program_args_stderr_ge.rs`."><title>assert_program_args_stderr_ge.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-492a78a4a87dcc01.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0 (f6e511eec 2024-10-15)" data-channel="1.82.0" data-search-js="search-a99f1315e7cc5121.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-921df33f47b8780c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -289,6 +289,23 @@
 <a href="#289" id="289">289</a>
 <a href="#290" id="290">290</a>
 <a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is greater than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -319,7 +336,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((lhs, rhs))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -340,67 +357,75 @@
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
             (a_program, a_args, b_program, b_args) =&gt; {
-                <span class="kw">let </span>a_output = <span class="macro">assert_program_args_impl_prep!</span>(a_program, a_args);
-                <span class="kw">let </span>b_output = <span class="macro">assert_program_args_impl_prep!</span>(b_program, b_args);
-                <span class="kw">if </span>a_output.is_err() || b_output.is_err() {
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_program_args_stderr_ge.html\n"</span>,
-                            <span class="string">" a_program label: `{}`,\n"</span>,
-                            <span class="string">" a_program debug: `{:?}`,\n"</span>,
-                            <span class="string">"    a_args label: `{}`,\n"</span>,
-                            <span class="string">"    a_args debug: `{:?}`,\n"</span>,
-                            <span class="string">" b_program label: `{}`,\n"</span>,
-                            <span class="string">" b_program debug: `{:?}`,\n"</span>,
-                            <span class="string">"    b_args label: `{}`,\n"</span>,
-                            <span class="string">"    b_args debug: `{:?}`,\n"</span>,
-                            <span class="string">"        a output: `{:?}`,\n"</span>,
-                            <span class="string">"        b output: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
-                        a_program,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
-                        a_args,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
-                        b_program,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
-                        b_args,
-                        a_output,
-                        b_output
-                    ))
-                } <span class="kw">else </span>{
-                    <span class="kw">let </span>a = a_output.unwrap().stderr;
-                    <span class="kw">let </span>b = b_output.unwrap().stderr;
-                    <span class="kw">if </span>a.ge(<span class="kw-2">&amp;</span>b) {
-                        <span class="prelude-val">Ok</span>(())
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                            <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_program_args_stderr_ge.html\n"</span>,
-                                <span class="string">" a_program label: `{}`,\n"</span>,
-                                <span class="string">" a_program debug: `{:?}`,\n"</span>,
-                                <span class="string">"    a_args label: `{}`,\n"</span>,
-                                <span class="string">"    a_args debug: `{:?}`,\n"</span>,
-                                <span class="string">" b_program label: `{}`,\n"</span>,
-                                <span class="string">" b_program debug: `{:?}`,\n"</span>,
-                                <span class="string">"    b_args label: `{}`,\n"</span>,
-                                <span class="string">"    b_args debug: `{:?}`,\n"</span>,
-                                <span class="string">"               a: `{:?}`,\n"</span>,
-                                <span class="string">"               b: `{:?}`"
-                            </span>),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
-                            a_program,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
-                            a_args,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
-                            b_program,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
-                            b_args,
-                            a,
-                            b
-                        ))
+                <span class="kw">match </span>(
+                    <span class="macro">assert_program_args_impl_prep!</span>(a_program, a_args),
+                    <span class="macro">assert_program_args_impl_prep!</span>(b_program, b_args)
+                ) {
+                    (<span class="prelude-val">Ok</span>(a_output), <span class="prelude-val">Ok</span>(b_output)) =&gt; {
+                        <span class="kw">let </span>a = a_output.stderr;
+                        <span class="kw">let </span>b = b_output.stderr;
+                        <span class="kw">if </span>a.ge(<span class="kw-2">&amp;</span>b) {
+                            <span class="prelude-val">Ok</span>((a, b))
+                        } <span class="kw">else </span>{
+                            <span class="prelude-val">Err</span>(
+                                <span class="macro">format!</span>(
+                                    <span class="macro">concat!</span>(
+                                        <span class="string">"assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html\n"</span>,
+                                        <span class="string">" a_program label: `{}`,\n"</span>,
+                                        <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                                        <span class="string">"    a_args label: `{}`,\n"</span>,
+                                        <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                                        <span class="string">" b_program label: `{}`,\n"</span>,
+                                        <span class="string">" b_program debug: `{:?}`,\n"</span>,
+                                        <span class="string">"    b_args label: `{}`,\n"</span>,
+                                        <span class="string">"    b_args debug: `{:?}`,\n"</span>,
+                                        <span class="string">"               a: `{:?}`,\n"</span>,
+                                        <span class="string">"               b: `{:?}`"
+                                    </span>),
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                                    a_program,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                                    a_args,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
+                                    b_program,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
+                                    b_args,
+                                    a,
+                                    b
+                                )
+                            )
+                        }
+                    },
+                    (a, b) =&gt; {
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
+                                <span class="macro">concat!</span>(
+                                    <span class="string">"assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html\n"</span>,
+                                    <span class="string">" a_program label: `{}`,\n"</span>,
+                                    <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                                    <span class="string">"    a_args label: `{}`,\n"</span>,
+                                    <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                                    <span class="string">" b_program label: `{}`,\n"</span>,
+                                    <span class="string">" b_program debug: `{:?}`,\n"</span>,
+                                    <span class="string">"    b_args label: `{}`,\n"</span>,
+                                    <span class="string">"    b_args debug: `{:?}`,\n"</span>,
+                                    <span class="string">"               a: `{:?}`,\n"</span>,
+                                    <span class="string">"               b: `{:?}`"
+                                </span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                                a_program,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                                a_args,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
+                                b_program,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
+                                b_args,
+                                a,
+                                b
+                            )
+                        )
                     }
                 }
             }
@@ -417,8 +442,12 @@
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"aa"</span>];
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stderr_ge_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
-        <span class="macro">assert_eq!</span>(result.unwrap(), ());
+        <span class="kw">let </span>result =
+            <span class="macro">assert_program_args_stderr_ge_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'a'</span>])
+        );
     }
 
     <span class="attr">#[test]
@@ -427,8 +456,12 @@
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stderr_ge_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
-        <span class="macro">assert_eq!</span>(result.unwrap(), ());
+        <span class="kw">let </span>result =
+            <span class="macro">assert_program_args_stderr_ge_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>])
+        );
     }
 
     <span class="attr">#[test]
@@ -437,11 +470,12 @@
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"zz"</span>];
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stderr_ge_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
+        <span class="kw">let </span>result =
+            <span class="macro">assert_program_args_stderr_ge_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_program_args_stderr_ge.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html\n"</span>,
             <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
             <span class="string">" a_program debug: `\"bin/printf-stderr\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
@@ -489,7 +523,7 @@
 /// assert_program_args_stderr_ge!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stderr_ge.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html
 /// //  a_program label: `&amp;a_program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&amp;a_args`,
@@ -503,7 +537,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_program_args_stderr_ge.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html\n",
 /// #     " a_program label: `&amp;a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&amp;a_args`,\n",
@@ -529,13 +563,13 @@
 </span><span class="macro">macro_rules!</span> assert_program_args_stderr_ge {
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_program_args_stderr_ge_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_program_args_stderr_ge_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};

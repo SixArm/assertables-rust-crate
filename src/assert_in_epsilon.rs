@@ -41,7 +41,7 @@
 //!   and a relative error (epsilon) of 0.03.
 //!
 //! * Approximating the number 1,000,000 and 1,000,003 has an absolute error
-//!   (delta) of 3, and a relative error (espilon) of 0.000003.
+//!   (delta) of 3, and a relative error (epsilon) of 0.000003.
 //!
 //! * For many kinds of applications, the relative error is more important than
 //!   the absolute error.
@@ -101,7 +101,7 @@ macro_rules! assert_in_epsilon_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_in_epsilon.html\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
                                 "                         a label: `{}`,\n",
                                 "                         a debug: `{:?}`,\n",
                                 "                         b label: `{}`,\n",
@@ -151,7 +151,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_in_epsilon.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
                 "                         a label: `a`,\n",
                 "                         a debug: `10`,\n",
                 "                         b label: `b`,\n",
@@ -196,7 +196,7 @@ mod tests {
 /// assert_in_epsilon!(a, b, e);
 /// # });
 /// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_in_epsilon.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html
 /// //                          a label: `a`,
 /// //                          a debug: `10`,
 /// //                          b label: `b`,
@@ -209,7 +209,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_in_epsilon.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
 /// #     "                         a label: `a`,\n",
 /// #     "                         a debug: `10`,\n",
 /// #     "                         b label: `b`,\n",

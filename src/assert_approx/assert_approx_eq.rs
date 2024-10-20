@@ -25,8 +25,8 @@
 //!   equality within 1e-6. The macro name and the approximate value are chosen
 //!   to be similar to the longtime popular rust crate `assert_approx_eq`.
 //!
-//! * [`assert_in_approx`](macro@crate::assert_in_approx) tests the absolute error
-//!   (i.e. approx). This is the magnitude of the difference between the exact
+//! * [`assert_in_delta`](macro@crate::assert_in_delta) tests the absolute error
+//!   (i.e. delta). This is the magnitude of the difference between the exact
 //!   value and the approximation.
 //!
 //! * [`assert_in_epsilon`](macro@crate::assert_in_epsilon) tests the relative
@@ -40,7 +40,7 @@
 //!   and a relative error (epsilon) of 0.03.
 //!
 //! * Approximating the number 1,000,000 and 1,000,003 has an absolute error
-//!   (approx) of 3, and a relative error (espilon) of 0.000003.
+//!   (approx) of 3, and a relative error (epsilon) of 0.000003.
 //!
 //! * For many kinds of applications, the relative error is more important than
 //!   the absolute error.
@@ -128,7 +128,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_approx_eq!(a, b)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_approx_eq.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_eq.html\n",
                 "            a label: `a`,\n",
                 "            a debug: `1.0000001`,\n",
                 "            b label: `b`,\n",
@@ -169,7 +169,7 @@ mod tests {
 /// assert_approx_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_approx_eq!(a, b)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_approx_eq.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_eq.html
 /// //             a label: `a`,
 /// //             a debug: `1.0000001`,
 /// //             b label: `b`,
@@ -180,7 +180,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_approx_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_approx_eq.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_eq.html\n",
 /// #     "            a label: `a`,\n",
 /// #     "            a debug: `1.0000001`,\n",
 /// #     "            b label: `b`,\n",

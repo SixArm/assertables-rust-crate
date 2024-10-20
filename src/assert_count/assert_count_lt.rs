@@ -26,7 +26,7 @@
 /// Pseudocode:<br>
 /// a.count() < b.count()
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a.count(), b))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -50,12 +50,12 @@ macro_rules! assert_count_lt_as_result {
                 let a_count = a.clone().count();
                 let b_count = b.clone().count();
                 if a_count < b_count {
-                    Ok(())
+                    Ok((a_count, b_count))
                 } else {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_count_lt!(a, b)`\n",
-                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_count_lt.html\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a.count(): `{:?}`,\n",
@@ -84,7 +84,7 @@ mod tests {
         let a = "x".chars();
         let b = "xx".chars();
         let result = assert_count_lt_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result, Ok((1, 2)));
     }
 
     #[test]
@@ -96,7 +96,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_count_lt!(a, b)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_count_lt.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x'])`,\n",
                 " a.count(): `1`,\n",
@@ -116,7 +116,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_count_lt!(a, b)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_count_lt.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x', 'x'])`,\n",
                 " a.count(): `2`,\n",
@@ -133,7 +133,7 @@ mod tests {
 /// Pseudocode:<br>
 /// a.count() < b.count()
 ///
-/// * If true, return `()`.
+/// * If true, return `(a.count(), b)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -156,7 +156,7 @@ mod tests {
 /// assert_count_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_count_lt!(a, b)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_count_lt.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",
@@ -166,7 +166,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_count_lt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_count_lt.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x', 'x'])`,\n",
 /// #     " a.count(): `2`,\n",
@@ -188,13 +188,13 @@ mod tests {
 macro_rules! assert_count_lt {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_count_lt_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_count_lt_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

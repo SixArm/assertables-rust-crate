@@ -26,7 +26,7 @@
 /// Pseudocode:<br>
 /// a.len() ≠ b.len()
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a.len(), b.len()))`.
 ///
 /// * Otherwise, return Result `Err` with a diagnostic message.
 ///
@@ -50,12 +50,12 @@ macro_rules! assert_len_ne_as_result {
                 let a_len = a.len();
                 let b_len = b.len();
                 if a_len != b_len {
-                    Ok(())
+                    Ok((a_len, b_len))
                 } else {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_len_ne!(a, b)`\n",
-                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_ne.html\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ne.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a.len(): `{:?}`,\n",
@@ -80,11 +80,19 @@ macro_rules! assert_len_ne_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_len_ne_as_result_x_success() {
+    fn test_assert_len_ne_as_result_x_success_because_lt() {
         let a = "x";
         let b = "xx";
         let result = assert_len_ne_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result, Ok((1, 2)));
+    }
+
+    #[test]
+    fn test_assert_len_ne_as_result_x_success_because_gt() {
+        let a = "xx";
+        let b = "x";
+        let result = assert_len_ne_as_result!(a, b);
+        assert_eq!(result, Ok((2, 1)));
     }
 
     #[test]
@@ -96,7 +104,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_len_ne!(a, b)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_ne.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"x\"`,\n",
                 " a.len(): `1`,\n",
@@ -113,7 +121,7 @@ mod tests {
 /// Pseudocode:<br>
 /// a.len() ≠ b.len()
 ///
-/// * If true, return `()`.
+/// * If true, return `(a.len(), b.len())`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -136,7 +144,7 @@ mod tests {
 /// assert_len_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_len_ne!(a, b)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_ne.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ne.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
@@ -146,7 +154,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_len_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_len_ne.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
@@ -168,13 +176,13 @@ mod tests {
 macro_rules! assert_len_ne {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_len_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_len_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

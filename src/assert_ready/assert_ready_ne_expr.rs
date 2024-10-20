@@ -56,7 +56,7 @@ macro_rules! assert_ready_ne_expr_as_result {
                             Err(format!(
                                 concat!(
                                     "assertion failed: `assert_ready_ne_expr!(a, b)`\n",
-                                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne_expr.html\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ready_ne_expr.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " a inner: `{:?}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_ready_ne_expr_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_ready_ne_expr!(a, b)`\n",
-                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne_expr.html\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ready_ne_expr.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -115,7 +115,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ready_ne_expr!(a, b)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne_expr.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ready_ne_expr.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ready(1)`,\n",
                 " a inner: `1`,\n",
@@ -134,7 +134,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ready_ne_expr!(a, b)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne_expr.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ready_ne_expr.html\n",
                 " a label: `a`,\n",
                 " a debug: `Pending`,\n",
                 " b label: `b`,\n",
@@ -173,7 +173,7 @@ mod tests {
 /// assert_ready_ne_expr!(a, b);
 /// # });
 /// // assertion failed: `assert_ready_ne_expr!(a, b)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne_expr.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_ready_ne_expr.html
 /// //  a label: `a`,
 /// //  a debug: `Ready(1)`,
 /// //  a inner: `1`,
@@ -182,7 +182,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ready_ne_expr!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_ready_ne_expr.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ready_ne_expr.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`,\n",
 /// #     " a inner: `1`,\n",

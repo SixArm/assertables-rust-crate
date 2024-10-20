@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/assert_approx/assert_approx_ne.rs`."><title>assert_approx_ne.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-c5d6553a23f1e5a6.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.81.0 (eeb90cda1 2024-09-04)" data-channel="1.81.0" data-search-js="search-d234aafac6c221dd.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-d2fab2bf619172d3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-df360f571f6edeae.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/assert_approx/assert_approx_ne.rs`."><title>assert_approx_ne.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-492a78a4a87dcc01.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0 (f6e511eec 2024-10-15)" data-channel="1.82.0" data-search-js="search-a99f1315e7cc5121.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-118b08c4c78b968e.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-921df33f47b8780c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -272,22 +272,6 @@
 <a href="#272" id="272">272</a>
 <a href="#273" id="273">273</a>
 <a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a>
-<a href="#278" id="278">278</a>
-<a href="#279" id="279">279</a>
-<a href="#280" id="280">280</a>
-<a href="#281" id="281">281</a>
-<a href="#282" id="282">282</a>
-<a href="#283" id="283">283</a>
-<a href="#284" id="284">284</a>
-<a href="#285" id="285">285</a>
-<a href="#286" id="286">286</a>
-<a href="#287" id="287">287</a>
-<a href="#288" id="288">288</a>
-<a href="#289" id="289">289</a>
-<a href="#290" id="290">290</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a number is approximately not equal to another number.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -326,11 +310,11 @@
 //!
 //! Examples:
 //!
-//! * Approximating the number 100 and 103 has an absolute error (delta) of 3
+//! * Approximating the number 100 and 103 has an absolute error (approx) of 3
 //!   and a relative error (epsilon) of 0.03.
 //!
 //! * Approximating the number 1,000,000 and 1,000,003 has an absolute error
-//!   (delta) of 3, and a relative error (espilon) of 0.000003.
+//!   (approx) of 3, and a relative error (epsilon) of 0.000003.
 //!
 //! * For many kinds of applications, the relative error is more important than
 //!   the absolute error.
@@ -342,7 +326,7 @@
 //!   creating and maintaining the `assert_approx_eq` crate.
 //!
 //! * Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
-//!   creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
+//!   creating and maintaining `assert_in_approx` and `assert_in_epsilon` code.
 //!
 //!
 //! # Module macros
@@ -378,35 +362,20 @@
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
-                <span class="kw">if </span>a == b {
-                    <span class="prelude-val">Ok</span>(())
+                <span class="kw">let </span>approx = <span class="number">1e-6</span>;
+                <span class="kw">let </span>diff = <span class="kw">if </span>(a &gt;= b) { a - b } <span class="kw">else </span>{ b - a };
+                <span class="kw">if </span>diff &gt; approx {
+                    <span class="prelude-val">Ok</span>(diff)
                 } <span class="kw">else </span>{
-                    <span class="kw">let </span>diff = <span class="kw">if </span>(a &gt; b) { a - b } <span class="kw">else </span>{ b - a };
-                    <span class="kw">let </span>delta = <span class="number">1e-6</span>;
-                    <span class="kw">if </span>diff &gt; delta {
-                        <span class="prelude-val">Ok</span>(())
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                            <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_approx_ne!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_approx_ne.html\n"</span>,
-                                <span class="string">"           a label: `{}`,\n"</span>,
-                                <span class="string">"           a debug: `{:?}`,\n"</span>,
-                                <span class="string">"           b label: `{}`,\n"</span>,
-                                <span class="string">"           b debug: `{:?}`,\n"</span>,
-                                <span class="string">"             delta: `{:?}`,\n"</span>,
-                                <span class="string">"         | a - b |: `{:?}`,\n"</span>,
-                                <span class="string">" | a - b | ≤ delta: {}"
-                            </span>),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                            a,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                            b,
-                            delta,
-                            diff,
-                            <span class="bool-val">false
-                        </span>))
-                    }
+                    <span class="prelude-val">Err</span>(<span class="macro-nonterminal">$</span><span class="macro">crate::assert_approx_xx_impl_err!</span>(
+                        <span class="macro-nonterminal">assert_approx_ne</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                        a,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                        b,
+                        approx,
+                        diff
+                    ))
                 }
             }
         }
@@ -421,7 +390,7 @@
         <span class="kw">let </span>a: f32 = <span class="number">1.0000001</span>;
         <span class="kw">let </span>b: f32 = <span class="number">1.0000012</span>;
         <span class="kw">let </span>result = <span class="macro">assert_approx_ne_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(result.unwrap(), b - a);
     }
 
     <span class="attr">#[test]
@@ -429,19 +398,18 @@
         <span class="kw">let </span>a: f32 = <span class="number">1.0000001</span>;
         <span class="kw">let </span>b: f32 = <span class="number">1.0000011</span>;
         <span class="kw">let </span>result = <span class="macro">assert_approx_ne_as_result!</span>(a, b);
-        <span class="macro">assert!</span>(result.is_err());
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_approx_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/"</span>, <span class="macro">env!</span>(<span class="string">"CARGO_PKG_VERSION"</span>), <span class="string">"/assertables/macro.assert_approx_ne.html\n"</span>,
-                <span class="string">"           a label: `a`,\n"</span>,
-                <span class="string">"           a debug: `1.0000001`,\n"</span>,
-                <span class="string">"           b label: `b`,\n"</span>,
-                <span class="string">"           b debug: `1.0000011`,\n"</span>,
-                <span class="string">"             delta: `1e-6`,\n"</span>,
-                <span class="string">"         | a - b |: `9.536743e-7`,\n"</span>,
-                <span class="string">" | a - b | ≤ delta: false"
+                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_ne.html\n"</span>,
+                <span class="string">"            a label: `a`,\n"</span>,
+                <span class="string">"            a debug: `1.0000001`,\n"</span>,
+                <span class="string">"            b label: `b`,\n"</span>,
+                <span class="string">"            b debug: `1.0000011`,\n"</span>,
+                <span class="string">"             approx: `1e-6`,\n"</span>,
+                <span class="string">"          | a - b |: `9.536743e-7`,\n"</span>,
+                <span class="string">" | a - b | ≤ approx: false"
             </span>)
         );
     }
@@ -475,25 +443,25 @@
 /// assert_approx_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_approx_ne!(a, b)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_approx_ne.html
-/// //            a label: `a`,
-/// //            a debug: `1.0000001`,
-/// //            b label: `b`,
-/// //            b debug: `1.0000011`,
-/// //              delta: `1e-6`,
-/// //          | a - b |: `9.536743e-7`,
-/// //  | a - b | ≤ delta: false
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_ne.html
+/// //             a label: `a`,
+/// //             a debug: `1.0000001`,
+/// //             b label: `b`,
+/// //             b debug: `1.0000011`,
+/// //              approx: `1e-6`,
+/// //           | a - b |: `9.536743e-7`,
+/// //  | a - b | ≤ approx: false
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_approx_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_approx_ne.html\n",
-/// #     "           a label: `a`,\n",
-/// #     "           a debug: `1.0000001`,\n",
-/// #     "           b label: `b`,\n",
-/// #     "           b debug: `1.0000011`,\n",
-/// #     "             delta: `1e-6`,\n",
-/// #     "         | a - b |: `9.536743e-7`,\n",
-/// #     " | a - b | ≤ delta: false",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_ne.html\n",
+/// #     "            a label: `a`,\n",
+/// #     "            a debug: `1.0000001`,\n",
+/// #     "            b label: `b`,\n",
+/// #     "            b debug: `1.0000011`,\n",
+/// #     "             approx: `1e-6`,\n",
+/// #     "          | a - b |: `9.536743e-7`,\n",
+/// #     " | a - b | ≤ approx: false",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -502,7 +470,7 @@
 /// The macros `assert_approx_ne` and `assert_in_epsilon` can test
 /// approximations:
 ///
-/// * For an approximation, the absolute error (i.e. delta) is the magnitude of
+/// * For an approximation, the absolute error (i.e. approx) is the magnitude of
 ///   the difference between the exact value and the approximation. For this,
 ///  use the macro
 ///
@@ -527,13 +495,13 @@
 </span><span class="macro">macro_rules!</span> assert_approx_ne {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_approx_ne_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_approx_ne_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};

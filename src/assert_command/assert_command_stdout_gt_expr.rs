@@ -59,7 +59,7 @@ macro_rules! assert_command_stdout_gt_expr_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-                                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
                                         " command label: `{}`,\n",
                                         " command debug: `{:?}`,\n",
                                         "    expr label: `{}`,\n",
@@ -82,7 +82,7 @@ macro_rules! assert_command_stdout_gt_expr_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-                                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
                                     "  command label: `{}`,\n",
                                     "  command debug: `{:?}`,\n",
                                     "     expr label: `{}`,\n",
@@ -129,7 +129,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             "    expr label: `b`,\n",
@@ -149,7 +149,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             "    expr label: `b`,\n",
@@ -192,7 +192,7 @@ mod tests {
 /// assert_command_stdout_gt_expr!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_gt_expr!(command, expr)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_gt_expr.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //     expr label: `bytes`,
@@ -202,7 +202,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_gt_expr!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_gt_expr.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     "    expr label: `bytes`,\n",

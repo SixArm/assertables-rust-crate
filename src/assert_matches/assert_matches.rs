@@ -50,7 +50,7 @@ macro_rules! assert_matches_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_matches!(a)`\n",
-                    "https://docs.rs/assertables/8.18.0/assertables/macro.assert_matches.html\n",
+                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_matches.html\n",
                     " args: `{}`",
                 ),
                 stringify!($($arg)*),
@@ -79,7 +79,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_matches!(a)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_matches.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_matches.html\n",
                 " args: `a, 'b'..='z'`",
             )
         );
@@ -102,7 +102,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_matches!(a)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_matches.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_matches.html\n",
                 " args: `a, Some(x) if x < 2`",
             )
         );
@@ -132,12 +132,12 @@ mod tests {
 /// assert_matches!(a, 'b'..='z');
 /// # });
 /// // assertion failed: `assert_matches!(a)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_matches.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_matches.html
 /// //  args: `a, 'b'..='z'`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_matches!(a)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_matches.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_matches.html\n",
 /// #     " args: `a, 'b'..='z'`",
 /// # );
 /// # assert_eq!(actual, expect);

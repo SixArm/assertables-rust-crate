@@ -64,7 +64,7 @@ macro_rules! assert_not_contains_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_not_contains!(container, containee)`\n",
-                            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_contains.html\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
                             " container label: `{}`,\n",
                             " container debug: `{:?}`,\n",
                             " containee label: `{}`,\n",
@@ -102,7 +102,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_not_contains!(container, containee)`\n",
-            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_contains.html\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
             " container label: `a`,\n",
             " container debug: `\"alfa\"`,\n",
             " containee label: `b`,\n",
@@ -129,7 +129,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_not_contains!(container, containee)`\n",
-            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_contains.html\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
             " container label: `a`,\n",
             " container debug: `1..3`,\n",
             " containee label: `&b`,\n",
@@ -178,7 +178,7 @@ mod tests {
 /// assert_not_contains!(a, b);
 /// # });
 /// // assertion failed: `assert_not_contains!(container, containee)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_contains.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html
 /// //  container label: `a`,
 /// //  container debug: `\"alfa\"`,
 /// //  containee label: `b`,
@@ -186,7 +186,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_not_contains!(container, containee)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_not_contains.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
 /// #     " container label: `a`,\n",
 /// #     " container debug: `\"alfa\"`,\n",
 /// #     " containee label: `b`,\n",

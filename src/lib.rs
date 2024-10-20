@@ -166,9 +166,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 8.18.0
+//! * Version: 9.0.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-09T19:23:11Z
+//! * Updated: 2024-10-19T21:00:54Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 

@@ -59,7 +59,7 @@ macro_rules! assert_command_stderr_ge_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-                                "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -81,7 +81,7 @@ macro_rules! assert_command_stderr_ge_as_result {
                 Err(format!(
                     concat!(
                         "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-                        "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html\n",
+                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -142,7 +142,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -187,7 +187,7 @@ mod tests {
 /// assert_command_stderr_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stderr_ge!(a_command, b_command)`
-/// // https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
@@ -197,7 +197,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/8.18.0/assertables/macro.assert_command_stderr_ge.html\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",

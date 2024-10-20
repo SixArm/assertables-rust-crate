@@ -55,7 +55,7 @@ macro_rules! assert_bag_impl_err {
         format!(
             concat!(
                 "assertion failed: `{}!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/8.18.0/assertables/macro.{}.html\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.{}.html\n",
                 " a label: `{}`,\n",
                 " a debug: `{:?}`,\n",
                 " b label: `{}`,\n",
