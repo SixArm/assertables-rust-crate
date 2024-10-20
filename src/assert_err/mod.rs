@@ -1,6 +1,6 @@
 //! Assert for Err(_) items.
 //!
-//! These macros help compare Err(…) items, such as `std::Result::Err` or similar.
+//! These macros help compare Err(…) items, such as `::std::Result::Err` or similar.
 //!
 //! Assert expression is Err(_):
 //!

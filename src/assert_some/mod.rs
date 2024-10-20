@@ -1,6 +1,6 @@
 //! Assert for Some(_) items.
 //!
-//! These macros help compare Some(…) items, such as `std::Option::Some` or similar.
+//! These macros help compare Some(…) items, such as `::std::Option::Some` or similar.
 //!
 //! Assert expression is Some(_):
 //!

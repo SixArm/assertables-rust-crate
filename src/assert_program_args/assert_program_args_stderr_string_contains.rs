@@ -3,7 +3,7 @@
 //! Pseudocode:<br>
 //! (program1 + args1 ⇒ command ⇒ stderr ⇒ string) contains (expr into string)
 //!
-//! This uses [`std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
+//! This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 //!
 //! * The containee can be a &str, char, a slice of chars, or a function or
 //! closure that determines if a character contains.
@@ -160,7 +160,7 @@ mod tests {
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
 ///
-/// This uses [`std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
+/// This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 ///
 /// * The containee can be a &str, char, a slice of chars, or a function or
 /// closure that determines if a character contains.
@@ -256,7 +256,7 @@ macro_rules! assert_program_args_stderr_string_contains {
 /// after thorough profiling, and more importantly, only in safe code!
 ///
 /// This macro is intended to work in a similar way to
-/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+/// [`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
 ///

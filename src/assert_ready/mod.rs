@@ -1,6 +1,6 @@
 //! Assert for Ready(_) items.
 //!
-//! These macros help compare Ready(…) items, such as `std::Ready::Ready` or similar.
+//! These macros help compare Ready(…) items, such as `::std::Ready::Ready` or similar.
 //!
 //! Assert expression is Ready(_):
 //!

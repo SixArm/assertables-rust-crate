@@ -1,7 +1,7 @@
 //! Assert a set is not equal to another.
 //!
 //! Pseudocode:<br>
-//! (collection1 into set) ≠ (collection2 into set)
+//! (a_collection ⇒ a_set) ≠ (b_collection ⇒ b_set)
 //!
 //! # Example
 //!
@@ -16,7 +16,7 @@
 //! # }
 //! ```
 //!
-//! This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
+//! This implementation uses [`::std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
 //!
 //! # Module macros
 //!
@@ -27,9 +27,9 @@
 /// Assert a set is not equal to another.
 ///
 /// Pseudocode:<br>
-/// (collection1 into set) ≠ (collection2 into set)
+/// (a_collection ⇒ a_set) ≠ (b_collection ⇒ b_set)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a_set, b_set))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -53,7 +53,7 @@ macro_rules! assert_set_ne_as_result {
                 let a: ::std::collections::BTreeSet<_> = assert_set_impl_prep!(a_collection);
                 let b: ::std::collections::BTreeSet<_> = assert_set_impl_prep!(b_collection);
                 if a != b {
-                    Ok(())
+                    Ok((a, b))
                 } else {
                     Err(
                         format!(
@@ -83,13 +83,17 @@ macro_rules! assert_set_ne_as_result {
 
 #[cfg(test)]
 mod tests {
+    use std::collections::BTreeSet;
 
     #[test]
     fn test_assert_set_ne_as_result_x_success() {
         let a = [1, 2];
         let b = [3, 4];
         let result = assert_set_ne_as_result!(&a, &b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(
+            result.unwrap(),
+            (BTreeSet::from([&1, &2]), BTreeSet::from([&3, &4]))
+        );
     }
 
     #[test]
@@ -116,9 +120,9 @@ mod tests {
 /// Assert a set is not equal to another.
 ///
 /// Pseudocode:<br>
-/// (collection1 into set) ≠ (collection2 into set)
+/// (a_collection ⇒ a_set) ≠ (b_collection ⇒ b_set)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_set, b_set)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -163,7 +167,7 @@ mod tests {
 /// # }
 /// ```
 ///
-/// This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
+/// This implementation uses [`::std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
 ///
 /// # Module macros
 ///
@@ -175,13 +179,13 @@ mod tests {
 macro_rules! assert_set_ne {
     ($a_collection:expr, $b_collection:expr $(,)?) => {{
         match $crate::assert_set_ne_as_result!($a_collection, $b_collection) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {{
         match $crate::assert_set_ne_as_result!($a_collection, $b_collection) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -190,7 +194,7 @@ macro_rules! assert_set_ne {
 /// Assert a set is not equal to another.
 ///
 /// Pseudocode:<br>
-/// (collection1 into set) ≠ (collection2 into set)
+/// (a_collection ⇒ a_set) ≠ (b_collection ⇒ b_set)
 ///
 /// This macro provides the same statements as [`assert_set_ne`](macro.assert_set_ne.html),
 /// except this macro's statements are only enabled in non-optimized
@@ -210,7 +214,7 @@ macro_rules! assert_set_ne {
 /// after thorough profiling, and more importantly, only in safe code!
 ///
 /// This macro is intended to work in a similar way to
-/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+/// [`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
 ///

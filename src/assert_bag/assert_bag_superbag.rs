@@ -1,7 +1,7 @@
 //! Assert a bag is a superbag of another.
 //!
 //! Pseudocode:<br>
-//! (collection1 into bag) ⊃ (collection2 into bag)
+//! (a_collection ⇒ a_bag) ⊃ (b_collection ⇒ b_bag)
 //!
 //! # Example
 //!
@@ -15,7 +15,7 @@
 //! # }
 //! ```
 //!
-//! This implementation uses [`std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
+//! This implementation uses [`::std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
 //!
 //! # Module macros
 //!
@@ -26,9 +26,9 @@
 /// Assert a bag is a superbag of another.
 ///
 /// Pseudocode:<br>
-/// (collection1 into bag) ⊃ (collection2 into bag)
+/// (a_collection ⇒ a_bag) ⊃ (b_collection ⇒ b_bag)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a_bag, b_bag))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -56,7 +56,7 @@ macro_rules! assert_bag_superbag_as_result {
                         && b_bag.contains_key(&key)
                         && a_bag.get_key_value(&key) >= b_bag.get_key_value(&key)
                 }) {
-                    Ok(())
+                    Ok((a_bag, b_bag))
                 } else {
                     Err($crate::assert_bag_impl_err!(
                         assert_bag_superbag,
@@ -75,13 +75,17 @@ macro_rules! assert_bag_superbag_as_result {
 
 #[cfg(test)]
 mod tests {
+    use std::collections::BTreeMap;
 
     #[test]
     fn test_assert_bag_superbag_as_result_x_success() {
         let a = [1, 1, 1];
         let b = [1, 1];
         let result = assert_bag_superbag_as_result!(&a, &b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(
+            result.unwrap(),
+            (BTreeMap::from([(&1, 3)]), BTreeMap::from([(&1, 2)]))
+        );
     }
 
     #[test]
@@ -128,9 +132,9 @@ mod tests {
 /// Assert a bag is a superbag of another.
 ///
 /// Pseudocode:<br>
-/// (collection1 into bag) ⊃ (collection2 into bag)
+/// (a_collection ⇒ a_bag) ⊃ (b_collection ⇒ b_bag)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_bag, b_bag)`.
 ///
 /// * Otherwise, call [`panic!`] in order to print the values of the
 ///   expressions with their debug representations.
@@ -175,7 +179,7 @@ mod tests {
 /// # }
 /// ```
 ///
-/// This implementation uses [`std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
+/// This implementation uses [`::std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
 ///
 /// # Module macros
 ///
@@ -187,13 +191,13 @@ mod tests {
 macro_rules! assert_bag_superbag {
     ($a_collection:expr, $b_collection:expr $(,)?) => {{
         match $crate::assert_bag_superbag_as_result!($a_collection, $b_collection) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {{
         match $crate::assert_bag_superbag_as_result!($a_collection, $b_collection) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -202,7 +206,7 @@ macro_rules! assert_bag_superbag {
 /// Assert a bag is a superbag of another.
 ///
 /// Pseudocode:<br>
-/// (collection1 into bag) ⊃ (collection2 into bag)
+/// (a_collection ⇒ a_bag) ⊃ (b_collection ⇒ b_bag)
 ///
 /// This macro provides the same statements as [`assert_bag_superbag`](macro.assert_bag_superbag.html),
 /// except this macro's statements are only enabled in non-optimized
@@ -222,7 +226,7 @@ macro_rules! assert_bag_superbag {
 /// after thorough profiling, and more importantly, only in safe code!
 ///
 /// This macro is intended to work in a similar way to
-/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+/// [`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
 ///

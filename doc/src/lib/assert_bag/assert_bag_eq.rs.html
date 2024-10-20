@@ -212,10 +212,17 @@
 <a href="#212" id="212">212</a>
 <a href="#213" id="213">213</a>
 <a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (collection1 into bag) = (collection2 into bag)
+//! (a_collection ⇒ a_bag) = (b_collection ⇒ b_bag)
 //!
 //! # Example
 //!
@@ -238,9 +245,9 @@
 /// Assert a bag is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (collection1 into bag) = (collection2 into bag)
+/// (a_collection ⇒ a_bag) = (b_collection ⇒ b_bag)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a_bag, b_bag))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -264,7 +271,7 @@
                 <span class="kw">let </span>a_bag = <span class="macro">assert_bag_impl_prep!</span>(a_collection);
                 <span class="kw">let </span>b_bag = <span class="macro">assert_bag_impl_prep!</span>(b_collection);
                 <span class="kw">if </span>a_bag == b_bag {
-                    <span class="prelude-val">Ok</span>(())
+                    <span class="prelude-val">Ok</span>((a_bag, b_bag))
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(<span class="macro-nonterminal">$</span><span class="macro">crate::assert_bag_impl_err!</span>(
                         <span class="macro-nonterminal">assert_bag_eq</span>,
@@ -283,13 +290,20 @@
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test_as_result {
+    <span class="kw">use </span>std::collections::BTreeMap;
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_bag_eq_as_result_x_success() {
         <span class="kw">let </span>a = [<span class="number">1</span>, <span class="number">1</span>];
         <span class="kw">let </span>b = [<span class="number">1</span>, <span class="number">1</span>];
         <span class="kw">let </span>result = <span class="macro">assert_bag_eq_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (
+                BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">2</span>)]),
+                BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">2</span>)])
+            )
+        );
     }
 
     <span class="attr">#[test]
@@ -316,9 +330,9 @@
 <span class="doccomment">/// Assert a bag is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (collection1 into bag) = (collection2 into bag)
+/// (a_collection ⇒ a_bag) = (b_collection ⇒ b_bag)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_bag, b_bag)`.
 ///
 /// * Otherwise, call [`panic!`] in order to print the values of the
 ///   expressions with their debug representations.
@@ -363,7 +377,7 @@
 /// # }
 /// ```
 ///
-/// This implementation uses [`std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
+/// This implementation uses [`::std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
 ///
 /// # Module macros
 ///
@@ -375,13 +389,13 @@
 </span><span class="macro">macro_rules!</span> assert_bag_eq {
     (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_bag_eq_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_bag_eq_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
@@ -390,7 +404,7 @@
 <span class="doccomment">/// Assert a bag is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (collection1 into bag) = (collection2 into bag)
+/// (a_collection ⇒ a_bag) = (b_collection ⇒ b_bag)
 ///
 /// This macro provides the same statements as [`assert_bag_eq`](macro.assert_bag_eq.html),
 /// except this macro's statements are only enabled in non-optimized
@@ -410,7 +424,7 @@
 /// after thorough profiling, and more importantly, only in safe code!
 ///
 /// This macro is intended to work in a similar way to
-/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+/// [`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
 ///

@@ -238,7 +238,7 @@ macro_rules! assert_fs_read_to_string_contains {
 /// after thorough profiling, and more importantly, only in safe code!
 ///
 /// This macro is intended to work in a similar way to
-/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+/// [`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
 ///

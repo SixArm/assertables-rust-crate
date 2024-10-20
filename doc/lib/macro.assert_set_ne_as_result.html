@@ -2,10 +2,10 @@
     (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a set is not equal to another.</p>
 <p>Pseudocode:<br>
-(collection1 into set) ≠ (collection2 into set)</p>
+(a_collection ⇒ a_set) ≠ (b_collection ⇒ b_set)</p>
 <ul>
 <li>
-<p>If true, return Result <code>Ok(())</code>.</p>
+<p>If true, return Result <code>Ok((a_set, b_set))</code>.</p>
 </li>
 <li>
 <p>Otherwise, return Result <code>Err(message)</code>.</p>

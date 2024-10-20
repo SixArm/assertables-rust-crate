@@ -2,7 +2,7 @@
 //!
 //! These macros help with file system paths, such as disk files, `Path`,
 //! `PathBuf`, the trait `AsRef<Path>`, and anything that is readable via
-//! `std::fs::read_to_string(…)`.
+//! `::std::fs::read_to_string(…)`.
 //!
 //! Compare a path with another path:
 //!

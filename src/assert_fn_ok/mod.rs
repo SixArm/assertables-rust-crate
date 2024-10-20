@@ -1,7 +1,7 @@
 //! Assert for comparing functions that return Result::Ok.
 //!
 //! These macros help compare functions that return results that are ok, such as
-//! `std::Result::Ok` or similar.
+//! `::std::Result::Ok` or similar.
 //!
 //! The macros use these capabilities:
 //!

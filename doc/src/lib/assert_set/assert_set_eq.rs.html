@@ -227,10 +227,17 @@
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
 <a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a set is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (collection1 into set) = (collection2 into set)
+//! (a_collection ⇒ a_set) = (b_collection ⇒ b_set)
 //!
 //! # Example
 //!
@@ -244,7 +251,7 @@
 //! # }
 //! ```
 //!
-//! This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
+//! This implementation uses [`::std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
 //!
 //! # Module macros
 //!
@@ -255,9 +262,9 @@
 /// Assert a set is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (collection1 into set) = (collection2 into set)
+/// (a_collection ⇒ a_set) = (b_collection ⇒ b_set)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a_set, b_set))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -267,7 +274,7 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
+/// This implementation uses [`::std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
 ///
 /// # Module macros
 ///
@@ -283,7 +290,7 @@
                 <span class="kw">let </span>a: ::std::collections::BTreeSet&lt;<span class="kw">_</span>&gt; = <span class="macro">assert_set_impl_prep!</span>(a_collection);
                 <span class="kw">let </span>b: ::std::collections::BTreeSet&lt;<span class="kw">_</span>&gt; = <span class="macro">assert_set_impl_prep!</span>(b_collection);
                 <span class="kw">if </span>a == b {
-                    <span class="prelude-val">Ok</span>(())
+                    <span class="prelude-val">Ok</span>((a, b))
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
@@ -313,13 +320,20 @@
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
+    <span class="kw">use </span>std::collections::BTreeSet;
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_set_eq_as_result_x_success() {
         <span class="kw">let </span>a = [<span class="number">1</span>, <span class="number">2</span>];
         <span class="kw">let </span>b = [<span class="number">1</span>, <span class="number">2</span>];
         <span class="kw">let </span>result = <span class="macro">assert_set_eq_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (
+                BTreeSet::from([<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">2</span>]),
+                BTreeSet::from([<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">2</span>])
+            )
+        );
     }
 
     <span class="attr">#[test]
@@ -346,9 +360,9 @@
 <span class="doccomment">/// Assert a set is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (collection1 into set) = (collection2 into set)
+/// (a_collection ⇒ a_set) = (b_collection ⇒ b_set)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_set, b_set)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -393,7 +407,7 @@
 /// # }
 /// ```
 ///
-/// This implementation uses [`std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
+/// This implementation uses [`::std::collections::BTreeSet`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html) to count items and sort them.
 ///
 /// # Module macros
 ///
@@ -405,13 +419,13 @@
 </span><span class="macro">macro_rules!</span> assert_set_eq {
     (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_set_eq_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_set_eq_as_result!</span>(<span class="macro-nonterminal">$a_collection</span>, <span class="macro-nonterminal">$b_collection</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
@@ -420,7 +434,7 @@
 <span class="doccomment">/// Assert a set is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (collection1 into set) = (collection2 into set)
+/// (a_collection ⇒ a_set) = (b_collection ⇒ b_set)
 ///
 /// This macro provides the same statements as [`assert_set_eq`](macro.assert_set_eq.html),
 /// except this macro's statements are only enabled in non-optimized
@@ -440,7 +454,7 @@
 /// after thorough profiling, and more importantly, only in safe code!
 ///
 /// This macro is intended to work in a similar way to
-/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+/// [`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
 ///

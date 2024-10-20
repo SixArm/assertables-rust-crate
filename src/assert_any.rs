@@ -14,7 +14,7 @@
 //! # }
 //! ```
 //!
-//! This implementation uses [`std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
+//! This implementation uses [`::std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 //!
 //! # Module macros
 //!
@@ -37,7 +37,7 @@
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
-/// This implementation uses [`std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
+/// This implementation uses [`::std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 ///
 /// # Module macros
 ///
@@ -140,7 +140,7 @@ mod tests {
 /// # }
 /// ```
 ///
-/// This implementation uses [`std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
+/// This implementation uses [`::std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 ///
 /// # Module macros
 ///
@@ -187,7 +187,7 @@ macro_rules! assert_any {
 /// after thorough profiling, and more importantly, only in safe code!
 ///
 /// This macro is intended to work in a similar way to
-/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+/// [`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
 ///

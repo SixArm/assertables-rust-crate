@@ -1,6 +1,6 @@
 //! Assert for Pending items.
 //!
-//! These macros help compare Pending items, such as `std::Poll::Pending` or similar.
+//! These macros help compare Pending items, such as `::std::Poll::Pending` or similar.
 //!
 //! Assert expression is Pending:
 //!

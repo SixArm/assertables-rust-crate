@@ -2,10 +2,10 @@
     (<span class="macro-nonterminal">$a_collection</span>:expr, <span class="macro-nonterminal">$b_collection</span>:expr $(,)<span class="question-mark">?</span>) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a bag is equal to another.</p>
 <p>Pseudocode:<br>
-(collection1 into bag) = (collection2 into bag)</p>
+(a_collection ⇒ a_bag) = (b_collection ⇒ b_bag)</p>
 <ul>
 <li>
-<p>If true, return Result <code>Ok(())</code>.</p>
+<p>If true, return Result <code>Ok((a_bag, b_bag))</code>.</p>
 </li>
 <li>
 <p>Otherwise, return Result <code>Err(message)</code>.</p>

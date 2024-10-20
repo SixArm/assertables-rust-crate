@@ -216,7 +216,7 @@ let array2 = [3, 2, 1];
 assert_eq!(array1, array2); //=> panic
 ```
 
-Convert an array into a set, by using `std::collections::BTreeSet`:
+Convert an array into a set, by using `::std::collections::BTreeSet`:
 
 ```rust
 let set1: std::collections::BTreeSet<_> = array1.into_iter().collect();
@@ -301,7 +301,7 @@ let array2 = [1, 3, 1, 2, 1];
 assert_eq!(array1, array2); //=> panic
 ```
 
-Convert an array into a bag, by using `std::collections::BTreeMap`, and tracking each element's count:
+Convert an array into a bag, by using `::std::collections::BTreeMap`, and tracking each element's count:
 
 ```rust
 let mut bag1: ::std::collections::BTreeMap<_, usize> = ::std::collections::BTreeMap::new();
@@ -362,7 +362,7 @@ Rust `assertables` provides these macros for bags:
 
 ### Macros for readers
 
-Rust has a concept of a "reader", such as using `std::io::Read` and its function `read_to_string()`. The concept can work with a variety of unpinnings, such as files, bytes, strings, and more.
+Rust has a concept of a "reader", such as using `::std::io::Read` and its function `read_to_string()`. The concept can work with a variety of unpinnings, such as files, bytes, strings, and more.
 
 Example reader of bytes:
 

@@ -1,7 +1,7 @@
 //! Assert a bag is not equal to another.
 //!
 //! Pseudocode:<br>
-//! (collection1 into bag) ≠ (collection2 into bag)
+//! (a_collection ⇒ a_bag) ≠ (b_collection ⇒ b_bag)
 //!
 //! # Example
 //!
@@ -15,7 +15,7 @@
 //! # }
 //! ```
 //!
-//! This implementation uses [`std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
+//! This implementation uses [`::std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
 //!
 //! # Module macros
 //!
@@ -46,9 +46,9 @@ macro_rules! assert_bag_ne_as_result_impl_err {
 /// Assert a bag is not equal to another.
 ///
 /// Pseudocode:<br>
-/// (collection1 into bag) ≠ (collection2 into bag)
+/// (a_collection ⇒ a_bag) ≠ (b_collection ⇒ b_bag)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a_bag, b_bag))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -72,7 +72,7 @@ macro_rules! assert_bag_ne_as_result {
                 let a_bag = assert_bag_impl_prep!(a_collection);
                 let b_bag = assert_bag_impl_prep!(b_collection);
                 if a_bag != b_bag {
-                    Ok(())
+                    Ok((a_bag, b_bag))
                 } else {
                     Err($crate::assert_bag_impl_err!(
                         assert_bag_ne,
@@ -91,13 +91,17 @@ macro_rules! assert_bag_ne_as_result {
 
 #[cfg(test)]
 mod test {
+    use std::collections::BTreeMap;
 
     #[test]
     fn test_assert_bag_ne_as_result_x_success() {
         let a = [1, 1];
         let b = [1, 1, 1];
         let result = assert_bag_ne_as_result!(&a, &b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(
+            result.unwrap(),
+            (BTreeMap::from([(&1, 2)]), BTreeMap::from([(&1, 3)]))
+        );
     }
 
     #[test]
@@ -124,9 +128,9 @@ mod test {
 /// Assert a bag is not equal to another.
 ///
 /// Pseudocode:<br>
-/// (collection1 into bag) ≠ (collection2 into bag)
+/// (a_collection ⇒ a_bag) ≠ (b_collection ⇒ b_bag)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_bag, b_bag)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -171,7 +175,7 @@ mod test {
 /// # }
 /// ```
 ///
-/// This implementation uses [`std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
+/// This implementation uses [`::std::collections::BTreeMap`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html) to count items and sort them.
 ///
 /// # Module macros
 ///
@@ -183,13 +187,13 @@ mod test {
 macro_rules! assert_bag_ne {
     ($a_collection:expr, $b_collection:expr $(,)?) => {{
         match $crate::assert_bag_ne_as_result!($a_collection, $b_collection) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {{
         match $crate::assert_bag_ne_as_result!($a_collection, $b_collection) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -198,7 +202,7 @@ macro_rules! assert_bag_ne {
 /// Assert a bag is not equal to another.
 ///
 /// Pseudocode:<br>
-/// (collection1 into bag) ≠ (collection2 into bag)
+/// (a_collection ⇒ a_bag) ≠ (b_collection ⇒ b_bag)
 ///
 /// This macro provides the same statements as [`assert_bag_ne`](macro.assert_bag_ne.html),
 /// except this macro's statements are only enabled in non-optimized
@@ -218,7 +222,7 @@ macro_rules! assert_bag_ne {
 /// after thorough profiling, and more importantly, only in safe code!
 ///
 /// This macro is intended to work in a similar way to
-/// [`std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
+/// [`::std::debug_assert`](https://doc.rust-lang.org/std/macro.debug_assert.html).
 ///
 /// # Module macros
 ///
