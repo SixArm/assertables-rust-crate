@@ -27,7 +27,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_is_empty`](macro.assert_is_empty.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -49,16 +49,18 @@ macro_rules! assert_is_empty_as_result {
                 if a.is_empty() {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_is_empty!(a)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_is_empty.html\n",
-                            " label: `{}`,\n",
-                            " debug: `{:?}`",
-                        ),
-                        stringify!($a),
-                        a,
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_is_empty!(a)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_is_empty.html\n",
+                                " label: `{}`,\n",
+                                " debug: `{:?}`",
+                            ),
+                            stringify!($a),
+                            a,
+                        )
+                    )
                 }
             }
         }

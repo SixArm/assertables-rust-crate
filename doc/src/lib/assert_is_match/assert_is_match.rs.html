@@ -210,6 +210,8 @@
 <a href="#210" id="210">210</a>
 <a href="#211" id="211">211</a>
 <a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a matcher is a match for an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -241,7 +243,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_is_match`](macro.assert_is_match.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -263,20 +265,22 @@
                 <span class="kw">if </span>matcher.is_match(matchee) {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_is_match!(matcher, matchee)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_is_match.html\n"</span>,
-                            <span class="string">" matcher label: `{}`,\n"</span>,
-                            <span class="string">" matcher debug: `{:?}`,\n"</span>,
-                            <span class="string">" matchee label: `{}`,\n"</span>,
-                            <span class="string">" matchee debug: `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
-                        matcher,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matchee</span>),
-                        matchee,
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_is_match!(matcher, matchee)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_is_match.html\n"</span>,
+                                <span class="string">" matcher label: `{}`,\n"</span>,
+                                <span class="string">" matcher debug: `{:?}`,\n"</span>,
+                                <span class="string">" matchee label: `{}`,\n"</span>,
+                                <span class="string">" matchee debug: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
+                            matcher,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matchee</span>),
+                            matchee,
+                        )
+                    )
                 }
             }
         }

@@ -342,6 +342,10 @@
 <a href="#342" id="342">342</a>
 <a href="#343" id="343">343</a>
 <a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is greater than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -372,7 +376,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -399,28 +403,30 @@
                 <span class="kw">if </span>a_output &gt;= b_output {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_fn_ge!(a_function, a_param, b_function, b_param)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ge.html\n"</span>,
-                            <span class="string">" a_function label: `{}`,\n"</span>,
-                            <span class="string">"    a_param label: `{}`,\n"</span>,
-                            <span class="string">"    a_param debug: `{:?}`,\n"</span>,
-                            <span class="string">" b_function label: `{}`,\n"</span>,
-                            <span class="string">"    b_param label: `{}`,\n"</span>,
-                            <span class="string">"    b_param debug: `{:?}`,\n"</span>,
-                            <span class="string">"                a: `{:?}`,\n"</span>,
-                            <span class="string">"                b: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
-                        a_param,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
-                        b_param,
-                        a_output,
-                        b_output
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_fn_ge!(a_function, a_param, b_function, b_param)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ge.html\n"</span>,
+                                <span class="string">" a_function label: `{}`,\n"</span>,
+                                <span class="string">"    a_param label: `{}`,\n"</span>,
+                                <span class="string">"    a_param debug: `{:?}`,\n"</span>,
+                                <span class="string">" b_function label: `{}`,\n"</span>,
+                                <span class="string">"    b_param label: `{}`,\n"</span>,
+                                <span class="string">"    b_param debug: `{:?}`,\n"</span>,
+                                <span class="string">"                a: `{:?}`,\n"</span>,
+                                <span class="string">"                b: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
+                            a_param,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
+                            b_param,
+                            a_output,
+                            b_output
+                        )
+                    )
                 }
             }
         }
@@ -434,20 +440,22 @@
         <span class="kw">if </span>a_output &gt;= b_output {
             <span class="prelude-val">Ok</span>(())
         } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fn_ge!(a_function, b_function)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ge.html\n"</span>,
-                    <span class="string">" a_function label: `{}`,\n"</span>,
-                    <span class="string">" b_function label: `{}`,\n"</span>,
-                    <span class="string">"                a: `{:?}`,\n"</span>,
-                    <span class="string">"                b: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                a_output,
-                b_output
-            ))
+            <span class="prelude-val">Err</span>(
+                <span class="macro">format!</span>(
+                    <span class="macro">concat!</span>(
+                        <span class="string">"assertion failed: `assert_fn_ge!(a_function, b_function)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ge.html\n"</span>,
+                        <span class="string">" a_function label: `{}`,\n"</span>,
+                        <span class="string">" b_function label: `{}`,\n"</span>,
+                        <span class="string">"                a: `{:?}`,\n"</span>,
+                        <span class="string">"                b: `{:?}`"
+                    </span>),
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
+                    a_output,
+                    b_output
+                )
+            )
         }
     }};
 

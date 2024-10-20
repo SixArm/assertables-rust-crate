@@ -21,44 +21,6 @@
 //! * [`assert_ok_ne_as_result`](macro@crate::assert_ok_ne_as_result)
 //! * [`debug_assert_ok_ne`](macro@crate::debug_assert_ok_ne)
 
-/// Format assert failure error message.
-#[macro_export]
-macro_rules! assert_ok_ne_impl_err_inner {
-    ($($arg:tt)*) => {
-        format!(
-            concat!(
-                "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
-                " a label: `{}`,\n",
-                " a debug: `{:?}`,\n",
-                " a inner: `{:?}`,\n",
-                " b label: `{}`,\n",
-                " b debug: `{:?}`,\n",
-                " b inner: `{:?}`"
-            ),
-            $($arg)*
-        )
-    }
-}
-
-/// Format assert failure error message.
-#[macro_export]
-macro_rules! assert_ok_ne_impl_err_outer {
-    ($($arg:tt)*) => {
-        format!(
-            concat!(
-                "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
-                " a label: `{}`,\n",
-                " a debug: `{:?}`,\n",
-                " b label: `{}`,\n",
-                " b debug: `{:?}`",
-            ),
-            $($arg)*
-        )
-    }
-}
-
 /// Assert two expressions are Ok(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
@@ -66,7 +28,7 @@ macro_rules! assert_ok_ne_impl_err_outer {
 ///
 /// * If true, return Result `Ok((a̅, b̅))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_ok_ne`](macro.assert_ok_ne.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -89,22 +51,46 @@ macro_rules! assert_ok_ne_as_result {
                     if a_inner != b_inner {
                         Ok((a_inner, b_inner))
                     } else {
-                        Err($crate::assert_ok_ne_impl_err_inner!(
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_ok_ne!(a, b)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`,\n",
+                                    " a inner: `{:?}`,\n",
+                                    " b label: `{}`,\n",
+                                    " b debug: `{:?}`,\n",
+                                    " b inner: `{:?}`"
+                                ),
+                                stringify!($a),
+                                a,
+                                a_inner,
+                                stringify!($b),
+                                b,
+                                b_inner
+                            )
+                        )
+                    }
+                },
+                _ => {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_ok_ne!(a, b)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`",
+                            ),
                             stringify!($a),
                             a,
-                            a_inner,
                             stringify!($b),
-                            b,
-                            b_inner
-                        ))
-                    }
+                            b
+                        )
+                    )
                 }
-                _ => Err($crate::assert_ok_ne_impl_err_outer!(
-                    stringify!($a),
-                    a,
-                    stringify!($b),
-                    b
-                )),
             },
         }
     }};

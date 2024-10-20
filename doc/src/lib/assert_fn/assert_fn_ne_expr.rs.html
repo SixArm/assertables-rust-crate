@@ -320,6 +320,10 @@
 <a href="#320" id="320">320</a>
 <a href="#321" id="321">321</a>
 <a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is not equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -350,7 +354,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -376,26 +380,28 @@
                 <span class="kw">if </span>a_output != <span class="macro-nonterminal">$b_expr </span>{
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_fn_ne_expr!(a_function, a_param, b_expr)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ne_expr.html\n"</span>,
-                            <span class="string">" a_function label: `{}`,\n"</span>,
-                            <span class="string">"    a_param label: `{}`,\n"</span>,
-                            <span class="string">"    a_param debug: `{:?}`,\n"</span>,
-                            <span class="string">"     b_expr label: `{}`,\n"</span>,
-                            <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                            <span class="string">"                a: `{:?}`,\n"</span>,
-                            <span class="string">"                b: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
-                        a_param,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                        b_expr,
-                        a_output,
-                        b_expr
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_fn_ne_expr!(a_function, a_param, b_expr)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ne_expr.html\n"</span>,
+                                <span class="string">" a_function label: `{}`,\n"</span>,
+                                <span class="string">"    a_param label: `{}`,\n"</span>,
+                                <span class="string">"    a_param debug: `{:?}`,\n"</span>,
+                                <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                <span class="string">"                a: `{:?}`,\n"</span>,
+                                <span class="string">"                b: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
+                            a_param,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                            b_expr,
+                            a_output,
+                            b_expr
+                        )
+                    )
                 }
             }
         }
@@ -410,22 +416,24 @@
                 <span class="kw">if </span>a_output != <span class="macro-nonterminal">$b_expr </span>{
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_fn_ne_expr!(a_function, b_expr)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ne_expr.html\n"</span>,
-                            <span class="string">" a_function label: `{}`,\n"</span>,
-                            <span class="string">"     b_expr label: `{}`,\n"</span>,
-                            <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                            <span class="string">"                a: `{:?}`,\n"</span>,
-                            <span class="string">"                b: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                        b_expr,
-                        a_output,
-                        b_expr
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_fn_ne_expr!(a_function, b_expr)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ne_expr.html\n"</span>,
+                                <span class="string">" a_function label: `{}`,\n"</span>,
+                                <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                <span class="string">"                a: `{:?}`,\n"</span>,
+                                <span class="string">"                b: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                            b_expr,
+                            a_output,
+                            b_expr
+                        )
+                    )
                 }
             }
         }

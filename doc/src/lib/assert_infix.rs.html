@@ -285,6 +285,8 @@
 <a href="#285" id="285">285</a>
 <a href="#286" id="286">286</a>
 <a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a infix operator, such as assert_infix!(a == b).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -362,7 +364,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_infix`](macro.assert_infix.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -382,21 +384,23 @@
         <span class="kw">if </span><span class="macro-nonterminal">$a $infix $b </span>{
             <span class="prelude-val">Ok</span>(())
         } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_infix!(a {} b)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_infix.html\n"</span>,
-                    <span class="string">" a label: `{}`,\n"</span>,
-                    <span class="string">" a debug: `{:?}`,\n"</span>,
-                    <span class="string">" b label: `{}`,\n"</span>,
-                    <span class="string">" b debug: `{:?}`"</span>,
-                ),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$infix</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                <span class="macro-nonterminal">$a</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                <span class="macro-nonterminal">$b</span>,
-            ))
+            <span class="prelude-val">Err</span>(
+                <span class="macro">format!</span>(
+                    <span class="macro">concat!</span>(
+                        <span class="string">"assertion failed: `assert_infix!(a {} b)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_infix.html\n"</span>,
+                        <span class="string">" a label: `{}`,\n"</span>,
+                        <span class="string">" a debug: `{:?}`,\n"</span>,
+                        <span class="string">" b label: `{}`,\n"</span>,
+                        <span class="string">" b debug: `{:?}`"</span>,
+                    ),
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$infix</span>),
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                    <span class="macro-nonterminal">$a</span>,
+                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                    <span class="macro-nonterminal">$b</span>,
+                )
+            )
         }
     }};
 }

@@ -227,6 +227,8 @@
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
 <a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is less than or equal to another length.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -257,7 +259,7 @@
 ///
 /// * If true, return Result `Ok((a.len(), b.len()))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -281,24 +283,26 @@
                 <span class="kw">if </span>a_len &lt;= b_len {
                     <span class="prelude-val">Ok</span>((a_len, b_len))
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_len_le!(a, b)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_le.html\n"</span>,
-                            <span class="string">" a label: `{}`,\n"</span>,
-                            <span class="string">" a debug: `{:?}`,\n"</span>,
-                            <span class="string">" a.len(): `{:?}`,\n"</span>,
-                            <span class="string">" b label: `{}`,\n"</span>,
-                            <span class="string">" b debug: `{:?}`\n"</span>,
-                            <span class="string">" b.len(): `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                        a,
-                        a_len,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                        b,
-                        b_len
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_len_le!(a, b)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_le.html\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`,\n"</span>,
+                                <span class="string">" a.len(): `{:?}`,\n"</span>,
+                                <span class="string">" b label: `{}`,\n"</span>,
+                                <span class="string">" b debug: `{:?}`\n"</span>,
+                                <span class="string">" b.len(): `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                            a,
+                            a_len,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                            b,
+                            b_len
+                        )
+                    )
                 }
             }
         }

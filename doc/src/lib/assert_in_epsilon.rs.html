@@ -303,6 +303,8 @@
 <a href="#303" id="303">303</a>
 <a href="#304" id="304">304</a>
 <a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a number is within epsilon of another number.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -403,30 +405,32 @@
                     <span class="kw">if </span>diff &lt;= rhs {
                         <span class="prelude-val">Ok</span>(())
                     } <span class="kw">else </span>{
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                            <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n"</span>,
-                                <span class="string">"                         a label: `{}`,\n"</span>,
-                                <span class="string">"                         a debug: `{:?}`,\n"</span>,
-                                <span class="string">"                         b label: `{}`,\n"</span>,
-                                <span class="string">"                         b debug: `{:?}`,\n"</span>,
-                                <span class="string">"                   epsilon label: `{}`,\n"</span>,
-                                <span class="string">"                   epsilon debug: `{:?}`,\n"</span>,
-                                <span class="string">"                       | a - b |: `{:?}`,\n"</span>,
-                                <span class="string">"             epsilon * min(a, b): `{:?}`,\n"</span>,
-                                <span class="string">" | a - b | ≤ epsilon * min(a, b): {}"</span>,
-                            ),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                            a,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                            b,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$epsilon</span>),
-                            epsilon,
-                            diff,
-                            rhs,
-                            <span class="bool-val">false
-                        </span>))
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
+                                <span class="macro">concat!</span>(
+                                    <span class="string">"assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n"</span>,
+                                    <span class="string">"                         a label: `{}`,\n"</span>,
+                                    <span class="string">"                         a debug: `{:?}`,\n"</span>,
+                                    <span class="string">"                         b label: `{}`,\n"</span>,
+                                    <span class="string">"                         b debug: `{:?}`,\n"</span>,
+                                    <span class="string">"                   epsilon label: `{}`,\n"</span>,
+                                    <span class="string">"                   epsilon debug: `{:?}`,\n"</span>,
+                                    <span class="string">"                       | a - b |: `{:?}`,\n"</span>,
+                                    <span class="string">"             epsilon * min(a, b): `{:?}`,\n"</span>,
+                                    <span class="string">" | a - b | ≤ epsilon * min(a, b): {}"</span>,
+                                ),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                                a,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                                b,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$epsilon</span>),
+                                epsilon,
+                                diff,
+                                rhs,
+                                <span class="bool-val">false
+                            </span>)
+                        )
                     }
                 }
             }

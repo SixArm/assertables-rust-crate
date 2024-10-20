@@ -218,6 +218,8 @@
 <a href="#218" id="218">218</a>
 <a href="#219" id="219">219</a>
 <a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a string) does not end with an expression (such as a string).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -254,7 +256,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_not_ends_with`](macro.assert_not_ends_with.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -276,20 +278,22 @@
                 <span class="kw">if </span>!(whole.ends_with(part)) {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_not_ends_with!(whole, part)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_ends_with.html\n"</span>,
-                            <span class="string">" whole label: `{}`,\n"</span>,
-                            <span class="string">" whole debug: `{:?}`,\n"</span>,
-                            <span class="string">"  part label: `{}`,\n"</span>,
-                            <span class="string">"  part debug: `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$whole</span>),
-                        whole,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$part</span>),
-                        part,
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_not_ends_with!(whole, part)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_ends_with.html\n"</span>,
+                                <span class="string">" whole label: `{}`,\n"</span>,
+                                <span class="string">" whole debug: `{:?}`,\n"</span>,
+                                <span class="string">"  part label: `{}`,\n"</span>,
+                                <span class="string">"  part debug: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$whole</span>),
+                            whole,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$part</span>),
+                            part,
+                        )
+                    )
                 }
             }
         }

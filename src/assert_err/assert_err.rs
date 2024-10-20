@@ -27,7 +27,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_err`](macro.assert_err.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -51,16 +51,18 @@ macro_rules! assert_err_as_result {
                         Ok(x)
                     },
                     _ => {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_err!(a)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_err.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`",
-                            ),
-                            stringify!($a),
-                            a
-                        ))
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_err!(a)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_err.html\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`",
+                                ),
+                                stringify!($a),
+                                a
+                            )
+                        )
                     }
                 }
             }

@@ -98,30 +98,32 @@ macro_rules! assert_in_epsilon_as_result {
                     if diff <= rhs {
                         Ok(())
                     } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
-                                "                         a label: `{}`,\n",
-                                "                         a debug: `{:?}`,\n",
-                                "                         b label: `{}`,\n",
-                                "                         b debug: `{:?}`,\n",
-                                "                   epsilon label: `{}`,\n",
-                                "                   epsilon debug: `{:?}`,\n",
-                                "                       | a - b |: `{:?}`,\n",
-                                "             epsilon * min(a, b): `{:?}`,\n",
-                                " | a - b | ≤ epsilon * min(a, b): {}",
-                            ),
-                            stringify!($a),
-                            a,
-                            stringify!($b),
-                            b,
-                            stringify!($epsilon),
-                            epsilon,
-                            diff,
-                            rhs,
-                            false
-                        ))
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
+                                    "                         a label: `{}`,\n",
+                                    "                         a debug: `{:?}`,\n",
+                                    "                         b label: `{}`,\n",
+                                    "                         b debug: `{:?}`,\n",
+                                    "                   epsilon label: `{}`,\n",
+                                    "                   epsilon debug: `{:?}`,\n",
+                                    "                       | a - b |: `{:?}`,\n",
+                                    "             epsilon * min(a, b): `{:?}`,\n",
+                                    " | a - b | ≤ epsilon * min(a, b): {}",
+                                ),
+                                stringify!($a),
+                                a,
+                                stringify!($b),
+                                b,
+                                stringify!($epsilon),
+                                epsilon,
+                                diff,
+                                rhs,
+                                false
+                            )
+                        )
                     }
                 }
             }

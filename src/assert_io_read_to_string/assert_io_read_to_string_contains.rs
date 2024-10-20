@@ -1,7 +1,7 @@
 //! Assert a std::io::Read read_to_string() contains a pattern.
 //!
 //! Pseudocode:<br>
-//! (reader.read_to_string(a) ⇒ a) contains (expr into string)
+//! (reader.read_to_string(a_string) ⇒ a_string) contains (expr ⇒ b_string)
 //!
 //! # Example
 //!
@@ -25,11 +25,11 @@
 /// Assert a std::io::Read read_to_string() contains a pattern.
 ///
 /// Pseudocode:<br>
-/// (reader.read_to_string(a) ⇒ a) contains (expr into string)
+/// (reader.read_to_string(a_string) ⇒ a_string) contains (expr)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a_string)`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -48,46 +48,51 @@ macro_rules! assert_io_read_to_string_contains_as_result {
     ($reader:expr, $containee:expr $(,)?) => {{
         match (/*&$reader,*/ &$containee) {
             containee => {
-                let mut read_string = String::new();
-                let read_result = $reader.read_to_string(&mut read_string);
-                if let Err(read_err) = read_result {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_contains.html\n",
-                            "    reader label: `{}`,\n",
-                            "    reader debug: `{:?}`,\n",
-                            " containee label: `{}`,\n",
-                            " containee debug: `{:?}`,\n",
-                            "        read err: `{:?}`"
-                        ),
-                        stringify!($reader),
-                        $reader,
-                        stringify!($containee),
-                        containee,
-                        read_err
-                    ))
-                } else {
-                    if read_string.contains($containee) {
-                        Ok(())
-                    } else {
-                        let _reader_size = read_result.unwrap();
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_contains.html\n",
-                                "    reader label: `{}`,\n",
-                                "    reader debug: `{:?}`,\n",
-                                " containee label: `{}`,\n",
-                                " containee debug: `{:?}`,\n",
-                                "     read string: `{:?}`",
-                            ),
-                            stringify!($reader),
-                            $reader,
-                            stringify!($containee),
-                            containee,
-                            read_string,
-                        ))
+                let mut string = String::new();
+                match ($reader.read_to_string(&mut string)) {
+                    Ok(_size) => {
+                        if string.contains($containee) {
+                            Ok(string)
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_contains.html\n",
+                                        "    reader label: `{}`,\n",
+                                        "    reader debug: `{:?}`,\n",
+                                        " containee label: `{}`,\n",
+                                        " containee debug: `{:?}`,\n",
+                                        "          string: `{:?}`",
+                                    ),
+                                    stringify!($reader),
+                                    $reader,
+                                    stringify!($containee),
+                                    containee,
+                                    string,
+                                )
+                            )
+                        }
+                    },
+                    Err(err) => {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_contains.html\n",
+                                    "    reader label: `{}`,\n",
+                                    "    reader debug: `{:?}`,\n",
+                                    " containee label: `{}`,\n",
+                                    " containee debug: `{:?}`,\n",
+                                    "             err: `{:?}`"
+                                ),
+                                stringify!($reader),
+                                $reader,
+                                stringify!($containee),
+                                containee,
+                                err
+                            )
+                        )
                     }
                 }
             }
@@ -105,7 +110,7 @@ mod tests {
         let mut reader = "alfa".as_bytes();
         let containee = "alfa";
         let result = assert_io_read_to_string_contains_as_result!(reader, &containee);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), String::from("alfa"));
     }
 
     #[test]
@@ -122,7 +127,7 @@ mod tests {
                 "    reader debug: `[]`,\n",
                 " containee label: `&containee`,\n",
                 " containee debug: `\"zz\"`,\n",
-                "     read string: `\"alfa\"`",
+                "          string: `\"alfa\"`",
             )
         );
     }
@@ -131,9 +136,9 @@ mod tests {
 /// Assert a std::io::Read read_to_string() contains a pattern.
 ///
 /// Pseudocode:<br>
-/// (reader.read_to_string(a) ⇒ a) contains (expr into string)
+/// (reader.read_to_string(a_string) ⇒ a_string) contains (expr)
 ///
-/// * If true, return `()`.
+/// * If true, return `a_string`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -162,7 +167,7 @@ mod tests {
 /// //     reader debug: `[]`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zz\"`,
-/// //      read string: `\"hello\"`
+/// //           string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
@@ -171,7 +176,7 @@ mod tests {
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zz\"`,\n",
-/// #     "     read string: `\"hello\"`",
+/// #     "          string: `\"hello\"`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -187,13 +192,13 @@ mod tests {
 macro_rules! assert_io_read_to_string_contains {
     ($reader:expr, $containee:expr $(,)?) => {{
         match $crate::assert_io_read_to_string_contains_as_result!($reader, $containee) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_io_read_to_string_contains_as_result!($reader, $containee) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -202,7 +207,7 @@ macro_rules! assert_io_read_to_string_contains {
 /// Assert a std::io::Read read_to_string() contains a pattern.
 ///
 /// Pseudocode:<br>
-/// (reader.read_to_string(a) ⇒ a) contains (expr into string)
+/// (reader.read_to_string(a_string) ⇒ a_string) contains (expr ⇒ b_string)
 ///
 /// This macro provides the same statements as [`assert_io_read_to_string_contains`](macro.assert_io_read_to_string_contains.html),
 /// except this macro's statements are only enabled in non-optimized

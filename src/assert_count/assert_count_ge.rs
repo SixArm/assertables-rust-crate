@@ -28,7 +28,7 @@
 ///
 /// * If true, return Result `Ok((a.count(), b))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -52,24 +52,26 @@ macro_rules! assert_count_ge_as_result {
                 if a_count >= b_count {
                     Ok((a_count, b_count))
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_count_ge!(a, b)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_ge.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " a.count(): `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`\n",
-                            " b.count(): `{:?}`",
-                        ),
-                        stringify!($a),
-                        a,
-                        a_count,
-                        stringify!($b),
-                        b,
-                        b_count
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_count_ge!(a, b)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_ge.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " a.count(): `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`\n",
+                                " b.count(): `{:?}`",
+                            ),
+                            stringify!($a),
+                            a,
+                            a_count,
+                            stringify!($b),
+                            b,
+                            b_count
+                        )
+                    )
                 }
             }
         }

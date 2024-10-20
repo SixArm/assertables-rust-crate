@@ -377,6 +377,14 @@
 <a href="#377" id="377">377</a>
 <a href="#378" id="378">378</a>
 <a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Ok(…) is less than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -413,7 +421,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// # Examples
 ///
@@ -440,49 +448,53 @@
                 <span class="kw">let </span>a_result = <span class="macro-nonterminal">$a_function</span>(<span class="macro-nonterminal">$a_param</span>);
                 <span class="kw">let </span>a_is_ok = a_result.is_ok();
                 <span class="kw">if </span>!a_is_ok {
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_fn_ok_le_expr!(a_function, a_param, b_expr)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le_expr.html\n"</span>,
-                            <span class="string">" a_function label: `{}`,\n"</span>,
-                            <span class="string">"    a_param label: `{}`,\n"</span>,
-                            <span class="string">"    a_param debug: `{:?}`,\n"</span>,
-                            <span class="string">"     b_expr label: `{}`,\n"</span>,
-                            <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                            <span class="string">"         a result: `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
-                        a_param,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                        b_expr,
-                        a_result
-                    ))
-                } <span class="kw">else </span>{
-                    <span class="kw">let </span>a_ok = a_result.unwrap();
-                    <span class="kw">if </span>a_ok &lt; <span class="macro-nonterminal">$b_expr </span>{
-                        <span class="prelude-val">Ok</span>(())
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_fn_ok_lt_expr!(a_function, a_param, b_expr)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_lt_expr.html\n"</span>,
+                                <span class="string">"assertion failed: `assert_fn_ok_le_expr!(a_function, a_param, b_expr)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le_expr.html\n"</span>,
                                 <span class="string">" a_function label: `{}`,\n"</span>,
                                 <span class="string">"    a_param label: `{}`,\n"</span>,
                                 <span class="string">"    a_param debug: `{:?}`,\n"</span>,
                                 <span class="string">"     b_expr label: `{}`,\n"</span>,
                                 <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                                <span class="string">"                a: `{:?}`,\n"</span>,
-                                <span class="string">"                b: `{:?}`"</span>,
+                                <span class="string">"         a result: `{:?}`"</span>,
                             ),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
                             a_param,
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
                             b_expr,
-                            a_ok,
-                            <span class="macro-nonterminal">$b_expr
-                        </span>))
+                            a_result
+                        )
+                    )
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>a_ok = a_result.unwrap();
+                    <span class="kw">if </span>a_ok &lt; <span class="macro-nonterminal">$b_expr </span>{
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
+                                <span class="macro">concat!</span>(
+                                    <span class="string">"assertion failed: `assert_fn_ok_lt_expr!(a_function, a_param, b_expr)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_lt_expr.html\n"</span>,
+                                    <span class="string">" a_function label: `{}`,\n"</span>,
+                                    <span class="string">"    a_param label: `{}`,\n"</span>,
+                                    <span class="string">"    a_param debug: `{:?}`,\n"</span>,
+                                    <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                    <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                    <span class="string">"                a: `{:?}`,\n"</span>,
+                                    <span class="string">"                b: `{:?}`"</span>,
+                                ),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
+                                a_param,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                                b_expr,
+                                a_ok,
+                                <span class="macro-nonterminal">$b_expr
+                            </span>)
+                        )
                     }
                 }
             }
@@ -497,41 +509,45 @@
                 <span class="kw">let </span>a_result = <span class="macro-nonterminal">$a_function</span>();
                 <span class="kw">let </span>a_is_ok = a_result.is_ok();
                 <span class="kw">if </span>!a_is_ok {
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_fn_ok_le_expr!(a_function, b_expr)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le_expr.html\n"</span>,
-                            <span class="string">" a_function label: `{}`,\n"</span>,
-                            <span class="string">"     b_expr label: `{}`,\n"</span>,
-                            <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                            <span class="string">"         a result: `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                        b_expr,
-                        a_result
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_fn_ok_le_expr!(a_function, b_expr)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le_expr.html\n"</span>,
+                                <span class="string">" a_function label: `{}`,\n"</span>,
+                                <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                <span class="string">"         a result: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                            b_expr,
+                            a_result
+                        )
+                    )
                 } <span class="kw">else </span>{
                     <span class="kw">let </span>a_ok = a_result.unwrap();
                     <span class="kw">if </span>a_ok &lt; <span class="macro-nonterminal">$b_expr </span>{
                         <span class="prelude-val">Ok</span>(())
                     } <span class="kw">else </span>{
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                            <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_fn_ok_lt_expr!(a_function, b_expr)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_lt_expr.html\n"</span>,
-                                <span class="string">" a_function label: `{}`,\n"</span>,
-                                <span class="string">"     b_expr label: `{}`,\n"</span>,
-                                <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
-                                <span class="string">"                a: `{:?}`,\n"</span>,
-                                <span class="string">"                b: `{:?}`"</span>,
-                            ),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                            b_expr,
-                            a_ok,
-                            <span class="macro-nonterminal">$b_expr
-                        </span>))
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
+                                <span class="macro">concat!</span>(
+                                    <span class="string">"assertion failed: `assert_fn_ok_lt_expr!(a_function, b_expr)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_lt_expr.html\n"</span>,
+                                    <span class="string">" a_function label: `{}`,\n"</span>,
+                                    <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                    <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                    <span class="string">"                a: `{:?}`,\n"</span>,
+                                    <span class="string">"                b: `{:?}`"</span>,
+                                ),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                                b_expr,
+                                a_ok,
+                                <span class="macro-nonterminal">$b_expr
+                            </span>)
+                        )
                     }
                 }
             }

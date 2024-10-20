@@ -225,6 +225,8 @@
 <a href="#225" id="225">225</a>
 <a href="#226" id="226">226</a>
 <a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a set is a superset of another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -257,7 +259,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -283,24 +285,26 @@
                 <span class="kw">if </span>a.is_superset(<span class="kw-2">&amp;</span>b) {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_set_superset!(a_collection, b_collection)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_set_superset.html\n"</span>,
-                            <span class="string">" a label: `{}`,\n"</span>,
-                            <span class="string">" a debug: `{:?}`,\n"</span>,
-                            <span class="string">" b label: `{}`,\n"</span>,
-                            <span class="string">" b debug: `{:?}`,\n"</span>,
-                            <span class="string">"       a: `{:?}`,\n"</span>,
-                            <span class="string">"       b: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
-                        a_collection,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
-                        b_collection,
-                        a,
-                        b
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_set_superset!(a_collection, b_collection)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_set_superset.html\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`,\n"</span>,
+                                <span class="string">" b label: `{}`,\n"</span>,
+                                <span class="string">" b debug: `{:?}`,\n"</span>,
+                                <span class="string">"       a: `{:?}`,\n"</span>,
+                                <span class="string">"       b: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
+                            a_collection,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
+                            b_collection,
+                            a,
+                            b
+                        )
+                    )
                 }
             }
         }

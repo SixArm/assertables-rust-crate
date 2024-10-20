@@ -214,6 +214,8 @@
 <a href="#214" id="214">214</a>
 <a href="#215" id="215">215</a>
 <a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression matches a case.
 //!
 //! # Example
@@ -243,7 +245,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_not_matches`](macro.assert_not_matches.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -263,14 +265,16 @@
         <span class="kw">if </span>!<span class="macro">matches!</span>($(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>) {
             <span class="prelude-val">Ok</span>(())
         } <span class="kw">else </span>{
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_not_matches!(a)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_matches.html\n"</span>,
-                    <span class="string">" args: `{}`"</span>,
-                ),
-                <span class="macro">stringify!</span>($(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>),
-            ))
+            <span class="prelude-val">Err</span>(
+                <span class="macro">format!</span>(
+                    <span class="macro">concat!</span>(
+                        <span class="string">"assertion failed: `assert_not_matches!(a)`\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_matches.html\n"</span>,
+                        <span class="string">" args: `{}`"</span>,
+                    ),
+                    <span class="macro">stringify!</span>($(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>),
+                )
+            )
         }
     }};
 }

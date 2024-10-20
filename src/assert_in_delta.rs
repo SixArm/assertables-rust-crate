@@ -96,28 +96,30 @@ macro_rules! assert_in_delta_as_result {
                     if diff <= *delta {
                         Ok(())
                     } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_delta.html\n",
-                                "           a label: `{}`,\n",
-                                "           a debug: `{:?}`,\n",
-                                "           b label: `{}`,\n",
-                                "           b debug: `{:?}`,\n",
-                                "       delta label: `{}`,\n",
-                                "             delta: `{:?}`,\n",
-                                "         | a - b |: `{:?}`,\n",
-                                " | a - b | ≤ delta: {}"
-                            ),
-                            stringify!($a),
-                            a,
-                            stringify!($b),
-                            b,
-                            stringify!($delta),
-                            delta,
-                            diff,
-                            false
-                        ))
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_in_delta!(a, b, delta)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_delta.html\n",
+                                    "           a label: `{}`,\n",
+                                    "           a debug: `{:?}`,\n",
+                                    "           b label: `{}`,\n",
+                                    "           b debug: `{:?}`,\n",
+                                    "       delta label: `{}`,\n",
+                                    "             delta: `{:?}`,\n",
+                                    "         | a - b |: `{:?}`,\n",
+                                    " | a - b | ≤ delta: {}"
+                                ),
+                                stringify!($a),
+                                a,
+                                stringify!($b),
+                                b,
+                                stringify!($delta),
+                                delta,
+                                diff,
+                                false
+                            )
+                        )
                     }
                 }
             }

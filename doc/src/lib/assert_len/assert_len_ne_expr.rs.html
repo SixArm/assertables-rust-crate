@@ -221,6 +221,8 @@
 <a href="#221" id="221">221</a>
 <a href="#222" id="222">222</a>
 <a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -251,7 +253,7 @@
 ///
 /// * If true, return Result `Ok((a.len(), b))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -274,22 +276,24 @@
                 <span class="kw">if </span>a_len != <span class="macro-nonterminal">$b </span>{
                     <span class="prelude-val">Ok</span>((a_len, <span class="macro-nonterminal">$b</span>))
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_len_ne_expr!(a, b)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ne_expr.html\n"</span>,
-                            <span class="string">" a label: `{}`,\n"</span>,
-                            <span class="string">" a debug: `{:?}`,\n"</span>,
-                            <span class="string">" a.len(): `{:?}`,\n"</span>,
-                            <span class="string">" b label: `{}`,\n"</span>,
-                            <span class="string">" b debug: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                        a,
-                        a_len,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                        b
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_len_ne_expr!(a, b)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ne_expr.html\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`,\n"</span>,
+                                <span class="string">" a.len(): `{:?}`,\n"</span>,
+                                <span class="string">" b label: `{}`,\n"</span>,
+                                <span class="string">" b debug: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                            a,
+                            a_len,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                            b
+                        )
+                    )
                 }
             }
         }

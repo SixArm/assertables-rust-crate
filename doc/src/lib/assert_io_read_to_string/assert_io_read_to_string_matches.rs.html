@@ -240,10 +240,15 @@
 <a href="#240" id="240">240</a>
 <a href="#241" id="241">241</a>
 <a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() is a match to a regex.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (reader.read_to_string(a) ⇒ a) matches matcher
+//! (reader.read_to_string(a_string) ⇒ a_string) matches matcher
 //!
 //! # Example
 //!
@@ -268,11 +273,11 @@
 /// Assert a std::io::Read read_to_string() is a match to a regex.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (reader.read_to_string(a) ⇒ a) matches matcher
+/// (reader.read_to_string(a_string) ⇒ a_string) matches matcher
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a_string, b_string))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -291,46 +296,51 @@
     (<span class="macro-nonterminal">$reader</span>:expr, <span class="macro-nonterminal">$matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="comment">/*&amp;$reader,*/ </span><span class="kw-2">&amp;</span><span class="macro-nonterminal">$matcher</span>) {
             matcher =&gt; {
-                <span class="kw">let </span><span class="kw-2">mut </span>read_string = String::new();
-                <span class="kw">let </span>read_result = <span class="macro-nonterminal">$reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>read_string);
-                <span class="kw">if let </span><span class="prelude-val">Err</span>(read_err) = read_result {
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
-                            <span class="string">"  reader label: `{}`,\n"</span>,
-                            <span class="string">"  reader debug: `{:?}`,\n"</span>,
-                            <span class="string">" matcher label: `{}`,\n"</span>,
-                            <span class="string">" matcher debug: `{:?}`,\n"</span>,
-                            <span class="string">"      read err: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
-                        <span class="macro-nonterminal">$reader</span>,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
-                        matcher,
-                        read_err
-                    ))
-                } <span class="kw">else </span>{
-                    <span class="kw">let </span>_size = read_result.unwrap();
-                    <span class="kw">if </span><span class="macro-nonterminal">$matcher</span>.is_match(read_string.as_str()) {
-                        <span class="prelude-val">Ok</span>(())
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                            <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
-                                <span class="string">"  reader label: `{}`,\n"</span>,
-                                <span class="string">"  reader debug: `{:?}`,\n"</span>,
-                                <span class="string">" matcher label: `{}`,\n"</span>,
-                                <span class="string">" matcher debug: `{:?}`,\n"</span>,
-                                <span class="string">" reader string: `{:?}`"</span>,
-                            ),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
-                            <span class="macro-nonterminal">$reader</span>,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
-                            matcher,
-                            read_string
-                        ))
+                <span class="kw">let </span><span class="kw-2">mut </span>string = String::new();
+                <span class="kw">match </span>(<span class="macro-nonterminal">$reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>string)) {
+                    <span class="prelude-val">Ok</span>(size) =&gt; {
+                        <span class="kw">if </span><span class="macro-nonterminal">$matcher</span>.is_match(<span class="kw-2">&amp;</span>string) {
+                            <span class="prelude-val">Ok</span>(string)
+                        } <span class="kw">else </span>{
+                            <span class="prelude-val">Err</span>(
+                                <span class="macro">format!</span>(
+                                    <span class="macro">concat!</span>(
+                                        <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
+                                        <span class="string">"  reader label: `{}`,\n"</span>,
+                                        <span class="string">"  reader debug: `{:?}`,\n"</span>,
+                                        <span class="string">" matcher label: `{}`,\n"</span>,
+                                        <span class="string">" matcher debug: `{:?}`,\n"</span>,
+                                        <span class="string">" reader string: `{:?}`"</span>,
+                                    ),
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
+                                    <span class="macro-nonterminal">$reader</span>,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
+                                    matcher,
+                                    string
+                                )
+                            )
+                        }
+                    },
+                    <span class="prelude-val">Err</span>(err) =&gt; {
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
+                                <span class="macro">concat!</span>(
+                                    <span class="string">"assertion failed: `assert_io_read_to_string_matches!(a_reader, &amp;matcher)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_matches.html\n"</span>,
+                                    <span class="string">"  reader label: `{}`,\n"</span>,
+                                    <span class="string">"  reader debug: `{:?}`,\n"</span>,
+                                    <span class="string">" matcher label: `{}`,\n"</span>,
+                                    <span class="string">" matcher debug: `{:?}`,\n"</span>,
+                                    <span class="string">"           err: `{:?}`"
+                                </span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$reader</span>),
+                                <span class="macro-nonterminal">$reader</span>,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$matcher</span>),
+                                matcher,
+                                err
+                            )
+                        )
                     }
                 }
             }
@@ -348,7 +358,7 @@
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>matcher = Regex::new(<span class="string">r"alfa"</span>).unwrap();
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_matches_as_result!</span>(reader, <span class="kw-2">&amp;</span>matcher);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(result.unwrap(), String::from(<span class="string">"alfa"</span>));
     }
 
     <span class="attr">#[test]
@@ -374,9 +384,9 @@
 <span class="doccomment">/// Assert a std::io::Read read_to_string() is a match to a regex.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (reader.read_to_string(a) ⇒ a) matches matcher
+/// (reader.read_to_string(a_string) ⇒ a_string) matches matcher
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_string, b_string)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -431,13 +441,13 @@
 </span><span class="macro">macro_rules!</span> assert_io_read_to_string_matches {
     (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_io_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b_matcher</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b_matcher</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_io_read_to_string_matches_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b_matcher</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
@@ -446,7 +456,7 @@
 <span class="doccomment">/// Assert a std::io::Read read_to_string() is a match to a regex.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (reader.read_to_string(a) ⇒ a) matches matcher
+/// (reader.read_to_string(a_string) ⇒ a_string) matches matcher
 ///
 /// This macro provides the same statements as [`assert_io_read_to_string_matches`](macro.assert_io_read_to_string_matches.html),
 /// except this macro's statements are only enabled in non-optimized

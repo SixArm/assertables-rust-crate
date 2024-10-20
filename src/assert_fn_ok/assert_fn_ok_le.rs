@@ -34,7 +34,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -61,38 +61,11 @@ macro_rules! assert_fn_ok_le_as_result {
                 let a_is_ok = a_result.is_ok();
                 let b_is_ok = b_result.is_ok();
                 if !a_is_ok || !b_is_ok {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n",
-                            " a_function label: `{}`,\n",
-                            "    a_param label: `{}`,\n",
-                            "    a_param debug: `{:?}`,\n",
-                            " b_function label: `{}`,\n",
-                            "    b_param label: `{}`,\n",
-                            "    b_param debug: `{:?}`,\n",
-                            "                a: `{:?}`,\n",
-                            "                b: `{:?}`"
-                        ),
-                        stringify!($a_function),
-                        stringify!($a_param),
-                        a_param,
-                        stringify!($b_function),
-                        stringify!($b_param),
-                        b_param,
-                        a_result,
-                        b_result
-                    ))
-                } else {
-                    let a_ok = a_result.unwrap();
-                    let b_ok = b_result.unwrap();
-                    if a_ok <= b_ok {
-                        Ok(())
-                    } else {
-                        Err(format!(
+                    Err(
+                        format!(
                             concat!(
-                                "assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le.html\n",
+                                "assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n",
                                 " a_function label: `{}`,\n",
                                 "    a_param label: `{}`,\n",
                                 "    a_param debug: `{:?}`,\n",
@@ -108,9 +81,40 @@ macro_rules! assert_fn_ok_le_as_result {
                             stringify!($b_function),
                             stringify!($b_param),
                             b_param,
-                            a_ok,
-                            b_ok
-                        ))
+                            a_result,
+                            b_result
+                        )
+                    )
+                } else {
+                    let a_ok = a_result.unwrap();
+                    let b_ok = b_result.unwrap();
+                    if a_ok <= b_ok {
+                        Ok(())
+                    } else {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le.html\n",
+                                    " a_function label: `{}`,\n",
+                                    "    a_param label: `{}`,\n",
+                                    "    a_param debug: `{:?}`,\n",
+                                    " b_function label: `{}`,\n",
+                                    "    b_param label: `{}`,\n",
+                                    "    b_param debug: `{:?}`,\n",
+                                    "                a: `{:?}`,\n",
+                                    "                b: `{:?}`"
+                                ),
+                                stringify!($a_function),
+                                stringify!($a_param),
+                                a_param,
+                                stringify!($b_function),
+                                stringify!($b_param),
+                                b_param,
+                                a_ok,
+                                b_ok
+                            )
+                        )
                     }
                 }
             }
@@ -125,30 +129,11 @@ macro_rules! assert_fn_ok_le_as_result {
         let a_is_ok = a_result.is_ok();
         let b_is_ok = b_result.is_ok();
         if !a_is_ok || !b_is_ok {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fn_err_le!(a_function, b_function)`\n",
-                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n",
-                    " a_function label: `{}`,\n",
-                    " b_function label: `{}`,\n",
-                    "                a: `{:?}`,\n",
-                    "                b: `{:?}`"
-                ),
-                stringify!($a_function),
-                stringify!($b_function),
-                a_result,
-                b_result
-            ))
-        } else {
-            let a_ok = a_result.unwrap();
-            let b_ok = b_result.unwrap();
-            if a_ok <= b_ok {
-                Ok(())
-            } else {
-                Err(format!(
+            Err(
+                format!(
                     concat!(
-                        "assertion failed: `assert_fn_ok_le!(a_function, b_function)`\n",
-                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le.html\n",
+                        "assertion failed: `assert_fn_err_le!(a_function, b_function)`\n",
+                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n",
                         " a_function label: `{}`,\n",
                         " b_function label: `{}`,\n",
                         "                a: `{:?}`,\n",
@@ -156,9 +141,32 @@ macro_rules! assert_fn_ok_le_as_result {
                     ),
                     stringify!($a_function),
                     stringify!($b_function),
-                    a_ok,
-                    b_ok
-                ))
+                    a_result,
+                    b_result
+                )
+            )
+        } else {
+            let a_ok = a_result.unwrap();
+            let b_ok = b_result.unwrap();
+            if a_ok <= b_ok {
+                Ok(())
+            } else {
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_fn_ok_le!(a_function, b_function)`\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le.html\n",
+                            " a_function label: `{}`,\n",
+                            " b_function label: `{}`,\n",
+                            "                a: `{:?}`,\n",
+                            "                b: `{:?}`"
+                        ),
+                        stringify!($a_function),
+                        stringify!($b_function),
+                        a_ok,
+                        b_ok
+                    )
+                )
             }
         }
     }};

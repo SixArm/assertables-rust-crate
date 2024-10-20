@@ -31,7 +31,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -55,24 +55,26 @@ macro_rules! assert_set_ne_as_result {
                 if a != b {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_set_ne!(a_collection, b_collection)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_set_ne.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`,\n",
-                            "       a: `{:?}`,\n",
-                            "       b: `{:?}`"
-                        ),
-                        stringify!($a_collection),
-                        a_collection,
-                        stringify!($b_collection),
-                        b_collection,
-                        a,
-                        b
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_set_ne!(a_collection, b_collection)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_set_ne.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`,\n",
+                                "       a: `{:?}`,\n",
+                                "       b: `{:?}`"
+                            ),
+                            stringify!($a_collection),
+                            a_collection,
+                            stringify!($b_collection),
+                            b_collection,
+                            a,
+                            b
+                        )
+                    )
                 }
             }
         }

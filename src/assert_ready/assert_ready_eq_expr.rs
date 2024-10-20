@@ -29,7 +29,7 @@
 ///
 /// * If true, return Result `Some(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_ready_eq_expr`](macro.assert_ready_eq_expr.html),
 /// except this macro returns a Option, rather than doing a panic.
@@ -53,39 +53,43 @@ macro_rules! assert_ready_eq_expr_as_result {
                         if a_inner == b {
                             Ok(())
                         } else {
-                            Err(format!(
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_ready_eq_expr!(a, b)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ready_eq_expr.html\n",
+                                        " a label: `{}`,\n",
+                                        " a debug: `{:?}`,\n",
+                                        " a inner: `{:?}`,\n",
+                                        " b label: `{}`,\n",
+                                        " b debug: `{:?}`"
+                                    ),
+                                    stringify!($a),
+                                    a,
+                                    a_inner,
+                                    stringify!($b),
+                                    b
+                                )
+                            )
+                        }
+                    },
+                    _ => {
+                        Err(
+                            format!(
                                 concat!(
                                     "assertion failed: `assert_ready_eq_expr!(a, b)`\n",
                                     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ready_eq_expr.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
-                                    " a inner: `{:?}`,\n",
                                     " b label: `{}`,\n",
-                                    " b debug: `{:?}`"
+                                    " b debug: `{:?}`",
                                 ),
                                 stringify!($a),
                                 a,
-                                a_inner,
                                 stringify!($b),
-                                b
-                            ))
-                        }
-                    },
-                    _ => {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_ready_eq_expr!(a, b)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ready_eq_expr.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`",
-                            ),
-                            stringify!($a),
-                            a,
-                            stringify!($b),
-                            $b
-                        ))
+                                $b
+                            )
+                        )
                     }
                 }
             }

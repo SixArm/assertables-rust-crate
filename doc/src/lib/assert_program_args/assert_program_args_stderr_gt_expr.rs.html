@@ -260,6 +260,10 @@
 <a href="#260" id="260">260</a>
 <a href="#261" id="261">261</a>
 <a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is greater than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -291,7 +295,7 @@
 ///
 /// * If true, return Result `Ok((lhs, rhs))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -316,7 +320,35 @@
                         <span class="kw">if </span>a.gt(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
                             <span class="prelude-val">Ok</span>((a, <span class="macro-nonterminal">$b_expr</span>))
                         } <span class="kw">else </span>{
-                            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="prelude-val">Err</span>(
+                                <span class="macro">format!</span>(
+                                    <span class="macro">concat!</span>(
+                                        <span class="string">"assertion failed: `assert_program_args_stderr_gt_expr!(a_program, a_args, b_expr)`\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_gt_expr.html\n"</span>,
+                                        <span class="string">" a_program label: `{}`,\n"</span>,
+                                        <span class="string">" a_program debug: `{:?}`,\n"</span>,
+                                        <span class="string">"    a_args label: `{}`,\n"</span>,
+                                        <span class="string">"    a_args debug: `{:?}`,\n"</span>,
+                                        <span class="string">"    b_expr label: `{}`,\n"</span>,
+                                        <span class="string">"    b_expr debug: `{:?}`,\n"</span>,
+                                        <span class="string">"               a: `{:?}`,\n"</span>,
+                                        <span class="string">"               b: `{:?}`"
+                                    </span>),
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
+                                    a_program,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
+                                    a_args,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                                    <span class="macro-nonterminal">$b_expr</span>,
+                                    a,
+                                    b_expr
+                                )
+                            )
+                        }
+                    },
+                    <span class="prelude-val">Err</span>(err) =&gt; {
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_program_args_stderr_gt_expr!(a_program, a_args, b_expr)`\n"</span>,
                                     <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_gt_expr.html\n"</span>,
@@ -326,8 +358,7 @@
                                     <span class="string">"    a_args debug: `{:?}`,\n"</span>,
                                     <span class="string">"    b_expr label: `{}`,\n"</span>,
                                     <span class="string">"    b_expr debug: `{:?}`,\n"</span>,
-                                    <span class="string">"               a: `{:?}`,\n"</span>,
-                                    <span class="string">"               b: `{:?}`"
+                                    <span class="string">"             err: `{:?}`"
                                 </span>),
                                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
                                 a_program,
@@ -335,32 +366,9 @@
                                 a_args,
                                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
                                 <span class="macro-nonterminal">$b_expr</span>,
-                                a,
-                                b_expr
-                            ))
-                        }
-                    },
-                    <span class="prelude-val">Err</span>(err) =&gt; {
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                            <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_program_args_stderr_gt_expr!(a_program, a_args, b_expr)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_gt_expr.html\n"</span>,
-                                <span class="string">" a_program label: `{}`,\n"</span>,
-                                <span class="string">" a_program debug: `{:?}`,\n"</span>,
-                                <span class="string">"    a_args label: `{}`,\n"</span>,
-                                <span class="string">"    a_args debug: `{:?}`,\n"</span>,
-                                <span class="string">"    b_expr label: `{}`,\n"</span>,
-                                <span class="string">"    b_expr debug: `{:?}`,\n"</span>,
-                                <span class="string">"             err: `{:?}`"
-                            </span>),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
-                            a_program,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
-                            a_args,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                            <span class="macro-nonterminal">$b_expr</span>,
-                            err
-                        ))
+                                err
+                            )
+                        )
                     }
                 }
             }

@@ -43,7 +43,7 @@ macro_rules! assert_ok_impl_err {
 ///
 /// * If true, return Result `Ok(a̅)`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_ok`](macro.assert_ok.html),
 /// except this macro returns a Result, rather than doing a panic.

@@ -255,6 +255,10 @@
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Err(_) and their values are equal.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -285,7 +289,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_err_eq`](macro.assert_err_eq.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -309,41 +313,45 @@
                         <span class="kw">if </span>a_inner == b_inner {
                             <span class="prelude-val">Ok</span>(())
                         } <span class="kw">else </span>{
-                            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                            <span class="prelude-val">Err</span>(
+                                <span class="macro">format!</span>(
+                                    <span class="macro">concat!</span>(
+                                        <span class="string">"assertion failed: `assert_err_eq!(a, b)`\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_err_eq.html\n"</span>,
+                                        <span class="string">" a label: `{}`,\n"</span>,
+                                        <span class="string">" a debug: `{:?}`,\n"</span>,
+                                        <span class="string">" a inner: `{:?}`,\n"</span>,
+                                        <span class="string">" b label: `{}`,\n"</span>,
+                                        <span class="string">" b debug: `{:?}`,\n"</span>,
+                                        <span class="string">" b inner: `{:?}`"
+                                    </span>),
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                                    a,
+                                    a_inner,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                                    b,
+                                    b_inner
+                                )
+                            )
+                        }
+                    },
+                    <span class="kw">_ </span>=&gt; {
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_err_eq!(a, b)`\n"</span>,
                                     <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_err_eq.html\n"</span>,
                                     <span class="string">" a label: `{}`,\n"</span>,
                                     <span class="string">" a debug: `{:?}`,\n"</span>,
-                                    <span class="string">" a inner: `{:?}`,\n"</span>,
                                     <span class="string">" b label: `{}`,\n"</span>,
-                                    <span class="string">" b debug: `{:?}`,\n"</span>,
-                                    <span class="string">" b inner: `{:?}`"
-                                </span>),
+                                    <span class="string">" b debug: `{:?}`"</span>,
+                                ),
                                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                                 a,
-                                a_inner,
                                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
                                 b,
-                                b_inner
-                            ))
-                        }
-                    },
-                    <span class="kw">_ </span>=&gt; {
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                            <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_err_eq!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_err_eq.html\n"</span>,
-                                <span class="string">" a label: `{}`,\n"</span>,
-                                <span class="string">" a debug: `{:?}`,\n"</span>,
-                                <span class="string">" b label: `{}`,\n"</span>,
-                                <span class="string">" b debug: `{:?}`"</span>,
-                            ),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                            a,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                            b,
-                        ))
+                            )
+                        )
                     }
                 }
             }

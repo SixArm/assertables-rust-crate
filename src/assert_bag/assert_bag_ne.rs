@@ -50,7 +50,7 @@ macro_rules! assert_bag_ne_as_result_impl_err {
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_bag_ne`](macro.assert_bag_ne.html),
 /// except this macro returns a Result, rather than doing a panic.

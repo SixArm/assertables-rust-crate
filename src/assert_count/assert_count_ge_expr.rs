@@ -28,7 +28,7 @@
 ///
 /// * If true, return Result `Ok((a.count(), b))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -51,22 +51,24 @@ macro_rules! assert_count_ge_expr_as_result {
                 if a_count >= $b {
                     Ok((a_count, $b))
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_count_ge_expr!(a, b)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_ge_expr.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " a.count(): `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`"
-                        ),
-                        stringify!($a),
-                        a,
-                        a_count,
-                        stringify!($b),
-                        $b
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_count_ge_expr!(a, b)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_ge_expr.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " a.count(): `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`"
+                            ),
+                            stringify!($a),
+                            a,
+                            a_count,
+                            stringify!($b),
+                            $b
+                        )
+                    )
                 }
             }
         }

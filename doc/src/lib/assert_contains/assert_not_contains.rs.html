@@ -257,6 +257,8 @@
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a string) does not contain an expression (such as a substring).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -298,7 +300,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_not_contains`](macro.assert_not_contains.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -320,20 +322,22 @@
                 <span class="kw">if </span>!(container.contains(<span class="macro-nonterminal">$containee</span>)) {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_not_contains!(container, containee)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n"</span>,
-                            <span class="string">" container label: `{}`,\n"</span>,
-                            <span class="string">" container debug: `{:?}`,\n"</span>,
-                            <span class="string">" containee label: `{}`,\n"</span>,
-                            <span class="string">" containee debug: `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$container</span>),
-                        container,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
-                        containee,
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_not_contains!(container, containee)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n"</span>,
+                                <span class="string">" container label: `{}`,\n"</span>,
+                                <span class="string">" container debug: `{:?}`,\n"</span>,
+                                <span class="string">" containee label: `{}`,\n"</span>,
+                                <span class="string">" containee debug: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$container</span>),
+                            container,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$containee</span>),
+                            containee,
+                        )
+                    )
                 }
             }
         }

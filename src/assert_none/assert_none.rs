@@ -27,7 +27,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_none`](macro.assert_none.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -51,16 +51,18 @@ macro_rules! assert_none_as_result {
                         Ok(())
                     },
                     _ => {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_none!(a)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_none.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`",
-                            ),
-                            stringify!($a),
-                            a
-                        ))
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_none!(a)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_none.html\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`",
+                                ),
+                                stringify!($a),
+                                a
+                            )
+                        )
                     }
                 }
             }

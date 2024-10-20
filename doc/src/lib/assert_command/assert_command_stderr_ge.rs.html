@@ -267,6 +267,8 @@
 <a href="#267" id="267">267</a>
 <a href="#268" id="268">268</a>
 <a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -300,7 +302,7 @@
 ///
 /// * If true, return Result `Ok((lhs, rhs))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -347,24 +349,26 @@
                 }
             },
             (a, b) =&gt; {
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n"</span>,
-                        <span class="string">" a label: `{}`,\n"</span>,
-                        <span class="string">" a debug: `{:?}`,\n"</span>,
-                        <span class="string">" b label: `{}`,\n"</span>,
-                        <span class="string">" b debug: `{:?}`,\n"</span>,
-                        <span class="string">"       a: `{:?}`,\n"</span>,
-                        <span class="string">"       b: `{:?}`"
-                    </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
-                    <span class="macro-nonterminal">$a_command</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_command</span>),
-                    <span class="macro-nonterminal">$b_command</span>,
-                    a,
-                    b
-                ))
+                <span class="prelude-val">Err</span>(
+                    <span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n"</span>,
+                            <span class="string">" a label: `{}`,\n"</span>,
+                            <span class="string">" a debug: `{:?}`,\n"</span>,
+                            <span class="string">" b label: `{}`,\n"</span>,
+                            <span class="string">" b debug: `{:?}`,\n"</span>,
+                            <span class="string">"       a: `{:?}`,\n"</span>,
+                            <span class="string">"       b: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
+                        <span class="macro-nonterminal">$a_command</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_command</span>),
+                        <span class="macro-nonterminal">$b_command</span>,
+                        a,
+                        b
+                    )
+                )
             }
         }
     }};

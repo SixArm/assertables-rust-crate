@@ -28,7 +28,7 @@
 ///
 /// * If true, return Result `Ok((a.len(), b.len()))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -52,24 +52,26 @@ macro_rules! assert_len_eq_as_result {
                 if a_len == b_len {
                     Ok((a_len, b_len))
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_len_eq!(a, b)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_eq.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " a.len(): `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`\n",
-                            " b.len(): `{:?}`",
-                        ),
-                        stringify!($a),
-                        a,
-                        a_len,
-                        stringify!($b),
-                        b,
-                        b_len
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_len_eq!(a, b)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_eq.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " a.len(): `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`\n",
+                                " b.len(): `{:?}`",
+                            ),
+                            stringify!($a),
+                            a,
+                            a_len,
+                            stringify!($b),
+                            b,
+                            b_len
+                        )
+                    )
                 }
             }
         }

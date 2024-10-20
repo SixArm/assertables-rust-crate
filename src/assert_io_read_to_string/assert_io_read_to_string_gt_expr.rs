@@ -1,7 +1,7 @@
 //! Assert a std::io::Read read_to_string() value is greater than an expression.
 //!
 //! Pseudocode:<br>
-//! (reader.read_to_string(a) ⇒ a) > (expr into string)
+//! (reader.read_to_string(a_string) ⇒ a_string) > (expr ⇒ b_string)
 //!
 //! # Example
 //!
@@ -25,11 +25,11 @@
 /// Assert a std::io::Read read_to_string() value is greater than an expression.
 ///
 /// Pseudocode:<br>
-/// (reader.read_to_string(a) ⇒ a) > (expr into string)
+/// (reader.read_to_string(a_string) ⇒ a_string) > (expr ⇒ b_string)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a_string, b_string))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -49,48 +49,53 @@ macro_rules! assert_io_read_to_string_gt_expr_as_result {
         match (/*&$reader,*/ &$b_expr) {
             b_expr => {
                 let mut a_string = String::new();
-                let a_result = $a_reader.read_to_string(&mut a_string);
-                if let Err(a_err) = a_result {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
-                            " a_reader label: `{}`,\n",
-                            " a_reader debug: `{:?}`,\n",
-                            "   b_expr label: `{}`,\n",
-                            "   b_expr debug: `{:?}`,\n",
-                            "          a err: `{:?}`"
-                        ),
-                        stringify!($a_reader),
-                        $a_reader,
-                        stringify!($b_expr),
-                        b_expr,
-                        a_err
-                    ))
-                } else {
-                    let _a_size = a_result.unwrap();
-                    let b_string = String::from($b_expr);
-                    if a_string > b_string {
-                        Ok(())
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
-                                " a_reader label: `{}`,\n",
-                                " a_reader debug: `{:?}`,\n",
-                                "   b_expr label: `{}`,\n",
-                                "   b_expr debug: `{:?}`,\n",
-                                "              a: `{:?}`,\n",
-                                "              b: `{:?}`",
-                            ),
-                            stringify!($a_reader),
-                            $a_reader,
-                            stringify!($b_expr),
-                            b_expr,
-                            a_string,
-                            b_string
-                        ))
+                match ($a_reader.read_to_string(&mut a_string)) {
+                    Ok(_a_size) => {
+                        let b_string = String::from($b_expr);
+                        if a_string > b_string {
+                            Ok((a_string, b_string))
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
+                                        " a_reader label: `{}`,\n",
+                                        " a_reader debug: `{:?}`,\n",
+                                        "   b_expr label: `{}`,\n",
+                                        "   b_expr debug: `{:?}`,\n",
+                                        "              a: `{:?}`,\n",
+                                        "              b: `{:?}`",
+                                    ),
+                                    stringify!($a_reader),
+                                    $a_reader,
+                                    stringify!($b_expr),
+                                    b_expr,
+                                    a_string,
+                                    b_string
+                                )
+                            )
+                        }
+                    },
+                    Err(err) => {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
+                                    " a_reader label: `{}`,\n",
+                                    " a_reader debug: `{:?}`,\n",
+                                    "   b_expr label: `{}`,\n",
+                                    "   b_expr debug: `{:?}`,\n",
+                                    "            err: `{:?}`"
+                                ),
+                                stringify!($a_reader),
+                                $a_reader,
+                                stringify!($b_expr),
+                                b_expr,
+                                err
+                            )
+                        )
                     }
                 }
             }
@@ -104,15 +109,38 @@ mod tests {
     use std::io::Read;
 
     #[test]
-    fn test_assert_io_read_to_string_gt_expr_as_result_x_success() {
+    fn test_assert_io_read_to_string_gt_expr_as_result_x_success_because_gt() {
         let mut reader = "bravo".as_bytes();
         let value = String::from("alfa");
         let result = assert_io_read_to_string_gt_expr_as_result!(reader, &value);
-        assert_eq!(result, Ok(()));
+        assert_eq!(
+            result.unwrap(),
+            (String::from("bravo"), String::from("alfa"))
+        );
     }
 
     #[test]
-    fn test_assert_io_read_to_string_gt_expr_as_result_x_failure() {
+    fn test_assert_io_read_to_string_gt_expr_as_result_x_failure_because_eq() {
+        let mut reader = "alfa".as_bytes();
+        let value = String::from("alfa");
+        let result = assert_io_read_to_string_gt_expr_as_result!(reader, &value);
+        assert_eq!(
+            result.unwrap_err(),
+            concat!(
+                "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
+                " a_reader label: `reader`,\n",
+                " a_reader debug: `[]`,\n",
+                "   b_expr label: `&value`,\n",
+                "   b_expr debug: `\"alfa\"`,\n",
+                "              a: `\"alfa\"`,\n",
+                "              b: `\"alfa\"`"
+            )
+        );
+    }
+
+    #[test]
+    fn test_assert_io_read_to_string_gt_expr_as_result_x_failure_because_lt() {
         let mut reader = "alfa".as_bytes();
         let value = String::from("bravo");
         let result = assert_io_read_to_string_gt_expr_as_result!(reader, &value);
@@ -135,9 +163,9 @@ mod tests {
 /// Assert a std::io::Read read_to_string() value is greater than an expression.
 ///
 /// Pseudocode:<br>
-/// (reader.read_to_string(a) ⇒ a) > (expr into string)
+/// (reader.read_to_string(a_string) ⇒ a_string) > (expr ⇒ b_string)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_string, b_string)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -193,13 +221,13 @@ mod tests {
 macro_rules! assert_io_read_to_string_gt_expr {
     ($a_reader:expr,  $b_expr:expr $(,)?) => {{
         match $crate::assert_io_read_to_string_gt_expr_as_result!($a_reader, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_reader:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_io_read_to_string_gt_expr_as_result!($a_reader, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -208,7 +236,7 @@ macro_rules! assert_io_read_to_string_gt_expr {
 /// Assert a std::io::Read read_to_string() value is greater than an expression.
 ///
 /// Pseudocode:<br>
-/// (reader.read_to_string(a) ⇒ a) > (expr into string)
+/// (reader.read_to_string(a_string) ⇒ a_string) > (expr ⇒ b_string)
 ///
 /// This macro provides the same statements as [`assert_io_read_to_string_gt_expr`](macro.assert_io_read_to_string_gt_expr.html),
 /// except this macro's statements are only enabled in non-optimized

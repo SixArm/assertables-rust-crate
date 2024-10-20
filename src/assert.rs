@@ -5,7 +5,7 @@
 //!
 //! * If true, return Result `Ok(())`.
 //!
-//! * Otherwise, return Result `Err` with a diagnostic message.
+//! * Otherwise, return Result `Err(message)`.
 //!
 //! This macro provides the same statements as [`assert`](macro@assert),
 //! except this macro returns a Result, rather than doing a panic.
@@ -24,7 +24,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert`](macro@assert),
 /// except this macro returns a Result, rather than doing a panic.

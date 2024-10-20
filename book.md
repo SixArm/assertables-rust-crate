@@ -573,22 +573,24 @@ macro_rules! assert_gt_as_result {
                 if a > b {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_gt!(left, right)`\n",
-                            "  left label: `{}`,\n",
-                            "  left debug: `{:?}`,\n",
-                            " right label: `{}`,\n",
-                            " right debug: `{:?}`,\n",
-                            "        left: `{:?}`,\n",
-                            "       right: `{:?}`"
-                        ),
-                        env!("CARGO_PKG_VERSION")
-                        stringify!($a), $a,
-                        stringify!($b), $b,
-                        a,
-                        b
-                    ))
+                    Err(
+                        format!(
+                                concat!(
+                                "assertion failed: `assert_gt!(left, right)`\n",
+                                "  left label: `{}`,\n",
+                                "  left debug: `{:?}`,\n",
+                                " right label: `{}`,\n",
+                                " right debug: `{:?}`,\n",
+                                "        left: `{:?}`,\n",
+                                "       right: `{:?}`"
+                            ),
+                            env!("CARGO_PKG_VERSION")
+                            stringify!($a), $a,
+                            stringify!($b), $b,
+                            a,
+                            b
+                        )
+                    )
                 }
             }
         }

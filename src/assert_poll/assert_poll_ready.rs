@@ -23,7 +23,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_poll_ready`](macro.assert_poll_ready.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -50,16 +50,18 @@ macro_rules! assert_poll_ready_as_result {
                         Ok(())
                     },
                     _ => {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_poll_ready!(a)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_poll_ready.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`",
-                            ),
-                            stringify!($a),
-                            a,
-                        ))
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_poll_ready!(a)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_poll_ready.html\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`",
+                                ),
+                                stringify!($a),
+                                a,
+                            )
+                        )
                     }
                 }
             }

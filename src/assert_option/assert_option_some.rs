@@ -21,7 +21,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_option_some`](macro.assert_option_some.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -48,16 +48,18 @@ macro_rules! assert_option_some_as_result {
                         Ok(())
                     },
                     _ => {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_option_some!(a)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_option_some.html\n",
-                                " option label: `{}`,\n",
-                                " option debug: `{:?}`",
-                            ),
-                            stringify!($a),
-                            a
-                        ))
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_option_some!(a)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_option_some.html\n",
+                                    " option label: `{}`,\n",
+                                    " option debug: `{:?}`",
+                                ),
+                                stringify!($a),
+                                a
+                            )
+                        )
                     }
                 }
             }

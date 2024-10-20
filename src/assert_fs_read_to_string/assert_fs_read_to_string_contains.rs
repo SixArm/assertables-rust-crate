@@ -26,9 +26,9 @@
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) contains expr
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(path_into_string)`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_fs_read_to_string_contains`](macro.assert_fs_read_to_string_contains_as_result.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -47,45 +47,50 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
     ($path:expr, $containee:expr $(,)?) => {{
         match (&$path, &$containee) {
             (path, containee) => {
-                let read_result = ::std::fs::read_to_string(path);
-                if let Err(a_err) = read_result {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
-                            "      path label: `{}`,\n",
-                            "      path debug: `{:?}`,\n",
-                            " containee label: `{}`,\n",
-                            " containee debug: `{:?}`,\n",
-                            "        read err: `{:?}`"
-                        ),
-                        stringify!($path),
-                        path,
-                        stringify!($containee),
-                        containee,
-                        a_err
-                    ))
-                } else {
-                    let read_string = read_result.unwrap();
-                    if read_string.contains($containee) {
-                        Ok(())
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
-                                "      path label: `{}`,\n",
-                                "      path debug: `{:?}`,\n",
-                                " containee label: `{}`,\n",
-                                " containee debug: `{:?}`,\n",
-                                "     read string: `{:?}`",
-                            ),
-                            stringify!($path),
-                            path,
-                            stringify!($containee),
-                            containee,
-                            read_string
-                        ))
+                match (::std::fs::read_to_string(path)) {
+                    Ok(string) => {
+                        if string.contains($containee) {
+                            Ok(string)
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+                                        "      path label: `{}`,\n",
+                                        "      path debug: `{:?}`,\n",
+                                        " containee label: `{}`,\n",
+                                        " containee debug: `{:?}`,\n",
+                                        "          string: `{:?}`",
+                                    ),
+                                    stringify!($path),
+                                    path,
+                                    stringify!($containee),
+                                    containee,
+                                    string
+                                )
+                            )
+                        }
+                    },
+                    Err(err) => {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+                                    "      path label: `{}`,\n",
+                                    "      path debug: `{:?}`,\n",
+                                    " containee label: `{}`,\n",
+                                    " containee debug: `{:?}`,\n",
+                                    "        read err: `{:?}`"
+                                ),
+                                stringify!($path),
+                                path,
+                                stringify!($containee),
+                                containee,
+                                err
+                            )
+                        )
                     }
                 }
             }
@@ -113,7 +118,7 @@ mod tests {
         let path = DIR.join("alfa.txt");
         let containee = "alfa";
         let result = assert_fs_read_to_string_contains_as_result!(&path, &containee);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), String::from("alfa\n"));
     }
 
     #[test]
@@ -131,7 +136,7 @@ mod tests {
                     "      path debug: `{:?}`,\n",
                     " containee label: `&containee`,\n",
                     " containee debug: `\"zz\"`,\n",
-                    "     read string: `\"alfa\\n\"`",
+                    "          string: `\"alfa\\n\"`",
                 ),
                 path
             )
@@ -144,7 +149,7 @@ mod tests {
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) contains expr
 ///
-/// * If true, return `()`.
+/// * If true, return `path_into_string`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -173,7 +178,7 @@ mod tests {
 /// //       path debug: `\"alfa.txt\"`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zz\"`,
-/// //      read string: `\"alfa\\n\"`
+/// //           string: `\"alfa\\n\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
@@ -182,7 +187,7 @@ mod tests {
 /// #     "      path debug: `\"alfa.txt\"`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zz\"`,\n",
-/// #     "     read string: `\"alfa\\n\"`",
+/// #     "          string: `\"alfa\\n\"`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -198,13 +203,13 @@ mod tests {
 macro_rules! assert_fs_read_to_string_contains {
     ($path:expr, $containee:expr $(,)?) => {{
         match $crate::assert_fs_read_to_string_contains_as_result!($path, $containee) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($path:expr, $containee:expr, $($message:tt)+) => {{
         match $crate::assert_fs_read_to_string_contains_as_result!($path, $containee) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

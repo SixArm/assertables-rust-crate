@@ -29,7 +29,7 @@
 ///
 /// * If true, return Result `Ok((lhs, rhs))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -54,7 +54,35 @@ macro_rules! assert_program_args_stderr_lt_expr_as_result {
                         if a.lt(&$b_expr) {
                             Ok((a, $b_expr))
                         } else {
-                            Err(format!(
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_program_args_stderr_lt_expr!(a_program, a_args, b_expr)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_lt_expr.html\n",
+                                        " a_program label: `{}`,\n",
+                                        " a_program debug: `{:?}`,\n",
+                                        "    a_args label: `{}`,\n",
+                                        "    a_args debug: `{:?}`,\n",
+                                        "    b_expr label: `{}`,\n",
+                                        "    b_expr debug: `{:?}`,\n",
+                                        "               a: `{:?}`,\n",
+                                        "               b: `{:?}`"
+                                    ),
+                                    stringify!($a_program),
+                                    a_program,
+                                    stringify!($a_args),
+                                    a_args,
+                                    stringify!($b_expr),
+                                    $b_expr,
+                                    a,
+                                    b_expr
+                                )
+                            )
+                        }
+                    }
+                    Err(err) => {
+                        Err(
+                            format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stderr_lt_expr!(a_program, a_args, b_expr)`\n",
                                     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_lt_expr.html\n",
@@ -64,8 +92,7 @@ macro_rules! assert_program_args_stderr_lt_expr_as_result {
                                     "    a_args debug: `{:?}`,\n",
                                     "    b_expr label: `{}`,\n",
                                     "    b_expr debug: `{:?}`,\n",
-                                    "               a: `{:?}`,\n",
-                                    "               b: `{:?}`"
+                                    "             err: `{:?}`"
                                 ),
                                 stringify!($a_program),
                                 a_program,
@@ -73,32 +100,9 @@ macro_rules! assert_program_args_stderr_lt_expr_as_result {
                                 a_args,
                                 stringify!($b_expr),
                                 $b_expr,
-                                a,
-                                b_expr
-                            ))
-                        }
-                    }
-                    Err(err) => {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_program_args_stderr_lt_expr!(a_program, a_args, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_lt_expr.html\n",
-                                " a_program label: `{}`,\n",
-                                " a_program debug: `{:?}`,\n",
-                                "    a_args label: `{}`,\n",
-                                "    a_args debug: `{:?}`,\n",
-                                "    b_expr label: `{}`,\n",
-                                "    b_expr debug: `{:?}`,\n",
-                                "             err: `{:?}`"
-                            ),
-                            stringify!($a_program),
-                            a_program,
-                            stringify!($a_args),
-                            a_args,
-                            stringify!($b_expr),
-                            $b_expr,
-                            err
-                        ))
+                                err
+                            )
+                        )
                     }
                 }
             }

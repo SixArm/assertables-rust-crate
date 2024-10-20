@@ -30,7 +30,7 @@
 ///
 /// * If true, return Result `Ok(program1 + args1 ⇒ command ⇒ stdout ⇒ string)`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.

@@ -75,7 +75,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_infix`](macro.assert_infix.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -95,21 +95,23 @@ macro_rules! assert_infix_as_result {
         if $a $infix $b {
             Ok(())
         } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_infix!(a {} b)`\n",
-                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_infix.html\n",
-                    " a label: `{}`,\n",
-                    " a debug: `{:?}`,\n",
-                    " b label: `{}`,\n",
-                    " b debug: `{:?}`",
-                ),
-                stringify!($infix),
-                stringify!($a),
-                $a,
-                stringify!($b),
-                $b,
-            ))
+            Err(
+                format!(
+                    concat!(
+                        "assertion failed: `assert_infix!(a {} b)`\n",
+                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_infix.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`,\n",
+                        " b label: `{}`,\n",
+                        " b debug: `{:?}`",
+                    ),
+                    stringify!($infix),
+                    stringify!($a),
+                    $a,
+                    stringify!($b),
+                    $b,
+                )
+            )
         }
     }};
 }

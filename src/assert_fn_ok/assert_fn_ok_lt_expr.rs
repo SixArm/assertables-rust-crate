@@ -34,7 +34,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// # Examples
 ///
@@ -61,49 +61,53 @@ macro_rules! assert_fn_ok_lt_expr_as_result {
                 let a_result = $a_function($a_param);
                 let a_is_ok = a_result.is_ok();
                 if !a_is_ok {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_fn_ok_le_expr!(a_function, a_param, b_expr)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le_expr.html\n",
-                            " a_function label: `{}`,\n",
-                            "    a_param label: `{}`,\n",
-                            "    a_param debug: `{:?}`,\n",
-                            "     b_expr label: `{}`,\n",
-                            "     b_expr debug: `{:?}`,\n",
-                            "         a result: `{:?}`",
-                        ),
-                        stringify!($a_function),
-                        stringify!($a_param),
-                        a_param,
-                        stringify!($b_expr),
-                        b_expr,
-                        a_result
-                    ))
-                } else {
-                    let a_ok = a_result.unwrap();
-                    if a_ok < $b_expr {
-                        Ok(())
-                    } else {
-                        Err(format!(
+                    Err(
+                        format!(
                             concat!(
-                                "assertion failed: `assert_fn_ok_lt_expr!(a_function, a_param, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_lt_expr.html\n",
+                                "assertion failed: `assert_fn_ok_le_expr!(a_function, a_param, b_expr)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le_expr.html\n",
                                 " a_function label: `{}`,\n",
                                 "    a_param label: `{}`,\n",
                                 "    a_param debug: `{:?}`,\n",
                                 "     b_expr label: `{}`,\n",
                                 "     b_expr debug: `{:?}`,\n",
-                                "                a: `{:?}`,\n",
-                                "                b: `{:?}`",
+                                "         a result: `{:?}`",
                             ),
                             stringify!($a_function),
                             stringify!($a_param),
                             a_param,
                             stringify!($b_expr),
                             b_expr,
-                            a_ok,
-                            $b_expr
-                        ))
+                            a_result
+                        )
+                    )
+                } else {
+                    let a_ok = a_result.unwrap();
+                    if a_ok < $b_expr {
+                        Ok(())
+                    } else {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_fn_ok_lt_expr!(a_function, a_param, b_expr)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_lt_expr.html\n",
+                                    " a_function label: `{}`,\n",
+                                    "    a_param label: `{}`,\n",
+                                    "    a_param debug: `{:?}`,\n",
+                                    "     b_expr label: `{}`,\n",
+                                    "     b_expr debug: `{:?}`,\n",
+                                    "                a: `{:?}`,\n",
+                                    "                b: `{:?}`",
+                                ),
+                                stringify!($a_function),
+                                stringify!($a_param),
+                                a_param,
+                                stringify!($b_expr),
+                                b_expr,
+                                a_ok,
+                                $b_expr
+                            )
+                        )
                     }
                 }
             }
@@ -118,41 +122,45 @@ macro_rules! assert_fn_ok_lt_expr_as_result {
                 let a_result = $a_function();
                 let a_is_ok = a_result.is_ok();
                 if !a_is_ok {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_fn_ok_le_expr!(a_function, b_expr)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le_expr.html\n",
-                            " a_function label: `{}`,\n",
-                            "     b_expr label: `{}`,\n",
-                            "     b_expr debug: `{:?}`,\n",
-                            "         a result: `{:?}`",
-                        ),
-                        stringify!($a_function),
-                        stringify!($b_expr),
-                        b_expr,
-                        a_result
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_fn_ok_le_expr!(a_function, b_expr)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_le_expr.html\n",
+                                " a_function label: `{}`,\n",
+                                "     b_expr label: `{}`,\n",
+                                "     b_expr debug: `{:?}`,\n",
+                                "         a result: `{:?}`",
+                            ),
+                            stringify!($a_function),
+                            stringify!($b_expr),
+                            b_expr,
+                            a_result
+                        )
+                    )
                 } else {
                     let a_ok = a_result.unwrap();
                     if a_ok < $b_expr {
                         Ok(())
                     } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_fn_ok_lt_expr!(a_function, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_lt_expr.html\n",
-                                " a_function label: `{}`,\n",
-                                "     b_expr label: `{}`,\n",
-                                "     b_expr debug: `{:?}`,\n",
-                                "                a: `{:?}`,\n",
-                                "                b: `{:?}`",
-                            ),
-                            stringify!($a_function),
-                            stringify!($b_expr),
-                            b_expr,
-                            a_ok,
-                            $b_expr
-                        ))
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_fn_ok_lt_expr!(a_function, b_expr)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_lt_expr.html\n",
+                                    " a_function label: `{}`,\n",
+                                    "     b_expr label: `{}`,\n",
+                                    "     b_expr debug: `{:?}`,\n",
+                                    "                a: `{:?}`,\n",
+                                    "                b: `{:?}`",
+                                ),
+                                stringify!($a_function),
+                                stringify!($b_expr),
+                                b_expr,
+                                a_ok,
+                                $b_expr
+                            )
+                        )
                     }
                 }
             }

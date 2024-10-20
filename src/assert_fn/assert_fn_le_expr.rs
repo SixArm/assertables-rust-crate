@@ -57,26 +57,28 @@ macro_rules! assert_fn_le_expr_as_result {
                 if a_output <= $b_expr {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_fn_le_expr!(a_function, a_param, b_expr)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_le_expr.html\n",
-                            " a_function label: `{}`,\n",
-                            "    a_param label: `{}`,\n",
-                            "    a_param debug: `{:?}`,\n",
-                            "     b_expr label: `{}`,\n",
-                            "     b_expr debug: `{:?}`,\n",
-                            "                a: `{:?}`,\n",
-                            "                b: `{:?}`"
-                        ),
-                        stringify!($a_function),
-                        stringify!($a_param),
-                        a_param,
-                        stringify!($b_expr),
-                        b_expr,
-                        a_output,
-                        b_expr
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_fn_le_expr!(a_function, a_param, b_expr)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_le_expr.html\n",
+                                " a_function label: `{}`,\n",
+                                "    a_param label: `{}`,\n",
+                                "    a_param debug: `{:?}`,\n",
+                                "     b_expr label: `{}`,\n",
+                                "     b_expr debug: `{:?}`,\n",
+                                "                a: `{:?}`,\n",
+                                "                b: `{:?}`"
+                            ),
+                            stringify!($a_function),
+                            stringify!($a_param),
+                            a_param,
+                            stringify!($b_expr),
+                            b_expr,
+                            a_output,
+                            b_expr
+                        )
+                    )
                 }
             }
         }
@@ -91,22 +93,24 @@ macro_rules! assert_fn_le_expr_as_result {
                 if a_output <= $b_expr {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_fn_le_expr!(a_function, b_expr)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_le_expr.html\n",
-                            " a_function label: `{}`,\n",
-                            "     b_expr label: `{}`,\n",
-                            "     b_expr debug: `{:?}`,\n",
-                            "                a: `{:?}`,\n",
-                            "                b: `{:?}`"
-                        ),
-                        stringify!($a_function),
-                        stringify!($b_expr),
-                        b_expr,
-                        a_output,
-                        b_expr
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_fn_le_expr!(a_function, b_expr)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_le_expr.html\n",
+                                " a_function label: `{}`,\n",
+                                "     b_expr label: `{}`,\n",
+                                "     b_expr debug: `{:?}`,\n",
+                                "                a: `{:?}`,\n",
+                                "                b: `{:?}`"
+                            ),
+                            stringify!($a_function),
+                            stringify!($b_expr),
+                            b_expr,
+                            a_output,
+                            b_expr
+                        )
+                    )
                 }
             }
         }

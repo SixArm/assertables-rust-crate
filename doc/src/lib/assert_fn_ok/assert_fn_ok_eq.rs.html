@@ -389,6 +389,14 @@
 <a href="#389" id="389">389</a>
 <a href="#390" id="390">390</a>
 <a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Ok(…) is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -425,7 +433,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -452,35 +460,8 @@
                 <span class="kw">let </span>a_is_ok = a_result.is_ok();
                 <span class="kw">let </span>b_is_ok = b_result.is_ok();
                 <span class="kw">if </span>!a_is_ok || !b_is_ok {
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_fn_ok_eq!(a_function, a_param, b_function, b_param)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_eq.html\n"</span>,
-                            <span class="string">" a_function label: `{}`,\n"</span>,
-                            <span class="string">"    a_param label: `{}`,\n"</span>,
-                            <span class="string">"    a_param debug: `{:?}`,\n"</span>,
-                            <span class="string">" b_function label: `{}`,\n"</span>,
-                            <span class="string">"    b_param label: `{}`,\n"</span>,
-                            <span class="string">"    b_param debug: `{:?}`,\n"</span>,
-                            <span class="string">"                a: `{:?}`,\n"</span>,
-                            <span class="string">"                b: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
-                        a_param,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
-                        b_param,
-                        a_result,
-                        b_result
-                    ))
-                } <span class="kw">else </span>{
-                    <span class="kw">let </span>a_ok = a_result.unwrap();
-                    <span class="kw">let </span>b_ok = b_result.unwrap();
-                    <span class="kw">if </span>a_ok == b_ok {
-                        <span class="prelude-val">Ok</span>(())
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_fn_ok_eq!(a_function, a_param, b_function, b_param)`\n"</span>,
                                 <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_eq.html\n"</span>,
@@ -499,9 +480,40 @@
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
                             b_param,
-                            a_ok,
-                            b_ok
-                        ))
+                            a_result,
+                            b_result
+                        )
+                    )
+                } <span class="kw">else </span>{
+                    <span class="kw">let </span>a_ok = a_result.unwrap();
+                    <span class="kw">let </span>b_ok = b_result.unwrap();
+                    <span class="kw">if </span>a_ok == b_ok {
+                        <span class="prelude-val">Ok</span>(())
+                    } <span class="kw">else </span>{
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
+                                <span class="macro">concat!</span>(
+                                    <span class="string">"assertion failed: `assert_fn_ok_eq!(a_function, a_param, b_function, b_param)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_eq.html\n"</span>,
+                                    <span class="string">" a_function label: `{}`,\n"</span>,
+                                    <span class="string">"    a_param label: `{}`,\n"</span>,
+                                    <span class="string">"    a_param debug: `{:?}`,\n"</span>,
+                                    <span class="string">" b_function label: `{}`,\n"</span>,
+                                    <span class="string">"    b_param label: `{}`,\n"</span>,
+                                    <span class="string">"    b_param debug: `{:?}`,\n"</span>,
+                                    <span class="string">"                a: `{:?}`,\n"</span>,
+                                    <span class="string">"                b: `{:?}`"
+                                </span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
+                                a_param,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
+                                b_param,
+                                a_ok,
+                                b_ok
+                            )
+                        )
                     }
                 }
             }
@@ -516,27 +528,8 @@
         <span class="kw">let </span>a_is_ok = a_result.is_ok();
         <span class="kw">let </span>b_is_ok = b_result.is_ok();
         <span class="kw">if </span>!a_is_ok || !b_is_ok {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_fn_ok_eq!(a_function, b_function)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_eq.html\n"</span>,
-                    <span class="string">" a_function label: `{}`,\n"</span>,
-                    <span class="string">" b_function label: `{}`,\n"</span>,
-                    <span class="string">"                a: `{:?}`,\n"</span>,
-                    <span class="string">"                b: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                a_result,
-                b_result
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>a_ok = a_result.unwrap();
-            <span class="kw">let </span>b_ok = b_result.unwrap();
-            <span class="kw">if </span>a_ok == b_ok {
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+            <span class="prelude-val">Err</span>(
+                <span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_ok_eq!(a_function, b_function)`\n"</span>,
                         <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_eq.html\n"</span>,
@@ -547,9 +540,32 @@
                     </span>),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                    a_ok,
-                    b_ok
-                ))
+                    a_result,
+                    b_result
+                )
+            )
+        } <span class="kw">else </span>{
+            <span class="kw">let </span>a_ok = a_result.unwrap();
+            <span class="kw">let </span>b_ok = b_result.unwrap();
+            <span class="kw">if </span>a_ok == b_ok {
+                <span class="prelude-val">Ok</span>(())
+            } <span class="kw">else </span>{
+                <span class="prelude-val">Err</span>(
+                    <span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_fn_ok_eq!(a_function, b_function)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_eq.html\n"</span>,
+                            <span class="string">" a_function label: `{}`,\n"</span>,
+                            <span class="string">" b_function label: `{}`,\n"</span>,
+                            <span class="string">"                a: `{:?}`,\n"</span>,
+                            <span class="string">"                b: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
+                        a_ok,
+                        b_ok
+                    )
+                )
             }
         }
     }};

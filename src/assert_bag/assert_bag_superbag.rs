@@ -30,7 +30,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_superbag_other`](macro.assert_superbag_other.html),
 /// except this macro returns a Result, rather than doing a panic.

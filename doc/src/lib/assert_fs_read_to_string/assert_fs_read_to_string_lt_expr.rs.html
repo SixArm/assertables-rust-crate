@@ -255,6 +255,37 @@
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::fs::read_to_string(path) value is less than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -283,9 +314,9 @@
 /// Pseudocode:&lt;br&gt;
 /// std::fs::read_to_string(path) &lt; expr
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((path_into_string, expr_into_string))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_fs_read_to_string_lt_expr`](macro.assert_fs_read_to_string_lt_expr.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -304,48 +335,53 @@
     (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_path</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
             (a_path, b_expr) =&gt; {
-                <span class="kw">let </span>a_result = ::std::fs::read_to_string(a_path);
-                <span class="kw">if let </span><span class="prelude-val">Err</span>(a_err) = a_result {
-                    <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_lt_expr.html\n"</span>,
-                            <span class="string">" a_path label: `{}`,\n"</span>,
-                            <span class="string">" a_path debug: `{:?}`,\n"</span>,
-                            <span class="string">" b_expr label: `{}`,\n"</span>,
-                            <span class="string">" b_expr debug: `{:?}`,\n"</span>,
-                            <span class="string">"        a err: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
-                        a_path,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                        b_expr,
-                        a_err
-                    ))
-                } <span class="kw">else </span>{
-                    <span class="kw">let </span>a_string = a_result.unwrap();
-                    <span class="kw">let </span>b_string = String::from(<span class="macro-nonterminal">$b_expr</span>);
-                    <span class="kw">if </span>a_string &lt; b_string {
-                        <span class="prelude-val">Ok</span>(())
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                            <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_lt_expr.html\n"</span>,
-                                <span class="string">" a_path label: `{}`,\n"</span>,
-                                <span class="string">" a_path debug: `{:?}`,\n"</span>,
-                                <span class="string">" b_expr label: `{}`,\n"</span>,
-                                <span class="string">" b_expr debug: `{:?}`,\n"</span>,
-                                <span class="string">"     a string: `{:?}`,\n"</span>,
-                                <span class="string">"     b string: `{:?}`"</span>,
-                            ),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
-                            a_path,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                            b_expr,
-                            a_string,
-                            b_string
-                        ))
+                <span class="kw">match </span>(::std::fs::read_to_string(a_path)) {
+                    <span class="prelude-val">Ok</span>(a_string) =&gt; {
+                        <span class="kw">let </span>b_string = String::from(<span class="macro-nonterminal">$b_expr</span>);
+                        <span class="kw">if </span>a_string &lt; b_string {
+                            <span class="prelude-val">Ok</span>((a_string, b_string))
+                        } <span class="kw">else </span>{
+                            <span class="prelude-val">Err</span>(
+                                <span class="macro">format!</span>(
+                                    <span class="macro">concat!</span>(
+                                        <span class="string">"assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_lt_expr.html\n"</span>,
+                                        <span class="string">" a_path label: `{}`,\n"</span>,
+                                        <span class="string">" a_path debug: `{:?}`,\n"</span>,
+                                        <span class="string">" b_expr label: `{}`,\n"</span>,
+                                        <span class="string">" b_expr debug: `{:?}`,\n"</span>,
+                                        <span class="string">"     a string: `{:?}`,\n"</span>,
+                                        <span class="string">"     b string: `{:?}`"</span>,
+                                    ),
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
+                                    a_path,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                                    b_expr,
+                                    a_string,
+                                    b_string
+                                )
+                            )
+                        }
+                    },
+                    <span class="prelude-val">Err</span>(err) =&gt; {
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
+                                <span class="macro">concat!</span>(
+                                    <span class="string">"assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_lt_expr.html\n"</span>,
+                                    <span class="string">" a_path label: `{}`,\n"</span>,
+                                    <span class="string">" a_path debug: `{:?}`,\n"</span>,
+                                    <span class="string">" b_expr label: `{}`,\n"</span>,
+                                    <span class="string">" b_expr debug: `{:?}`,\n"</span>,
+                                    <span class="string">"          err: `{:?}`"
+                                </span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_path</span>),
+                                a_path,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                                b_expr,
+                                err
+                            )
+                        )
                     }
                 }
             }
@@ -369,15 +405,41 @@
     });
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_read_to_string_lt_expr_as_result_x_success() {
+    </span><span class="kw">fn </span>test_read_to_string_lt_expr_as_result_x_success_because_lt() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"alfa.txt"</span>);
         <span class="kw">let </span>value = String::from(<span class="string">"bravo\n"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_lt_expr_as_result!</span>(<span class="kw-2">&amp;</span>path, <span class="kw-2">&amp;</span>value);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (String::from(<span class="string">"alfa\n"</span>), String::from(<span class="string">"bravo\n"</span>))
+        );
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_read_to_string_lt_expr_as_result_x_failure() {
+    </span><span class="kw">fn </span>test_read_to_string_lt_expr_as_result_x_failure_because_eq() {
+        <span class="kw">let </span>path = DIR.join(<span class="string">"alfa.txt"</span>);
+        <span class="kw">let </span>value = String::from(<span class="string">"alfa\n"</span>);
+        <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_lt_expr_as_result!</span>(<span class="kw-2">&amp;</span>path, <span class="kw-2">&amp;</span>value);
+        <span class="macro">assert_eq!</span>(
+            result.unwrap_err(),
+            <span class="macro">format!</span>(
+                <span class="macro">concat!</span>(
+                    <span class="string">"assertion failed: `assert_fs_read_to_string_lt_expr!(a_path, b_expr)`\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_lt_expr.html\n"</span>,
+                    <span class="string">" a_path label: `&amp;path`,\n"</span>,
+                    <span class="string">" a_path debug: `{:?}`,\n"</span>,
+                    <span class="string">" b_expr label: `&amp;value`,\n"</span>,
+                    <span class="string">" b_expr debug: `\"alfa\\n\"`,\n"</span>,
+                    <span class="string">"     a string: `\"alfa\\n\"`,\n"</span>,
+                    <span class="string">"     b string: `\"alfa\\n\"`"
+                </span>),
+                path
+            )
+        );
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_read_to_string_lt_expr_as_result_x_failure_because_gt() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"bravo.txt"</span>);
         <span class="kw">let </span>value = String::from(<span class="string">"alfa\n"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_lt_expr_as_result!</span>(<span class="kw-2">&amp;</span>path, <span class="kw-2">&amp;</span>value);
@@ -405,7 +467,7 @@
 /// Pseudocode:&lt;br&gt;
 /// std::fs::read_to_string(path) &lt; expr
 ///
-/// * If true, return `()`.
+/// * If true, return (path_into_string, expr_into_string).
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -461,13 +523,13 @@
 </span><span class="macro">macro_rules!</span> assert_fs_read_to_string_lt_expr {
     (<span class="macro-nonterminal">$a_path</span>:expr,  <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fs_read_to_string_lt_expr_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b_expr</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a_path</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fs_read_to_string_lt_expr_as_result!</span>(<span class="macro-nonterminal">$a_path</span>, <span class="macro-nonterminal">$b_expr</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};

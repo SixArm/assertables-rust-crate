@@ -39,7 +39,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_not_contains`](macro.assert_not_contains.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -61,20 +61,22 @@ macro_rules! assert_not_contains_as_result {
                 if !(container.contains($containee)) {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_not_contains!(container, containee)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
-                            " container label: `{}`,\n",
-                            " container debug: `{:?}`,\n",
-                            " containee label: `{}`,\n",
-                            " containee debug: `{:?}`",
-                        ),
-                        stringify!($container),
-                        container,
-                        stringify!($containee),
-                        containee,
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_not_contains!(container, containee)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
+                                " container label: `{}`,\n",
+                                " container debug: `{:?}`,\n",
+                                " containee label: `{}`,\n",
+                                " containee debug: `{:?}`",
+                            ),
+                            stringify!($container),
+                            container,
+                            stringify!($containee),
+                            containee,
+                        )
+                    )
                 }
             }
         }

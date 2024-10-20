@@ -244,10 +244,19 @@
 <a href="#244" id="244">244</a>
 <a href="#245" id="245">245</a>
 <a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() value is less than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (reader1.read_to_string(a) ⇒ a) ≤ (reader2.read_to_string(b) ⇒ b)
+//! (a_reader.read_to_string(a_string) ⇒ a_string) ≤ (b_reader.read_to_string(b_string) ⇒ b_string)
 //!
 //! # Example
 //!
@@ -271,11 +280,11 @@
 /// Assert a std::io::Read read_to_string() value is less than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (reader1.read_to_string(a) ⇒ a) ≤ (reader2.read_to_string(b) ⇒ b)
+/// (a_reader.read_to_string(a_string) ⇒ a_string) ≤ (b_reader.read_to_string(b_string) ⇒ b_string)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a_string, b_string))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -294,51 +303,57 @@
     (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b_reader</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">let </span><span class="kw-2">mut </span>a_string = String::new();
         <span class="kw">let </span><span class="kw-2">mut </span>b_string = String::new();
-        <span class="kw">let </span>a_result = <span class="macro-nonterminal">$a_reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>a_string);
-        <span class="kw">let </span>b_result = <span class="macro-nonterminal">$b_reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>b_string);
-        <span class="kw">if </span>a_result.is_err() || b_result.is_err() {
-            <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                <span class="macro">concat!</span>(
-                    <span class="string">"assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_le.html\n"</span>,
-                    <span class="string">"  a label: `{}`,\n"</span>,
-                    <span class="string">"  a debug: `{:?}`,\n"</span>,
-                    <span class="string">"  b label: `{}`,\n"</span>,
-                    <span class="string">"  b debug: `{:?}`,\n"</span>,
-                    <span class="string">" a result: `{:?}`,\n"</span>,
-                    <span class="string">" b result: `{:?}`"
-                </span>),
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
-                <span class="macro-nonterminal">$a_reader</span>,
-                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_reader</span>),
-                <span class="macro-nonterminal">$b_reader</span>,
-                a_result,
-                b_result
-            ))
-        } <span class="kw">else </span>{
-            <span class="kw">let </span>_a_size = a_result.unwrap();
-            <span class="kw">let </span>_b_size = b_result.unwrap();
-            <span class="kw">if </span>a_string &lt;= b_string {
-                <span class="prelude-val">Ok</span>(())
-            } <span class="kw">else </span>{
-                <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
-                    <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_le.html\n"</span>,
-                        <span class="string">" a label: `{}`,\n"</span>,
-                        <span class="string">" a debug: `{:?}`,\n"</span>,
-                        <span class="string">" b label: `{}`,\n"</span>,
-                        <span class="string">" b debug: `{:?}`,\n"</span>,
-                        <span class="string">"       a: `{:?}`,\n"</span>,
-                        <span class="string">"       b: `{:?}`"
-                    </span>),
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
-                    <span class="macro-nonterminal">$a_reader</span>,
-                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_reader</span>),
-                    <span class="macro-nonterminal">$b_reader</span>,
-                    a_string,
-                    b_string
-                ))
+        <span class="kw">match </span>(
+            <span class="macro-nonterminal">$a_reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>a_string),
+            <span class="macro-nonterminal">$b_reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>b_string)
+        ) {
+            (<span class="prelude-val">Ok</span>(_a_size), <span class="prelude-val">Ok</span>(_b_size)) =&gt; {
+                <span class="kw">if </span>a_string &lt;= b_string {
+                    <span class="prelude-val">Ok</span>((a_string, b_string))
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_le.html\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`,\n"</span>,
+                                <span class="string">" b label: `{}`,\n"</span>,
+                                <span class="string">" b debug: `{:?}`,\n"</span>,
+                                <span class="string">"       a: `{:?}`,\n"</span>,
+                                <span class="string">"       b: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
+                            <span class="macro-nonterminal">$a_reader</span>,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_reader</span>),
+                            <span class="macro-nonterminal">$b_reader</span>,
+                            a_string,
+                            b_string
+                        )
+                    )
+                }
+            },
+            (a, b) =&gt; {
+                <span class="prelude-val">Err</span>(
+                    <span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_le.html\n"</span>,
+                            <span class="string">"  a label: `{}`,\n"</span>,
+                            <span class="string">"  a debug: `{:?}`,\n"</span>,
+                            <span class="string">"  b label: `{}`,\n"</span>,
+                            <span class="string">"  b debug: `{:?}`,\n"</span>,
+                            <span class="string">"        a: `{:?}`,\n"</span>,
+                            <span class="string">"        b: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_reader</span>),
+                        <span class="macro-nonterminal">$a_reader</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_reader</span>),
+                        <span class="macro-nonterminal">$b_reader</span>,
+                        a,
+                        b
+                    )
+                )
             }
         }
     }};
@@ -354,7 +369,10 @@
         <span class="kw">let </span><span class="kw-2">mut </span>a = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span><span class="kw-2">mut </span>b = <span class="string">"bravo"</span>.as_bytes();
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_le_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (String::from(<span class="string">"alfa"</span>), String::from(<span class="string">"bravo"</span>))
+        );
     }
 
     <span class="attr">#[test]
@@ -381,9 +399,9 @@
 <span class="doccomment">/// Assert a std::io::Read read_to_string() value is less than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (reader1.read_to_string(a) ⇒ a) ≤ (reader2.read_to_string(b) ⇒ b)
+/// (a_reader.read_to_string(a_string) ⇒ a_string) ≤ (b_reader.read_to_string(b_string) ⇒ b_string)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_string, b_string)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -439,13 +457,13 @@
 </span><span class="macro">macro_rules!</span> assert_io_read_to_string_le {
     (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_io_read_to_string_le_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a_reader</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_io_read_to_string_le_as_result!</span>(<span class="macro-nonterminal">$a_reader</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
@@ -454,7 +472,7 @@
 <span class="doccomment">/// Assert a std::io::Read read_to_string() value is less than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (reader1.read_to_string(a) ⇒ a) ≤ (reader2.read_to_string(b) ⇒ b)
+/// (a_reader.read_to_string(a_string) ⇒ a_string) ≤ (b_reader.read_to_string(b_string) ⇒ b_string)
 ///
 /// This macro provides the same statements as [`assert_io_read_to_string_le`](macro.assert_io_read_to_string_le.html),
 /// except this macro's statements are only enabled in non-optimized

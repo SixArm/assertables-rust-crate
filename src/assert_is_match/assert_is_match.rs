@@ -29,7 +29,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_is_match`](macro.assert_is_match.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -51,20 +51,22 @@ macro_rules! assert_is_match_as_result {
                 if matcher.is_match(matchee) {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_is_match.html\n",
-                            " matcher label: `{}`,\n",
-                            " matcher debug: `{:?}`,\n",
-                            " matchee label: `{}`,\n",
-                            " matchee debug: `{:?}`",
-                        ),
-                        stringify!($matcher),
-                        matcher,
-                        stringify!($matchee),
-                        matchee,
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_is_match!(matcher, matchee)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_is_match.html\n",
+                                " matcher label: `{}`,\n",
+                                " matcher debug: `{:?}`,\n",
+                                " matchee label: `{}`,\n",
+                                " matchee debug: `{:?}`",
+                            ),
+                            stringify!($matcher),
+                            matcher,
+                            stringify!($matchee),
+                            matchee,
+                        )
+                    )
                 }
             }
         }

@@ -28,7 +28,7 @@
 ///
 /// * If true, return Result `Ok(())`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// # Examples
 ///
@@ -57,28 +57,30 @@ macro_rules! assert_fn_le_as_result {
                 if a_output <= b_output {
                     Ok(())
                 } else {
-                    Err(format!(
-                        concat!(
-                            "assertion failed: `assert_fn_le!(a_function, a_param, b_function, b_param)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_le.html\n",
-                            " a_function label: `{}`,\n",
-                            "    a_param label: `{}`,\n",
-                            "    a_param debug: `{:?}`,\n",
-                            " b_function label: `{}`,\n",
-                            "    b_param label: `{}`,\n",
-                            "    b_param debug: `{:?}`,\n",
-                            "                a: `{:?}`,\n",
-                            "                b: `{:?}`"
-                        ),
-                        stringify!($a_function),
-                        stringify!($a_param),
-                        a_param,
-                        stringify!($b_function),
-                        stringify!($b_param),
-                        b_param,
-                        a_output,
-                        b_output
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_fn_le!(a_function, a_param, b_function, b_param)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_le.html\n",
+                                " a_function label: `{}`,\n",
+                                "    a_param label: `{}`,\n",
+                                "    a_param debug: `{:?}`,\n",
+                                " b_function label: `{}`,\n",
+                                "    b_param label: `{}`,\n",
+                                "    b_param debug: `{:?}`,\n",
+                                "                a: `{:?}`,\n",
+                                "                b: `{:?}`"
+                            ),
+                            stringify!($a_function),
+                            stringify!($a_param),
+                            a_param,
+                            stringify!($b_function),
+                            stringify!($b_param),
+                            b_param,
+                            a_output,
+                            b_output
+                        )
+                    )
                 }
             }
         }
@@ -92,20 +94,22 @@ macro_rules! assert_fn_le_as_result {
         if a_output <= b_output {
             Ok(())
         } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_fn_le!(a_function, b_function)`\n",
-                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_le.html\n",
-                    " a_function label: `{}`,\n",
-                    " b_function label: `{}`,\n",
-                    "                a: `{:?}`,\n",
-                    "                b: `{:?}`"
-                ),
-                stringify!($a_function),
-                stringify!($b_function),
-                a_output,
-                b_output
-            ))
+            Err(
+                format!(
+                    concat!(
+                        "assertion failed: `assert_fn_le!(a_function, b_function)`\n",
+                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_le.html\n",
+                        " a_function label: `{}`,\n",
+                        " b_function label: `{}`,\n",
+                        "                a: `{:?}`,\n",
+                        "                b: `{:?}`"
+                    ),
+                    stringify!($a_function),
+                    stringify!($b_function),
+                    a_output,
+                    b_output
+                )
+            )
         }
     }};
 

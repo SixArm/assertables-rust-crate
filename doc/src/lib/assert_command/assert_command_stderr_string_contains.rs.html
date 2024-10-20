@@ -284,7 +284,7 @@
 ///
 /// * If true, return Result `Ok(command ⇒ stderr ⇒ string)`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_command_stderr_string_contains`](macro.assert_command_stderr_string_contains.html),
 /// except this macro returns a Result, rather than doing a panic.

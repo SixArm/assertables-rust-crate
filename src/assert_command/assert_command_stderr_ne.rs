@@ -31,7 +31,7 @@
 ///
 /// * If true, return Result `Ok((lhs, rhs))`.
 ///
-/// * Otherwise, return Result `Err` with a diagnostic message.
+/// * Otherwise, return Result `Err(message)`.
 ///
 /// This macro provides the same statements as [`assert_`](macro.assert_.html),
 /// except this macro returns a Result, rather than doing a panic.
@@ -78,24 +78,26 @@ macro_rules! assert_command_stderr_ne_as_result {
                 }
             },
             (a, b) => {
-                Err(format!(
-                    concat!(
-                        "assertion failed: `assert_command_stderr_ne!(a_command, b_command)`\n",
-                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ne.html\n",
-                        " a label: `{}`,\n",
-                        " a debug: `{:?}`,\n",
-                        " b label: `{}`,\n",
-                        " b debug: `{:?}`,\n",
-                        "       a: `{:?}`,\n",
-                        "       b: `{:?}`"
-                    ),
-                    stringify!($a_command),
-                    $a_command,
-                    stringify!($b_command),
-                    $b_command,
-                    a,
-                    b
-                ))
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_command_stderr_ne!(a_command, b_command)`\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ne.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            "       a: `{:?}`,\n",
+                            "       b: `{:?}`"
+                        ),
+                        stringify!($a_command),
+                        $a_command,
+                        stringify!($b_command),
+                        $b_command,
+                        a,
+                        b
+                    )
+                )
             }
         }
     }};
