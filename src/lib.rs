@@ -76,9 +76,9 @@
 //!
 //! Approximations:
 //!
-//! * [`assert_approx_eq!(a, b);`](module@crate::assert_approx) `// |a-b| ≤ 1e-6`
-//! * [`assert_in_delta!(a, b, delta);`](module@crate::assert_in_delta) `// |a-b| ≤ delta`
-//! * [`assert_in_epsilon!(a, b, epsilon);`](module@crate::assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
+//! * [`assert_approx_eq!(a, b);`](module@crate::assert_approx::assert_approx_eq) `// |a-b| ≤ 1e-6`
+//! * [`assert_in_delta!(a, b, delta);`](module@crate::assert_in::assert_in_delta) `// |a-b| ≤ delta`
+//! * [`assert_in_epsilon!(a, b, epsilon);`](module@crate::assert_in::assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
 //!
 //! Groups for iterators, chars, etc.:
 //!
@@ -98,7 +98,7 @@
 //! Lengths and counts for strings, vectors, iterators, etc.:
 //!
 //! * [`assert_len!(item);`](module@crate::assert_len) `// item.len()`
-//! * [`assert_count!(item);`](module@crate::assert_len) `// item.count()`
+//! * [`assert_count!(item);`](module@crate::assert_count) `// item.count()`
 //! * [`assert_is_empty!(item);`](module@crate::assert_is_empty) `// item.is_empty()`
 //!
 //! Matching for strings, regex, etc.:
@@ -197,8 +197,7 @@ pub mod assert_ne; // (in addition to what's provided by Rust `std`)
 
 // Assert value nearness
 pub mod assert_approx;
-pub mod assert_in_delta;
-pub mod assert_in_epsilon;
+pub mod assert_in;
 
 // Assert all/any
 pub mod assert_all;

@@ -238,9 +238,6 @@
 <a href="#238" id="238">238</a>
 <a href="#239" id="239">239</a>
 <a href="#240" id="240">240</a>
-<a href="#241" id="241">241</a>
-<a href="#242" id="242">242</a>
-<a href="#243" id="243">243</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -343,10 +340,7 @@
         <span class="kw">let </span>result = <span class="macro">assert_bag_ne_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
         <span class="macro">assert_eq!</span>(
             result.unwrap(),
-            (
-                BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">2</span>)]),
-                BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">3</span>)])
-            )
+            (BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">2</span>)]), BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">3</span>)]))
         );
     }
 

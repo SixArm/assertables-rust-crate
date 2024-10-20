@@ -272,6 +272,18 @@
 <a href="#272" id="272">272</a>
 <a href="#273" id="273">273</a>
 <a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a number is approximately equal to another number.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -340,7 +352,7 @@
 /// Pseudocode:&lt;br&gt;
 /// | a - b | ≤ 1e-6
 ///
-/// * If true, return Result `Ok(diff)`.
+/// * If true, return Result `Ok(diff, approx)`.
 ///
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -362,20 +374,32 @@
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
-                <span class="kw">let </span>approx = <span class="number">1.0e-6</span>;
                 <span class="kw">let </span>diff = <span class="kw">if </span>(a &gt;= b) { a - b } <span class="kw">else </span>{ b - a };
+                <span class="kw">let </span>approx = <span class="number">1.0e-6</span>;
                 <span class="kw">if </span>diff &lt;= approx {
-                    <span class="prelude-val">Ok</span>(diff)
+                    <span class="prelude-val">Ok</span>((diff, approx))
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro-nonterminal">$</span><span class="macro">crate::assert_approx_xx_impl_err!</span>(
-                        <span class="macro-nonterminal">assert_approx_eq</span>,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                        a,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                        b,
-                        approx,
-                        diff
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_approx_eq!(a, b)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_eq.html\n"</span>,
+                                <span class="string">"            a label: `{}`,\n"</span>,
+                                <span class="string">"            a debug: `{:?}`,\n"</span>,
+                                <span class="string">"            b label: `{}`,\n"</span>,
+                                <span class="string">"            b debug: `{:?}`,\n"</span>,
+                                <span class="string">"          | a - b |: `{:?}`,\n"</span>,
+                                <span class="string">"             approx: `{:?}`,\n"</span>,
+                                <span class="string">" | a - b | ≤ approx: false"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                            a,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                            b,
+                            diff,
+                            approx
+                        )
+                    )
                 }
             }
         }
@@ -390,7 +414,7 @@
         <span class="kw">let </span>a: f32 = <span class="number">1.0000001</span>;
         <span class="kw">let </span>b: f32 = <span class="number">1.0000011</span>;
         <span class="kw">let </span>result = <span class="macro">assert_approx_eq_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), b - a);
+        <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="number">9.536743e-7</span>, <span class="number">1e-6</span>));
     }
 
     <span class="attr">#[test]
@@ -407,8 +431,8 @@
                 <span class="string">"            a debug: `1.0000001`,\n"</span>,
                 <span class="string">"            b label: `b`,\n"</span>,
                 <span class="string">"            b debug: `1.0000012`,\n"</span>,
-                <span class="string">"             approx: `1e-6`,\n"</span>,
                 <span class="string">"          | a - b |: `1.0728836e-6`,\n"</span>,
+                <span class="string">"             approx: `1e-6`,\n"</span>,
                 <span class="string">" | a - b | ≤ approx: false"
             </span>)
         );
@@ -420,7 +444,7 @@
 /// Pseudocode:&lt;br&gt;
 /// | a - b | ≤ 1e-6
 ///
-/// * If true, return `()`.
+/// * If true, return `(diff, approx)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -448,8 +472,8 @@
 /// //             a debug: `1.0000001`,
 /// //             b label: `b`,
 /// //             b debug: `1.0000012`,
-/// //              approx: `1e-6`,
 /// //           | a - b |: `1.0728836e-6`,
+/// //              approx: `1e-6`,
 /// //  | a - b | ≤ approx: false
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
@@ -459,8 +483,8 @@
 /// #     "            a debug: `1.0000001`,\n",
 /// #     "            b label: `b`,\n",
 /// #     "            b debug: `1.0000012`,\n",
-/// #     "             approx: `1e-6`,\n",
 /// #     "          | a - b |: `1.0728836e-6`,\n",
+/// #     "             approx: `1e-6`,\n",
 /// #     " | a - b | ≤ approx: false",
 /// # );
 /// # assert_eq!(actual, expect);

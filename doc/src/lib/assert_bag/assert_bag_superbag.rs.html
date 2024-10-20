@@ -242,9 +242,6 @@
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
 <a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
-<a href="#247" id="247">247</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is a superbag of another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -331,10 +328,7 @@
         <span class="kw">let </span>result = <span class="macro">assert_bag_superbag_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
         <span class="macro">assert_eq!</span>(
             result.unwrap(),
-            (
-                BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">3</span>)]),
-                BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">2</span>)])
-            )
+            (BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">3</span>)]), BTreeMap::from([(<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="number">2</span>)]))
         );
     }
 

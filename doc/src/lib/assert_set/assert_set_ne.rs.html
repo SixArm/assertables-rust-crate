@@ -230,9 +230,6 @@
 <a href="#230" id="230">230</a>
 <a href="#231" id="231">231</a>
 <a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
-<a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a set is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -327,10 +324,7 @@
         <span class="kw">let </span>result = <span class="macro">assert_set_ne_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
         <span class="macro">assert_eq!</span>(
             result.unwrap(),
-            (
-                BTreeSet::from([<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">2</span>]),
-                BTreeSet::from([<span class="kw-2">&amp;</span><span class="number">3</span>, <span class="kw-2">&amp;</span><span class="number">4</span>])
-            )
+            (BTreeSet::from([<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">2</span>]), BTreeSet::from([<span class="kw-2">&amp;</span><span class="number">3</span>, <span class="kw-2">&amp;</span><span class="number">4</span>]))
         );
     }
 

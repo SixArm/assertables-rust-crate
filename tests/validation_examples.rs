@@ -35,7 +35,8 @@ fn validate_point_nearness() {
 
 	fn validate_point_nearness(x1: f32, y1: f32, x2: f32, y2: f32) -> Result<(), String> {
 		assert_in_delta_as_result!(x1, x2, 0.1)?;
-		assert_in_delta_as_result!(y1, y2, 0.1)
+		assert_in_delta_as_result!(y1, y2, 0.1)?;
+		Ok(())
 	}
 
 	// Success

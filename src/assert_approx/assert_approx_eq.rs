@@ -66,7 +66,7 @@
 /// Pseudocode:<br>
 /// | a - b | ≤ 1e-6
 ///
-/// * If true, return Result `Ok(diff)`.
+/// * If true, return Result `Ok(diff, approx)`.
 ///
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -88,20 +88,32 @@ macro_rules! assert_approx_eq_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
-                let approx = 1.0e-6;
                 let diff = if (a >= b) { a - b } else { b - a };
+                let approx = 1.0e-6;
                 if diff <= approx {
-                    Ok(diff)
+                    Ok((diff, approx))
                 } else {
-                    Err($crate::assert_approx_xx_impl_err!(
-                        assert_approx_eq,
-                        stringify!($a),
-                        a,
-                        stringify!($b),
-                        b,
-                        approx,
-                        diff
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_approx_eq!(a, b)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_eq.html\n",
+                                "            a label: `{}`,\n",
+                                "            a debug: `{:?}`,\n",
+                                "            b label: `{}`,\n",
+                                "            b debug: `{:?}`,\n",
+                                "          | a - b |: `{:?}`,\n",
+                                "             approx: `{:?}`,\n",
+                                " | a - b | ≤ approx: false"
+                            ),
+                            stringify!($a),
+                            a,
+                            stringify!($b),
+                            b,
+                            diff,
+                            approx
+                        )
+                    )
                 }
             }
         }
@@ -116,7 +128,7 @@ mod tests {
         let a: f32 = 1.0000001;
         let b: f32 = 1.0000011;
         let result = assert_approx_eq_as_result!(a, b);
-        assert_eq!(result.unwrap(), b - a);
+        assert_eq!(result.unwrap(), (9.536743e-7, 1e-6));
     }
 
     #[test]
@@ -133,8 +145,8 @@ mod tests {
                 "            a debug: `1.0000001`,\n",
                 "            b label: `b`,\n",
                 "            b debug: `1.0000012`,\n",
-                "             approx: `1e-6`,\n",
                 "          | a - b |: `1.0728836e-6`,\n",
+                "             approx: `1e-6`,\n",
                 " | a - b | ≤ approx: false"
             )
         );
@@ -146,7 +158,7 @@ mod tests {
 /// Pseudocode:<br>
 /// | a - b | ≤ 1e-6
 ///
-/// * If true, return `()`.
+/// * If true, return `(diff, approx)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -174,8 +186,8 @@ mod tests {
 /// //             a debug: `1.0000001`,
 /// //             b label: `b`,
 /// //             b debug: `1.0000012`,
-/// //              approx: `1e-6`,
 /// //           | a - b |: `1.0728836e-6`,
+/// //              approx: `1e-6`,
 /// //  | a - b | ≤ approx: false
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -185,8 +197,8 @@ mod tests {
 /// #     "            a debug: `1.0000001`,\n",
 /// #     "            b label: `b`,\n",
 /// #     "            b debug: `1.0000012`,\n",
-/// #     "             approx: `1e-6`,\n",
 /// #     "          | a - b |: `1.0728836e-6`,\n",
+/// #     "             approx: `1e-6`,\n",
 /// #     " | a - b | ≤ approx: false",
 /// # );
 /// # assert_eq!(actual, expect);

@@ -67,7 +67,7 @@
 /// Pseudocode:<br>
 /// | a - b | ≤ ε * min(a, b)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((lhs, rhs))`.
 ///
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -89,42 +89,38 @@ macro_rules! assert_in_epsilon_as_result {
     ($a:expr, $b:expr, $epsilon:expr $(,)?) => {{
         match (&$a, &$b, &$epsilon) {
             (a, b, epsilon) => {
-                if a == b {
-                    Ok(())
+                let diff = if (a >= b) { a - b } else { b - a };
+                let min = if (a < b) { a } else { b };
+                let rhs = *epsilon * min;
+                if diff <= rhs {
+                    Ok((diff, rhs))
                 } else {
-                    let diff = if (a > b) { a - b } else { b - a };
-                    let min = if (a < b) { a } else { b };
-                    let rhs = *epsilon * min;
-                    if diff <= rhs {
-                        Ok(())
-                    } else {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
-                                    "                         a label: `{}`,\n",
-                                    "                         a debug: `{:?}`,\n",
-                                    "                         b label: `{}`,\n",
-                                    "                         b debug: `{:?}`,\n",
-                                    "                   epsilon label: `{}`,\n",
-                                    "                   epsilon debug: `{:?}`,\n",
-                                    "                       | a - b |: `{:?}`,\n",
-                                    "             epsilon * min(a, b): `{:?}`,\n",
-                                    " | a - b | ≤ epsilon * min(a, b): {}",
-                                ),
-                                stringify!($a),
-                                a,
-                                stringify!($b),
-                                b,
-                                stringify!($epsilon),
-                                epsilon,
-                                diff,
-                                rhs,
-                                false
-                            )
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
+                                "                         a label: `{}`,\n",
+                                "                         a debug: `{:?}`,\n",
+                                "                         b label: `{}`,\n",
+                                "                         b debug: `{:?}`,\n",
+                                "                   epsilon label: `{}`,\n",
+                                "                   epsilon debug: `{:?}`,\n",
+                                "                       | a - b |: `{:?}`,\n",
+                                "             epsilon * min(a, b): `{:?}`,\n",
+                                " | a - b | ≤ epsilon * min(a, b): {}",
+                            ),
+                            stringify!($a),
+                            a,
+                            stringify!($b),
+                            b,
+                            stringify!($epsilon),
+                            epsilon,
+                            diff,
+                            rhs,
+                            false
                         )
-                    }
+                    )
                 }
             }
         }
@@ -140,7 +136,7 @@ mod tests {
         let b: i8 = 20;
         let epsilon: i8 = 1;
         let result = assert_in_epsilon_as_result!(a, b, epsilon);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), (10, 10));
     }
 
     #[test]
@@ -173,7 +169,7 @@ mod tests {
 /// Pseudocode:<br>
 /// | a - b | ≤ ε * min(a, b)
 ///
-/// * If true, return `()`.
+/// * If true, return `(lhs, rhs)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -254,13 +250,13 @@ mod tests {
 macro_rules! assert_in_epsilon {
     ($a:expr, $b:expr, $epsilon:expr $(,)?) => {{
         match $crate::assert_in_epsilon_as_result!($a, $b, $epsilon) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $epsilon:expr, $($message:tt)+) => {{
         match $crate::assert_in_epsilon_as_result!($a, $b, $epsilon) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

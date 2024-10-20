@@ -19,28 +19,5 @@
 //! # }
 //! ```
 
-/// Format assert failure error message.
-#[macro_export]
-macro_rules! assert_approx_xx_impl_err {
-    ($name:ident, $($arg:tt)*) => {
-        format!(
-            concat!(
-                "assertion failed: `{}!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.{}.html\n",
-                "            a label: `{}`,\n",
-                "            a debug: `{:?}`,\n",
-                "            b label: `{}`,\n",
-                "            b debug: `{:?}`,\n",
-                "             approx: `{:?}`,\n",
-                "          | a - b |: `{:?}`,\n",
-                " | a - b | ≤ approx: false"
-            ),
-            stringify!($name),
-            stringify!($name),
-            $($arg)*
-        )
-    }
-}
-
 pub mod assert_approx_eq;
 pub mod assert_approx_ne;

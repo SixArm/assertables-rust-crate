@@ -67,7 +67,7 @@
 /// Pseudocode:<br>
 /// | a - b | ≤ Δ
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((lhs, rhs))`.
 ///
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -89,38 +89,34 @@ macro_rules! assert_in_delta_as_result {
     ($a:expr, $b:expr, $delta:expr $(,)?) => {{
         match (&$a, &$b, &$delta) {
             (a, b, delta) => {
-                if a == b {
-                    Ok(())
+                let diff = if (a >= b) { a - b } else { b - a };
+                if diff <= *delta {
+                    Ok((diff, *delta))
                 } else {
-                    let diff = if (a > b) { a - b } else { b - a };
-                    if diff <= *delta {
-                        Ok(())
-                    } else {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_delta.html\n",
-                                    "           a label: `{}`,\n",
-                                    "           a debug: `{:?}`,\n",
-                                    "           b label: `{}`,\n",
-                                    "           b debug: `{:?}`,\n",
-                                    "       delta label: `{}`,\n",
-                                    "             delta: `{:?}`,\n",
-                                    "         | a - b |: `{:?}`,\n",
-                                    " | a - b | ≤ delta: {}"
-                                ),
-                                stringify!($a),
-                                a,
-                                stringify!($b),
-                                b,
-                                stringify!($delta),
-                                delta,
-                                diff,
-                                false
-                            )
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_in_delta!(a, b, delta)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_delta.html\n",
+                                "           a label: `{}`,\n",
+                                "           a debug: `{:?}`,\n",
+                                "           b label: `{}`,\n",
+                                "           b debug: `{:?}`,\n",
+                                "       delta label: `{}`,\n",
+                                "             delta: `{:?}`,\n",
+                                "         | a - b |: `{:?}`,\n",
+                                " | a - b | ≤ delta: {}"
+                            ),
+                            stringify!($a),
+                            a,
+                            stringify!($b),
+                            b,
+                            stringify!($delta),
+                            delta,
+                            diff,
+                            false
                         )
-                    }
+                    )
                 }
             }
         }
@@ -136,7 +132,7 @@ mod tests {
         let b: i8 = 11;
         let delta: i8 = 1;
         let result = assert_in_delta_as_result!(a, b, delta);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), (1 as i8, 1 as i8));
     }
 
     #[test]
@@ -168,7 +164,7 @@ mod tests {
 /// Pseudocode:<br>
 /// | a - b | ≤ Δ
 ///
-/// * If true, return `()`.
+/// * If true, return `(lhs, rhs)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -247,13 +243,13 @@ mod tests {
 macro_rules! assert_in_delta {
     ($a:expr, $b:expr, $delta:expr $(,)?) => {{
         match $crate::assert_in_delta_as_result!($a, $b, $delta) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => {{
         match $crate::assert_in_delta_as_result!($a, $b, $delta) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

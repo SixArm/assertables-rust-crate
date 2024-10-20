@@ -72,9 +72,9 @@ Values:
 
 Approximations:
 
-* [`assert_approx_eq!(a, b);`](https://docs.rs/assertables/9.0.0/assertables/assert_approx) `// |a-b| ≤ 1e-6`
-* [`assert_in_delta!(a, b, delta);`](https://docs.rs/assertables/9.0.0/assertables/assert_in_delta) `// |a-b| ≤ delta`
-* [`assert_in_epsilon!(a, b, epsilon);`](https://docs.rs/assertables/9.0.0/assertables/assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
+* [`assert_approx_eq!(a, b);`](https://docs.rs/assertables/9.0.0/assertables/assert_approx/assert_approx_eq) `// |a-b| ≤ 1e-6`
+* [`assert_in_delta!(a, b, delta);`](https://docs.rs/assertables/9.0.0/assertables/assert_in/assert_in_delta) `// |a-b| ≤ delta`
+* [`assert_in_epsilon!(a, b, epsilon);`](https://docs.rs/assertables/9.0.0/assertables/assert_in/assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
 
 Groups for iterators, chars, etc.:
 

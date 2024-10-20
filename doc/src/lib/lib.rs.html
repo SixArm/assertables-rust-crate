@@ -248,7 +248,6 @@
 <a href="#248" id="248">248</a>
 <a href="#249" id="249">249</a>
 <a href="#250" id="250">250</a>
-<a href="#251" id="251">251</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
@@ -327,9 +326,9 @@
 //!
 //! Approximations:
 //!
-//! * [`assert_approx_eq!(a, b);`](module@crate::assert_approx) `// |a-b| ≤ 1e-6`
-//! * [`assert_in_delta!(a, b, delta);`](module@crate::assert_in_delta) `// |a-b| ≤ delta`
-//! * [`assert_in_epsilon!(a, b, epsilon);`](module@crate::assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
+//! * [`assert_approx_eq!(a, b);`](module@crate::assert_approx::assert_approx_eq) `// |a-b| ≤ 1e-6`
+//! * [`assert_in_delta!(a, b, delta);`](module@crate::assert_in::assert_in_delta) `// |a-b| ≤ delta`
+//! * [`assert_in_epsilon!(a, b, epsilon);`](module@crate::assert_in::assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
 //!
 //! Groups for iterators, chars, etc.:
 //!
@@ -349,7 +348,7 @@
 //! Lengths and counts for strings, vectors, iterators, etc.:
 //!
 //! * [`assert_len!(item);`](module@crate::assert_len) `// item.len()`
-//! * [`assert_count!(item);`](module@crate::assert_len) `// item.count()`
+//! * [`assert_count!(item);`](module@crate::assert_count) `// item.count()`
 //! * [`assert_is_empty!(item);`](module@crate::assert_is_empty) `// item.is_empty()`
 //!
 //! Matching for strings, regex, etc.:
@@ -448,8 +447,7 @@
 
 // Assert value nearness
 </span><span class="kw">pub mod </span>assert_approx;
-<span class="kw">pub mod </span>assert_in_delta;
-<span class="kw">pub mod </span>assert_in_epsilon;
+<span class="kw">pub mod </span>assert_in;
 
 <span class="comment">// Assert all/any
 </span><span class="kw">pub mod </span>assert_all;
