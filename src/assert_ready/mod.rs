@@ -5,7 +5,7 @@
 //! Assert expression is Ready:
 //!
 //! * [`assert_ready!(a)`](macro@crate::assert_ready)
-//!   ≈ a is Ready(_)
+//!   ≈ a is Ready
 //!
 //! Compare Ready(…) to another Ready(…):
 //!

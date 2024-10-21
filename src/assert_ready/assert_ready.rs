@@ -1,7 +1,7 @@
 //! Assert an expression is Ready.
 //!
 //! Pseudocode:<br>
-//! a is Ready(_)
+//! a is Ready
 //!
 //! # Example
 //!

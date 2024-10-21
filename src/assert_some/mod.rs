@@ -5,7 +5,7 @@
 //! Assert expression is Some:
 //!
 //! * [`assert_some!(a)`](macro@crate::assert_some)
-//!   ≈ a is Some(_)
+//!   ≈ a is Some
 //!
 //! Compare Some(…) to another Some(…):
 //!

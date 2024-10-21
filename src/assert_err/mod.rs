@@ -1,4 +1,4 @@
-//! Assert for Err(_) items.
+//! Assert for Err(…) items.
 //!
 //! These macros help compare Err(…) items, such as `::std::Result::Err` or similar.
 //!

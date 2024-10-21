@@ -1,7 +1,7 @@
 //! Assert expression is Ok.
 //!
 //! Pseudocode:<br>
-//! a is Ok(_)
+//! a is Ok.
 //!
 //! # Example
 //!
@@ -52,14 +52,15 @@ macro_rules! assert_ok_as_result {
                 _ => {
                     Err(
                         format!(
-                        concat!(
-                            "assertion failed: `assert_ok!(a)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`",
-                        ),
-                        stringify!($a),
-                        a)
+                            concat!(
+                                "assertion failed: `assert_ok!(a)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`",
+                            ),
+                            stringify!($a),
+                            a
+                        )
                     )
                 }
             },
@@ -96,7 +97,7 @@ mod tests {
 /// Assert expression is Ok.
 ///
 /// Pseudocode:<br>
-/// a is Ok(_)
+/// a is Ok.
 ///
 /// * If true, return `a1`.
 ///
@@ -158,7 +159,7 @@ macro_rules! assert_ok {
 /// Assert expression is Ok.
 ///
 /// Pseudocode:<br>
-/// a is Ok(_)
+/// a is Ok.
 ///
 /// This macro provides the same statements as [`assert_ok`](macro.assert_ok.html),
 /// except this macro's statements are only enabled in non-optimized

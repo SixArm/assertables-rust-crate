@@ -194,10 +194,11 @@
 <a href="#194" id="194">194</a>
 <a href="#195" id="195">195</a>
 <a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression is Ok.
 //!
 //! Pseudocode:&lt;br&gt;
-//! a is Ok(_)
+//! a is Ok.
 //!
 //! # Example
 //!
@@ -248,14 +249,15 @@
                 <span class="kw">_ </span>=&gt; {
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_ok!(a)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok.html\n"</span>,
-                            <span class="string">" a label: `{}`,\n"</span>,
-                            <span class="string">" a debug: `{:?}`"</span>,
-                        ),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                        a)
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_ok!(a)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok.html\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                            a
+                        )
                     )
                 }
             },
@@ -292,7 +294,7 @@
 <span class="doccomment">/// Assert expression is Ok.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a is Ok(_)
+/// a is Ok.
 ///
 /// * If true, return `a1`.
 ///
@@ -354,7 +356,7 @@
 <span class="doccomment">/// Assert expression is Ok.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a is Ok(_)
+/// a is Ok.
 ///
 /// This macro provides the same statements as [`assert_ok`](macro.assert_ok.html),
 /// except this macro's statements are only enabled in non-optimized

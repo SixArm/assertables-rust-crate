@@ -1,11 +1,11 @@
-//! Assert for Ok(_) items.
+//! Assert for Ok(…) items.
 //!
 //! These macros help compare Ok(…) items, such as `::std::Result::Ok` or similar.
 //!
 //! Assert expression is Ok:
 //!
 //! * [`assert_ok!(a)`](macro@crate::assert_ok)
-//!   ≈ a is Ok(_)
+//!   ≈ a is Ok.
 //!
 //! Compare Ok(…) to another Ok(…):
 //!

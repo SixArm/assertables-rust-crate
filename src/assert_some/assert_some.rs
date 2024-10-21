@@ -1,7 +1,7 @@
 //!Assert expression is Some.
 //!
 //! Pseudocode:<br>
-//! a is Some(_)
+//! a is Some
 //!
 //! # Example
 //!
@@ -161,7 +161,7 @@ macro_rules! assert_some {
 /// Assert expression is Some.
 ///
 /// Pseudocode:<br>
-/// a is Some(_)
+/// a is Some
 ///
 /// This macro provides the same statements as [`assert_some`](macro.assert_some.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -26,7 +26,7 @@
 /// Pseudocode:<br>
 /// (a ⇒ Some(a1) ⇒ a1) ≠ b
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
