@@ -23,26 +23,6 @@
 //! * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
 //! * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
 
-/// Format assert failure error message.
-#[macro_export]
-macro_rules! assert_bag_ne_as_result_impl_err {
-    ($($arg:tt)*) => {
-        format!(
-            concat!(
-                "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne.html\n",
-                " a label: `{}`,\n",
-                " a debug: `{:?}`,\n",
-                " b label: `{}`,\n",
-                " b debug: `{:?}`,\n",
-                "       a: `{:?}`,\n",
-                "       b: `{:?}`"
-            ),
-            $($arg)*
-        )
-    }
-}
-
 /// Assert a bag is not equal to another.
 ///
 /// Pseudocode:<br>
@@ -74,15 +54,26 @@ macro_rules! assert_bag_ne_as_result {
                 if a_bag != b_bag {
                     Ok((a_bag, b_bag))
                 } else {
-                    Err($crate::assert_bag_impl_err!(
-                        assert_bag_ne,
-                        stringify!($a_collection),
-                        a_collection,
-                        stringify!($b_collection),
-                        b_collection,
-                        a_bag,
-                        b_bag
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`,\n",
+                                "   a bag: `{:?}`,\n",
+                                "   b bag: `{:?}`"
+                            ),
+                            stringify!($a_collection),
+                            a_collection,
+                            stringify!($b_collection),
+                            b_collection,
+                            a_bag,
+                            b_bag
+                        )
+                    )
                 }
             }
         }

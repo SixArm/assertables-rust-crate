@@ -197,7 +197,7 @@
 <a href="#197" id="197">197</a>
 <a href="#198" id="198">198</a>
 <a href="#199" id="199">199</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression is Err(_).
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression is Err.
 //!
 //! Pseudocode:&lt;br&gt;
 //! a is Err(_)
@@ -219,12 +219,12 @@
 //! * [`assert_err_as_result`](macro@crate::assert_err_as_result)
 //! * [`debug_assert_err`](macro@crate::debug_assert_err)
 
-/// Assert expression is Err(_).
+/// Assert expression is Err.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a is Err(_)
+/// a is Err(a̅)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a̅)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -246,8 +246,8 @@
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>) {
             a =&gt; {
                 <span class="kw">match </span>(a) {
-                    <span class="prelude-val">Err</span>(x) =&gt; {
-                        <span class="prelude-val">Ok</span>(x)
+                    <span class="prelude-val">Err</span>(a_inner) =&gt; {
+                        <span class="prelude-val">Ok</span>(a_inner)
                     },
                     <span class="kw">_ </span>=&gt; {
                         <span class="prelude-val">Err</span>(
@@ -295,12 +295,12 @@
     }
 }
 
-<span class="doccomment">/// Assert expression is Err(_).
+<span class="doccomment">/// Assert expression is Err.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a is Err(_)
+/// a is Err(a̅)
 ///
-/// * If true, return `()`.
+/// * If true, return `a̅`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -357,7 +357,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert expression is Err(_).
+<span class="doccomment">/// Assert expression is Err.
 ///
 /// Pseudocode:&lt;br&gt;
 /// a is Err(_)

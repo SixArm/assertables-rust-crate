@@ -1,4 +1,4 @@
-//! Assert expression is Ok(_).
+//! Assert expression is Ok.
 //!
 //! Pseudocode:<br>
 //! a is Ok(_)
@@ -20,23 +20,7 @@
 //! * [`assert_ok_as_result`](macro@crate::assert_ok_as_result)
 //! * [`debug_assert_ok`](macro@crate::debug_assert_ok)
 
-/// Format assert failure error message.
-#[macro_export]
-macro_rules! assert_ok_impl_err {
-    ($($arg:tt)*) => {
-        format!(
-            concat!(
-                "assertion failed: `assert_ok!(a)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok.html\n",
-                " a label: `{}`,\n",
-                " a debug: `{:?}`",
-            ),
-            $($arg)*
-        )
-    }
-}
-
-/// Assert expression is Ok(_).
+/// Assert expression is Ok.
 ///
 /// Pseudocode:<br>
 /// a is Ok(a̅)
@@ -62,8 +46,22 @@ macro_rules! assert_ok_as_result {
     ($a:expr $(,)?) => {{
         match (&$a) {
             a => match (a) {
-                Ok(a_inner) => Ok(a_inner),
-                _ => Err($crate::assert_ok_impl_err!(stringify!($a), a)),
+                Ok(a_inner) => {
+                    Ok(a_inner)
+                },
+                _ => {
+                    Err(
+                        format!(
+                        concat!(
+                            "assertion failed: `assert_ok!(a)`\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`",
+                        ),
+                        stringify!($a),
+                        a)
+                    )
+                }
             },
         }
     }};
@@ -95,12 +93,12 @@ mod tests {
     }
 }
 
-/// Assert expression is Ok(_).
+/// Assert expression is Ok.
 ///
 /// Pseudocode:<br>
 /// a is Ok(_)
 ///
-/// * If true, return `()`.
+/// * If true, return `a̅`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -157,7 +155,7 @@ macro_rules! assert_ok {
     }};
 }
 
-/// Assert expression is Ok(_).
+/// Assert expression is Ok.
 ///
 /// Pseudocode:<br>
 /// a is Ok(_)

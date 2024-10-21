@@ -58,15 +58,26 @@ macro_rules! assert_bag_subbag_as_result {
                 }) {
                     Ok((a_bag, b_bag))
                 } else {
-                    Err($crate::assert_bag_impl_err!(
-                        assert_bag_subbag,
-                        stringify!($a_collection),
-                        a_collection,
-                        stringify!($b_collection),
-                        b_collection,
-                        a_bag,
-                        b_bag
-                    ))
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_subbag.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`,\n",
+                                "   a bag: `{:?}`,\n",
+                                "   b bag: `{:?}`"
+                            ),
+                            stringify!($a_collection),
+                            a_collection,
+                            stringify!($b_collection),
+                            b_collection,
+                            a_bag,
+                            b_bag
+                        )
+                    )
                 }
             }
         }

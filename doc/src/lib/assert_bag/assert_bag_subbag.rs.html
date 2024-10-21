@@ -242,6 +242,17 @@
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
 <a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is a subbag of another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -302,15 +313,26 @@
                 }) {
                     <span class="prelude-val">Ok</span>((a_bag, b_bag))
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro-nonterminal">$</span><span class="macro">crate::assert_bag_impl_err!</span>(
-                        <span class="macro-nonterminal">assert_bag_subbag</span>,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
-                        a_collection,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
-                        b_collection,
-                        a_bag,
-                        b_bag
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_subbag.html\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`,\n"</span>,
+                                <span class="string">" b label: `{}`,\n"</span>,
+                                <span class="string">" b debug: `{:?}`,\n"</span>,
+                                <span class="string">"   a bag: `{:?}`,\n"</span>,
+                                <span class="string">"   b bag: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
+                            a_collection,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
+                            b_collection,
+                            a_bag,
+                            b_bag
+                        )
+                    )
                 }
             }
         }

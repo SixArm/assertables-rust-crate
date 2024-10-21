@@ -256,7 +256,7 @@
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ok(_) and their values are equal.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ok and their values are equal.
 //!
 //! # Example
 //!
@@ -276,7 +276,7 @@
 //! * [`assert_result_ok_eq_as_result`](macro@crate::assert_result_ok_eq_as_result)
 //! * [`debug_assert_result_ok_eq`](macro@crate::debug_assert_result_ok_eq)
 
-/// Assert two expressions are Ok(_) and their values are equal.
+/// Assert two expressions are Ok and their values are equal.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -403,7 +403,7 @@
     }
 }
 
-<span class="doccomment">/// Assert two expressions are Ok(_) and their values are equal.
+<span class="doccomment">/// Assert two expressions are Ok and their values are equal.
 ///
 /// * If true, return `()`.
 ///
@@ -475,7 +475,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert two expressions are Ok(_) and their values are equal.
+<span class="doccomment">/// Assert two expressions are Ok and their values are equal.
 ///
 /// This macro provides the same statements as [`assert_result_ok_eq`](macro.assert_result_ok_eq.html),
 /// except this macro's statements are only enabled in non-optimized

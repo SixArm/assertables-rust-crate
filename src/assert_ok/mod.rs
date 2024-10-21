@@ -2,7 +2,7 @@
 //!
 //! These macros help compare Ok(…) items, such as `::std::Result::Ok` or similar.
 //!
-//! Assert expression is Ok(_):
+//! Assert expression is Ok:
 //!
 //! * [`assert_ok!(a)`](macro@crate::assert_ok)
 //!   ≈ a is Ok(_)

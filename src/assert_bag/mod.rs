@@ -48,28 +48,6 @@ macro_rules! assert_bag_impl_prep {
     }};
 }
 
-/// Format assert failure error message.
-#[macro_export]
-macro_rules! assert_bag_impl_err {
-    ($name:ident, $($arg:tt)*) => {
-        format!(
-            concat!(
-                "assertion failed: `{}!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.{}.html\n",
-                " a label: `{}`,\n",
-                " a debug: `{:?}`,\n",
-                " b label: `{}`,\n",
-                " b debug: `{:?}`,\n",
-                "   a bag: `{:?}`,\n",
-                "   b bag: `{:?}`"
-            ),
-            stringify!($name),
-            stringify!($name),
-            $($arg)*
-        )
-    }
-}
-
 pub mod assert_bag_eq;
 pub mod assert_bag_ne;
 pub mod assert_bag_subbag;

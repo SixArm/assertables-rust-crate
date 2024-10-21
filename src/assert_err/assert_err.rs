@@ -1,4 +1,4 @@
-//! Assert expression is Err(_).
+//! Assert expression is Err.
 //!
 //! Pseudocode:<br>
 //! a is Err(_)
@@ -20,12 +20,12 @@
 //! * [`assert_err_as_result`](macro@crate::assert_err_as_result)
 //! * [`debug_assert_err`](macro@crate::debug_assert_err)
 
-/// Assert expression is Err(_).
+/// Assert expression is Err.
 ///
 /// Pseudocode:<br>
-/// a is Err(_)
+/// a is Err(a̅)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a̅)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -47,8 +47,8 @@ macro_rules! assert_err_as_result {
         match (&$a) {
             a => {
                 match (a) {
-                    Err(x) => {
-                        Ok(x)
+                    Err(a_inner) => {
+                        Ok(a_inner)
                     },
                     _ => {
                         Err(
@@ -96,12 +96,12 @@ mod tests {
     }
 }
 
-/// Assert expression is Err(_).
+/// Assert expression is Err.
 ///
 /// Pseudocode:<br>
-/// a is Err(_)
+/// a is Err(a̅)
 ///
-/// * If true, return `()`.
+/// * If true, return `a̅`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -158,7 +158,7 @@ macro_rules! assert_err {
     }};
 }
 
-/// Assert expression is Err(_).
+/// Assert expression is Err.
 ///
 /// Pseudocode:<br>
 /// a is Err(_)

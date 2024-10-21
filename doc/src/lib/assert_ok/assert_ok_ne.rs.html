@@ -254,7 +254,7 @@
 <a href="#254" id="254">254</a>
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ok(_) and their values are not equal.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ok and their values are not equal.
 //!
 //! Pseudocode:&lt;br&gt;
 //! (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
@@ -277,7 +277,7 @@
 //! * [`assert_ok_ne_as_result`](macro@crate::assert_ok_ne_as_result)
 //! * [`debug_assert_ok_ne`](macro@crate::debug_assert_ok_ne)
 
-/// Assert two expressions are Ok(_) and their values are not equal.
+/// Assert two expressions are Ok and their values are not equal.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
@@ -402,12 +402,12 @@
     }
 }
 
-<span class="doccomment">/// Assert two expressions are Ok(_) and their values are not equal.
+<span class="doccomment">/// Assert two expressions are Ok and their values are not equal.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a̅, b̅)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -474,7 +474,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert two expressions are Ok(_) and their values are not equal.
+<span class="doccomment">/// Assert two expressions are Ok and their values are not equal.
 ///
 /// This macro provides the same statements as [`assert_ok_ne`](macro.assert_ok_ne.html),
 /// except this macro's statements are only enabled in non-optimized

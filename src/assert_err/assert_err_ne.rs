@@ -1,4 +1,4 @@
-//! Assert two expressions are Err(_) and their values are not equal.
+//! Assert two expressions are Err and their values are not equal.
 //!
 //! Pseudocode:<br>
 //! (a ⇒ Err(a̅) ⇒ a̅) ≠ (b ⇒ Err(b̅) ⇒ b̅)
@@ -21,12 +21,12 @@
 //! * [`assert_err_ne_as_result`](macro@crate::assert_err_ne_as_result)
 //! * [`debug_assert_err_ne`](macro@crate::debug_assert_err_ne)
 
-/// Assert two expressions are Err(_) and their values are not equal.
+/// Assert two expressions are Err and their values are not equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Err(a̅) ⇒ a̅) ≠ (b ⇒ Err(b̅) ⇒ b̅)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a̅, b̅))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -50,7 +50,7 @@ macro_rules! assert_err_ne_as_result {
                 match (a, b) {
                     (Err(a_inner), Err(b_inner)) => {
                         if a_inner != b_inner {
-                            Ok(())
+                            Ok((a_inner, b_inner))
                         } else {
                             Err(
                                 format!(
@@ -106,7 +106,7 @@ mod tests {
         let a: Result<i8, i8> = Err(1);
         let b: Result<i8, i8> = Err(2);
         let result = assert_err_ne_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), (&1, &2));
     }
 
     #[test]
@@ -148,12 +148,12 @@ mod tests {
     }
 }
 
-/// Assert two expressions are Err(_) and their values are not equal.
+/// Assert two expressions are Err and their values are not equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Err(a̅) ⇒ a̅) ≠ (b ⇒ Err(b̅) ⇒ b̅)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a̅, b̅)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -208,19 +208,19 @@ mod tests {
 macro_rules! assert_err_ne {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_err_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_err_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
 }
 
-/// Assert two expressions are Err(_) and their values are not equal.
+/// Assert two expressions are Err and their values are not equal.
 ///
 /// This macro provides the same statements as [`assert_err_ne`](macro.assert_err_ne.html),
 /// except this macro's statements are only enabled in non-optimized

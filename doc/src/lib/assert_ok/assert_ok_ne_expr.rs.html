@@ -254,7 +254,7 @@
 <a href="#254" id="254">254</a>
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ok(_) and its value is not equal to an expression.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ok and its value is not equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
 //! (a ⇒ Ok(a̅) ⇒ a̅) ≠ b
@@ -277,12 +277,12 @@
 //! * [`assert_ok_ne_expr_as_result`](macro@crate::assert_ok_ne_expr_as_result)
 //! * [`debug_assert_ok_ne_expr`](macro@crate::debug_assert_ok_ne_expr)
 
-/// Assert an expression is Ok(_) and its value is equal to an expression.
+/// Assert an expression is Ok and its value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ok(a̅) ⇒ a̅) = b
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a̅))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -306,7 +306,7 @@
                 <span class="kw">match </span>a {
                     <span class="prelude-val">Ok</span>(a_inner) =&gt; {
                         <span class="kw">if </span>a_inner != b {
-                            <span class="prelude-val">Ok</span>(())
+                            <span class="prelude-val">Ok</span>((a_inner))
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -360,7 +360,7 @@
         <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
         <span class="kw">let </span>b: i8 = <span class="number">2</span>;
         <span class="kw">let </span>result = <span class="macro">assert_ok_ne_expr_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="kw-2">&amp;</span><span class="number">1</span>);
     }
 
     <span class="attr">#[test]
@@ -401,12 +401,12 @@
     }
 }
 
-<span class="doccomment">/// Assert an expression is Ok(_) and its value is equal to an expression.
+<span class="doccomment">/// Assert an expression is Ok and its value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ok(a̅) ⇒ a̅) ≠ b
 ///
-/// * If true, return `()`.
+/// * If true, return `a̅`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -459,19 +459,19 @@
 </span><span class="macro">macro_rules!</span> assert_ok_ne_expr {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_ok_ne_expr_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_ok_ne_expr_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
 }
 
-<span class="doccomment">/// Assert an expression is Ok(_) and its value is equal to an expression.
+<span class="doccomment">/// Assert an expression is Ok and its value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ok(a̅) ⇒ a̅) ≠ b

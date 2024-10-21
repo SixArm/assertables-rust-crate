@@ -1,4 +1,4 @@
-//! Assert an expression is Ok(_) and its value is not equal to an expression.
+//! Assert an expression is Ok and its value is not equal to an expression.
 //!
 //! Pseudocode:<br>
 //! (a ⇒ Ok(a̅) ⇒ a̅) ≠ b
@@ -21,12 +21,12 @@
 //! * [`assert_ok_ne_expr_as_result`](macro@crate::assert_ok_ne_expr_as_result)
 //! * [`debug_assert_ok_ne_expr`](macro@crate::debug_assert_ok_ne_expr)
 
-/// Assert an expression is Ok(_) and its value is equal to an expression.
+/// Assert an expression is Ok and its value is equal to an expression.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ok(a̅) ⇒ a̅) = b
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a̅))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -50,7 +50,7 @@ macro_rules! assert_ok_ne_expr_as_result {
                 match a {
                     Ok(a_inner) => {
                         if a_inner != b {
-                            Ok(())
+                            Ok((a_inner))
                         } else {
                             Err(
                                 format!(
@@ -104,7 +104,7 @@ mod tests {
         let a: Result<i8, i8> = Ok(1);
         let b: i8 = 2;
         let result = assert_ok_ne_expr_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), &1);
     }
 
     #[test]
@@ -145,12 +145,12 @@ mod tests {
     }
 }
 
-/// Assert an expression is Ok(_) and its value is equal to an expression.
+/// Assert an expression is Ok and its value is equal to an expression.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ok(a̅) ⇒ a̅) ≠ b
 ///
-/// * If true, return `()`.
+/// * If true, return `a̅`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -203,19 +203,19 @@ mod tests {
 macro_rules! assert_ok_ne_expr {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_ok_ne_expr_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_ok_ne_expr_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
 }
 
-/// Assert an expression is Ok(_) and its value is equal to an expression.
+/// Assert an expression is Ok and its value is equal to an expression.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ok(a̅) ⇒ a̅) ≠ b

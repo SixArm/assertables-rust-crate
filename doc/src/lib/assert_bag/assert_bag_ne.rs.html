@@ -229,15 +229,6 @@
 <a href="#229" id="229">229</a>
 <a href="#230" id="230">230</a>
 <a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
-<a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-<a href="#237" id="237">237</a>
-<a href="#238" id="238">238</a>
-<a href="#239" id="239">239</a>
-<a href="#240" id="240">240</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a bag is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -263,27 +254,7 @@
 //! * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
 //! * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
 
-/// Format assert failure error message.
-</span><span class="attr">#[macro_export]
-</span><span class="macro">macro_rules!</span> assert_bag_ne_as_result_impl_err {
-    ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; {
-        <span class="macro">format!</span>(
-            <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne.html\n"</span>,
-                <span class="string">" a label: `{}`,\n"</span>,
-                <span class="string">" a debug: `{:?}`,\n"</span>,
-                <span class="string">" b label: `{}`,\n"</span>,
-                <span class="string">" b debug: `{:?}`,\n"</span>,
-                <span class="string">"       a: `{:?}`,\n"</span>,
-                <span class="string">"       b: `{:?}`"
-            </span>),
-            $(<span class="macro-nonterminal">$arg</span>)*
-        )
-    }
-}
-
-<span class="doccomment">/// Assert a bag is not equal to another.
+/// Assert a bag is not equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (a_collection ⇒ a_bag) ≠ (b_collection ⇒ b_bag)
@@ -314,15 +285,26 @@
                 <span class="kw">if </span>a_bag != b_bag {
                     <span class="prelude-val">Ok</span>((a_bag, b_bag))
                 } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(<span class="macro-nonterminal">$</span><span class="macro">crate::assert_bag_impl_err!</span>(
-                        <span class="macro-nonterminal">assert_bag_ne</span>,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
-                        a_collection,
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
-                        b_collection,
-                        a_bag,
-                        b_bag
-                    ))
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne.html\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`,\n"</span>,
+                                <span class="string">" b label: `{}`,\n"</span>,
+                                <span class="string">" b debug: `{:?}`,\n"</span>,
+                                <span class="string">"   a bag: `{:?}`,\n"</span>,
+                                <span class="string">"   b bag: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_collection</span>),
+                            a_collection,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_collection</span>),
+                            b_collection,
+                            a_bag,
+                            b_bag
+                        )
+                    )
                 }
             }
         }

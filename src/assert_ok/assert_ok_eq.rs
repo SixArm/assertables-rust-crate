@@ -1,4 +1,4 @@
-//! Assert two expressions are Ok(_) and their values are equal.
+//! Assert two expressions are Ok and their values are equal.
 //!
 //! Pseudocode:<br>
 //! (a ⇒ Ok(a̅) ⇒ a̅) = (b ⇒ Ok(b̅) ⇒ b̅)
@@ -21,7 +21,7 @@
 //! * [`assert_ok_eq_as_result`](macro@crate::assert_ok_eq_as_result)
 //! * [`debug_assert_ok_eq`](macro@crate::debug_assert_ok_eq)
 
-/// Assert two expressions are Ok(_) and their values are equal.
+/// Assert two expressions are Ok and their values are equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ok(a̅) ⇒ a̅) = (b ⇒ Ok(b̅) ⇒ b̅)
@@ -146,12 +146,12 @@ mod tests {
     }
 }
 
-/// Assert two expressions are Ok(_) and their values are equal.
+/// Assert two expressions are Ok and their values are equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ok(a̅) ⇒ a̅) = (b ⇒ Ok(b̅) ⇒ b̅)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a̅, b̅)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -218,7 +218,7 @@ macro_rules! assert_ok_eq {
     }};
 }
 
-/// Assert two expressions are Ok(_) and their values are equal.
+/// Assert two expressions are Ok and their values are equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ok(a̅) ⇒ a̅) = (b ⇒ Ok(b̅) ⇒ b̅)

@@ -2,7 +2,7 @@
 //!
 //! These macros help compare Err(…) items, such as `::std::Result::Err` or similar.
 //!
-//! Assert expression is Err(_):
+//! Assert expression is Err:
 //!
 //! * [`assert_err!(a)`](macro@crate::assert_err)
 //!   ≈ a is Err(_)
