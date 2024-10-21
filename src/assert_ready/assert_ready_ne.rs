@@ -1,4 +1,4 @@
-//! Assert two expressions are Ready(_) and their values are not equal.
+//! Assert two expressions are Ready and their values are not equal.
 //!
 //! Pseudocode:<br>
 //! (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)
@@ -22,12 +22,12 @@
 //! * [`assert_ready_ne_as_result`](macro@crate::assert_ready_ne_as_result)
 //! * [`debug_assert_ready_ne`](macro@crate::debug_assert_ready_ne)
 
-/// Assert two expressions are Ready(_) and their values are not equal.
+/// Assert two expressions are Ready and their values are not equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)
 ///
-/// * If true, return Result `Some(())`.
+/// * If true, return Result `Ok((a1, b1))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -51,7 +51,7 @@ macro_rules! assert_ready_ne_as_result {
                 match (a, b) {
                     (Ready(a1), Ready(b1)) => {
                         if a1 != b1 {
-                            Ok(())
+                            Ok((a1, b1))
                         } else {
                             Err(
                                 format!(
@@ -109,7 +109,7 @@ mod tests {
         let a: Poll<i8> = Ready(1);
         let b: Poll<i8> = Ready(2);
         let result = assert_ready_ne_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), (&1, &2));
     }
 
     #[test]
@@ -151,12 +151,12 @@ mod tests {
     }
 }
 
-/// Assert two expressions are Ready(_) and their values are not equal.
+/// Assert two expressions are Ready and their values are not equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a1, b1)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -212,19 +212,19 @@ mod tests {
 macro_rules! assert_ready_ne {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_ready_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_ready_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
 }
 
-/// Assert two expressions are Ready(_) and their values are not equal.
+/// Assert two expressions are Ready and their values are not equal.
 ///
 /// Pseudocode:<br>
 /// (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)

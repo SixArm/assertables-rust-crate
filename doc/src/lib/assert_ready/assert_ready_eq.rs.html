@@ -263,7 +263,7 @@
 <a href="#263" id="263">263</a>
 <a href="#264" id="264">264</a>
 <a href="#265" id="265">265</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ready(_) and their values are equal.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ready and their values are equal.
 //!
 //! Pseudocode:&lt;br&gt;
 //! (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
@@ -287,12 +287,12 @@
 //! * [`assert_ready_eq_as_result`](macro@crate::assert_ready_eq_as_result)
 //! * [`debug_assert_ready_eq`](macro@crate::debug_assert_ready_eq)
 
-/// Assert two expressions are Ready(_) and their values are equal.
+/// Assert two expressions are Ready and their values are equal.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
 ///
-/// * If true, return Result `Some(())`.
+/// * If true, return Result `Ok((a1, b1))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -316,7 +316,7 @@
                 <span class="kw">match </span>(a, b) {
                     (Ready(a1), Ready(b1)) =&gt; {
                         <span class="kw">if </span>a1 == b1 {
-                            <span class="prelude-val">Ok</span>(())
+                            <span class="prelude-val">Ok</span>((a1, b1))
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -374,7 +374,7 @@
         <span class="kw">let </span>a: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
         <span class="kw">let </span>b: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_ready_eq_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">1</span>));
     }
 
     <span class="attr">#[test]
@@ -416,12 +416,12 @@
     }
 }
 
-<span class="doccomment">/// Assert two expressions are Ready(_) and their values are equal.
+<span class="doccomment">/// Assert two expressions are Ready and their values are equal.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a1, b1)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -477,19 +477,19 @@
 </span><span class="macro">macro_rules!</span> assert_ready_eq {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_ready_eq_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_ready_eq_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
 }
 
-<span class="doccomment">/// Assert two expressions are Ready(_) and their values are equal.
+<span class="doccomment">/// Assert two expressions are Ready and their values are equal.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)

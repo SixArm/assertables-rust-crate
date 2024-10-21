@@ -27,7 +27,7 @@
 /// Pseudocode:<br>
 /// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
-/// * If true, return Result `Some(())`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -51,7 +51,7 @@ macro_rules! assert_ready_ne_expr_as_result {
                 match a {
                     Ready(a1) => {
                         if a1 != b {
-                            Ok(())
+                            Ok(a1)
                         } else {
                             Err(
                                 format!(
@@ -107,7 +107,7 @@ mod tests {
         let a: Poll<i8> = Ready(1);
         let b: i8 = 2;
         let result = assert_ready_ne_expr_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), &1);
     }
 
     #[test]
@@ -153,7 +153,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
-/// * If true, return `()`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -207,13 +207,13 @@ mod tests {
 macro_rules! assert_ready_ne_expr {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_ready_ne_expr_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_ready_ne_expr_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

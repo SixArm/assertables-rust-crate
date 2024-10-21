@@ -3,10 +3,10 @@
     (<span class="macro-nonterminal">$a</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert an expression is Ready.</p>
 <p>Pseudocode:<br>
-a is Ready(_)</p>
+a is Ready(a1)</p>
 <ul>
 <li>
-<p>If true, return <code>()</code>.</p>
+<p>If true, return <code>(a1)</code>.</p>
 </li>
 <li>
 <p>Otherwise, call <a href="https://doc.rust-lang.org/1.82.0/std/macro.panic.html" title="macro std::panic"><code>panic!</code></a> with a message and the values of the

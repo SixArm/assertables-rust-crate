@@ -25,9 +25,9 @@
 /// Assert an expression is Ready.
 ///
 /// Pseudocode:<br>
-/// a is Ready(_)
+/// a is Ready(a1)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -49,8 +49,8 @@ macro_rules! assert_ready_as_result {
         match (&$a) {
             a => {
                 match (a) {
-                    Ready(_) => {
-                        Ok(())
+                    Ready(a1) => {
+                        Ok(a1)
                     },
                     _ => {
                         Err(
@@ -81,7 +81,7 @@ mod tests {
     fn test_assert_ready_as_result_x_success() {
         let a: Poll<i8> = Ready(1);
         let result = assert_ready_as_result!(a);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), &1);
     }
 
     #[test]
@@ -103,9 +103,9 @@ mod tests {
 /// Assert an expression is Ready.
 ///
 /// Pseudocode:<br>
-/// a is Ready(_)
+/// a is Ready(a1)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a1)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -163,10 +163,10 @@ macro_rules! assert_ready {
     }};
 }
 
-/// Assert poll.is_ready() is true.
+/// Assert an expression is Ready.
 ///
 /// Pseudocode:<br>
-/// a is Ready(_)
+/// a is Ready(a1)
 ///
 /// This macro provides the same statements as [`assert_ready`](macro.assert_ready.html),
 /// except this macro's statements are only enabled in non-optimized

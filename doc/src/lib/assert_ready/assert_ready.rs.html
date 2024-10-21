@@ -229,9 +229,9 @@
 /// Assert an expression is Ready.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a is Ready(_)
+/// a is Ready(a1)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -253,8 +253,8 @@
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>) {
             a =&gt; {
                 <span class="kw">match </span>(a) {
-                    Ready(<span class="kw">_</span>) =&gt; {
-                        <span class="prelude-val">Ok</span>(())
+                    Ready(a1) =&gt; {
+                        <span class="prelude-val">Ok</span>(a1)
                     },
                     <span class="kw">_ </span>=&gt; {
                         <span class="prelude-val">Err</span>(
@@ -285,7 +285,7 @@
     </span><span class="kw">fn </span>test_assert_ready_as_result_x_success() {
         <span class="kw">let </span>a: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_ready_as_result!</span>(a);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="kw-2">&amp;</span><span class="number">1</span>);
     }
 
     <span class="attr">#[test]
@@ -307,9 +307,9 @@
 <span class="doccomment">/// Assert an expression is Ready.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a is Ready(_)
+/// a is Ready(a1)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a1)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -367,10 +367,10 @@
     }};
 }
 
-<span class="doccomment">/// Assert poll.is_ready() is true.
+<span class="doccomment">/// Assert an expression is Ready.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a is Ready(_)
+/// a is Ready(a1)
 ///
 /// This macro provides the same statements as [`assert_ready`](macro.assert_ready.html),
 /// except this macro's statements are only enabled in non-optimized

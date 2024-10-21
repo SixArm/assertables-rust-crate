@@ -287,7 +287,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
-/// * If true, return Result `Some(())`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -311,7 +311,7 @@
                 <span class="kw">match </span>a {
                     Ready(a1) =&gt; {
                         <span class="kw">if </span>a1 != b {
-                            <span class="prelude-val">Ok</span>(())
+                            <span class="prelude-val">Ok</span>(a1)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -367,7 +367,7 @@
         <span class="kw">let </span>a: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
         <span class="kw">let </span>b: i8 = <span class="number">2</span>;
         <span class="kw">let </span>result = <span class="macro">assert_ready_ne_expr_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="kw-2">&amp;</span><span class="number">1</span>);
     }
 
     <span class="attr">#[test]
@@ -413,7 +413,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
-/// * If true, return `()`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -467,13 +467,13 @@
 </span><span class="macro">macro_rules!</span> assert_ready_ne_expr {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_ready_ne_expr_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_ready_ne_expr_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
