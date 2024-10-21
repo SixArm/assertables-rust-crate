@@ -36,7 +36,7 @@
 //!
 //! * [`assert_fs_read_to_string_contains!(path, containee)`](macro@crate::assert_fs_read_to_string_contains) ≈ std::fs::read_to_string(path).contains(containee)
 //!
-//! * [`assert_fs_read_to_string_matches!(path, matcher)`](macro@crate::assert_fs_read_to_string_matches) ≈ matcher.is_match(std::fs::read_to_string(path))
+//! * [`assert_fs_read_to_string_is_match!(path, matcher)`](macro@crate::assert_fs_read_to_string_is_match) ≈ matcher.is_match(std::fs::read_to_string(path))
 //!
 //! # Example
 //!
@@ -69,4 +69,5 @@ pub mod assert_fs_read_to_string_ne_expr;
 
 // Specializations
 pub mod assert_fs_read_to_string_contains;
-pub mod assert_fs_read_to_string_matches;
+pub mod assert_fs_read_to_string_is_match;
+pub mod assert_fs_read_to_string_matches; // Deprecated.

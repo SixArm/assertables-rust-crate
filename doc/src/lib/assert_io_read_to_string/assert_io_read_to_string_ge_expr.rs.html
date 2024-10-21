@@ -263,7 +263,7 @@
 <a href="#263" id="263">263</a>
 <a href="#264" id="264">264</a>
 <a href="#265" id="265">265</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() value is greater than or equal to an expression.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::io::Read read_to_string() value is greater than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
 //! (reader.read_to_string(a_string) ⇒ a_string) ≥ (expr ⇒ b_string)
@@ -287,7 +287,7 @@
 //! * [`assert_io_read_to_string_ge_expr_as_result`](macro@crate::assert_io_read_to_string_ge_expr_as_result)
 //! * [`debug_assert_io_read_to_string_ge_expr`](macro@crate::debug_assert_io_read_to_string_ge_expr)
 
-/// Assert a std::io::Read read_to_string() value is greater than or equal to an expression.
+/// Assert a ::std::io::Read read_to_string() value is greater than or equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) ≥ (expr ⇒ b_string)
@@ -416,7 +416,7 @@
     }
 }
 
-<span class="doccomment">/// Assert a std::io::Read read_to_string() value is greater than or equal to an expression.
+<span class="doccomment">/// Assert a ::std::io::Read read_to_string() value is greater than or equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) ≥ (expr ⇒ b_string)

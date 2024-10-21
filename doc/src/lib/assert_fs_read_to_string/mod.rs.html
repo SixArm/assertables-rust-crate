@@ -70,6 +70,7 @@
 <a href="#70" id="70">70</a>
 <a href="#71" id="71">71</a>
 <a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing file system path contents.
 //!
 //! These macros help with file system paths, such as disk files, `Path`,
@@ -108,7 +109,7 @@
 //!
 //! * [`assert_fs_read_to_string_contains!(path, containee)`](macro@crate::assert_fs_read_to_string_contains) ≈ std::fs::read_to_string(path).contains(containee)
 //!
-//! * [`assert_fs_read_to_string_matches!(path, matcher)`](macro@crate::assert_fs_read_to_string_matches) ≈ matcher.is_match(std::fs::read_to_string(path))
+//! * [`assert_fs_read_to_string_is_match!(path, matcher)`](macro@crate::assert_fs_read_to_string_is_match) ≈ matcher.is_match(std::fs::read_to_string(path))
 //!
 //! # Example
 //!
@@ -141,5 +142,6 @@
 
 <span class="comment">// Specializations
 </span><span class="kw">pub mod </span>assert_fs_read_to_string_contains;
-<span class="kw">pub mod </span>assert_fs_read_to_string_matches;
-</code></pre></div></section></main></body></html>
+<span class="kw">pub mod </span>assert_fs_read_to_string_is_match;
+<span class="kw">pub mod </span>assert_fs_read_to_string_matches; <span class="comment">// Deprecated.
+</span></code></pre></div></section></main></body></html>

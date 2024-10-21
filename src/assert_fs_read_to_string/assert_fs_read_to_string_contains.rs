@@ -1,4 +1,4 @@
-//! Assert a std::fs::read_to_string(path) contains a pattern.
+//! Assert a ::std::fs::read_to_string(path) contains a pattern.
 //!
 //! Pseudocode:<br>
 //! std::fs::read_to_string(path) contains expr
@@ -21,7 +21,7 @@
 //! * [`assert_fs_read_to_string_contains_as_result`](macro@crate::assert_fs_read_to_string_contains_as_result)
 //! * [`debug_assert_fs_read_to_string_contains`](macro@crate::debug_assert_fs_read_to_string_contains)
 
-/// Assert a std::fs::read_to_string(path) contains a pattern.
+/// Assert a ::std::fs::read_to_string(path) contains a pattern.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) contains expr
@@ -144,7 +144,7 @@ mod tests {
     }
 }
 
-/// Assert a std::fs::read_to_string(path) contains a pattern.
+/// Assert a ::std::fs::read_to_string(path) contains a pattern.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) contains expr
@@ -215,7 +215,7 @@ macro_rules! assert_fs_read_to_string_contains {
     }};
 }
 
-/// Assert a std::fs::read_to_string(path) contains a pattern.
+/// Assert a ::std::fs::read_to_string(path) contains a pattern.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) contains expr

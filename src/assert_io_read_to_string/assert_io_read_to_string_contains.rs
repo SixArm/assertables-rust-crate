@@ -1,4 +1,4 @@
-//! Assert a std::io::Read read_to_string() contains a pattern.
+//! Assert a ::std::io::Read read_to_string() contains a pattern.
 //!
 //! Pseudocode:<br>
 //! (reader.read_to_string(a_string) ⇒ a_string) contains (expr ⇒ b_string)
@@ -22,7 +22,7 @@
 //! * [`assert_io_read_to_string_contains_as_result`](macro@crate::assert_io_read_to_string_contains_as_result)
 //! * [`debug_assert_io_read_to_string_contains`](macro@crate::debug_assert_io_read_to_string_contains)
 
-/// Assert a std::io::Read read_to_string() contains a pattern.
+/// Assert a ::std::io::Read read_to_string() contains a pattern.
 ///
 /// Pseudocode:<br>
 /// (reader.read_to_string(a_string) ⇒ a_string) contains (expr)
@@ -133,7 +133,7 @@ mod tests {
     }
 }
 
-/// Assert a std::io::Read read_to_string() contains a pattern.
+/// Assert a ::std::io::Read read_to_string() contains a pattern.
 ///
 /// Pseudocode:<br>
 /// (reader.read_to_string(a_string) ⇒ a_string) contains (expr)
@@ -204,7 +204,7 @@ macro_rules! assert_io_read_to_string_contains {
     }};
 }
 
-/// Assert a std::io::Read read_to_string() contains a pattern.
+/// Assert a ::std::io::Read read_to_string() contains a pattern.
 ///
 /// Pseudocode:<br>
 /// (reader.read_to_string(a_string) ⇒ a_string) contains (expr ⇒ b_string)

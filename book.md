@@ -423,7 +423,7 @@ Rust `assertables` provides these macros for readers:
 
 * `assert_io_read_to_string_contains!`
 
-* `assert_io_read_to_string_matches!`
+* `assert_io_read_to_string_is_match!`
 
 
 ### Macros for commands

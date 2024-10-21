@@ -272,7 +272,7 @@
 <a href="#272" id="272">272</a>
 <a href="#273" id="273">273</a>
 <a href="#274" id="274">274</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() value is equal to an expression.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::io::Read read_to_string() value is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
 //! (reader.read_to_string(a_string) ⇒ a_string) = (expr ⇒ b_string)
@@ -296,7 +296,7 @@
 //! * [`assert_io_read_to_string_eq_expr_as_result`](macro@crate::assert_io_read_to_string_eq_expr_as_result)
 //! * [`debug_assert_io_read_to_string_eq_expr`](macro@crate::debug_assert_io_read_to_string_eq_expr)
 
-/// Assert a std::io::Read read_to_string() value is equal to an expression.
+/// Assert a ::std::io::Read read_to_string() value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) = (expr ⇒ b_string)
@@ -434,7 +434,7 @@
     }
 }
 
-<span class="doccomment">/// Assert a std::io::Read read_to_string() value is equal to an expression.
+<span class="doccomment">/// Assert a ::std::io::Read read_to_string() value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) = (expr ⇒ b_string)
@@ -507,7 +507,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert a std::io::Read read_to_string() value is equal to an expression.
+<span class="doccomment">/// Assert a ::std::io::Read read_to_string() value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) = (expr ⇒ b_string)

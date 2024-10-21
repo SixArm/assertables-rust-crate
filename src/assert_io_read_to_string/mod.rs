@@ -36,7 +36,7 @@
 //!
 //! * [`assert_io_read_to_string_contains!(reader, &containee)`](macro@crate::assert_io_read_to_string_contains) ≈ reader.read_to_string().contains(containee)
 //!
-//! * [`assert_io_read_to_string_matches!(reader, &matcher)`](macro@crate::assert_io_read_to_string_matches) ≈ matcher.is_match(reader.read_to_string())
+//! * [`assert_io_read_to_string_is_match!(reader, &matcher)`](macro@crate::assert_io_read_to_string_is_match) ≈ matcher.is_match(reader.read_to_string())
 //!
 //!
 //! # Example
@@ -70,4 +70,5 @@ pub mod assert_io_read_to_string_ne_expr;
 
 // Specializations
 pub mod assert_io_read_to_string_contains;
-pub mod assert_io_read_to_string_matches;
+pub mod assert_io_read_to_string_is_match;
+pub mod assert_io_read_to_string_matches; // Deprecated.

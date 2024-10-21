@@ -1,4 +1,4 @@
-//! Assert a std::fs::read_to_string(path) is not equal to another.
+//! Assert a ::std::fs::read_to_string(path) is not equal to another.
 //!
 //! Pseudocode:<br>
 //! std::fs::read_to_string(a_path) ≠ std::fs::read_to_string(b_path)
@@ -21,7 +21,7 @@
 //! * [`assert_fs_read_to_string_ne_as_result`](macro@crate::assert_fs_read_to_string_ne_as_result)
 //! * [`debug_assert_fs_read_to_string_ne`](macro@crate::debug_assert_fs_read_to_string_ne)
 
-/// Assert a std::fs::read_to_string(path) is not equal to another.
+/// Assert a ::std::fs::read_to_string(path) is not equal to another.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(a_path) ≠ std::fs::read_to_string(b_path)
@@ -164,7 +164,7 @@ mod tests {
     }
 }
 
-/// Assert a std::fs::read_to_string(path) is not equal to another.
+/// Assert a ::std::fs::read_to_string(path) is not equal to another.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(a_path) ≠ std::fs::read_to_string(b_path)
@@ -237,7 +237,7 @@ macro_rules! assert_fs_read_to_string_ne {
     }};
 }
 
-/// Assert a std::fs::read_to_string(path) is not equal to another.
+/// Assert a ::std::fs::read_to_string(path) is not equal to another.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(a_path) ≠ std::fs::read_to_string(b_path)

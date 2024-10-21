@@ -243,7 +243,7 @@
 <a href="#243" id="243">243</a>
 <a href="#244" id="244">244</a>
 <a href="#245" id="245">245</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() contains a pattern.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::io::Read read_to_string() contains a pattern.
 //!
 //! Pseudocode:&lt;br&gt;
 //! (reader.read_to_string(a_string) ⇒ a_string) contains (expr ⇒ b_string)
@@ -267,7 +267,7 @@
 //! * [`assert_io_read_to_string_contains_as_result`](macro@crate::assert_io_read_to_string_contains_as_result)
 //! * [`debug_assert_io_read_to_string_contains`](macro@crate::debug_assert_io_read_to_string_contains)
 
-/// Assert a std::io::Read read_to_string() contains a pattern.
+/// Assert a ::std::io::Read read_to_string() contains a pattern.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) contains (expr)
@@ -378,7 +378,7 @@
     }
 }
 
-<span class="doccomment">/// Assert a std::io::Read read_to_string() contains a pattern.
+<span class="doccomment">/// Assert a ::std::io::Read read_to_string() contains a pattern.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) contains (expr)
@@ -449,7 +449,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert a std::io::Read read_to_string() contains a pattern.
+<span class="doccomment">/// Assert a ::std::io::Read read_to_string() contains a pattern.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) contains (expr ⇒ b_string)

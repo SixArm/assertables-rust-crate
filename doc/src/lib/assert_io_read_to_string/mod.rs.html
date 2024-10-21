@@ -71,6 +71,7 @@
 <a href="#71" id="71">71</a>
 <a href="#72" id="72">72</a>
 <a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing input/output reader streams.
 //!
 //! These macros help with input/output readers, such as file handles, byte arrays,
@@ -109,7 +110,7 @@
 //!
 //! * [`assert_io_read_to_string_contains!(reader, &amp;containee)`](macro@crate::assert_io_read_to_string_contains) ≈ reader.read_to_string().contains(containee)
 //!
-//! * [`assert_io_read_to_string_matches!(reader, &amp;matcher)`](macro@crate::assert_io_read_to_string_matches) ≈ matcher.is_match(reader.read_to_string())
+//! * [`assert_io_read_to_string_is_match!(reader, &amp;matcher)`](macro@crate::assert_io_read_to_string_is_match) ≈ matcher.is_match(reader.read_to_string())
 //!
 //!
 //! # Example
@@ -143,5 +144,6 @@
 
 <span class="comment">// Specializations
 </span><span class="kw">pub mod </span>assert_io_read_to_string_contains;
-<span class="kw">pub mod </span>assert_io_read_to_string_matches;
-</code></pre></div></section></main></body></html>
+<span class="kw">pub mod </span>assert_io_read_to_string_is_match;
+<span class="kw">pub mod </span>assert_io_read_to_string_matches; <span class="comment">// Deprecated.
+</span></code></pre></div></section></main></body></html>

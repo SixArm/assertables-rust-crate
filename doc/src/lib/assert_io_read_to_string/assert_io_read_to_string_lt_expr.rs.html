@@ -252,7 +252,7 @@
 <a href="#252" id="252">252</a>
 <a href="#253" id="253">253</a>
 <a href="#254" id="254">254</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a std::io::Read read_to_string() value is less than an expression.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::io::Read read_to_string() value is less than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
 //! (reader.read_to_string(a_string) ⇒ a_string) &lt; (expr ⇒ b_string)
@@ -276,7 +276,7 @@
 //! * [`assert_io_read_to_string_lt_expr_as_result`](macro@crate::assert_io_read_to_string_lt_expr_as_result)
 //! * [`debug_assert_io_read_to_string_lt_expr`](macro@crate::debug_assert_io_read_to_string_lt_expr)
 
-/// Assert a std::io::Read read_to_string() value is less than an expression.
+/// Assert a ::std::io::Read read_to_string() value is less than an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) &lt; (expr ⇒ b_string)
@@ -394,7 +394,7 @@
     }
 }
 
-<span class="doccomment">/// Assert a std::io::Read read_to_string() value is less than an expression.
+<span class="doccomment">/// Assert a ::std::io::Read read_to_string() value is less than an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) &lt; (expr ⇒ b_string)
@@ -467,7 +467,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert a std::io::Read read_to_string() value is less than an expression.
+<span class="doccomment">/// Assert a ::std::io::Read read_to_string() value is less than an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) &lt; (expr ⇒ b_string)

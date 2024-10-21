@@ -1,4 +1,4 @@
-//! Assert a std::io::Read read_to_string() value is greater than an expression.
+//! Assert a ::std::io::Read read_to_string() value is greater than an expression.
 //!
 //! Pseudocode:<br>
 //! (reader.read_to_string(a_string) ⇒ a_string) > (expr ⇒ b_string)
@@ -22,7 +22,7 @@
 //! * [`assert_io_read_to_string_gt_expr_as_result`](macro@crate::assert_io_read_to_string_gt_expr_as_result)
 //! * [`debug_assert_io_read_to_string_gt_expr`](macro@crate::debug_assert_io_read_to_string_gt_expr)
 
-/// Assert a std::io::Read read_to_string() value is greater than an expression.
+/// Assert a ::std::io::Read read_to_string() value is greater than an expression.
 ///
 /// Pseudocode:<br>
 /// (reader.read_to_string(a_string) ⇒ a_string) > (expr ⇒ b_string)
@@ -160,7 +160,7 @@ mod tests {
     }
 }
 
-/// Assert a std::io::Read read_to_string() value is greater than an expression.
+/// Assert a ::std::io::Read read_to_string() value is greater than an expression.
 ///
 /// Pseudocode:<br>
 /// (reader.read_to_string(a_string) ⇒ a_string) > (expr ⇒ b_string)
@@ -233,7 +233,7 @@ macro_rules! assert_io_read_to_string_gt_expr {
     }};
 }
 
-/// Assert a std::io::Read read_to_string() value is greater than an expression.
+/// Assert a ::std::io::Read read_to_string() value is greater than an expression.
 ///
 /// Pseudocode:<br>
 /// (reader.read_to_string(a_string) ⇒ a_string) > (expr ⇒ b_string)

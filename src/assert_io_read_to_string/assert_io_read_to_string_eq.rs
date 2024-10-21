@@ -1,4 +1,4 @@
-//! Assert a std::io::Read read_to_string() value is equal to another.
+//! Assert a ::std::io::Read read_to_string() value is equal to another.
 //!
 //! Pseudocode:<br>
 //! (a_reader.read_to_string(a_string) ⇒ a_string) = (b_reader.read_to_string(b_string) ⇒ b_string)
@@ -22,7 +22,7 @@
 //! * [`assert_io_read_to_string_eq_as_result`](macro@crate::assert_io_read_to_string_eq_as_result)
 //! * [`debug_assert_io_read_to_string_eq`](macro@crate::debug_assert_io_read_to_string_eq)
 
-/// Assert a std::io::Read read_to_string() is equal to another.
+/// Assert a ::std::io::Read read_to_string() is equal to another.
 ///
 /// Pseudocode:<br>
 /// (a_reader.read_to_string(a_string) ⇒ a_string) = (b_reader.read_to_string(b_string) ⇒ b_string)
@@ -158,7 +158,7 @@ mod tests {
     }
 }
 
-/// Assert a std::io::Read read_to_string() value is equal to another.
+/// Assert a ::std::io::Read read_to_string() value is equal to another.
 ///
 /// Pseudocode:<br>
 /// (a_reader.read_to_string(a_string) ⇒ a_string) = (b_reader.read_to_string(b_string) ⇒ b_string)
@@ -231,7 +231,7 @@ macro_rules! assert_io_read_to_string_eq {
     }};
 }
 
-/// Assert a std::io::Read read_to_string() value is equal to another.
+/// Assert a ::std::io::Read read_to_string() value is equal to another.
 ///
 /// Pseudocode:<br>
 /// (a_reader.read_to_string(a_string) ⇒ a_string) = (b_reader.read_to_string(b_string) ⇒ b_string)

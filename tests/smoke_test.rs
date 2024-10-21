@@ -456,7 +456,7 @@ fn assert_fs_read_to_string() {
 
     // Specializations
     assert_fs_read_to_string_contains!("alfa.txt", "lf");
-    assert_fs_read_to_string_matches!("alfa.txt", Regex::new("lf").unwrap());
+    assert_fs_read_to_string_is_match!("alfa.txt", Regex::new("lf").unwrap());
 
 }
 
@@ -486,6 +486,6 @@ fn assert_io_read_to_string() {
 
     // Specializations
     a = "alfa".as_bytes(); assert_io_read_to_string_contains!(a, "lf");
-    a = "alfa".as_bytes(); assert_io_read_to_string_matches!(a, Regex::new("lf").unwrap());
+    a = "alfa".as_bytes(); assert_io_read_to_string_is_match!(a, Regex::new("lf").unwrap());
 
 }

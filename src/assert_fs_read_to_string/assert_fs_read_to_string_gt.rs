@@ -1,4 +1,4 @@
-//! Assert a std::fs::read_to_string(path) value is greater than another.
+//! Assert a ::std::fs::read_to_string(path) value is greater than another.
 //!
 //! Pseudocode:<br>
 //! std::fs::read_to_string(a_path) > std::fs::read_to_string(b_path)
@@ -21,7 +21,7 @@
 //! * [`assert_fs_read_to_string_gt_as_result`](macro@crate::assert_fs_read_to_string_gt_as_result)
 //! * [`debug_assert_fs_read_to_string_gt`](macro@crate::debug_assert_fs_read_to_string_gt)
 
-/// Assert a std::fs::read_to_string(path) value is greater than another.
+/// Assert a ::std::fs::read_to_string(path) value is greater than another.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(a_path) > std::fs::read_to_string(b_path)
@@ -177,7 +177,7 @@ mod tests {
     }
 }
 
-/// Assert a std::fs::read_to_string(path) value is greater than another.
+/// Assert a ::std::fs::read_to_string(path) value is greater than another.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(a_path) > std::fs::read_to_string(b_path)
@@ -250,7 +250,7 @@ macro_rules! assert_fs_read_to_string_gt {
     }};
 }
 
-/// Assert a std::fs::read_to_string(path) value is greater than another.
+/// Assert a ::std::fs::read_to_string(path) value is greater than another.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(a_path) > std::fs::read_to_string(b_path)

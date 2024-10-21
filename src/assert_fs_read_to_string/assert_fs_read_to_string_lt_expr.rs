@@ -1,4 +1,4 @@
-//! Assert a std::fs::read_to_string(path) value is less than an expression.
+//! Assert a ::std::fs::read_to_string(path) value is less than an expression.
 //!
 //! Pseudocode:<br>
 //! std::fs::read_to_string(path) < expr
@@ -21,7 +21,7 @@
 //! * [`assert_fs_read_to_string_lt_expr_as_result`](macro@crate::assert_fs_read_to_string_lt_expr_as_result)
 //! * [`debug_assert_fs_read_to_string_lt_expr`](macro@crate::debug_assert_fs_read_to_string_lt_expr)
 
-/// Assert a std::fs::read_to_string(path) value is less than an expression.
+/// Assert a ::std::fs::read_to_string(path) value is less than an expression.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) < expr
@@ -174,7 +174,7 @@ mod tests {
     }
 }
 
-/// Assert a std::fs::read_to_string(path) value is less than an expression.
+/// Assert a ::std::fs::read_to_string(path) value is less than an expression.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) < expr
@@ -247,7 +247,7 @@ macro_rules! assert_fs_read_to_string_lt_expr {
     }};
 }
 
-/// Assert a std::fs::read_to_string(path) value is less than an expression.
+/// Assert a ::std::fs::read_to_string(path) value is less than an expression.
 ///
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) < expr
