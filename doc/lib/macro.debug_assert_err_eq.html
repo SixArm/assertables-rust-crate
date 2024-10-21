@@ -2,7 +2,7 @@
     ($(<span class="macro-nonterminal">$arg</span>:tt)<span class="kw-2">*</span>) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert two expressions are Err and their values are equal.</p>
 <p>Pseudocode:<br>
-(a ⇒ Err(a̅) ⇒ a̅) = (b ⇒ Err(b̅) ⇒ b̅)</p>
+(a ⇒ Err(a1) ⇒ a1) = (b ⇒ Err(b1) ⇒ b1)</p>
 <p>This macro provides the same statements as <a href="macro.assert_err_eq.html"><code>assert_err_eq</code></a>,
 except this macro’s statements are only enabled in non-optimized
 builds by default. An optimized build will not execute this macro’s

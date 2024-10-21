@@ -266,7 +266,7 @@
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ready(_) and their values are equal.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)
+//! (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
 //!
 //! # Example
 //!
@@ -290,7 +290,7 @@
 /// Assert two expressions are Ready(_) and their values are equal.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)
+/// (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
 ///
 /// * If true, return Result `Some(())`.
 ///
@@ -314,8 +314,8 @@
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
                 <span class="kw">match </span>(a, b) {
-                    (Ready(a_inner), Ready(b_inner)) =&gt; {
-                        <span class="kw">if </span>a_inner == b_inner {
+                    (Ready(a1), Ready(b1)) =&gt; {
+                        <span class="kw">if </span>a1 == b1 {
                             <span class="prelude-val">Ok</span>(())
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
@@ -332,10 +332,10 @@
                                     </span>),
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                                     a,
-                                    a_inner,
+                                    a1,
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
                                     b,
-                                    b_inner
+                                    b1
                                 )
                             )
                         }
@@ -419,7 +419,7 @@
 <span class="doccomment">/// Assert two expressions are Ready(_) and their values are equal.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)
+/// (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
 ///
 /// * If true, return `()`.
 ///
@@ -492,7 +492,7 @@
 <span class="doccomment">/// Assert two expressions are Ready(_) and their values are equal.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)
+/// (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
 ///
 /// This macro provides the same statements as [`assert_ready_eq`](macro.assert_ready_eq.html),
 /// except this macro's statements are only enabled in non-optimized

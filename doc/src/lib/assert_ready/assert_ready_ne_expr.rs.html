@@ -258,10 +258,10 @@
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
 <a href="#260" id="260">260</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ready(_) and its value is not equal to an expression.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ready and its value is not equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (a ⇒ Ready(a̅) ⇒ a̅) ≠ b
+//! (a ⇒ Ready(a1) ⇒ a1) ≠ b
 //!
 //! # Example
 //!
@@ -282,10 +282,10 @@
 //! * [`assert_ready_ne_expr_as_result`](macro@crate::assert_ready_ne_expr_as_result)
 //! * [`debug_assert_ready_ne_expr`](macro@crate::debug_assert_ready_ne_expr)
 
-/// Assert an expression is Ready(_) and its value is not equal to an expression.
+/// Assert an expression is Ready and its value is not equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ready(a̅) ⇒ a̅) ≠ b
+/// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
 /// * If true, return Result `Some(())`.
 ///
@@ -309,8 +309,8 @@
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
                 <span class="kw">match </span>a {
-                    Ready(a_inner) =&gt; {
-                        <span class="kw">if </span>a_inner != b {
+                    Ready(a1) =&gt; {
+                        <span class="kw">if </span>a1 != b {
                             <span class="prelude-val">Ok</span>(())
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
@@ -326,7 +326,7 @@
                                     ),
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                                     a,
-                                    a_inner,
+                                    a1,
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
                                     b
                                 )
@@ -408,10 +408,10 @@
     }
 }
 
-<span class="doccomment">/// Assert an expression is Ready(_) and its value is not equal to an expression.
+<span class="doccomment">/// Assert an expression is Ready and its value is not equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ready(a̅) ⇒ a̅) ≠ b
+/// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
 /// * If true, return `()`.
 ///
@@ -479,10 +479,10 @@
     }};
 }
 
-<span class="doccomment">/// Assert an expression is Ready(_) and its value is not equal to an expression.
+<span class="doccomment">/// Assert an expression is Ready and its value is not equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ready(a̅) ⇒ a̅) ≠ b
+/// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
 /// This macro provides the same statements as [`assert_ready_ne_expr`](macro.assert_ready_ne_expr.html),
 /// except this macro's statements are only enabled in non-optimized

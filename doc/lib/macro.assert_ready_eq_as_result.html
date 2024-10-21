@@ -2,7 +2,7 @@
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert two expressions are Ready(_) and their values are equal.</p>
 <p>Pseudocode:<br>
-(a ⇒ Ready(a̅) ⇒ a̅) = (b ⇒ Ready(b̅) ⇒ b̅)</p>
+(a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)</p>
 <ul>
 <li>
 <p>If true, return Result <code>Some(())</code>.</p>

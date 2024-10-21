@@ -1,7 +1,7 @@
 //! Assert an expression is Err and its value is equal to an expression.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Err(a̅) ⇒ a̅) = b
+//! (a ⇒ Err(a1) ⇒ a1) = b
 //!
 //! # Example
 //!
@@ -24,9 +24,9 @@
 /// Assert an expression is Err and its value is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Err(a̅) ⇒ a̅) = b
+/// (a ⇒ Err(a1) ⇒ a1) = b
 ///
-/// * If true, return Result `Ok(a̅)`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -48,9 +48,9 @@ macro_rules! assert_err_eq_expr_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 match a {
-                    Err(a_inner) => {
-                        if a_inner == b {
-                            Ok(a_inner)
+                    Err(a1) => {
+                        if a1 == b {
+                            Ok(a1)
                         } else {
                             Err(
                                 format!(
@@ -65,7 +65,7 @@ macro_rules! assert_err_eq_expr_as_result {
                                     ),
                                     stringify!($a),
                                     a,
-                                    a_inner,
+                                    a1,
                                     stringify!($b),
                                     b
                                 )
@@ -148,9 +148,9 @@ mod tests {
 /// Assert an expression is Err and its value is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Err(a̅) ⇒ a̅) = b
+/// (a ⇒ Err(a1) ⇒ a1) = b
 ///
-/// * If true, return `a̅`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -218,7 +218,7 @@ macro_rules! assert_err_eq_expr {
 /// Assert an expression is Err and its value is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Err(a̅) ⇒ a̅) = b
+/// (a ⇒ Err(a1) ⇒ a1) = b
 ///
 /// This macro provides the same statements as [`assert_err_eq_expr`](macro.assert_err_eq_expr.html),
 /// except this macro's statements are only enabled in non-optimized

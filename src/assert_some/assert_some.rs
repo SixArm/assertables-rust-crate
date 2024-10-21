@@ -1,4 +1,4 @@
-//!Assert expression is Some(_).
+//!Assert expression is Some.
 //!
 //! Pseudocode:<br>
 //! a is Some(_)
@@ -23,9 +23,9 @@
 /// Assert an expression.is_some() is true.
 ///
 /// Pseudocode:<br>
-/// a is Some(_)
+/// a is Some(a1)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -47,8 +47,8 @@ macro_rules! assert_some_as_result {
         match (&$a) {
             option => {
                 match (option) {
-                    Some(_) => {
-                        Ok(())
+                    Some(a1) => {
+                        Ok(a1)
                     },
                     _ => {
                         Err(
@@ -77,7 +77,7 @@ mod tests {
     fn test_assert_some_as_result_x_success() {
         let a: Option<i8> = Option::Some(1);
         let result = assert_some_as_result!(a);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), &1);
     }
 
     #[test]
@@ -96,12 +96,12 @@ mod tests {
     }
 }
 
-/// Assert expression is Some(_).
+/// Assert expression is Some.
 ///
 /// Pseudocode:<br>
-/// a is Some(_)
+/// a is Some(a1)
 ///
-/// * If true, return `()`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -158,7 +158,7 @@ macro_rules! assert_some {
     }};
 }
 
-/// Assert expression is Some(_).
+/// Assert expression is Some.
 ///
 /// Pseudocode:<br>
 /// a is Some(_)

@@ -1,7 +1,7 @@
-//! Assert two expressions are Some(_) and their values are not equal.
+//! Assert two expressions are Some and their values are not equal.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅)
+//! (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
 //!
 //! # Example
 //!
@@ -21,12 +21,12 @@
 //! * [`assert_some_ne_as_result`](macro@crate::assert_some_ne_as_result)
 //! * [`debug_assert_some_ne`](macro@crate::debug_assert_some_ne)
 
-/// Assert two expressions are Some(_) and their values are not equal.
+/// Assert two expressions are Some and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅)
+/// (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok((a1, b1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -48,9 +48,9 @@ macro_rules! assert_some_ne_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 match (a, b) {
-                    (Some(a_inner), Some(b_inner)) => {
-                        if a_inner != b_inner {
-                            Ok(())
+                    (Some(a1), Some(b1)) => {
+                        if a1 != b1 {
+                            Ok((a1, b1))
                         } else {
                             Err(
                                 format!(
@@ -66,10 +66,10 @@ macro_rules! assert_some_ne_as_result {
                                     ),
                                     stringify!($a),
                                     a,
-                                    a_inner,
+                                    a1,
                                     stringify!($b),
                                     b,
-                                    b_inner
+                                    b1
                                 )
                             )
                         }
@@ -106,7 +106,7 @@ mod tests {
         let a: Option<i8> = Option::Some(1);
         let b: Option<i8> = Option::Some(2);
         let result = assert_some_ne_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), (&1, &2));
     }
 
     #[test]
@@ -148,12 +148,12 @@ mod tests {
     }
 }
 
-/// Assert two expressions are Some(_) and their values are not equal.
+/// Assert two expressions are Some and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅)
+/// (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a1, b1)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -208,22 +208,22 @@ mod tests {
 macro_rules! assert_some_ne {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_some_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_some_ne_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
 }
 
-/// Assert two expressions are Some(_) and their values are not equal.
+/// Assert two expressions are Some and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Some(a̅) ⇒ a̅) ≠ (b ⇒ Some(b̅) ⇒ b̅)
+/// (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
 ///
 /// This macro provides the same statements as [`assert_some_ne`](macro.assert_some_ne.html),
 /// except this macro's statements are only enabled in non-optimized

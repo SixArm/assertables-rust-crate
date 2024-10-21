@@ -10,18 +10,18 @@
 //! Compare Err(…) to another Err(…):
 //!
 //! * [`assert_err_eq!(a, b)`](macro@crate::assert_err_eq)
-//!   ≈ (a ⇒ Err(a̅) ⇒ a̅) = (b ⇒ Err(b̅) ⇒ b̅)
+//!   ≈ (a ⇒ Err(a1) ⇒ a1) = (b ⇒ Err(b1) ⇒ b1)
 //!
 //! * [`assert_err_ne!(a, b)`](macro@crate::assert_err_ne)
-//!   ≈ (a ⇒ Err(a̅) ⇒ a̅) ≠ (b ⇒ Err(b̅) ⇒ b̅)
+//!   ≈ (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
 //!
 //! Compare Err(…) to an expression:
 //!
 //! * [`assert_err_eq_expr!(a, expr)`](macro@crate::assert_err_eq_expr)
-//!   ≈ (a ⇒ Err(a̅) ⇒ a̅) = b
+//!   ≈ (a ⇒ Err(a1) ⇒ a1) = b
 //!
 //! * [`assert_err_ne_expr!(a, b)`](macro@crate::assert_err_ne_expr)
-//!   ≈ (a ⇒ Err(a̅) ⇒ a̅) ≠ b
+//!   ≈ (a ⇒ Err(a1) ⇒ a1) ≠ b
 //!
 //! # Example
 //!

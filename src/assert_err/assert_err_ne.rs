@@ -1,7 +1,7 @@
 //! Assert two expressions are Err and their values are not equal.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Err(a̅) ⇒ a̅) ≠ (b ⇒ Err(b̅) ⇒ b̅)
+//! (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
 //!
 //! # Example
 //!
@@ -24,9 +24,9 @@
 /// Assert two expressions are Err and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Err(a̅) ⇒ a̅) ≠ (b ⇒ Err(b̅) ⇒ b̅)
+/// (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
 ///
-/// * If true, return Result `Ok((a̅, b̅))`.
+/// * If true, return Result `Ok((a1, b1))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -48,9 +48,9 @@ macro_rules! assert_err_ne_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 match (a, b) {
-                    (Err(a_inner), Err(b_inner)) => {
-                        if a_inner != b_inner {
-                            Ok((a_inner, b_inner))
+                    (Err(a1), Err(b1)) => {
+                        if a1 != b1 {
+                            Ok((a1, b1))
                         } else {
                             Err(
                                 format!(
@@ -66,10 +66,10 @@ macro_rules! assert_err_ne_as_result {
                                     ),
                                     stringify!($a),
                                     a,
-                                    a_inner,
+                                    a1,
                                     stringify!($b),
                                     b,
-                                    b_inner
+                                    b1
                                 )
                             )
                         }
@@ -151,9 +151,9 @@ mod tests {
 /// Assert two expressions are Err and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Err(a̅) ⇒ a̅) ≠ (b ⇒ Err(b̅) ⇒ b̅)
+/// (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
 ///
-/// * If true, return `(a̅, b̅)`.
+/// * If true, return `(a1, b1)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

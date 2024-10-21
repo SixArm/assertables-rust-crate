@@ -1,4 +1,4 @@
-//! Assert an expression is Ready(_).
+//! Assert an expression is Ready.
 //!
 //! Pseudocode:<br>
 //! a is Ready(_)
@@ -22,7 +22,7 @@
 //! * [`assert_ready_as_result`](macro@crate::assert_ready_as_result)
 //! * [`debug_assert_ready`](macro@crate::debug_assert_ready)
 
-/// Assert an expression is Ready(_).
+/// Assert an expression is Ready.
 ///
 /// Pseudocode:<br>
 /// a is Ready(_)
@@ -100,7 +100,7 @@ mod tests {
     }
 }
 
-/// Assert an expression is Ready(_).
+/// Assert an expression is Ready.
 ///
 /// Pseudocode:<br>
 /// a is Ready(_)

@@ -1,7 +1,7 @@
-//! Assert an expression is Ready(_) and its value is not equal to an expression.
+//! Assert an expression is Ready and its value is not equal to an expression.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Ready(a̅) ⇒ a̅) ≠ b
+//! (a ⇒ Ready(a1) ⇒ a1) ≠ b
 //!
 //! # Example
 //!
@@ -22,10 +22,10 @@
 //! * [`assert_ready_ne_expr_as_result`](macro@crate::assert_ready_ne_expr_as_result)
 //! * [`debug_assert_ready_ne_expr`](macro@crate::debug_assert_ready_ne_expr)
 
-/// Assert an expression is Ready(_) and its value is not equal to an expression.
+/// Assert an expression is Ready and its value is not equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ready(a̅) ⇒ a̅) ≠ b
+/// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
 /// * If true, return Result `Some(())`.
 ///
@@ -49,8 +49,8 @@ macro_rules! assert_ready_ne_expr_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 match a {
-                    Ready(a_inner) => {
-                        if a_inner != b {
+                    Ready(a1) => {
+                        if a1 != b {
                             Ok(())
                         } else {
                             Err(
@@ -66,7 +66,7 @@ macro_rules! assert_ready_ne_expr_as_result {
                                     ),
                                     stringify!($a),
                                     a,
-                                    a_inner,
+                                    a1,
                                     stringify!($b),
                                     b
                                 )
@@ -148,10 +148,10 @@ mod tests {
     }
 }
 
-/// Assert an expression is Ready(_) and its value is not equal to an expression.
+/// Assert an expression is Ready and its value is not equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ready(a̅) ⇒ a̅) ≠ b
+/// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
 /// * If true, return `()`.
 ///
@@ -219,10 +219,10 @@ macro_rules! assert_ready_ne_expr {
     }};
 }
 
-/// Assert an expression is Ready(_) and its value is not equal to an expression.
+/// Assert an expression is Ready and its value is not equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ready(a̅) ⇒ a̅) ≠ b
+/// (a ⇒ Ready(a1) ⇒ a1) ≠ b
 ///
 /// This macro provides the same statements as [`assert_ready_ne_expr`](macro.assert_ready_ne_expr.html),
 /// except this macro's statements are only enabled in non-optimized

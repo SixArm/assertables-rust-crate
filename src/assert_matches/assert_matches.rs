@@ -111,7 +111,7 @@ mod tests {
     }
 }
 
-/// Assert expression is Some(_).
+/// Assert expression is Some.
 ///
 /// * If true, return `()`.
 ///
@@ -180,7 +180,7 @@ macro_rules! assert_matches {
     }};
 }
 
-/// Assert expression is Some(_).
+/// Assert expression is Some.
 ///
 /// This macro provides the same statements as [`assert_matches`](macro.assert_matches.html),
 /// except this macro's statements are only enabled in non-optimized

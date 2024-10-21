@@ -1,4 +1,4 @@
-//! Assert an expression is Ready(_).
+//! Assert an expression is Ready.
 //!
 //! # Example
 //!
@@ -19,7 +19,7 @@
 //! * [`assert_poll_ready_as_result`](macro@crate::assert_poll_ready_as_result)
 //! * [`debug_assert_poll_ready`](macro@crate::debug_assert_poll_ready)
 
-/// Assert an expression is Ready(_).
+/// Assert an expression is Ready.
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -97,7 +97,7 @@ mod tests {
     }
 }
 
-/// Assert an expression is Ready(_).
+/// Assert an expression is Ready.
 ///
 /// * If true, return `()`.
 ///

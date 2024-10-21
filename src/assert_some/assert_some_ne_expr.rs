@@ -1,7 +1,7 @@
-//! Assert an expression is Some(_) and its value is not equal to an expression.
+//! Assert an expression is Some and its value is not equal to an expression.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Some(a̅) ⇒ a̅) ≠ b
+//! (a ⇒ Some(a1) ⇒ a1) ≠ b
 //!
 //! # Example
 //!
@@ -24,7 +24,7 @@
 /// Assert a.is_some() and a.unwrap() are equal to another.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Some(a̅) ⇒ a̅) ≠ b
+/// (a ⇒ Some(a1) ⇒ a1) ≠ b
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -48,9 +48,9 @@ macro_rules! assert_some_ne_expr_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 match a {
-                    Some(a_inner) => {
-                        if a_inner != b {
-                            Ok(())
+                    Some(a1) => {
+                        if a1 != b {
+                            Ok(a1)
                         } else {
                             Err(
                                 format!(
@@ -65,7 +65,7 @@ macro_rules! assert_some_ne_expr_as_result {
                                     ),
                                     stringify!($a),
                                     a,
-                                    a_inner,
+                                    a1,
                                     stringify!($b),
                                     b
                                 )
@@ -104,7 +104,7 @@ mod tests {
         let a: Option<i8> = Option::Some(1);
         let b: i8 = 2;
         let result = assert_some_ne_expr_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        assert_eq!(result.unwrap(), &1);
     }
 
     #[test]
@@ -145,12 +145,12 @@ mod tests {
     }
 }
 
-/// Assert an expression is Some(_) and its value is not equal to an expression.
+/// Assert an expression is Some and its value is not equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Some(a̅) ⇒ a̅) ≠ b
+/// (a ⇒ Some(a1) ⇒ a1) ≠ b
 ///
-/// * If true, return `()`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -203,22 +203,22 @@ mod tests {
 macro_rules! assert_some_ne_expr {
     ($a:expr, $b:expr $(,)?) => {{
         match $crate::assert_some_ne_expr_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_some_ne_expr_as_result!($a, $b) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
 }
 
-/// Assert an expression is Some(_) and its value is not equal to an expression.
+/// Assert an expression is Some and its value is not equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Some(a̅) ⇒ a̅) ≠ b
+/// (a ⇒ Some(a1) ⇒ a1) ≠ b
 ///
 /// This macro provides the same statements as [`assert_some_ne_expr`](macro.assert_some_ne_expr.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -23,9 +23,9 @@
 /// Assert expression is Err.
 ///
 /// Pseudocode:<br>
-/// a is Err(a̅)
+/// a is Err(a1)
 ///
-/// * If true, return Result `Ok(a̅)`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -47,8 +47,8 @@ macro_rules! assert_err_as_result {
         match (&$a) {
             a => {
                 match (a) {
-                    Err(a_inner) => {
-                        Ok(a_inner)
+                    Err(a1) => {
+                        Ok(a1)
                     },
                     _ => {
                         Err(
@@ -99,9 +99,9 @@ mod tests {
 /// Assert expression is Err.
 ///
 /// Pseudocode:<br>
-/// a is Err(a̅)
+/// a is Err(a1)
 ///
-/// * If true, return `a̅`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

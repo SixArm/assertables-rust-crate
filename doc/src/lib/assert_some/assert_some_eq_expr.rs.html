@@ -254,10 +254,10 @@
 <a href="#254" id="254">254</a>
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Some(_) and its value is equal to an expression.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Some and its value is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (a ⇒ Some(a̅) ⇒ a̅) = b
+//! (a ⇒ Some(a1) ⇒ a1) = b
 //!
 //! # Example
 //!
@@ -280,9 +280,9 @@
 /// Assert a.is_some() and a.unwrap() are equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Some(a̅) ⇒ a̅) = b
+/// (a ⇒ Some(a1) ⇒ a1) = b
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -304,9 +304,9 @@
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
                 <span class="kw">match </span>a {
-                    <span class="prelude-val">Some</span>(a_inner) =&gt; {
-                        <span class="kw">if </span>a_inner == b {
-                            <span class="prelude-val">Ok</span>(())
+                    <span class="prelude-val">Some</span>(a1) =&gt; {
+                        <span class="kw">if </span>a1 == b {
+                            <span class="prelude-val">Ok</span>(a1)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -321,7 +321,7 @@
                                     </span>),
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                                     a,
-                                    a_inner,
+                                    a1,
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
                                     b
                                 )
@@ -360,7 +360,7 @@
         <span class="kw">let </span>a: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">1</span>);
         <span class="kw">let </span>b: i8 = <span class="number">1</span>;
         <span class="kw">let </span>result = <span class="macro">assert_some_eq_expr_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="kw-2">&amp;</span><span class="number">1</span>);
     }
 
     <span class="attr">#[test]
@@ -401,12 +401,12 @@
     }
 }
 
-<span class="doccomment">/// Assert an expression is Some(_) and its value is equal to an expression.
+<span class="doccomment">/// Assert an expression is Some and its value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Some(a̅) ⇒ a̅) = b
+/// (a ⇒ Some(a1) ⇒ a1) = b
 ///
-/// * If true, return `()`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -459,22 +459,22 @@
 </span><span class="macro">macro_rules!</span> assert_some_eq_expr {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_some_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_some_eq_expr_as_result!</span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
 }
 
-<span class="doccomment">/// Assert an expression is Some(_) and its value is equal to an expression.
+<span class="doccomment">/// Assert an expression is Some and its value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Some(a̅) ⇒ a̅) = b
+/// (a ⇒ Some(a1) ⇒ a1) = b
 ///
 /// This macro provides the same statements as [`assert_some_eq_expr`](macro.assert_some_eq_expr.html),
 /// except this macro's statements are only enabled in non-optimized

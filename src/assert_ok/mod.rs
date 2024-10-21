@@ -10,18 +10,18 @@
 //! Compare Ok(…) to another Ok(…):
 //!
 //! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq)
-//!   ≈ (a ⇒ Ok(a̅) ⇒ a̅) = (b ⇒ Ok(b̅) ⇒ b̅)
+//!   ≈ (a ⇒ Ok(a1) ⇒ a1) = (b ⇒ Ok(b1) ⇒ b1)
 //!
 //! * [`assert_ok_ne!(a, b)`](macro@crate::assert_ok_ne)
-//!   ≈ (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+//!   ≈ (a ⇒ Ok(a1) ⇒ a1) ≠ (b ⇒ Ok(b1) ⇒ b1)
 //!
 //! Compare Ok(…) to an expression:
 //!
 //! * [`assert_ok_eq_expr!(a, expr)`](macro@crate::assert_ok_eq_expr)
-//!   ≈ (a ⇒ Ok(a̅) ⇒ a̅) = b
+//!   ≈ (a ⇒ Ok(a1) ⇒ a1) = b
 //!
 //! * [`assert_ok_ne_expr!(a, b)`](macro@crate::assert_ok_ne_expr)
-//!   ≈ (a ⇒ Ok(a̅) ⇒ a̅) ≠ b
+//!   ≈ (a ⇒ Ok(a1) ⇒ a1) ≠ b
 //!
 //! # Example
 //!

@@ -1,7 +1,7 @@
 //! Assert two expressions are Ok and their values are not equal.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+//! (a ⇒ Ok(a1) ⇒ a1) ≠ (b ⇒ Ok(b1) ⇒ b1)
 //!
 //! # Example
 //!
@@ -24,9 +24,9 @@
 /// Assert two expressions are Ok and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+/// (a ⇒ Ok(a1) ⇒ a1) ≠ (b ⇒ Ok(b1) ⇒ b1)
 ///
-/// * If true, return Result `Ok((a̅, b̅))`.
+/// * If true, return Result `Ok((a1, b1))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -47,9 +47,9 @@ macro_rules! assert_ok_ne_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => match (a, b) {
-                (Ok(a_inner), Ok(b_inner)) => {
-                    if a_inner != b_inner {
-                        Ok((a_inner, b_inner))
+                (Ok(a1), Ok(b1)) => {
+                    if a1 != b1 {
+                        Ok((a1, b1))
                     } else {
                         Err(
                             format!(
@@ -65,10 +65,10 @@ macro_rules! assert_ok_ne_as_result {
                                 ),
                                 stringify!($a),
                                 a,
-                                a_inner,
+                                a1,
                                 stringify!($b),
                                 b,
-                                b_inner
+                                b1
                             )
                         )
                     }
@@ -149,9 +149,9 @@ mod tests {
 /// Assert two expressions are Ok and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ok(a̅) ⇒ a̅) ≠ (b ⇒ Ok(b̅) ⇒ b̅)
+/// (a ⇒ Ok(a1) ⇒ a1) ≠ (b ⇒ Ok(b1) ⇒ b1)
 ///
-/// * If true, return `(a̅, b̅)`.
+/// * If true, return `(a1, b1)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

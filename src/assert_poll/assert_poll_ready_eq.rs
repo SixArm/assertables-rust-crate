@@ -46,8 +46,8 @@ macro_rules! assert_poll_ready_eq_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 match (a, b) {
-                    (Ready(a_inner), Ready(b_inner)) => {
-                        if a_inner == b_inner {
+                    (Ready(a1), Ready(b1)) => {
+                        if a1 == b1 {
                             Ok(())
                         } else {
                             Err(
@@ -64,10 +64,10 @@ macro_rules! assert_poll_ready_eq_as_result {
                                     ),
                                     stringify!($a),
                                     a,
-                                    a_inner,
+                                    a1,
                                     stringify!($b),
                                     b,
-                                    b_inner
+                                    b1
                                 )
                             )
                         }

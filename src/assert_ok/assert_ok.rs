@@ -23,9 +23,9 @@
 /// Assert expression is Ok.
 ///
 /// Pseudocode:<br>
-/// a is Ok(a̅)
+/// a is Ok(a1)
 ///
-/// * If true, return Result `Ok(a̅)`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -46,8 +46,8 @@ macro_rules! assert_ok_as_result {
     ($a:expr $(,)?) => {{
         match (&$a) {
             a => match (a) {
-                Ok(a_inner) => {
-                    Ok(a_inner)
+                Ok(a1) => {
+                    Ok(a1)
                 },
                 _ => {
                     Err(
@@ -98,7 +98,7 @@ mod tests {
 /// Pseudocode:<br>
 /// a is Ok(_)
 ///
-/// * If true, return `a̅`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

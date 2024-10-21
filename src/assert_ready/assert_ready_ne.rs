@@ -1,7 +1,7 @@
 //! Assert two expressions are Ready(_) and their values are not equal.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Ready(a̅) ⇒ a̅) ≠ (b ⇒ Ready(b̅) ⇒ b̅)
+//! (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)
 //!
 //! # Example
 //!
@@ -25,7 +25,7 @@
 /// Assert two expressions are Ready(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ready(a̅) ⇒ a̅) ≠ (b ⇒ Ready(b̅) ⇒ b̅)
+/// (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)
 ///
 /// * If true, return Result `Some(())`.
 ///
@@ -49,8 +49,8 @@ macro_rules! assert_ready_ne_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 match (a, b) {
-                    (Ready(a_inner), Ready(b_inner)) => {
-                        if a_inner != b_inner {
+                    (Ready(a1), Ready(b1)) => {
+                        if a1 != b1 {
                             Ok(())
                         } else {
                             Err(
@@ -67,10 +67,10 @@ macro_rules! assert_ready_ne_as_result {
                                     ),
                                     stringify!($a),
                                     a,
-                                    a_inner,
+                                    a1,
                                     stringify!($b),
                                     b,
-                                    b_inner
+                                    b1
                                 )
                             )
                         }
@@ -154,7 +154,7 @@ mod tests {
 /// Assert two expressions are Ready(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ready(a̅) ⇒ a̅) ≠ (b ⇒ Ready(b̅) ⇒ b̅)
+/// (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)
 ///
 /// * If true, return `()`.
 ///
@@ -227,7 +227,7 @@ macro_rules! assert_ready_ne {
 /// Assert two expressions are Ready(_) and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ready(a̅) ⇒ a̅) ≠ (b ⇒ Ready(b̅) ⇒ b̅)
+/// (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)
 ///
 /// This macro provides the same statements as [`assert_ready_ne`](macro.assert_ready_ne.html),
 /// except this macro's statements are only enabled in non-optimized

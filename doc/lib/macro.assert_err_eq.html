@@ -3,10 +3,10 @@
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert two expressions are Err and their values are equal.</p>
 <p>Pseudocode:<br>
-(a ⇒ Err(a̅) ⇒ a̅) = (b ⇒ Err(b̅) ⇒ b̅)</p>
+(a ⇒ Err(a1) ⇒ a1) = (b ⇒ Err(b1) ⇒ b1)</p>
 <ul>
 <li>
-<p>If true, return <code>(a̅, b̅)</code>.</p>
+<p>If true, return <code>(a1, b1)</code>.</p>
 </li>
 <li>
 <p>Otherwise, call <a href="https://doc.rust-lang.org/1.82.0/std/macro.panic.html" title="macro std::panic"><code>panic!</code></a> with a message and the values of the
