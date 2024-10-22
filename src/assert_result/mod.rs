@@ -9,5 +9,5 @@
 // Assert for Result
 pub mod assert_result_err;
 pub mod assert_result_ok;
-pub mod assert_result_ok_eq;
-pub mod assert_result_ok_ne;
+pub mod assert_result_ok_eq2;
+pub mod assert_result_ok_ne2;

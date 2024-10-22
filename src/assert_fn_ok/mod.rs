@@ -11,31 +11,31 @@
 //!
 //! Compare a function Ok() with another function Ok():
 //!
-//! * [`assert_fn_ok_eq!(a_function, b_function)`](macro@crate::assert_fn_ok_eq) ≈ a_function().unwrap_err() = b_function().unwrap_err()
+//! * [`assert_fn_ok_eq2!(a_function, b_function)`](macro@crate::assert_fn_ok_eq2) ≈ a_function().unwrap_err() = b_function().unwrap_err()
 //!
-//! * [`assert_fn_ok_ne!(a_function, b_function)`](macro@crate::assert_fn_ok_ne) ≈ a_function().unwrap_err() ≠ b_function().unwrap_err()
+//! * [`assert_fn_ok_ne2!(a_function, b_function)`](macro@crate::assert_fn_ok_ne2) ≈ a_function().unwrap_err() ≠ b_function().unwrap_err()
 //!
-//! * [`assert_fn_ok_ge!(a_function, b_function)`](macro@crate::assert_fn_ok_ge) ≈ a_function().unwrap_err() ≥ b_function().unwrap_err()
+//! * [`assert_fn_ok_ge2!(a_function, b_function)`](macro@crate::assert_fn_ok_ge2) ≈ a_function().unwrap_err() ≥ b_function().unwrap_err()
 //!
-//! * [`assert_fn_ok_gt!(a_function, b_function)`](macro@crate::assert_fn_ok_gt) ≈ a_function().unwrap_err() > b_function().unwrap_err()
+//! * [`assert_fn_ok_gt2!(a_function, b_function)`](macro@crate::assert_fn_ok_gt2) ≈ a_function().unwrap_err() > b_function().unwrap_err()
 //!
-//! * [`assert_fn_ok_le!(a_function, b_function)`](macro@crate::assert_fn_ok_le) ≈ a_function().unwrap_err() ≤ b_function().unwrap_err()
+//! * [`assert_fn_ok_le2!(a_function, b_function)`](macro@crate::assert_fn_ok_le2) ≈ a_function().unwrap_err() ≤ b_function().unwrap_err()
 //!
-//! * [`assert_fn_ok_lt!(a_function, b_function)`](macro@crate::assert_fn_ok_lt) ≈ a_function().unwrap_err() < b_function().unwrap_err()
+//! * [`assert_fn_ok_lt2!(a_function, b_function)`](macro@crate::assert_fn_ok_lt2) ≈ a_function().unwrap_err() < b_function().unwrap_err()
 //!
 //! Compare a function Ok() with an expression:
 //!
-//! * [`assert_fn_ok_eq!(function, expr)`](macro@crate::assert_fn_ok_eq) ≈ function().unwrap_err() = expr
+//! * [`assert_fn_ok_eq2!(function, expr)`](macro@crate::assert_fn_ok_eq2) ≈ function().unwrap_err() = expr
 //!
-//! * [`assert_fn_ok_ne!(function, expr)`](macro@crate::assert_fn_ok_ne) ≈ function().unwrap_err() ≠ expr
+//! * [`assert_fn_ok_ne2!(function, expr)`](macro@crate::assert_fn_ok_ne2) ≈ function().unwrap_err() ≠ expr
 //!
-//! * [`assert_fn_ok_ge!(function, expr)`](macro@crate::assert_fn_ok_ge) ≈ function().unwrap_err() ≥ expr
+//! * [`assert_fn_ok_ge2!(function, expr)`](macro@crate::assert_fn_ok_ge2) ≈ function().unwrap_err() ≥ expr
 //!
-//! * [`assert_fn_ok_gt!(function, expr)`](macro@crate::assert_fn_ok_gt) ≈ function().unwrap_err() > expr
+//! * [`assert_fn_ok_gt2!(function, expr)`](macro@crate::assert_fn_ok_gt2) ≈ function().unwrap_err() > expr
 //!
-//! * [`assert_fn_ok_le!(function, expr)`](macro@crate::assert_fn_ok_le) ≈ function().unwrap_err() ≤ expr
+//! * [`assert_fn_ok_le2!(function, expr)`](macro@crate::assert_fn_ok_le2) ≈ function().unwrap_err() ≤ expr
 //!
-//! * [`assert_fn_ok_lt!(function, expr)`](macro@crate::assert_fn_ok_lt) ≈ function().unwrap_err() < expr
+//! * [`assert_fn_ok_lt2!(function, expr)`](macro@crate::assert_fn_ok_lt2) ≈ function().unwrap_err() < expr
 //!
 //! # Example
 //!
@@ -51,22 +51,22 @@
 //! # fn main() {
 //! let a: i8 = 1;
 //! let b: i8 = 1;
-//! assert_fn_ok_eq!(f, a, f, b);
+//! assert_fn_ok_eq2!(f, a, f, b);
 //! # }
 //! ```
 
 // Comparisons
+pub mod assert_fn_ok_eq2;
+pub mod assert_fn_ok_ge2;
+pub mod assert_fn_ok_gt2;
+pub mod assert_fn_ok_le2;
+pub mod assert_fn_ok_lt2;
+pub mod assert_fn_ok_ne2;
+
+// Compare with expression
 pub mod assert_fn_ok_eq;
 pub mod assert_fn_ok_ge;
 pub mod assert_fn_ok_gt;
 pub mod assert_fn_ok_le;
 pub mod assert_fn_ok_lt;
 pub mod assert_fn_ok_ne;
-
-// Compare with expression
-pub mod assert_fn_ok_eq_expr;
-pub mod assert_fn_ok_ge_expr;
-pub mod assert_fn_ok_gt_expr;
-pub mod assert_fn_ok_le_expr;
-pub mod assert_fn_ok_lt_expr;
-pub mod assert_fn_ok_ne_expr;

@@ -4,43 +4,43 @@ The macros call the functions, then compare the return values.</p>
 <p>Compare a function with another function:</p>
 <ul>
 <li>
-<p><a href="../macro.assert_fn_eq.html" title="macro lib::assert_fn_eq"><code>assert_fn_eq!(a_function, b_function)</code></a> ≈ a_function() = b_function()</p>
+<p><a href="../macro.assert_fn_eq2.html" title="macro lib::assert_fn_eq2"><code>assert_fn_eq2!(a_function, b_function)</code></a> ≈ a_function() = b_function()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_ne.html" title="macro lib::assert_fn_ne"><code>assert_fn_ne!(a_function, b_function)</code></a> ≈ a_function() ≠ b_function()</p>
+<p><a href="../macro.assert_fn_ne2.html" title="macro lib::assert_fn_ne2"><code>assert_fn_ne2!(a_function, b_function)</code></a> ≈ a_function() ≠ b_function()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_ge.html" title="macro lib::assert_fn_ge"><code>assert_fn_ge!(a_function, b_function)</code></a> ≈ a_function() ≥ b_function()</p>
+<p><a href="../macro.assert_fn_ge2.html" title="macro lib::assert_fn_ge2"><code>assert_fn_ge2!(a_function, b_function)</code></a> ≈ a_function() ≥ b_function()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_gt.html" title="macro lib::assert_fn_gt"><code>assert_fn_gt!(a_function, b_function)</code></a> ≈ a_function() &gt; b_function()</p>
+<p><a href="../macro.assert_fn_gt2.html" title="macro lib::assert_fn_gt2"><code>assert_fn_gt2!(a_function, b_function)</code></a> ≈ a_function() &gt; b_function()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_le.html" title="macro lib::assert_fn_le"><code>assert_fn_le!(a_function, b_function)</code></a> ≈ a_function() ≤ b_function()</p>
+<p><a href="../macro.assert_fn_le2.html" title="macro lib::assert_fn_le2"><code>assert_fn_le2!(a_function, b_function)</code></a> ≈ a_function() ≤ b_function()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_lt.html" title="macro lib::assert_fn_lt"><code>assert_fn_lt!(a_function, b_function)</code></a> ≈ a_function() &lt; b_function()</p>
+<p><a href="../macro.assert_fn_lt2.html" title="macro lib::assert_fn_lt2"><code>assert_fn_lt2!(a_function, b_function)</code></a> ≈ a_function() &lt; b_function()</p>
 </li>
 </ul>
 <p>Compare a function with an expression:</p>
 <ul>
 <li>
-<p><a href="../macro.assert_fn_eq_expr.html" title="macro lib::assert_fn_eq_expr"><code>assert_fn_eq_expr!(function, expr)</code></a> ≈ function() = expr</p>
+<p><a href="../macro.assert_fn_eq.html" title="macro lib::assert_fn_eq"><code>assert_fn_eq!(function, expr)</code></a> ≈ function() = expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_ne_expr.html" title="macro lib::assert_fn_ne_expr"><code>assert_fn_ne_expr!(function, expr)</code></a> ≈ function() ≠ expr</p>
+<p><a href="../macro.assert_fn_ne.html" title="macro lib::assert_fn_ne"><code>assert_fn_ne!(function, expr)</code></a> ≈ function() ≠ expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_ge_expr.html" title="macro lib::assert_fn_ge_expr"><code>assert_fn_ge_expr!(function, expr)</code></a> ≈ function() ≥ expr</p>
+<p><a href="../macro.assert_fn_ge.html" title="macro lib::assert_fn_ge"><code>assert_fn_ge!(function, expr)</code></a> ≈ function() ≥ expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_gt_expr.html" title="macro lib::assert_fn_gt_expr"><code>assert_fn_gt_expr!(function, expr)</code></a> ≈ function() &gt; expr</p>
+<p><a href="../macro.assert_fn_gt.html" title="macro lib::assert_fn_gt"><code>assert_fn_gt!(function, expr)</code></a> ≈ function() &gt; expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_le_expr.html" title="macro lib::assert_fn_le_expr"><code>assert_fn_le_expr!(function, expr)</code></a> ≈ function() ≤ expr</p>
+<p><a href="../macro.assert_fn_le.html" title="macro lib::assert_fn_le"><code>assert_fn_le!(function, expr)</code></a> ≈ function() ≤ expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_lt_expr.html" title="macro lib::assert_fn_lt_expr"><code>assert_fn_lt_expr!(function, expr)</code></a> ≈ function() &lt; expr</p>
+<p><a href="../macro.assert_fn_lt.html" title="macro lib::assert_fn_lt"><code>assert_fn_lt!(function, expr)</code></a> ≈ function() &lt; expr</p>
 </li>
 </ul>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
@@ -48,5 +48,5 @@ The macros call the functions, then compare the return values.</p>
 
 <span class="kw">let </span>a: i8 = -<span class="number">1</span>;
 <span class="kw">let </span>b: i8 = <span class="number">1</span>;
-<span class="macro">assert_fn_eq!</span>(i8::abs, a, i8::abs, b);</code></pre></div>
-</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="assert_fn_eq/index.html" title="mod lib::assert_fn::assert_fn_eq">assert_<wbr>fn_<wbr>eq</a></div><div class="desc docblock-short">Assert a function output is equal to another function output.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_eq_expr/index.html" title="mod lib::assert_fn::assert_fn_eq_expr">assert_<wbr>fn_<wbr>eq_<wbr>expr</a></div><div class="desc docblock-short">Assert a function output is equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_ge/index.html" title="mod lib::assert_fn::assert_fn_ge">assert_<wbr>fn_<wbr>ge</a></div><div class="desc docblock-short">Assert a function output is greater than or equal to another.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_ge_expr/index.html" title="mod lib::assert_fn::assert_fn_ge_expr">assert_<wbr>fn_<wbr>ge_<wbr>expr</a></div><div class="desc docblock-short">Assert a function output is greater than or equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_gt/index.html" title="mod lib::assert_fn::assert_fn_gt">assert_<wbr>fn_<wbr>gt</a></div><div class="desc docblock-short">Assert a function output is greater than another.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_gt_expr/index.html" title="mod lib::assert_fn::assert_fn_gt_expr">assert_<wbr>fn_<wbr>gt_<wbr>expr</a></div><div class="desc docblock-short">Assert a function output is greater than an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_le/index.html" title="mod lib::assert_fn::assert_fn_le">assert_<wbr>fn_<wbr>le</a></div><div class="desc docblock-short">Assert a function output is less than or equal to another.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_le_expr/index.html" title="mod lib::assert_fn::assert_fn_le_expr">assert_<wbr>fn_<wbr>le_<wbr>expr</a></div><div class="desc docblock-short">Assert a function output is less than or equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_lt/index.html" title="mod lib::assert_fn::assert_fn_lt">assert_<wbr>fn_<wbr>lt</a></div><div class="desc docblock-short">Assert a function output is less than another.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_lt_expr/index.html" title="mod lib::assert_fn::assert_fn_lt_expr">assert_<wbr>fn_<wbr>lt_<wbr>expr</a></div><div class="desc docblock-short">Assert a function output is less than an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_ne/index.html" title="mod lib::assert_fn::assert_fn_ne">assert_<wbr>fn_<wbr>ne</a></div><div class="desc docblock-short">Assert a function output is not equal to another.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_ne_expr/index.html" title="mod lib::assert_fn::assert_fn_ne_expr">assert_<wbr>fn_<wbr>ne_<wbr>expr</a></div><div class="desc docblock-short">Assert a function output is not equal to an expression.</div></li></ul></section></div></main></body></html>
+<span class="macro">assert_fn_eq2!</span>(i8::abs, a, i8::abs, b);</code></pre></div>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="assert_fn_eq/index.html" title="mod lib::assert_fn::assert_fn_eq">assert_<wbr>fn_<wbr>eq</a></div><div class="desc docblock-short">Assert a function output is equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_eq2/index.html" title="mod lib::assert_fn::assert_fn_eq2">assert_<wbr>fn_<wbr>eq2</a></div><div class="desc docblock-short">Assert a function output is equal to another function output.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_ge/index.html" title="mod lib::assert_fn::assert_fn_ge">assert_<wbr>fn_<wbr>ge</a></div><div class="desc docblock-short">Assert a function output is greater than or equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_ge2/index.html" title="mod lib::assert_fn::assert_fn_ge2">assert_<wbr>fn_<wbr>ge2</a></div><div class="desc docblock-short">Assert a function output is greater than or equal to another.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_gt/index.html" title="mod lib::assert_fn::assert_fn_gt">assert_<wbr>fn_<wbr>gt</a></div><div class="desc docblock-short">Assert a function output is greater than an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_gt2/index.html" title="mod lib::assert_fn::assert_fn_gt2">assert_<wbr>fn_<wbr>gt2</a></div><div class="desc docblock-short">Assert a function output is greater than another.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_le/index.html" title="mod lib::assert_fn::assert_fn_le">assert_<wbr>fn_<wbr>le</a></div><div class="desc docblock-short">Assert a function output is less than or equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_le2/index.html" title="mod lib::assert_fn::assert_fn_le2">assert_<wbr>fn_<wbr>le2</a></div><div class="desc docblock-short">Assert a function output is less than or equal to another.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_lt/index.html" title="mod lib::assert_fn::assert_fn_lt">assert_<wbr>fn_<wbr>lt</a></div><div class="desc docblock-short">Assert a function output is less than an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_lt2/index.html" title="mod lib::assert_fn::assert_fn_lt2">assert_<wbr>fn_<wbr>lt2</a></div><div class="desc docblock-short">Assert a function output is less than another.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_ne/index.html" title="mod lib::assert_fn::assert_fn_ne">assert_<wbr>fn_<wbr>ne</a></div><div class="desc docblock-short">Assert a function output is not equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_fn_ne2/index.html" title="mod lib::assert_fn::assert_fn_ne2">assert_<wbr>fn_<wbr>ne2</a></div><div class="desc docblock-short">Assert a function output is not equal to another.</div></li></ul></section></div></main></body></html>

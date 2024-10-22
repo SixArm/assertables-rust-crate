@@ -11,15 +11,15 @@
 //! # fn main() {
 //! let a: i8 = -1;
 //! let b: i8 = 1;
-//! assert_fn_eq_expr!(i8::abs, a, b);
+//! assert_fn_eq!(i8::abs, a, b);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_fn_eq_expr`](macro@crate::assert_fn_eq_expr)
-//! * [`assert_fn_eq_expr_as_result`](macro@crate::assert_fn_eq_expr_as_result)
-//! * [`debug_assert_fn_eq_expr`](macro@crate::debug_assert_fn_eq_expr)
+//! * [`assert_fn_eq`](macro@crate::assert_fn_eq)
+//! * [`assert_fn_eq_as_result`](macro@crate::assert_fn_eq_as_result)
+//! * [`debug_assert_fn_eq`](macro@crate::debug_assert_fn_eq)
 
 /// Assert a function output is equal to an expression.
 ///
@@ -38,12 +38,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_eq_expr`](macro@crate::assert_fn_eq_expr)
-/// * [`assert_fn_eq_expr_as_result`](macro@crate::assert_fn_eq_expr_as_result)
-/// * [`debug_assert_fn_eq_expr`](macro@crate::debug_assert_fn_eq_expr)
+/// * [`assert_fn_eq`](macro@crate::assert_fn_eq)
+/// * [`assert_fn_eq_as_result`](macro@crate::assert_fn_eq_as_result)
+/// * [`debug_assert_fn_eq`](macro@crate::debug_assert_fn_eq)
 ///
 #[macro_export]
-macro_rules! assert_fn_eq_expr_as_result {
+macro_rules! assert_fn_eq_as_result {
 
     //// Arity 1
 
@@ -57,8 +57,8 @@ macro_rules! assert_fn_eq_expr_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq_expr.html\n",
+                                "assertion failed: `assert_fn_eq!(a_function, a_param, b_expr)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq.html\n",
                                 " a_function label: `{}`,\n",
                                 "    a_param label: `{}`,\n",
                                 "    a_param debug: `{:?}`,\n",
@@ -93,8 +93,8 @@ macro_rules! assert_fn_eq_expr_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_fn_eq_expr!(a_function, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq_expr.html\n",
+                                "assertion failed: `assert_fn_eq!(a_function, b_expr)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq.html\n",
                                 " a_function label: `{}`,\n",
                                 "     b_expr label: `{}`,\n",
                                 "     b_expr debug: `{:?}`,\n",
@@ -118,7 +118,7 @@ macro_rules! assert_fn_eq_expr_as_result {
 #[cfg(test)]
 mod tests {
 
-    mod assert_fn_eq_expr_as_result {
+    mod assert_fn_eq_as_result {
 
         mod arity_1 {
 
@@ -130,7 +130,7 @@ mod tests {
             fn test_eq() {
                 let a: i8 = 1;
                 let b: i8 = 1;
-                let result = assert_fn_eq_expr_as_result!(f, a, b);
+                let result = assert_fn_eq_as_result!(f, a, b);
                 assert_eq!(result.unwrap(), 1);
             }
 
@@ -138,12 +138,12 @@ mod tests {
             fn test_assert_fn_eq_expr_as_result_x_arity_1_x_failure() {
                 let a: i8 = 1;
                 let b: i8 = 2;
-                let result = assert_fn_eq_expr_as_result!(f, a, b);
+                let result = assert_fn_eq_as_result!(f, a, b);
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
-                        "assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n",
-                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq_expr.html\n",
+                        "assertion failed: `assert_fn_eq!(a_function, a_param, b_expr)`\n",
+                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
@@ -165,19 +165,19 @@ mod tests {
             #[test]
             fn test_eq() {
                 let b: i8 = 1;
-                let result = assert_fn_eq_expr_as_result!(f, b);
+                let result = assert_fn_eq_as_result!(f, b);
                 assert_eq!(result.unwrap(), 1);
             }
 
             #[test]
             fn test_ne() {
                 let b: i8 = 2;
-                let result = assert_fn_eq_expr_as_result!(f, b);
+                let result = assert_fn_eq_as_result!(f, b);
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
-                        "assertion failed: `assert_fn_eq_expr!(a_function, b_expr)`\n",
-                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq_expr.html\n",
+                        "assertion failed: `assert_fn_eq!(a_function, b_expr)`\n",
+                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq.html\n",
                         " a_function label: `f`,\n",
                         "     b_expr label: `b`,\n",
                         "     b_expr debug: `2`,\n",
@@ -209,16 +209,16 @@ mod tests {
 /// # fn main() {
 /// let a: i8 = -1;
 /// let b: i8 = 1;
-/// assert_fn_eq_expr!(i8::abs, a, b);
+/// assert_fn_eq!(i8::abs, a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: i8 = -1;
 /// let b: i8 = 2;
-/// assert_fn_eq_expr!(i8::abs, a, b);
+/// assert_fn_eq!(i8::abs, a, b);
 /// # });
-/// // assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq_expr.html
+/// // assertion failed: `assert_fn_eq!(a_function, a_param, b_expr)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `-1`,
@@ -228,8 +228,8 @@ mod tests {
 /// //                 b: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_fn_eq_expr!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq_expr.html\n",
+/// #     "assertion failed: `assert_fn_eq!(a_function, a_param, b_expr)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_eq.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",
@@ -244,24 +244,24 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_eq_expr`](macro@crate::assert_fn_eq_expr)
-/// * [`assert_fn_eq_expr_as_result`](macro@crate::assert_fn_eq_expr_as_result)
-/// * [`debug_assert_fn_eq_expr`](macro@crate::debug_assert_fn_eq_expr)
+/// * [`assert_fn_eq`](macro@crate::assert_fn_eq)
+/// * [`assert_fn_eq_as_result`](macro@crate::assert_fn_eq_as_result)
+/// * [`debug_assert_fn_eq`](macro@crate::debug_assert_fn_eq)
 ///
 #[macro_export]
-macro_rules! assert_fn_eq_expr {
+macro_rules! assert_fn_eq {
 
     //// Arity 1
 
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
-        match $crate::assert_fn_eq_expr_as_result!($a_function, $a_param, $b_expr) {
+        match $crate::assert_fn_eq_as_result!($a_function, $a_param, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
-        match $crate::assert_fn_eq_expr_as_result!($a_function, $a_param, $b_expr) {
+        match $crate::assert_fn_eq_as_result!($a_function, $a_param, $b_expr) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -270,14 +270,14 @@ macro_rules! assert_fn_eq_expr {
     //// Arity 0
 
     ($a_function:path, $b_expr:expr $(,)?) => {{
-        match $crate::assert_fn_eq_expr_as_result!($a_function, $b_expr) {
+        match $crate::assert_fn_eq_as_result!($a_function, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $b_expr:expr, $($message:tt)+) => {{
-        match $crate::assert_fn_eq_expr_as_result!($a_function, $a_param, $b_expr) {
+        match $crate::assert_fn_eq_as_result!($a_function, $a_param, $b_expr) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -290,7 +290,7 @@ macro_rules! assert_fn_eq_expr {
 /// Pseudocode:<br>
 /// function(a) = b
 ///
-/// This macro provides the same statements as [`assert_fn_eq_expr`](macro.assert_fn_eq_expr.html),
+/// This macro provides the same statements as [`assert_fn_eq`](macro.assert_fn_eq.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -312,15 +312,15 @@ macro_rules! assert_fn_eq_expr {
 ///
 /// # Module macros
 ///
-/// * [`assert_fn_eq_expr`](macro@crate::assert_fn_eq_expr)
-/// * [`assert_fn_eq_expr`](macro@crate::assert_fn_eq_expr)
-/// * [`debug_assert_fn_eq_expr`](macro@crate::debug_assert_fn_eq_expr)
+/// * [`assert_fn_eq`](macro@crate::assert_fn_eq)
+/// * [`assert_fn_eq`](macro@crate::assert_fn_eq)
+/// * [`debug_assert_fn_eq`](macro@crate::debug_assert_fn_eq)
 ///
 #[macro_export]
-macro_rules! debug_assert_fn_eq_expr {
+macro_rules! debug_assert_fn_eq {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_fn_eq_expr!($($arg)*);
+            $crate::assert_fn_eq!($($arg)*);
         }
     };
 }

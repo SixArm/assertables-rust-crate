@@ -55,18 +55,18 @@
 //!
 //! Compare Err(…) to another Err(…):
 //!
-//! * [`assert_err_eq!(a, b)`](macro@crate::assert_err_eq)
+//! * [`assert_err_eq2!(a, b)`](macro@crate::assert_err_eq2)
 //!   ≈ (a ⇒ Err(a1) ⇒ a1) = (b ⇒ Err(b1) ⇒ b1)
 //!
-//! * [`assert_err_ne!(a, b)`](macro@crate::assert_err_ne)
+//! * [`assert_err_ne2!(a, b)`](macro@crate::assert_err_ne2)
 //!   ≈ (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
 //!
 //! Compare Err(…) to an expression:
 //!
-//! * [`assert_err_eq_expr!(a, expr)`](macro@crate::assert_err_eq_expr)
+//! * [`assert_err_eq!(a, expr)`](macro@crate::assert_err_eq)
 //!   ≈ (a ⇒ Err(a1) ⇒ a1) = b
 //!
-//! * [`assert_err_ne_expr!(a, b)`](macro@crate::assert_err_ne_expr)
+//! * [`assert_err_ne!(a, b)`](macro@crate::assert_err_ne)
 //!   ≈ (a ⇒ Err(a1) ⇒ a1) ≠ b
 //!
 //! # Example
@@ -84,10 +84,10 @@
 </span><span class="kw">pub mod </span>assert_err;
 
 <span class="comment">// Compare with another
-</span><span class="kw">pub mod </span>assert_err_eq;
-<span class="kw">pub mod </span>assert_err_ne;
+</span><span class="kw">pub mod </span>assert_err_eq2;
+<span class="kw">pub mod </span>assert_err_ne2;
 
 <span class="comment">// Compare with expression
-</span><span class="kw">pub mod </span>assert_err_eq_expr;
-<span class="kw">pub mod </span>assert_err_ne_expr;
+</span><span class="kw">pub mod </span>assert_err_eq;
+<span class="kw">pub mod </span>assert_err_ne;
 </code></pre></div></section></main></body></html>

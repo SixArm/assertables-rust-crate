@@ -65,31 +65,31 @@
 //!
 //! Compare a length with another length:
 //!
-//! * [`assert_len_eq!(a, b)`](macro@crate::assert_len_eq) ≈ a.len() = b.len()
+//! * [`assert_len_eq2!(a, b)`](macro@crate::assert_len_eq2) ≈ a.len() = b.len()
 //!
-//! * [`assert_len_ne!(a, b)`](macro@crate::assert_len_ne) ≈ a.len() ≠ b.len()
+//! * [`assert_len_ne2!(a, b)`](macro@crate::assert_len_ne2) ≈ a.len() ≠ b.len()
 //!
-//! * [`assert_len_lt!(a, b)`](macro@crate::assert_len_lt) ≈ a.len() &lt; b.len()
+//! * [`assert_len_lt2!(a, b)`](macro@crate::assert_len_lt2) ≈ a.len() &lt; b.len()
 //!
-//! * [`assert_len_le!(a, b)`](macro@crate::assert_len_le) ≈ a.len() ≤ b.len()
+//! * [`assert_len_le2!(a, b)`](macro@crate::assert_len_le2) ≈ a.len() ≤ b.len()
 //!
-//! * [`assert_len_gt!(a, b)`](macro@crate::assert_len_gt) ≈ a.len() &gt; b.len()
+//! * [`assert_len_gt2!(a, b)`](macro@crate::assert_len_gt2) ≈ a.len() &gt; b.len()
 //!
-//! * [`assert_len_ge!(a, b)`](macro@crate::assert_len_ge) ≈ a.len() ≥ b.len()
+//! * [`assert_len_ge2!(a, b)`](macro@crate::assert_len_ge2) ≈ a.len() ≥ b.len()
 //!
 //! Compare a length with an expression:
 //!
-//! * [`assert_len_eq_expr!(a, expr)`](macro@crate::assert_len_eq_expr) ≈ a.len() = expr
+//! * [`assert_len_eq!(a, expr)`](macro@crate::assert_len_eq) ≈ a.len() = expr
 //!
-//! * [`assert_len_ne_expr!(a, expr)`](macro@crate::assert_len_ne_expr) ≈ a.len() ≠ expr
+//! * [`assert_len_ne!(a, expr)`](macro@crate::assert_len_ne) ≈ a.len() ≠ expr
 //!
-//! * [`assert_len_lt_expr!(a, expr)`](macro@crate::assert_len_lt_expr) ≈ a.len() &lt; expr
+//! * [`assert_len_lt!(a, expr)`](macro@crate::assert_len_lt) ≈ a.len() &lt; expr
 //!
-//! * [`assert_len_le_expr!(a, expr)`](macro@crate::assert_len_le_expr) ≈ a.len() ≤ expr
+//! * [`assert_len_le!(a, expr)`](macro@crate::assert_len_le) ≈ a.len() ≤ expr
 //!
-//! * [`assert_len_gt_expr!(a, expr)`](macro@crate::assert_len_gt_expr) ≈ a.len() &gt; expr
+//! * [`assert_len_gt!(a, expr)`](macro@crate::assert_len_gt) ≈ a.len() &gt; expr
 //!
-//! * [`assert_len_ge_expr!(a, expr)`](macro@crate::assert_len_ge_expr) ≈ a.len() ≥ expr
+//! * [`assert_len_ge!(a, expr)`](macro@crate::assert_len_ge) ≈ a.len() ≥ expr
 //!
 //! # Example
 //!
@@ -99,23 +99,23 @@
 //! # fn main() {
 //! let a = "x";
 //! let b = "x";
-//! assert_len_eq!(a, b);
+//! assert_len_eq2!(a, b);
 //! # }
 //! ```
 
 </span><span class="comment">// Compare another
+</span><span class="kw">pub mod </span>assert_len_eq2;
+<span class="kw">pub mod </span>assert_len_ge2;
+<span class="kw">pub mod </span>assert_len_gt2;
+<span class="kw">pub mod </span>assert_len_le2;
+<span class="kw">pub mod </span>assert_len_lt2;
+<span class="kw">pub mod </span>assert_len_ne2;
+
+<span class="comment">// Compare expression
 </span><span class="kw">pub mod </span>assert_len_eq;
 <span class="kw">pub mod </span>assert_len_ge;
 <span class="kw">pub mod </span>assert_len_gt;
 <span class="kw">pub mod </span>assert_len_le;
 <span class="kw">pub mod </span>assert_len_lt;
 <span class="kw">pub mod </span>assert_len_ne;
-
-<span class="comment">// Compare expression
-</span><span class="kw">pub mod </span>assert_len_eq_expr;
-<span class="kw">pub mod </span>assert_len_ge_expr;
-<span class="kw">pub mod </span>assert_len_gt_expr;
-<span class="kw">pub mod </span>assert_len_le_expr;
-<span class="kw">pub mod </span>assert_len_lt_expr;
-<span class="kw">pub mod </span>assert_len_ne_expr;
 </code></pre></div></section></main></body></html>

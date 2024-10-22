@@ -11,15 +11,15 @@
 //! # fn main() {
 //! let a: Result<i8, i8> = Ok(1);
 //! let b: Result<i8, i8> = Ok(2);
-//! assert_ok_ne!(a, b);
+//! assert_ok_ne2!(a, b);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_ok_ne`](macro@crate::assert_ok_ne)
-//! * [`assert_ok_ne_as_result`](macro@crate::assert_ok_ne_as_result)
-//! * [`debug_assert_ok_ne`](macro@crate::debug_assert_ok_ne)
+//! * [`assert_ok_ne2`](macro@crate::assert_ok_ne2)
+//! * [`assert_ok_ne2_as_result`](macro@crate::assert_ok_ne2_as_result)
+//! * [`debug_assert_ok_ne2`](macro@crate::debug_assert_ok_ne2)
 
 /// Assert two expressions are Ok and their values are not equal.
 ///
@@ -30,7 +30,7 @@
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
-/// This macro provides the same statements as [`assert_ok_ne`](macro.assert_ok_ne.html),
+/// This macro provides the same statements as [`assert_ok_ne2`](macro.assert_ok_ne2.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -38,12 +38,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_ok_ne`](macro@crate::assert_ok_ne)
-/// * [`assert_ok_ne_as_result`](macro@crate::assert_ok_ne_as_result)
-/// * [`debug_assert_ok_ne`](macro@crate::debug_assert_ok_ne)
+/// * [`assert_ok_ne2`](macro@crate::assert_ok_ne2)
+/// * [`assert_ok_ne2_as_result`](macro@crate::assert_ok_ne2_as_result)
+/// * [`debug_assert_ok_ne2`](macro@crate::debug_assert_ok_ne2)
 ///
 #[macro_export]
-macro_rules! assert_ok_ne_as_result {
+macro_rules! assert_ok_ne2_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => match (a, b) {
@@ -54,8 +54,8 @@ macro_rules! assert_ok_ne_as_result {
                         Err(
                             format!(
                                 concat!(
-                                    "assertion failed: `assert_ok_ne!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+                                    "assertion failed: `assert_ok_ne2!(a, b)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne2.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " a inner: `{:?}`,\n",
@@ -77,8 +77,8 @@ macro_rules! assert_ok_ne_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_ok_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+                                "assertion failed: `assert_ok_ne2!(a, b)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne2.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -103,7 +103,7 @@ mod tests {
     fn test_assert_ok_ne_as_result_x_success() {
         let a: Result<i8, i8> = Ok(1);
         let b: Result<i8, i8> = Ok(2);
-        let result = assert_ok_ne_as_result!(a, b);
+        let result = assert_ok_ne2_as_result!(a, b);
         assert_eq!(result.unwrap(), (&1, &2));
     }
 
@@ -111,12 +111,12 @@ mod tests {
     fn test_assert_ok_ne_as_result_x_failure_because_eq() {
         let a: Result<i8, i8> = Ok(1);
         let b: Result<i8, i8> = Ok(1);
-        let result = assert_ok_ne_as_result!(a, b);
+        let result = assert_ok_ne2_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+                "assertion failed: `assert_ok_ne2!(a, b)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne2.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
                 " a inner: `1`,\n",
@@ -131,12 +131,12 @@ mod tests {
     fn test_assert_ok_ne_as_result_x_failure_because_not_ok() {
         let a: Result<i8, i8> = Err(1);
         let b: Result<i8, i8> = Ok(1);
-        let result = assert_ok_ne_as_result!(a, b);
+        let result = assert_ok_ne2_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+                "assertion failed: `assert_ok_ne2!(a, b)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne2.html\n",
                 " a label: `a`,\n",
                 " a debug: `Err(1)`,\n",
                 " b label: `b`,\n",
@@ -165,16 +165,16 @@ mod tests {
 /// # fn main() {
 /// let a: Result<i8, i8> = Ok(1);
 /// let b: Result<i8, i8> = Ok(2);
-/// assert_ok_ne!(a, b);
+/// assert_ok_ne2!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: Result<i8, i8> = Ok(1);
 /// let b: Result<i8, i8> = Ok(1);
-/// assert_ok_ne!(a, b);
+/// assert_ok_ne2!(a, b);
 /// # });
-/// // assertion failed: `assert_ok_ne!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html
+/// // assertion failed: `assert_ok_ne2!(a, b)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne2.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,
@@ -183,8 +183,8 @@ mod tests {
 /// //  b inner: `1`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_ok_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+/// #     "assertion failed: `assert_ok_ne2!(a, b)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne2.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -198,20 +198,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_ok_ne`](macro@crate::assert_ok_ne)
-/// * [`assert_ok_ne_as_result`](macro@crate::assert_ok_ne_as_result)
-/// * [`debug_assert_ok_ne`](macro@crate::debug_assert_ok_ne)
+/// * [`assert_ok_ne2`](macro@crate::assert_ok_ne2)
+/// * [`assert_ok_ne2_as_result`](macro@crate::assert_ok_ne2_as_result)
+/// * [`debug_assert_ok_ne2`](macro@crate::debug_assert_ok_ne2)
 ///
 #[macro_export]
-macro_rules! assert_ok_ne {
+macro_rules! assert_ok_ne2 {
     ($a:expr, $b:expr $(,)?) => {{
-        match $crate::assert_ok_ne_as_result!($a, $b) {
+        match $crate::assert_ok_ne2_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_ok_ne_as_result!($a, $b) {
+        match $crate::assert_ok_ne2_as_result!($a, $b) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -220,7 +220,7 @@ macro_rules! assert_ok_ne {
 
 /// Assert two expressions are Ok and their values are not equal.
 ///
-/// This macro provides the same statements as [`assert_ok_ne`](macro.assert_ok_ne.html),
+/// This macro provides the same statements as [`assert_ok_ne2`](macro.assert_ok_ne2.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -242,15 +242,15 @@ macro_rules! assert_ok_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_ok_ne`](macro@crate::assert_ok_ne)
-/// * [`assert_ok_ne`](macro@crate::assert_ok_ne)
-/// * [`debug_assert_ok_ne`](macro@crate::debug_assert_ok_ne)
+/// * [`assert_ok_ne2`](macro@crate::assert_ok_ne2)
+/// * [`assert_ok_ne2`](macro@crate::assert_ok_ne2)
+/// * [`debug_assert_ok_ne2`](macro@crate::debug_assert_ok_ne2)
 ///
 #[macro_export]
-macro_rules! debug_assert_ok_ne {
+macro_rules! debug_assert_ok_ne2 {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_ok_ne!($($arg)*);
+            $crate::assert_ok_ne2!($($arg)*);
         }
     };
 }

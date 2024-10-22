@@ -11,7 +11,7 @@
 //! # fn main() {
 //! let a = [1, 1];
 //! let b = [1, 1, 1];
-//! assert_bag_ne!(&a, &b);
+//! assert_bag_ne2!(&a, &b);
 //! # }
 //! ```
 //!
@@ -19,9 +19,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_bag_ne`](macro@crate::assert_bag_ne)
-//! * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
-//! * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
+//! * [`assert_bag_ne2`](macro@crate::assert_bag_ne2)
+//! * [`assert_bag_ne2_as_result`](macro@crate::assert_bag_ne2_as_result)
+//! * [`debug_assert_bag_ne2`](macro@crate::debug_assert_bag_ne2)
 
 /// Assert a bag is not equal to another.
 ///
@@ -32,7 +32,7 @@
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
-/// This macro provides the same statements as [`assert_bag_ne`](macro.assert_bag_ne.html),
+/// This macro provides the same statements as [`assert_bag_ne2`](macro.assert_bag_ne2.html),
 /// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -40,12 +40,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_ne`](macro@crate::assert_bag_ne)
-/// * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
-/// * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
+/// * [`assert_bag_ne2`](macro@crate::assert_bag_ne2)
+/// * [`assert_bag_ne2_as_result`](macro@crate::assert_bag_ne2_as_result)
+/// * [`debug_assert_bag_ne2`](macro@crate::debug_assert_bag_ne2)
 ///
 #[macro_export]
-macro_rules! assert_bag_ne_as_result {
+macro_rules! assert_bag_ne2_as_result {
     ($a_collection:expr, $b_collection:expr $(,)?) => {{
         match (&$a_collection, &$b_collection) {
             (a_collection, b_collection) => {
@@ -57,8 +57,8 @@ macro_rules! assert_bag_ne_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne.html\n",
+                                "assertion failed: `assert_bag_ne2!(a_collection, b_collection)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne2.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -88,7 +88,7 @@ mod test {
     fn test_assert_bag_ne_as_result_x_success() {
         let a = [1, 1];
         let b = [1, 1, 1];
-        let result = assert_bag_ne_as_result!(&a, &b);
+        let result = assert_bag_ne2_as_result!(&a, &b);
         assert_eq!(
             result.unwrap(),
             (BTreeMap::from([(&1, 2)]), BTreeMap::from([(&1, 3)]))
@@ -99,12 +99,12 @@ mod test {
     fn test_assert_bag_ne_as_result_x_failure() {
         let a = [1, 1];
         let b = [1, 1];
-        let result = assert_bag_ne_as_result!(&a, &b);
+        let result = assert_bag_ne2_as_result!(&a, &b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne.html\n",
+                "assertion failed: `assert_bag_ne2!(a_collection, b_collection)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne2.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 1]`,\n",
                 " b label: `&b`,\n",
@@ -135,16 +135,16 @@ mod test {
 /// # fn main() {
 /// let a = [1, 1];
 /// let b = [1, 1, 1];
-/// assert_bag_ne!(&a, &b);
+/// assert_bag_ne2!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = [1, 1];
 /// let b = [1, 1];
-/// assert_bag_ne!(&a, &b);
+/// assert_bag_ne2!(&a, &b);
 /// # });
-/// // assertion failed: `assert_bag_ne!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne.html
+/// // assertion failed: `assert_bag_ne2!(a_collection, b_collection)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne2.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 1]`,
 /// //  b label: `&b`,
@@ -153,8 +153,8 @@ mod test {
 /// //    b bag: `{1: 2}`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne.html\n",
+/// #     "assertion failed: `assert_bag_ne2!(a_collection, b_collection)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_bag_ne2.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 1]`,\n",
 /// #     " b label: `&b`,\n",
@@ -170,20 +170,20 @@ mod test {
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_ne`](macro@crate::assert_bag_ne)
-/// * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
-/// * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
+/// * [`assert_bag_ne2`](macro@crate::assert_bag_ne2)
+/// * [`assert_bag_ne2_as_result`](macro@crate::assert_bag_ne2_as_result)
+/// * [`debug_assert_bag_ne2`](macro@crate::debug_assert_bag_ne2)
 ///
 #[macro_export]
-macro_rules! assert_bag_ne {
+macro_rules! assert_bag_ne2 {
     ($a_collection:expr, $b_collection:expr $(,)?) => {{
-        match $crate::assert_bag_ne_as_result!($a_collection, $b_collection) {
+        match $crate::assert_bag_ne2_as_result!($a_collection, $b_collection) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {{
-        match $crate::assert_bag_ne_as_result!($a_collection, $b_collection) {
+        match $crate::assert_bag_ne2_as_result!($a_collection, $b_collection) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -195,7 +195,7 @@ macro_rules! assert_bag_ne {
 /// Pseudocode:<br>
 /// (a_collection ⇒ a_bag) ≠ (b_collection ⇒ b_bag)
 ///
-/// This macro provides the same statements as [`assert_bag_ne`](macro.assert_bag_ne.html),
+/// This macro provides the same statements as [`assert_bag_ne2`](macro.assert_bag_ne2.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -217,15 +217,15 @@ macro_rules! assert_bag_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_bag_ne`](macro@crate::assert_bag_ne)
-/// * [`assert_bag_ne_as_result`](macro@crate::assert_bag_ne_as_result)
-/// * [`debug_assert_bag_ne`](macro@crate::debug_assert_bag_ne)
+/// * [`assert_bag_ne2`](macro@crate::assert_bag_ne2)
+/// * [`assert_bag_ne2_as_result`](macro@crate::assert_bag_ne2_as_result)
+/// * [`debug_assert_bag_ne2`](macro@crate::debug_assert_bag_ne2)
 ///
 #[macro_export]
-macro_rules! debug_assert_bag_ne {
+macro_rules! debug_assert_bag_ne2 {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_bag_ne!($($arg)*);
+            $crate::assert_bag_ne2!($($arg)*);
         }
     };
 }

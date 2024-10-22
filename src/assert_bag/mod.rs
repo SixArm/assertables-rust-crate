@@ -7,9 +7,9 @@
 //!
 //! For eq & ne:
 //!
-//! * [`assert_bag_eq!(collection1, collection2)`](macro@crate::assert_bag_eq) ≈ bag a = bag b
+//! * [`assert_bag_eq2!(collection1, collection2)`](macro@crate::assert_bag_eq2) ≈ bag a = bag b
 //!
-//! * [`assert_bag_ne!(collection1, collection2)`](macro@crate::assert_bag_ne) ≈ bag a ≠ bag b
+//! * [`assert_bag_ne2!(collection1, collection2)`](macro@crate::assert_bag_ne2) ≈ bag a ≠ bag b
 //!
 //! For subbag & superbag:
 //!
@@ -26,7 +26,7 @@
 //! # fn main() {
 //! let a = [1, 1];
 //! let b = [1, 1];
-//! assert_bag_eq!(&a, &b);
+//! assert_bag_eq2!(&a, &b);
 //! # }
 //! ```
 
@@ -48,7 +48,7 @@ macro_rules! assert_bag_impl_prep {
     }};
 }
 
-pub mod assert_bag_eq;
-pub mod assert_bag_ne;
+pub mod assert_bag_eq2;
+pub mod assert_bag_ne2;
 pub mod assert_bag_subbag;
 pub mod assert_bag_superbag;

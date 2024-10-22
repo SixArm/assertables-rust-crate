@@ -66,31 +66,31 @@
 //!
 //! Compare a function with another function:
 //!
-//! * [`assert_fn_eq!(a_function, b_function)`](macro@crate::assert_fn_eq) ≈ a_function() = b_function()
+//! * [`assert_fn_eq2!(a_function, b_function)`](macro@crate::assert_fn_eq2) ≈ a_function() = b_function()
 //!
-//! * [`assert_fn_ne!(a_function, b_function)`](macro@crate::assert_fn_ne) ≈ a_function() ≠ b_function()
+//! * [`assert_fn_ne2!(a_function, b_function)`](macro@crate::assert_fn_ne2) ≈ a_function() ≠ b_function()
 //!
-//! * [`assert_fn_ge!(a_function, b_function)`](macro@crate::assert_fn_ge) ≈ a_function() ≥ b_function()
+//! * [`assert_fn_ge2!(a_function, b_function)`](macro@crate::assert_fn_ge2) ≈ a_function() ≥ b_function()
 //!
-//! * [`assert_fn_gt!(a_function, b_function)`](macro@crate::assert_fn_gt) ≈ a_function() &gt; b_function()
+//! * [`assert_fn_gt2!(a_function, b_function)`](macro@crate::assert_fn_gt2) ≈ a_function() &gt; b_function()
 //!
-//! * [`assert_fn_le!(a_function, b_function)`](macro@crate::assert_fn_le) ≈ a_function() ≤ b_function()
+//! * [`assert_fn_le2!(a_function, b_function)`](macro@crate::assert_fn_le2) ≈ a_function() ≤ b_function()
 //!
-//! * [`assert_fn_lt!(a_function, b_function)`](macro@crate::assert_fn_lt) ≈ a_function() &lt; b_function()
+//! * [`assert_fn_lt2!(a_function, b_function)`](macro@crate::assert_fn_lt2) ≈ a_function() &lt; b_function()
 //!
 //! Compare a function with an expression:
 //!
-//! * [`assert_fn_eq_expr!(function, expr)`](macro@crate::assert_fn_eq_expr) ≈ function() = expr
+//! * [`assert_fn_eq!(function, expr)`](macro@crate::assert_fn_eq) ≈ function() = expr
 //!
-//! * [`assert_fn_ne_expr!(function, expr)`](macro@crate::assert_fn_ne_expr) ≈ function() ≠ expr
+//! * [`assert_fn_ne!(function, expr)`](macro@crate::assert_fn_ne) ≈ function() ≠ expr
 //!
-//! * [`assert_fn_ge_expr!(function, expr)`](macro@crate::assert_fn_ge_expr) ≈ function() ≥ expr
+//! * [`assert_fn_ge!(function, expr)`](macro@crate::assert_fn_ge) ≈ function() ≥ expr
 //!
-//! * [`assert_fn_gt_expr!(function, expr)`](macro@crate::assert_fn_gt_expr) ≈ function() &gt; expr
+//! * [`assert_fn_gt!(function, expr)`](macro@crate::assert_fn_gt) ≈ function() &gt; expr
 //!
-//! * [`assert_fn_le_expr!(function, expr)`](macro@crate::assert_fn_le_expr) ≈ function() ≤ expr
+//! * [`assert_fn_le!(function, expr)`](macro@crate::assert_fn_le) ≈ function() ≤ expr
 //!
-//! * [`assert_fn_lt_expr!(function, expr)`](macro@crate::assert_fn_lt_expr) ≈ function() &lt; expr
+//! * [`assert_fn_lt!(function, expr)`](macro@crate::assert_fn_lt) ≈ function() &lt; expr
 //!
 //!
 //! # Example
@@ -101,23 +101,23 @@
 //! # fn main() {
 //! let a: i8 = -1;
 //! let b: i8 = 1;
-//! assert_fn_eq!(i8::abs, a, i8::abs, b);
+//! assert_fn_eq2!(i8::abs, a, i8::abs, b);
 //! # }
 //! ```
 
 </span><span class="comment">// Comparisons
+</span><span class="kw">pub mod </span>assert_fn_eq2;
+<span class="kw">pub mod </span>assert_fn_ge2;
+<span class="kw">pub mod </span>assert_fn_gt2;
+<span class="kw">pub mod </span>assert_fn_le2;
+<span class="kw">pub mod </span>assert_fn_lt2;
+<span class="kw">pub mod </span>assert_fn_ne2;
+
+<span class="comment">// Compare with expression
 </span><span class="kw">pub mod </span>assert_fn_eq;
 <span class="kw">pub mod </span>assert_fn_ge;
 <span class="kw">pub mod </span>assert_fn_gt;
 <span class="kw">pub mod </span>assert_fn_le;
 <span class="kw">pub mod </span>assert_fn_lt;
 <span class="kw">pub mod </span>assert_fn_ne;
-
-<span class="comment">// Compare with expression
-</span><span class="kw">pub mod </span>assert_fn_eq_expr;
-<span class="kw">pub mod </span>assert_fn_ge_expr;
-<span class="kw">pub mod </span>assert_fn_gt_expr;
-<span class="kw">pub mod </span>assert_fn_le_expr;
-<span class="kw">pub mod </span>assert_fn_lt_expr;
-<span class="kw">pub mod </span>assert_fn_ne_expr;
 </code></pre></div></section></main></body></html>

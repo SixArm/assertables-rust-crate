@@ -55,18 +55,18 @@
 //!
 //! Compare Ok(…) to another Ok(…):
 //!
-//! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq)
+//! * [`assert_ok_eq2!(a, b)`](macro@crate::assert_ok_eq2)
 //!   ≈ (a ⇒ Ok(a1) ⇒ a1) = (b ⇒ Ok(b1) ⇒ b1)
 //!
-//! * [`assert_ok_ne!(a, b)`](macro@crate::assert_ok_ne)
+//! * [`assert_ok_ne2!(a, b)`](macro@crate::assert_ok_ne2)
 //!   ≈ (a ⇒ Ok(a1) ⇒ a1) ≠ (b ⇒ Ok(b1) ⇒ b1)
 //!
 //! Compare Ok(…) to an expression:
 //!
-//! * [`assert_ok_eq_expr!(a, expr)`](macro@crate::assert_ok_eq_expr)
+//! * [`assert_ok_eq!(a, expr)`](macro@crate::assert_ok_eq)
 //!   ≈ (a ⇒ Ok(a1) ⇒ a1) = b
 //!
-//! * [`assert_ok_ne_expr!(a, b)`](macro@crate::assert_ok_ne_expr)
+//! * [`assert_ok_ne!(a, b)`](macro@crate::assert_ok_ne)
 //!   ≈ (a ⇒ Ok(a1) ⇒ a1) ≠ b
 //!
 //! # Example
@@ -84,10 +84,10 @@
 </span><span class="kw">pub mod </span>assert_ok;
 
 <span class="comment">// Compare with another
-</span><span class="kw">pub mod </span>assert_ok_eq;
-<span class="kw">pub mod </span>assert_ok_ne;
+</span><span class="kw">pub mod </span>assert_ok_eq2;
+<span class="kw">pub mod </span>assert_ok_ne2;
 
 <span class="comment">// Compare with expression
-</span><span class="kw">pub mod </span>assert_ok_eq_expr;
-<span class="kw">pub mod </span>assert_ok_ne_expr;
+</span><span class="kw">pub mod </span>assert_ok_eq;
+<span class="kw">pub mod </span>assert_ok_ne;
 </code></pre></div></section></main></body></html>

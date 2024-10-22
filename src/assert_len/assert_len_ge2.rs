@@ -11,15 +11,15 @@
 //! # fn main() {
 //! let a = "xx";
 //! let b = "x";
-//! assert_len_ge!(a, b);
+//! assert_len_ge2!(a, b);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_len_ge`](macro@crate::assert_len_ge)
-//! * [`assert_len_ge_as_result`](macro@crate::assert_len_ge_as_result)
-//! * [`debug_assert_len_ge`](macro@crate::debug_assert_len_ge)
+//! * [`assert_len_ge2`](macro@crate::assert_len_ge2)
+//! * [`assert_len_ge2_as_result`](macro@crate::assert_len_ge2_as_result)
+//! * [`debug_assert_len_ge2`](macro@crate::debug_assert_len_ge2)
 
 /// Assert a length is greater than or equal to another length.
 ///
@@ -38,12 +38,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_len_ge`](macro@crate::assert_len_ge)
-/// * [`assert_len_ge_as_result`](macro@crate::assert_len_ge_as_result)
-/// * [`debug_assert_len_ge`](macro@crate::debug_assert_len_ge)
+/// * [`assert_len_ge2`](macro@crate::assert_len_ge2)
+/// * [`assert_len_ge2_as_result`](macro@crate::assert_len_ge2_as_result)
+/// * [`debug_assert_len_ge2`](macro@crate::debug_assert_len_ge2)
 ///
 #[macro_export]
-macro_rules! assert_len_ge_as_result {
+macro_rules! assert_len_ge2_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
@@ -55,8 +55,8 @@ macro_rules! assert_len_ge_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_len_ge!(a, b)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge.html\n",
+                                "assertion failed: `assert_len_ge2!(a, b)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge2.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.len(): `{:?}`,\n",
@@ -85,7 +85,7 @@ mod tests {
     fn test_assert_len_ge_as_result_x_success_because_gt() {
         let a = "xx";
         let b = "x";
-        let result = assert_len_ge_as_result!(a, b);
+        let result = assert_len_ge2_as_result!(a, b);
         assert_eq!(result, Ok((2, 1)));
     }
 
@@ -93,7 +93,7 @@ mod tests {
     fn test_assert_len_ge_as_result_x_success_because_eq() {
         let a = "x";
         let b = "x";
-        let result = assert_len_ge_as_result!(a, b);
+        let result = assert_len_ge2_as_result!(a, b);
         assert_eq!(result, Ok((1, 1)));
     }
 
@@ -101,12 +101,12 @@ mod tests {
     fn test_assert_len_ge_as_result_x_failure_because_lt() {
         let a = "x";
         let b = "xx";
-        let result = assert_len_ge_as_result!(a, b);
+        let result = assert_len_ge2_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_len_ge!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge.html\n",
+                "assertion failed: `assert_len_ge2!(a, b)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge2.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"x\"`,\n",
                 " a.len(): `1`,\n",
@@ -137,16 +137,16 @@ mod tests {
 /// # fn main() {
 /// let a = "xx";
 /// let b = "x";
-/// assert_len_ge!(a, b);
+/// assert_len_ge2!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "x";
 /// let b = "xx";
-/// assert_len_ge!(a, b);
+/// assert_len_ge2!(a, b);
 /// # });
-/// // assertion failed: `assert_len_ge!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge.html
+/// // assertion failed: `assert_len_ge2!(a, b)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge2.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
@@ -155,8 +155,8 @@ mod tests {
 /// //  b.len(): `2`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_len_ge!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge.html\n",
+/// #     "assertion failed: `assert_len_ge2!(a, b)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge2.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
@@ -170,20 +170,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_len_ge`](macro@crate::assert_len_ge)
-/// * [`assert_len_ge_as_result`](macro@crate::assert_len_ge_as_result)
-/// * [`debug_assert_len_ge`](macro@crate::debug_assert_len_ge)
+/// * [`assert_len_ge2`](macro@crate::assert_len_ge2)
+/// * [`assert_len_ge2_as_result`](macro@crate::assert_len_ge2_as_result)
+/// * [`debug_assert_len_ge2`](macro@crate::debug_assert_len_ge2)
 ///
 #[macro_export]
-macro_rules! assert_len_ge {
+macro_rules! assert_len_ge2 {
     ($a:expr, $b:expr $(,)?) => {{
-        match $crate::assert_len_ge_as_result!($a, $b) {
+        match $crate::assert_len_ge2_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_len_ge_as_result!($a, $b) {
+        match $crate::assert_len_ge2_as_result!($a, $b) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -195,7 +195,7 @@ macro_rules! assert_len_ge {
 /// Pseudocode:<br>
 /// a.len() ≥ b.len()
 ///
-/// This macro provides the same statements as [`assert_len_ge`](macro.assert_len_ge.html),
+/// This macro provides the same statements as [`assert_len_ge2`](macro.assert_len_ge2.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -217,15 +217,15 @@ macro_rules! assert_len_ge {
 ///
 /// # Module macros
 ///
-/// * [`assert_len_ge`](macro@crate::assert_len_ge)
-/// * [`assert_len_ge`](macro@crate::assert_len_ge)
-/// * [`debug_assert_len_ge`](macro@crate::debug_assert_len_ge)
+/// * [`assert_len_ge2`](macro@crate::assert_len_ge2)
+/// * [`assert_len_ge2`](macro@crate::assert_len_ge2)
+/// * [`debug_assert_len_ge2`](macro@crate::debug_assert_len_ge2)
 ///
 #[macro_export]
-macro_rules! debug_assert_len_ge {
+macro_rules! debug_assert_len_ge2 {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_len_ge!($($arg)*);
+            $crate::assert_len_ge2!($($arg)*);
         }
     };
 }

@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Assert a command stdout string is equal to another."><title>assert_command_stdout_ge in lib - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-492a78a4a87dcc01.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0 (f6e511eec 2024-10-15)" data-channel="1.82.0" data-search-js="search-a99f1315e7cc5121.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-921df33f47b8780c.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../lib/index.html">lib</a></h2></div><div class="sidebar-elems"></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Macro <a href="index.html">lib</a>::<wbr><a class="macro" href="#">assert_command_stdout_ge</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/lib/assert_command/assert_command_stdout_ge.rs.html#221-234">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><span class="macro">macro_rules!</span> assert_command_stdout_ge {
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr $(,)<span class="question-mark">?</span>) =&gt; { ... };
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; { ... };
-}</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a command stdout string is equal to another.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Assert a command stdout string is equal to an expression."><title>assert_command_stdout_ge in lib - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-492a78a4a87dcc01.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0 (f6e511eec 2024-10-15)" data-channel="1.82.0" data-search-js="search-a99f1315e7cc5121.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-921df33f47b8780c.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../lib/index.html">lib</a></h2></div><div class="sidebar-elems"></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Macro <a href="index.html">lib</a>::<wbr><a class="macro" href="#">assert_command_stdout_ge</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/lib/assert_command/assert_command_stdout_ge.rs.html#216-229">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><span class="macro">macro_rules!</span> assert_command_stdout_ge {
+    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; { ... };
+    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; { ... };
+}</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a command stdout string is equal to an expression.</p>
 <p>Pseudocode:<br>
-(command1 ⇒ stdout) = (command2 ⇒ stdout)</p>
+(command ⇒ stdout) = (expr into string)</p>
 <ul>
 <li>
 <p>If true, return <code>()</code>.</p>
@@ -17,26 +17,24 @@ expressions with their debug representations.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::process::Command;
 
-<span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
-a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
-<span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stdout"</span>);
-b.args([<span class="string">"%s"</span>, <span class="string">"aa"</span>]);
-<span class="macro">assert_command_stdout_ge!</span>(a, b);
+<span class="kw">let </span><span class="kw-2">mut </span>command = Command::new(<span class="string">"bin/printf-stdout"</span>);
+command.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
+<span class="kw">let </span>bytes = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'a'</span>];
+<span class="macro">assert_command_stdout_ge!</span>(command, bytes);
 
 <span class="comment">// This will panic
-</span><span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
-a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
-<span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stdout"</span>);
-b.args([<span class="string">"%s"</span>, <span class="string">"zz"</span>]);
-<span class="macro">assert_command_stdout_ge!</span>(a, b);
-<span class="comment">// assertion failed: `assert_command_stdout_ge!(a_command, b_command)`
+</span><span class="kw">let </span><span class="kw-2">mut </span>command = Command::new(<span class="string">"bin/printf-stdout"</span>);
+command.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
+<span class="kw">let </span>bytes = <span class="macro">vec!</span>[<span class="string">b'z'</span>, <span class="string">b'z'</span>];
+<span class="macro">assert_command_stdout_ge!</span>(command, bytes);
+<span class="comment">// assertion failed: `assert_command_stdout_ge!(command, expr)`
 // https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge.html
-//  a label: `a`,
-//  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
-//  b label: `b`,
-//  b debug: `\"bin/printf-stdout\" \"%s\" \"zz\"`,
-//        a: `[97, 108, 102, 97]`,
-//        b: `[122, 122]`</span></code></pre></div>
+//  command label: `command`,
+//  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
+//     expr label: `bytes`,
+//     expr debug: `[122, 122]`,
+//  command value: `[97, 108, 102, 97]`,
+//     expr value: `[122, 122]`</span></code></pre></div>
 <h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>
 <ul>
 <li><a href="macro.assert_command_stdout_ge.html" title="macro lib::assert_command_stdout_ge"><code>assert_command_stdout_ge</code></a></li>

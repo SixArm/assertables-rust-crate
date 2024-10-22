@@ -84,31 +84,31 @@
 //!
 //! Compare a function Err() with another function Err():
 //!
-//! * [`assert_fn_err_eq!(a_function, b_function)`](macro@crate::assert_fn_err_eq) ≈ a_function().unwrap_err() = b_function().unwrap_err()
+//! * [`assert_fn_err_eq2!(a_function, b_function)`](macro@crate::assert_fn_err_eq2) ≈ a_function().unwrap_err() = b_function().unwrap_err()
 //!
-//! * [`assert_fn_err_ne!(a_function, b_function)`](macro@crate::assert_fn_err_ne) ≈ a_function().unwrap_err() ≠ b_function().unwrap_err()
+//! * [`assert_fn_err_ne2!(a_function, b_function)`](macro@crate::assert_fn_err_ne2) ≈ a_function().unwrap_err() ≠ b_function().unwrap_err()
 //!
-//! * [`assert_fn_err_ge!(a_function, b_function)`](macro@crate::assert_fn_err_ge) ≈ a_function().unwrap_err() ≥ b_function().unwrap_err()
+//! * [`assert_fn_err_ge2!(a_function, b_function)`](macro@crate::assert_fn_err_ge2) ≈ a_function().unwrap_err() ≥ b_function().unwrap_err()
 //!
-//! * [`assert_fn_err_gt!(a_function, b_function)`](macro@crate::assert_fn_err_gt) ≈ a_function().unwrap_err() &gt; b_function().unwrap_err()
+//! * [`assert_fn_err_gt2!(a_function, b_function)`](macro@crate::assert_fn_err_gt2) ≈ a_function().unwrap_err() &gt; b_function().unwrap_err()
 //!
-//! * [`assert_fn_err_le!(a_function, b_function)`](macro@crate::assert_fn_err_le) ≈ a_function().unwrap_err() ≤ b_function().unwrap_err()
+//! * [`assert_fn_err_le2!(a_function, b_function)`](macro@crate::assert_fn_err_le2) ≈ a_function().unwrap_err() ≤ b_function().unwrap_err()
 //!
-//! * [`assert_fn_err_lt!(a_function, b_function)`](macro@crate::assert_fn_err_lt) ≈ a_function().unwrap_err() &lt; b_function().unwrap_err()
+//! * [`assert_fn_err_lt2!(a_function, b_function)`](macro@crate::assert_fn_err_lt2) ≈ a_function().unwrap_err() &lt; b_function().unwrap_err()
 //!
 //! Compare a function Err() with an expression:
 //!
-//! * [`assert_fn_err_eq!(function, expr)`](macro@crate::assert_fn_err_eq) ≈ function().unwrap_err() = expr
+//! * [`assert_fn_err_eq2!(function, expr)`](macro@crate::assert_fn_err_eq2) ≈ function().unwrap_err() = expr
 //!
-//! * [`assert_fn_err_ne!(function, expr)`](macro@crate::assert_fn_err_ne) ≈ function().unwrap_err() ≠ expr
+//! * [`assert_fn_err_ne2!(function, expr)`](macro@crate::assert_fn_err_ne2) ≈ function().unwrap_err() ≠ expr
 //!
-//! * [`assert_fn_err_ge!(function, expr)`](macro@crate::assert_fn_err_ge) ≈ function().unwrap_err() ≥ expr
+//! * [`assert_fn_err_ge2!(function, expr)`](macro@crate::assert_fn_err_ge2) ≈ function().unwrap_err() ≥ expr
 //!
-//! * [`assert_fn_err_gt!(function, expr)`](macro@crate::assert_fn_err_gt) ≈ function().unwrap_err() &gt; expr
+//! * [`assert_fn_err_gt2!(function, expr)`](macro@crate::assert_fn_err_gt2) ≈ function().unwrap_err() &gt; expr
 //!
-//! * [`assert_fn_err_le!(function, expr)`](macro@crate::assert_fn_err_le) ≈ function().unwrap_err() ≤ expr
+//! * [`assert_fn_err_le2!(function, expr)`](macro@crate::assert_fn_err_le2) ≈ function().unwrap_err() ≤ expr
 //!
-//! * [`assert_fn_err_lt!(function, expr)`](macro@crate::assert_fn_err_lt) ≈ function().unwrap_err() &lt; expr
+//! * [`assert_fn_err_lt2!(function, expr)`](macro@crate::assert_fn_err_lt2) ≈ function().unwrap_err() &lt; expr
 //!
 //!
 //! # Example
@@ -125,23 +125,23 @@
 //! # fn main() {
 //! let a: i8 = 10;
 //! let b: i8 = 10;
-//! assert_fn_err_eq!(f, a, f, b);
+//! assert_fn_err_eq2!(f, a, f, b);
 //! # }
 //! ```
 
 </span><span class="comment">// Comparisons
+</span><span class="kw">pub mod </span>assert_fn_err_eq2;
+<span class="kw">pub mod </span>assert_fn_err_ge2;
+<span class="kw">pub mod </span>assert_fn_err_gt2;
+<span class="kw">pub mod </span>assert_fn_err_le2;
+<span class="kw">pub mod </span>assert_fn_err_lt2;
+<span class="kw">pub mod </span>assert_fn_err_ne2;
+
+<span class="comment">// Compare with expression
 </span><span class="kw">pub mod </span>assert_fn_err_eq;
 <span class="kw">pub mod </span>assert_fn_err_ge;
 <span class="kw">pub mod </span>assert_fn_err_gt;
 <span class="kw">pub mod </span>assert_fn_err_le;
 <span class="kw">pub mod </span>assert_fn_err_lt;
 <span class="kw">pub mod </span>assert_fn_err_ne;
-
-<span class="comment">// Compare with expression
-</span><span class="kw">pub mod </span>assert_fn_err_eq_expr;
-<span class="kw">pub mod </span>assert_fn_err_ge_expr;
-<span class="kw">pub mod </span>assert_fn_err_gt_expr;
-<span class="kw">pub mod </span>assert_fn_err_le_expr;
-<span class="kw">pub mod </span>assert_fn_err_lt_expr;
-<span class="kw">pub mod </span>assert_fn_err_ne_expr;
 </code></pre></div></section></main></body></html>

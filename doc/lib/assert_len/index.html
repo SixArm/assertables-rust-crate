@@ -4,43 +4,43 @@ vectors, iterators, and anything that has a typical <code>.len()</code> method.<
 <p>Compare a length with another length:</p>
 <ul>
 <li>
-<p><a href="../macro.assert_len_eq.html" title="macro lib::assert_len_eq"><code>assert_len_eq!(a, b)</code></a> ≈ a.len() = b.len()</p>
+<p><a href="../macro.assert_len_eq2.html" title="macro lib::assert_len_eq2"><code>assert_len_eq2!(a, b)</code></a> ≈ a.len() = b.len()</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_ne.html" title="macro lib::assert_len_ne"><code>assert_len_ne!(a, b)</code></a> ≈ a.len() ≠ b.len()</p>
+<p><a href="../macro.assert_len_ne2.html" title="macro lib::assert_len_ne2"><code>assert_len_ne2!(a, b)</code></a> ≈ a.len() ≠ b.len()</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_lt.html" title="macro lib::assert_len_lt"><code>assert_len_lt!(a, b)</code></a> ≈ a.len() &lt; b.len()</p>
+<p><a href="../macro.assert_len_lt2.html" title="macro lib::assert_len_lt2"><code>assert_len_lt2!(a, b)</code></a> ≈ a.len() &lt; b.len()</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_le.html" title="macro lib::assert_len_le"><code>assert_len_le!(a, b)</code></a> ≈ a.len() ≤ b.len()</p>
+<p><a href="../macro.assert_len_le2.html" title="macro lib::assert_len_le2"><code>assert_len_le2!(a, b)</code></a> ≈ a.len() ≤ b.len()</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_gt.html" title="macro lib::assert_len_gt"><code>assert_len_gt!(a, b)</code></a> ≈ a.len() &gt; b.len()</p>
+<p><a href="../macro.assert_len_gt2.html" title="macro lib::assert_len_gt2"><code>assert_len_gt2!(a, b)</code></a> ≈ a.len() &gt; b.len()</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_ge.html" title="macro lib::assert_len_ge"><code>assert_len_ge!(a, b)</code></a> ≈ a.len() ≥ b.len()</p>
+<p><a href="../macro.assert_len_ge2.html" title="macro lib::assert_len_ge2"><code>assert_len_ge2!(a, b)</code></a> ≈ a.len() ≥ b.len()</p>
 </li>
 </ul>
 <p>Compare a length with an expression:</p>
 <ul>
 <li>
-<p><a href="../macro.assert_len_eq_expr.html" title="macro lib::assert_len_eq_expr"><code>assert_len_eq_expr!(a, expr)</code></a> ≈ a.len() = expr</p>
+<p><a href="../macro.assert_len_eq.html" title="macro lib::assert_len_eq"><code>assert_len_eq!(a, expr)</code></a> ≈ a.len() = expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_ne_expr.html" title="macro lib::assert_len_ne_expr"><code>assert_len_ne_expr!(a, expr)</code></a> ≈ a.len() ≠ expr</p>
+<p><a href="../macro.assert_len_ne.html" title="macro lib::assert_len_ne"><code>assert_len_ne!(a, expr)</code></a> ≈ a.len() ≠ expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_lt_expr.html" title="macro lib::assert_len_lt_expr"><code>assert_len_lt_expr!(a, expr)</code></a> ≈ a.len() &lt; expr</p>
+<p><a href="../macro.assert_len_lt.html" title="macro lib::assert_len_lt"><code>assert_len_lt!(a, expr)</code></a> ≈ a.len() &lt; expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_le_expr.html" title="macro lib::assert_len_le_expr"><code>assert_len_le_expr!(a, expr)</code></a> ≈ a.len() ≤ expr</p>
+<p><a href="../macro.assert_len_le.html" title="macro lib::assert_len_le"><code>assert_len_le!(a, expr)</code></a> ≈ a.len() ≤ expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_gt_expr.html" title="macro lib::assert_len_gt_expr"><code>assert_len_gt_expr!(a, expr)</code></a> ≈ a.len() &gt; expr</p>
+<p><a href="../macro.assert_len_gt.html" title="macro lib::assert_len_gt"><code>assert_len_gt!(a, expr)</code></a> ≈ a.len() &gt; expr</p>
 </li>
 <li>
-<p><a href="../macro.assert_len_ge_expr.html" title="macro lib::assert_len_ge_expr"><code>assert_len_ge_expr!(a, expr)</code></a> ≈ a.len() ≥ expr</p>
+<p><a href="../macro.assert_len_ge.html" title="macro lib::assert_len_ge"><code>assert_len_ge!(a, expr)</code></a> ≈ a.len() ≥ expr</p>
 </li>
 </ul>
 <h2 id="example"><a class="doc-anchor" href="#example">§</a>Example</h2>
@@ -48,5 +48,5 @@ vectors, iterators, and anything that has a typical <code>.len()</code> method.<
 
 <span class="kw">let </span>a = <span class="string">"x"</span>;
 <span class="kw">let </span>b = <span class="string">"x"</span>;
-<span class="macro">assert_len_eq!</span>(a, b);</code></pre></div>
-</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="assert_len_eq/index.html" title="mod lib::assert_len::assert_len_eq">assert_<wbr>len_<wbr>eq</a></div><div class="desc docblock-short">Assert a length is equal to another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_eq_expr/index.html" title="mod lib::assert_len::assert_len_eq_expr">assert_<wbr>len_<wbr>eq_<wbr>expr</a></div><div class="desc docblock-short">Assert a length is equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_ge/index.html" title="mod lib::assert_len::assert_len_ge">assert_<wbr>len_<wbr>ge</a></div><div class="desc docblock-short">Assert a length is greater than or equal to another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_ge_expr/index.html" title="mod lib::assert_len::assert_len_ge_expr">assert_<wbr>len_<wbr>ge_<wbr>expr</a></div><div class="desc docblock-short">Assert a length is greater than or equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_gt/index.html" title="mod lib::assert_len::assert_len_gt">assert_<wbr>len_<wbr>gt</a></div><div class="desc docblock-short">Assert a length is greater than another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_gt_expr/index.html" title="mod lib::assert_len::assert_len_gt_expr">assert_<wbr>len_<wbr>gt_<wbr>expr</a></div><div class="desc docblock-short">Assert a length is greater than an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_le/index.html" title="mod lib::assert_len::assert_len_le">assert_<wbr>len_<wbr>le</a></div><div class="desc docblock-short">Assert a length is less than or equal to another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_le_expr/index.html" title="mod lib::assert_len::assert_len_le_expr">assert_<wbr>len_<wbr>le_<wbr>expr</a></div><div class="desc docblock-short">Assert a length is less than or equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_lt/index.html" title="mod lib::assert_len::assert_len_lt">assert_<wbr>len_<wbr>lt</a></div><div class="desc docblock-short">Assert a length is less than another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_lt_expr/index.html" title="mod lib::assert_len::assert_len_lt_expr">assert_<wbr>len_<wbr>lt_<wbr>expr</a></div><div class="desc docblock-short">Assert a length is less than an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_ne/index.html" title="mod lib::assert_len::assert_len_ne">assert_<wbr>len_<wbr>ne</a></div><div class="desc docblock-short">Assert a length is equal to another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_ne_expr/index.html" title="mod lib::assert_len::assert_len_ne_expr">assert_<wbr>len_<wbr>ne_<wbr>expr</a></div><div class="desc docblock-short">Assert a length is equal to an expression.</div></li></ul></section></div></main></body></html>
+<span class="macro">assert_len_eq2!</span>(a, b);</code></pre></div>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="assert_len_eq/index.html" title="mod lib::assert_len::assert_len_eq">assert_<wbr>len_<wbr>eq</a></div><div class="desc docblock-short">Assert a length is equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_eq2/index.html" title="mod lib::assert_len::assert_len_eq2">assert_<wbr>len_<wbr>eq2</a></div><div class="desc docblock-short">Assert a length is equal to another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_ge/index.html" title="mod lib::assert_len::assert_len_ge">assert_<wbr>len_<wbr>ge</a></div><div class="desc docblock-short">Assert a length is greater than or equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_ge2/index.html" title="mod lib::assert_len::assert_len_ge2">assert_<wbr>len_<wbr>ge2</a></div><div class="desc docblock-short">Assert a length is greater than or equal to another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_gt/index.html" title="mod lib::assert_len::assert_len_gt">assert_<wbr>len_<wbr>gt</a></div><div class="desc docblock-short">Assert a length is greater than an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_gt2/index.html" title="mod lib::assert_len::assert_len_gt2">assert_<wbr>len_<wbr>gt2</a></div><div class="desc docblock-short">Assert a length is greater than another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_le/index.html" title="mod lib::assert_len::assert_len_le">assert_<wbr>len_<wbr>le</a></div><div class="desc docblock-short">Assert a length is less than or equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_le2/index.html" title="mod lib::assert_len::assert_len_le2">assert_<wbr>len_<wbr>le2</a></div><div class="desc docblock-short">Assert a length is less than or equal to another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_lt/index.html" title="mod lib::assert_len::assert_len_lt">assert_<wbr>len_<wbr>lt</a></div><div class="desc docblock-short">Assert a length is less than an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_lt2/index.html" title="mod lib::assert_len::assert_len_lt2">assert_<wbr>len_<wbr>lt2</a></div><div class="desc docblock-short">Assert a length is less than another length.</div></li><li><div class="item-name"><a class="mod" href="assert_len_ne/index.html" title="mod lib::assert_len::assert_len_ne">assert_<wbr>len_<wbr>ne</a></div><div class="desc docblock-short">Assert a length is equal to an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_len_ne2/index.html" title="mod lib::assert_len::assert_len_ne2">assert_<wbr>len_<wbr>ne2</a></div><div class="desc docblock-short">Assert a length is equal to another length.</div></li></ul></section></div></main></body></html>

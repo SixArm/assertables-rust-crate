@@ -11,15 +11,15 @@
 //! # fn main() {
 //! let a = "x".chars();
 //! let b = "x".chars();
-//! assert_count_eq!(a, b);
+//! assert_count_eq2!(a, b);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_count_eq`](macro@crate::assert_count_eq)
-//! * [`assert_count_eq_as_result`](macro@crate::assert_count_eq_as_result)
-//! * [`debug_assert_count_eq`](macro@crate::debug_assert_count_eq)
+//! * [`assert_count_eq2`](macro@crate::assert_count_eq2)
+//! * [`assert_count_eq2_as_result`](macro@crate::assert_count_eq2_as_result)
+//! * [`debug_assert_count_eq2`](macro@crate::debug_assert_count_eq2)
 
 /// Assert a count is equal to another count.
 ///
@@ -38,12 +38,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_count_eq`](macro@crate::assert_count_eq)
-/// * [`assert_count_eq_as_result`](macro@crate::assert_count_eq_as_result)
-/// * [`debug_assert_count_eq`](macro@crate::debug_assert_count_eq)
+/// * [`assert_count_eq2`](macro@crate::assert_count_eq2)
+/// * [`assert_count_eq2_as_result`](macro@crate::assert_count_eq2_as_result)
+/// * [`debug_assert_count_eq2`](macro@crate::debug_assert_count_eq2)
 ///
 #[macro_export]
-macro_rules! assert_count_eq_as_result {
+macro_rules! assert_count_eq2_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
@@ -55,8 +55,8 @@ macro_rules! assert_count_eq_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_count_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq.html\n",
+                                "assertion failed: `assert_count_eq2!(a, b)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq2.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
@@ -85,7 +85,7 @@ mod tests {
     fn test_assert_count_eq_as_result_x_success_because_eq() {
         let a = "x".chars();
         let b = "x".chars();
-        let result = assert_count_eq_as_result!(a, b);
+        let result = assert_count_eq2_as_result!(a, b);
         assert_eq!(result, Ok((1, 1)));
     }
 
@@ -93,12 +93,12 @@ mod tests {
     fn test_assert_count_eq_as_result_x_failure_because_lt() {
         let a = "x".chars();
         let b = "xx".chars();
-        let result = assert_count_eq_as_result!(a, b);
+        let result = assert_count_eq2_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_count_eq!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq.html\n",
+                "assertion failed: `assert_count_eq2!(a, b)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq2.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x'])`,\n",
                 " a.count(): `1`,\n",
@@ -113,12 +113,12 @@ mod tests {
     fn test_assert_count_eq_as_result_x_failure_because_gt() {
         let a = "xx".chars();
         let b = "x".chars();
-        let result = assert_count_eq_as_result!(a, b);
+        let result = assert_count_eq2_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_count_eq!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq.html\n",
+                "assertion failed: `assert_count_eq2!(a, b)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq2.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x', 'x'])`,\n",
                 " a.count(): `2`,\n",
@@ -149,16 +149,16 @@ mod tests {
 /// # fn main() {
 /// let a = "x".chars();
 /// let b = "x".chars();
-/// assert_count_eq!(a, b);
+/// assert_count_eq2!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "x".chars();
 /// let b = "xx".chars();
-/// assert_count_eq!(a, b);
+/// assert_count_eq2!(a, b);
 /// # });
-/// // assertion failed: `assert_count_eq!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq.html
+/// // assertion failed: `assert_count_eq2!(a, b)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq2.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",
@@ -167,8 +167,8 @@ mod tests {
 /// //  b.count(): `2`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_count_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq.html\n",
+/// #     "assertion failed: `assert_count_eq2!(a, b)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_eq2.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",
@@ -182,20 +182,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_count_eq`](macro@crate::assert_count_eq)
-/// * [`assert_count_eq_as_result`](macro@crate::assert_count_eq_as_result)
-/// * [`debug_assert_count_eq`](macro@crate::debug_assert_count_eq)
+/// * [`assert_count_eq2`](macro@crate::assert_count_eq2)
+/// * [`assert_count_eq2_as_result`](macro@crate::assert_count_eq2_as_result)
+/// * [`debug_assert_count_eq2`](macro@crate::debug_assert_count_eq2)
 ///
 #[macro_export]
-macro_rules! assert_count_eq {
+macro_rules! assert_count_eq2 {
     ($a:expr, $b:expr $(,)?) => {{
-        match $crate::assert_count_eq_as_result!($a, $b) {
+        match $crate::assert_count_eq2_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_count_eq_as_result!($a, $b) {
+        match $crate::assert_count_eq2_as_result!($a, $b) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -207,7 +207,7 @@ macro_rules! assert_count_eq {
 /// Pseudocode:<br>
 /// a.count() = b.count()
 ///
-/// This macro provides the same statements as [`assert_count_eq`](macro.assert_count_eq.html),
+/// This macro provides the same statements as [`assert_count_eq2`](macro.assert_count_eq2.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -229,15 +229,15 @@ macro_rules! assert_count_eq {
 ///
 /// # Module macros
 ///
-/// * [`assert_count_eq`](macro@crate::assert_count_eq)
-/// * [`assert_count_eq`](macro@crate::assert_count_eq)
-/// * [`debug_assert_count_eq`](macro@crate::debug_assert_count_eq)
+/// * [`assert_count_eq2`](macro@crate::assert_count_eq2)
+/// * [`assert_count_eq2`](macro@crate::assert_count_eq2)
+/// * [`debug_assert_count_eq2`](macro@crate::debug_assert_count_eq2)
 ///
 #[macro_export]
-macro_rules! debug_assert_count_eq {
+macro_rules! debug_assert_count_eq2 {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_count_eq!($($arg)*);
+            $crate::assert_count_eq2!($($arg)*);
         }
     };
 }

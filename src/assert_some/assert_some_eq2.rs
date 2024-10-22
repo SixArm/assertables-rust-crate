@@ -11,15 +11,15 @@
 //! # fn main() {
 //! let a: Option<i8> = Option::Some(1);
 //! let b: Option<i8> = Option::Some(1);
-//! assert_some_eq!(a, b);
+//! assert_some_eq2!(a, b);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_some_eq`](macro@crate::assert_some_eq)
-//! * [`assert_some_eq_as_result`](macro@crate::assert_some_eq_as_result)
-//! * [`debug_assert_some_eq`](macro@crate::debug_assert_some_eq)
+//! * [`assert_some_eq2`](macro@crate::assert_some_eq2)
+//! * [`assert_some_eq2_as_result`](macro@crate::assert_some_eq2_as_result)
+//! * [`debug_assert_some_eq2`](macro@crate::debug_assert_some_eq2)
 
 //! Assert two expressions are Some and their values are equal.
 ///
@@ -30,7 +30,7 @@
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
-/// This macro provides the same statements as [`assert_some_eq`](macro.assert_some_eq.html),
+/// This macro provides the same statements as [`assert_some_eq2`](macro.assert_some_eq2.html),
 /// except this macro returns a Option, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
@@ -38,12 +38,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_some_eq`](macro@crate::assert_some_eq)
-/// * [`assert_some_eq_as_result`](macro@crate::assert_some_eq_as_result)
-/// * [`debug_assert_some_eq`](macro@crate::debug_assert_some_eq)
+/// * [`assert_some_eq2`](macro@crate::assert_some_eq2)
+/// * [`assert_some_eq2_as_result`](macro@crate::assert_some_eq2_as_result)
+/// * [`debug_assert_some_eq2`](macro@crate::debug_assert_some_eq2)
 ///
 #[macro_export]
-macro_rules! assert_some_eq_as_result {
+macro_rules! assert_some_eq2_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
@@ -55,8 +55,8 @@ macro_rules! assert_some_eq_as_result {
                             Err(
                                 format!(
                                     concat!(
-                                        "assertion failed: `assert_some_eq!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq.html\n",
+                                        "assertion failed: `assert_some_eq2!(a, b)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq2.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
                                         " a inner: `{:?}`,\n",
@@ -78,8 +78,8 @@ macro_rules! assert_some_eq_as_result {
                         Err(
                             format!(
                                 concat!(
-                                    "assertion failed: `assert_some_eq!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq.html\n",
+                                    "assertion failed: `assert_some_eq2!(a, b)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq2.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " b label: `{}`,\n",
@@ -105,7 +105,7 @@ mod tests {
     fn test_assert_some_eq_as_result_x_success() {
         let a: Option<i8> = Option::Some(1);
         let b: Option<i8> = Option::Some(1);
-        let result = assert_some_eq_as_result!(a, b);
+        let result = assert_some_eq2_as_result!(a, b);
         assert_eq!(result.unwrap(), (&1, &1));
     }
 
@@ -113,12 +113,12 @@ mod tests {
     fn test_assert_some_eq_as_result_x_failure_because_ne() {
         let a: Option<i8> = Option::Some(1);
         let b: Option<i8> = Option::Some(2);
-        let result = assert_some_eq_as_result!(a, b);
+        let result = assert_some_eq2_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_some_eq!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq.html\n",
+                "assertion failed: `assert_some_eq2!(a, b)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq2.html\n",
                 " a label: `a`,\n",
                 " a debug: `Some(1)`,\n",
                 " a inner: `1`,\n",
@@ -133,12 +133,12 @@ mod tests {
     fn test_assert_some_eq_as_result_x_failure_because_not_some() {
         let a: Option<i8> = Option::None;
         let b: Option<i8> = Option::Some(1);
-        let result = assert_some_eq_as_result!(a, b);
+        let result = assert_some_eq2_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_some_eq!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq.html\n",
+                "assertion failed: `assert_some_eq2!(a, b)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq2.html\n",
                 " a label: `a`,\n",
                 " a debug: `None`,\n",
                 " b label: `b`,\n",
@@ -167,16 +167,16 @@ mod tests {
 /// # fn main() {
 /// let a: Option<i8> = Option::Some(1);
 /// let b: Option<i8> = Option::Some(1);
-/// assert_some_eq!(a, b);
+/// assert_some_eq2!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: Option<i8> = Option::Some(1);
 /// let b: Option<i8> = Option::Some(2);
-/// assert_some_eq!(a, b);
+/// assert_some_eq2!(a, b);
 /// # });
-/// // assertion failed: `assert_some_eq!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq.html
+/// // assertion failed: `assert_some_eq2!(a, b)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq2.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`,
 /// //  a inner: `1`,
@@ -185,8 +185,8 @@ mod tests {
 /// //  b inner: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_some_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq.html\n",
+/// #     "assertion failed: `assert_some_eq2!(a, b)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_eq2.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -200,20 +200,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_some_eq`](macro@crate::assert_some_eq)
-/// * [`assert_some_eq_as_result`](macro@crate::assert_some_eq_as_result)
-/// * [`debug_assert_some_eq`](macro@crate::debug_assert_some_eq)
+/// * [`assert_some_eq2`](macro@crate::assert_some_eq2)
+/// * [`assert_some_eq2_as_result`](macro@crate::assert_some_eq2_as_result)
+/// * [`debug_assert_some_eq2`](macro@crate::debug_assert_some_eq2)
 ///
 #[macro_export]
-macro_rules! assert_some_eq {
+macro_rules! assert_some_eq2 {
     ($a:expr, $b:expr $(,)?) => {{
-        match $crate::assert_some_eq_as_result!($a, $b) {
+        match $crate::assert_some_eq2_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_some_eq_as_result!($a, $b) {
+        match $crate::assert_some_eq2_as_result!($a, $b) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -225,7 +225,7 @@ macro_rules! assert_some_eq {
 /// Pseudocode:<br>
 /// (a ⇒ Some(a1) ⇒ a1) = (b ⇒ Some(b1) ⇒ b1)
 ///
-/// This macro provides the same statements as [`assert_some_eq`](macro.assert_some_eq.html),
+/// This macro provides the same statements as [`assert_some_eq2`](macro.assert_some_eq2.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -247,15 +247,15 @@ macro_rules! assert_some_eq {
 ///
 /// # Module macros
 ///
-/// * [`assert_some_eq`](macro@crate::assert_some_eq)
-/// * [`assert_some_eq`](macro@crate::assert_some_eq)
-/// * [`debug_assert_some_eq`](macro@crate::debug_assert_some_eq)
+/// * [`assert_some_eq2`](macro@crate::assert_some_eq2)
+/// * [`assert_some_eq2`](macro@crate::assert_some_eq2)
+/// * [`debug_assert_some_eq2`](macro@crate::debug_assert_some_eq2)
 ///
 #[macro_export]
-macro_rules! debug_assert_some_eq {
+macro_rules! debug_assert_some_eq2 {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_some_eq!($($arg)*);
+            $crate::assert_some_eq2!($($arg)*);
         }
     };
 }

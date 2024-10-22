@@ -13,15 +13,15 @@
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stdout";
 //! let b_args = ["%s%s", "a", "a"];
-//! assert_program_args_stdout_gt!(&a_program, &a_args, &b_program, &b_args);
+//! assert_program_args_stdout_gt2!(&a_program, &a_args, &b_program, &b_args);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_program_args_stdout_gt`](macro@crate::assert_program_args_stdout_gt)
-//! * [`assert_program_args_stdout_gt_as_result`](macro@crate::assert_program_args_stdout_gt_as_result)
-//! * [`debug_assert_program_args_stdout_gt`](macro@crate::debug_assert_program_args_stdout_gt)
+//! * [`assert_program_args_stdout_gt2`](macro@crate::assert_program_args_stdout_gt2)
+//! * [`assert_program_args_stdout_gt2_as_result`](macro@crate::assert_program_args_stdout_gt2_as_result)
+//! * [`debug_assert_program_args_stdout_gt2`](macro@crate::debug_assert_program_args_stdout_gt2)
 
 /// Assert a command (built with program and args) stdout string is greater than to another.
 ///
@@ -41,12 +41,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stdout_gt`](macro@crate::assert_program_args_stdout_gt)
-/// * [`assert_program_args_stdout_gt_as_result`](macro@crate::assert_program_args_stdout_gt_as_result)
-/// * [`debug_assert_program_args_stdout_gt`](macro@crate::debug_assert_program_args_stdout_gt)
+/// * [`assert_program_args_stdout_gt2`](macro@crate::assert_program_args_stdout_gt2)
+/// * [`assert_program_args_stdout_gt2_as_result`](macro@crate::assert_program_args_stdout_gt2_as_result)
+/// * [`debug_assert_program_args_stdout_gt2`](macro@crate::debug_assert_program_args_stdout_gt2)
 ///
 #[macro_export]
-macro_rules! assert_program_args_stdout_gt_as_result {
+macro_rules! assert_program_args_stdout_gt2_as_result {
     ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => {{
         match ($a_program, $a_args, $b_program, $b_args) {
             (a_program, a_args, b_program, b_args) => {
@@ -63,8 +63,8 @@ macro_rules! assert_program_args_stdout_gt_as_result {
                             Err(
                                 format!(
                                     concat!(
-                                        "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt.html\n",
+                                        "assertion failed: `assert_program_args_stdout_gt2!(a_program, a_args, b_program, b_args)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt2.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -94,8 +94,8 @@ macro_rules! assert_program_args_stdout_gt_as_result {
                         Err(
                             format!(
                                 concat!(
-                                    "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt.html\n",
+                                    "assertion failed: `assert_program_args_stdout_gt2!(a_program, a_args, b_program, b_args)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt2.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -136,7 +136,7 @@ mod tests {
         let b_program = "bin/printf-stdout";
         let b_args = ["%s%s", "a", "a"];
         let result =
-            assert_program_args_stdout_gt_as_result!(&a_program, &a_args, &b_program, &b_args);
+            assert_program_args_stdout_gt2_as_result!(&a_program, &a_args, &b_program, &b_args);
         assert_eq!(
             result.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
@@ -150,11 +150,11 @@ mod tests {
         let b_program = "bin/printf-stdout";
         let b_args = ["%s%s", "z", "z"];
         let result =
-            assert_program_args_stdout_gt_as_result!(&a_program, &a_args, &b_program, &b_args);
+            assert_program_args_stdout_gt2_as_result!(&a_program, &a_args, &b_program, &b_args);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt.html\n",
+            "assertion failed: `assert_program_args_stdout_gt2!(a_program, a_args, b_program, b_args)`\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt2.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -191,7 +191,7 @@ mod tests {
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";
 /// let b_args = ["%s%s", "a", "a"];
-/// assert_program_args_stdout_gt!(&a_program, &a_args, &b_program, &b_args);
+/// assert_program_args_stdout_gt2!(&a_program, &a_args, &b_program, &b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
@@ -199,10 +199,10 @@ mod tests {
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stdout";
 /// let b_args = ["%s%s", "z", "z"];
-/// assert_program_args_stdout_gt!(&a_program, &a_args, &b_program, &b_args);
+/// assert_program_args_stdout_gt2!(&a_program, &a_args, &b_program, &b_args);
 /// # });
-/// // assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt.html
+/// // assertion failed: `assert_program_args_stdout_gt2!(a_program, a_args, b_program, b_args)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt2.html
 /// //  a_program label: `&a_program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&a_args`,
@@ -215,8 +215,8 @@ mod tests {
 /// //                b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt.html\n",
+/// #     "assertion failed: `assert_program_args_stdout_gt2!(a_program, a_args, b_program, b_args)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stdout_gt2.html\n",
 /// #     " a_program label: `&a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&a_args`,\n",
@@ -234,20 +234,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stdout_gt`](macro@crate::assert_program_args_stdout_gt)
-/// * [`assert_program_args_stdout_gt_as_result`](macro@crate::assert_program_args_stdout_gt_as_result)
-/// * [`debug_assert_program_args_stdout_gt`](macro@crate::debug_assert_program_args_stdout_gt)
+/// * [`assert_program_args_stdout_gt2`](macro@crate::assert_program_args_stdout_gt2)
+/// * [`assert_program_args_stdout_gt2_as_result`](macro@crate::assert_program_args_stdout_gt2_as_result)
+/// * [`debug_assert_program_args_stdout_gt2`](macro@crate::debug_assert_program_args_stdout_gt2)
 ///
 #[macro_export]
-macro_rules! assert_program_args_stdout_gt {
+macro_rules! assert_program_args_stdout_gt2 {
     ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => {{
-        match $crate::assert_program_args_stdout_gt_as_result!($a_program, $a_args, $b_program, $b_args) {
+        match $crate::assert_program_args_stdout_gt2_as_result!($a_program, $a_args, $b_program, $b_args) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_program:expr, $a_args:expr, $b_program:expr, $($message:tt)+) => {{
-        match $crate::assert_program_args_stdout_gt_as_result!($a_program, $a_args, $b_program, $b_args) {
+        match $crate::assert_program_args_stdout_gt2_as_result!($a_program, $a_args, $b_program, $b_args) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -259,7 +259,7 @@ macro_rules! assert_program_args_stdout_gt {
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout) > (program2 + args2 ⇒ command ⇒ stdout)
 ///
-/// This macro provides the same statements as [`assert_program_args_stdout_gt`](macro.assert_program_args_stdout_gt.html),
+/// This macro provides the same statements as [`assert_program_args_stdout_gt2`](macro.assert_program_args_stdout_gt2.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -281,15 +281,15 @@ macro_rules! assert_program_args_stdout_gt {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stdout_gt`](macro@crate::assert_program_args_stdout_gt)
-/// * [`assert_program_args_stdout_gt`](macro@crate::assert_program_args_stdout_gt)
-/// * [`debug_assert_program_args_stdout_gt`](macro@crate::debug_assert_program_args_stdout_gt)
+/// * [`assert_program_args_stdout_gt2`](macro@crate::assert_program_args_stdout_gt2)
+/// * [`assert_program_args_stdout_gt2`](macro@crate::assert_program_args_stdout_gt2)
+/// * [`debug_assert_program_args_stdout_gt2`](macro@crate::debug_assert_program_args_stdout_gt2)
 ///
 #[macro_export]
-macro_rules! debug_assert_program_args_stdout_gt {
+macro_rules! debug_assert_program_args_stdout_gt2 {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_program_args_stdout_gt!($($arg)*);
+            $crate::assert_program_args_stdout_gt2!($($arg)*);
         }
     };
 }

@@ -254,15 +254,10 @@
 <a href="#254" id="254">254</a>
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Some and their values are not equal.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Some and its value is not equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
+//! (a ⇒ Some(a1) ⇒ a1) ≠ b
 //!
 //! # Example
 //!
@@ -271,7 +266,7 @@
 //!
 //! # fn main() {
 //! let a: Option&lt;i8&gt; = Option::Some(1);
-//! let b: Option&lt;i8&gt; = Option::Some(2);
+//! let b: i8 = 2;
 //! assert_some_ne!(a, b);
 //! # }
 //! ```
@@ -282,12 +277,12 @@
 //! * [`assert_some_ne_as_result`](macro@crate::assert_some_ne_as_result)
 //! * [`debug_assert_some_ne`](macro@crate::debug_assert_some_ne)
 
-/// Assert two expressions are Some and their values are not equal.
+/// Assert a.is_some() and a.unwrap() are equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
+/// (a ⇒ Some(a1) ⇒ a1) ≠ b
 ///
-/// * If true, return Result `Ok((a1, b1)`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -308,10 +303,10 @@
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
-                <span class="kw">match </span>(a, b) {
-                    (<span class="prelude-val">Some</span>(a1), <span class="prelude-val">Some</span>(b1)) =&gt; {
-                        <span class="kw">if </span>a1 != b1 {
-                            <span class="prelude-val">Ok</span>((a1, b1))
+                <span class="kw">match </span>a {
+                    <span class="prelude-val">Some</span>(a1) =&gt; {
+                        <span class="kw">if </span>a1 != b {
+                            <span class="prelude-val">Ok</span>(a1)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -322,15 +317,13 @@
                                         <span class="string">" a debug: `{:?}`,\n"</span>,
                                         <span class="string">" a inner: `{:?}`,\n"</span>,
                                         <span class="string">" b label: `{}`,\n"</span>,
-                                        <span class="string">" b debug: `{:?}`,\n"</span>,
-                                        <span class="string">" b inner: `{:?}`"
+                                        <span class="string">" b debug: `{:?}`"
                                     </span>),
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                                     a,
                                     a1,
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                                    b,
-                                    b1
+                                    b
                                 )
                             )
                         }
@@ -363,17 +356,17 @@
 </span><span class="kw">mod </span>tests {
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_some_ne_as_result_x_success() {
+    </span><span class="kw">fn </span>test_assert_some_ne_expr_as_result_x_success() {
         <span class="kw">let </span>a: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">1</span>);
-        <span class="kw">let </span>b: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">2</span>);
+        <span class="kw">let </span>b: i8 = <span class="number">2</span>;
         <span class="kw">let </span>result = <span class="macro">assert_some_ne_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">2</span>));
+        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="kw-2">&amp;</span><span class="number">1</span>);
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_some_ne_as_result_x_failure_because_eq() {
+    </span><span class="kw">fn </span>test_assert_some_ne_expr_as_result_x_failure_because_ne() {
         <span class="kw">let </span>a: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">1</span>);
-        <span class="kw">let </span>b: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">1</span>);
+        <span class="kw">let </span>b: i8 = <span class="number">1</span>;
         <span class="kw">let </span>result = <span class="macro">assert_some_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
@@ -384,16 +377,15 @@
                 <span class="string">" a debug: `Some(1)`,\n"</span>,
                 <span class="string">" a inner: `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `Some(1)`,\n"</span>,
-                <span class="string">" b inner: `1`"</span>,
-            )
+                <span class="string">" b debug: `1`"
+            </span>)
         );
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_some_ne_as_result_x_failure_because_not_some() {
+    </span><span class="kw">fn </span>test_assert_some_ne_expr_as_result_x_failure_because_not_some() {
         <span class="kw">let </span>a: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::None;
-        <span class="kw">let </span>b: <span class="prelude-ty">Option</span>&lt;i8&gt; = Option::Some(<span class="number">1</span>);
+        <span class="kw">let </span>b: i8 = <span class="number">1</span>;
         <span class="kw">let </span>result = <span class="macro">assert_some_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
@@ -403,18 +395,18 @@
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `None`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `Some(1)`"</span>,
+                <span class="string">" b debug: `1`"</span>,
             )
         );
     }
 }
 
-<span class="doccomment">/// Assert two expressions are Some and their values are not equal.
+<span class="doccomment">/// Assert an expression is Some and its value is not equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
+/// (a ⇒ Some(a1) ⇒ a1) ≠ b
 ///
-/// * If true, return `(a1, b1)`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -427,23 +419,22 @@
 ///
 /// # fn main() {
 /// let a: Option&lt;i8&gt; = Option::Some(1);
-/// let b: Option&lt;i8&gt; = Option::Some(2);
+/// let b: i8 = 2;
 /// assert_some_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: Option&lt;i8&gt; = Option::Some(1);
-/// let b: Option&lt;i8&gt; = Option::Some(1);
+/// let b: i8 = 1;
 /// assert_some_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_some_ne!(a, b)`
 /// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_some_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`,
-/// //  b label: `b`,
-/// //  b debug: `Some(1)`,
 /// //  a inner: `1`,
-/// //  b inner: `1`
+/// //  b label: `b`,
+/// //  b debug: `1`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_some_ne!(a, b)`\n",
@@ -452,8 +443,7 @@
 /// #     " a debug: `Some(1)`,\n",
 /// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `Some(1)`,\n",
-/// #     " b inner: `1`",
+/// #     " b debug: `1`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -481,10 +471,10 @@
     }};
 }
 
-<span class="doccomment">/// Assert two expressions are Some and their values are not equal.
+<span class="doccomment">/// Assert an expression is Some and its value is not equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
+/// (a ⇒ Some(a1) ⇒ a1) ≠ b
 ///
 /// This macro provides the same statements as [`assert_some_ne`](macro.assert_some_ne.html),
 /// except this macro's statements are only enabled in non-optimized

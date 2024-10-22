@@ -12,15 +12,15 @@
 //! let program = "bin/printf-stderr";
 //! let args = ["%s", "alfa"];
 //! let bytes = vec![b'a', b'a'];
-//! assert_program_args_stderr_ge_expr!(&program, &args, bytes);
+//! assert_program_args_stderr_ge!(&program, &args, bytes);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_program_args_stderr_ge_expr`](macro@crate::assert_program_args_stderr_ge_expr)
-//! * [`assert_program_args_stderr_ge_expr`](macro@crate::assert_program_args_stderr_ge_expr)
-//! * [`debug_assert_program_args_stderr_ge_expr`](macro@crate::debug_assert_program_args_stderr_ge_expr)
+//! * [`assert_program_args_stderr_ge`](macro@crate::assert_program_args_stderr_ge)
+//! * [`assert_program_args_stderr_ge`](macro@crate::assert_program_args_stderr_ge)
+//! * [`debug_assert_program_args_stderr_ge`](macro@crate::debug_assert_program_args_stderr_ge)
 
 /// Assert a command (built with program and args) stderr string is greater than or equal to an expression.
 ///
@@ -39,12 +39,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stderr_ge_expr`](macro@crate::assert_program_args_stderr_ge_expr)
-/// * [`assert_program_args_stderr_ge_expr_as_result`](macro@crate::assert_program_args_stderr_ge_expr_as_result)
-/// * [`debug_assert_program_args_stderr_ge_expr`](macro@crate::debug_assert_program_args_stderr_ge_expr)
+/// * [`assert_program_args_stderr_ge`](macro@crate::assert_program_args_stderr_ge)
+/// * [`assert_program_args_stderr_ge_as_result`](macro@crate::assert_program_args_stderr_ge_as_result)
+/// * [`debug_assert_program_args_stderr_ge`](macro@crate::debug_assert_program_args_stderr_ge)
 ///
 #[macro_export]
-macro_rules! assert_program_args_stderr_ge_expr_as_result {
+macro_rules! assert_program_args_stderr_ge_as_result {
     ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {{
         match ($a_program, $a_args, &$b_expr) {
             (a_program, a_args, b_expr) => {
@@ -57,8 +57,8 @@ macro_rules! assert_program_args_stderr_ge_expr_as_result {
                             Err(
                                 format!(
                                     concat!(
-                                        "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge_expr.html\n",
+                                        "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_expr)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -84,8 +84,8 @@ macro_rules! assert_program_args_stderr_ge_expr_as_result {
                         Err(
                             format!(
                                 concat!(
-                                    "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge_expr.html\n",
+                                    "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_expr)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -118,7 +118,7 @@ mod tests {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'a'];
-        let result = assert_program_args_stderr_ge_expr_as_result!(&a_program, &a_args, b);
+        let result = assert_program_args_stderr_ge_as_result!(&a_program, &a_args, b);
         assert_eq!(
             result.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
@@ -130,11 +130,11 @@ mod tests {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b = vec![b'z', b'z'];
-        let result = assert_program_args_stderr_ge_expr_as_result!(&a_program, &a_args, b);
+        let result = assert_program_args_stderr_ge_as_result!(&a_program, &a_args, b);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
-            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge_expr.html\n",
+            "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_expr)`\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -167,17 +167,17 @@ mod tests {
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'a', b'a'];
-/// assert_program_args_stderr_ge_expr!(&program, &args, bytes);
+/// assert_program_args_stderr_ge!(&program, &args, bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'z', b'z'];
-/// assert_program_args_stderr_ge_expr!(&program, &args, bytes);
+/// assert_program_args_stderr_ge!(&program, &args, bytes);
 /// # });
-/// // assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge_expr.html
+/// // assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_expr)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&args`,
@@ -188,8 +188,8 @@ mod tests {
 /// //                b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_program_args_stderr_ge_expr!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge_expr.html\n",
+/// #     "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_expr)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_ge.html\n",
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&args`,\n",
@@ -205,20 +205,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stderr_ge_expr`](macro@crate::assert_program_args_stderr_ge_expr)
-/// * [`assert_program_args_stderr_ge_expr_as_result`](macro@crate::assert_program_args_stderr_ge_expr_as_result)
-/// * [`debug_assert_program_args_stderr_ge_expr`](macro@crate::debug_assert_program_args_stderr_ge_expr)
+/// * [`assert_program_args_stderr_ge`](macro@crate::assert_program_args_stderr_ge)
+/// * [`assert_program_args_stderr_ge_as_result`](macro@crate::assert_program_args_stderr_ge_as_result)
+/// * [`debug_assert_program_args_stderr_ge`](macro@crate::debug_assert_program_args_stderr_ge)
 ///
 #[macro_export]
-macro_rules! assert_program_args_stderr_ge_expr {
+macro_rules! assert_program_args_stderr_ge {
     ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {{
-        match $crate::assert_program_args_stderr_ge_expr_as_result!($a_program, $a_args, $b_expr) {
+        match $crate::assert_program_args_stderr_ge_as_result!($a_program, $a_args, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_program:expr, $a_args:expr, $b_expr:expr, $($message:tt)+) => {{
-        match $crate::assert_program_args_stderr_ge_expr_as_result!($a_program, $a_args, $b_expr) {
+        match $crate::assert_program_args_stderr_ge_as_result!($a_program, $a_args, $b_expr) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -230,7 +230,7 @@ macro_rules! assert_program_args_stderr_ge_expr {
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stderr) ≥ (expr into string)
 ///
-/// This macro provides the same statements as [`assert_program_args_stderr_ge_expr`](macro.assert_program_args_stderr_ge_expr.html),
+/// This macro provides the same statements as [`assert_program_args_stderr_ge`](macro.assert_program_args_stderr_ge.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -252,15 +252,15 @@ macro_rules! assert_program_args_stderr_ge_expr {
 ///
 /// # Module macros
 ///
-/// * [`assert_program_args_stderr_ge_expr`](macro@crate::assert_program_args_stderr_ge_expr)
-/// * [`assert_program_args_stderr_ge_expr`](macro@crate::assert_program_args_stderr_ge_expr)
-/// * [`debug_assert_program_args_stderr_ge_expr`](macro@crate::debug_assert_program_args_stderr_ge_expr)
+/// * [`assert_program_args_stderr_ge`](macro@crate::assert_program_args_stderr_ge)
+/// * [`assert_program_args_stderr_ge`](macro@crate::assert_program_args_stderr_ge)
+/// * [`debug_assert_program_args_stderr_ge`](macro@crate::debug_assert_program_args_stderr_ge)
 ///
 #[macro_export]
-macro_rules! debug_assert_program_args_stderr_ge_expr {
+macro_rules! debug_assert_program_args_stderr_ge {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_program_args_stderr_ge_expr!($($arg)*);
+            $crate::assert_program_args_stderr_ge!($($arg)*);
         }
     };
 }

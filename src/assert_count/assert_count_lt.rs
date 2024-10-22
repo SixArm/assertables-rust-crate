@@ -11,15 +11,15 @@
 //! # fn main() {
 //! let a = "x".chars();
 //! let b = 2;
-//! assert_count_lt_expr!(a, b);
+//! assert_count_lt!(a, b);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_count_lt_expr`](macro@crate::assert_count_lt_expr)
-//! * [`assert_count_lt_expr_as_result`](macro@crate::assert_count_lt_expr_as_result)
-//! * [`debug_assert_count_lt_expr`](macro@crate::debug_assert_count_lt_expr)
+//! * [`assert_count_lt`](macro@crate::assert_count_lt)
+//! * [`assert_count_lt_as_result`](macro@crate::assert_count_lt_as_result)
+//! * [`debug_assert_count_lt`](macro@crate::debug_assert_count_lt)
 
 /// Assert a count is less than an expression.
 ///
@@ -38,12 +38,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_count_lt_expr`](macro@crate::assert_count_lt_expr)
-/// * [`assert_count_lt_expr_as_result`](macro@crate::assert_count_lt_expr_as_result)
-/// * [`debug_assert_count_lt_expr`](macro@crate::debug_assert_count_lt_expr)
+/// * [`assert_count_lt`](macro@crate::assert_count_lt)
+/// * [`assert_count_lt_as_result`](macro@crate::assert_count_lt_as_result)
+/// * [`debug_assert_count_lt`](macro@crate::debug_assert_count_lt)
 ///
 #[macro_export]
-macro_rules! assert_count_lt_expr_as_result {
+macro_rules! assert_count_lt_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, _b) => {
@@ -54,8 +54,8 @@ macro_rules! assert_count_lt_expr_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_count_lt_expr!(a, b)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt_expr.html\n",
+                                "assertion failed: `assert_count_lt!(a, b)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
@@ -82,7 +82,7 @@ mod tests {
     fn test_assert_count_lt_expr_as_result_x_success_because_lt() {
         let a = "x".chars();
         let b = 2;
-        let result = assert_count_lt_expr_as_result!(a, b);
+        let result = assert_count_lt_as_result!(a, b);
         assert_eq!(result, Ok((1, 2)));
     }
 
@@ -90,12 +90,12 @@ mod tests {
     fn test_assert_count_lt_expr_as_result_x_failure_because_eq() {
         let a = "x".chars();
         let b = 1;
-        let result = assert_count_lt_expr_as_result!(a, b);
+        let result = assert_count_lt_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_count_lt_expr!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt_expr.html\n",
+                "assertion failed: `assert_count_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x'])`,\n",
                 " a.count(): `1`,\n",
@@ -109,12 +109,12 @@ mod tests {
     fn test_assert_count_lt_expr_as_result_x_failure_because_gt() {
         let a = "xx".chars();
         let b = 1;
-        let result = assert_count_lt_expr_as_result!(a, b);
+        let result = assert_count_lt_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_count_lt_expr!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt_expr.html\n",
+                "assertion failed: `assert_count_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x', 'x'])`,\n",
                 " a.count(): `2`,\n",
@@ -144,16 +144,16 @@ mod tests {
 /// # fn main() {
 /// let a = "x".chars();
 /// let b = 2;
-/// assert_count_lt_expr!(a, b);
+/// assert_count_lt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "xx".chars();
 /// let b = 1;
-/// assert_count_lt_expr!(a, b);
+/// assert_count_lt!(a, b);
 /// # });
-/// // assertion failed: `assert_count_lt_expr!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt_expr.html
+/// // assertion failed: `assert_count_lt!(a, b)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",
@@ -161,8 +161,8 @@ mod tests {
 /// //  b debug: `1`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_count_lt_expr!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt_expr.html\n",
+/// #     "assertion failed: `assert_count_lt!(a, b)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x', 'x'])`,\n",
 /// #     " a.count(): `2`,\n",
@@ -175,20 +175,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_count_lt_expr`](macro@crate::assert_count_lt_expr)
-/// * [`assert_count_lt_expr_as_result`](macro@crate::assert_count_lt_expr_as_result)
-/// * [`debug_assert_count_lt_expr`](macro@crate::debug_assert_count_lt_expr)
+/// * [`assert_count_lt`](macro@crate::assert_count_lt)
+/// * [`assert_count_lt_as_result`](macro@crate::assert_count_lt_as_result)
+/// * [`debug_assert_count_lt`](macro@crate::debug_assert_count_lt)
 ///
 #[macro_export]
-macro_rules! assert_count_lt_expr {
+macro_rules! assert_count_lt {
     ($a:expr, $b:expr $(,)?) => {{
-        match $crate::assert_count_lt_expr_as_result!($a, $b) {
+        match $crate::assert_count_lt_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_count_lt_expr_as_result!($a, $b) {
+        match $crate::assert_count_lt_as_result!($a, $b) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -200,7 +200,7 @@ macro_rules! assert_count_lt_expr {
 /// Pseudocode:<br>
 /// a.count() < b
 ///
-/// This macro provides the same statements as [`assert_count_lt_expr`](macro.assert_count_lt_expr.html),
+/// This macro provides the same statements as [`assert_count_lt`](macro.assert_count_lt.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -222,15 +222,15 @@ macro_rules! assert_count_lt_expr {
 ///
 /// # Module macros
 ///
-/// * [`assert_count_lt_expr`](macro@crate::assert_count_lt_expr)
-/// * [`assert_count_lt_expr`](macro@crate::assert_count_lt_expr)
-/// * [`debug_assert_count_lt_expr`](macro@crate::debug_assert_count_lt_expr)
+/// * [`assert_count_lt`](macro@crate::assert_count_lt)
+/// * [`assert_count_lt`](macro@crate::assert_count_lt)
+/// * [`debug_assert_count_lt`](macro@crate::debug_assert_count_lt)
 ///
 #[macro_export]
-macro_rules! debug_assert_count_lt_expr {
+macro_rules! debug_assert_count_lt {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_count_lt_expr!($($arg)*);
+            $crate::assert_count_lt!($($arg)*);
         }
     };
 }

@@ -3,44 +3,20 @@
 //! The `assertables` Rust crate provides many assert macros to improve your
 //! compile-time tests and run-time reliability.
 //!
-//! * Crate: [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
+//! * Crate:
+//!   [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
 //! * Docs: [https://docs.rs/assertables/](https://docs.rs/assertables/)
-//! * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
-//! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
+//! * Repo:
+//!   [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
+//! * Contact:
+//!   [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
 //!
 //! ## Introduction
 //!
-//! The Rust programming language provides a few built-in assert macros to test
-//! code:
-//!
-//! The Rust programming language provides assert macros to test code:
-//!
-//! * [`assert!(a)`](https://doc.rust-lang.org/std/macro.assert.html) `// a is true`
-//! * [`assert_eq!(a, b)`](https://doc.rust-lang.org/std/macro.assert_eq.html) `// a is equal to b`
-//! * [`assert_ne!(a, b)`](https://doc.rust-lang.org/std/macro.assert_ne.html) `// a is not equal to b`
-//!
-//! The assertables crate provides many more, to help you work with numbers,
-//! strings, results, options, polls, iterators, files, streams, commands, and more.
-//!
-//! Examples:
-//!
-//! ``rust
-//! use assertables::*;
-//! # fn main() {
-//! let s = "hello world";
-//! assert_matches!(s, "hello world");
-//! assert_starts_with!(s, "hello");
-//! assert_contains!(s, "o");
-//! assert_all!(s.chars(), |c: char| c < 'x');
-//! # }
-//!  ``
-//!
-//! To use the macros, add this to your `Cargo.toml` file:
-//!
-//! ``toml
-//! [dev-dependencies]
-//! assertables = "*"
-//! ``
+//! The Rust programming language provides assert macros such as `assert!(x)` to
+//! test code. The assertables crate provides many more for numbers, strings,
+//! results, options, iterators, files, streams, and more. See below for
+//! examples.
 //!
 //! Top benefits:
 //!
@@ -48,13 +24,14 @@
 //! 2. You can handle more corner cases without needing to write custom code.
 //! 3. You can troubleshoot faster because error messages show specifics.
 //!
-//! Top features:
+//! To use this crate, add it to your `Cargo.toml` file as a development dependency:
 //!
-//! 1. Easy to use: everything is well-documented with runnable examples.
-//! 2. Zero overhead: if you don't use a macro, then it's never compiled.
-//! 3. Runtime options: all the assertables macros have runtime versions.
+//! ``toml
+//! [dev-dependencies]
+//! assertables = "*"
+//! ``
 //!
-//! Top comparable crates:
+//! Comparable crates:
 //!    [`assert_matches`](https://crates.io/crates/assert_matches),
 //!    [`assert_approx_eq`](https://crates.io/crates/assert_approx_eq),
 //!    [`more_asserts`](https://crates.io/crates/more_asserts),
@@ -67,18 +44,18 @@
 //!
 //! Values:
 //!
-//! * [`assert_eq!(a, b);`](module@crate::assert_eq) `// equal to`
-//! * [`assert_ne!(a, b);`](module@crate::assert_ne) `// not equal to`
-//! * [`assert_lt!(a, b);`](module@crate::assert_lt) `// less than`
-//! * [`assert_le!(a, b);`](module@crate::assert_le) `// less than or equal to`
-//! * [`assert_gt!(a, b);`](module@crate::assert_gt) `// greater than`
-//! * [`assert_ge!(a, b);`](module@crate::assert_ge) `// greater than or equal to`
+//! * [`assert_eq!(a, b);`](module@crate::assert_eq) `// a == b`
+//! * [`assert_ne!(a, b);`](module@crate::assert_ne) `// a != b`
+//! * [`assert_lt!(a, b);`](module@crate::assert_lt) `// a < b`
+//! * [`assert_le!(a, b);`](module@crate::assert_le) `// a <= b`
+//! * [`assert_gt!(a, b);`](module@crate::assert_gt) `// a > b`
+//! * [`assert_ge!(a, b);`](module@crate::assert_ge) `// a >= b`
 //!
 //! Approximations:
 //!
-//! * [`assert_approx_eq!(a, b);`](module@crate::assert_approx::assert_approx_eq) `// |a-b| ≤ 1e-6`
-//! * [`assert_in_delta!(a, b, delta);`](module@crate::assert_in::assert_in_delta) `// |a-b| ≤ delta`
-//! * [`assert_in_epsilon!(a, b, epsilon);`](module@crate::assert_in::assert_in_epsilon) `// |a-b| ≤ epsilon * min(a,b)`
+//! * [`assert_approx_eq!(a, b);`](module@crate::assert_approx::assert_approx_eq) `// |a-b| <= 1e-6`
+//! * [`assert_in_delta!(a, b, delta);`](module@crate::assert_in::assert_in_delta) `// |a-b| <= delta`
+//! * [`assert_in_epsilon!(a, b, epsilon);`](module@crate::assert_in::assert_in_epsilon) `// |a-b| <= epsilon * min(a,b)`
 //!
 //! Groups for iterators, chars, etc.:
 //!
@@ -87,8 +64,8 @@
 //!
 //! Infix for order operators, logic operators, etc.:
 //!
-//! * [`assert_infix!(a == b);`](module@crate::assert_infix) `// order: == != < <= > >=`
-//! * [`assert_infix!(a && b);`](module@crate::assert_infix) `// logic: && || ^ & |`
+//! * [`assert_infix!(a == b);`](module@crate::assert_infix) `// order operators: == != < <= > >=`
+//! * [`assert_infix!(a && b);`](module@crate::assert_infix) `// logic operators: && || ^ & |`
 //!
 //! Parts for strings, vectors, etc.:
 //!
@@ -97,9 +74,9 @@
 //!
 //! Lengths and counts for strings, vectors, iterators, etc.:
 //!
-//! * [`assert_len!(item);`](module@crate::assert_len) `// item.len()`
-//! * [`assert_count!(item);`](module@crate::assert_count) `// item.count()`
-//! * [`assert_is_empty!(item);`](module@crate::assert_is_empty) `// item.is_empty()`
+//! * [`assert_len_eq!(item, x);`](module@crate::assert_len::assert_len_eq) `// item.len() == x`
+//! * [`assert_count_eq!(item, x);`](module@crate::assert_count::assert_count_eq) `// item.count() == x`
+//! * [`assert_is_empty!(item);`](module@crate::assert_is_empty::assert_is_empty) `// item.is_empty()`
 //!
 //! Matching for strings, regex, etc.:
 //!
@@ -109,40 +86,40 @@
 //!
 //! Collections for arrays, vectors, iterators, sets, maps:
 //!
-//! * [`assert_iter_eq!(arr1, arr2);`](module@crate::assert_iter) `// eq ne etc.`
-//! * [`assert_set_eq!(vec1, vec2);`](module@crate::assert_set) `// eq ne etc.`
-//! * [`assert_bag_eq!(map1, map2);`](module@crate::assert_bag) `// eq ne etc.`
+//! * [`assert_iter_eq2!(arr1, arr2);`](module@crate::assert_iter) `// eq ne etc.`
+//! * [`assert_set_eq2!(vec1, vec2);`](module@crate::assert_set) `// eq ne etc.`
+//! * [`assert_bag_eq2!(map1, map2);`](module@crate::assert_bag) `// eq ne etc.`
 //!
 //! Result Ok/Err:
 //!
-//! * [`assert_ok!(result);`](module@crate::assert_ok) `// eq ne etc.`
-//! * [`assert_err!(result);`](module@crate::assert_err) `// eq ne etc.`
+//! * [`assert_ok_eq!(result, x);`](module@crate::assert_ok) `// result is Ok(x)`
+//! * [`assert_err_eq!(result, x);`](module@crate::assert_err) `// result is Err(x)`
 //!
 //! Option Some/None:
 //!
-//! * [`assert_some!(option);`](module@crate::assert_some) `// eq ne etc.`
-//! * [`assert_none!(option);`](module@crate::assert_none)
+//! * [`assert_some_eq!(option, x);`](module@crate::assert_some) `// option is Some(x)`
+//! * [`assert_none!(option);`](module@crate::assert_none) `// option is None`
 //!
 //! Poll Ready/Pending:
 //!
-//! * [`assert_ready!(poll);`](module@crate::assert_ready) `// eq ne etc.`
-//! * [`assert_pending!(poll);`](module@crate::assert_pending)
+//! * [`assert_ready_eq!(poll, x);`](module@crate::assert_ready) `// poll is Ready(x)`
+//! * [`assert_pending!(poll);`](module@crate::assert_pending) `// poll is Pending`
 //!
 //! Read file system paths and input/output streams:
 //!
-//! * [`assert_fs_read_to_string_eq!(path1, path2);`](module@crate::assert_fs_read_to_string) `// eq ne etc.`
-//! * [`assert_io_read_to_string_eq!(stream1, stream2);`](module@crate::assert_io_read_to_string) `// eq ne etc.`
+//! * [`assert_fs_read_to_string_eq!(path, x);`](module@crate::assert_fs_read_to_string) `// read path == x`
+//! * [`assert_io_read_to_string_eq!(stream, x);`](module@crate::assert_io_read_to_string) `// read stream == x`
 //!
 //! Run commands and programs then assert on stdout or stderr:
 //!
-//! * [`assert_command_stdout_eq!(command1, command2);`](module@crate::assert_command) `// eq ne etc.`
-//! * [`assert_program_args_stdout_eq!(program1, args1, program2, args2);`](module@crate::assert_program_args) `// eq ne etc.`
+//! * [`assert_command_stdout_eq!(command, x);`](module@crate::assert_command) `// command stdout == x`
+//! * [`assert_program_args_stdout_eq!(program, args, x);`](module@crate::assert_program_args) `// program-args stdout == x`
 //!
-//! Function comparisons, which are especially good for refactoring:
+//! Function comparisons, which can be especially helpful for refactoring:
 //!
-//! * [`assert_fn_eq!(fn1, fn2);`](module@crate::assert_fn) `// functions that return values`
-//! * [`assert_fn_ok_eq!(fn1, fn2);`](module@crate::assert_fn_ok) `// functions that return Ok`
-//! * [`assert_fn_err_eq!(fn1, fn2);`](module@crate::assert_fn_err) `// functions that return Err`
+//! * [`assert_fn_eq!(fn, x);`](module@crate::assert_fn) `// fn() == x`
+//! * [`assert_fn_ok_eq!(fn, x);`](module@crate::assert_fn_ok) `// fn() == Ok(x)`
+//! * [`assert_fn_err_eq!(fn, x);`](module@crate::assert_fn_err) `// fn() == Err(x)`
 //!
 //! ## Forms
 //!
@@ -157,11 +134,43 @@
 //! * [`assert_gt_as_result!(a, b)`](macro@crate::assert_gt_as_result) `// return Ok or Err`
 //! * [`debug_assert_gt!(a, b)`](macro@crate::debug_assert_gt) `// panic when in debug mode`
 //!
-//! Many assertables macros have forms for comparing left hand side (LHS) and
-//! right hand side (RHS) as the same type or as an arbitrary expression:
+//! Many assertables macros have forms for comparing one item (to an expression)
+//! or two items (to each other):
 //!
-//! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq) `// Ok(…) = Ok(…)`
-//! * [`assert_ok_eq_expr!(a, b)`](macro@crate::assert_ok_eq_expr) `// Ok(…) = expression`
+//! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq) `// Ok(…) = expression`
+//! * [`assert_ok_eq2!(a, b)`](macro@crate::assert_ok_eq2) `// Ok(…) = Ok(…)`
+//!
+//! ## Migrating from version 8 to version 9
+//!
+//! A macro naming convention is changing, to improve usability.
+//!
+//! Version 8 naming convention:
+//!
+//! ```ignore
+//! assert_foo_eq_expr!(a, x) // compare one item with one expression
+//! assert_foo_eq!(a, b) // compare two items of the same type
+//! ```
+//!
+//! Version 9 naming conventions:
+//!
+//! ```ignore
+//! assert_foo_eq!(a, x) // compare one item with one expression
+//! assert_foo_eq2!(a, b) // compare two items of the same type
+//! ```
+//!
+//! To update your code, one way is to use regular expressions.
+//!
+//! Run this first:
+//!
+//! * Match: `\b(|debug_)(assert_\w*_)(eq|ne|lt|le|gt|ge)(|_as_result)\b`
+//!
+//! * Replace: `$1$2$32$4`
+//!
+//! Run this second:
+//!
+//! * Match: `\b(|debug_)(assert_\w*_)(eq|ne|lt|le|gt|ge)_expr(|_as_result)\b`
+//!
+//! * Replace: `$1$2$3$4`
 //!
 //! ## Tracking
 //!

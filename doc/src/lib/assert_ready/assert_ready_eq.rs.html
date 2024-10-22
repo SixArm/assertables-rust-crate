@@ -258,15 +258,10 @@
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
 <a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ready and their values are equal.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ready and its value is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
+//! (a ⇒ Ready(a1) ⇒ a1) = b
 //!
 //! # Example
 //!
@@ -276,7 +271,7 @@
 //! use std::task::Poll::*;
 //! # fn main() {
 //! let a: Poll&lt;i8&gt; = Ready(1);
-//! let b: Poll&lt;i8&gt; = Ready(1);
+//! let b: i8 = 1;
 //! assert_ready_eq!(a, b);
 //! # }
 //! ```
@@ -287,12 +282,12 @@
 //! * [`assert_ready_eq_as_result`](macro@crate::assert_ready_eq_as_result)
 //! * [`debug_assert_ready_eq`](macro@crate::debug_assert_ready_eq)
 
-/// Assert two expressions are Ready and their values are equal.
+/// Assert an expression is Ready and its value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
+/// (a ⇒ Ready(a1) ⇒ a1) = b
 ///
-/// * If true, return Result `Ok((a1, b1))`.
+/// * If true, return Result `Ok(a1)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -313,10 +308,10 @@
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
-                <span class="kw">match </span>(a, b) {
-                    (Ready(a1), Ready(b1)) =&gt; {
-                        <span class="kw">if </span>a1 == b1 {
-                            <span class="prelude-val">Ok</span>((a1, b1))
+                <span class="kw">match </span>a {
+                    Ready(a1) =&gt; {
+                        <span class="kw">if </span>a1 == b {
+                            <span class="prelude-val">Ok</span>(a1)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -327,15 +322,13 @@
                                         <span class="string">" a debug: `{:?}`,\n"</span>,
                                         <span class="string">" a inner: `{:?}`,\n"</span>,
                                         <span class="string">" b label: `{}`,\n"</span>,
-                                        <span class="string">" b debug: `{:?}`,\n"</span>,
-                                        <span class="string">" b inner: `{:?}`"
+                                        <span class="string">" b debug: `{:?}`"
                                     </span>),
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                                     a,
                                     a1,
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                                    b,
-                                    b1
+                                    b
                                 )
                             )
                         }
@@ -370,17 +363,17 @@
     <span class="kw">use </span>std::task::Poll::<span class="kw-2">*</span>;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_ready_eq_as_result_x_success() {
+    </span><span class="kw">fn </span>test_assert_ready_eq_expr_as_result_x_success() {
         <span class="kw">let </span>a: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
-        <span class="kw">let </span>b: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
+        <span class="kw">let </span>b: i8 = <span class="number">1</span>;
         <span class="kw">let </span>result = <span class="macro">assert_ready_eq_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">1</span>));
+        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="kw-2">&amp;</span><span class="number">1</span>);
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_ready_eq_as_result_x_failure_because_ne() {
+    </span><span class="kw">fn </span>test_assert_ready_eq_expr_as_result_x_failure_because_ne() {
         <span class="kw">let </span>a: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
-        <span class="kw">let </span>b: Poll&lt;i8&gt; = Ready(<span class="number">2</span>);
+        <span class="kw">let </span>b: i8 = <span class="number">2</span>;
         <span class="kw">let </span>result = <span class="macro">assert_ready_eq_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
@@ -391,16 +384,15 @@
                 <span class="string">" a debug: `Ready(1)`,\n"</span>,
                 <span class="string">" a inner: `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `Ready(2)`,\n"</span>,
-                <span class="string">" b inner: `2`"</span>,
-            )
+                <span class="string">" b debug: `2`"
+            </span>)
         );
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_ready_eq_as_result_x_failure_because_not_ready() {
+    </span><span class="kw">fn </span>test_assert_ready_eq_expr_as_result_x_failure_because_not_ready() {
         <span class="kw">let </span>a: Poll&lt;i8&gt; = Pending;
-        <span class="kw">let </span>b: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
+        <span class="kw">let </span>b: i8 = <span class="number">1</span>;
         <span class="kw">let </span>result = <span class="macro">assert_ready_eq_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
@@ -410,18 +402,18 @@
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Pending`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `Ready(1)`"</span>,
-            )
+                <span class="string">" b debug: `1`"
+            </span>)
         );
     }
 }
 
-<span class="doccomment">/// Assert two expressions are Ready and their values are equal.
+<span class="doccomment">/// Assert an expression is Ready and its value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
+/// (a ⇒ Ready(a1) ⇒ a1) = b
 ///
-/// * If true, return `(a1, b1)`.
+/// * If true, return `a1`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -435,13 +427,13 @@
 /// use std::task::Poll::*;
 /// # fn main() {
 /// let a: Poll&lt;i8&gt; = Ready(1);
-/// let b: Poll&lt;i8&gt; = Ready(1);
+/// let b: i8 = 1;
 /// assert_ready_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: Poll&lt;i8&gt; = Ready(1);
-/// let b: Poll&lt;i8&gt; = Ready(2);
+/// let b: i8 = 2;
 /// assert_ready_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_ready_eq!(a, b)`
@@ -450,8 +442,7 @@
 /// //  a debug: `Ready(1)`,
 /// //  a inner: `1`,
 /// //  b label: `b`,
-/// //  b debug: `Ready(2)`,
-/// //  b inner: `2`
+/// //  b debug: `2`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ready_eq!(a, b)`\n",
@@ -460,8 +451,7 @@
 /// #     " a debug: `Ready(1)`,\n",
 /// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `Ready(2)`,\n",
-/// #     " b inner: `2`",
+/// #     " b debug: `2`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -489,10 +479,10 @@
     }};
 }
 
-<span class="doccomment">/// Assert two expressions are Ready and their values are equal.
+<span class="doccomment">/// Assert an expression is Ready and its value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
+/// (a ⇒ Ready(a1) ⇒ a1) = b
 ///
 /// This macro provides the same statements as [`assert_ready_eq`](macro.assert_ready_eq.html),
 /// except this macro's statements are only enabled in non-optimized

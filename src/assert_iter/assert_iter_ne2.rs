@@ -11,7 +11,7 @@
 //! # fn main() {
 //! let a = [1, 2];
 //! let b = [3, 4];
-//! assert_iter_ne!(&a, &b);
+//! assert_iter_ne2!(&a, &b);
 //! # }
 //! ```
 //!
@@ -19,9 +19,9 @@
 //!
 //! # Module macros
 //!
-//! * [`assert_iter_ne`](macro@crate::assert_iter_ne)
-//! * [`assert_iter_ne_as_result`](macro@crate::assert_iter_ne_as_result)
-//! * [`debug_assert_iter_ne`](macro@crate::debug_assert_iter_ne)
+//! * [`assert_iter_ne2`](macro@crate::assert_iter_ne2)
+//! * [`assert_iter_ne2_as_result`](macro@crate::assert_iter_ne2_as_result)
+//! * [`debug_assert_iter_ne2`](macro@crate::debug_assert_iter_ne2)
 
 /// Assert an iterable is not equal to another.
 ///
@@ -42,12 +42,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_iter_ne`](macro@crate::assert_iter_ne)
-/// * [`assert_iter_ne_as_result`](macro@crate::assert_iter_ne_as_result)
-/// * [`debug_assert_iter_ne`](macro@crate::debug_assert_iter_ne)
+/// * [`assert_iter_ne2`](macro@crate::assert_iter_ne2)
+/// * [`assert_iter_ne2_as_result`](macro@crate::assert_iter_ne2_as_result)
+/// * [`debug_assert_iter_ne2`](macro@crate::debug_assert_iter_ne2)
 ///
 #[macro_export]
-macro_rules! assert_iter_ne_as_result {
+macro_rules! assert_iter_ne2_as_result {
     ($a_collection:expr, $b_collection:expr $(,)?) => {{
         match (&$a_collection, &$b_collection) {
             (a_collection, b_collection) => {
@@ -59,8 +59,8 @@ macro_rules! assert_iter_ne_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_iter_ne!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_iter_ne.html\n",
+                                "assertion failed: `assert_iter_ne2!(a_collection, b_collection)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_iter_ne2.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -85,7 +85,7 @@ mod tests {
     fn test_assert_iter_ne_as_result_x_success() {
         let a = [1, 2];
         let b = [2, 1];
-        let result = assert_iter_ne_as_result!(&a, &b);
+        let result = assert_iter_ne2_as_result!(&a, &b);
         assert_eq!(result, Ok(()));
     }
 
@@ -93,12 +93,12 @@ mod tests {
     fn test_assert_iter_ne_as_result_x_failure() {
         let a = [1, 2];
         let b = [1, 2];
-        let result = assert_iter_ne_as_result!(&a, &b);
+        let result = assert_iter_ne2_as_result!(&a, &b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_iter_ne!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_iter_ne.html\n",
+                "assertion failed: `assert_iter_ne2!(a_collection, b_collection)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_iter_ne2.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 2]`,\n",
                 " b label: `&b`,\n",
@@ -127,24 +127,24 @@ mod tests {
 /// # fn main() {
 /// let a = [1, 2];
 /// let b = [3, 4];
-/// assert_iter_ne!(&a, &b);
+/// assert_iter_ne2!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = [1, 2];
 /// let b = [1, 2];
-/// assert_iter_ne!(&a, &b);
+/// assert_iter_ne2!(&a, &b);
 /// # });
-/// // assertion failed: `assert_iter_ne!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_iter_ne.html
+/// // assertion failed: `assert_iter_ne2!(a_collection, b_collection)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_iter_ne2.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&b`,
 /// //  b debug: `[1, 2]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_iter_ne!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_iter_ne.html\n",
+/// #     "assertion failed: `assert_iter_ne2!(a_collection, b_collection)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_iter_ne2.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `&b`,\n",
@@ -158,20 +158,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_iter_ne`](macro@crate::assert_iter_ne)
-/// * [`assert_iter_ne_as_result`](macro@crate::assert_iter_ne_as_result)
-/// * [`debug_assert_iter_ne`](macro@crate::debug_assert_iter_ne)
+/// * [`assert_iter_ne2`](macro@crate::assert_iter_ne2)
+/// * [`assert_iter_ne2_as_result`](macro@crate::assert_iter_ne2_as_result)
+/// * [`debug_assert_iter_ne2`](macro@crate::debug_assert_iter_ne2)
 ///
 #[macro_export]
-macro_rules! assert_iter_ne {
+macro_rules! assert_iter_ne2 {
     ($a_collection:expr, $b_collection:expr $(,)?) => {{
-        match $crate::assert_iter_ne_as_result!($a_collection, $b_collection) {
+        match $crate::assert_iter_ne2_as_result!($a_collection, $b_collection) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {{
-        match $crate::assert_iter_ne_as_result!($a_collection, $b_collection) {
+        match $crate::assert_iter_ne2_as_result!($a_collection, $b_collection) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -183,7 +183,7 @@ macro_rules! assert_iter_ne {
 /// Pseudocode:<br>
 /// (collection1 into iter) ≠ (collection2 into iter)
 ///
-/// This macro provides the same statements as [`assert_iter_ne`](macro.assert_iter_ne.html),
+/// This macro provides the same statements as [`assert_iter_ne2`](macro.assert_iter_ne2.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -205,15 +205,15 @@ macro_rules! assert_iter_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_iter_ne`](macro@crate::assert_iter_ne)
-/// * [`assert_iter_ne`](macro@crate::assert_iter_ne)
-/// * [`debug_assert_iter_ne`](macro@crate::debug_assert_iter_ne)
+/// * [`assert_iter_ne2`](macro@crate::assert_iter_ne2)
+/// * [`assert_iter_ne2`](macro@crate::assert_iter_ne2)
+/// * [`debug_assert_iter_ne2`](macro@crate::debug_assert_iter_ne2)
 ///
 #[macro_export]
-macro_rules! debug_assert_iter_ne {
+macro_rules! debug_assert_iter_ne2 {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_iter_ne!($($arg)*);
+            $crate::assert_iter_ne2!($($arg)*);
         }
     };
 }

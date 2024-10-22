@@ -86,58 +86,88 @@ macro_rules! assert_not_contains_as_result {
 #[cfg(test)]
 mod tests {
 
-    //// str
+    mod str {
 
-    #[test]
-    fn test_assert_not_contains_as_result_x_str_x_success() {
-        let a = "alfa";
-        let b = "zz";
-        let result = assert_not_contains_as_result!(a, b);
-        assert_eq!(result.unwrap(), ());
+        #[test]
+        fn success() {
+            let a = "alfa";
+            let b = "zz";
+            let result = assert_not_contains_as_result!(a, b);
+            assert_eq!(result.unwrap(), ());
+        }
+
+        #[test]
+        fn failure() {
+            let a = "alfa";
+            let b = "lf";
+            let result = assert_not_contains_as_result!(a, b);
+            let actual = result.unwrap_err();
+            let expect = concat!(
+                "assertion failed: `assert_not_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `\"alfa\"`,\n",
+                " containee label: `b`,\n",
+                " containee debug: `\"lf\"`"
+            );
+            assert_eq!(actual, expect);
+        }
     }
 
-    #[test]
-    fn test_assert_not_contains_as_result_x_str_x_failure() {
-        let a = "alfa";
-        let b = "lf";
-        let result = assert_not_contains_as_result!(a, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
-            "assertion failed: `assert_not_contains!(container, containee)`\n",
-            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
-            " container label: `a`,\n",
-            " container debug: `\"alfa\"`,\n",
-            " containee label: `b`,\n",
-            " containee debug: `\"lf\"`"
-        );
-        assert_eq!(actual, expect);
+    mod range {
+
+        #[test]
+        fn success() {
+            let a = 1..3;
+            let b = 4;
+            let result = assert_not_contains_as_result!(a, &b);
+            assert_eq!(result.unwrap(), ());
+        }
+
+        #[test]
+        fn failure() {
+            let a = 1..3;
+            let b = 2;
+            let result = assert_not_contains_as_result!(a, &b);
+            let actual = result.unwrap_err();
+            let expect = concat!(
+                "assertion failed: `assert_not_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `1..3`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `2`"
+            );
+            assert_eq!(actual, expect);
+        }
     }
 
-    //// Range
+    mod vec {
 
-    #[test]
-    fn test_assert_not_contains_as_result_x_range_x_success() {
-        let a = 1..3;
-        let b = 4;
-        let result = assert_not_contains_as_result!(a, &b);
-        assert_eq!(result.unwrap(), ());
-    }
+        #[test]
+        fn success() {
+            let a = 1..3;
+            let b = 4;
+            let result = assert_not_contains_as_result!(a, &b);
+            assert_eq!(result.unwrap(), ());
+        }
 
-    #[test]
-    fn test_assert_not_contains_as_result_x_range_x_failure() {
-        let a = 1..3;
-        let b = 2;
-        let result = assert_not_contains_as_result!(a, &b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
-            "assertion failed: `assert_not_contains!(container, containee)`\n",
-            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
-            " container label: `a`,\n",
-            " container debug: `1..3`,\n",
-            " containee label: `&b`,\n",
-            " containee debug: `2`"
-        );
-        assert_eq!(actual, expect);
+        #[test]
+        fn failure() {
+            let a = vec![1, 2, 3];
+            let b = 2;
+            let result = assert_not_contains_as_result!(a, &b);
+            let actual = result.unwrap_err();
+            let expect = concat!(
+                "assertion failed: `assert_not_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_not_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `[1, 2, 3]`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `2`"
+            );
+            assert_eq!(actual, expect);
+        }
     }
 }
 

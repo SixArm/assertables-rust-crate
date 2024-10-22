@@ -13,15 +13,15 @@
 //! let mut command = Command::new("bin/printf-stdout");
 //! command.args(["%s", "alfa"]);
 //! let bytes = vec![b'a', b'a'];
-//! assert_command_stdout_ge_expr!(command, bytes);
+//! assert_command_stdout_ge!(command, bytes);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_command_stdout_ge_expr`](macro@crate::assert_command_stdout_ge_expr)
-//! * [`assert_command_stdout_ge_expr_as_result`](macro@crate::assert_command_stdout_ge_expr_as_result)
-//! * [`debug_assert_command_stdout_ge_expr`](macro@crate::debug_assert_command_stdout_ge_expr)
+//! * [`assert_command_stdout_ge`](macro@crate::assert_command_stdout_ge)
+//! * [`assert_command_stdout_ge_as_result`](macro@crate::assert_command_stdout_ge_as_result)
+//! * [`debug_assert_command_stdout_ge`](macro@crate::debug_assert_command_stdout_ge)
 
 /// Assert a command stdout string is equal to an expression.
 ///
@@ -40,12 +40,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_ge_expr`](macro@crate::assert_command_stdout_ge_expr)
-/// * [`assert_command_stdout_ge_expr_as_result`](macro@crate::assert_command_stdout_ge_expr_as_result)
-/// * [`debug_assert_command_stdout_ge_expr`](macro@crate::debug_assert_command_stdout_ge_expr)
+/// * [`assert_command_stdout_ge`](macro@crate::assert_command_stdout_ge)
+/// * [`assert_command_stdout_ge_as_result`](macro@crate::assert_command_stdout_ge_as_result)
+/// * [`debug_assert_command_stdout_ge`](macro@crate::debug_assert_command_stdout_ge)
 ///
 #[macro_export]
-macro_rules! assert_command_stdout_ge_expr_as_result {
+macro_rules! assert_command_stdout_ge_as_result {
     ($a_command:expr, $b_expr:expr $(,)?) => {{
         match (/*&$command,*/ &$b_expr) {
             b => {
@@ -58,8 +58,8 @@ macro_rules! assert_command_stdout_ge_expr_as_result {
                             Err(
                                 format!(
                                     concat!(
-                                        "assertion failed: `assert_command_stdout_ge_expr!(command, expr)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge_expr.html\n",
+                                        "assertion failed: `assert_command_stdout_ge!(command, expr)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge.html\n",
                                         " command label: `{}`,\n",
                                         " command debug: `{:?}`,\n",
                                         "    expr label: `{}`,\n",
@@ -81,8 +81,8 @@ macro_rules! assert_command_stdout_ge_expr_as_result {
                         Err(
                             format!(
                                 concat!(
-                                    "assertion failed: `assert_command_stdout_ge_expr!(command, expr)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge_expr.html\n",
+                                    "assertion failed: `assert_command_stdout_ge!(command, expr)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge.html\n",
                                     "  command label: `{}`,\n",
                                     "  command debug: `{:?}`,\n",
                                     "     expr label: `{}`,\n",
@@ -113,7 +113,7 @@ mod tests {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
-        let result = assert_command_stdout_ge_expr_as_result!(a, b);
+        let result = assert_command_stdout_ge_as_result!(a, b);
         assert_eq!(
             result.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
@@ -125,7 +125,7 @@ mod tests {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'l', b'f', b'a'];
-        let result = assert_command_stdout_ge_expr_as_result!(a, b);
+        let result = assert_command_stdout_ge_as_result!(a, b);
         assert_eq!(
             result.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
@@ -137,11 +137,11 @@ mod tests {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];
-        let result = assert_command_stdout_ge_expr_as_result!(a, b);
+        let result = assert_command_stdout_ge_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stdout_ge_expr!(command, expr)`\n",
-            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge_expr.html\n",
+            "assertion failed: `assert_command_stdout_ge!(command, expr)`\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             "    expr label: `b`,\n",
@@ -174,17 +174,17 @@ mod tests {
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "alfa"]);
 /// let bytes = vec![b'a', b'a'];
-/// assert_command_stdout_ge_expr!(command, bytes);
+/// assert_command_stdout_ge!(command, bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let mut command = Command::new("bin/printf-stdout");
 /// command.args(["%s", "alfa"]);
 /// let bytes = vec![b'z', b'z'];
-/// assert_command_stdout_ge_expr!(command, bytes);
+/// assert_command_stdout_ge!(command, bytes);
 /// # });
-/// // assertion failed: `assert_command_stdout_ge_expr!(command, expr)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge_expr.html
+/// // assertion failed: `assert_command_stdout_ge!(command, expr)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //     expr label: `bytes`,
@@ -193,8 +193,8 @@ mod tests {
 /// //     expr value: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_command_stdout_ge_expr!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge_expr.html\n",
+/// #     "assertion failed: `assert_command_stdout_ge!(command, expr)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stdout_ge.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     "    expr label: `bytes`,\n",
@@ -208,20 +208,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_ge_expr`](macro@crate::assert_command_stdout_ge_expr)
-/// * [`assert_command_stdout_ge_expr_as_result`](macro@crate::assert_command_stdout_ge_expr_as_result)
-/// * [`debug_assert_command_stdout_ge_expr`](macro@crate::debug_assert_command_stdout_ge_expr)
+/// * [`assert_command_stdout_ge`](macro@crate::assert_command_stdout_ge)
+/// * [`assert_command_stdout_ge_as_result`](macro@crate::assert_command_stdout_ge_as_result)
+/// * [`debug_assert_command_stdout_ge`](macro@crate::debug_assert_command_stdout_ge)
 ///
 #[macro_export]
-macro_rules! assert_command_stdout_ge_expr {
+macro_rules! assert_command_stdout_ge {
     ($a_command:expr, $b_expr:expr $(,)?) => {{
-        match $crate::assert_command_stdout_ge_expr_as_result!($a_command, $b_expr) {
+        match $crate::assert_command_stdout_ge_as_result!($a_command, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_command:expr, $b_expr:expr, $($message:tt)+) => {{
-        match $crate::assert_command_stdout_ge_expr_as_result!($a_command, $b_expr) {
+        match $crate::assert_command_stdout_ge_as_result!($a_command, $b_expr) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -233,7 +233,7 @@ macro_rules! assert_command_stdout_ge_expr {
 /// Pseudocode:<br>
 /// (command ⇒ stdout) = (expr into string)
 ///
-/// This macro provides the same statements as [`assert_command_stdout_ge_expr`](macro.assert_command_stdout_ge_expr.html),
+/// This macro provides the same statements as [`assert_command_stdout_ge`](macro.assert_command_stdout_ge.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -255,15 +255,15 @@ macro_rules! assert_command_stdout_ge_expr {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stdout_ge_expr`](macro@crate::assert_command_stdout_ge_expr)
-/// * [`assert_command_stdout_ge_expr`](macro@crate::assert_command_stdout_ge_expr)
-/// * [`debug_assert_command_stdout_ge_expr`](macro@crate::debug_assert_command_stdout_ge_expr)
+/// * [`assert_command_stdout_ge`](macro@crate::assert_command_stdout_ge)
+/// * [`assert_command_stdout_ge`](macro@crate::assert_command_stdout_ge)
+/// * [`debug_assert_command_stdout_ge`](macro@crate::debug_assert_command_stdout_ge)
 ///
 #[macro_export]
-macro_rules! debug_assert_command_stdout_ge_expr {
+macro_rules! debug_assert_command_stdout_ge {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_command_stdout_ge_expr!($($arg)*);
+            $crate::assert_command_stdout_ge!($($arg)*);
         }
     };
 }

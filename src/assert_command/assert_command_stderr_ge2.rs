@@ -14,15 +14,15 @@
 //! a.args(["%s", "alfa"]);
 //! let mut b = Command::new("bin/printf-stderr");
 //! b.args(["%s", "aa"]);
-//! assert_command_stderr_ge!(a, b);
+//! assert_command_stderr_ge2!(a, b);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_command_stderr_ge`](macro@crate::assert_command_stderr_ge)
-//! * [`assert_command_stderr_ge_as_result`](macro@crate::assert_command_stderr_ge_as_result)
-//! * [`debug_assert_command_stderr_ge`](macro@crate::debug_assert_command_stderr_ge)
+//! * [`assert_command_stderr_ge2`](macro@crate::assert_command_stderr_ge2)
+//! * [`assert_command_stderr_ge2_as_result`](macro@crate::assert_command_stderr_ge2_as_result)
+//! * [`debug_assert_command_stderr_ge2`](macro@crate::debug_assert_command_stderr_ge2)
 
 /// Assert a command stderr string is equal to another.
 ///
@@ -41,12 +41,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stderr_ge`](macro@crate::assert_command_stderr_ge)
-/// * [`assert_command_stderr_ge_as_result`](macro@crate::assert_command_stderr_ge_as_result)
-/// * [`debug_assert_command_stderr_ge`](macro@crate::debug_assert_command_stderr_ge)
+/// * [`assert_command_stderr_ge2`](macro@crate::assert_command_stderr_ge2)
+/// * [`assert_command_stderr_ge2_as_result`](macro@crate::assert_command_stderr_ge2_as_result)
+/// * [`debug_assert_command_stderr_ge2`](macro@crate::debug_assert_command_stderr_ge2)
 ///
 #[macro_export]
-macro_rules! assert_command_stderr_ge_as_result {
+macro_rules! assert_command_stderr_ge2_as_result {
     ($a_command:expr, $b_command:expr $(,)?) => {{
         match ($a_command.output(), $b_command.output()) {
             (Ok(a), Ok(b)) => {
@@ -58,8 +58,8 @@ macro_rules! assert_command_stderr_ge_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n",
+                                "assertion failed: `assert_command_stderr_ge2!(a_command, b_command)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge2.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -81,8 +81,8 @@ macro_rules! assert_command_stderr_ge_as_result {
                 Err(
                     format!(
                         concat!(
-                            "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n",
+                            "assertion failed: `assert_command_stderr_ge2!(a_command, b_command)`\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge2.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -114,7 +114,7 @@ mod tests {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "aa"]);
-        let result = assert_command_stderr_ge_as_result!(a, b);
+        let result = assert_command_stderr_ge2_as_result!(a, b);
         assert_eq!(
             result.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
@@ -127,7 +127,7 @@ mod tests {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "alfa"]);
-        let result = assert_command_stderr_ge_as_result!(a, b);
+        let result = assert_command_stderr_ge2_as_result!(a, b);
         assert_eq!(
             result.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
@@ -140,11 +140,11 @@ mod tests {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "zz"]);
-        let result = assert_command_stderr_ge_as_result!(a, b);
+        let result = assert_command_stderr_ge2_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n",
+            "assertion failed: `assert_command_stderr_ge2!(a_command, b_command)`\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge2.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -178,7 +178,7 @@ mod tests {
 /// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stderr");
 /// b.args(["%s", "aa"]);
-/// assert_command_stderr_ge!(a, b);
+/// assert_command_stderr_ge2!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
@@ -186,10 +186,10 @@ mod tests {
 /// a.args(["%s", "alfa"]);
 /// let mut b = Command::new("bin/printf-stderr");
 /// b.args(["%s", "zz"]);
-/// assert_command_stderr_ge!(a, b);
+/// assert_command_stderr_ge2!(a, b);
 /// # });
-/// // assertion failed: `assert_command_stderr_ge!(a_command, b_command)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html
+/// // assertion failed: `assert_command_stderr_ge2!(a_command, b_command)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge2.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
@@ -198,8 +198,8 @@ mod tests {
 /// //        b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge.html\n",
+/// #     "assertion failed: `assert_command_stderr_ge2!(a_command, b_command)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_ge2.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
@@ -213,20 +213,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stderr_ge`](macro@crate::assert_command_stderr_ge)
-/// * [`assert_command_stderr_ge_as_result`](macro@crate::assert_command_stderr_ge_as_result)
-/// * [`debug_assert_command_stderr_ge`](macro@crate::debug_assert_command_stderr_ge)
+/// * [`assert_command_stderr_ge2`](macro@crate::assert_command_stderr_ge2)
+/// * [`assert_command_stderr_ge2_as_result`](macro@crate::assert_command_stderr_ge2_as_result)
+/// * [`debug_assert_command_stderr_ge2`](macro@crate::debug_assert_command_stderr_ge2)
 ///
 #[macro_export]
-macro_rules! assert_command_stderr_ge {
+macro_rules! assert_command_stderr_ge2 {
     ($a_command:expr, $b_command:expr $(,)?) => {{
-        match $crate::assert_command_stderr_ge_as_result!($a_command, $b_command) {
+        match $crate::assert_command_stderr_ge2_as_result!($a_command, $b_command) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_command:expr, $b_command:expr, $($message:tt)+) => {{
-        match $crate::assert_command_stderr_ge_as_result!($a_command, $b_command) {
+        match $crate::assert_command_stderr_ge2_as_result!($a_command, $b_command) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -235,7 +235,7 @@ macro_rules! assert_command_stderr_ge {
 
 /// Assert a command stderr string is equal to another.
 ///
-/// This macro provides the same statements as [`assert_command_stderr_ge {`](macro.assert_command_stderr_ge {.html),
+/// This macro provides the same statements as [`assert_command_stderr_ge2 {`](macro.assert_command_stderr_ge2 {.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -257,15 +257,15 @@ macro_rules! assert_command_stderr_ge {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stderr_ge {`](macro@crate::assert_command_stderr_ge {)
-/// * [`assert_command_stderr_ge {`](macro@crate::assert_command_stderr_ge {)
-/// * [`debug_assert_command_stderr_ge {`](macro@crate::debug_assert_command_stderr_ge {)
+/// * [`assert_command_stderr_ge2 {`](macro@crate::assert_command_stderr_ge2 {)
+/// * [`assert_command_stderr_ge2 {`](macro@crate::assert_command_stderr_ge2 {)
+/// * [`debug_assert_command_stderr_ge2 {`](macro@crate::debug_assert_command_stderr_ge2 {)
 ///
 #[macro_export]
-macro_rules! debug_assert_command_stderr_ge {
+macro_rules! debug_assert_command_stderr_ge2 {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_command_stderr_ge!($($arg)*);
+            $crate::assert_command_stderr_ge2!($($arg)*);
         }
     };
 }

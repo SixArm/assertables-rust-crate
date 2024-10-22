@@ -12,15 +12,15 @@
 //! # fn main() {
 //! let mut reader = "bravo".as_bytes();
 //! let value = String::from("alfa");
-//! assert_io_read_to_string_gt_expr!(reader, &value);
+//! assert_io_read_to_string_gt!(reader, &value);
 //! # }
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_io_read_to_string_gt_expr`](macro@crate::assert_io_read_to_string_gt_expr)
-//! * [`assert_io_read_to_string_gt_expr_as_result`](macro@crate::assert_io_read_to_string_gt_expr_as_result)
-//! * [`debug_assert_io_read_to_string_gt_expr`](macro@crate::debug_assert_io_read_to_string_gt_expr)
+//! * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+//! * [`assert_io_read_to_string_gt_as_result`](macro@crate::assert_io_read_to_string_gt_as_result)
+//! * [`debug_assert_io_read_to_string_gt`](macro@crate::debug_assert_io_read_to_string_gt)
 
 /// Assert a ::std::io::Read read_to_string() value is greater than an expression.
 ///
@@ -39,12 +39,12 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_gt_expr`](macro@crate::assert_io_read_to_string_gt_expr)
-/// * [`assert_io_read_to_string_gt_expr_as_result`](macro@crate::assert_io_read_to_string_gt_expr_as_result)
-/// * [`debug_assert_io_read_to_string_gt_expr`](macro@crate::debug_assert_io_read_to_string_gt_expr)
+/// * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+/// * [`assert_io_read_to_string_gt_as_result`](macro@crate::assert_io_read_to_string_gt_as_result)
+/// * [`debug_assert_io_read_to_string_gt`](macro@crate::debug_assert_io_read_to_string_gt)
 ///
 #[macro_export]
-macro_rules! assert_io_read_to_string_gt_expr_as_result {
+macro_rules! assert_io_read_to_string_gt_as_result {
     ($a_reader:expr, $b_expr:expr $(,)?) => {{
         match (/*&$reader,*/ &$b_expr) {
             b_expr => {
@@ -58,8 +58,8 @@ macro_rules! assert_io_read_to_string_gt_expr_as_result {
                             Err(
                                 format!(
                                     concat!(
-                                        "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
+                                        "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_expr)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt.html\n",
                                         " a_reader label: `{}`,\n",
                                         " a_reader debug: `{:?}`,\n",
                                         "   b_expr label: `{}`,\n",
@@ -81,8 +81,8 @@ macro_rules! assert_io_read_to_string_gt_expr_as_result {
                         Err(
                             format!(
                                 concat!(
-                                    "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
+                                    "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_expr)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt.html\n",
                                     " a_reader label: `{}`,\n",
                                     " a_reader debug: `{:?}`,\n",
                                     "   b_expr label: `{}`,\n",
@@ -112,7 +112,7 @@ mod tests {
     fn test_assert_io_read_to_string_gt_expr_as_result_x_success_because_gt() {
         let mut reader = "bravo".as_bytes();
         let value = String::from("alfa");
-        let result = assert_io_read_to_string_gt_expr_as_result!(reader, &value);
+        let result = assert_io_read_to_string_gt_as_result!(reader, &value);
         assert_eq!(
             result.unwrap(),
             (String::from("bravo"), String::from("alfa"))
@@ -123,12 +123,12 @@ mod tests {
     fn test_assert_io_read_to_string_gt_expr_as_result_x_failure_because_eq() {
         let mut reader = "alfa".as_bytes();
         let value = String::from("alfa");
-        let result = assert_io_read_to_string_gt_expr_as_result!(reader, &value);
+        let result = assert_io_read_to_string_gt_as_result!(reader, &value);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
+                "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_expr)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt.html\n",
                 " a_reader label: `reader`,\n",
                 " a_reader debug: `[]`,\n",
                 "   b_expr label: `&value`,\n",
@@ -143,12 +143,12 @@ mod tests {
     fn test_assert_io_read_to_string_gt_expr_as_result_x_failure_because_lt() {
         let mut reader = "alfa".as_bytes();
         let value = String::from("bravo");
-        let result = assert_io_read_to_string_gt_expr_as_result!(reader, &value);
+        let result = assert_io_read_to_string_gt_as_result!(reader, &value);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
+                "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_expr)`\n",
+                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt.html\n",
                 " a_reader label: `reader`,\n",
                 " a_reader debug: `[]`,\n",
                 "   b_expr label: `&value`,\n",
@@ -180,16 +180,16 @@ mod tests {
 /// # fn main() {
 /// let mut reader = "bravo".as_bytes();
 /// let value = String::from("alfa");
-/// assert_io_read_to_string_gt_expr!(reader, &value);
+/// assert_io_read_to_string_gt!(reader, &value);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let mut reader = "alfa".as_bytes();
 /// let value = String::from("bravo");
-/// assert_io_read_to_string_gt_expr!(reader, &value);
+/// assert_io_read_to_string_gt!(reader, &value);
 /// # });
-/// // assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html
+/// // assertion failed: `assert_io_read_to_string_gt!(a_reader, b_expr)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt.html
 /// //  a_reader label: `reader`,
 /// //  a_reader debug: `[]`,
 /// //    b_expr label: `&value`,
@@ -198,8 +198,8 @@ mod tests {
 /// //               b: `\"bravo\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_io_read_to_string_gt_expr!(a_reader, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt_expr.html\n",
+/// #     "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_expr)`\n",
+/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_io_read_to_string_gt.html\n",
 /// #     " a_reader label: `reader`,\n",
 /// #     " a_reader debug: `[]`,\n",
 /// #     "   b_expr label: `&value`,\n",
@@ -213,20 +213,20 @@ mod tests {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_gt_expr`](macro@crate::assert_io_read_to_string_gt_expr)
-/// * [`assert_io_read_to_string_gt_expr_as_result`](macro@crate::assert_io_read_to_string_gt_expr_as_result)
-/// * [`debug_assert_io_read_to_string_gt_expr`](macro@crate::debug_assert_io_read_to_string_gt_expr)
+/// * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+/// * [`assert_io_read_to_string_gt_as_result`](macro@crate::assert_io_read_to_string_gt_as_result)
+/// * [`debug_assert_io_read_to_string_gt`](macro@crate::debug_assert_io_read_to_string_gt)
 ///
 #[macro_export]
-macro_rules! assert_io_read_to_string_gt_expr {
+macro_rules! assert_io_read_to_string_gt {
     ($a_reader:expr,  $b_expr:expr $(,)?) => {{
-        match $crate::assert_io_read_to_string_gt_expr_as_result!($a_reader, $b_expr) {
+        match $crate::assert_io_read_to_string_gt_as_result!($a_reader, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
     ($a_reader:expr, $b_expr:expr, $($message:tt)+) => {{
-        match $crate::assert_io_read_to_string_gt_expr_as_result!($a_reader, $b_expr) {
+        match $crate::assert_io_read_to_string_gt_as_result!($a_reader, $b_expr) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -238,7 +238,7 @@ macro_rules! assert_io_read_to_string_gt_expr {
 /// Pseudocode:<br>
 /// (reader.read_to_string(a_string) ⇒ a_string) > (expr ⇒ b_string)
 ///
-/// This macro provides the same statements as [`assert_io_read_to_string_gt_expr`](macro.assert_io_read_to_string_gt_expr.html),
+/// This macro provides the same statements as [`assert_io_read_to_string_gt`](macro.assert_io_read_to_string_gt.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -260,15 +260,15 @@ macro_rules! assert_io_read_to_string_gt_expr {
 ///
 /// # Module macros
 ///
-/// * [`assert_io_read_to_string_gt_expr`](macro@crate::assert_io_read_to_string_gt_expr)
-/// * [`assert_io_read_to_string_gt_expr`](macro@crate::assert_io_read_to_string_gt_expr)
-/// * [`debug_assert_io_read_to_string_gt_expr`](macro@crate::debug_assert_io_read_to_string_gt_expr)
+/// * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+/// * [`assert_io_read_to_string_gt`](macro@crate::assert_io_read_to_string_gt)
+/// * [`debug_assert_io_read_to_string_gt`](macro@crate::debug_assert_io_read_to_string_gt)
 ///
 #[macro_export]
-macro_rules! debug_assert_io_read_to_string_gt_expr {
+macro_rules! debug_assert_io_read_to_string_gt {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_io_read_to_string_gt_expr!($($arg)*);
+            $crate::assert_io_read_to_string_gt!($($arg)*);
         }
     };
 }

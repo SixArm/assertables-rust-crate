@@ -97,7 +97,7 @@ fn are_two_numbers_near() {
 /// assert_eq!(positive(-1).is_ok());
 /// // assertion failed: positive(-1).is_ok()
 ///
-/// assert_fs_read_to_string_eq!(a_path, b_path);
+/// assert_fs_read_to_string_eq2!(a_path, b_path);
 /// // assertion failed: `assert_ok!(a)`
 /// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok.html
 /// //  a label: `positive(-1)`,
@@ -132,9 +132,9 @@ fn verify_ok() {
 /// //   left: "alfa\n"
 /// //  right: "bravo\n"
 ///
-/// assert_fs_read_to_string_eq!(a_path, b_path);
-/// // assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_eq.html
+/// assert_fs_read_to_string_eq2!(a_path, b_path);
+/// // assertion failed: `assert_fs_read_to_string_eq2!(a_path, b_path)`
+/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_eq2.html
 /// //   a_path label: `a_path`,
 /// //   a_path debug: `"alfa.txt"`,
 /// //   b_path label: `b_path`,
@@ -153,7 +153,7 @@ fn compare_text_file_strings() {
     assert_eq!(std::fs::read_to_string(a_path).unwrap(), std::fs::read_to_string(b_path).unwrap());
 
     // Assertables
-    assert_fs_read_to_string_eq!(a_path, b_path);
+    assert_fs_read_to_string_eq2!(a_path, b_path);
 
 }
 

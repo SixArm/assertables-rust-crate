@@ -396,23 +396,10 @@
 <a href="#396" id="396">396</a>
 <a href="#397" id="397">397</a>
 <a href="#398" id="398">398</a>
-<a href="#399" id="399">399</a>
-<a href="#400" id="400">400</a>
-<a href="#401" id="401">401</a>
-<a href="#402" id="402">402</a>
-<a href="#403" id="403">403</a>
-<a href="#404" id="404">404</a>
-<a href="#405" id="405">405</a>
-<a href="#406" id="406">406</a>
-<a href="#407" id="407">407</a>
-<a href="#408" id="408">408</a>
-<a href="#409" id="409">409</a>
-<a href="#410" id="410">410</a>
-<a href="#411" id="411">411</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Err(…) is less than or equal to another.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Err(…) is less than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (a_function(a_param) ⇒ Err(a) ⇒ a) ≤ (b_function(b_param) ⇒ Err(b) ⇒ b)
+//! (function(param) ⇒ Err(a) ⇒ a) ≤ expr
 //!
 //! # Example
 //!
@@ -427,8 +414,8 @@
 //!
 //! # fn main() {
 //! let a: i8 = 10;
-//! let b: i8 = 20;
-//! assert_fn_err_le!(f, a, f, b);
+//! let b = String::from("20 is out of range");
+//! assert_fn_err_le!(f, a, b);
 //! # }
 //! ```
 //!
@@ -438,10 +425,10 @@
 //! * [`assert_fn_err_le_as_result`](macro@crate::assert_fn_err_le_as_result)
 //! * [`debug_assert_fn_err_le`](macro@crate::debug_assert_fn_err_le)
 
-/// Assert a function error is less than or equal to another.
+/// Assert a function error is less than or equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a_function(a_param) ⇒ Err(a) ⇒ a) ≤ (b_function(b_param) ⇒ Err(b) ⇒ b)
+/// (function(param) ⇒ Err(a) ⇒ a) ≤ expr
 ///
 /// * If true, return Result `Ok(a)`.
 ///
@@ -464,66 +451,57 @@
 
     <span class="comment">//// Arity 1
 
-    </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_function</span>:path, <span class="macro-nonterminal">$b_param</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_param</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_param</span>) {
-            (_a_function, a_param, _b_function, b_param) =&gt; {
-                <span class="kw">match </span>(
-                    <span class="macro-nonterminal">$a_function</span>(<span class="macro-nonterminal">$a_param</span>),
-                    <span class="macro-nonterminal">$b_function</span>(<span class="macro-nonterminal">$b_param</span>)
-                ) {
-                    (<span class="prelude-val">Err</span>(a), <span class="prelude-val">Err</span>(b)) =&gt; {
-                        <span class="kw">if </span>a &lt;= b {
-                            <span class="prelude-val">Ok</span>((a, b))
+    </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_param</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
+            (_a_function, a_param, b_expr) =&gt; {
+                <span class="kw">match </span>(<span class="macro-nonterminal">$a_function</span>(<span class="macro-nonterminal">$a_param</span>)) {
+                    <span class="prelude-val">Err</span>(a) =&gt; {
+                        <span class="kw">if </span>a &lt;= <span class="macro-nonterminal">$b_expr </span>{
+                            <span class="prelude-val">Ok</span>(a)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
-                                        <span class="string">"assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`\n"</span>,
+                                        <span class="string">"assertion failed: `assert_fn_err_le!(a_function, a_param, b_expr)`\n"</span>,
                                         <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n"</span>,
                                         <span class="string">" a_function label: `{}`,\n"</span>,
                                         <span class="string">"    a_param label: `{}`,\n"</span>,
                                         <span class="string">"    a_param debug: `{:?}`,\n"</span>,
-                                        <span class="string">" b_function label: `{}`,\n"</span>,
-                                        <span class="string">"    b_param label: `{}`,\n"</span>,
-                                        <span class="string">"    b_param debug: `{:?}`,\n"</span>,
+                                        <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                        <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
                                         <span class="string">"                a: `{:?}`,\n"</span>,
-                                        <span class="string">"                b: `{:?}`"
-                                    </span>),
+                                        <span class="string">"                b: `{:?}`"</span>,
+                                    ),
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
                                     a_param,
-                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
-                                    b_param,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                                    b_expr,
                                     a,
-                                    b
-                                )
+                                    <span class="macro-nonterminal">$b_expr
+                                </span>)
                             )
                         }
                     },
-                    (a, b) =&gt; {
+                    a =&gt; {
                         <span class="prelude-val">Err</span>(
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
-                                    <span class="string">"assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`\n"</span>,
+                                    <span class="string">"assertion failed: `assert_fn_err_le!(a_function, a_param, b_expr)`\n"</span>,
                                     <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n"</span>,
                                     <span class="string">" a_function label: `{}`,\n"</span>,
                                     <span class="string">"    a_param label: `{}`,\n"</span>,
                                     <span class="string">"    a_param debug: `{:?}`,\n"</span>,
-                                    <span class="string">" b_function label: `{}`,\n"</span>,
-                                    <span class="string">"    b_param label: `{}`,\n"</span>,
-                                    <span class="string">"    b_param debug: `{:?}`,\n"</span>,
-                                    <span class="string">"                a: `{:?}`,\n"</span>,
-                                    <span class="string">"                b: `{:?}`"
-                                </span>),
+                                    <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                    <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                    <span class="string">"                a: `{:?}`"</span>,
+                                ),
                                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
                                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_param</span>),
                                 a_param,
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
-                                b_param,
-                                a,
-                                b
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                                b_expr,
+                                a
                             )
                         )
                     }
@@ -534,50 +512,53 @@
 
     <span class="comment">//// Arity 0
 
-    </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_function</span>:path) =&gt; {{
-        <span class="kw">match </span>(
-            <span class="macro-nonterminal">$a_function</span>(),
-            <span class="macro-nonterminal">$b_function</span>()
-        ) {
-            (<span class="prelude-val">Err</span>(a), <span class="prelude-val">Err</span>(b)) =&gt; {
-                <span class="kw">if </span>a &lt;= b {
-                    <span class="prelude-val">Ok</span>((a, b))
-                } <span class="kw">else </span>{
-                    <span class="prelude-val">Err</span>(
-                        <span class="macro">format!</span>(
-                            <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_fn_err_le!(a_function, b_function)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n"</span>,
-                                <span class="string">" a_function label: `{}`,\n"</span>,
-                                <span class="string">" b_function label: `{}`,\n"</span>,
-                                <span class="string">"                a: `{:?}`,\n"</span>,
-                                <span class="string">"                b: `{:?}`"
-                            </span>),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                            a,
-                            b
+    </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
+            (_a_function, b_expr) =&gt; {
+                <span class="kw">match </span>(<span class="macro-nonterminal">$a_function</span>()) {
+                    <span class="prelude-val">Err</span>(a) =&gt; {
+                        <span class="kw">if </span>a &lt;= <span class="macro-nonterminal">$b_expr </span>{
+                            <span class="prelude-val">Ok</span>(a)
+                        } <span class="kw">else </span>{
+                            <span class="prelude-val">Err</span>(
+                                <span class="macro">format!</span>(
+                                    <span class="macro">concat!</span>(
+                                        <span class="string">"assertion failed: `assert_fn_err_le!(a_function, b_expr)`\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n"</span>,
+                                        <span class="string">" a_function label: `{}`,\n"</span>,
+                                        <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                        <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                        <span class="string">"                a: `{:?}`,\n"</span>,
+                                        <span class="string">"                b: `{:?}`"</span>,
+                                    ),
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                                    b_expr,
+                                    a,
+                                    <span class="macro-nonterminal">$b_expr
+                                </span>)
+                            )
+                        }
+                    },
+                    a =&gt; {
+                        <span class="prelude-val">Err</span>(
+                            <span class="macro">format!</span>(
+                                <span class="macro">concat!</span>(
+                                    <span class="string">"assertion failed: `assert_fn_err_le!(a_function, b_expr)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n"</span>,
+                                    <span class="string">" a_function label: `{}`,\n"</span>,
+                                    <span class="string">"     b_expr label: `{}`,\n"</span>,
+                                    <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
+                                    <span class="string">"                a: `{:?}`"</span>,
+                                ),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
+                                b_expr,
+                                a
+                            )
                         )
-                    )
+                    }
                 }
-            },
-            (a, b) =&gt; {
-                <span class="prelude-val">Err</span>(
-                    <span class="macro">format!</span>(
-                        <span class="macro">concat!</span>(
-                            <span class="string">"assertion failed: `assert_fn_err_le!(a_function, b_function)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n"</span>,
-                            <span class="string">" a_function label: `{}`,\n"</span>,
-                            <span class="string">" b_function label: `{}`,\n"</span>,
-                            <span class="string">"                a: `{:?}`,\n"</span>,
-                            <span class="string">"                b: `{:?}`"
-                        </span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
-                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                        a,
-                        b
-                    )
-                )
             }
         }
     }};
@@ -595,42 +576,37 @@
                 <span class="prelude-val">Err</span>(i)
             }
 
-            <span class="kw">fn </span>g(i: i8) -&gt; <span class="prelude-ty">Result</span>&lt;i8, i8&gt; {
-                <span class="prelude-val">Err</span>(i)
-            }
-
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_lt() {
                 <span class="kw">let </span>a: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">2</span>;
-                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, a, g, b);
-                <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="number">1</span>, <span class="number">2</span>));
+                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, a, b);
+                <span class="macro">assert_eq!</span>(result.unwrap(), <span class="number">1</span>);
             }
 
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_eq() {
                 <span class="kw">let </span>a: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">1</span>;
-                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, a, g, b);
-                <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="number">1</span>, <span class="number">1</span>));
+                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, a, b);
+                <span class="macro">assert_eq!</span>(result.unwrap(), <span class="number">1</span>);
             }
 
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gt() {
                 <span class="kw">let </span>a: i8 = <span class="number">2</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">1</span>;
-                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, a, g, b);
+                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, a, b);
                 <span class="macro">assert_eq!</span>(
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`\n"</span>,
+                        <span class="string">"assertion failed: `assert_fn_err_le!(a_function, a_param, b_expr)`\n"</span>,
                         <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `2`,\n"</span>,
-                        <span class="string">" b_function label: `g`,\n"</span>,
-                        <span class="string">"    b_param label: `b`,\n"</span>,
-                        <span class="string">"    b_param debug: `1`,\n"</span>,
+                        <span class="string">"     b_expr label: `b`,\n"</span>,
+                        <span class="string">"     b_expr debug: `1`,\n"</span>,
                         <span class="string">"                a: `2`,\n"</span>,
                         <span class="string">"                b: `1`"
                     </span>)
@@ -644,34 +620,34 @@
                 <span class="prelude-val">Err</span>(<span class="number">1</span>)
             }
 
-            <span class="kw">fn </span>g() -&gt; <span class="prelude-ty">Result</span>&lt;i8, i8&gt; {
-                <span class="prelude-val">Err</span>(<span class="number">2</span>)
-            }
-
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_lt() {
-                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, g);
-                <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="number">1</span>, <span class="number">2</span>));
+                <span class="kw">let </span>b: i8 = <span class="number">2</span>;
+                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, b);
+                <span class="macro">assert_eq!</span>(result.unwrap(), <span class="number">1</span>);
             }
 
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_eq() {
-                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, f);
-                <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="number">1</span>, <span class="number">1</span>));
+                <span class="kw">let </span>b: i8 = <span class="number">1</span>;
+                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, b);
+                <span class="macro">assert_eq!</span>(result.unwrap(), <span class="number">1</span>);
             }
 
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gt() {
-                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(g, f);
+                <span class="kw">let </span>b: i8 = <span class="number">0</span>;
+                <span class="kw">let </span>result = <span class="macro">assert_fn_err_le_as_result!</span>(f, b);
                 <span class="macro">assert_eq!</span>(
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
-                        <span class="string">"assertion failed: `assert_fn_err_le!(a_function, b_function)`\n"</span>,
+                        <span class="string">"assertion failed: `assert_fn_err_le!(a_function, b_expr)`\n"</span>,
                         <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n"</span>,
-                        <span class="string">" a_function label: `g`,\n"</span>,
-                        <span class="string">" b_function label: `f`,\n"</span>,
-                        <span class="string">"                a: `2`,\n"</span>,
-                        <span class="string">"                b: `1`"
+                        <span class="string">" a_function label: `f`,\n"</span>,
+                        <span class="string">"     b_expr label: `b`,\n"</span>,
+                        <span class="string">"     b_expr debug: `0`,\n"</span>,
+                        <span class="string">"                a: `1`,\n"</span>,
+                        <span class="string">"                b: `0`"
                     </span>)
                 );
             }
@@ -679,12 +655,12 @@
     }
 }
 
-<span class="doccomment">/// Assert a function error is less than or equal to another.
+<span class="doccomment">/// Assert a function error is less than or equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a_function(a_param) ⇒ Err(a) ⇒ a) ≤ (b_function(b_param) ⇒ Err(b) ⇒ b)
+/// (function(param) ⇒ Err(a) ⇒ a) ≤ expr
 ///
-/// * If true, return `(a, b)`.
+/// * If true, return `a`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -703,35 +679,33 @@
 ///
 /// # fn main() {
 /// let a: i8 = 10;
-/// let b: i8 = 20;
-/// assert_fn_err_le!(f, a, f, b);
+/// let b = String::from("20 is out of range");
+/// assert_fn_err_le!(f, a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: i8 = 20;
-/// let b: i8 = 10;
-/// assert_fn_err_le!(f, a, f, b);
+/// let b = String::from("10 is out of range");
+/// assert_fn_err_le!(f, a, b);
 /// # });
-/// // assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`
+/// // assertion failed: `assert_fn_err_le!(a_function, a_param, b_expr)`
 /// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `20`,
-/// //  b_function label: `f`,
-/// //     b_param label: `b`,
-/// //     b_param debug: `10`,
+/// //      b_expr label: `b`,
+/// //      b_expr debug: `\"10 is out of range\"`,
 /// //                 a: `\"20 is out of range\"`,
 /// //                 b: `\"10 is out of range\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`\n",
+/// #     "assertion failed: `assert_fn_err_le!(a_function, a_param, b_expr)`\n",
 /// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_le.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `20`,\n",
-/// #     " b_function label: `f`,\n",
-/// #     "    b_param label: `b`,\n",
-/// #     "    b_param debug: `10`,\n",
+/// #     "     b_expr label: `b`,\n",
+/// #     "     b_expr debug: `\"10 is out of range\"`,\n",
 /// #     "                a: `\"20 is out of range\"`,\n",
 /// #     "                b: `\"10 is out of range\"`"
 /// # );
@@ -750,15 +724,15 @@
 
     <span class="comment">//// Arity 1
 
-    </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_function</span>:path, <span class="macro-nonterminal">$b_param</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_err_le_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_function</span>, <span class="macro-nonterminal">$b_param</span>) {
+    </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_err_le_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_expr</span>) {
             <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
 
-    (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_function</span>:path, <span class="macro-nonterminal">$b_param</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_err_le_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_function</span>, <span class="macro-nonterminal">$b_param</span>) {
+    (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_err_le_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_expr</span>) {
             <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
@@ -766,25 +740,25 @@
 
     <span class="comment">//// Arity 0
 
-    </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_function</span>:path) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_err_le_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$b_function</span>) {
+    </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_err_le_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$b_expr</span>) {
             <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
 
-    (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_function</span>:path, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_err_le_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$b_function</span>) {
+    (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_err_le_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$b_expr</span>) {
             <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
 }
 
-<span class="doccomment">/// Assert a function error is less than or equal to another.
+<span class="doccomment">/// Assert a function error is less than or equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a_function(a_param) ⇒ Err(a) ⇒ a) ≤ (b_function(b_param) ⇒ Err(b) ⇒ b)
+/// (function(param) ⇒ Err(a) ⇒ a) ≤ expr
 ///
 /// This macro provides the same statements as [`assert_fn_err_le`](macro.assert_fn_err_le.html),
 /// except this macro's statements are only enabled in non-optimized

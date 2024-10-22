@@ -223,16 +223,10 @@
 <a href="#223" id="223">223</a>
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is equal to another length.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
-//! a.len() ≠ b.len()
+//! a.len() ≠ b
 //!
 //! # Example
 //!
@@ -241,7 +235,7 @@
 //!
 //! # fn main() {
 //! let a = "x";
-//! let b = "xx";
+//! let b = 2;
 //! assert_len_ne!(a, b);
 //! # }
 //! ```
@@ -252,12 +246,12 @@
 //! * [`assert_len_ne_as_result`](macro@crate::assert_len_ne_as_result)
 //! * [`debug_assert_len_ne`](macro@crate::debug_assert_len_ne)
 
-/// Assert a length is equal to another length.
+/// Assert a length is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a.len() ≠ b.len()
+/// a.len() ≠ b
 ///
-/// * If true, return Result `Ok((a.len(), b.len()))`.
+/// * If true, return Result `Ok((a.len(), b))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -279,9 +273,8 @@
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
                 <span class="kw">let </span>a_len = a.len();
-                <span class="kw">let </span>b_len = b.len();
-                <span class="kw">if </span>a_len != b_len {
-                    <span class="prelude-val">Ok</span>((a_len, b_len))
+                <span class="kw">if </span>a_len != <span class="macro-nonterminal">$b </span>{
+                    <span class="prelude-val">Ok</span>((a_len, <span class="macro-nonterminal">$b</span>))
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
@@ -292,15 +285,13 @@
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" a.len(): `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
-                                <span class="string">" b debug: `{:?}`\n"</span>,
-                                <span class="string">" b.len(): `{:?}`"</span>,
-                            ),
+                                <span class="string">" b debug: `{:?}`"
+                            </span>),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                             a,
                             a_len,
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                            b,
-                            b_len
+                            b
                         )
                     )
                 }
@@ -313,25 +304,25 @@
 </span><span class="kw">mod </span>tests {
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_len_ne_as_result_x_success_because_lt() {
+    </span><span class="kw">fn </span>test_assert_len_ne_expr_as_result_x_success_because_lt() {
         <span class="kw">let </span>a = <span class="string">"x"</span>;
-        <span class="kw">let </span>b = <span class="string">"xx"</span>;
+        <span class="kw">let </span>b = <span class="number">2</span>;
         <span class="kw">let </span>result = <span class="macro">assert_len_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>((<span class="number">1</span>, <span class="number">2</span>)));
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_len_ne_as_result_x_success_because_gt() {
+    </span><span class="kw">fn </span>test_assert_len_ne_expr_as_result_x_success_because_gt() {
         <span class="kw">let </span>a = <span class="string">"xx"</span>;
-        <span class="kw">let </span>b = <span class="string">"x"</span>;
+        <span class="kw">let </span>b = <span class="number">1</span>;
         <span class="kw">let </span>result = <span class="macro">assert_len_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>((<span class="number">2</span>, <span class="number">1</span>)));
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_len_ne_as_result_x_failure() {
+    </span><span class="kw">fn </span>test_assert_len_ne_expr_as_result_x_failure() {
         <span class="kw">let </span>a = <span class="string">"x"</span>;
-        <span class="kw">let </span>b = <span class="string">"x"</span>;
+        <span class="kw">let </span>b = <span class="number">1</span>;
         <span class="kw">let </span>result = <span class="macro">assert_len_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
@@ -342,19 +333,18 @@
                 <span class="string">" a debug: `\"x\"`,\n"</span>,
                 <span class="string">" a.len(): `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `\"x\"`\n"</span>,
-                <span class="string">" b.len(): `1`"
+                <span class="string">" b debug: `1`"
             </span>)
         );
     }
 }
 
-<span class="doccomment">/// Assert a length is equal to another length.
+<span class="doccomment">/// Assert a length is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a.len() ≠ b.len()
+/// a.len() ≠ b
 ///
-/// * If true, return `(a.len(), b.len())`.
+/// * If true, return `(a.len(), b)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -367,13 +357,13 @@
 ///
 /// # fn main() {
 /// let a = "x";
-/// let b = "xx";
+/// let b = 2;
 /// assert_len_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "x";
-/// let b = "x";
+/// let b = 1;
 /// assert_len_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_len_ne!(a, b)`
@@ -382,8 +372,7 @@
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
 /// //  b label: `b`,
-/// //  b debug: `\"x\"`,
-/// //  b.len(): `1`"
+/// //  b debug: `1`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_len_ne!(a, b)`\n",
@@ -392,8 +381,7 @@
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `\"x\"`\n",
-/// #     " b.len(): `1`",
+/// #     " b debug: `1`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -424,7 +412,7 @@
 <span class="doccomment">/// Assert a value is greater than an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a.len() ≠ b.len()
+/// a.len() ≠ b
 ///
 /// This macro provides the same statements as [`assert_len_ne`](macro.assert_len_ne.html),
 /// except this macro's statements are only enabled in non-optimized
