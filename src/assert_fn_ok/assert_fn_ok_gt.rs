@@ -1,7 +1,7 @@
 //! Assert a function Ok(…) is greater than another.
 //!
 //! Pseudocode:<br>
-//! (function1(param1) ⇒ Ok(a) ⇒ a) > (function2(param2) ⇒ Ok(b) ⇒ b)
+//! (a_function(a_param) ⇒ Ok(a) ⇒ a) > (b_function(b_param) ⇒ Ok(b) ⇒ b)
 //!
 //! # Example
 //!
@@ -30,9 +30,9 @@
 /// Assert a function Ok(…) is greater than another.
 ///
 /// Pseudocode:<br>
-/// (function1(param1) ⇒ Ok(a) ⇒ a) > (function2(param2) ⇒ Ok(b) ⇒ b)
+/// (a_function(a_param) ⇒ Ok(a) ⇒ a) > (b_function(b_param) ⇒ Ok(b) ⇒ b)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a, b)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -56,46 +56,46 @@ macro_rules! assert_fn_ok_gt_as_result {
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
         match (&$a_function, &$a_param, &$b_function, &$b_param) {
             (_a_function, a_param, _b_function, b_param) => {
-                let a_result = $a_function($a_param);
-                let b_result = $b_function($b_param);
-                let a_is_ok = a_result.is_ok();
-                let b_is_ok = b_result.is_ok();
-                if !a_is_ok || !b_is_ok {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_fn_err_gt!(a_function, a_param, b_function, b_param)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_gt.html\n",
-                                " a_function label: `{}`,\n",
-                                "    a_param label: `{}`,\n",
-                                "    a_param debug: `{:?}`,\n",
-                                " b_function label: `{}`,\n",
-                                "    b_param label: `{}`,\n",
-                                "    b_param debug: `{:?}`,\n",
-                                "                a: `{:?}`,\n",
-                                "                b: `{:?}`"
-                            ),
-                            stringify!($a_function),
-                            stringify!($a_param),
-                            a_param,
-                            stringify!($b_function),
-                            stringify!($b_param),
-                            b_param,
-                            a_result,
-                            b_result
-                        )
-                    )
-                } else {
-                    let a_ok = a_result.unwrap();
-                    let b_ok = b_result.unwrap();
-                    if a_ok > b_ok {
-                        Ok(())
-                    } else {
+                match (
+                    $a_function($a_param),
+                    $b_function($b_param)
+                ) {
+                    (Ok(a), Ok(b)) => {
+                        if a > b {
+                            Ok((a, b))
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_fn_ok_gt!(a_function, a_param, b_function, b_param)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_gt.html\n",
+                                        " a_function label: `{}`,\n",
+                                        "    a_param label: `{}`,\n",
+                                        "    a_param debug: `{:?}`,\n",
+                                        " b_function label: `{}`,\n",
+                                        "    b_param label: `{}`,\n",
+                                        "    b_param debug: `{:?}`,\n",
+                                        "                a: `{:?}`,\n",
+                                        "                b: `{:?}`"
+                                    ),
+                                    stringify!($a_function),
+                                    stringify!($a_param),
+                                    a_param,
+                                    stringify!($b_function),
+                                    stringify!($b_param),
+                                    b_param,
+                                    a,
+                                    b
+                                )
+                            )
+                        }
+                    },
+                    (a, b) => {
                         Err(
                             format!(
                                 concat!(
-                                    "assertion failed: `assert_fn_ok_gt!(a_function, a_param, b_function, b_param)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_gt.html\n",
+                                    "assertion failed: `assert_fn_err_gt!(a_function, a_param, b_function, b_param)`\n",
+                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_gt.html\n",
                                     " a_function label: `{}`,\n",
                                     "    a_param label: `{}`,\n",
                                     "    a_param debug: `{:?}`,\n",
@@ -111,8 +111,8 @@ macro_rules! assert_fn_ok_gt_as_result {
                                 stringify!($b_function),
                                 stringify!($b_param),
                                 b_param,
-                                a_ok,
-                                b_ok
+                                a,
+                                b
                             )
                         )
                     }
@@ -124,38 +124,38 @@ macro_rules! assert_fn_ok_gt_as_result {
     //// Arity 0
 
     ($a_function:path, $b_function:path) => {{
-        let a_result = $a_function();
-        let b_result = $b_function();
-        let a_is_ok = a_result.is_ok();
-        let b_is_ok = b_result.is_ok();
-        if !a_is_ok || !b_is_ok {
-            Err(
-                format!(
-                    concat!(
-                        "assertion failed: `assert_fn_err_gt!(a_function, b_function)`\n",
-                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_gt.html\n",
-                        " a_function label: `{}`,\n",
-                        " b_function label: `{}`,\n",
-                        "                a: `{:?}`,\n",
-                        "                b: `{:?}`"
-                    ),
-                    stringify!($a_function),
-                    stringify!($b_function),
-                    a_result,
-                    b_result
-                )
-            )
-        } else {
-            let a_ok = a_result.unwrap();
-            let b_ok = b_result.unwrap();
-            if a_ok > b_ok {
-                Ok(())
-            } else {
+        match (
+            $a_function(),
+            $b_function()
+        ) {
+            (Ok(a), Ok(b)) => {
+                if a > b {
+                    Ok((a, b))
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_fn_ok_gt!(a_function, b_function)`\n",
+                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_gt.html\n",
+                                " a_function label: `{}`,\n",
+                                " b_function label: `{}`,\n",
+                                "                a: `{:?}`,\n",
+                                "                b: `{:?}`"
+                            ),
+                            stringify!($a_function),
+                            stringify!($b_function),
+                            a,
+                            b
+                        )
+                    )
+                }
+            },
+            (a, b) => {
                 Err(
                     format!(
                         concat!(
-                            "assertion failed: `assert_fn_ok_gt!(a_function, b_function)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_gt.html\n",
+                            "assertion failed: `assert_fn_err_gt!(a_function, b_function)`\n",
+                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_gt.html\n",
                             " a_function label: `{}`,\n",
                             " b_function label: `{}`,\n",
                             "                a: `{:?}`,\n",
@@ -163,8 +163,8 @@ macro_rules! assert_fn_ok_gt_as_result {
                         ),
                         stringify!($a_function),
                         stringify!($b_function),
-                        a_ok,
-                        b_ok
+                        a,
+                        b
                     )
                 )
             }
@@ -193,7 +193,7 @@ mod tests {
                 let a: i8 = 2;
                 let b: i8 = 1;
                 let result = assert_fn_ok_gt_as_result!(f, a, g, b);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), (2, 1));
             }
 
             #[test]
@@ -201,7 +201,6 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 1;
                 let result = assert_fn_ok_gt_as_result!(f, a, g, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -224,7 +223,6 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 2;
                 let result = assert_fn_ok_gt_as_result!(f, a, g, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -256,13 +254,12 @@ mod tests {
             #[test]
             fn test_gt() {
                 let result = assert_fn_ok_gt_as_result!(g, f);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), (2, 1));
             }
 
             #[test]
             fn test_eq() {
                 let result = assert_fn_ok_gt_as_result!(f, f);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -279,7 +276,6 @@ mod tests {
             #[test]
             fn test_lt() {
                 let result = assert_fn_ok_gt_as_result!(f, g);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -299,9 +295,9 @@ mod tests {
 /// Assert a function Ok(…) is greater than another.
 ///
 /// Pseudocode:<br>
-/// (function1(param1) ⇒ Ok(a) ⇒ a) > (function2(param2) ⇒ Ok(b) ⇒ b)
+/// (a_function(a_param) ⇒ Ok(a) ⇒ a) > (b_function(b_param) ⇒ Ok(b) ⇒ b)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a, b)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -369,14 +365,14 @@ macro_rules! assert_fn_ok_gt {
 
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
         match $crate::assert_fn_ok_gt_as_result!($a_function, $a_param, $b_function, $b_param) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => {{
         match $crate::assert_fn_ok_gt_as_result!($a_function, $a_param, $b_function, $b_param) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -385,14 +381,14 @@ macro_rules! assert_fn_ok_gt {
 
     ($a_function:path, $b_function:path) => {{
         match $crate::assert_fn_ok_gt_as_result!($a_function, $b_function) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $b_function:path, $($message:tt)+) => {{
         match $crate::assert_fn_ok_gt_as_result!($a_function, $b_function) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -401,7 +397,7 @@ macro_rules! assert_fn_ok_gt {
 /// Assert a function Ok(…) is greater than another.
 ///
 /// Pseudocode:<br>
-/// (function1(param1) ⇒ Ok(a) ⇒ a) > (function2(param2) ⇒ Ok(b) ⇒ b)
+/// (a_function(a_param) ⇒ Ok(a) ⇒ a) > (b_function(b_param) ⇒ Ok(b) ⇒ b)
 ///
 /// This macro provides the same statements as [`assert_fn_ok_gt`](macro.assert_fn_ok_gt.html),
 /// except this macro's statements are only enabled in non-optimized

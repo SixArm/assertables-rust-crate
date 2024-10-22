@@ -13,22 +13,22 @@ such as <code>::std::Result::Err</code> or similar.</p>
 <p>Compare a function Err() with another function Err():</p>
 <ul>
 <li>
-<p><a href="../macro.assert_fn_err_eq.html" title="macro lib::assert_fn_err_eq"><code>assert_fn_err_eq!(function1, function2)</code></a> ≈ function1().unwrap_err() = function2().unwrap_err()</p>
+<p><a href="../macro.assert_fn_err_eq.html" title="macro lib::assert_fn_err_eq"><code>assert_fn_err_eq!(a_function, b_function)</code></a> ≈ a_function().unwrap_err() = b_function().unwrap_err()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_err_ne.html" title="macro lib::assert_fn_err_ne"><code>assert_fn_err_ne!(function1, function2)</code></a> ≈ function1().unwrap_err() ≠ function2().unwrap_err()</p>
+<p><a href="../macro.assert_fn_err_ne.html" title="macro lib::assert_fn_err_ne"><code>assert_fn_err_ne!(a_function, b_function)</code></a> ≈ a_function().unwrap_err() ≠ b_function().unwrap_err()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_err_ge.html" title="macro lib::assert_fn_err_ge"><code>assert_fn_err_ge!(function1, function2)</code></a> ≈ function1().unwrap_err() ≥ function2().unwrap_err()</p>
+<p><a href="../macro.assert_fn_err_ge.html" title="macro lib::assert_fn_err_ge"><code>assert_fn_err_ge!(a_function, b_function)</code></a> ≈ a_function().unwrap_err() ≥ b_function().unwrap_err()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_err_gt.html" title="macro lib::assert_fn_err_gt"><code>assert_fn_err_gt!(function1, function2)</code></a> ≈ function1().unwrap_err() &gt; function2().unwrap_err()</p>
+<p><a href="../macro.assert_fn_err_gt.html" title="macro lib::assert_fn_err_gt"><code>assert_fn_err_gt!(a_function, b_function)</code></a> ≈ a_function().unwrap_err() &gt; b_function().unwrap_err()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_err_le.html" title="macro lib::assert_fn_err_le"><code>assert_fn_err_le!(function1, function2)</code></a> ≈ function1().unwrap_err() ≤ function2().unwrap_err()</p>
+<p><a href="../macro.assert_fn_err_le.html" title="macro lib::assert_fn_err_le"><code>assert_fn_err_le!(a_function, b_function)</code></a> ≈ a_function().unwrap_err() ≤ b_function().unwrap_err()</p>
 </li>
 <li>
-<p><a href="../macro.assert_fn_err_lt.html" title="macro lib::assert_fn_err_lt"><code>assert_fn_err_lt!(function1, function2)</code></a> ≈ function1().unwrap_err() &lt; function2().unwrap_err()</p>
+<p><a href="../macro.assert_fn_err_lt.html" title="macro lib::assert_fn_err_lt"><code>assert_fn_err_lt!(a_function, b_function)</code></a> ≈ a_function().unwrap_err() &lt; b_function().unwrap_err()</p>
 </li>
 </ul>
 <p>Compare a function Err() with an expression:</p>

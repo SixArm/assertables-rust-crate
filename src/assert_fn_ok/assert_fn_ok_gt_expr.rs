@@ -1,7 +1,7 @@
 //! Assert a function Ok(…) is greater than an expression.
 //!
 //! Pseudocode:<br>
-//! (function1(param1) ⇒ Ok(a) ⇒ a) > expr
+//! (a_function(a_param) ⇒ Ok(a) ⇒ a) > expr
 //!
 //! # Example
 //!
@@ -30,9 +30,9 @@
 /// Assert a function Ok(…) is greater than an expression.
 ///
 /// Pseudocode:<br>
-/// (function1(param1) ⇒ Ok(a) ⇒ a) > expr
+/// (a_function(a_param) ⇒ Ok(a) ⇒ a) > expr
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -56,34 +56,36 @@ macro_rules! assert_fn_ok_gt_expr_as_result {
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
         match (&$a_function, &$a_param, &$b_expr) {
             (_a_function, a_param, b_expr) => {
-                let a_result = $a_function($a_param);
-                let a_is_ok = a_result.is_ok();
-                if !a_is_ok {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_fn_ok_gt_expr!(a_function, a_param, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_gt_expr.html\n",
-                                " a_function label: `{}`,\n",
-                                "    a_param label: `{}`,\n",
-                                "    a_param debug: `{:?}`,\n",
-                                "     b_expr label: `{}`,\n",
-                                "     b_expr debug: `{:?}`,\n",
-                                "         a result: `{:?}`",
-                            ),
-                            stringify!($a_function),
-                            stringify!($a_param),
-                            a_param,
-                            stringify!($b_expr),
-                            b_expr,
-                            a_result
-                        )
-                    )
-                } else {
-                    let a_ok = a_result.unwrap();
-                    if a_ok > $b_expr {
-                        Ok(())
-                    } else {
+                match ($a_function($a_param)) {
+                    Ok(a) => {
+                        if a > $b_expr {
+                            Ok(a)
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_fn_ok_gt_expr!(a_function, a_param, b_expr)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_gt_expr.html\n",
+                                        " a_function label: `{}`,\n",
+                                        "    a_param label: `{}`,\n",
+                                        "    a_param debug: `{:?}`,\n",
+                                        "     b_expr label: `{}`,\n",
+                                        "     b_expr debug: `{:?}`,\n",
+                                        "                a: `{:?}`,\n",
+                                        "                b: `{:?}`",
+                                    ),
+                                    stringify!($a_function),
+                                    stringify!($a_param),
+                                    a_param,
+                                    stringify!($b_expr),
+                                    b_expr,
+                                    a,
+                                    $b_expr
+                                )
+                            )
+                        }
+                    },
+                    Err(a) => {
                         Err(
                             format!(
                                 concat!(
@@ -94,16 +96,14 @@ macro_rules! assert_fn_ok_gt_expr_as_result {
                                     "    a_param debug: `{:?}`,\n",
                                     "     b_expr label: `{}`,\n",
                                     "     b_expr debug: `{:?}`,\n",
-                                    "                a: `{:?}`,\n",
-                                    "                b: `{:?}`",
+                                    "                a: `{:?}`",
                                 ),
                                 stringify!($a_function),
                                 stringify!($a_param),
                                 a_param,
                                 stringify!($b_expr),
                                 b_expr,
-                                a_ok,
-                                $b_expr
+                                a
                             )
                         )
                     }
@@ -117,30 +117,32 @@ macro_rules! assert_fn_ok_gt_expr_as_result {
     ($a_function:path, $b_expr:expr $(,)?) => {{
         match (&$a_function, &$b_expr) {
             (_a_function, b_expr) => {
-                let a_result = $a_function();
-                let a_is_ok = a_result.is_ok();
-                if !a_is_ok {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_fn_ok_gt_expr!(a_function, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_gt_expr.html\n",
-                                " a_function label: `{}`,\n",
-                                "     b_expr label: `{}`,\n",
-                                "     b_expr debug: `{:?}`,\n",
-                                "         a result: `{:?}`",
-                            ),
-                            stringify!($a_function),
-                            stringify!($b_expr),
-                            b_expr,
-                            a_result
-                        )
-                    )
-                } else {
-                    let a_ok = a_result.unwrap();
-                    if a_ok > $b_expr {
-                        Ok(())
-                    } else {
+                match ($a_function()) {
+                    Ok(a) => {
+                        if a > $b_expr {
+                            Ok(a)
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_fn_ok_gt_expr!(a_function, b_expr)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_ok_gt_expr.html\n",
+                                        " a_function label: `{}`,\n",
+                                        "     b_expr label: `{}`,\n",
+                                        "     b_expr debug: `{:?}`,\n",
+                                        "                a: `{:?}`,\n",
+                                        "                b: `{:?}`",
+                                    ),
+                                    stringify!($a_function),
+                                    stringify!($b_expr),
+                                    b_expr,
+                                    a,
+                                    $b_expr
+                                )
+                            )
+                        }
+                    },
+                    a => {
                         Err(
                             format!(
                                 concat!(
@@ -149,14 +151,12 @@ macro_rules! assert_fn_ok_gt_expr_as_result {
                                     " a_function label: `{}`,\n",
                                     "     b_expr label: `{}`,\n",
                                     "     b_expr debug: `{:?}`,\n",
-                                    "                a: `{:?}`,\n",
-                                    "                b: `{:?}`",
+                                    "         a result: `{:?}`",
                                 ),
                                 stringify!($a_function),
                                 stringify!($b_expr),
                                 b_expr,
-                                a_ok,
-                                $b_expr
+                                a
                             )
                         )
                     }
@@ -183,7 +183,7 @@ mod tests {
                 let a: i8 = 2;
                 let b: i8 = 1;
                 let result = assert_fn_ok_gt_expr_as_result!(f, a, b);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), 2);
             }
 
             #[test]
@@ -191,7 +191,6 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 1;
                 let result = assert_fn_ok_gt_expr_as_result!(f, a, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -213,7 +212,6 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 2;
                 let result = assert_fn_ok_gt_expr_as_result!(f, a, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -241,14 +239,13 @@ mod tests {
             fn test_gt() {
                 let b: i8 = 0;
                 let result = assert_fn_ok_gt_expr_as_result!(f, b);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), 1);
             }
 
             #[test]
             fn test_eq() {
                 let b: i8 = 1;
                 let result = assert_fn_ok_gt_expr_as_result!(f, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -267,7 +264,6 @@ mod tests {
             fn test_lt() {
                 let b: i8 = 2;
                 let result = assert_fn_ok_gt_expr_as_result!(f, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -288,9 +284,9 @@ mod tests {
 /// Assert a function Ok(…) is greater than an expression.
 ///
 /// Pseudocode:<br>
-/// (function1(param1) ⇒ Ok(a) ⇒ a) > expr
+/// (a_function(a_param) ⇒ Ok(a) ⇒ a) > expr
 ///
-/// * If true, return `()`.
+/// * If true, return `a`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -356,14 +352,14 @@ macro_rules! assert_fn_ok_gt_expr {
 
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
         match $crate::assert_fn_ok_gt_expr_as_result!($a_function, $a_param, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_fn_ok_gt_expr_as_result!($a_function, $a_param, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -372,14 +368,14 @@ macro_rules! assert_fn_ok_gt_expr {
 
     ($a_function:path, $b_expr:expr $(,)?) => {{
         match $crate::assert_fn_ok_gt_expr_as_result!($a_function, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_fn_ok_gt_expr_as_result!($a_function, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -388,7 +384,7 @@ macro_rules! assert_fn_ok_gt_expr {
 /// Assert a function Ok(…) is greater than an expression.
 ///
 /// Pseudocode:<br>
-/// (function1(param1) ⇒ Ok(a) ⇒ a) > expr
+/// (a_function(a_param) ⇒ Ok(a) ⇒ a) > expr
 ///
 /// This macro provides the same statements as [`assert_fn_ok_gt_expr`](macro.assert_fn_ok_gt_expr.html),
 /// except this macro's statements are only enabled in non-optimized

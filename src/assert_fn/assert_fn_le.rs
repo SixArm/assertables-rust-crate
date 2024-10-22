@@ -1,7 +1,7 @@
 //! Assert a function output is less than or equal to another.
 //!
 //! Pseudocode:<br>
-//! function1(a) ≤ function2(b)
+//! a_function(a) ≤ b_function(b)
 //!
 //! # Example
 //!
@@ -24,9 +24,9 @@
 /// Assert a function output is less than or equal to another.
 ///
 /// Pseudocode:<br>
-/// function1(a) ≤ function2(b)
+/// a_function(a) ≤ b_function(b)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a, b)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -52,10 +52,10 @@ macro_rules! assert_fn_le_as_result {
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
         match (&$a_function, &$a_param, &$b_function, &$b_param) {
             (_a_function, a_param, _b_function, b_param) => {
-                let a_output = $a_function($a_param);
-                let b_output = $b_function($b_param);
-                if a_output <= b_output {
-                    Ok(())
+                let a = $a_function($a_param);
+                let b = $b_function($b_param);
+                if a <= b {
+                    Ok((a, b))
                 } else {
                     Err(
                         format!(
@@ -77,8 +77,8 @@ macro_rules! assert_fn_le_as_result {
                             stringify!($b_function),
                             stringify!($b_param),
                             b_param,
-                            a_output,
-                            b_output
+                            a,
+                            b
                         )
                     )
                 }
@@ -89,10 +89,10 @@ macro_rules! assert_fn_le_as_result {
     //// Arity 0
 
     ($a_function:path, $b_function:path) => {{
-        let a_output = $a_function();
-        let b_output = $b_function();
-        if a_output <= b_output {
-            Ok(())
+        let a = $a_function();
+        let b = $b_function();
+        if a <= b {
+            Ok((a, b))
         } else {
             Err(
                 format!(
@@ -106,8 +106,8 @@ macro_rules! assert_fn_le_as_result {
                     ),
                     stringify!($a_function),
                     stringify!($b_function),
-                    a_output,
-                    b_output
+                    a,
+                    b
                 )
             )
         }
@@ -135,7 +135,7 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 2;
                 let result = assert_fn_le_as_result!(f, a, g, b);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), (1, 2));
             }
 
             #[test]
@@ -143,7 +143,7 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 1;
                 let result = assert_fn_le_as_result!(f, a, g, b);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), (1, 1));
             }
 
             #[test]
@@ -151,7 +151,6 @@ mod tests {
                 let a: i8 = 2;
                 let b: i8 = 1;
                 let result = assert_fn_le_as_result!(f, a, g, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -183,19 +182,18 @@ mod tests {
             #[test]
             fn test_lt() {
                 let result = assert_fn_le_as_result!(f, g);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), (1, 2));
             }
 
             #[test]
             fn test_eq() {
                 let result = assert_fn_le_as_result!(f, f);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), (1, 1));
             }
 
             #[test]
             fn test_gt() {
                 let result = assert_fn_le_as_result!(g, f);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -215,9 +213,9 @@ mod tests {
 /// Assert a function output is less than or equal to another.
 ///
 /// Pseudocode:<br>
-/// function1(a) ≤ function2(b)
+/// a_function(a) ≤ b_function(b)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a, b)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -279,14 +277,14 @@ macro_rules! assert_fn_le {
 
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
         match $crate::assert_fn_le_as_result!($a_function, $a_param, $b_function, $b_param) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => {{
         match $crate::assert_fn_le_as_result!($a_function, $a_param, $b_function, $b_param) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -295,14 +293,14 @@ macro_rules! assert_fn_le {
 
     ($a_function:path, $b_function:path) => {{
         match $crate::assert_fn_le_as_result!($a_function, $b_function) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $b_function:path, $($message:tt)+) => {{
         match $crate::assert_fn_le_as_result!($a_function, $b_function) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -312,7 +310,7 @@ macro_rules! assert_fn_le {
 /// Assert a function output is less than or equal to another.
 ///
 /// Pseudocode:<br>
-/// function1(a) ≤ function2(b)
+/// a_function(a) ≤ b_function(b)
 ///
 /// This macro provides the same statements as [`assert_fn_le`](macro.assert_fn_le.html),
 /// except this macro's statements are only enabled in non-optimized

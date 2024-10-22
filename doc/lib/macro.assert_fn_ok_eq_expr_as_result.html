@@ -3,10 +3,10 @@
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a function Ok(…) is equal to an expression.</p>
 <p>Pseudocode:<br>
-(function1(param1) ⇒ Ok(a) ⇒ a) = expr</p>
+(a_function(a_param) ⇒ Ok(a) ⇒ a) = expr</p>
 <ul>
 <li>
-<p>If true, return Result <code>Ok(())</code>.</p>
+<p>If true, return Result <code>Ok(a)</code>.</p>
 </li>
 <li>
 <p>Otherwise, return Result <code>Err(message)</code>.</p>

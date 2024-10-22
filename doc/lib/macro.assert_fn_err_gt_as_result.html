@@ -3,10 +3,10 @@
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_function</span>:path) =&gt; { ... };
 }</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a function error is greater than another.</p>
 <p>Pseudocode:<br>
-(function1(param1) ⇒ Err(a) ⇒ a) &gt; (function2(param2) ⇒ Err(b) ⇒ b)</p>
+(a_function(a_param) ⇒ Err(a) ⇒ a) &gt; (b_function(b_param) ⇒ Err(b) ⇒ b)</p>
 <ul>
 <li>
-<p>If true, return Result <code>Ok(())</code>.</p>
+<p>If true, return Result <code>Ok(a)</code>.</p>
 </li>
 <li>
 <p>Otherwise, return Result <code>Err(message)</code>.</p>

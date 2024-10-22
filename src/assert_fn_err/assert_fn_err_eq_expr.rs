@@ -26,7 +26,7 @@
 /// Pseudocode:<br>
 /// (function(param) ⇒ Err(a) ⇒ a) = expr
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -50,34 +50,36 @@ macro_rules! assert_fn_err_eq_expr_as_result {
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
         match (&$a_function, &$a_param, &$b_expr) {
             (_a_function, a_param, b_expr) => {
-                let a_result = $a_function($a_param);
-                let a_is_err = a_result.is_err();
-                if !a_is_err {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_eq_expr.html\n",
-                                " a_function label: `{}`,\n",
-                                "    a_param label: `{}`,\n",
-                                "    a_param debug: `{:?}`,\n",
-                                "     b_expr label: `{}`,\n",
-                                "     b_expr debug: `{:?}`,\n",
-                                "         a result: `{:?}`",
-                            ),
-                            stringify!($a_function),
-                            stringify!($a_param),
-                            a_param,
-                            stringify!($b_expr),
-                            b_expr,
-                            a_result
-                        )
-                    )
-                } else {
-                    let a_err = a_result.unwrap_err();
-                    if a_err == $b_expr {
-                        Ok(())
-                    } else {
+                match ($a_function($a_param)) {
+                    Err(a) => {
+                        if a == $b_expr {
+                            Ok(a)
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_fn_err_eq_expr!(a_function, a_param, b_expr)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_eq_expr.html\n",
+                                        " a_function label: `{}`,\n",
+                                        "    a_param label: `{}`,\n",
+                                        "    a_param debug: `{:?}`,\n",
+                                        "     b_expr label: `{}`,\n",
+                                        "     b_expr debug: `{:?}`,\n",
+                                        "                a: `{:?}`,\n",
+                                        "                b: `{:?}`",
+                                    ),
+                                    stringify!($a_function),
+                                    stringify!($a_param),
+                                    a_param,
+                                    stringify!($b_expr),
+                                    b_expr,
+                                    a,
+                                    $b_expr
+                                )
+                            )
+                        }
+                    },
+                    a => {
                         Err(
                             format!(
                                 concat!(
@@ -88,16 +90,14 @@ macro_rules! assert_fn_err_eq_expr_as_result {
                                     "    a_param debug: `{:?}`,\n",
                                     "     b_expr label: `{}`,\n",
                                     "     b_expr debug: `{:?}`,\n",
-                                    "                a: `{:?}`,\n",
-                                    "                b: `{:?}`",
+                                    "                a: `{:?}`",
                                 ),
                                 stringify!($a_function),
                                 stringify!($a_param),
                                 a_param,
                                 stringify!($b_expr),
                                 b_expr,
-                                a_err,
-                                $b_expr
+                                a
                             )
                         )
                     }
@@ -111,30 +111,32 @@ macro_rules! assert_fn_err_eq_expr_as_result {
     ($a_function:path, $b_expr:expr $(,)?) => {{
         match (&$a_function, &$b_expr) {
             (_a_function, b_expr) => {
-                let a_result = $a_function();
-                let a_is_err = a_result.is_err();
-                if !a_is_err {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_eq_expr.html\n",
-                                " a_function label: `{}`,\n",
-                                "     b_expr label: `{}`,\n",
-                                "     b_expr debug: `{:?}`,\n",
-                                "         a result: `{:?}`",
-                            ),
-                            stringify!($a_function),
-                            stringify!($b_expr),
-                            b_expr,
-                            a_result
-                        )
-                    )
-                } else {
-                    let a_err = a_result.unwrap_err();
-                    if a_err == $b_expr {
-                        Ok(())
-                    } else {
+                match ($a_function()) {
+                    Err(a) => {
+                        if a == $b_expr {
+                            Ok(a)
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_fn_err_eq_expr!(a_function, b_expr)`\n",
+                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_eq_expr.html\n",
+                                        " a_function label: `{}`,\n",
+                                        "     b_expr label: `{}`,\n",
+                                        "     b_expr debug: `{:?}`,\n",
+                                        "                a: `{:?}`,\n",
+                                        "                b: `{:?}`",
+                                    ),
+                                    stringify!($a_function),
+                                    stringify!($b_expr),
+                                    b_expr,
+                                    a,
+                                    $b_expr
+                                )
+                            )
+                        }
+                    },
+                    a => {
                         Err(
                             format!(
                                 concat!(
@@ -143,14 +145,12 @@ macro_rules! assert_fn_err_eq_expr_as_result {
                                     " a_function label: `{}`,\n",
                                     "     b_expr label: `{}`,\n",
                                     "     b_expr debug: `{:?}`,\n",
-                                    "                a: `{:?}`,\n",
-                                    "                b: `{:?}`",
+                                    "                a: `{:?}`",
                                 ),
                                 stringify!($a_function),
                                 stringify!($b_expr),
                                 b_expr,
-                                a_err,
-                                $b_expr
+                                a
                             )
                         )
                     }
@@ -158,7 +158,6 @@ macro_rules! assert_fn_err_eq_expr_as_result {
             }
         }
     }};
-
 }
 
 #[cfg(test)]
@@ -177,7 +176,7 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 1;
                 let result = assert_fn_err_eq_expr_as_result!(f, a, b);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), 1);
             }
 
             #[test]
@@ -185,7 +184,6 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 2;
                 let result = assert_fn_err_eq_expr_as_result!(f, a, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -212,14 +210,13 @@ mod tests {
             #[test]
             fn test_eq() {
                 let result = assert_fn_err_eq_expr_as_result!(f, 1);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), 1);
             }
 
             #[test]
             fn test_ne() {
                 let b: i8 = 2;
                 let result = assert_fn_err_eq_expr_as_result!(f, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -242,7 +239,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (function(param) ⇒ Err(a) ⇒ a) = expr
 ///
-/// * If true, return `()`.
+/// * If true, return `a`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -308,14 +305,14 @@ macro_rules! assert_fn_err_eq_expr {
 
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
         match $crate::assert_fn_err_eq_expr_as_result!($a_function, $a_param, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_fn_err_eq_expr_as_result!($a_function, $a_param, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -324,14 +321,14 @@ macro_rules! assert_fn_err_eq_expr {
 
     ($a_function:path, $b_expr:expr $(,)?) => {{
         match $crate::assert_fn_err_eq_expr_as_result!($a_function, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_fn_err_eq_expr_as_result!($a_function, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};

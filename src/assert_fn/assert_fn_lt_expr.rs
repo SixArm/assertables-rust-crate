@@ -1,7 +1,7 @@
 //! Assert a function output is less than an expression.
 //!
 //! Pseudocode:<br>
-//! function1(a) < b
+//! a_function(a) < b
 //!
 //! # Example
 //!
@@ -24,9 +24,9 @@
 /// Assert a function output is less than an expression.
 ///
 /// Pseudocode:<br>
-/// function1(a) < b
+/// a_function(a) < b
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -50,9 +50,9 @@ macro_rules! assert_fn_lt_expr_as_result {
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
         match (&$a_function, &$a_param, &$b_expr) {
             (_a_function, a_param, b_expr) => {
-                let a_output = $a_function($a_param);
-                if a_output < $b_expr {
-                    Ok(())
+                let a = $a_function($a_param);
+                if a < $b_expr {
+                    Ok(a)
                 } else {
                     Err(
                         format!(
@@ -72,7 +72,7 @@ macro_rules! assert_fn_lt_expr_as_result {
                             a_param,
                             stringify!($b_expr),
                             b_expr,
-                            a_output,
+                            a,
                             b_expr
                         )
                     )
@@ -86,9 +86,9 @@ macro_rules! assert_fn_lt_expr_as_result {
     ($a_function:path, $b_expr:expr $(,)?) => {{
         match (&$a_function, &$b_expr) {
             (_a_function, b_expr) => {
-                let a_output = $a_function();
-                if a_output < $b_expr {
-                    Ok(())
+                let a = $a_function();
+                if a < $b_expr {
+                    Ok(a)
                 } else {
                     Err(
                         format!(
@@ -104,7 +104,7 @@ macro_rules! assert_fn_lt_expr_as_result {
                             stringify!($a_function),
                             stringify!($b_expr),
                             b_expr,
-                            a_output,
+                            a,
                             b_expr
                         )
                     )
@@ -131,7 +131,7 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 2;
                 let result = assert_fn_lt_expr_as_result!(f, a, b);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), 1);
             }
 
             #[test]
@@ -139,7 +139,6 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 1;
                 let result = assert_fn_lt_expr_as_result!(f, a, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -161,7 +160,6 @@ mod tests {
                 let a: i8 = 1;
                 let b: i8 = 0;
                 let result = assert_fn_lt_expr_as_result!(f, a, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -189,14 +187,13 @@ mod tests {
             fn test_lt() {
                 let b: i8 = 2;
                 let result = assert_fn_lt_expr_as_result!(f, b);
-                assert_eq!(result, Ok(()));
+                assert_eq!(result.unwrap(), 1);
             }
 
             #[test]
             fn test_eq() {
                 let b: i8 = 1;
                 let result = assert_fn_lt_expr_as_result!(f, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -215,7 +212,6 @@ mod tests {
             fn test_gt() {
                 let b: i8 = 0;
                 let result = assert_fn_lt_expr_as_result!(f, b);
-                assert!(result.is_err());
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
@@ -236,9 +232,9 @@ mod tests {
 /// Assert a function output is less than an expression.
 ///
 /// Pseudocode:<br>
-/// function1(a) < b
+/// a_function(a) < b
 ///
-/// * If true, return `()`.
+/// * If true, return `a`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -298,14 +294,14 @@ macro_rules! assert_fn_lt_expr {
 
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
         match $crate::assert_fn_lt_expr_as_result!($a_function, $a_param, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_fn_lt_expr_as_result!($a_function, $a_param, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -314,14 +310,14 @@ macro_rules! assert_fn_lt_expr {
 
     ($a_function:path, $b_expr:expr $(,)?) => {{
         match $crate::assert_fn_lt_expr_as_result!($a_function, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
     ($a_function:path, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_fn_lt_expr_as_result!($a_function, $b_expr) {
-            Ok(()) => (),
+            Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
@@ -331,7 +327,7 @@ macro_rules! assert_fn_lt_expr {
 /// Assert a function output is less than an expression.
 ///
 /// Pseudocode:<br>
-/// function1(a) < b
+/// a_function(a) < b
 ///
 /// This macro provides the same statements as [`assert_fn_lt_expr`](macro.assert_fn_lt_expr.html),
 /// except this macro's statements are only enabled in non-optimized

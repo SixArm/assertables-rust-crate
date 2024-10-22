@@ -54,7 +54,7 @@ macro_rules! assert_matches_as_result {
                         "https://docs.rs/assertables/9.0.0/assertables/macro.assert_matches.html\n",
                         " args: `{}`",
                     ),
-                    stringify!($($arg)*),
+                    stringify!($($arg)*)
                 )
             )
         }

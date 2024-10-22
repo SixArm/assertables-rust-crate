@@ -368,14 +368,10 @@
 <a href="#368" id="368">368</a>
 <a href="#369" id="369">369</a>
 <a href="#370" id="370">370</a>
-<a href="#371" id="371">371</a>
-<a href="#372" id="372">372</a>
-<a href="#373" id="373">373</a>
-<a href="#374" id="374">374</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is greater than another.
 //!
 //! Pseudocode:&lt;br&gt;
-//! function1(a) &gt; function2(b)
+//! a_function(a) &gt; b_function(b)
 //!
 //! # Example
 //!
@@ -398,9 +394,9 @@
 /// Assert a function output is greater than another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// function1(a) &gt; function2(b)
+/// a_function(a) &gt; b_function(b)
 ///
-/// * If true, return Result `Ok(())`.
+/// * If true, return Result `Ok(a, b)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -424,10 +420,10 @@
     </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_function</span>:path, <span class="macro-nonterminal">$b_param</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$a_param</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_function</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_param</span>) {
             (_a_function, a_param, _b_function, b_param) =&gt; {
-                <span class="kw">let </span>a_output = <span class="macro-nonterminal">$a_function</span>(<span class="macro-nonterminal">$a_param</span>);
-                <span class="kw">let </span>b_output = <span class="macro-nonterminal">$b_function</span>(<span class="macro-nonterminal">$b_param</span>);
-                <span class="kw">if </span>a_output &gt; b_output {
-                    <span class="prelude-val">Ok</span>(())
+                <span class="kw">let </span>a = <span class="macro-nonterminal">$a_function</span>(<span class="macro-nonterminal">$a_param</span>);
+                <span class="kw">let </span>b = <span class="macro-nonterminal">$b_function</span>(<span class="macro-nonterminal">$b_param</span>);
+                <span class="kw">if </span>a &gt; b {
+                    <span class="prelude-val">Ok</span>((a, b))
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
@@ -449,8 +445,8 @@
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_param</span>),
                             b_param,
-                            a_output,
-                            b_output
+                            a,
+                            b
                         )
                     )
                 }
@@ -461,10 +457,10 @@
     <span class="comment">//// Arity 0
 
     </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_function</span>:path) =&gt; {{
-        <span class="kw">let </span>a_output = <span class="macro-nonterminal">$a_function</span>();
-        <span class="kw">let </span>b_output = <span class="macro-nonterminal">$b_function</span>();
-        <span class="kw">if </span>a_output &gt; b_output {
-            <span class="prelude-val">Ok</span>(())
+        <span class="kw">let </span>a = <span class="macro-nonterminal">$a_function</span>();
+        <span class="kw">let </span>b = <span class="macro-nonterminal">$b_function</span>();
+        <span class="kw">if </span>a &gt; b {
+            <span class="prelude-val">Ok</span>((a, b))
         } <span class="kw">else </span>{
             <span class="prelude-val">Err</span>(
                 <span class="macro">format!</span>(
@@ -478,8 +474,8 @@
                     </span>),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_function</span>),
                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_function</span>),
-                    a_output,
-                    b_output
+                    a,
+                    b
                 )
             )
         }
@@ -507,7 +503,7 @@
                 <span class="kw">let </span>a: i8 = <span class="number">2</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>result = <span class="macro">assert_fn_gt_as_result!</span>(f, a, g, b);
-                <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+                <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="number">2</span>, <span class="number">1</span>));
             }
 
             <span class="attr">#[test]
@@ -515,7 +511,6 @@
                 <span class="kw">let </span>a: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>result = <span class="macro">assert_fn_gt_as_result!</span>(f, a, g, b);
-                <span class="macro">assert!</span>(result.is_err());
                 <span class="macro">assert_eq!</span>(
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
@@ -538,7 +533,6 @@
                 <span class="kw">let </span>a: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">2</span>;
                 <span class="kw">let </span>result = <span class="macro">assert_fn_gt_as_result!</span>(f, a, g, b);
-                <span class="macro">assert!</span>(result.is_err());
                 <span class="macro">assert_eq!</span>(
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
@@ -570,13 +564,12 @@
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_gt() {
                 <span class="kw">let </span>result = <span class="macro">assert_fn_gt_as_result!</span>(g, f);
-                <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>(()));
+                <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="number">2</span>, <span class="number">1</span>));
             }
 
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_eq() {
                 <span class="kw">let </span>result = <span class="macro">assert_fn_gt_as_result!</span>(f, f);
-                <span class="macro">assert!</span>(result.is_err());
                 <span class="macro">assert_eq!</span>(
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
@@ -593,7 +586,6 @@
             <span class="attr">#[test]
             </span><span class="kw">fn </span>test_lt() {
                 <span class="kw">let </span>result = <span class="macro">assert_fn_gt_as_result!</span>(f, g);
-                <span class="macro">assert!</span>(result.is_err());
                 <span class="macro">assert_eq!</span>(
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
@@ -613,9 +605,9 @@
 <span class="doccomment">/// Assert a function output is greater than another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// function1(a) &gt; function2(b)
+/// a_function(a) &gt; b_function(b)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a, b)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -677,14 +669,14 @@
 
     </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_function</span>:path, <span class="macro-nonterminal">$b_param</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_gt_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_function</span>, <span class="macro-nonterminal">$b_param</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
 
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_function</span>:path, <span class="macro-nonterminal">$b_param</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_gt_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$a_param</span>, <span class="macro-nonterminal">$b_function</span>, <span class="macro-nonterminal">$b_param</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
@@ -693,14 +685,14 @@
 
     </span>(<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_function</span>:path) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_gt_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$b_function</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
 
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_function</span>:path, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_fn_gt_as_result!</span>(<span class="macro-nonterminal">$a_function</span>, <span class="macro-nonterminal">$b_function</span>) {
-            <span class="prelude-val">Ok</span>(()) =&gt; (),
+            <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
@@ -710,7 +702,7 @@
 <span class="doccomment">/// Assert a function output is greater than another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// function1(a) &gt; function2(b)
+/// a_function(a) &gt; b_function(b)
 ///
 /// This macro provides the same statements as [`assert_fn_gt`](macro.assert_fn_gt.html),
 /// except this macro's statements are only enabled in non-optimized
