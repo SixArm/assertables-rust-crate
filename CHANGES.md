@@ -3,9 +3,16 @@
 Changes highlights for recent major versions.
 
 
+## Version 9.0.0
+
+* Add returns to many macros.
+
+* Breaking change: rename macros from `assert_*_eq` into `assert_*_eq2`, then from `assert_*_eq_expr` into `assert_*_eq`.
+
+
 ## Version 8.x
 
-* Add `assert_matches`, `assert_not_matches`.
+* Add matches macros: `assert_matches`, `assert_not_matches`.
 
 * Add Iterator macros: `assert_iter_all`, `assert_iter_any`, `assert_iter_eq2`, etc.
 

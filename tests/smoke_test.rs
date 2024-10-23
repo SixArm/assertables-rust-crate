@@ -1,10 +1,10 @@
 use assertables::*;
 use regex::Regex;
 use std::path::PathBuf;
-use once_cell::sync::Lazy;
+use std::sync::LazyLock;
 use std::process::Command;
 
-pub static BIN: Lazy<PathBuf> = Lazy::new(|| {
+pub static BIN: LazyLock<PathBuf> = LazyLock::new(|| {
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("bin")
 });

@@ -28,4 +28,3 @@ split-debuginfo = "packed"
 cargo-dist = "0.22.1" # Cargo distribution builder for release engineering
 cargo-release = "0.25.12" # Cargo release automation
 regex = "1.11.0" # Regular expressions parser, compiler, and executer
-once_cell = "1.20.2" # Single assignment cells and lazy values

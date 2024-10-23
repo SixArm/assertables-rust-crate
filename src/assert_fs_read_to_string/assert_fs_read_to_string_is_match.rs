@@ -101,11 +101,11 @@ macro_rules! assert_fs_read_to_string_is_match_as_result {
 
 #[cfg(test)]
 mod tests {
-    use once_cell::sync::Lazy;
     use regex::Regex;
     use std::path::PathBuf;
+    use std::sync::LazyLock;
 
-    pub static DIR: Lazy<PathBuf> = Lazy::new(|| {
+    pub static DIR: LazyLock<PathBuf> = LazyLock::new(|| {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .join("tests")
             .join("src")

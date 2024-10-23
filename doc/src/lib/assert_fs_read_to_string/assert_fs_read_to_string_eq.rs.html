@@ -388,12 +388,12 @@
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests {
-    <span class="kw">use </span>once_cell::sync::Lazy;
     <span class="attr">#[allow(unused_imports)]
     </span><span class="kw">use </span>std::io::Read;
     <span class="kw">use </span>std::path::PathBuf;
+    <span class="kw">use </span>std::sync::LazyLock;
 
-    <span class="kw">pub static </span>DIR: Lazy&lt;PathBuf&gt; = Lazy::new(|| {
+    <span class="kw">pub static </span>DIR: LazyLock&lt;PathBuf&gt; = LazyLock::new(|| {
         PathBuf::from(<span class="macro">env!</span>(<span class="string">"CARGO_MANIFEST_DIR"</span>))
             .join(<span class="string">"tests"</span>)
             .join(<span class="string">"src"</span>)
