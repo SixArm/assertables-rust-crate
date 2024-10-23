@@ -8,7 +8,6 @@ compile-time tests and run-time reliability.
 * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
 * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
 
-
 ## Introduction
 
 The Rust programming language provides assert macros such as `assert!(x)` to
@@ -21,18 +20,18 @@ Top benefits:
 2. You can handle more corner cases without needing to write custom code.
 3. You can troubleshoot faster because error messages show specifics.
 
-To use this crate, add it to your `Cargo.toml` file as a development dependency:
+To use this crate, add it to your file `Cargo.toml`:
 
 ```toml
-[dev-dependencies]
-assertables = "*"
+assertables = "9.0.0"
 ```
 
-Compare to
-    [`more_asserts`](https://crates.io/crates/more_asserts),
-    [`cool_asserts`](https://crates.io/crates/cool_asserts),
-    [`assert2`](https://crates.io/crates/assert2),
-    [`claims`](https://crates.io/crates/claims).
+Help:
+
+* [Upgrade version 8 to 9](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9)
+* [Simple examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/simple_examples.rs)
+* [Validation examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/validation_examples.rs)
+* [Comparisons to crates such as more_asserts, cool_asserts, assert2, claims, etc.](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
 
 ## Highlights
 
@@ -78,12 +77,6 @@ Matching for strings, regex, etc.:
 * [`assert_is_match!(matcher, x)`](https://docs.rs/assertables/9.0.0/assertables/assert_is_match) `// matcher.is_match(x)`
 * [`assert_contains!(container, x)`](https://docs.rs/assertables/9.0.0/assertables/assert_contains) `// container.contains(x)`
 
-Collections for arrays, vectors, iterators, sets, maps:
-
-* [`assert_iter_eq2!(arr1, arr2)`](https://docs.rs/assertables/9.0.0/assertables/assert_iter) `// eq ne etc.`
-* [`assert_set_eq2!(vec1, vec2)`](https://docs.rs/assertables/9.0.0/assertables/assert_set) `// eq ne etc.`
-* [`assert_bag_eq2!(map1, map2)`](https://docs.rs/assertables/9.0.0/assertables/assert_bag) `// eq ne etc.`
-
 Result Ok & Err:
 
 * [`assert_ok_eq!(result, x)`](https://docs.rs/assertables/9.0.0/assertables/assert_ok/assert_ok_eq) `// result is Ok(x)`
@@ -99,85 +92,47 @@ Poll Ready & Pending:
 * [`assert_ready_eq!(poll, x)`](https://docs.rs/assertables/9.0.0/assertables/assert_ready/assert_ready_eq) `// poll is Ready(x)`
 * [`assert_pending!(poll)`](https://docs.rs/assertables/9.0.0/assertables/assert_pending/assert_pending) `// poll is Pending`
 
-Read file system paths and input/output streams:
+Read file system paths and input-output bytes:
 
 * [`assert_fs_read_to_string_eq!(path, x)`](https://docs.rs/assertables/9.0.0/assertables/assert_fs_read_to_string_eq) `// read path == x`
 * [`assert_io_read_to_string_eq!(bytes, x)`](https://docs.rs/assertables/9.0.0/assertables/assert_io_read_to_string) `// read bytes == x`
 
-Run commands and programs then assert on stdout or stderr:
+Run processes and use stdout or stderr:
 
 * [`assert_command_stdout_eq!(command, x)`](https://docs.rs/assertables/9.0.0/assertables/assert_command) `// command stdout == x`
-* [`assert_program_args_stdout_eq!(program, args, x)`](https://docs.rs/assertables/9.0.0/assertables/assert_program_args) `// program-args stdout == x`
+* [`assert_program_args_stderr_eq!(program, args, x)`](https://docs.rs/assertables/9.0.0/assertables/assert_program_args) `// program-args stderr == x`
 
+Collections for arrays, vectors, iterators, sets, maps:
+
+* [`assert_iter_eq2!(arr1, arr2)`](https://docs.rs/assertables/9.0.0/assertables/assert_iter) `// eq ne etc.`
+* [`assert_set_eq2!(vec1, vec2)`](https://docs.rs/assertables/9.0.0/assertables/assert_set) `// eq ne etc.`
+* [`assert_bag_eq2!(map1, map2)`](https://docs.rs/assertables/9.0.0/assertables/assert_bag) `// eq ne etc.`
+
+For a complete list of modules and macros, see the [docs](https://docs.rs/assertables/)
 
 ## Forms
 
-All assertables macros have forms for an optional message:
+All the macros have forms for an optional message:
 
 * [`assert_gt!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt.html) `// automatic error message`
 * [`assert_gt!(a, b, "your text")`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt.html) `// custom error message`
 
-All assertables macros have forms for different outcomes:
+All the macros have forms for different outcomes:
 
 * [`assert_gt!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt.html) `// panic during typical test`
 * [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt_as_result.html) `// return Ok or Err`
 * [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.debug_assert_gt.html) `// panic when in debug mode`
 
-Many assertables macros have forms for comparing one item (to an expression) or two items (to each other):
+Many of the macros have forms for comparing one item (to an expression) or two items (to each other):
 
 * [`assert_ok_eq!(a, x)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_eq.html) `// a.unwrap() == x`
 * [`assert_ok_eq2!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_eq2.html) `// a.unwrap() == b.unwrap()`
 
-Many assertables macros return helpful information upon success, if you want to use it, such as:
+Many of the macros return helpful information upon success, if you want to use it, such as:
 
 * `let inner = assert_ok!(result); //=> result.unwrap()`
 * `let string = assert_fs_read_to_string_ne!("alfa.txt", ""); //=> file contents`
 * `let stdout = assert_command_stdout_gt!("ls", vec![b' ']); //=> process handle`
-
-
-## Upgrade from version 8 to version 9
-
-A naming convention is changing, to improve usability.
-
-Version 8 naming convention:
-
-```
-assert_foo_eq_expr!(a, x) // compare one item with an expression
-assert_foo_eq!(a, b) // compare two items of the same type
-```
-
-Version 9 naming conventions:
-
-```
-assert_foo_eq!(a, x) // compare one item with an expression
-assert_foo_eq2!(a, b) // compare two items of the same type
-```
-
-To upgrade your code, one way is to do a regular expression search and replace.
-
-Search:
-
-```txt
-\b(|debug_)(assert_\w*_)(eq|ne|lt|le|gt|ge)(|_as_result)\b
-```
-
-Replace:
- 
-```txt
-$1$2$32$4
-```
-
-Search:
-
-```txt
-\b(|debug_)(assert_\w*_)(eq|ne|lt|le|gt|ge)_expr(|_as_result)\b
-```
- 
-Replace:
-
-```txt
-$1$2$3$4
-```
 
 
 ## Tracking
@@ -185,6 +140,6 @@ $1$2$3$4
 * Package: assertables-rust-crate
 * Version: 9.0.0
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2024-10-19T21:00:54Z
+* Updated: 2024-10-23T20:21:04Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@sixarm.com)

@@ -213,62 +213,6 @@
 <a href="#213" id="213">213</a>
 <a href="#214" id="214">214</a>
 <a href="#215" id="215">215</a>
-<a href="#216" id="216">216</a>
-<a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
-<a href="#224" id="224">224</a>
-<a href="#225" id="225">225</a>
-<a href="#226" id="226">226</a>
-<a href="#227" id="227">227</a>
-<a href="#228" id="228">228</a>
-<a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
-<a href="#232" id="232">232</a>
-<a href="#233" id="233">233</a>
-<a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-<a href="#237" id="237">237</a>
-<a href="#238" id="238">238</a>
-<a href="#239" id="239">239</a>
-<a href="#240" id="240">240</a>
-<a href="#241" id="241">241</a>
-<a href="#242" id="242">242</a>
-<a href="#243" id="243">243</a>
-<a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
-<a href="#246" id="246">246</a>
-<a href="#247" id="247">247</a>
-<a href="#248" id="248">248</a>
-<a href="#249" id="249">249</a>
-<a href="#250" id="250">250</a>
-<a href="#251" id="251">251</a>
-<a href="#252" id="252">252</a>
-<a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! The `assertables` Rust crate provides many assert macros to improve your
@@ -287,8 +231,7 @@
 //!
 //! The Rust programming language provides assert macros such as `assert!(x)` to
 //! test code. The assertables crate provides many more for numbers, strings,
-//! results, options, iterators, files, streams, and more. See below for
-//! examples.
+//! results, options, iterators, files, streams, and more. See below for details.
 //!
 //! Top benefits:
 //!
@@ -296,18 +239,18 @@
 //! 2. You can handle more corner cases without needing to write custom code.
 //! 3. You can troubleshoot faster because error messages show specifics.
 //!
-//! To use this crate, add it to your `Cargo.toml` file as a development dependency:
+//! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! [dev-dependencies]
-//! assertables = "*"
+//! assertables = "9.0.0"
 //! ``````
 //!
-//! Compare to
-//!    [`more_asserts`](https://crates.io/crates/more_asserts),
-//!    [`cool_asserts`](https://crates.io/crates/cool_asserts),
-//!    [`assert2`](https://crates.io/crates/assert2),
-//!    [`claims`](https://crates.io/crates/claims).
+//! Help:
+//!
+//! * [Upgrade version 8 to 9](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9)
+//! * [Comparison examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/comparison_examples.rs)
+//! * [Validation examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/validation_examples.rs)
+//! * [Similar crates such as more_asserts, cool_asserts, assert2, claims](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
 //!
 //! ## Highlights
 //!
@@ -379,104 +322,49 @@
 //! * [`assert_fs_read_to_string_eq!(path, x)`](module@crate::assert_fs_read_to_string) `// read path == x`
 //! * [`assert_io_read_to_string_eq!(bytes, x)`](module@crate::assert_io_read_to_string) `// read bytes == x`
 //!
-//! Run commands and programs then assert on stdout or stderr:
+//! Run processes and use stdout or stderr:
 //!
 //! * [`assert_command_stdout_eq!(command, x)`](module@crate::assert_command) `// command stdout == x`
-//! * [`assert_program_args_stdout_eq!(program, args, x)`](module@crate::assert_program_args) `// program-args stdout == x`
+//! * [`assert_program_args_stderr_eq!(program, args, x)`](module@crate::assert_program_args) `// program-args stderr == x`
 //!
+//! For a complete list of modules and macros, see the [docs](https://docs.rs/assertables/)
 //!
 //! ## Forms
 //!
-//! All assertables macros have forms for an optional message:
+//! All the macros have forms for an optional message:
 //!
 //! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// automatic message`
 //! * [`assert_gt!(a, b, "Your text")`](macro@crate::assert_gt) `// custom message`
 //!
-//! All assertables macros have forms for different outcomes:
+//! All the macros have forms for different outcomes:
 //!
 //! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// panic during typical test`
 //! * [`assert_gt_as_result!(a, b)`](macro@crate::assert_gt_as_result) `// return Ok or Err`
 //! * [`debug_assert_gt!(a, b)`](macro@crate::debug_assert_gt) `// panic when in debug mode`
 //!
-//! Many assertables macros have forms for comparing one item (to an expression)
+//! Many of the macros have forms for comparing one item (to an expression)
 //! or two items (to each other):
 //!
 //! * [`assert_ok_eq!(a, b)`](macro@crate::assert_ok_eq) `// Ok(…) = expression`
 //! * [`assert_ok_eq2!(a, b)`](macro@crate::assert_ok_eq2) `// Ok(…) = Ok(…)`
 //!
-//! Many assertables macros return more information upon success,
+//! Many of the macros return more information upon success,
 //! in case you want to do further testing or tracing, such as:
 //!
 //! * `let inner = assert_ok!(result); //=&gt; result.unwrap()`
 //! * `let string = assert_fs_read_to_string_ne!("alfa.txt", ""); //=&gt; file contents`
 //! * `let stdout = assert_command_stdout_gt!("ls", vec![b' ']); //=&gt; process handle`
 //!
-//! ## Upgrade from version 8 to version 9
-//!
-//! A naming convention is changing, to improve usability.
-//!
-//! Version 8 naming convention:
-//!
-//! ```
-//! assert_foo_eq_expr!(a, x) // compare one item with one expression
-//! assert_foo_eq!(a, b) // compare two items of the same type
-//! ```
-//!
-//! Version 9 naming conventions:
-//!
-//! ```
-//! assert_foo_eq!(a, x) // compare one item with one expression
-//! assert_foo_eq2!(a, b) // compare two items of the same type
-//! ```
-//!
-//! To upgrade your code, one way is to do a regular expression search and replace.
-//!
-//! Search:
-//!
-//! ```txt
-//! \b(|debug_)(assert_\w*_)(eq|ne|lt|le|gt|ge)(|_as_result)\b
-//! ```
-//!
-//! Replace:
-//!
-//! ```txt
-//! $1$2$32$4
-//! ```
-//!
-//! Search:
-//!
-//! ```txt
-//! \b(|debug_)(assert_\w*_)(eq|ne|lt|le|gt|ge)_expr(|_as_result)\b
-//! ```
-//!
-//! Replace:
-//!
-//! ```txt
-//! $1$2$3$4
-//! ```
-//!
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
 //! * Version: 9.0.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-19T21:00:54Z
+//! * Updated: 2024-10-23T20:21:04Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@sixarm.com)
 
-/// Format assert failure error message.
-</span><span class="attr">#[macro_export]
-</span><span class="macro">macro_rules!</span> assertables_err {
-    (<span class="macro-nonterminal">$name</span>:ident) =&gt; {
-        <span class="prelude-val">Err</span>(
-            <span class="macro">format!</span>(
-                $(<span class="macro-nonterminal">$arg</span>)*
-            )
-        )
-    }
-}
-
-<span class="comment">// Assert truth
+</span><span class="comment">// Assert truth
 </span><span class="kw">pub mod </span>assert; <span class="comment">// (in addition to what's provided by Rust `std`)
 
 // Assert value comparison

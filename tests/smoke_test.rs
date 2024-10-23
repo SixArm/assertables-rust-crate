@@ -95,7 +95,7 @@ mod readme_returns {
             assert_eq!(b_stdout, vec![b'b', b'r', b'a', b'v', b'o']);
         }
     }
-    
+
 }
 
 
@@ -533,7 +533,7 @@ fn assert_fs_read_to_string() {
     assert_fs_read_to_string_ge!("bravo.txt", "a");
     assert_fs_read_to_string_gt!("bravo.txt", "a");
 
-    //// two 
+    //// two
     assert_fs_read_to_string_eq2!("alfa.txt", "alfa.txt");
     assert_fs_read_to_string_ne2!("alfa.txt", "bravo.txt");
     assert_fs_read_to_string_lt2!("alfa.txt", "bravo.txt");

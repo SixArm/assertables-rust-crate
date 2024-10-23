@@ -8,12 +8,14 @@
 
 use assertables::*;
 
+/// Validate an email address format, such as "alice@example.com".
 #[test]
 fn validate_email_address() {
 
 	fn validate_email_address(s: &str) -> Result<(), String> {
 		assert_contains_as_result!(s, "@")?;
-		assert_contains_as_result!(3..255, &s.len())
+		assert_contains_as_result!(3..255, &s.len())?;
+		Ok(())
 	}
 
 	// Success
@@ -30,6 +32,7 @@ fn validate_email_address() {
 
 }
 
+/// Validate point nearness, such as (1.01, 2.01) being near (1.02, 2.02).
 #[test]
 fn validate_point_nearness() {
 
@@ -53,12 +56,14 @@ fn validate_point_nearness() {
 
 }
 
+/// Validate a positive percentage, such as greater than zero and less than or equal to 100.
 #[test]
 fn validate_positive_percentage() {
 
 	fn validate_positive_percentage(x: f32) -> Result<(), String> {
 		assert_infix_as_result!(x > 0.0)?;
-		assert_infix_as_result!(x <= 100.0)
+		assert_infix_as_result!(x <= 100.0)?;
+		Ok(())
 	}
 
 	// Success
