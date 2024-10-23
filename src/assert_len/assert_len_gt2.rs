@@ -82,7 +82,7 @@ macro_rules! assert_len_gt2_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_len_gt_as_result_x_success_because_gt() {
+    fn gt() {
         let a = "xx";
         let b = "x";
         let result = assert_len_gt2_as_result!(a, b);
@@ -90,7 +90,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_len_gt_as_result_x_failure_because_eq() {
+    fn eq() {
         let a = "x";
         let b = "x";
         let result = assert_len_gt2_as_result!(a, b);
@@ -110,7 +110,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_len_gt_as_result_x_failure_because_lt() {
+    fn lt() {
         let a = "x";
         let b = "xx";
         let result = assert_len_gt2_as_result!(a, b);

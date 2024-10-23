@@ -382,7 +382,7 @@
     </span><span class="kw">use </span>std::io::Read;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_io_read_to_string_eq_as_result_x_success_because_eq() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span><span class="kw-2">mut </span>b = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_eq2_as_result!</span>(a, b);
@@ -390,7 +390,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_io_read_to_string_eq_as_result_x_failure_because_lt() {
+    </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span><span class="kw-2">mut </span>b = <span class="string">"bravo"</span>.as_bytes();
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_eq2_as_result!</span>(a, b);
@@ -410,7 +410,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_io_read_to_string_eq_as_result_x_failure_because_gt() {
+    </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = <span class="string">"bravo"</span>.as_bytes();
         <span class="kw">let </span><span class="kw-2">mut </span>b = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_eq2_as_result!</span>(a, b);

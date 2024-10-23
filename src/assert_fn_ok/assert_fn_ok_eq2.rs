@@ -189,7 +189,7 @@ mod tests {
             }
 
             #[test]
-            fn test_eq() {
+            fn eq() {
                 let a: i8 = 1;
                 let b: i8 = 1;
                 let result = assert_fn_ok_eq2_as_result!(f, a, g, b);
@@ -230,7 +230,7 @@ mod tests {
             }
 
             #[test]
-            fn test_eq() {
+            fn eq() {
                 let result = assert_fn_ok_eq2_as_result!(f, f);
                 assert_eq!(result.unwrap(), (1, 1));
             }

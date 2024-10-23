@@ -27,7 +27,7 @@
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout) ≤ (expr into string)
 ///
-/// * If true, return Result `Ok((lhs, rhs))`.
+/// * If true, return Result `Ok(stdout)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -52,7 +52,7 @@ macro_rules! assert_program_args_stdout_le_as_result {
                     Ok(a_output) => {
                         let a = a_output.stdout;
                         if a.le(&$b_expr) {
-                            Ok((a, $b_expr))
+                            Ok(a)
                         } else {
                             Err(
                                 format!(
@@ -114,31 +114,25 @@ macro_rules! assert_program_args_stdout_le_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_program_args_stdout_le_expr_as_result_x_success_because_lt() {
+    fn lt() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'z', b'z'];
         let result = assert_program_args_stdout_le_as_result!(&a_program, &a_args, b);
-        assert_eq!(
-            result.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z'])
-        );
+        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
-    fn test_assert_program_args_stdout_le_expr_as_result_x_success_because_eq() {
+    fn eq() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'l', b'f', b'a'];
         let result = assert_program_args_stdout_le_as_result!(&a_program, &a_args, b);
-        assert_eq!(
-            result.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
-        );
+        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
-    fn test_assert_program_args_stdout_le_expr_as_result_x_failure_because_gt() {
+    fn gt() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'a'];
@@ -165,7 +159,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout) ≤ (expr into string)
 ///
-/// * If true, return `()`.
+/// * If true, return `(stdout)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

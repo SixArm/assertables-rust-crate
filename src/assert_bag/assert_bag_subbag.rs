@@ -89,7 +89,7 @@ mod tests {
     use std::collections::BTreeMap;
 
     #[test]
-    fn test_assert_bag_subbag_as_result_x_success() {
+    fn success() {
         let a = [1, 1];
         let b = [1, 1, 1];
         let result = assert_bag_subbag_as_result!(&a, &b);
@@ -100,7 +100,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_bag_subbag_as_result_x_failure_because_key_is_missing() {
+    fn failure_because_key_is_missing() {
         let a = [1, 1];
         let b = [2, 2];
         let result = assert_bag_subbag_as_result!(&a, &b);
@@ -120,7 +120,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_bag_subbag_as_result_x_failure_because_val_count_is_excessive() {
+    fn failure_because_val_count_is_excessive() {
         let a = [1, 1, 1];
         let b = [1, 1];
         let result = assert_bag_subbag_as_result!(&a, &b);

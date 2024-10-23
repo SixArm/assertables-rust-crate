@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stderr) = (program2 + args2 ⇒ command ⇒ stderr)
 ///
-/// * If true, return Result `Ok((lhs, rhs))`.
+/// * If true, return Result `Ok(stderr)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///

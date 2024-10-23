@@ -79,7 +79,7 @@ macro_rules! assert_len_ne_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_len_ne_expr_as_result_x_success_because_lt() {
+    fn lt() {
         let a = "x";
         let b = 2;
         let result = assert_len_ne_as_result!(a, b);
@@ -87,7 +87,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_len_ne_expr_as_result_x_success_because_gt() {
+    fn gt() {
         let a = "xx";
         let b = 1;
         let result = assert_len_ne_as_result!(a, b);

@@ -344,7 +344,7 @@
     <span class="kw">use </span>std::collections::BTreeMap;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_bag_superbag_as_result_x_success() {
+    </span><span class="kw">fn </span>success() {
         <span class="kw">let </span>a = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>];
         <span class="kw">let </span>b = [<span class="number">1</span>, <span class="number">1</span>];
         <span class="kw">let </span>result = <span class="macro">assert_bag_superbag_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
@@ -355,7 +355,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_bag_superbag_as_result_x_failure_because_key_is_missing() {
+    </span><span class="kw">fn </span>failure_because_key_is_missing() {
         <span class="kw">let </span>a = [<span class="number">1</span>, <span class="number">1</span>];
         <span class="kw">let </span>b = [<span class="number">2</span>, <span class="number">2</span>];
         <span class="kw">let </span>result = <span class="macro">assert_bag_superbag_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
@@ -375,7 +375,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_bag_superbag_as_result_x_failure_because_val_count_is_excessive() {
+    </span><span class="kw">fn </span>failure_because_val_count_is_excessive() {
         <span class="kw">let </span>a = [<span class="number">1</span>, <span class="number">1</span>];
         <span class="kw">let </span>b = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>];
         <span class="kw">let </span>result = <span class="macro">assert_bag_superbag_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);

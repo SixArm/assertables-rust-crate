@@ -371,7 +371,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_ready_eq_expr_as_result_x_failure_because_ne() {
+    </span><span class="kw">fn </span>ne() {
         <span class="kw">let </span>a: Poll&lt;i8&gt; = Ready(<span class="number">1</span>);
         <span class="kw">let </span>b: i8 = <span class="number">2</span>;
         <span class="kw">let </span>result = <span class="macro">assert_ready_eq_as_result!</span>(a, b);

@@ -113,7 +113,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_ready_ne_as_result_x_failure_because_ne() {
+    fn ne() {
         let a: Poll<i8> = Ready(1);
         let b: Poll<i8> = Ready(1);
         let result = assert_ready_ne2_as_result!(a, b);

@@ -110,7 +110,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_err_eq_as_result_x_failure_because_ne() {
+    fn ne() {
         let a: Result<i8, i8> = Err(1);
         let b: Result<i8, i8> = Err(2);
         let result = assert_err_eq2_as_result!(a, b);

@@ -2,6 +2,7 @@ use assertables::*;
 use regex::Regex;
 use std::path::PathBuf;
 use once_cell::sync::Lazy;
+use std::process::Command;
 
 pub static BIN: Lazy<PathBuf> = Lazy::new(|| {
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -24,6 +25,79 @@ fn readme() {
     assert_all!(s.chars(), |c: char| c < 'x');
     assert_any!(s.chars(), |c: char| c.is_whitespace());
 }
+
+mod readme_returns {
+
+    mod assert_ok_etc {
+        use assertables::*;
+
+        #[test]
+        fn one() {
+            let result: Result<i8, i8> = Ok(2);
+            let inner = assert_ok_ne!(result, 1);
+            assert_eq!(inner, &2);
+        }
+
+        #[test]
+        fn two() {
+            let a_result: Result<i8, i8> = Ok(1);
+            let b_result: Result<i8, i8> = Ok(2);
+            let (a_inner, b_inner) = assert_ok_ne2!(a_result, b_result);
+            assert_eq!(a_inner, &1);
+            assert_eq!(b_inner, &2);
+        }
+
+    }
+
+    mod return_assert_fs_read_to_string_etc {
+        use assertables::*;
+
+        #[test]
+        fn one() {
+            let path = "alfa.txt";
+            let string = assert_fs_read_to_string_ne!(path, "");
+            assert_eq!(string, String::from("alfa\n"));
+        }
+
+        #[test]
+        fn two() {
+            let a_path = "alfa.txt";
+            let b_path = "bravo.txt";
+            let (a_string, b_string) = assert_fs_read_to_string_ne2!(a_path, b_path);
+            assert_eq!(a_string, String::from("alfa\n"));
+            assert_eq!(b_string, String::from("bravo\n"));
+        }
+
+    }
+
+    mod assert_command_stdout_etc {
+        use assertables::*;
+        use std::process::Command;
+
+        #[test]
+        fn one() {
+            let program = crate::BIN.join("printf-stdout");
+            let mut command = Command::new(&program);
+            command.args(["%s", "alfa"]);
+            let stdout = assert_command_stdout_ne!(command, vec![b'a']);
+            assert_eq!(stdout, vec![b'a', b'l', b'f', b'a']);
+        }
+
+        #[test]
+        fn two() {
+            let program = crate::BIN.join("printf-stdout");
+            let mut a_command = Command::new(&program);
+            a_command.args(["%s", "alfa"]);
+            let mut b_command = Command::new(&&program);
+            b_command.args(["%s", "bravo"]);
+            let (a_stdout, b_stdout) = assert_command_stdout_ne2!(a_command, b_command);
+            assert_eq!(a_stdout, vec![b'a', b'l', b'f', b'a']);
+            assert_eq!(b_stdout, vec![b'b', b'r', b'a', b'v', b'o']);
+        }
+    }
+    
+}
+
 
 //// Values
 
@@ -240,26 +314,17 @@ fn assert_set() {
     assert_set_disjoint!([1], [2]);
 }
 
-//// Command
+//// assert_command*
 
 #[test]
-fn assert_command() {
+fn assert_command_stdout() {
     use std::process::Command;
 
-    //// stdout
     let program = BIN.join("printf-stdout");
     let mut a = Command::new(&program);
     a.args(["%s", "alfa"]);
 
-    //// stdout
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "l", "f", "a"]); assert_command_stdout_eq2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "x", "x"]); assert_command_stdout_ne2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stdout_lt2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stdout_le2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stdout_gt2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stdout_ge2!(a, b);
-
-    //// stdout expr
+    //// one
     assert_command_stdout_eq!(a, vec![b'a', b'l', b'f', b'a']);
     assert_command_stdout_ne!(a, vec![b'x', b'x']);
     assert_command_stdout_lt!(a, vec![b'z', b'z']);
@@ -267,26 +332,30 @@ fn assert_command() {
     assert_command_stdout_gt!(a, vec![b'a', b'a']);
     assert_command_stdout_ge!(a, vec![b'a', b'a']);
 
-    //// stdout string
+    //// two
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "l", "f", "a"]); assert_command_stdout_eq2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "x", "x"]); assert_command_stdout_ne2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stdout_lt2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stdout_le2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stdout_gt2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stdout_ge2!(a, b);
+
+    //// matching
     assert_command_stdout_contains!(a, "lf");
     assert_command_stdout_string_contains!(a, "lf");
     assert_command_stdout_is_match!(a, Regex::new(r"lf").unwrap());
     assert_command_stdout_string_is_match!(a, Regex::new(r"lf").unwrap());
 
-    //// stderr
+}
+
+#[test]
+fn assert_command_stderr() {
+
     let program = BIN.join("printf-stderr");
     let mut a = Command::new(&program);
     a.args(["%s", "alfa"]);
 
-    //// stderr
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "l", "f", "a"]); assert_command_stderr_eq2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "x", "x"]); assert_command_stderr_ne2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stderr_lt2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stderr_le2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stderr_gt2!(a, b);
-    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stderr_ge2!(a, b);
-
-    //// stderr expr
+    //// one
     assert_command_stderr_eq!(a, vec![b'a', b'l', b'f', b'a']);
     assert_command_stderr_ne!(a, vec![b'x', b'x']);
     assert_command_stderr_lt!(a, vec![b'z', b'z']);
@@ -294,29 +363,31 @@ fn assert_command() {
     assert_command_stderr_gt!(a, vec![b'a', b'a']);
     assert_command_stderr_ge!(a, vec![b'a', b'a']);
 
-    //// stderr string
+    //// two
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "l", "f", "a"]); assert_command_stderr_eq2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "x", "x"]); assert_command_stderr_ne2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stderr_lt2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "z", "z"]); assert_command_stderr_le2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stderr_gt2!(a, b);
+    let mut b = Command::new(&program); b.args(["%s%s%s%s", "a", "a"]); assert_command_stderr_ge2!(a, b);
+
+    //// matching
     assert_command_stderr_contains!(a, "lf");
     assert_command_stderr_string_contains!(a, "lf");
     assert_command_stderr_is_match!(a, Regex::new(r"lf").unwrap());
     assert_command_stderr_string_is_match!(a, Regex::new(r"lf").unwrap());
+
 }
 
-#[test]
-fn assert_program_args() {
+//// assert_program_args*
 
-    //// stdout
+#[test]
+fn assert_program_args_stdout() {
+
     let a_program = BIN.join("printf-stdout");
     let a_args = ["%s", "alfa"];
 
-    //// stdout other
-    // assert_program_args_stdout_eq2!(&a_program, &a_args, &b_program, ["%s%s%s%s", "a", "l", "f", "a"]);
-    // assert_program_args_stdout_ne2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "x"]);
-    // assert_program_args_stdout_lt2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
-    // assert_program_args_stdout_le2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
-    // assert_program_args_stdout_gt2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
-    // assert_program_args_stdout_ge2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
-
-    //// stdout expr
+    //// one
     assert_program_args_stdout_eq!(&a_program, &a_args, vec![b'a', b'l', b'f', b'a']);
     assert_program_args_stdout_ne!(&a_program, &a_args, vec![b'x']);
     assert_program_args_stdout_lt!(&a_program, &a_args, vec![b'z', b'z']);
@@ -324,25 +395,31 @@ fn assert_program_args() {
     assert_program_args_stdout_gt!(&a_program, &a_args, vec![b'a', b'a']);
     assert_program_args_stdout_ge!(&a_program, &a_args, vec![b'a', b'a']);
 
-    //// stdout string
+    let b_program = BIN.join("printf-stdout");
+
+    //// two
+    assert_program_args_stdout_eq2!(&a_program, &a_args, &b_program, ["%s%s%s%s", "a", "l", "f", "a"]);
+    assert_program_args_stdout_ne2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "x"]);
+    assert_program_args_stdout_lt2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
+    assert_program_args_stdout_le2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
+    assert_program_args_stdout_gt2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
+    assert_program_args_stdout_ge2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
+
+    //// matching
     assert_program_args_stdout_contains!(&a_program, &a_args, "lf");
     assert_program_args_stdout_string_contains!(&a_program, &a_args, "lf");
     assert_program_args_stdout_is_match!(&a_program, &a_args, Regex::new(r"lf").unwrap());
     assert_program_args_stdout_string_is_match!(&a_program, &a_args, Regex::new(r"lf").unwrap());
 
-    //// stderr
+}
+
+#[test]
+fn assert_program_args_stderr() {
+
     let a_program = BIN.join("printf-stderr");
     let a_args = ["%s", "alfa"];
 
-    //// stderr other
-    // assert_program_args_stderr_eq2!(&a_program, &a_args, &b_program, ["%s%s%s%s", "a", "l", "f", "a"]);
-    // assert_program_args_stderr_ne2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "x"]);
-    // assert_program_args_stderr_lt2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
-    // assert_program_args_stderr_le2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
-    // assert_program_args_stderr_gt2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
-    // assert_program_args_stderr_ge2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
-
-    //// stderr expr
+    //// one
     assert_program_args_stderr_eq!(&a_program, &a_args, vec![b'a', b'l', b'f', b'a']);
     assert_program_args_stderr_ne!(&a_program, &a_args, vec![b'x']);
     assert_program_args_stderr_lt!(&a_program, &a_args, vec![b'z', b'z']);
@@ -350,7 +427,17 @@ fn assert_program_args() {
     assert_program_args_stderr_gt!(&a_program, &a_args, vec![b'a', b'a']);
     assert_program_args_stderr_ge!(&a_program, &a_args, vec![b'a', b'a']);
 
-    //// stderr string
+    let b_program = BIN.join("printf-stderr");
+
+    //// two
+    assert_program_args_stderr_eq2!(&a_program, &a_args, &b_program, ["%s%s%s%s", "a", "l", "f", "a"]);
+    assert_program_args_stderr_ne2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "x"]);
+    assert_program_args_stderr_lt2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
+    assert_program_args_stderr_le2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "z", "z"]);
+    assert_program_args_stderr_gt2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
+    assert_program_args_stderr_ge2!(&a_program, &a_args, &b_program, ["%s%s%s%s%s", "a", "a"]);
+
+    //// matching
     assert_program_args_stderr_contains!(&a_program, &a_args, "lf");
     assert_program_args_stderr_string_contains!(&a_program, &a_args, "lf");
     assert_program_args_stderr_is_match!(&a_program, &a_args, Regex::new(r"lf").unwrap());
@@ -363,19 +450,11 @@ fn assert_program_args() {
 #[test]
 fn assert_fn() {
 
-    // Functions
+    //// Functions
     fn f() -> i8 { 1 }
     fn g() -> i8 { 2 }
 
-    // Comparisons
-    assert_fn_eq2!(f, f);
-    assert_fn_ne2!(f, g);
-    assert_fn_lt2!(f, g);
-    assert_fn_le2!(f, g);
-    assert_fn_gt2!(g, f);
-    assert_fn_ge2!(g, f);
-
-    // Compare with expression
+    //// one
     assert_fn_eq!(f, 1);
     assert_fn_ne!(f, 2);
     assert_fn_lt!(f, 2);
@@ -383,24 +462,24 @@ fn assert_fn() {
     assert_fn_gt!(g, 1);
     assert_fn_ge!(g, 1);
 
+    //// two
+    assert_fn_eq2!(f, f);
+    assert_fn_ne2!(f, g);
+    assert_fn_lt2!(f, g);
+    assert_fn_le2!(f, g);
+    assert_fn_gt2!(g, f);
+    assert_fn_ge2!(g, f);
+
 }
 
 #[test]
 fn assert_fn_ok() {
 
-    // Functions
+    //// Functions
     fn f() -> Result<i8, i8> { Ok(1) }
     fn g() -> Result<i8, i8> { Ok(2) }
 
-    // Comparisons
-    assert_fn_ok_eq2!(f, f);
-    assert_fn_ok_ne2!(f, g);
-    assert_fn_ok_lt2!(f, g);
-    assert_fn_ok_le2!(f, g);
-    assert_fn_ok_gt2!(g, f);
-    assert_fn_ok_ge2!(g, f);
-
-    // Compare with expression
+    //// one
     assert_fn_ok_eq!(f, 1);
     assert_fn_ok_ne!(f, 2);
     assert_fn_ok_lt!(f, 2);
@@ -408,24 +487,24 @@ fn assert_fn_ok() {
     assert_fn_ok_gt!(g, 1);
     assert_fn_ok_ge!(g, 1);
 
+    //// two
+    assert_fn_ok_eq2!(f, f);
+    assert_fn_ok_ne2!(f, g);
+    assert_fn_ok_lt2!(f, g);
+    assert_fn_ok_le2!(f, g);
+    assert_fn_ok_gt2!(g, f);
+    assert_fn_ok_ge2!(g, f);
+
 }
 
 #[test]
 fn assert_fn_err() {
 
-    // Functions
+    //// Functions
     fn f() -> Result<i8, i8> { Err(1) }
     fn g() -> Result<i8, i8> { Err(2) }
 
-    // Comparisons
-    assert_fn_err_eq2!(f, f);
-    assert_fn_err_ne2!(f, g);
-    assert_fn_err_lt2!(f, g);
-    assert_fn_err_le2!(f, g);
-    assert_fn_err_gt2!(g, f);
-    assert_fn_err_ge2!(g, f);
-
-    // Compare with expression
+    //// one
     assert_fn_err_ne!(f, 2);
     assert_fn_err_eq!(f, 1);
     assert_fn_err_lt!(f, 2);
@@ -433,20 +512,20 @@ fn assert_fn_err() {
     assert_fn_err_gt!(g, 1);
     assert_fn_err_ge!(g, 1);
 
+    //// two
+    assert_fn_err_eq2!(f, f);
+    assert_fn_err_ne2!(f, g);
+    assert_fn_err_lt2!(f, g);
+    assert_fn_err_le2!(f, g);
+    assert_fn_err_gt2!(g, f);
+    assert_fn_err_ge2!(g, f);
+
 }
 
 #[test]
 fn assert_fs_read_to_string() {
 
-    // Comparisons
-    assert_fs_read_to_string_eq2!("alfa.txt", "alfa.txt");
-    assert_fs_read_to_string_ne2!("alfa.txt", "bravo.txt");
-    assert_fs_read_to_string_lt2!("alfa.txt", "bravo.txt");
-    assert_fs_read_to_string_le2!("alfa.txt", "bravo.txt");
-    assert_fs_read_to_string_gt2!("bravo.txt", "alfa.txt");
-    assert_fs_read_to_string_ge2!("bravo.txt", "alfa.txt");
-
-    // Compare with expression
+    //// one
     assert_fs_read_to_string_eq!("alfa.txt", "alfa\n");
     assert_fs_read_to_string_ne!("alfa.txt", "z");
     assert_fs_read_to_string_lt!("alfa.txt", "b");
@@ -454,7 +533,15 @@ fn assert_fs_read_to_string() {
     assert_fs_read_to_string_ge!("bravo.txt", "a");
     assert_fs_read_to_string_gt!("bravo.txt", "a");
 
-    // Specializations
+    //// two 
+    assert_fs_read_to_string_eq2!("alfa.txt", "alfa.txt");
+    assert_fs_read_to_string_ne2!("alfa.txt", "bravo.txt");
+    assert_fs_read_to_string_lt2!("alfa.txt", "bravo.txt");
+    assert_fs_read_to_string_le2!("alfa.txt", "bravo.txt");
+    assert_fs_read_to_string_gt2!("bravo.txt", "alfa.txt");
+    assert_fs_read_to_string_ge2!("bravo.txt", "alfa.txt");
+
+    //// matching
     assert_fs_read_to_string_contains!("alfa.txt", "lf");
     assert_fs_read_to_string_is_match!("alfa.txt", Regex::new("lf").unwrap());
 
@@ -464,19 +551,11 @@ fn assert_fs_read_to_string() {
 fn assert_io_read_to_string() {
     use std::io::Read;
 
-    // Readers
+    //// readers
     let mut a: &[u8];
     let mut b: &[u8];
 
-    // Comparisons
-    a = "alfa".as_bytes(); b = "alfa".as_bytes();  assert_io_read_to_string_eq2!(a, b);
-    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_ne2!(a, b);
-    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_lt2!(a, b);
-    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_le2!(a, b);
-    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_gt2!(b, a);
-    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_ge2!(b, a);
-
-    // Compare with expression
+    //// one
     a = "alfa".as_bytes(); assert_io_read_to_string_eq!(a, "alfa");
     a = "alfa".as_bytes(); assert_io_read_to_string_ne!(a, "b");
     a = "alfa".as_bytes(); assert_io_read_to_string_lt!(a, "b");
@@ -484,7 +563,15 @@ fn assert_io_read_to_string() {
     a = "alfa".as_bytes(); assert_io_read_to_string_gt!(a, "a");
     a = "alfa".as_bytes(); assert_io_read_to_string_ge!(a, "a");
 
-    // Specializations
+    //// two
+    a = "alfa".as_bytes(); b = "alfa".as_bytes();  assert_io_read_to_string_eq2!(a, b);
+    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_ne2!(a, b);
+    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_lt2!(a, b);
+    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_le2!(a, b);
+    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_gt2!(b, a);
+    a = "alfa".as_bytes(); b = "bravo".as_bytes(); assert_io_read_to_string_ge2!(b, a);
+
+    //// matching
     a = "alfa".as_bytes(); assert_io_read_to_string_contains!(a, "lf");
     a = "alfa".as_bytes(); assert_io_read_to_string_is_match!(a, Regex::new("lf").unwrap());
 

@@ -181,7 +181,7 @@ mod tests {
             }
 
             #[test]
-            fn test_lt() {
+            fn lt() {
                 let a: i8 = 1;
                 let b: i8 = 2;
                 let result = assert_fn_ok_lt_as_result!(f, a, b);
@@ -189,7 +189,7 @@ mod tests {
             }
 
             #[test]
-            fn test_eq() {
+            fn eq() {
                 let a: i8 = 1;
                 let b: i8 = 1;
                 let result = assert_fn_ok_lt_as_result!(f, a, b);
@@ -217,14 +217,14 @@ mod tests {
             }
 
             #[test]
-            fn test_lt() {
+            fn lt() {
                 let b: i8 = 2;
                 let result = assert_fn_ok_lt_as_result!(f, b);
                 assert_eq!(result.unwrap(), 1);
             }
 
             #[test]
-            fn test_eq() {
+            fn eq() {
                 let b: i8 = 1;
                 let result = assert_fn_ok_lt_as_result!(f, b);
                 assert_eq!(

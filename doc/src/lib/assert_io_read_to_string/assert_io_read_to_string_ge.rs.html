@@ -257,12 +257,6 @@
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::io::Read read_to_string() value is greater than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -292,7 +286,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) ≥ (expr ⇒ b_string)
 ///
-/// * If true, return Result `Ok((a_string, b_string))`.
+/// * If true, return Result `Ok(a_string)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -317,8 +311,8 @@
                 <span class="kw">match </span>(<span class="macro-nonterminal">$a_reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>a_string)) {
                     <span class="prelude-val">Ok</span>(_a_size) =&gt; {
                         <span class="kw">let </span>b_string = String::from(<span class="macro-nonterminal">$b_expr</span>);
-                        <span class="kw">if </span>a_string &gt;= b_string {
-                            <span class="prelude-val">Ok</span>((a_string, b_string))
+                        <span class="kw">if </span>(a_string &gt;= b_string) {
+                            <span class="prelude-val">Ok</span>(a_string)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -374,29 +368,23 @@
     </span><span class="kw">use </span>std::io::Read;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_io_read_to_string_ge_expr_as_result_x_success_because_gt() {
+    </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"bravo"</span>.as_bytes();
         <span class="kw">let </span>value = String::from(<span class="string">"alfa"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_ge_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
-        <span class="macro">assert_eq!</span>(
-            result.unwrap(),
-            (String::from(<span class="string">"bravo"</span>), String::from(<span class="string">"alfa"</span>))
-        );
+        <span class="macro">assert_eq!</span>(result.unwrap(), String::from(<span class="string">"bravo"</span>));
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_io_read_to_string_ge_expr_as_result_x_success_because_eq() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>value = String::from(<span class="string">"alfa"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_ge_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
-        <span class="macro">assert_eq!</span>(
-            result.unwrap(),
-            (String::from(<span class="string">"alfa"</span>), String::from(<span class="string">"alfa"</span>))
-        );
+        <span class="macro">assert_eq!</span>(result.unwrap(), String::from(<span class="string">"alfa"</span>));
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_io_read_to_string_ge_expr_as_result_x_failure_because_lt() {
+    </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>value = String::from(<span class="string">"bravo"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_ge_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
@@ -421,7 +409,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (reader.read_to_string(a_string) ⇒ a_string) ≥ (expr ⇒ b_string)
 ///
-/// * If true, return `(a_string, b_string)`.
+/// * If true, return `a_string`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

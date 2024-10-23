@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout) > (program2 + args2 ⇒ command ⇒ stdout)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_stdout, b_stdout)`.
 ///
 /// * If true, return Result `Err` with a message and the values of the
 ///   expressions with their debug representations.
@@ -175,7 +175,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout) > (program2 + args2 ⇒ command ⇒ stdout)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_stdout, b_stdout)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

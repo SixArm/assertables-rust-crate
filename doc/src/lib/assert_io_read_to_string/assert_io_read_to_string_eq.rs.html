@@ -269,13 +269,10 @@
 <a href="#269" id="269">269</a>
 <a href="#270" id="270">270</a>
 <a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::io::Read read_to_string() value is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (reader.read_to_string(a_string) ⇒ a_string) = (expr ⇒ b_string)
+//! (reader.read_to_string(a_string) ⇒ a_string) = expr
 //!
 //! # Example
 //!
@@ -299,9 +296,9 @@
 /// Assert a ::std::io::Read read_to_string() value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (reader.read_to_string(a_string) ⇒ a_string) = (expr ⇒ b_string)
+/// (reader.read_to_string(a_string) ⇒ a_string) = expr
 ///
-/// * If true, return Result `Ok((a_string, b_string))`.
+/// * If true, return Result `Ok(a_string)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -326,8 +323,8 @@
                 <span class="kw">match </span>(<span class="macro-nonterminal">$a_reader</span>.read_to_string(<span class="kw-2">&amp;mut </span>a_string)) {
                     <span class="prelude-val">Ok</span>(_a_size) =&gt; {
                         <span class="kw">let </span>b_string = String::from(<span class="macro-nonterminal">$b_expr</span>);
-                        <span class="kw">if </span>a_string == b_string {
-                            <span class="prelude-val">Ok</span>((a_string, b_string))
+                        <span class="kw">if </span>(a_string == b_string) {
+                            <span class="prelude-val">Ok</span>(a_string)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -383,18 +380,15 @@
     </span><span class="kw">use </span>std::io::Read;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_io_read_to_string_eq_expr_as_result_x_success_because_eq() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>value = String::from(<span class="string">"alfa"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_eq_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
-        <span class="macro">assert_eq!</span>(
-            result.unwrap(),
-            (String::from(<span class="string">"alfa"</span>), String::from(<span class="string">"alfa"</span>))
-        );
+        <span class="macro">assert_eq!</span>(result.unwrap(), String::from(<span class="string">"alfa"</span>));
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_io_read_to_string_eq_expr_as_result_x_failure_because_lt() {
+    </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"alfa"</span>.as_bytes();
         <span class="kw">let </span>value = String::from(<span class="string">"bravo"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_eq_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
@@ -414,7 +408,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_io_read_to_string_eq_expr_as_result_x_failure_because_gt() {
+    </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span><span class="kw-2">mut </span>reader = <span class="string">"bravo"</span>.as_bytes();
         <span class="kw">let </span>value = String::from(<span class="string">"alfa"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_io_read_to_string_eq_as_result!</span>(reader, <span class="kw-2">&amp;</span>value);
@@ -437,9 +431,9 @@
 <span class="doccomment">/// Assert a ::std::io::Read read_to_string() value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (reader.read_to_string(a_string) ⇒ a_string) = (expr ⇒ b_string)
+/// (reader.read_to_string(a_string) ⇒ a_string) = expr
 ///
-/// * If true, return `(a_string, b_string)`.
+/// * If true, return `a_string`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -510,7 +504,7 @@
 <span class="doccomment">/// Assert a ::std::io::Read read_to_string() value is equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (reader.read_to_string(a_string) ⇒ a_string) = (expr ⇒ b_string)
+/// (reader.read_to_string(a_string) ⇒ a_string) = expr
 ///
 /// This macro provides the same statements as [`assert_io_read_to_string_eq`](macro.assert_io_read_to_string_eq.html),
 /// except this macro's statements are only enabled in non-optimized

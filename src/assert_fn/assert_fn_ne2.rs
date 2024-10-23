@@ -135,7 +135,7 @@ mod tests {
             }
 
             #[test]
-            fn test_eq() {
+            fn eq() {
                 let result = assert_fn_ne2_as_result!(f, f);
                 assert_eq!(
                     result.unwrap_err(),

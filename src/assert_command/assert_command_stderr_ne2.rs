@@ -29,7 +29,7 @@
 /// Pseudocode:<br>
 /// (command1 ⇒ stderr) = (command2 ⇒ stderr)
 ///
-/// * If true, return Result `Ok((lhs, rhs))`.
+/// * If true, return Result `Ok(stderr)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -109,7 +109,7 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stderr_ne_as_result_x_success_because_lt() {
+    fn lt() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
@@ -122,7 +122,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_command_stderr_ne_as_result_x_success_because_gt() {
+    fn gt() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
@@ -135,7 +135,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_command_stderr_ne_as_result_x_failure_because_eq() {
+    fn eq() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");

@@ -111,7 +111,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_ready_eq_expr_as_result_x_failure_because_ne() {
+    fn ne() {
         let a: Poll<i8> = Ready(1);
         let b: i8 = 2;
         let result = assert_ready_eq_as_result!(a, b);

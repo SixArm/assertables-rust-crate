@@ -300,7 +300,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (command1 ⇒ stderr) = (command2 ⇒ stderr)
 ///
-/// * If true, return Result `Ok((lhs, rhs))`.
+/// * If true, return Result `Ok(stderr)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -380,7 +380,7 @@
     <span class="kw">use </span>std::process::Command;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_command_stderr_le_as_result_x_success_because_lt() {
+    </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stderr"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stderr"</span>);
@@ -393,7 +393,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_command_stderr_le_as_result_x_success_because_eq() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stderr"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stderr"</span>);
@@ -406,7 +406,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_command_stderr_le_as_result_x_failure_because_gt() {
+    </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stderr"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
         <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stderr"</span>);

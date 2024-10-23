@@ -348,7 +348,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (program1 + args1 ⇒ command ⇒ stderr) &gt; (program2 + args2 ⇒ command ⇒ stderr)
 ///
-/// * If true, return Result `Ok((lhs, rhs))`.
+/// * If true, return Result `Ok(stderr)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -449,7 +449,7 @@
 </span><span class="kw">mod </span>tests {
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_program_args_stderr_gt_as_result_x_success_because_gt() {
+    </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
@@ -463,7 +463,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_program_args_stderr_gt_as_result_x_failure_because_eq() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;

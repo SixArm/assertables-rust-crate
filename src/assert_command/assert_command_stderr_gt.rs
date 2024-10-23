@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (command ⇒ stderr) = (expr into string)
 ///
-/// * If true, return Result `Ok((lhs, rhs))`.
+/// * If true, return Result `Ok(stderr)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -53,7 +53,7 @@ macro_rules! assert_command_stderr_gt_as_result {
                     Ok(a) => {
                         let a = a.stderr;
                         if a.gt(&$b_expr) {
-                            Ok((a, $b_expr))
+                            Ok(a)
                         } else {
                             Err(
                                 format!(
@@ -109,19 +109,16 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stderr_gt_expr_as_result_x_success_because_gt() {
+    fn gt() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
         let result = assert_command_stderr_gt_as_result!(a, b);
-        assert_eq!(
-            result.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
-        );
+        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
-    fn test_assert_command_stderr_gt_expr_as_result_x_failure_because_eq() {
+    fn eq() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'l', b'f', b'a'];
@@ -141,7 +138,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_command_stderr_gt_expr_as_result_x_failure_because_lt() {
+    fn lt() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];

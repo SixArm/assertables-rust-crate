@@ -29,7 +29,7 @@
 /// Pseudocode:<br>
 /// (command1 ⇒ stdout) = (command2 ⇒ stdout)
 ///
-/// * If true, return Result `Ok((lhs, &rhs))`.
+/// * If true, return Result `Ok(stdout)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -109,7 +109,7 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stdout_gt_as_result_x_success_because_gt() {
+    fn gt() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
@@ -122,7 +122,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_command_stdout_gt_as_result_x_failure_because_eq() {
+    fn eq() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
@@ -143,7 +143,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_command_stdout_gt_as_result_x_failure_because_lt() {
+    fn lt() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
@@ -169,7 +169,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (command1 ⇒ stdout) = (command2 ⇒ stdout)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_stdout, b_stdout)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

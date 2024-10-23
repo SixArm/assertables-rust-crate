@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout) ≥ (program2 + args2 ⇒ command ⇒ stdout)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_stdout, b_stdout)`.
 ///
 /// * If true, return Result `Err` with a message and the values of the
 ///   expressions with their debug representations.
@@ -130,7 +130,7 @@ macro_rules! assert_program_args_stdout_ge2_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_program_args_stdout_ge_as_result_x_success_because_gt() {
+    fn gt() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
@@ -144,7 +144,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_program_args_stdout_ge_as_result_x_success_because_eq() {
+    fn eq() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
@@ -158,7 +158,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_program_args_stdout_ge_as_result_x_failure_because_lt() {
+    fn lt() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
@@ -189,7 +189,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stdout) ≥ (program2 + args2 ⇒ command ⇒ stdout)
 ///
-/// * If true, return `()`.
+/// * If true, return `(a_stdout, b_stdout)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

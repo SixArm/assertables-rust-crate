@@ -110,7 +110,7 @@ mod tests {
     use std::io::Read;
 
     #[test]
-    fn test_assert_io_read_to_string_eq_as_result_x_success_because_eq() {
+    fn eq() {
         let mut a = "alfa".as_bytes();
         let mut b = "alfa".as_bytes();
         let result = assert_io_read_to_string_eq2_as_result!(a, b);
@@ -118,7 +118,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_io_read_to_string_eq_as_result_x_failure_because_lt() {
+    fn lt() {
         let mut a = "alfa".as_bytes();
         let mut b = "bravo".as_bytes();
         let result = assert_io_read_to_string_eq2_as_result!(a, b);
@@ -138,7 +138,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_io_read_to_string_eq_as_result_x_failure_because_gt() {
+    fn gt() {
         let mut a = "bravo".as_bytes();
         let mut b = "alfa".as_bytes();
         let result = assert_io_read_to_string_eq2_as_result!(a, b);

@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (command ⇒ stdout) = (expr into string)
 ///
-/// * If true, return Result `Ok((lhs, &rhs))`.
+/// * If true, return Result `Ok(stdout)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -53,7 +53,7 @@ macro_rules! assert_command_stdout_ge_as_result {
                     Ok(a) => {
                         let a = a.stdout;
                         if a.ge(&$b_expr) {
-                            Ok((a, $b_expr))
+                            Ok(a)
                         } else {
                             Err(
                                 format!(
@@ -109,31 +109,25 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stdout_ge_expr_as_result_x_success_because_gt() {
+    fn gt() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
         let result = assert_command_stdout_ge_as_result!(a, b);
-        assert_eq!(
-            result.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
-        );
+        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
-    fn test_assert_command_stdout_ge_expr_as_result_x_success_because_eq() {
+    fn eq() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'l', b'f', b'a'];
         let result = assert_command_stdout_ge_as_result!(a, b);
-        assert_eq!(
-            result.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
-        );
+        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
-    fn test_assert_command_stdout_ge_expr_as_result_x_failure_because_lt() {
+    fn lt() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];
@@ -158,7 +152,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (command ⇒ stdout) = (expr into string)
 ///
-/// * If true, return `()`.
+/// * If true, return `(stdout)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

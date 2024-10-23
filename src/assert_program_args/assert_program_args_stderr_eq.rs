@@ -27,7 +27,7 @@
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stderr) = (expr into string)
 ///
-/// * If true, return Result `Ok((lhs, rhs))`.
+/// * If true, return Result `Ok(stderr)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -52,7 +52,7 @@ macro_rules! assert_program_args_stderr_eq_as_result {
                     Ok(a_output) => {
                         let a = a_output.stderr;
                         if a.eq(&$b_expr) {
-                            Ok((a, $b_expr))
+                            Ok(a)
                         } else {
                             Err(
                                 format!(
@@ -114,19 +114,16 @@ macro_rules! assert_program_args_stderr_eq_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_program_args_stderr_eq_expr_as_result_x_success_because_eq() {
+    fn eq() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'l', b'f', b'a'];
         let result = assert_program_args_stderr_eq_as_result!(&a_program, &a_args, b);
-        assert_eq!(
-            result.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
-        );
+        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
-    fn test_assert_program_args_stderr_eq_expr_as_result_x_failure_because_lt() {
+    fn lt() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b = vec![b'z', b'z'];
@@ -147,7 +144,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_program_args_stderr_eq_expr_as_result_x_failure_because_gt() {
+    fn gt() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'a'];

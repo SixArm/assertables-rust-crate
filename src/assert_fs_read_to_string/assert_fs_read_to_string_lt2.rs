@@ -118,7 +118,7 @@ mod tests {
     });
 
     #[test]
-    fn test_read_to_string_lt_as_result_x_success_because_lt() {
+    fn lt() {
         let a = DIR.join("alfa.txt");
         let b = DIR.join("bravo.txt");
         let result = assert_fs_read_to_string_lt2_as_result!(&a, &b);
@@ -129,7 +129,7 @@ mod tests {
     }
 
     #[test]
-    fn test_read_to_string_lt_as_result_x_failure_because_eq() {
+    fn eq() {
         let a = DIR.join("alfa.txt");
         let b = DIR.join("alfa.txt");
         let result = assert_fs_read_to_string_lt2_as_result!(&a, &b);
@@ -153,7 +153,7 @@ mod tests {
     }
 
     #[test]
-    fn test_read_to_string_lt_as_result_x_failure_because_gt() {
+    fn gt() {
         let a = DIR.join("bravo.txt");
         let b = DIR.join("alfa.txt");
         let result = assert_fs_read_to_string_lt2_as_result!(&a, &b);

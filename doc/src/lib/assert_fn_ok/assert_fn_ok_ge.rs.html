@@ -577,7 +577,7 @@
             }
 
             <span class="attr">#[test]
-            </span><span class="kw">fn </span>test_gt() {
+            </span><span class="kw">fn </span>gt() {
                 <span class="kw">let </span>a: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">0</span>;
                 <span class="kw">let </span>result = <span class="macro">assert_fn_ok_ge_as_result!</span>(f, a, b);
@@ -585,7 +585,7 @@
             }
 
             <span class="attr">#[test]
-            </span><span class="kw">fn </span>test_eq() {
+            </span><span class="kw">fn </span>eq() {
                 <span class="kw">let </span>a: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>result = <span class="macro">assert_fn_ok_ge_as_result!</span>(f, a, b);
@@ -593,7 +593,7 @@
             }
 
             <span class="attr">#[test]
-            </span><span class="kw">fn </span>test_lt() {
+            </span><span class="kw">fn </span>lt() {
                 <span class="kw">let </span>a: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>b: i8 = <span class="number">2</span>;
                 <span class="kw">let </span>result = <span class="macro">assert_fn_ok_ge_as_result!</span>(f, a, b);
@@ -621,21 +621,21 @@
             }
 
             <span class="attr">#[test]
-            </span><span class="kw">fn </span>test_gt() {
+            </span><span class="kw">fn </span>gt() {
                 <span class="kw">let </span>b: i8 = <span class="number">0</span>;
                 <span class="kw">let </span>result = <span class="macro">assert_fn_ok_ge_as_result!</span>(f, b);
                 <span class="macro">assert_eq!</span>(result.unwrap(), <span class="number">1</span>);
             }
 
             <span class="attr">#[test]
-            </span><span class="kw">fn </span>test_eq() {
+            </span><span class="kw">fn </span>eq() {
                 <span class="kw">let </span>b: i8 = <span class="number">1</span>;
                 <span class="kw">let </span>result = <span class="macro">assert_fn_ok_ge_as_result!</span>(f, b);
                 <span class="macro">assert_eq!</span>(result.unwrap(), <span class="number">1</span>);
             }
 
             <span class="attr">#[test]
-            </span><span class="kw">fn </span>test_lt() {
+            </span><span class="kw">fn </span>lt() {
                 <span class="kw">let </span>b: i8 = <span class="number">2</span>;
                 <span class="kw">let </span>result = <span class="macro">assert_fn_ok_ge_as_result!</span>(f, b);
                 <span class="macro">assert_eq!</span>(

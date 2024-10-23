@@ -82,7 +82,7 @@ macro_rules! assert_count_ne2_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_count_ne_as_result_x_success_because_lt() {
+    fn lt() {
         let a = "x".chars();
         let b = "xx".chars();
         let result = assert_count_ne2_as_result!(a, b);
@@ -90,7 +90,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_count_ne_as_result_x_success_because_gt() {
+    fn gt() {
         let a = "xx".chars();
         let b = "x".chars();
         let result = assert_count_ne2_as_result!(a, b);

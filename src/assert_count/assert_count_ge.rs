@@ -79,7 +79,7 @@ macro_rules! assert_count_ge_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_count_ge_expr_as_result_x_success_because_gt() {
+    fn gt() {
         let a = "xx".chars();
         let b = 1;
         let result = assert_count_ge_as_result!(a, b);
@@ -87,7 +87,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_count_ge_expr_as_result_x_success_because_eq() {
+    fn eq() {
         let a = "x".chars();
         let b = 1;
         let result = assert_count_ge_as_result!(a, b);
@@ -95,7 +95,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_count_ge_expr_as_result_x_failure_because_lt() {
+    fn lt() {
         let a = "x".chars();
         let b = 2;
         let result = assert_count_ge_as_result!(a, b);

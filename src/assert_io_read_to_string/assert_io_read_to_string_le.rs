@@ -27,7 +27,7 @@
 /// Pseudocode:<br>
 /// (reader.read_to_string(a_string) ⇒ a_string) ≤ (expr ⇒ b_string)
 ///
-/// * If true, return Result `Ok((a_string, b_string))`.
+/// * If true, return Result `Ok(a_string)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -52,8 +52,8 @@ macro_rules! assert_io_read_to_string_le_as_result {
                 match ($a_reader.read_to_string(&mut a_string)) {
                     Ok(_a_size) => {
                         let b_string = String::from($b_expr);
-                        if a_string <= b_string {
-                            Ok((a_string, b_string))
+                        if (a_string <= b_string) {
+                            Ok(a_string)
                         } else {
                             Err(
                                 format!(
@@ -113,10 +113,7 @@ mod tests {
         let mut reader = "alfa".as_bytes();
         let value = String::from("bravo");
         let result = assert_io_read_to_string_le_as_result!(reader, &value);
-        assert_eq!(
-            result.unwrap(),
-            (String::from("alfa"), String::from("bravo"))
-        );
+        assert_eq!(result.unwrap(), String::from("alfa"));
     }
 
     #[test]
@@ -145,7 +142,7 @@ mod tests {
 /// Pseudocode:<br>
 /// (reader.read_to_string(a_string) ⇒ a_string) ≤ (expr ⇒ b_string)
 ///
-/// * If true, return `(a_string, b_string)`.
+/// * If true, return `a_string`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

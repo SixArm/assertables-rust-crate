@@ -138,6 +138,29 @@ Many assertables macros have forms for comparing one item (to an expression) or 
 * [`assert_ok_eq2!(a, b);`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_eq2.html) `// a.unwrap() == b.unwrap()`
 
 
+## Return
+
+Some of the assert macros return more information upon success, in case you want to do further testing or tracing, such as:
+
+```rust
+let inner = assert_ok_gt!(result, 1);
+
+let string = assert_fs_read_to_string_gt!("alfa.txt", "");
+
+let stdout = assert_command_stdout_gt("/bin/ls", vec![b'a']);
+```
+
+Some of the assert macros that compare two items of the same type return more information as a tuple, in case you want to do further testing, such as:
+
+```rust
+let (a_inner, b_inner) = assert_ok_gt2!(a_result, b_result);
+
+let (a_string, b_string) = assert_fs_read_to_string_gt2!("alfa.txt", "bravo.txt");
+
+let (a_stdout, b_stdout) = assert_command_stdout_gt2!("/bin/ls", "/usr/bin/ls");
+```
+
+
 ## Migrating from version 8 to version 9
 
 A macro naming convention is changing, to improve usability.

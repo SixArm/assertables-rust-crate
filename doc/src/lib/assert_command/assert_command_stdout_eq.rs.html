@@ -272,9 +272,6 @@
 <a href="#272" id="272">272</a>
 <a href="#273" id="273">273</a>
 <a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stdout string is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -305,7 +302,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (command ⇒ stdout) = (expr into string)
 ///
-/// * If true, return Result `Ok((lhs, &amp;rhs))`.
+/// * If true, return Result `Ok(stdout)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -330,7 +327,7 @@
                     <span class="prelude-val">Ok</span>(a) =&gt; {
                         <span class="kw">let </span>a = a.stdout;
                         <span class="kw">if </span>a.eq(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
-                            <span class="prelude-val">Ok</span>((a, <span class="macro-nonterminal">$b_expr</span>))
+                            <span class="prelude-val">Ok</span>(a)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -386,19 +383,16 @@
     <span class="kw">use </span>std::process::Command;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_command_stdout_eq_expr_as_result_x_success_because_eq() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
         <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>];
         <span class="kw">let </span>result = <span class="macro">assert_command_stdout_eq_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(
-            result.unwrap(),
-            (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>])
-        );
+        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>]);
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_command_stdout_eq_expr_as_result_x_failure_because_gt() {
+    </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
         <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'z'</span>, <span class="string">b'z'</span>];
@@ -418,7 +412,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_command_stdout_eq_expr_as_result_x_failure_because_lt() {
+    </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stdout"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
         <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'a'</span>];
@@ -443,7 +437,7 @@
 /// Pseudocode:&lt;br&gt;
 /// (command ⇒ stdout) = (expr into string)
 ///
-/// * If true, return `()`.
+/// * If true, return `(stdout)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

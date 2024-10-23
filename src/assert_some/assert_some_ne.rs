@@ -108,7 +108,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_some_ne_expr_as_result_x_failure_because_ne() {
+    fn ne() {
         let a: Option<i8> = Option::Some(1);
         let b: i8 = 1;
         let result = assert_some_ne_as_result!(a, b);

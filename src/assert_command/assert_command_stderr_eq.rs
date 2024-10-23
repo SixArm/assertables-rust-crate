@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (command ⇒ stderr) = (expr into string)
 ///
-/// * If true, return Result `Ok((lhs, rhs))`.
+/// * If true, return Result `Ok(stderr)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -53,7 +53,7 @@ macro_rules! assert_command_stderr_eq_as_result {
                     Ok(a) => {
                         let a = a.stderr;
                         if a.eq(&$b_expr) {
-                            Ok((a, $b_expr))
+                            Ok(a)
                         } else {
                             Err(
                                 format!(
@@ -109,39 +109,16 @@ mod tests {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stderr_eq_expr_as_result_x_success_because_eq() {
+    fn eq() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b: Vec<u8> = vec![b'a', b'l', b'f', b'a'];
         let result = assert_command_stderr_eq_as_result!(a, b);
-        assert_eq!(
-            result.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
-        );
+        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
-    fn test_assert_command_stderr_eq_expr_as_result_x_failure_because_gt() {
-        let mut a = Command::new("bin/printf-stderr");
-        a.args(["%s", "alfa"]);
-        let b = vec![b'z', b'z'];
-        let result = assert_command_stderr_eq_as_result!(a, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
-            "assertion failed: `assert_command_stderr_eq!(command, expr)`\n",
-            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_eq.html\n",
-            " command label: `a`,\n",
-            " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
-            "    expr label: `b`,\n",
-            "    expr debug: `[122, 122]`,\n",
-            " command value: `[97, 108, 102, 97]`,\n",
-            "    expr value: `[122, 122]`"
-        );
-        assert_eq!(actual, expect);
-    }
-
-    #[test]
-    fn test_assert_command_stderr_eq_expr_as_result_x_failure_because_lt() {
+    fn lt() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
@@ -156,6 +133,26 @@ mod tests {
             "    expr debug: `[97, 97]`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
             "    expr value: `[97, 97]`"
+        );
+        assert_eq!(actual, expect);
+    }
+
+    #[test]
+    fn gt() {
+        let mut a = Command::new("bin/printf-stderr");
+        a.args(["%s", "alfa"]);
+        let b = vec![b'z', b'z'];
+        let result = assert_command_stderr_eq_as_result!(a, b);
+        let actual = result.unwrap_err();
+        let expect = concat!(
+            "assertion failed: `assert_command_stderr_eq!(command, expr)`\n",
+            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_eq.html\n",
+            " command label: `a`,\n",
+            " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            "    expr label: `b`,\n",
+            "    expr debug: `[122, 122]`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
+            "    expr value: `[122, 122]`"
         );
         assert_eq!(actual, expect);
     }

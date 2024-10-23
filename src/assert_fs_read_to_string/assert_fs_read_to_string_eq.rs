@@ -26,7 +26,7 @@
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) = expr
 ///
-/// * If true, return Result `Ok((path_into_string, expr_into_string))`.
+/// * If true, return Result `Ok(path_into_string)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -51,7 +51,7 @@ macro_rules! assert_fs_read_to_string_eq_as_result {
                     Ok(a_string) => {
                         let b_string = String::from($b_expr);
                         if a_string == b_string {
-                            Ok((a_string, b_string))
+                            Ok(a_string)
                         } else {
                             Err(
                                 format!(
@@ -117,14 +117,15 @@ mod tests {
     });
 
     #[test]
-    fn test_read_to_string_eq_expr_as_result_x_success_because_eq() {
+    fn eq() {
         let path = DIR.join("alfa.txt");
         let value = String::from("alfa\n");
         let result = assert_fs_read_to_string_eq_as_result!(&path, &value);
+        assert_eq!(result.unwrap(), String::from("alfa\n"));
     }
 
     #[test]
-    fn test_read_to_string_eq_expr_as_result_x_failure_because_lt() {
+    fn lt() {
         let path = DIR.join("alfa.txt");
         let value = String::from("bravo\n");
         let result = assert_fs_read_to_string_eq_as_result!(&path, &value);
@@ -147,7 +148,7 @@ mod tests {
     }
 
     #[test]
-    fn test_read_to_string_eq_expr_as_result_x_failure_because_gt() {
+    fn gt() {
         let path = DIR.join("bravo.txt");
         let value = String::from("alfa\n");
         let result = assert_fs_read_to_string_eq_as_result!(&path, &value);
@@ -175,7 +176,7 @@ mod tests {
 /// Pseudocode:<br>
 /// std::fs::read_to_string(path) = expr
 ///
-/// * If true, return `path_into_string, expr_into_string`.
+/// * If true, return `path_into_string`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.

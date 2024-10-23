@@ -186,7 +186,7 @@ mod tests {
             }
 
             #[test]
-            fn test_eq() {
+            fn eq() {
                 let a: i8 = 1;
                 let b: i8 = 1;
                 let result = assert_fn_ok_ne_as_result!(f, a, b);
@@ -221,7 +221,7 @@ mod tests {
             }
 
             #[test]
-            fn test_eq() {
+            fn eq() {
                 let b: i8 = 1;
                 let result = assert_fn_ok_ne_as_result!(f, b);
                 assert_eq!(

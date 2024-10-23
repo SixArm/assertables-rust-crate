@@ -28,7 +28,7 @@
 /// Pseudocode:<br>
 /// (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
 ///
-/// * If true, return Result `Ok((lhs, rhs))`.
+/// * If true, return Result `Ok(stderr)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -129,7 +129,7 @@ macro_rules! assert_program_args_stderr_ge2_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_program_args_stderr_ge_as_result_x_success_because_gt() {
+    fn gt() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
@@ -143,7 +143,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_program_args_stderr_ge_as_result_x_success_because_eq() {
+    fn eq() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
@@ -157,7 +157,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_program_args_stderr_ge_as_result_x_failure_because_lt() {
+    fn lt() {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";

@@ -309,7 +309,7 @@
 </span><span class="kw">mod </span>tests {
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_iter_ge_as_result_x_success_because_gt() {
+    </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span>a = [<span class="number">3</span>, <span class="number">4</span>];
         <span class="kw">let </span>b = [<span class="number">1</span>, <span class="number">2</span>];
         <span class="kw">let </span>result = <span class="macro">assert_iter_ge2_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
@@ -317,7 +317,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_iter_ge_as_result_x_success_because_eq() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span>a = [<span class="number">1</span>, <span class="number">2</span>];
         <span class="kw">let </span>b = [<span class="number">1</span>, <span class="number">2</span>];
         <span class="kw">let </span>result = <span class="macro">assert_iter_ge2_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
@@ -325,7 +325,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_iter_ge_as_result_x_failure_because_lt() {
+    </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span>a = [<span class="number">1</span>, <span class="number">2</span>];
         <span class="kw">let </span>b = [<span class="number">3</span>, <span class="number">4</span>];
         <span class="kw">let </span>result = <span class="macro">assert_iter_ge2_as_result!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);

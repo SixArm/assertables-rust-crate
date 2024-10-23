@@ -82,7 +82,7 @@ macro_rules! assert_iter_ge2_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_iter_ge_as_result_x_success_because_gt() {
+    fn gt() {
         let a = [3, 4];
         let b = [1, 2];
         let result = assert_iter_ge2_as_result!(&a, &b);
@@ -90,7 +90,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_iter_ge_as_result_x_success_because_eq() {
+    fn eq() {
         let a = [1, 2];
         let b = [1, 2];
         let result = assert_iter_ge2_as_result!(&a, &b);
@@ -98,7 +98,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_iter_ge_as_result_x_failure_because_lt() {
+    fn lt() {
         let a = [1, 2];
         let b = [3, 4];
         let result = assert_iter_ge2_as_result!(&a, &b);

@@ -110,7 +110,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_some_ne_as_result_x_failure_because_eq() {
+    fn eq() {
         let a: Option<i8> = Option::Some(1);
         let b: Option<i8> = Option::Some(1);
         let result = assert_some_ne2_as_result!(a, b);

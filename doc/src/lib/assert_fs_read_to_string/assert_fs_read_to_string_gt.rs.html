@@ -283,9 +283,6 @@
 <a href="#283" id="283">283</a>
 <a href="#284" id="284">284</a>
 <a href="#285" id="285">285</a>
-<a href="#286" id="286">286</a>
-<a href="#287" id="287">287</a>
-<a href="#288" id="288">288</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::fs::read_to_string(path) value is greater than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -314,7 +311,7 @@
 /// Pseudocode:&lt;br&gt;
 /// std::fs::read_to_string(path) &gt; expr
 ///
-/// * If true, return Result `Ok((path_into_string, expr_into_string))`.
+/// * If true, return Result `Ok(path_into_string)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -339,7 +336,7 @@
                     <span class="prelude-val">Ok</span>(a_string) =&gt; {
                         <span class="kw">let </span>b_string = String::from(<span class="macro-nonterminal">$b_expr</span>);
                         <span class="kw">if </span>a_string &gt; b_string {
-                            <span class="prelude-val">Ok</span>((a_string, b_string))
+                            <span class="prelude-val">Ok</span>(a_string)
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
@@ -405,18 +402,15 @@
     });
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_read_to_string_gt_expr_as_result_x_success_because_gt() {
+    </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"bravo.txt"</span>);
         <span class="kw">let </span>value = String::from(<span class="string">"alfa\n"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_gt_as_result!</span>(<span class="kw-2">&amp;</span>path, <span class="kw-2">&amp;</span>value);
-        <span class="macro">assert_eq!</span>(
-            result.unwrap(),
-            (String::from(<span class="string">"bravo\n"</span>), String::from(<span class="string">"alfa\n"</span>))
-        );
+        <span class="macro">assert_eq!</span>(result.unwrap(), String::from(<span class="string">"bravo\n"</span>));
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_read_to_string_gt_expr_as_result_x_failure_because_eq() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"alfa.txt"</span>);
         <span class="kw">let </span>value = String::from(<span class="string">"alfa\n"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_gt_as_result!</span>(<span class="kw-2">&amp;</span>path, <span class="kw-2">&amp;</span>value);
@@ -439,7 +433,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_read_to_string_gt_expr_as_result_x_failure_because_lt() {
+    </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span>path = DIR.join(<span class="string">"alfa.txt"</span>);
         <span class="kw">let </span>value = String::from(<span class="string">"bravo\n"</span>);
         <span class="kw">let </span>result = <span class="macro">assert_fs_read_to_string_gt_as_result!</span>(<span class="kw-2">&amp;</span>path, <span class="kw-2">&amp;</span>value);
