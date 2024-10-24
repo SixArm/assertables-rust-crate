@@ -1,4 +1,4 @@
-# Upgrade version 8 to 9
+# Upgrade from version 8 to 9
 
 A naming convention is changing, to greatly improve usability.
 

@@ -53,7 +53,7 @@ assert!(fs::read_to_string("example.txt") == String::from("TODO"));
 
 ## What's an example of a success return?
 
-Suppose you want to assert that a text file has anything other than "TODO", then do more testing on the string, to ensure it's at least 10 characters long.
+Suppose you also want to assert the string length is at least 10.
 
 Assertables:
 
@@ -72,7 +72,7 @@ assert!(string.len() >= 10);
 
 ## What's an example of a result return?
 
-Suppose you want to  assert that a text file is not an empty string, during your live production runtime, then trace the result without any panic.
+Suppose you also want to assert during production, without a panic, then trace the result.
 
 Assertables:
 

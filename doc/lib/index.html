@@ -36,7 +36,7 @@ processes with <code>assert_command</code>, and more. See below for details.</p>
 <li><a href="https://github.com/SixArm/assertables-rust-crate/blob/main/tests/tutorial_examples.rs">Tutorial examples</a></li>
 <li><a href="https://github.com/SixArm/assertables-rust-crate/blob/main/tests/validation_examples.rs">Validation examples</a></li>
 <li><a href="https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9">Upgrade version 8 to 9</a></li>
-<li><a href="https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons">Comparisons to crates more_asserts, cool_asserts, assert2, claims, etc.</a></li>
+<li><a href="https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons">Comparisons to more assert crates</a></li>
 </ul>
 <h3 id="highlights"><a class="doc-anchor" href="#highlights">§</a>Highlights</h3>
 <p>Values:</p>
@@ -108,36 +108,35 @@ processes with <code>assert_command</code>, and more. See below for details.</p>
 </ul>
 <p>Collections for arrays, vectors, iterators, sets, maps:</p>
 <ul>
-<li><a href="assert_iter/index.html" title="mod lib::assert_iter"><code>assert_iter_eq2!(a, b)</code></a> `// a into iter == b into iter</li>
-<li><a href="assert_set/index.html" title="mod lib::assert_set"><code>assert_set_eq2!(a, b)</code></a> `// a into set == b into set</li>
-<li><a href="assert_bag/index.html" title="mod lib::assert_bag"><code>assert_bag_eq2!(a, b)</code></a> `// a into bag == = b into bag</li>
+<li><a href="assert_iter/index.html" title="mod lib::assert_iter"><code>assert_iter_eq2!(a, b)</code></a> <code>// a into iter == b into iter</code></li>
+<li><a href="assert_set/index.html" title="mod lib::assert_set"><code>assert_set_eq2!(a, b)</code></a> <code>// a into set == b into set</code></li>
+<li><a href="assert_bag/index.html" title="mod lib::assert_bag"><code>assert_bag_eq2!(a, b)</code></a> <code>// a into bag == = b into bag</code></li>
 </ul>
 <p>For a complete list of modules and macros, see the
 <a href="https://docs.rs/assertables/">docs</a></p>
 <h3 id="forms"><a class="doc-anchor" href="#forms">§</a>Forms</h3>
+<p>The Assertables macros have a variety of forms to help you write the tests that matter most to you.</p>
 <p>All the macros have forms for an optional message:</p>
 <ul>
-<li><a href="macro.assert_gt.html" title="macro lib::assert_gt"><code>assert_gt!(a, b)</code></a> <code>// automatic message</code></li>
-<li><a href="macro.assert_gt.html" title="macro lib::assert_gt"><code>assert_gt!(a, b, "Your text")</code></a> <code>// custom  message</code></li>
+<li><a href="assert_gt/index.html" title="mod lib::assert_gt"><code>assert_gt!(a, b)</code></a> <code>// default message</code></li>
+<li><a href="assert_gt/index.html" title="mod lib::assert_gt"><code>assert_gt!(a, b, "your text")</code></a> <code>// custom message</code></li>
 </ul>
 <p>All the macros have forms for different outcomes:</p>
 <ul>
-<li><a href="macro.assert_gt.html" title="macro lib::assert_gt"><code>assert_gt!(a, b)</code></a> <code>// panic during typical test</code></li>
-<li><a href="macro.assert_gt_as_result.html" title="macro lib::assert_gt_as_result"><code>assert_gt_as_result!(a, b)</code></a> <code>// return Ok or Err</code></li>
-<li><a href="macro.debug_assert_gt.html" title="macro lib::debug_assert_gt"><code>debug_assert_gt!(a, b)</code></a> <code>// panic when in debug mode</code></li>
+<li><a href="macro.assert_gt.html" title="macro lib::assert_gt"><code>assert_gt!(a, b)</code></a> <code>// panic</code></li>
+<li><a href="macro.assert_gt_as_result.html" title="macro lib::assert_gt_as_result"><code>assert_gt_as_result!(a, b)</code></a> <code>// return Result, no panic</code></li>
+<li><a href="macro.debug_assert_gt.html" title="macro lib::debug_assert_gt"><code>debug_assert_gt!(a, b)</code></a> <code>// special use in debug mode</code></li>
 </ul>
-<p>Many of the macros have forms for comparing one item (to an expression) or
-two items (to each other):</p>
+<p>Many of the macros have a “solo” form for comparing one item to an expression, and a “pair” form for comparing two items to each other:</p>
 <ul>
-<li><a href="macro.assert_ok_eq.html" title="macro lib::assert_ok_eq"><code>assert_ok_eq!(a, expression)</code></a> `// Ok(…) = expression</li>
-<li><a href="macro.assert_ok_eq2.html" title="macro lib::assert_ok_eq2"><code>assert_ok_eq2!(a, b)</code></a> <code>// Ok(…) = Ok(…)</code></li>
+<li><a href="assert_ok/assert_ok_eq/index.html" title="mod lib::assert_ok::assert_ok_eq"><code>assert_ok_eq!(a, x)</code></a>) <code>// a.unwrap() == x</code></li>
+<li><a href="assert_ok/assert_ok_eq2/index.html" title="mod lib::assert_ok::assert_ok_eq2"><code>assert_ok_eq2!(a, b)</code></a> <code>// a.unwrap() == b.unwrap()</code></li>
 </ul>
-<p>Many of the macros return more information upon success, in case you want to
-do further testing or tracing, such as:</p>
+<p>Many of the macros has a “success return”, which means the macro returns data that you can optionally use for more testing.</p>
 <ul>
-<li><code>let inner = assert_ok!(result); //=&gt; result.unwrap()</code></li>
-<li><code>let string = assert_fs_read_to_string_ne!("alfa.txt", ""); //=&gt; file contents</code></li>
-<li><code>let stdout = assert_command_stdout_gt!("ls", vec![b' ']); //=&gt; process handle</code></li>
+<li><a href="assert_ok/assert_ok/index.html" title="mod lib::assert_ok::assert_ok"><code>let inner = assert_ok!(result)</code></a></li>
+<li><a href="assert_fs_read_to_string/assert_fs_read_to_string_ne/index.html" title="mod lib::assert_fs_read_to_string::assert_fs_read_to_string_ne"><code>let string = assert_fs_read_to_string_ne!("alfa.txt", "")</code></a></li>
+<li><a href="assert_command/assert_command_stdout_gt/index.html" title="mod lib::assert_command::assert_command_stdout_gt"><code>let stdout = assert_command_stdout_gt!("ls", vec![b' '])</code></a></li>
 </ul>
 <h3 id="tracking"><a class="doc-anchor" href="#tracking">§</a>Tracking</h3>
 <ul>

@@ -8,7 +8,7 @@ Crates:
 
 * [assert_approx_eq](assert_approx_eq) <!-- 4,333,267 -->
 
-* [cool_asserts](cool_asserts) <!-- 2,205,482 --> <>
+* [cool_asserts](cool_asserts) <!-- 2,205,482 -->
 
 * [assert2](assert2) <!-- 846,247 -->
 
@@ -38,7 +38,7 @@ If you prefer fluent assertions:
 To the best of our knowledge, as of this writing, these crates use these licenses.
 
 | Name                                                | Version | Year | Licenses                    |
-|-----------------------------------------------------|----------------------------------------------|
+|-----------------------------------------------------|---------|------|-----------------------------|
 | [assertables](https://crates.io/crates/assertables) | 9.0.0   | 2024 | Apache, MIT, BSD, GPL       |
 | [assert_approx_eq](assert_approx_eq)                | 1.1.0   | 2018 | Apache, MIT                 |
 | [assert_matches](assert_matches)                    | 1.5.0   | 2021 | Apache, MIT                 | 

@@ -267,7 +267,7 @@
 //! * [Tutorial examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/tutorial_examples.rs)
 //! * [Validation examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/validation_examples.rs)
 //! * [Upgrade version 8 to 9](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9)
-//! * [Comparisons to crates more_asserts, cool_asserts, assert2, claims, etc.](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
+//! * [Comparisons to more assert crates](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
 //!
 //! ## Highlights
 //!
@@ -340,38 +340,38 @@
 //!
 //! Collections for arrays, vectors, iterators, sets, maps:
 //!
-//! * [`assert_iter_eq2!(a, b)`](module@crate::assert_iter) `// a into iter == b into iter
-//! * [`assert_set_eq2!(a, b)`](module@crate::assert_set) `// a into set == b into set
-//! * [`assert_bag_eq2!(a, b)`](module@crate::assert_bag) `// a into bag == = b into bag
+//! * [`assert_iter_eq2!(a, b)`](module@crate::assert_iter) `// a into iter == b into iter`
+//! * [`assert_set_eq2!(a, b)`](module@crate::assert_set) `// a into set == b into set`
+//! * [`assert_bag_eq2!(a, b)`](module@crate::assert_bag) `// a into bag == = b into bag`
 //!
 //! For a complete list of modules and macros, see the
 //! [docs](https://docs.rs/assertables/)
 //!
 //! ## Forms
 //!
+//! The Assertables macros have a variety of forms to help you write the tests that matter most to you.
+//!
 //! All the macros have forms for an optional message:
 //!
-//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// automatic message`
-//! * [`assert_gt!(a, b, "Your text")`](macro@crate::assert_gt) `// custom  message`
+//! * [`assert_gt!(a, b)`](module@crate::assert_gt) `// default message`
+//! * [`assert_gt!(a, b, "your text")`](module@crate::assert_gt) `// custom message`
 //!
 //! All the macros have forms for different outcomes:
 //!
-//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// panic during typical test`
-//! * [`assert_gt_as_result!(a, b)`](macro@crate::assert_gt_as_result) `// return Ok or Err`
-//! * [`debug_assert_gt!(a, b)`](macro@crate::debug_assert_gt) `// panic when in debug mode`
+//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// panic`
+//! * [`assert_gt_as_result!(a, b)`](macro@crate::assert_gt_as_result) `// return Result, no panic`
+//! * [`debug_assert_gt!(a, b)`](macro@crate::debug_assert_gt) `// special use in debug mode`
 //!
-//! Many of the macros have forms for comparing one item (to an expression) or
-//! two items (to each other):
+//! Many of the macros have a "solo" form for comparing one item to an expression, and a "pair" form for comparing two items to each other:
 //!
-//! * [`assert_ok_eq!(a, expression)`](macro@crate::assert_ok_eq) `// Ok(…) = expression
-//! * [`assert_ok_eq2!(a, b)`](macro@crate::assert_ok_eq2) `// Ok(…) = Ok(…)`
+//! * [`assert_ok_eq!(a, x)`](module@crate::assert_ok::assert_ok_eq)) `// a.unwrap() == x`
+//! * [`assert_ok_eq2!(a, b)`](module@crate::assert_ok::assert_ok_eq2) `// a.unwrap() == b.unwrap()`
 //!
-//! Many of the macros return more information upon success, in case you want to
-//! do further testing or tracing, such as:
+//! Many of the macros has a "success return", which means the macro returns data that you can optionally use for more testing.
 //!
-//! * `let inner = assert_ok!(result); //=&gt; result.unwrap()`
-//! * `let string = assert_fs_read_to_string_ne!("alfa.txt", ""); //=&gt; file contents`
-//! * `let stdout = assert_command_stdout_gt!("ls", vec![b' ']); //=&gt; process handle`
+//! * [`let inner = assert_ok!(result)`](module@crate::assert_ok::assert_ok)
+//! * [`let string = assert_fs_read_to_string_ne!("alfa.txt", "")`](module@crate::assert_fs_read_to_string::assert_fs_read_to_string_ne)
+//! * [`let stdout = assert_command_stdout_gt!("ls", vec![b' '])`](module@crate::assert_command::assert_command_stdout_gt)
 //!
 //! ## Tracking
 //!
