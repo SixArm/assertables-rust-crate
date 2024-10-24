@@ -2,7 +2,7 @@
 
 Assertables comparisons to other Rust crates and assertion techniques.
 
-Crates:
+Assertables aims for comparable goals as these crates:
 
 * [more_asserts](more_asserts) <!-- 13,100,250 -->
 

@@ -33,7 +33,7 @@ Help:
 * [Tutorial examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/tutorial_examples.rs)
 * [Validation examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/validation_examples.rs)
 * [Upgrade from version 8 to 9](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9)
-* [Comparisons to more assert crates](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
+* [Comparisons to more_asserts, cool_asserts, assert2, claims, etc.](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
 
 ## Highlights
 
@@ -145,4 +145,4 @@ Many of the macros has a "success return", which means the macro returns data th
 * Created: 2021-03-30T15:47:49Z
 * Updated: 2024-10-23T20:21:04Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
-* Contact: Joel Parker Henderson (joel@sixarm.com)
+* Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
