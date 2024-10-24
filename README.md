@@ -10,9 +10,9 @@ compile-time tests and run-time reliability.
 
 ## Introduction
 
-The Rust programming language provides assert macros such as `assert!(x)` to
-test code. The assertables crate provides many more for numbers, strings,
-results, options, iterators, files, streams, and more. See below for examples.
+The Assertables Rust crate provides many assertion testing macros, such as for 
+testing values with `assert_gt`, results with `assert_ok`, groups with `assert_all`, 
+processes with `assert_command`, and more. See below for details.
 
 Top benefits:
 
@@ -28,9 +28,11 @@ assertables = "9.0.0"
 
 Help:
 
-* [Upgrade version 8 to 9](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9)
+* [Frequently asked questions](https://github.com/SixArm/assertables-rust-crate/tree/main/help/faq)
 * [Simple examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/simple_examples.rs)
+* [Tutorial examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/tutorial_examples.rs)
 * [Validation examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/validation_examples.rs)
+* [Upgrade version 8 to 9](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9)
 * [Comparisons to crates such as more_asserts, cool_asserts, assert2, claims, etc.](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
 
 ## Highlights
@@ -112,23 +114,37 @@ For a complete list of modules and macros, see the [docs](https://docs.rs/assert
 
 ## Forms
 
+The Assertables macros have a variety of forms to help you write the tests that matter most to you.
+
+
+### Default message / Custom message
+
 All the macros have forms for an optional message:
 
-* [`assert_gt!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt.html) `// automatic error message`
-* [`assert_gt!(a, b, "your text")`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt.html) `// custom error message`
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt.html) `// default message`
+* [`assert_gt!(a, b, "your text")`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt.html) `// custom message`
+
+
+### Panic / Result / Debug
 
 All the macros have forms for different outcomes:
 
-* [`assert_gt!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt.html) `// panic during typical test`
-* [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt_as_result.html) `// return Ok or Err`
-* [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.debug_assert_gt.html) `// panic when in debug mode`
+* [`assert_gt!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt.html) `// panic`
+* [`assert_gt_as_result!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_gt_as_result.html) `// return Result, no panic`
+* [`debug_assert_gt!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.debug_assert_gt.html) `// special use in debug mode`
 
-Many of the macros have forms for comparing one item (to an expression) or two items (to each other):
+
+### Solo / Pair
+
+Many of the macros have a "solo" form for comparing one item to an expression, and a "pair" form for comparing two items to each other:
 
 * [`assert_ok_eq!(a, x)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_eq.html) `// a.unwrap() == x`
 * [`assert_ok_eq2!(a, b)`](https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_eq2.html) `// a.unwrap() == b.unwrap()`
 
-Many of the macros return helpful information upon success, if you want to use it, such as:
+
+### Success return
+
+Many of the macros has a "success return", which means the macro returns data that you can optionally use for more testing.
 
 * `let inner = assert_ok!(result); //=> result.unwrap()`
 * `let string = assert_fs_read_to_string_ne!("alfa.txt", ""); //=> file contents`

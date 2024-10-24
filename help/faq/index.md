@@ -26,45 +26,87 @@ Developers ask many questions about Assertables, Rust testing in general, macros
 Because Assertables gives you more kinds of tests, stronger semantics, clearer
 naming, and better error messages.
 
-Suppose you want to compare a file system text file to a string.
+Because Assertables has macro forms that do success returns, which enables
+you to do subsequent tests. This is especially helpful for asserts that use
+Result or Option, as well as for asserts that make external calls such as
+reading files or running commands.
 
+Because Assertables has macro forms that do result returns, rather than panic.
+This enables production runtime uses such as for validations, verifications,
+resilience monitoring, chaos engineering, and more.
+
+
+## What's an example of more kinds of tests?
+
+Suppose you want to assert that a text file has anything other than "TODO"
 Assertables:
 
 ```rust
-assert_fs_read_to_string_eq!("alfa.txt", "alfa\n");
+assert_fs_read_to_string_ne!("example.txt", "TODO");
 ```
 
 Standard Rust:
 
 ```rust
-assert!(fs::read_to_string("alfa.txt") == String::from("alfa\n));
+assert!(fs::read_to_string("example.txt") == String::from("TODO"));
 ```
 
-The Assertables way is shorter and simpler to read, plus handles corner cases
-such as the file not existing, plus provides better error messages.
+## What's an example of a success return?
+
+Suppose you want to assert that a text file has anything other than "TODO", then do more testing on the string, to ensure it's at least 10 characters long.
+
+Assertables:
+
+```rust
+let string = assert_fs_read_to_string_ne!("example.txt", "TODO");
+assert_len_ge!(string, 10);
+```
+
+Standard Rust:
+
+```rust
+let string = fs::read_to_string("alfa.txt");
+assert!(string != String::from("TODO"));
+assert!(string.len() >= 10);
+```
+
+## What's an example of a result return?
+
+Suppose you want to  assert that a text file is not an empty string, during your live production runtime, then trace the result without any panic.
+
+Assertables:
+
+```rust
+let result = assert_fs_read_to_string_ne_as_result!("alfa.txt", "TODO");
+trace!(result);
+```
+
+Standard Rust:
+
+```rust
+let result = panic::catch_unwind(|| {
+   assert!(fs::read_to_string("alfa.txt") != String::from(""));
+});
+trace!(result);
+```
 
 
 ## Why use Assertables instead of more_asserts, cool_asserts, assert2, claims, etc.?
 
-1. Because Assertables provides all the macros (and more) in all those crates
-   (and more).
+Because Assertables provides all the macros (and more) in all those crates (and more).
 
-2. Because Assertables has macro forms that return data upon success, which
-   enables you to do subsequent tests. This is especially helpful for asserts
-   that use Result or Option, as well as for asserts that make external calls
-   such as reading files or running commands.
+Because Assertables provides more specifics in the error messages, to help you troubleshoot.
 
-3. Because Assertables has macro forms that return a result, rather than panic.
-   This enables production runtime uses such as for validations, verifications,
-   live resilience monitoring, chaos engineering, and more.
+Because Assertables provides the additional forms for success returns and result returns.
+
 
 ## Are there license reasons to use Assertables instead of other assertion crates?
 
-Yes, for some developers and organizations. 
+Yes, for some developers and organizations. Assertables provides more license
+choices than each of those crates. 
 
-Assertables provides more license choices than each of those crates. Assertables
-provides Apache, MIT, GPL, BSD, and custom licenses for custom needs. See the
-LICENSE file for specifics.
+Assertables provides Apache, MIT, GPL, BSD, and custom licenses for custom
+needs. See the LICENSE file for specifics. 
 
 
 ## Are there assertion crates that are good to use with Assertables?
@@ -77,3 +119,16 @@ for more-sophisticated needs.
 2. The crate `assert_matches` provides matching macros that have even more functionality than Assertables macros `assert_matches` and `assert_not_matches`.
    
 3. The crate `approx` provides floating point approximation macros that provide even more functionality than Assertables macros `assert_approx_eq`, `assert_in_delta`, `assert_in_epsilon`, etc.
+
+
+## How do I request a feature, or report a bug, or provide feedback?
+
+If you use GitHub, then you can create a GitHub issue, or create a GitHub pull request:
+
+* [https://github.com/sixarm/assertables](https://github.com/sixarm/assertables)
+
+If you prefer email, then you can email the maintainer:
+
+* [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
+
+Constructive suggestions are always welcome.

@@ -64,12 +64,14 @@ macro_rules! assert_io_read_to_string_is_match_as_result {
                                         "  reader debug: `{:?}`,\n",
                                         " matcher label: `{}`,\n",
                                         " matcher debug: `{:?}`,\n",
+                                        "   reader size: `{:?}`,\n",
                                         " reader string: `{:?}`",
                                     ),
                                     stringify!($reader),
                                     $reader,
                                     stringify!($matcher),
                                     matcher,
+                                    size,
                                     string
                                 )
                             )
@@ -128,6 +130,7 @@ mod tests {
                 "  reader debug: `[]`,\n",
                 " matcher label: `&matcher`,\n",
                 " matcher debug: `Regex(\"zz\")`,\n",
+                "   reader size: `4`,\n",
                 " reader string: `\"alfa\"`"
             )
         );
@@ -169,6 +172,7 @@ mod tests {
 /// //   reader debug: `[]`,
 /// //  matcher label: `&matcher`,
 /// //  matcher debug: `Regex(\"zz\")`,
+/// //    reader size: `5`
 /// //  reader string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
@@ -178,6 +182,7 @@ mod tests {
 /// #     "  reader debug: `[]`,\n",
 /// #     " matcher label: `&matcher`,\n",
 /// #     " matcher debug: `Regex(\"zz\")`,\n",
+/// #     "   reader size: `5`,\n",
 /// #     " reader string: `\"hello\"`",
 /// # );
 /// # assert_eq!(actual, expect);
