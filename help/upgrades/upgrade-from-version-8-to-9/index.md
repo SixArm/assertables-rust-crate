@@ -1,14 +1,10 @@
 # Upgrade from version 8 to 9
 
-A naming convention is changing, to greatly improve usability.
-
-For macros that compare two items to each other:
-
-* From `assert_foo_eq`  into `assert_foo_eq2`. 
+An Assertables macro naming convention is changing, to make the macro names slightly shorter.
 
 For macros that compare one item to an expression:
 
-* From `assert_foo_eq_expr` into `assert_foo_eq`
+* From `assert_*_expr` into `assert_*_x`
 
 This is a breaking change, and you may need to change your code.
 
@@ -20,24 +16,11 @@ To upgrade your code, one way is to do a regular expression search and replace.
 Search:
 
 ```txt
-\b(|debug_)(assert_\w*_)(eq|ne|lt|le|gt|ge)(|_as_result)\b
+(assert_\w*?)_expr
 ```
 
 Replace:
 
 ```txt
-$1$2$32$4
+$1
 ```
-
-Search:
-
-```txt
-\b(|debug_)(assert_\w*_)(eq|ne|lt|le|gt|ge)_expr(|_as_result)\b
-```
-
-Replace:
-
-```txt
-$1$2$3$4
-```
-

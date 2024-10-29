@@ -1,7 +1,7 @@
-//! Assert a count is greater than an expression.
+//! Assert a count is greater than another count.
 //!
 //! Pseudocode:<br>
-//! a.count() > b
+//! a.count() > b.count()
 //!
 //! # Example
 //!
@@ -10,7 +10,7 @@
 //!
 //! # fn main() {
 //! let a = "xx".chars();
-//! let b = 1;
+//! let b = "x".chars();
 //! assert_count_gt!(a, b);
 //! # }
 //! ```
@@ -21,10 +21,10 @@
 //! * [`assert_count_gt_as_result`](macro@crate::assert_count_gt_as_result)
 //! * [`debug_assert_count_gt`](macro@crate::debug_assert_count_gt)
 
-/// Assert a count is greater than an expression.
+/// Assert a count is greater than another count.
 ///
 /// Pseudocode:<br>
-/// a.count() > b
+/// a.count() > b.count()
 ///
 /// * If true, return Result `Ok((a.count(), b))`.
 ///
@@ -46,27 +46,30 @@
 macro_rules! assert_count_gt_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
-            (a, _b) => {
+            (a, b) => {
                 let a_count = a.clone().count();
-                if a_count > $b {
-                    Ok((a_count, $b))
+                let b_count = b.clone().count();
+                if a_count > b_count {
+                    Ok((a_count, b_count))
                 } else {
                     Err(
                         format!(
                             concat!(
                                 "assertion failed: `assert_count_gt!(a, b)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_gt.html\n",
+                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_gt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
                                 " b label: `{}`,\n",
-                                " b debug: `{:?}`"
+                                " b debug: `{:?}`\n",
+                                " b.count(): `{:?}`",
                             ),
                             stringify!($a),
                             a,
                             a_count,
                             stringify!($b),
-                            $b
+                            b,
+                            b_count
                         )
                     )
                 }
@@ -81,7 +84,7 @@ mod tests {
     #[test]
     fn gt() {
         let a = "xx".chars();
-        let b = 1;
+        let b = "x".chars();
         let result = assert_count_gt_as_result!(a, b);
         assert_eq!(result, Ok((2, 1)));
     }
@@ -89,18 +92,19 @@ mod tests {
     #[test]
     fn eq() {
         let a = "x".chars();
-        let b = 1;
+        let b = "x".chars();
         let result = assert_count_gt_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_count_gt!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_gt.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_gt.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x'])`,\n",
                 " a.count(): `1`,\n",
                 " b label: `b`,\n",
-                " b debug: `1`"
+                " b debug: `Chars(['x'])`\n",
+                " b.count(): `1`"
             )
         );
     }
@@ -108,27 +112,28 @@ mod tests {
     #[test]
     fn lt() {
         let a = "x".chars();
-        let b = 2;
+        let b = "xx".chars();
         let result = assert_count_gt_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_count_gt!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_gt.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_gt.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x'])`,\n",
                 " a.count(): `1`,\n",
                 " b label: `b`,\n",
-                " b debug: `2`"
+                " b debug: `Chars(['x', 'x'])`\n",
+                " b.count(): `2`"
             )
         );
     }
 }
 
-/// Assert a count is greater than an expression.
+/// Assert a count is greater than another count.
 ///
 /// Pseudocode:<br>
-/// a.count() > b
+/// a.count() > b.count()
 ///
 /// * If true, return `(a.count(), b)`.
 ///
@@ -143,31 +148,33 @@ mod tests {
 ///
 /// # fn main() {
 /// let a = "xx".chars();
-/// let b = 1;
+/// let b = "x".chars();
 /// assert_count_gt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "x".chars();
-/// let b = 2;
+/// let b = "xx".chars();
 /// assert_count_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_count_gt!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_gt.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_gt.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",
 /// //  b label: `b`,
-/// //  b debug: `2`
+/// //  b debug: `Chars(['x', 'x'])`,
+/// //  b.count(): `2`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_count_gt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_gt.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `2`"
+/// #     " b debug: `Chars(['x', 'x'])`\n",
+/// #     " b.count(): `2`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -198,7 +205,7 @@ macro_rules! assert_count_gt {
 /// Assert a value is greater than an expression.
 ///
 /// Pseudocode:<br>
-/// a.count() > b
+/// a.count() > b.count()
 ///
 /// This macro provides the same statements as [`assert_count_gt`](macro.assert_count_gt.html),
 /// except this macro's statements are only enabled in non-optimized

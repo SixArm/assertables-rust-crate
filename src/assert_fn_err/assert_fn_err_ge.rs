@@ -1,7 +1,7 @@
-//! Assert a function Err(…) is greater than or equal to an expression.
+//! Assert a function Err(…) is greater than or equal to another.
 //!
 //! Pseudocode:<br>
-//! (function(param) ⇒ Err(a) ⇒ a) ≥ expr
+//! (a_function(a_param) ⇒ Err(a) ⇒ a) ≥ (b_function(b_param) ⇒ Err(b) ⇒ b)
 //!
 //! # Example
 //!
@@ -16,8 +16,8 @@
 //!
 //! # fn main() {
 //! let a: i8 = 20;
-//! let b = String::from("10 is out of range");
-//! assert_fn_err_ge!(f, a, b);
+//! let b: i8 = 10;
+//! assert_fn_err_ge!(f, a, f, b);
 //! # }
 //! ```
 //!
@@ -27,10 +27,10 @@
 //! * [`assert_fn_err_ge_as_result`](macro@crate::assert_fn_err_ge_as_result)
 //! * [`debug_assert_fn_err_ge`](macro@crate::debug_assert_fn_err_ge)
 
-/// Assert a function error is greater than or equal to an expression.
+/// Assert a function error is greater than or equal to another.
 ///
 /// Pseudocode:<br>
-/// (function(param) ⇒ Err(a) ⇒ a) ≥ expr
+/// (a_function(a_param) ⇒ Err(a) ⇒ a) ≥ (b_function(b_param) ⇒ Err(b) ⇒ b)
 ///
 /// * If true, return Result `Ok(a)`.
 ///
@@ -53,57 +53,66 @@ macro_rules! assert_fn_err_ge_as_result {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
-        match (&$a_function, &$a_param, &$b_expr) {
-            (_a_function, a_param, b_expr) => {
-                match ($a_function($a_param)) {
-                    Err(a) => {
-                        if a >= $b_expr {
-                            Ok(a)
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
+        match (&$a_function, &$a_param, &$b_function, &$b_param) {
+            (_a_function, a_param, _b_function, b_param) => {
+                match (
+                    $a_function($a_param),
+                    $b_function($b_param)
+                ) {
+                    (Err(a), Err(b)) => {
+                        if a >= b {
+                            Ok((a, b))
                         } else {
                             Err(
                                 format!(
                                     concat!(
-                                        "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_ge.html\n",
+                                        "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_function, b_param)`\n",
+                                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_err_ge.html\n",
                                         " a_function label: `{}`,\n",
                                         "    a_param label: `{}`,\n",
                                         "    a_param debug: `{:?}`,\n",
-                                        "     b_expr label: `{}`,\n",
-                                        "     b_expr debug: `{:?}`,\n",
+                                        " b_function label: `{}`,\n",
+                                        "    b_param label: `{}`,\n",
+                                        "    b_param debug: `{:?}`,\n",
                                         "                a: `{:?}`,\n",
-                                        "                b: `{:?}`",
+                                        "                b: `{:?}`"
                                     ),
                                     stringify!($a_function),
                                     stringify!($a_param),
                                     a_param,
-                                    stringify!($b_expr),
-                                    b_expr,
+                                    stringify!($b_function),
+                                    stringify!($b_param),
+                                    b_param,
                                     a,
-                                    $b_expr
+                                    b
                                 )
                             )
                         }
-                        },
-                    a => {
+                    },
+                    (a, b) => {
                         Err(
                             format!(
                                 concat!(
-                                    "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_ge.html\n",
+                                    "assertion failed: `assert_fn_err_eq!(a_function, a_param, b_function, b_param)`\n",
+                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_err_eq.html\n",
                                     " a_function label: `{}`,\n",
                                     "    a_param label: `{}`,\n",
                                     "    a_param debug: `{:?}`,\n",
-                                    "     b_expr label: `{}`,\n",
-                                    "     b_expr debug: `{:?}`,\n",
-                                    "                a: `{:?}`",
+                                    " b_function label: `{}`,\n",
+                                    "    b_param label: `{}`,\n",
+                                    "    b_param debug: `{:?}`,\n",
+                                    "                a: `{:?}`,\n",
+                                    "                b: `{:?}`"
                                 ),
                                 stringify!($a_function),
                                 stringify!($a_param),
                                 a_param,
-                                stringify!($b_expr),
-                                b_expr,
-                                a
+                                stringify!($b_function),
+                                stringify!($b_param),
+                                b_param,
+                                a,
+                                b
                             )
                         )
                     }
@@ -114,53 +123,50 @@ macro_rules! assert_fn_err_ge_as_result {
 
     //// Arity 0
 
-    ($a_function:path, $b_expr:expr $(,)?) => {{
-        match (&$a_function, &$b_expr) {
-            (_a_function, b_expr) => {
-                match ($a_function()) {
-                    Err(a) => {
-                        if a >= $b_expr {
-                            Ok(a)
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_fn_err_ge!(a_function, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_ge.html\n",
-                                        " a_function label: `{}`,\n",
-                                        "     b_expr label: `{}`,\n",
-                                        "     b_expr debug: `{:?}`,\n",
-                                        "                a: `{:?}`,\n",
-                                        "                b: `{:?}`",
-                                    ),
-                                    stringify!($a_function),
-                                    stringify!($b_expr),
-                                    b_expr,
-                                    a,
-                                    $b_expr
-                                )
-                            )
-                        }
-                    },
-                    a => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_fn_err_ge!(a_function, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_ge.html\n",
-                                    " a_function label: `{}`,\n",
-                                    "     b_expr label: `{}`,\n",
-                                    "     b_expr debug: `{:?}`,\n",
-                                    "                a: `{:?}`",
-                                ),
-                                stringify!($a_function),
-                                stringify!($b_expr),
-                                b_expr,
-                                a
-                            )
+    ($a_function:path, $b_function:path) => {{
+        match (
+            $a_function(),
+            $b_function()
+        ) {
+            (Err(a), Err(b)) => {
+                if a >= b {
+                    Ok((a, b))
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_fn_err_ge!(a_function, b_function)`\n",
+                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_err_ge.html\n",
+                                " a_function label: `{}`,\n",
+                                " b_function label: `{}`,\n",
+                                "                a: `{:?}`,\n",
+                                "                b: `{:?}`"
+                            ),
+                            stringify!($a_function),
+                            stringify!($b_function),
+                            a,
+                            b
                         )
-                    }
+                    )
                 }
+            },
+            (a, b) => {
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_fn_err_eq!(a_function, b_function)`\n",
+                            "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_err_eq.html\n",
+                            " a_function label: `{}`,\n",
+                            " b_function label: `{}`,\n",
+                            "                a: `{:?}`,\n",
+                            "                b: `{:?}`"
+                        ),
+                        stringify!($a_function),
+                        stringify!($b_function),
+                        a,
+                        b
+                    )
+                )
             }
         }
     }};
@@ -178,37 +184,42 @@ mod tests {
                 Err(i)
             }
 
+            fn g(i: i8) -> Result<i8, i8> {
+                Err(i)
+            }
+
             #[test]
             fn gt() {
                 let a: i8 = 2;
                 let b: i8 = 1;
-                let result = assert_fn_err_ge_as_result!(f, a, b);
-                assert_eq!(result.unwrap(), 2);
+                let result = assert_fn_err_ge_as_result!(f, a, g, b);
+                assert_eq!(result.unwrap(), (2, 1));
             }
 
             #[test]
             fn eq() {
                 let a: i8 = 1;
                 let b: i8 = 1;
-                let result = assert_fn_err_ge_as_result!(f, a, b);
-                assert_eq!(result.unwrap(), 1);
+                let result = assert_fn_err_ge_as_result!(f, a, g, b);
+                assert_eq!(result.unwrap(), (1, 1));
             }
 
             #[test]
             fn lt() {
                 let a: i8 = 1;
                 let b: i8 = 2;
-                let result = assert_fn_err_ge_as_result!(f, a, b);
+                let result = assert_fn_err_ge_as_result!(f, a, g, b);
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
-                        "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_expr)`\n",
-                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_ge.html\n",
+                        "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_function, b_param)`\n",
+                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_err_ge.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
-                        "     b_expr label: `b`,\n",
-                        "     b_expr debug: `2`,\n",
+                        " b_function label: `g`,\n",
+                        "    b_param label: `b`,\n",
+                        "    b_param debug: `2`,\n",
                         "                a: `1`,\n",
                         "                b: `2`"
                     )
@@ -222,32 +233,32 @@ mod tests {
                 Err(1)
             }
 
+            fn g() -> Result<i8, i8> {
+                Err(2)
+            }
+
             #[test]
             fn gt() {
-                let b: i8 = 0;
-                let result = assert_fn_err_ge_as_result!(f, b);
-                assert_eq!(result.unwrap(), 1);
+                let result = assert_fn_err_ge_as_result!(g, f);
+                assert_eq!(result.unwrap(), (2, 1));
             }
 
             #[test]
             fn eq() {
-                let b: i8 = 1;
-                let result = assert_fn_err_ge_as_result!(f, b);
-                assert_eq!(result.unwrap(), 1);
+                let result = assert_fn_err_ge_as_result!(f, f);
+                assert_eq!(result.unwrap(), (1, 1));
             }
 
             #[test]
             fn lt() {
-                let b: i8 = 2;
-                let result = assert_fn_err_ge_as_result!(f, b);
+                let result = assert_fn_err_ge_as_result!(f, g);
                 assert_eq!(
                     result.unwrap_err(),
                     concat!(
-                        "assertion failed: `assert_fn_err_ge!(a_function, b_expr)`\n",
-                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_ge.html\n",
+                        "assertion failed: `assert_fn_err_ge!(a_function, b_function)`\n",
+                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_err_ge.html\n",
                         " a_function label: `f`,\n",
-                        "     b_expr label: `b`,\n",
-                        "     b_expr debug: `2`,\n",
+                        " b_function label: `g`,\n",
                         "                a: `1`,\n",
                         "                b: `2`"
                     )
@@ -257,12 +268,12 @@ mod tests {
     }
 }
 
-/// Assert a function error is greater than or equal to an expression.
+/// Assert a function error is greater than or equal to another.
 ///
 /// Pseudocode:<br>
-/// (function(param) ⇒ Err(a) ⇒ a) ≥ expr
+/// (a_function(a_param) ⇒ Err(a) ⇒ a) ≥ (b_function(b_param) ⇒ Err(b) ⇒ b)
 ///
-/// * If true, return `a`.
+/// * If true, return `(a, b)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -281,33 +292,35 @@ mod tests {
 ///
 /// # fn main() {
 /// let a: i8 = 20;
-/// let b = String::from("10 is out of range");
-/// assert_fn_err_ge!(f, a, b);
+/// let b: i8 = 10;
+/// assert_fn_err_ge!(f, a, f, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: i8 = 10;
-/// let b = String::from("20 is out of range");
-/// assert_fn_err_ge!(f, a, b);
+/// let b: i8 = 20;
+/// assert_fn_err_ge!(f, a, f, b);
 /// # });
-/// // assertion failed: `assert_fn_err_ge!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_ge.html
+/// // assertion failed: `assert_fn_err_ge!(a_function, a_param, b_function, b_param)`
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_err_ge.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `10`,
-/// //      b_expr label: `b`,
-/// //      b_expr debug: `\"20 is out of range\"`,
+/// //  b_function label: `f`,
+/// //     b_param label: `b`,
+/// //     b_param debug: `20`,
 /// //                 a: `\"10 is out of range\"`,
 /// //                 b: `\"20 is out of range\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fn_err_ge.html\n",
+/// #     "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_function, b_param)`\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_err_ge.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `10`,\n",
-/// #     "     b_expr label: `b`,\n",
-/// #     "     b_expr debug: `\"20 is out of range\"`,\n",
+/// #     " b_function label: `f`,\n",
+/// #     "    b_param label: `b`,\n",
+/// #     "    b_param debug: `20`,\n",
 /// #     "                a: `\"10 is out of range\"`,\n",
 /// #     "                b: `\"20 is out of range\"`"
 /// # );
@@ -326,15 +339,15 @@ macro_rules! assert_fn_err_ge {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
-        match $crate::assert_fn_err_ge_as_result!($a_function, $a_param, $b_expr) {
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
+        match $crate::assert_fn_err_ge_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
-    ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
-        match $crate::assert_fn_err_ge_as_result!($a_function, $a_param, $b_expr) {
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => {{
+        match $crate::assert_fn_err_ge_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
@@ -342,25 +355,25 @@ macro_rules! assert_fn_err_ge {
 
     //// Arity 0
 
-    ($a_function:path, $b_expr:expr $(,)?) => {{
-        match $crate::assert_fn_err_ge_as_result!($a_function, $b_expr) {
+    ($a_function:path, $b_function:path) => {{
+        match $crate::assert_fn_err_ge_as_result!($a_function, $b_function) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
 
-    ($a_function:path, $b_expr:expr, $($message:tt)+) => {{
-        match $crate::assert_fn_err_ge_as_result!($a_function, $b_expr) {
+    ($a_function:path, $b_function:path, $($message:tt)+) => {{
+        match $crate::assert_fn_err_ge_as_result!($a_function, $b_function) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
 }
 
-/// Assert a function error is greater than or equal to an expression.
+/// Assert a function error is greater than or equal to another.
 ///
 /// Pseudocode:<br>
-/// (function(param) ⇒ Err(a) ⇒ a) ≥ expr
+/// (a_function(a_param) ⇒ Err(a) ⇒ a) ≥ (b_function(b_param) ⇒ Err(b) ⇒ b)
 ///
 /// This macro provides the same statements as [`assert_fn_err_ge`](macro.assert_fn_err_ge.html),
 /// except this macro's statements are only enabled in non-optimized

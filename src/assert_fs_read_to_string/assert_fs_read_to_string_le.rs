@@ -1,7 +1,7 @@
-//! Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
+//! Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 //!
 //! Pseudocode:<br>
-//! std::fs::read_to_string(path) ≤ expr
+//! std::fs::read_to_string(a_path) ≤ std::fs::read_to_string(b_path)
 //!
 //! # Example
 //!
@@ -9,9 +9,9 @@
 //! use assertables::*;
 //!
 //! # fn main() {
-//! let path = "alfa.txt";
-//! let value = String::from("bravo\n");
-//! assert_fs_read_to_string_le!(&path, &value);
+//! let a ="alfa.txt";
+//! let b ="bravo.txt";
+//! assert_fs_read_to_string_le!(&a, &b);
 //! # }
 //! ```
 //!
@@ -21,12 +21,12 @@
 //! * [`assert_fs_read_to_string_le_as_result`](macro@crate::assert_fs_read_to_string_le_as_result)
 //! * [`debug_assert_fs_read_to_string_le`](macro@crate::debug_assert_fs_read_to_string_le)
 
-/// Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
+/// Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 ///
 /// Pseudocode:<br>
-/// std::fs::read_to_string(path) ≤ expr
+/// std::fs::read_to_string(a_path) ≤ std::fs::read_to_string(b_path)
 ///
-/// * If true, return Result `Ok(path_into_string)`.
+/// * If true, return Result `Ok((a_path_into_string, b_path_into_string))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -44,54 +44,55 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_le_as_result {
-    ($a_path:expr, $b_expr:expr $(,)?) => {{
-        match (&$a_path, &$b_expr) {
-            (a_path, b_expr) => {
-                match (::std::fs::read_to_string(a_path)) {
-                    Ok(a_string) => {
-                        let b_string = String::from($b_expr);
+    ($a_path:expr, $b_path:expr $(,)?) => {{
+        match (&$a_path, &$b_path) {
+            (a_path, b_path) => {
+                match (std::fs::read_to_string(a_path), std::fs::read_to_string(b_path)) {
+                    (Ok(a_string), Ok(b_string)) => {
                         if a_string <= b_string {
-                            Ok(a_string)
+                            Ok((a_string, b_string))
                         } else {
                             Err(
                                 format!(
                                     concat!(
-                                        "assertion failed: `assert_fs_read_to_string_le!(a_path, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_le.html\n",
+                                        "assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n",
+                                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_le.html\n",
                                         " a_path label: `{}`,\n",
                                         " a_path debug: `{:?}`,\n",
-                                        " b_expr label: `{}`,\n",
-                                        " b_expr debug: `{:?}`,\n",
+                                        " b_path label: `{}`,\n",
+                                        " b_path debug: `{:?}`,\n",
                                         "     a string: `{:?}`,\n",
-                                        "     b string: `{:?}`",
+                                        "     b string: `{:?}`"
                                     ),
                                     stringify!($a_path),
                                     a_path,
-                                    stringify!($b_expr),
-                                    b_expr,
+                                    stringify!($b_path),
+                                    b_path,
                                     a_string,
                                     b_string
                                 )
                             )
                         }
                     },
-                    Err(err) => {
+                    (a_result, b_result) => {
                         Err(
                             format!(
                                 concat!(
-                                    "assertion failed: `assert_fs_read_to_string_le!(a_path, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_le.html\n",
+                                    "assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n",
+                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_le.html\n",
                                     " a_path label: `{}`,\n",
                                     " a_path debug: `{:?}`,\n",
-                                    " b_expr label: `{}`,\n",
-                                    " b_expr debug: `{:?}`,\n",
-                                    "          err: `{:?}`"
+                                    " b_path label: `{}`,\n",
+                                    " b_path debug: `{:?}`,\n",
+                                    "     a result: `{:?}`,\n",
+                                    "     b result: `{:?}`"
                                 ),
                                 stringify!($a_path),
                                 a_path,
-                                stringify!($b_expr),
-                                b_expr,
-                                err
+                                stringify!($b_path),
+                                b_path,
+                                a_result,
+                                b_result
                             )
                         )
                     }
@@ -118,50 +119,57 @@ mod tests {
 
     #[test]
     fn lt() {
-        let path = DIR.join("alfa.txt");
-        let value = String::from("bravo\n");
-        let result = assert_fs_read_to_string_le_as_result!(&path, &value);
-        assert_eq!(result.unwrap(), String::from("alfa\n"));
+        let a = DIR.join("alfa.txt");
+        let b = DIR.join("bravo.txt");
+        let result = assert_fs_read_to_string_le_as_result!(&a, &b);
+        assert_eq!(
+            result.unwrap(),
+            (String::from("alfa\n"), String::from("bravo\n"))
+        );
     }
 
     #[test]
     fn eq() {
-        let path = DIR.join("alfa.txt");
-        let value = String::from("alfa\n");
-        let result = assert_fs_read_to_string_le_as_result!(&path, &value);
-        assert_eq!(result.unwrap(), String::from("alfa\n"));
+        let a = DIR.join("alfa.txt");
+        let b = DIR.join("alfa.txt");
+        let result = assert_fs_read_to_string_le_as_result!(&a, &b);
+        assert_eq!(
+            result.unwrap(),
+            (String::from("alfa\n"), String::from("alfa\n"))
+        );
     }
 
     #[test]
     fn gt() {
-        let path = DIR.join("bravo.txt");
-        let value = String::from("alfa\n");
-        let result = assert_fs_read_to_string_le_as_result!(&path, &value);
+        let a = DIR.join("bravo.txt");
+        let b = DIR.join("alfa.txt");
+        let result = assert_fs_read_to_string_le_as_result!(&a, &b);
         assert_eq!(
             result.unwrap_err(),
             format!(
                 concat!(
-                    "assertion failed: `assert_fs_read_to_string_le!(a_path, b_expr)`\n",
-                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_le.html\n",
-                    " a_path label: `&path`,\n",
+                    "assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n",
+                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_le.html\n",
+                    " a_path label: `&a`,\n",
                     " a_path debug: `{:?}`,\n",
-                    " b_expr label: `&value`,\n",
-                    " b_expr debug: `\"alfa\\n\"`,\n",
+                    " b_path label: `&b`,\n",
+                    " b_path debug: `{:?}`,\n",
                     "     a string: `\"bravo\\n\"`,\n",
                     "     b string: `\"alfa\\n\"`"
                 ),
-                path
+                a,
+                b
             )
         );
     }
 }
 
-/// Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
+/// Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 ///
 /// Pseudocode:<br>
-/// std::fs::read_to_string(path) ≤ expr
+/// std::fs::read_to_string(a_path) ≤ std::fs::read_to_string(b_path)
 ///
-/// * If true, return (path_into_string, expr_into_string).
+/// * If true, return (a_path_into_string, b_path_into_string).
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -174,32 +182,32 @@ mod tests {
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// let path = "alfa.txt";
-/// let value = String::from("bravo\n");
-/// assert_fs_read_to_string_le!(&path, &value);
+/// let a = "alfa.txt";
+/// let b = "bravo.txt";
+/// assert_fs_read_to_string_le!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let path = "bravo.txt";
-/// let value = String::from("alfa\n");
-/// assert_fs_read_to_string_le!(&path, &value);
+/// let a = "bravo.txt";
+/// let b = "alfa.txt";
+/// assert_fs_read_to_string_le!(&a, &b);
 /// # });
-/// // assertion failed: `assert_fs_read_to_string_le!(a_path, b_expr)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_le.html
-/// //  a_path label: `&path`,
+/// // assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_le.html
+/// //  a_path label: `&a`,
 /// //  a_path debug: `\"bravo.txt\"`,
-/// //  b_expr label: `&value`,
-/// //  b_expr debug: `\"alfa\\n\"`,
+/// //  b_path label: `&b`,
+/// //  b_path debug: `\"alfa.txt\"`,
 /// //      a string: `\"bravo\\n\"`,
 /// //      b string: `\"alfa\\n\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_fs_read_to_string_le!(a_path, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_fs_read_to_string_le.html\n",
-/// #     " a_path label: `&path`,\n",
+/// #     "assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_le.html\n",
+/// #     " a_path label: `&a`,\n",
 /// #     " a_path debug: `\"bravo.txt\"`,\n",
-/// #     " b_expr label: `&value`,\n",
-/// #     " b_expr debug: `\"alfa\\n\"`,\n",
+/// #     " b_path label: `&b`,\n",
+/// #     " b_path debug: `\"alfa.txt\"`,\n",
 /// #     "     a string: `\"bravo\\n\"`,\n",
 /// #     "     b string: `\"alfa\\n\"`"
 /// # );
@@ -215,24 +223,24 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_le {
-    ($a_path:expr,  $b_expr:expr $(,)?) => {{
-        match $crate::assert_fs_read_to_string_le_as_result!($a_path, $b_expr) {
+    ($a_path:expr, $b_path:expr $(,)?) => {{
+        match $crate::assert_fs_read_to_string_le_as_result!($a_path, $b_path) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
-    ($a_path:expr, $b_expr:expr, $($message:tt)+) => {{
-        match $crate::assert_fs_read_to_string_le_as_result!($a_path, $b_expr) {
+    ($a_path:expr, $b_path:expr, $($message:tt)+) => {{
+        match $crate::assert_fs_read_to_string_le_as_result!($a_path, $b_path) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
 }
 
-/// Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
+/// Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 ///
 /// Pseudocode:<br>
-/// std::fs::read_to_string(path) ≤ expr
+/// std::fs::read_to_string(a_path) ≤ std::fs::read_to_string(b_path)
 ///
 /// This macro provides the same statements as [`assert_fs_read_to_string_le`](macro.assert_fs_read_to_string_le.html),
 /// except this macro's statements are only enabled in non-optimized
@@ -264,7 +272,7 @@ macro_rules! assert_fs_read_to_string_le {
 macro_rules! debug_assert_fs_read_to_string_le {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::std::fs::read_to_string_le_expr!($($arg)*);
+            $crate::std::fs::read_to_string_le!($($arg)*);
         }
     };
 }

@@ -223,10 +223,16 @@
 <a href="#223" id="223">223</a>
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a count is equal to an expression.
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a count is equal to another count.
 //!
 //! Pseudocode:&lt;br&gt;
-//! a.count() ≠ b
+//! a.count() ≠ b.count()
 //!
 //! # Example
 //!
@@ -235,7 +241,7 @@
 //!
 //! # fn main() {
 //! let a = "x".chars();
-//! let b = 2;
+//! let b = "xx".chars();
 //! assert_count_ne!(a, b);
 //! # }
 //! ```
@@ -246,10 +252,10 @@
 //! * [`assert_count_ne_as_result`](macro@crate::assert_count_ne_as_result)
 //! * [`debug_assert_count_ne`](macro@crate::debug_assert_count_ne)
 
-/// Assert a count is equal to an expression.
+/// Assert a count is equal to another count.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a.count() ≠ b
+/// a.count() ≠ b.count()
 ///
 /// * If true, return Result `Ok((a.count(), b))`.
 ///
@@ -271,28 +277,31 @@
 </span><span class="macro">macro_rules!</span> assert_count_ne_as_result {
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
-            (a, _b) =&gt; {
+            (a, b) =&gt; {
                 <span class="kw">let </span>a_count = a.clone().count();
-                <span class="kw">if </span>a_count != <span class="macro-nonterminal">$b </span>{
-                    <span class="prelude-val">Ok</span>((a_count, <span class="macro-nonterminal">$b</span>))
+                <span class="kw">let </span>b_count = b.clone().count();
+                <span class="kw">if </span>a_count != b_count {
+                    <span class="prelude-val">Ok</span>((a_count, b_count))
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_count_ne!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_ne.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_ne.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" a.count(): `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
-                                <span class="string">" b debug: `{:?}`"
-                            </span>),
+                                <span class="string">" b debug: `{:?}`\n"</span>,
+                                <span class="string">" b.count(): `{:?}`"</span>,
+                            ),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                             a,
                             a_count,
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                            <span class="macro-nonterminal">$b
-                        </span>)
+                            b,
+                            b_count
+                        )
                     )
                 }
             }
@@ -306,7 +315,7 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span>a = <span class="string">"x"</span>.chars();
-        <span class="kw">let </span>b = <span class="number">2</span>;
+        <span class="kw">let </span>b = <span class="string">"xx"</span>.chars();
         <span class="kw">let </span>result = <span class="macro">assert_count_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>((<span class="number">1</span>, <span class="number">2</span>)));
     }
@@ -314,35 +323,36 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span>a = <span class="string">"xx"</span>.chars();
-        <span class="kw">let </span>b = <span class="number">1</span>;
+        <span class="kw">let </span>b = <span class="string">"x"</span>.chars();
         <span class="kw">let </span>result = <span class="macro">assert_count_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>((<span class="number">2</span>, <span class="number">1</span>)));
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_count_ne_expr_as_result_x_failure() {
+    </span><span class="kw">fn </span>test_assert_count_ne_as_result_failure() {
         <span class="kw">let </span>a = <span class="string">"x"</span>.chars();
-        <span class="kw">let </span>b = <span class="number">1</span>;
+        <span class="kw">let </span>b = <span class="string">"x"</span>.chars();
         <span class="kw">let </span>result = <span class="macro">assert_count_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_count_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_ne.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_ne.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Chars(['x'])`,\n"</span>,
                 <span class="string">" a.count(): `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `1`"
+                <span class="string">" b debug: `Chars(['x'])`\n"</span>,
+                <span class="string">" b.count(): `1`"
             </span>)
         );
     }
 }
 
-<span class="doccomment">/// Assert a count is equal to an expression.
+<span class="doccomment">/// Assert a count is equal to another count.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a.count() ≠ b
+/// a.count() ≠ b.count()
 ///
 /// * If true, return `(a.count(), b)`.
 ///
@@ -357,31 +367,33 @@
 ///
 /// # fn main() {
 /// let a = "x".chars();
-/// let b = 2;
+/// let b = "xx".chars();
 /// assert_count_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "x".chars();
-/// let b = 1;
+/// let b = "x".chars();
 /// assert_count_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_count_ne!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_ne.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",
 /// //  b label: `b`,
-/// //  b debug: `1`
+/// //  b debug: `Chars(['x'])`,
+/// //  b.count(): `1`"
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_count_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_count_ne.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `1`"
+/// #     " b debug: `Chars(['x'])`\n",
+/// #     " b.count(): `1`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -412,7 +424,7 @@
 <span class="doccomment">/// Assert a value is greater than an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a.count() ≠ b
+/// a.count() ≠ b.count()
 ///
 /// This macro provides the same statements as [`assert_count_ne`](macro.assert_count_ne.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -48,7 +48,7 @@ macro_rules! assert_ne_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_ne!(a, b)`\n",
-                            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ne.html\n",
+                            "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ne.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -69,7 +69,7 @@ macro_rules! assert_ne_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_ne_as_result_x_success() {
+    fn test_assert_ne_as_result_success() {
         let a: i32 = 1;
         let b: i32 = 2;
         let result = assert_ne_as_result!(a, b);
@@ -77,7 +77,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_ne_as_result_x_failure() {
+    fn test_assert_ne_as_result_failure() {
         let a: i32 = 1;
         let b: i32 = 1;
         let result = assert_ne_as_result!(a, b);
@@ -85,7 +85,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ne.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",

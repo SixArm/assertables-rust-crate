@@ -29,27 +29,17 @@
 <a href="#29" id="29">29</a>
 <a href="#30" id="30">30</a>
 <a href="#31" id="31">31</a>
-<a href="#32" id="32">32</a>
-<a href="#33" id="33">33</a>
-<a href="#34" id="34">34</a>
-<a href="#35" id="35">35</a>
-<a href="#36" id="36">36</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing iter collections.
 //!
 //! These macros help with comparison of iter parameters, such as two arrays or
 //! two vectors. These macros convert each input using the std::iter::Iterator trait.
 //!
-//! * [`assert_iter_eq2!(collection1, collection2)`](macro@crate::assert_iter_eq2) ≈ iter a = iter b
-//!
-//! * [`assert_iter_ne2!(collection1, collection2)`](macro@crate::assert_iter_ne2) ≈ iter a ≠ iter b
-//!
-//! * [`assert_iter_lt2!(collection1, collection2)`](macro@crate::assert_iter_gt2) ≈ iter a &lt; iter b
-//!
-//! * [`assert_iter_le2!(collection1, collection2)`](macro@crate::assert_iter_gt2) ≈ iter a ≤ iter b
-//!
-//! * [`assert_iter_gt2!(collection1, collection2)`](macro@crate::assert_iter_gt2) ≈ iter a &gt; iter b
-//!
-//! * [`assert_iter_ge2!(collection1, collection2)`](macro@crate::assert_iter_gt2) ≈ iter a ≥ iter b
+//! * [`assert_iter_eq!(collection1, collection2)`](macro@crate::assert_iter_eq) ≈ iter a = iter b
+//! * [`assert_iter_ne!(collection1, collection2)`](macro@crate::assert_iter_ne) ≈ iter a ≠ iter b
+//! * [`assert_iter_lt!(collection1, collection2)`](macro@crate::assert_iter_gt) ≈ iter a &lt; iter b
+//! * [`assert_iter_le!(collection1, collection2)`](macro@crate::assert_iter_gt) ≈ iter a ≤ iter b
+//! * [`assert_iter_gt!(collection1, collection2)`](macro@crate::assert_iter_gt) ≈ iter a &gt; iter b
+//! * [`assert_iter_ge!(collection1, collection2)`](macro@crate::assert_iter_ge) ≈ iter a ≥ iter b
 //!
 //! # Example
 //!
@@ -59,15 +49,15 @@
 //! # fn main() {
 //! let a = [1, 2];
 //! let b = [1, 2];
-//! assert_iter_eq2!(&amp;a, &amp;b);
+//! assert_iter_eq!(&amp;a, &amp;b);
 //! # }
 //! ```
 
 </span><span class="comment">// Comparisons
-</span><span class="kw">pub mod </span>assert_iter_eq2;
-<span class="kw">pub mod </span>assert_iter_ge2;
-<span class="kw">pub mod </span>assert_iter_gt2;
-<span class="kw">pub mod </span>assert_iter_le2;
-<span class="kw">pub mod </span>assert_iter_lt2;
-<span class="kw">pub mod </span>assert_iter_ne2;
+</span><span class="kw">pub mod </span>assert_iter_eq;
+<span class="kw">pub mod </span>assert_iter_ge;
+<span class="kw">pub mod </span>assert_iter_gt;
+<span class="kw">pub mod </span>assert_iter_le;
+<span class="kw">pub mod </span>assert_iter_lt;
+<span class="kw">pub mod </span>assert_iter_ne;
 </code></pre></div></section></main></body></html>

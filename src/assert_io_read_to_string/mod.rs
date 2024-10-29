@@ -6,36 +6,25 @@
 //!
 //! Compare a reader with another reader:
 //!
-//! * [`assert_io_read_to_string_eq2!(reader1, reader2)`](macro@crate::assert_io_read_to_string_eq2) ≈ reader1.read_to_string() = reader2.read_to_string()
-//!
-//! * [`assert_io_read_to_string_ne2!(reader1, reader2)`](macro@crate::assert_io_read_to_string_ne2) ≈ reader1.read_to_string() ≠ reader2.read_to_string()
-//!
-//! * [`assert_io_read_to_string_lt2!(reader1, reader2)`](macro@crate::assert_io_read_to_string_lt2) ≈ reader1.read_to_string() < reader2.read_to_string()
-//!
-//! * [`assert_io_read_to_string_le2!(reader1, reader2)`](macro@crate::assert_io_read_to_string_le2) ≈ reader1.read_to_string() ≤ reader2.read_to_string()
-//!
-//! * [`assert_io_read_to_string_gt2!(reader1, reader2)`](macro@crate::assert_io_read_to_string_gt2) ≈ reader1.read_to_string() > reader2.read_to_string()
-//!
-//! * [`assert_io_read_to_string_ge2!(reader1, reader2)`](macro@crate::assert_io_read_to_string_ge2) ≈ reader1.read_to_string() ≥ reader2.read_to_string()
+//! * [`assert_io_read_to_string_eq!(reader1, reader2)`](macro@crate::assert_io_read_to_string_eq) ≈ reader1.read_to_string() = reader2.read_to_string()
+//! * [`assert_io_read_to_string_ne!(reader1, reader2)`](macro@crate::assert_io_read_to_string_ne) ≈ reader1.read_to_string() ≠ reader2.read_to_string()
+//! * [`assert_io_read_to_string_lt!(reader1, reader2)`](macro@crate::assert_io_read_to_string_lt) ≈ reader1.read_to_string() < reader2.read_to_string()
+//! * [`assert_io_read_to_string_le!(reader1, reader2)`](macro@crate::assert_io_read_to_string_le) ≈ reader1.read_to_string() ≤ reader2.read_to_string()
+//! * [`assert_io_read_to_string_gt!(reader1, reader2)`](macro@crate::assert_io_read_to_string_gt) ≈ reader1.read_to_string() > reader2.read_to_string()
+//! * [`assert_io_read_to_string_ge!(reader1, reader2)`](macro@crate::assert_io_read_to_string_ge) ≈ reader1.read_to_string() ≥ reader2.read_to_string()
 //!
 //! Compare a reader with an expression:
 //!
-//! * [`assert_io_read_to_string_eq!(reader, expr)`](macro@crate::assert_io_read_to_string_eq) ≈ reader.read_to_string() = expr
-//!
-//! * [`assert_io_read_to_string_ne!(reader, expr)`](macro@crate::assert_io_read_to_string_ne) ≈ reader.read_to_string() ≠ expr
-//!
-//! * [`assert_io_read_to_string_lt!(reader, expr)`](macro@crate::assert_io_read_to_string_lt) ≈ reader.read_to_string() < expr
-//!
-//! * [`assert_io_read_to_string_le!(reader, expr)`](macro@crate::assert_io_read_to_string_le) ≈ reader.read_to_string() ≤ expr
-//!
-//! * [`assert_io_read_to_string_gt!(reader, expr)`](macro@crate::assert_io_read_to_string_gt) ≈ reader.read_to_string() > expr
-//!
-//! * [`assert_io_read_to_string_ge!(reader, expr)`](macro@crate::assert_io_read_to_string_ge) ≈ reader.read_to_string() ≥ expr
+//! * [`assert_io_read_to_string_eq_x!(reader, expr)`](macro@crate::assert_io_read_to_string_eq_x) ≈ reader.read_to_string() = expr
+//! * [`assert_io_read_to_string_ne_x!(reader, expr)`](macro@crate::assert_io_read_to_string_ne_x) ≈ reader.read_to_string() ≠ expr
+//! * [`assert_io_read_to_string_lt_x!(reader, expr)`](macro@crate::assert_io_read_to_string_lt_x) ≈ reader.read_to_string() < expr
+//! * [`assert_io_read_to_string_le_x!(reader, expr)`](macro@crate::assert_io_read_to_string_le_x) ≈ reader.read_to_string() ≤ expr
+//! * [`assert_io_read_to_string_gt_x!(reader, expr)`](macro@crate::assert_io_read_to_string_gt_x) ≈ reader.read_to_string() > expr
+//! * [`assert_io_read_to_string_ge_x!(reader, expr)`](macro@crate::assert_io_read_to_string_ge_x) ≈ reader.read_to_string() ≥ expr
 //!
 //! Compare a reader with its contents:
 //!
 //! * [`assert_io_read_to_string_contains!(reader, &containee)`](macro@crate::assert_io_read_to_string_contains) ≈ reader.read_to_string().contains(containee)
-//!
 //! * [`assert_io_read_to_string_is_match!(reader, &matcher)`](macro@crate::assert_io_read_to_string_is_match) ≈ matcher.is_match(reader.read_to_string())
 //!
 //!
@@ -48,25 +37,25 @@
 //! # fn main() {
 //! let mut a = "alfa".as_bytes();
 //! let mut b = "alfa".as_bytes();
-//! assert_io_read_to_string_eq2!(a, b);
+//! assert_io_read_to_string_eq!(a, b);
 //! # }
 //! ```
 
-// Comparisons
-pub mod assert_io_read_to_string_eq2;
-pub mod assert_io_read_to_string_ge2;
-pub mod assert_io_read_to_string_gt2;
-pub mod assert_io_read_to_string_le2;
-pub mod assert_io_read_to_string_lt2;
-pub mod assert_io_read_to_string_ne2;
-
-// Compare with expression
+// Compare another
 pub mod assert_io_read_to_string_eq;
 pub mod assert_io_read_to_string_ge;
 pub mod assert_io_read_to_string_gt;
 pub mod assert_io_read_to_string_le;
 pub mod assert_io_read_to_string_lt;
 pub mod assert_io_read_to_string_ne;
+
+// Compare expression
+pub mod assert_io_read_to_string_eq_x;
+pub mod assert_io_read_to_string_ge_x;
+pub mod assert_io_read_to_string_gt_x;
+pub mod assert_io_read_to_string_le_x;
+pub mod assert_io_read_to_string_lt_x;
+pub mod assert_io_read_to_string_ne_x;
 
 // Specializations
 pub mod assert_io_read_to_string_contains;

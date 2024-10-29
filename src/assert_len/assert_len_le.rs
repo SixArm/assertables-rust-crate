@@ -1,7 +1,7 @@
-//! Assert a length is less than or equal to an expression.
+//! Assert a length is less than or equal to another length.
 //!
 //! Pseudocode:<br>
-//! a.len() ≤ b
+//! a.len() ≤ b.len()
 //!
 //! # Example
 //!
@@ -10,7 +10,7 @@
 //!
 //! # fn main() {
 //! let a = "x";
-//! let b = 2;
+//! let b = "xx";
 //! assert_len_le!(a, b);
 //! # }
 //! ```
@@ -21,12 +21,12 @@
 //! * [`assert_len_le_as_result`](macro@crate::assert_len_le_as_result)
 //! * [`debug_assert_len_le`](macro@crate::debug_assert_len_le)
 
-/// Assert a length is less than or equal to an expression.
+/// Assert a length is less than or equal to another length.
 ///
 /// Pseudocode:<br>
-/// a.len() ≤ b
+/// a.len() ≤ b.len()
 ///
-/// * If true, return Result `Ok((a.len(), b))`.
+/// * If true, return Result `Ok((a.len(), b.len()))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -48,25 +48,28 @@ macro_rules! assert_len_le_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 let a_len = a.len();
-                if a_len <= $b {
-                    Ok((a_len, $b))
+                let b_len = b.len();
+                if a_len <= b_len {
+                    Ok((a_len, b_len))
                 } else {
                     Err(
                         format!(
                             concat!(
                                 "assertion failed: `assert_len_le!(a, b)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_le.html\n",
+                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_le.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.len(): `{:?}`,\n",
                                 " b label: `{}`,\n",
-                                " b debug: `{:?}`"
+                                " b debug: `{:?}`\n",
+                                " b.len(): `{:?}`",
                             ),
                             stringify!($a),
                             a,
                             a_len,
                             stringify!($b),
-                            b
+                            b,
+                            b_len
                         )
                     )
                 }
@@ -81,7 +84,7 @@ mod tests {
     #[test]
     fn gt() {
         let a = "x";
-        let b = 2;
+        let b = "xx";
         let result = assert_len_le_as_result!(a, b);
         assert_eq!(result, Ok((1, 2)));
     }
@@ -89,7 +92,7 @@ mod tests {
     #[test]
     fn eq() {
         let a = "x";
-        let b = 1;
+        let b = "x";
         let result = assert_len_le_as_result!(a, b);
         assert_eq!(result, Ok((1, 1)));
     }
@@ -97,29 +100,30 @@ mod tests {
     #[test]
     fn lt() {
         let a = "xx";
-        let b = 1;
+        let b = "x";
         let result = assert_len_le_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_len_le!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_le.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_le.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"xx\"`,\n",
                 " a.len(): `2`,\n",
                 " b label: `b`,\n",
-                " b debug: `1`"
+                " b debug: `\"x\"`\n",
+                " b.len(): `1`"
             )
         );
     }
 }
 
-/// Assert a length is less than or equal to an expression.
+/// Assert a length is less than or equal to another length.
 ///
 /// Pseudocode:<br>
-/// a.len() ≤ b
+/// a.len() ≤ b.len()
 ///
-/// * If true, return `(a.len(), b)`.
+/// * If true, return `(a.len(), b.len())`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -132,31 +136,33 @@ mod tests {
 ///
 /// # fn main() {
 /// let a = "x";
-/// let b = 2;
+/// let b = "xx";
 /// assert_len_le!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "xx";
-/// let b = 1;
+/// let b = "x";
 /// assert_len_le!(a, b);
 /// # });
 /// // assertion failed: `assert_len_le!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_le.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_le.html
 /// //  a label: `a`,
 /// //  a debug: `\"xx\"`,
 /// //  a.len(): `2`",
 /// //  b label: `b`,
-/// //  b debug: `1`
+/// //  b debug: `\"x\"`,
+/// //  b.len(): `1`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_len_le!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_le.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"xx\"`,\n",
 /// #     " a.len(): `2`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `1`"
+/// #     " b debug: `\"x\"`\n",
+/// #     " b.len(): `1`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -187,7 +193,7 @@ macro_rules! assert_len_le {
 /// Assert a value is greater than an expression.
 ///
 /// Pseudocode:<br>
-/// a.len() ≤ b
+/// a.len() ≤ b.len()
 ///
 /// This macro provides the same statements as [`assert_len_le`](macro.assert_len_le.html),
 /// except this macro's statements are only enabled in non-optimized

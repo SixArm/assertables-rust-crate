@@ -49,16 +49,6 @@
 <a href="#49" id="49">49</a>
 <a href="#50" id="50">50</a>
 <a href="#51" id="51">51</a>
-<a href="#52" id="52">52</a>
-<a href="#53" id="53">53</a>
-<a href="#54" id="54">54</a>
-<a href="#55" id="55">55</a>
-<a href="#56" id="56">56</a>
-<a href="#57" id="57">57</a>
-<a href="#58" id="58">58</a>
-<a href="#59" id="59">59</a>
-<a href="#60" id="60">60</a>
-<a href="#61" id="61">61</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing functions.
 //!
 //! These macros help compare functions that return anything.
@@ -66,31 +56,21 @@
 //!
 //! Compare a function with another function:
 //!
-//! * [`assert_fn_eq2!(a_function, b_function)`](macro@crate::assert_fn_eq2) ≈ a_function() = b_function()
-//!
-//! * [`assert_fn_ne2!(a_function, b_function)`](macro@crate::assert_fn_ne2) ≈ a_function() ≠ b_function()
-//!
-//! * [`assert_fn_ge2!(a_function, b_function)`](macro@crate::assert_fn_ge2) ≈ a_function() ≥ b_function()
-//!
-//! * [`assert_fn_gt2!(a_function, b_function)`](macro@crate::assert_fn_gt2) ≈ a_function() &gt; b_function()
-//!
-//! * [`assert_fn_le2!(a_function, b_function)`](macro@crate::assert_fn_le2) ≈ a_function() ≤ b_function()
-//!
-//! * [`assert_fn_lt2!(a_function, b_function)`](macro@crate::assert_fn_lt2) ≈ a_function() &lt; b_function()
+//! * [`assert_fn_eq!(a_function, b_function)`](macro@crate::assert_fn_eq) ≈ a_function() = b_function()
+//! * [`assert_fn_ne!(a_function, b_function)`](macro@crate::assert_fn_ne) ≈ a_function() ≠ b_function()
+//! * [`assert_fn_ge!(a_function, b_function)`](macro@crate::assert_fn_ge) ≈ a_function() ≥ b_function()
+//! * [`assert_fn_gt!(a_function, b_function)`](macro@crate::assert_fn_gt) ≈ a_function() &gt; b_function()
+//! * [`assert_fn_le!(a_function, b_function)`](macro@crate::assert_fn_le) ≈ a_function() ≤ b_function()
+//! * [`assert_fn_lt!(a_function, b_function)`](macro@crate::assert_fn_lt) ≈ a_function() &lt; b_function()
 //!
 //! Compare a function with an expression:
 //!
-//! * [`assert_fn_eq!(function, expr)`](macro@crate::assert_fn_eq) ≈ function() = expr
-//!
-//! * [`assert_fn_ne!(function, expr)`](macro@crate::assert_fn_ne) ≈ function() ≠ expr
-//!
-//! * [`assert_fn_ge!(function, expr)`](macro@crate::assert_fn_ge) ≈ function() ≥ expr
-//!
-//! * [`assert_fn_gt!(function, expr)`](macro@crate::assert_fn_gt) ≈ function() &gt; expr
-//!
-//! * [`assert_fn_le!(function, expr)`](macro@crate::assert_fn_le) ≈ function() ≤ expr
-//!
-//! * [`assert_fn_lt!(function, expr)`](macro@crate::assert_fn_lt) ≈ function() &lt; expr
+//! * [`assert_fn_eq_x!(function, expr)`](macro@crate::assert_fn_eq_x) ≈ function() = expr
+//! * [`assert_fn_ne_x!(function, expr)`](macro@crate::assert_fn_ne_x) ≈ function() ≠ expr
+//! * [`assert_fn_ge_x!(function, expr)`](macro@crate::assert_fn_ge_x) ≈ function() ≥ expr
+//! * [`assert_fn_gt_x!(function, expr)`](macro@crate::assert_fn_gt_x) ≈ function() &gt; expr
+//! * [`assert_fn_le_x!(function, expr)`](macro@crate::assert_fn_le_x) ≈ function() ≤ expr
+//! * [`assert_fn_lt_x!(function, expr)`](macro@crate::assert_fn_lt_x) ≈ function() &lt; expr
 //!
 //!
 //! # Example
@@ -101,23 +81,23 @@
 //! # fn main() {
 //! let a: i8 = -1;
 //! let b: i8 = 1;
-//! assert_fn_eq2!(i8::abs, a, i8::abs, b);
+//! assert_fn_eq!(i8::abs, a, i8::abs, b);
 //! # }
 //! ```
 
-</span><span class="comment">// Comparisons
-</span><span class="kw">pub mod </span>assert_fn_eq2;
-<span class="kw">pub mod </span>assert_fn_ge2;
-<span class="kw">pub mod </span>assert_fn_gt2;
-<span class="kw">pub mod </span>assert_fn_le2;
-<span class="kw">pub mod </span>assert_fn_lt2;
-<span class="kw">pub mod </span>assert_fn_ne2;
-
-<span class="comment">// Compare with expression
+</span><span class="comment">// Compare another
 </span><span class="kw">pub mod </span>assert_fn_eq;
 <span class="kw">pub mod </span>assert_fn_ge;
 <span class="kw">pub mod </span>assert_fn_gt;
 <span class="kw">pub mod </span>assert_fn_le;
 <span class="kw">pub mod </span>assert_fn_lt;
 <span class="kw">pub mod </span>assert_fn_ne;
+
+<span class="comment">// Compare expression
+</span><span class="kw">pub mod </span>assert_fn_eq_x;
+<span class="kw">pub mod </span>assert_fn_ge_x;
+<span class="kw">pub mod </span>assert_fn_gt_x;
+<span class="kw">pub mod </span>assert_fn_le_x;
+<span class="kw">pub mod </span>assert_fn_lt_x;
+<span class="kw">pub mod </span>assert_fn_ne_x;
 </code></pre></div></section></main></body></html>

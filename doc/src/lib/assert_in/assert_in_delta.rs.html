@@ -385,23 +385,23 @@
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr, <span class="macro-nonterminal">$delta</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$delta</span>) {
             (a, b, delta) =&gt; {
-                <span class="kw">let </span>diff = <span class="kw">if </span>(a &gt;= b) { a - b } <span class="kw">else </span>{ b - a };
-                <span class="kw">if </span>diff &lt;= <span class="kw-2">*</span>delta {
-                    <span class="prelude-val">Ok</span>((diff, <span class="kw-2">*</span>delta))
+                <span class="kw">let </span>abs_diff = <span class="kw">if </span>(a &gt;= b) { a - b } <span class="kw">else </span>{ b - a };
+                <span class="kw">if </span>abs_diff &lt;= <span class="kw-2">*</span>delta {
+                    <span class="prelude-val">Ok</span>((abs_diff, <span class="kw-2">*</span>delta))
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_in_delta!(a, b, delta)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_delta.html\n"</span>,
-                                <span class="string">"           a label: `{}`,\n"</span>,
-                                <span class="string">"           a debug: `{:?}`,\n"</span>,
-                                <span class="string">"           b label: `{}`,\n"</span>,
-                                <span class="string">"           b debug: `{:?}`,\n"</span>,
-                                <span class="string">"       delta label: `{}`,\n"</span>,
-                                <span class="string">"             delta: `{:?}`,\n"</span>,
-                                <span class="string">"         | a - b |: `{:?}`,\n"</span>,
-                                <span class="string">" | a - b | ≤ delta: {}"
+                                <span class="string">"assertion failed: `assert_in_delta!(a, b, Δ)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_in_delta.html\n"</span>,
+                                <span class="string">"       a label: `{}`,\n"</span>,
+                                <span class="string">"       a debug: `{:?}`,\n"</span>,
+                                <span class="string">"       b label: `{}`,\n"</span>,
+                                <span class="string">"       b debug: `{:?}`,\n"</span>,
+                                <span class="string">"       Δ label: `{}`,\n"</span>,
+                                <span class="string">"       Δ debug: `{:?}`,\n"</span>,
+                                <span class="string">"     | a - b |: `{:?}`,\n"</span>,
+                                <span class="string">" | a - b | ≤ Δ: {}"
                             </span>),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                             a,
@@ -409,7 +409,7 @@
                             b,
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$delta</span>),
                             delta,
-                            diff,
+                            abs_diff,
                             <span class="bool-val">false
                         </span>)
                     )
@@ -440,16 +440,16 @@
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_in_delta!(a, b, delta)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_delta.html\n"</span>,
-                <span class="string">"           a label: `a`,\n"</span>,
-                <span class="string">"           a debug: `10`,\n"</span>,
-                <span class="string">"           b label: `b`,\n"</span>,
-                <span class="string">"           b debug: `12`,\n"</span>,
-                <span class="string">"       delta label: `delta`,\n"</span>,
-                <span class="string">"             delta: `1`,\n"</span>,
-                <span class="string">"         | a - b |: `2`,\n"</span>,
-                <span class="string">" | a - b | ≤ delta: false"
+                <span class="string">"assertion failed: `assert_in_delta!(a, b, Δ)`\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_in_delta.html\n"</span>,
+                <span class="string">"       a label: `a`,\n"</span>,
+                <span class="string">"       a debug: `10`,\n"</span>,
+                <span class="string">"       b label: `b`,\n"</span>,
+                <span class="string">"       b debug: `12`,\n"</span>,
+                <span class="string">"       Δ label: `delta`,\n"</span>,
+                <span class="string">"       Δ debug: `1`,\n"</span>,
+                <span class="string">"     | a - b |: `2`,\n"</span>,
+                <span class="string">" | a - b | ≤ Δ: false"
             </span>)
         );
     }
@@ -484,28 +484,28 @@
 /// let delta: i8 = 1;
 /// assert_in_delta!(a, b, delta);
 /// # });
-/// // assertion failed: `assert_in_delta!(a, b, delta)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_delta.html
-/// //            a label: `a`,
-/// //            a debug: `10`,
-/// //            b label: `b`,
-/// //            b debug: `12`,
-/// //        delta label: `delta`,
-/// //              delta: `1`,
-/// //          | a - b |: `2`,
-/// //  | a - b | ≤ delta: false
+/// // assertion failed: `assert_in_delta!(a, b, Δ)`
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_in_delta.html
+/// //        a label: `a`,
+/// //        a debug: `10`,
+/// //        b label: `b`,
+/// //        b debug: `12`,
+/// //        Δ label: `delta`,
+/// //        Δ debug: `1`,
+/// //      | a - b |: `2`,
+/// //  | a - b | ≤ Δ: false
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_in_delta!(a, b, delta)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_delta.html\n",
-/// #     "           a label: `a`,\n",
-/// #     "           a debug: `10`,\n",
-/// #     "           b label: `b`,\n",
-/// #     "           b debug: `12`,\n",
-/// #     "       delta label: `delta`,\n",
-/// #     "             delta: `1`,\n",
-/// #     "         | a - b |: `2`,\n",
-/// #     " | a - b | ≤ delta: false",
+/// #     "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_in_delta.html\n",
+/// #     "       a label: `a`,\n",
+/// #     "       a debug: `10`,\n",
+/// #     "       b label: `b`,\n",
+/// #     "       b debug: `12`,\n",
+/// #     "       Δ label: `delta`,\n",
+/// #     "       Δ debug: `1`,\n",
+/// #     "     | a - b |: `2`,\n",
+/// #     " | a - b | ≤ Δ: false",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }

@@ -254,10 +254,12 @@
 <a href="#254" id="254">254</a>
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Err and its value is not equal to an expression.
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Err and their values are not equal.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (a ⇒ Err(a1) ⇒ a1) ≠ b
+//! (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
 //!
 //! # Example
 //!
@@ -266,7 +268,7 @@
 //!
 //! # fn main() {
 //! let a: Result&lt;i8, i8&gt; = Err(1);
-//! let b: i8 = 2;
+//! let b: Result&lt;i8, i8&gt; = Err(2);
 //! assert_err_ne!(a, b);
 //! # }
 //! ```
@@ -277,12 +279,12 @@
 //! * [`assert_err_ne_as_result`](macro@crate::assert_err_ne_as_result)
 //! * [`debug_assert_err_ne`](macro@crate::debug_assert_err_ne)
 
-/// Assert an expression is Err and its value is equal to an expression.
+/// Assert two expressions are Err and their values are not equal.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Err(a1) ⇒ a1) = b
+/// (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
 ///
-/// * e, return Result `Ok(a1)`.
+/// * If true, return Result `Ok((a1, b1))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -303,27 +305,29 @@
     (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
-                <span class="kw">match </span>a {
-                    <span class="prelude-val">Err</span>(a1) =&gt; {
-                        <span class="kw">if </span>a1 != b {
-                            <span class="prelude-val">Ok</span>(a1)
+                <span class="kw">match </span>(a, b) {
+                    (<span class="prelude-val">Err</span>(a1), <span class="prelude-val">Err</span>(b1)) =&gt; {
+                        <span class="kw">if </span>a1 != b1 {
+                            <span class="prelude-val">Ok</span>((a1, b1))
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_err_ne!(a, b)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_err_ne.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n"</span>,
                                         <span class="string">" a label: `{}`,\n"</span>,
                                         <span class="string">" a debug: `{:?}`,\n"</span>,
                                         <span class="string">" a inner: `{:?}`,\n"</span>,
                                         <span class="string">" b label: `{}`,\n"</span>,
-                                        <span class="string">" b debug: `{:?}`"</span>,
-                                    ),
+                                        <span class="string">" b debug: `{:?}`,\n"</span>,
+                                        <span class="string">" b inner: `{:?}`"
+                                    </span>),
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                                     a,
                                     a1,
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                                    b
+                                    b,
+                                    b1
                                 )
                             )
                         }
@@ -333,7 +337,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_err_ne!(a, b)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_err_ne.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n"</span>,
                                     <span class="string">" a label: `{}`,\n"</span>,
                                     <span class="string">" a debug: `{:?}`,\n"</span>,
                                     <span class="string">" b label: `{}`,\n"</span>,
@@ -356,57 +360,58 @@
 </span><span class="kw">mod </span>tests {
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_err_ne_expr_as_result_x_success() {
+    </span><span class="kw">fn </span>test_assert_err_ne_as_result_success() {
         <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
-        <span class="kw">let </span>b: i8 = <span class="number">2</span>;
+        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">2</span>);
         <span class="kw">let </span>result = <span class="macro">assert_err_ne_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="kw-2">&amp;</span><span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">2</span>));
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>ne() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
-        <span class="kw">let </span>b: i8 = <span class="number">1</span>;
+        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_err_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_err_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_err_ne.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Err(1)`,\n"</span>,
                 <span class="string">" a inner: `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `1`"</span>,
+                <span class="string">" b debug: `Err(1)`,\n"</span>,
+                <span class="string">" b inner: `1`"</span>,
             )
         );
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_err_ne_expr_as_result_x_failure_because_not_err() {
+    </span><span class="kw">fn </span>test_assert_err_ne_as_result_failure_because_not_err() {
         <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
-        <span class="kw">let </span>b: i8 = <span class="number">2</span>;
+        <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_err_ne_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_err_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_err_ne.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ok(1)`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `2`"</span>,
+                <span class="string">" b debug: `Err(1)`"</span>,
             )
         );
     }
 }
 
-<span class="doccomment">/// Assert an expression is Err and its value is equal to an expression.
+<span class="doccomment">/// Assert two expressions are Err and their values are not equal.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (a ⇒ Err(a1) ⇒ a1) ≠ b
+/// (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
 ///
-/// * e, return `a1`.
+/// * If true, return `(a1, b1)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -419,31 +424,33 @@
 ///
 /// # fn main() {
 /// let a: Result&lt;i8, i8&gt; = Err(1);
-/// let b: i8 = 2;
+/// let b: Result&lt;i8, i8&gt; = Err(2);
 /// assert_err_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: Result&lt;i8, i8&gt; = Err(1);
-/// let b: i8 = 1;
+/// let b: Result&lt;i8, i8&gt; = Err(1);
 /// assert_err_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_err_ne!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_err_ne.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`,
 /// //  a inner: `1`,
 /// //  b label: `b`,
-/// //  b debug: `1`
+/// //  b debug: `Err(1)`,
+/// //  b inner: `1`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_err_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_err_ne.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`,\n",
 /// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `1`",
+/// #     " b debug: `Err(1)`,\n",
+/// #     " b inner: `1`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -471,10 +478,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert an expression is Err and its value is equal to an expression.
-///
-/// Pseudocode:&lt;br&gt;
-/// (a ⇒ Err(a1) ⇒ a1) ≠ b
+<span class="doccomment">/// Assert two expressions are Err and their values are not equal.
 ///
 /// This macro provides the same statements as [`assert_err_ne`](macro.assert_err_ne.html),
 /// except this macro's statements are only enabled in non-optimized

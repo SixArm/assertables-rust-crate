@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["assert_some","assert_some_eq","assert_some_eq2","assert_some_ne","assert_some_ne2"]};
+window.SIDEBAR_ITEMS = {"mod":["assert_some","assert_some_eq","assert_some_eq_x","assert_some_ne","assert_some_ne_x"]};

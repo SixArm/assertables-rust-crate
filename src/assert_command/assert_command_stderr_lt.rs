@@ -1,7 +1,7 @@
-//! Assert a command stderr string is equal to an expression.
+//! Assert a command stderr string is equal to another.
 //!
 //! Pseudocode:<br>
-//! (command ⇒ stderr) = (expr into string)
+//! (command1 ⇒ stderr) = (command2 ⇒ stderr)
 //!
 //! # Example
 //!
@@ -10,10 +10,11 @@
 //! use std::process::Command;
 //!
 //! # fn main() {
-//! let mut command = Command::new("bin/printf-stderr");
-//! command.args(["%s", "alfa"]);
-//! let bytes = vec![b'z', b'z'];
-//! assert_command_stderr_lt!(command, bytes);
+//! let mut a = Command::new("bin/printf-stderr");
+//! a.args(["%s", "alfa"]);
+//! let mut b = Command::new("bin/printf-stderr");
+//! b.args(["%s", "zz"]);
+//! assert_command_stderr_lt!(a, b);
 //! # }
 //! ```
 //!
@@ -23,10 +24,10 @@
 //! * [`assert_command_stderr_lt_as_result`](macro@crate::assert_command_stderr_lt_as_result)
 //! * [`debug_assert_command_stderr_lt`](macro@crate::debug_assert_command_stderr_lt)
 
-/// Assert a command stderr string is equal to an expression.
+/// Assert a command stderr string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (command ⇒ stderr) = (expr into string)
+/// (command1 ⇒ stderr) = (command2 ⇒ stderr)
 ///
 /// * If true, return Result `Ok(stderr)`.
 ///
@@ -46,58 +47,57 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_lt_as_result {
-    ($a_command:expr, $b_expr:expr $(,)?) => {{
-        match (/*&$command,*/ &$b_expr) {
-            b => {
-                match $a_command.output() {
-                    Ok(a) => {
-                        let a = a.stderr;
-                        if a.lt(&$b_expr) {
-                            Ok(a)
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_command_stderr_lt!(command, expr)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_lt.html\n",
-                                        " command label: `{}`,\n",
-                                        " command debug: `{:?}`,\n",
-                                        "    expr label: `{}`,\n",
-                                        "    expr debug: `{:?}`,\n",
-                                        " command value: `{:?}`,\n",
-                                        "    expr value: `{:?}`"
-                                    ),
-                                    stringify!($a_command),
-                                    $a_command,
-                                    stringify!($b_expr),
-                                    $b_expr,
-                                    a,
-                                    b
-                                )
-                            )
-                        }
-                    },
-                    Err(err) => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_command_stderr_lt!(command, expr)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_lt.html\n",
-                                    "  command label: `{}`,\n",
-                                    "  command debug: `{:?}`,\n",
-                                    "     expr label: `{}`,\n",
-                                    "     expr debug: `{:?}`,\n",
-                                    "  output is err: `{:?}`"
-                                ),
-                                stringify!($a_command),
-                                $a_command,
-                                stringify!($b_expr),
-                                b,
-                                err
-                            )
+    ($a_command:expr, $b_command:expr $(,)?) => {{
+        match ($a_command.output(), $b_command.output()) {
+            (Ok(a), Ok(b)) => {
+                let a = a.stderr;
+                let b = b.stderr;
+                if a.lt(&b) {
+                    Ok((a, b))
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_command_stderr_lt!(a_command, b_command)`\n",
+                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_lt.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`,\n",
+                                "       a: `{:?}`,\n",
+                                "       b: `{:?}`"
+                            ),
+                            stringify!($a_command),
+                            $a_command,
+                            stringify!($b_command),
+                            $b_command,
+                            a,
+                            b
                         )
-                    }
+                    )
                 }
+            },
+            (a, b) => {
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_command_stderr_lt!(a_command, b_command)`\n",
+                            "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_lt.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            " a output: `{:?}`,\n",
+                            " b output: `{:?}`"
+                        ),
+                        stringify!($a_command),
+                        $a_command,
+                        stringify!($b_command),
+                        $b_command,
+                        a,
+                        b
+                    )
+                )
             }
         }
     }};
@@ -112,27 +112,32 @@ mod tests {
     fn lt() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
-        let b = vec![b'z', b'z'];
+        let mut b = Command::new("bin/printf-stderr");
+        b.args(["%s", "zz"]);
         let result = assert_command_stderr_lt_as_result!(a, b);
-        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
+        assert_eq!(
+            result.unwrap(),
+            (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z'])
+        );
     }
 
     #[test]
     fn eq() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
-        let b = vec![b'a', b'l', b'f', b'a'];
+        let mut b = Command::new("bin/printf-stderr");
+        b.args(["%s", "alfa"]);
         let result = assert_command_stderr_lt_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stderr_lt!(command, expr)`\n",
-            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_lt.html\n",
-            " command label: `a`,\n",
-            " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
-            "    expr label: `b`,\n",
-            "    expr debug: `[97, 108, 102, 97]`,\n",
-            " command value: `[97, 108, 102, 97]`,\n",
-            "    expr value: `[97, 108, 102, 97]`"
+            "assertion failed: `assert_command_stderr_lt!(a_command, b_command)`\n",
+            "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            "       a: `[97, 108, 102, 97]`,\n",
+            "       b: `[97, 108, 102, 97]`"
         );
         assert_eq!(actual, expect);
     }
@@ -141,27 +146,28 @@ mod tests {
     fn gt() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
-        let b = vec![b'a', b'a'];
+        let mut b = Command::new("bin/printf-stderr");
+        b.args(["%s", "aa"]);
         let result = assert_command_stderr_lt_as_result!(a, b);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_command_stderr_lt!(command, expr)`\n",
-            "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_lt.html\n",
-            " command label: `a`,\n",
-            " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
-            "    expr label: `b`,\n",
-            "    expr debug: `[97, 97]`,\n",
-            " command value: `[97, 108, 102, 97]`,\n",
-            "    expr value: `[97, 97]`"
+            "assertion failed: `assert_command_stderr_lt!(a_command, b_command)`\n",
+            "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/printf-stderr\" \"%s\" \"aa\"`,\n",
+            "       a: `[97, 108, 102, 97]`,\n",
+            "       b: `[97, 97]`"
         );
         assert_eq!(actual, expect);
     }
 }
 
-/// Assert a command stderr string is equal to an expression.
+/// Assert a command stderr string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (command ⇒ stderr) = (expr into string)
+/// (command1 ⇒ stderr) = (command2 ⇒ stderr)
 ///
 /// * If true, return `()`.
 ///
@@ -176,36 +182,38 @@ mod tests {
 /// use std::process::Command;
 ///
 /// # fn main() {
-/// let mut command = Command::new("bin/printf-stderr");
-/// command.args(["%s", "alfa"]);
-/// let bytes = vec![b'z', b'z'];
-/// assert_command_stderr_lt!(command, bytes);
+/// let mut a = Command::new("bin/printf-stderr");
+/// a.args(["%s", "alfa"]);
+/// let mut b = Command::new("bin/printf-stderr");
+/// b.args(["%s", "zz"]);
+/// assert_command_stderr_lt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let mut command = Command::new("bin/printf-stderr");
-/// command.args(["%s", "alfa"]);
-/// let bytes = vec![b'a', b'a'];
-/// assert_command_stderr_lt!(command, bytes);
+/// let mut a = Command::new("bin/printf-stderr");
+/// a.args(["%s", "alfa"]);
+/// let mut b = Command::new("bin/printf-stderr");
+/// b.args(["%s", "aa"]);
+/// assert_command_stderr_lt!(a, b);
 /// # });
-/// // assertion failed: `assert_command_stderr_lt!(command, expr)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_lt.html
-/// //  command label: `command`,
-/// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
-/// //     expr label: `bytes`,
-/// //     expr debug: `[97, 97]`,
-/// //  command value: `[97, 108, 102, 97]`,
-/// //     expr value: `[97, 97]`
+/// // assertion failed: `assert_command_stderr_lt!(a_command, b_command)`
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_lt.html
+/// //  a label: `a`,
+/// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
+/// //  b label: `b`,
+/// //  b debug: `\"bin/printf-stderr\" \"%s\" \"aa\"`,
+/// //        a: `[97, 108, 102, 97]`,
+/// //        b: `[97, 997]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_command_stderr_lt!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_lt.html\n",
-/// #     " command label: `command`,\n",
-/// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
-/// #     "    expr label: `bytes`,\n",
-/// #     "    expr debug: `[97, 97]`,\n",
-/// #     " command value: `[97, 108, 102, 97]`,\n",
-/// #     "    expr value: `[97, 97]`"
+/// #     "assertion failed: `assert_command_stderr_lt!(a_command, b_command)`\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_lt.html\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `\"bin/printf-stderr\" \"%s\" \"aa\"`,\n",
+/// #     "       a: `[97, 108, 102, 97]`,\n",
+/// #     "       b: `[97, 97]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -219,26 +227,23 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_lt {
-    ($a_command:expr, $b_expr:expr $(,)?) => {{
-        match $crate::assert_command_stderr_lt_as_result!($a_command, $b_expr) {
+    ($a_command:expr, $b_command:expr $(,)?) => {{
+        match $crate::assert_command_stderr_lt_as_result!($a_command, $b_command) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
-    ($a_command:expr, $b_expr:expr, $($message:tt)+) => {{
-        match $crate::assert_command_stderr_lt_as_result!($a_command, $b_expr) {
+    ($a_command:expr, $b_command:expr, $($message:tt)+) => {{
+        match $crate::assert_command_stderr_lt_as_result!($a_command, $b_command) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
     }};
 }
 
-/// Assert a command stderr string is equal to an expression.
+/// Assert a command stderr string is equal to another.
 ///
-/// Pseudocode:<br>
-/// (command ⇒ stderr) = (expr into string)
-///
-/// This macro provides the same statements as [`assert_command_stderr_lt`](macro.assert_command_stderr_lt.html),
+/// This macro provides the same statements as [`assert_command_stderr_lt {`](macro.assert_command_stderr_lt {.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -260,9 +265,9 @@ macro_rules! assert_command_stderr_lt {
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stderr_lt`](macro@crate::assert_command_stderr_lt)
-/// * [`assert_command_stderr_lt`](macro@crate::assert_command_stderr_lt)
-/// * [`debug_assert_command_stderr_lt`](macro@crate::debug_assert_command_stderr_lt)
+/// * [`assert_command_stderr_lt {`](macro@crate::assert_command_stderr_lt {)
+/// * [`assert_command_stderr_lt {`](macro@crate::assert_command_stderr_lt {)
+/// * [`debug_assert_command_stderr_lt {`](macro@crate::debug_assert_command_stderr_lt {)
 ///
 #[macro_export]
 macro_rules! debug_assert_command_stderr_lt {

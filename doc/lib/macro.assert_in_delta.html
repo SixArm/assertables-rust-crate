@@ -26,16 +26,16 @@ expressions with their debug representations.</p>
 <span class="kw">let </span>b: i8 = <span class="number">12</span>;
 <span class="kw">let </span>delta: i8 = <span class="number">1</span>;
 <span class="macro">assert_in_delta!</span>(a, b, delta);
-<span class="comment">// assertion failed: `assert_in_delta!(a, b, delta)`
-// https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_delta.html
-//            a label: `a`,
-//            a debug: `10`,
-//            b label: `b`,
-//            b debug: `12`,
-//        delta label: `delta`,
-//              delta: `1`,
-//          | a - b |: `2`,
-//  | a - b | ≤ delta: false</span></code></pre></div>
+<span class="comment">// assertion failed: `assert_in_delta!(a, b, Δ)`
+// https://docs.rs/assertables/9.1.0/assertables/macro.assert_in_delta.html
+//        a label: `a`,
+//        a debug: `10`,
+//        b label: `b`,
+//        b debug: `12`,
+//        Δ label: `delta`,
+//        Δ debug: `1`,
+//      | a - b |: `2`,
+//  | a - b | ≤ Δ: false</span></code></pre></div>
 <p>The macros <code>assert_in_delta</code> and <code>assert_in_epsilon</code> can test
 approximations:</p>
 <ul>

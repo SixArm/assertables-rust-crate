@@ -1,7 +1,7 @@
-//! Assert an expression is Ok and its value is not equal to an expression.
+//! Assert two expressions are Ok and their values are not equal.
 //!
 //! Pseudocode:<br>
-//! (a ⇒ Ok(a1) ⇒ a1) ≠ b
+//! (a ⇒ Ok(a1) ⇒ a1) ≠ (b ⇒ Ok(b1) ⇒ b1)
 //!
 //! # Example
 //!
@@ -10,7 +10,7 @@
 //!
 //! # fn main() {
 //! let a: Result<i8, i8> = Ok(1);
-//! let b: i8 = 2;
+//! let b: Result<i8, i8> = Ok(2);
 //! assert_ok_ne!(a, b);
 //! # }
 //! ```
@@ -21,12 +21,12 @@
 //! * [`assert_ok_ne_as_result`](macro@crate::assert_ok_ne_as_result)
 //! * [`debug_assert_ok_ne`](macro@crate::debug_assert_ok_ne)
 
-/// Assert an expression is Ok and its value is equal to an expression.
+/// Assert two expressions are Ok and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ok(a1) ⇒ a1) = b
+/// (a ⇒ Ok(a1) ⇒ a1) ≠ (b ⇒ Ok(b1) ⇒ b1)
 ///
-/// * If true, return Result `Ok((a1))`.
+/// * If true, return Result `Ok((a1, b1))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -46,52 +46,52 @@
 macro_rules! assert_ok_ne_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
-            (a, b) => {
-                match a {
-                    Ok(a1) => {
-                        if a1 != b {
-                            Ok((a1))
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_ok_ne!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
-                                        " a label: `{}`,\n",
-                                        " a debug: `{:?}`,\n",
-                                        " a inner: `{:?}`,\n",
-                                        " b label: `{}`,\n",
-                                        " b debug: `{:?}`",
-                                    ),
-                                    stringify!($a),
-                                    a,
-                                    a1,
-                                    stringify!($b),
-                                    b
-                                )
-                            )
-                        }
-                    },
-                    _ => {
+            (a, b) => match (a, b) {
+                (Ok(a1), Ok(b1)) => {
+                    if a1 != b1 {
+                        Ok((a1, b1))
+                    } else {
                         Err(
                             format!(
                                 concat!(
                                     "assertion failed: `assert_ok_ne!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_ne.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
+                                    " a inner: `{:?}`,\n",
                                     " b label: `{}`,\n",
-                                    " b debug: `{:?}`",
+                                    " b debug: `{:?}`,\n",
+                                    " b inner: `{:?}`"
                                 ),
                                 stringify!($a),
                                 a,
+                                a1,
                                 stringify!($b),
                                 b,
+                                b1
                             )
                         )
                     }
+                },
+                _ => {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_ok_ne!(a, b)`\n",
+                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_ne.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`",
+                            ),
+                            stringify!($a),
+                            a,
+                            stringify!($b),
+                            b
+                        )
+                    )
                 }
-            }
+            },
         }
     }};
 }
@@ -100,57 +100,58 @@ macro_rules! assert_ok_ne_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_ok_ne_expr_as_result_x_success() {
+    fn test_assert_ok_ne_as_result_success() {
         let a: Result<i8, i8> = Ok(1);
-        let b: i8 = 2;
+        let b: Result<i8, i8> = Ok(2);
         let result = assert_ok_ne_as_result!(a, b);
-        assert_eq!(result.unwrap(), &1);
+        assert_eq!(result.unwrap(), (&1, &2));
     }
 
     #[test]
-    fn ne() {
+    fn eq() {
         let a: Result<i8, i8> = Ok(1);
-        let b: i8 = 1;
+        let b: Result<i8, i8> = Ok(1);
         let result = assert_ok_ne_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
                 " a inner: `1`,\n",
                 " b label: `b`,\n",
-                " b debug: `1`",
+                " b debug: `Ok(1)`,\n",
+                " b inner: `1`",
             )
         );
     }
 
     #[test]
-    fn test_assert_ok_ne_expr_as_result_x_failure_because_not_ok() {
+    fn test_assert_ok_ne_as_result_failure_because_not_ok() {
         let a: Result<i8, i8> = Err(1);
-        let b: i8 = 2;
+        let b: Result<i8, i8> = Ok(1);
         let result = assert_ok_ne_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ok_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Err(1)`,\n",
                 " b label: `b`,\n",
-                " b debug: `2`",
+                " b debug: `Ok(1)`",
             )
         );
     }
 }
 
-/// Assert an expression is Ok and its value is equal to an expression.
+/// Assert two expressions are Ok and their values are not equal.
 ///
 /// Pseudocode:<br>
-/// (a ⇒ Ok(a1) ⇒ a1) ≠ b
+/// (a ⇒ Ok(a1) ⇒ a1) ≠ (b ⇒ Ok(b1) ⇒ b1)
 ///
-/// * If true, return `a1`.
+/// * If true, return `(a1, b1)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -163,31 +164,33 @@ mod tests {
 ///
 /// # fn main() {
 /// let a: Result<i8, i8> = Ok(1);
-/// let b: i8 = 2;
+/// let b: Result<i8, i8> = Ok(2);
 /// assert_ok_ne!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: Result<i8, i8> = Ok(1);
-/// let b: i8 = 1;
+/// let b: Result<i8, i8> = Ok(1);
 /// assert_ok_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_ok_ne!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,
 /// //  b label: `b`,
-/// //  b debug: `1`
+/// //  b debug: `Ok(1)`,
+/// //  b inner: `1`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ok_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ok_ne.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `1`",
+/// #     " b debug: `Ok(1)`,\n",
+/// #     " b inner: `1`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -215,10 +218,7 @@ macro_rules! assert_ok_ne {
     }};
 }
 
-/// Assert an expression is Ok and its value is equal to an expression.
-///
-/// Pseudocode:<br>
-/// (a ⇒ Ok(a1) ⇒ a1) ≠ b
+/// Assert two expressions are Ok and their values are not equal.
 ///
 /// This macro provides the same statements as [`assert_ok_ne`](macro.assert_ok_ne.html),
 /// except this macro's statements are only enabled in non-optimized

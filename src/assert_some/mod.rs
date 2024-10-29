@@ -9,19 +9,13 @@
 //!
 //! Compare Some(…) to another Some(…):
 //!
-//! * [`assert_some_eq2!(a, b)`](macro@crate::assert_some_eq2)
-//!   ≈ (a ⇒ Some(a1) ⇒ a1) = (b ⇒ Some(b1) ⇒ b1)
-//!
-//! * [`assert_some_ne2!(a, b)`](macro@crate::assert_some_ne2)
-//!   ≈ (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
+//! * [`assert_some_eq!(a, b)`](macro@crate::assert_some_eq) ≈ (a ⇒ Some(a1) ⇒ a1) = (b ⇒ Some(b1) ⇒ b1)
+//! * [`assert_some_ne!(a, b)`](macro@crate::assert_some_ne) ≈ (a ⇒ Some(a1) ⇒ a1) ≠ (b ⇒ Some(b1) ⇒ b1)
 //!
 //! Compare Some(…) to an expression:
 //!
-//! * [`assert_some_eq!(a, expr)`](macro@crate::assert_some_eq)
-//!   ≈ (a ⇒ Some(a1) ⇒ a1) = b
-//!
-//! * [`assert_some_ne!(a, b)`](macro@crate::assert_some_ne)
-//!   ≈ (a ⇒ Some(a1) ⇒ a1) ≠ b
+//! * [`assert_some_eq_x!(a, expr)`](macro@crate::assert_some_eq_x) ≈ (a ⇒ Some(a1) ⇒ a1) = expr
+//! * [`assert_some_ne_x!(a, expr)`](macro@crate::assert_some_ne_x) ≈ (a ⇒ Some(a1) ⇒ a1) ≠ expr
 //!
 //! # Example
 //!
@@ -37,10 +31,10 @@
 // Verify Some(_)
 pub mod assert_some;
 
-// Compare with another
-pub mod assert_some_eq2;
-pub mod assert_some_ne2;
-
-// Compare with expression
+// Compare another
 pub mod assert_some_eq;
 pub mod assert_some_ne;
+
+// Compare expression
+pub mod assert_some_eq_x;
+pub mod assert_some_ne_x;

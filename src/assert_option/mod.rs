@@ -8,5 +8,5 @@
 
 pub mod assert_option_none;
 pub mod assert_option_some;
-pub mod assert_option_some_eq2;
-pub mod assert_option_some_ne2;
+pub mod assert_option_some_eq;
+pub mod assert_option_some_ne;

@@ -1,7 +1,7 @@
-//! Assert a length is greater than an expression.
+//! Assert a length is greater than another length.
 //!
 //! Pseudocode:<br>
-//! a.len() > b
+//! a.len() > b.len()
 //!
 //! # Example
 //!
@@ -10,7 +10,7 @@
 //!
 //! # fn main() {
 //! let a = "xx";
-//! let b = 1;
+//! let b = "x";
 //! assert_len_gt!(a, b);
 //! # }
 //! ```
@@ -21,12 +21,12 @@
 //! * [`assert_len_gt_as_result`](macro@crate::assert_len_gt_as_result)
 //! * [`debug_assert_len_gt`](macro@crate::debug_assert_len_gt)
 
-/// Assert a length is greater than an expression.
+/// Assert a length is greater than another length.
 ///
 /// Pseudocode:<br>
-/// a.len() > b
+/// a.len() > b.len()
 ///
-/// * If true, return Result `Ok((a.len(), b))`.
+/// * If true, return Result `Ok((a.len(), b.len()))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -48,25 +48,28 @@ macro_rules! assert_len_gt_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 let a_len = a.len();
-                if a_len > $b {
-                    Ok((a_len, $b))
+                let b_len = b.len();
+                if a_len > b_len {
+                    Ok((a_len, b_len))
                 } else {
                     Err(
                         format!(
                             concat!(
                                 "assertion failed: `assert_len_gt!(a, b)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt.html\n",
+                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_gt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.len(): `{:?}`,\n",
                                 " b label: `{}`,\n",
-                                " b debug: `{:?}`"
+                                " b debug: `{:?}`\n",
+                                " b.len(): `{:?}`",
                             ),
                             stringify!($a),
                             a,
                             a_len,
                             stringify!($b),
-                            b
+                            b,
+                            b_len
                         )
                     )
                 }
@@ -81,7 +84,7 @@ mod tests {
     #[test]
     fn gt() {
         let a = "xx";
-        let b = 1;
+        let b = "x";
         let result = assert_len_gt_as_result!(a, b);
         assert_eq!(result, Ok((2, 1)));
     }
@@ -89,18 +92,19 @@ mod tests {
     #[test]
     fn eq() {
         let a = "x";
-        let b = 1;
+        let b = "x";
         let result = assert_len_gt_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_len_gt!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_gt.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"x\"`,\n",
                 " a.len(): `1`,\n",
                 " b label: `b`,\n",
-                " b debug: `1`"
+                " b debug: `\"x\"`\n",
+                " b.len(): `1`"
             )
         );
     }
@@ -108,29 +112,30 @@ mod tests {
     #[test]
     fn lt() {
         let a = "x";
-        let b = 2;
+        let b = "xx";
         let result = assert_len_gt_as_result!(a, b);
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_len_gt!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_gt.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"x\"`,\n",
                 " a.len(): `1`,\n",
                 " b label: `b`,\n",
-                " b debug: `2`"
+                " b debug: `\"xx\"`\n",
+                " b.len(): `2`"
             )
         );
     }
 }
 
-/// Assert a length is greater than an expression.
+/// Assert a length is greater than another length.
 ///
 /// Pseudocode:<br>
-/// a.len() > b
+/// a.len() > b.len()
 ///
-/// * If true, return `(a.len(), b)`.
+/// * If true, return `(a.len(), b.len())`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -143,31 +148,33 @@ mod tests {
 ///
 /// # fn main() {
 /// let a = "xx";
-/// let b = 1;
+/// let b = "x";
 /// assert_len_gt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "x";
-/// let b = 2;
+/// let b = "xx";
 /// assert_len_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_len_gt!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_gt.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
 /// //  b label: `b`,
-/// //  b debug: `2`
+/// //  b debug: `\"xx\"`,
+/// //  b.len(): `2`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_len_gt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_gt.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `2`"
+/// #     " b debug: `\"xx\"`\n",
+/// #     " b.len(): `2`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -198,7 +205,7 @@ macro_rules! assert_len_gt {
 /// Assert a value is greater than an expression.
 ///
 /// Pseudocode:<br>
-/// a.len() > b
+/// a.len() > b.len()
 ///
 /// This macro provides the same statements as [`assert_len_gt`](macro.assert_len_gt.html),
 /// except this macro's statements are only enabled in non-optimized

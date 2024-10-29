@@ -37,37 +37,23 @@
 <a href="#37" id="37">37</a>
 <a href="#38" id="38">38</a>
 <a href="#39" id="39">39</a>
-<a href="#40" id="40">40</a>
-<a href="#41" id="41">41</a>
-<a href="#42" id="42">42</a>
-<a href="#43" id="43">43</a>
-<a href="#44" id="44">44</a>
-<a href="#45" id="45">45</a>
-<a href="#46" id="46">46</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for Err(…) items.
 //!
 //! These macros help compare Err(…) items, such as `::std::Result::Err` or similar.
 //!
 //! Assert expression is Err:
 //!
-//! * [`assert_err!(a)`](macro@crate::assert_err)
-//!   ≈ a is Err(_)
+//! * [`assert_err!(a)`](macro@crate::assert_err) ≈ a is Err(_)
 //!
 //! Compare Err(…) to another Err(…):
 //!
-//! * [`assert_err_eq2!(a, b)`](macro@crate::assert_err_eq2)
-//!   ≈ (a ⇒ Err(a1) ⇒ a1) = (b ⇒ Err(b1) ⇒ b1)
-//!
-//! * [`assert_err_ne2!(a, b)`](macro@crate::assert_err_ne2)
-//!   ≈ (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
+//! * [`assert_err_eq!(a, b)`](macro@crate::assert_err_eq) ≈ (a ⇒ Err(a1) ⇒ a1) = (b ⇒ Err(b1) ⇒ b1)
+//! * [`assert_err_ne!(a, b)`](macro@crate::assert_err_ne) ≈ (a ⇒ Err(a1) ⇒ a1) ≠ (b ⇒ Err(b1) ⇒ b1)
 //!
 //! Compare Err(…) to an expression:
 //!
-//! * [`assert_err_eq!(a, expr)`](macro@crate::assert_err_eq)
-//!   ≈ (a ⇒ Err(a1) ⇒ a1) = b
-//!
-//! * [`assert_err_ne!(a, b)`](macro@crate::assert_err_ne)
-//!   ≈ (a ⇒ Err(a1) ⇒ a1) ≠ b
+//! * [`assert_err_eq_x!(a, expr)`](macro@crate::assert_err_eq_x) ≈ (a ⇒ Err(a1) ⇒ a1) = expr
+//! * [`assert_err_ne_x!(a, expr)`](macro@crate::assert_err_ne_x) ≈ (a ⇒ Err(a1) ⇒ a1) ≠ expr
 //!
 //! # Example
 //!
@@ -83,11 +69,11 @@
 </span><span class="comment">// Verify Err(_)
 </span><span class="kw">pub mod </span>assert_err;
 
-<span class="comment">// Compare with another
-</span><span class="kw">pub mod </span>assert_err_eq2;
-<span class="kw">pub mod </span>assert_err_ne2;
-
-<span class="comment">// Compare with expression
+<span class="comment">// Compare another
 </span><span class="kw">pub mod </span>assert_err_eq;
 <span class="kw">pub mod </span>assert_err_ne;
+
+<span class="comment">// Compare expression
+</span><span class="kw">pub mod </span>assert_err_eq_x;
+<span class="kw">pub mod </span>assert_err_ne_x;
 </code></pre></div></section></main></body></html>

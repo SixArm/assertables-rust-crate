@@ -9,19 +9,13 @@
 //!
 //! Compare Ready(…) to another Ready(…):
 //!
-//! * [`assert_ready_eq2!(a, b)`](macro@crate::assert_ready_eq2)
-//!   ≈ (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
-//!
-//! * [`assert_ready_ne2!(a, b)`](macro@crate::assert_ready_ne2)
-//!   ≈ (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)
+//! * [`assert_ready_eq!(a, b)`](macro@crate::assert_ready_eq) ≈ (a ⇒ Ready(a1) ⇒ a1) = (b ⇒ Ready(b1) ⇒ b1)
+//! * [`assert_ready_ne!(a, b)`](macro@crate::assert_ready_ne) ≈ (a ⇒ Ready(a1) ⇒ a1) ≠ (b ⇒ Ready(b1) ⇒ b1)
 //!
 //! Compare Ready(…) to an expression:
 //!
-//! * [`assert_ready_eq!(a, expr)`](macro@crate::assert_ready_eq)
-//!   ≈ (a ⇒ Ready(a1) ⇒ a1) = b
-//!
-//! * [`assert_ready_ne!(a, b)`](macro@crate::assert_ready_ne)
-//!   ≈ (a ⇒ Ready(a1) ⇒ a1) ≠ b
+//! * [`assert_ready_eq_x!(a, expr)`](macro@crate::assert_ready_eq_x) ≈ (a ⇒ Ready(a1) ⇒ a1) = expr
+//! * [`assert_ready_ne_x!(a, expr)`](macro@crate::assert_ready_ne_x) ≈ (a ⇒ Ready(a1) ⇒ a1) ≠ expr
 //!
 //! # Example
 //!
@@ -33,17 +27,17 @@
 //! # fn main() {
 //! let a: Poll<i8> = Ready(1);
 //! let b: Poll<i8> = Ready(1);
-//! assert_ready_eq2!(a, b);
+//! assert_ready_eq!(a, b);
 //! # }
 //! ```
 
 // Verify Ready(_)
 pub mod assert_ready;
 
-// Compare with another
-pub mod assert_ready_eq2;
-pub mod assert_ready_ne2;
-
-// Compare with expression
+// Compare another
 pub mod assert_ready_eq;
 pub mod assert_ready_ne;
+
+// Compare expression
+pub mod assert_ready_eq_x;
+pub mod assert_ready_ne_x;

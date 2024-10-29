@@ -6,8 +6,6 @@ Assertables aims for comparable goals as these crates:
 
 * [more_asserts](more_asserts) <!-- 13,100,250 -->
 
-* [assert_approx_eq](assert_approx_eq) <!-- 4,333,267 -->
-
 * [cool_asserts](cool_asserts) <!-- 2,205,482 -->
 
 * [assert2](assert2) <!-- 846,247 -->
@@ -17,6 +15,12 @@ Assertables aims for comparable goals as these crates:
 * [claims](claims) <!-- 688,304 -->
 
 * [totems](totems) <!-- 26,229 -->
+
+Specific assertion categories:
+
+* [assert_cmd](assert_cmd) <!--  17,960,529 -->
+
+* [assert_approx_eq](assert_approx_eq) <!-- 4,333,267 -->
 
 If you have more complex needs, then these crates are complementary:
 
@@ -32,14 +36,13 @@ If you prefer fluent assertions:
 
 * [spectral](spectral) <!-- 541,786 -->
 
-
 ## Licenses
 
 To the best of our knowledge, as of this writing, these crates use these licenses.
 
 | Name                                                | Version | Year | Licenses                    |
 |-----------------------------------------------------|---------|------|-----------------------------|
-| [assertables](https://crates.io/crates/assertables) | 9.0.0   | 2024 | Apache, MIT, BSD, GPL       |
+| [assertables](https://crates.io/crates/assertables) | 9.1.0   | 2024 | Apache, MIT, BSD, GPL       |
 | [assert_approx_eq](assert_approx_eq)                | 1.1.0   | 2018 | Apache, MIT                 |
 | [assert_matches](assert_matches)                    | 1.5.0   | 2021 | Apache, MIT                 | 
 | [cool_asserts](cool_asserts)                        | 2.0.3   | 2022 | Mozilla                     |

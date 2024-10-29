@@ -66,7 +66,7 @@
 /// Pseudocode:<br>
 /// | a - b | ≤ 1e-6
 ///
-/// * If true, return Result `Ok(diff, approx)`.
+/// * If true, return Result `Ok(abs_diff, approx)`.
 ///
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -88,16 +88,16 @@ macro_rules! assert_approx_eq_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
             (a, b) => {
-                let diff = if (a >= b) { a - b } else { b - a };
+                let abs_diff = if (a >= b) { a - b } else { b - a };
                 let approx = 1.0e-6;
-                if diff <= approx {
-                    Ok((diff, approx))
+                if abs_diff <= approx {
+                    Ok((abs_diff, approx))
                 } else {
                     Err(
                         format!(
                             concat!(
                                 "assertion failed: `assert_approx_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_eq.html\n",
+                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_approx_eq.html\n",
                                 "            a label: `{}`,\n",
                                 "            a debug: `{:?}`,\n",
                                 "            b label: `{}`,\n",
@@ -110,7 +110,7 @@ macro_rules! assert_approx_eq_as_result {
                             a,
                             stringify!($b),
                             b,
-                            diff,
+                            abs_diff,
                             approx
                         )
                     )
@@ -124,7 +124,7 @@ macro_rules! assert_approx_eq_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_approx_eq_as_result_x_success() {
+    fn eq() {
         let a: f32 = 1.0000001;
         let b: f32 = 1.0000011;
         let result = assert_approx_eq_as_result!(a, b);
@@ -132,7 +132,7 @@ mod tests {
     }
 
     #[test]
-    fn test_assert_approx_eq_as_result_x_failure() {
+    fn ne() {
         let a: f32 = 1.0000001;
         let b: f32 = 1.0000012;
         let result = assert_approx_eq_as_result!(a, b);
@@ -140,7 +140,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_approx_eq!(a, b)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_eq.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_approx_eq.html\n",
                 "            a label: `a`,\n",
                 "            a debug: `1.0000001`,\n",
                 "            b label: `b`,\n",
@@ -181,7 +181,7 @@ mod tests {
 /// assert_approx_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_approx_eq!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_eq.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_approx_eq.html
 /// //             a label: `a`,
 /// //             a debug: `1.0000001`,
 /// //             b label: `b`,
@@ -192,7 +192,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_approx_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_eq.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_approx_eq.html\n",
 /// #     "            a label: `a`,\n",
 /// #     "            a debug: `1.0000001`,\n",
 /// #     "            b label: `b`,\n",

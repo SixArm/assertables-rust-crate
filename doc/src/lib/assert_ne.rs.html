@@ -144,7 +144,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_ne!(a, b)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_ne.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ne.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -165,7 +165,7 @@
 </span><span class="kw">mod </span>tests {
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_ne_as_result_x_success() {
+    </span><span class="kw">fn </span>test_assert_ne_as_result_success() {
         <span class="kw">let </span>a: i32 = <span class="number">1</span>;
         <span class="kw">let </span>b: i32 = <span class="number">2</span>;
         <span class="kw">let </span>result = <span class="macro">assert_ne_as_result!</span>(a, b);
@@ -173,7 +173,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_ne_as_result_x_failure() {
+    </span><span class="kw">fn </span>test_assert_ne_as_result_failure() {
         <span class="kw">let </span>a: i32 = <span class="number">1</span>;
         <span class="kw">let </span>b: i32 = <span class="number">1</span>;
         <span class="kw">let </span>result = <span class="macro">assert_ne_as_result!</span>(a, b);
@@ -181,7 +181,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_ne.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ne.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,

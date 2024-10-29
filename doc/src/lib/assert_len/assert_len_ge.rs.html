@@ -223,10 +223,16 @@
 <a href="#223" id="223">223</a>
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is greater than or equal to an expression.
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is greater than or equal to another length.
 //!
 //! Pseudocode:&lt;br&gt;
-//! a.len() ≥ b
+//! a.len() ≥ b.len()
 //!
 //! # Example
 //!
@@ -235,7 +241,7 @@
 //!
 //! # fn main() {
 //! let a = "xx";
-//! let b = 1;
+//! let b = "x";
 //! assert_len_ge!(a, b);
 //! # }
 //! ```
@@ -246,12 +252,12 @@
 //! * [`assert_len_ge_as_result`](macro@crate::assert_len_ge_as_result)
 //! * [`debug_assert_len_ge`](macro@crate::debug_assert_len_ge)
 
-/// Assert a length is greater than or equal to an expression.
+/// Assert a length is greater than or equal to another length.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a.len() ≥ b
+/// a.len() ≥ b.len()
 ///
-/// * If true, return Result `Ok((a.len(), b))`.
+/// * If true, return Result `Ok((a.len(), b.len()))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -273,25 +279,28 @@
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
                 <span class="kw">let </span>a_len = a.len();
-                <span class="kw">if </span>a_len &gt;= <span class="macro-nonterminal">$b </span>{
-                    <span class="prelude-val">Ok</span>((a_len, <span class="macro-nonterminal">$b</span>))
+                <span class="kw">let </span>b_len = b.len();
+                <span class="kw">if </span>a_len &gt;= b_len {
+                    <span class="prelude-val">Ok</span>((a_len, b_len))
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_len_ge!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_ge.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" a.len(): `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
-                                <span class="string">" b debug: `{:?}`"
-                            </span>),
+                                <span class="string">" b debug: `{:?}`\n"</span>,
+                                <span class="string">" b.len(): `{:?}`"</span>,
+                            ),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
                             a,
                             a_len,
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                            b
+                            b,
+                            b_len
                         )
                     )
                 }
@@ -306,7 +315,7 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span>a = <span class="string">"xx"</span>;
-        <span class="kw">let </span>b = <span class="number">1</span>;
+        <span class="kw">let </span>b = <span class="string">"x"</span>;
         <span class="kw">let </span>result = <span class="macro">assert_len_ge_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>((<span class="number">2</span>, <span class="number">1</span>)));
     }
@@ -314,7 +323,7 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span>a = <span class="string">"x"</span>;
-        <span class="kw">let </span>b = <span class="number">1</span>;
+        <span class="kw">let </span>b = <span class="string">"x"</span>;
         <span class="kw">let </span>result = <span class="macro">assert_len_ge_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(result, <span class="prelude-val">Ok</span>((<span class="number">1</span>, <span class="number">1</span>)));
     }
@@ -322,29 +331,30 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span>a = <span class="string">"x"</span>;
-        <span class="kw">let </span>b = <span class="number">2</span>;
+        <span class="kw">let </span>b = <span class="string">"xx"</span>;
         <span class="kw">let </span>result = <span class="macro">assert_len_ge_as_result!</span>(a, b);
         <span class="macro">assert_eq!</span>(
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_len_ge!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_ge.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `\"x\"`,\n"</span>,
                 <span class="string">" a.len(): `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
-                <span class="string">" b debug: `2`"
+                <span class="string">" b debug: `\"xx\"`\n"</span>,
+                <span class="string">" b.len(): `2`"
             </span>)
         );
     }
 }
 
-<span class="doccomment">/// Assert a length is greater than or equal to an expression.
+<span class="doccomment">/// Assert a length is greater than or equal to another length.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a.len() ≥ b
+/// a.len() ≥ b.len()
 ///
-/// * If true, return `(a.len(), b)`.
+/// * If true, return `(a.len(), b.len())`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -357,31 +367,33 @@
 ///
 /// # fn main() {
 /// let a = "xx";
-/// let b = 1;
+/// let b = "x";
 /// assert_len_ge!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "x";
-/// let b = 2;
+/// let b = "xx";
 /// assert_len_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_len_ge!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_ge.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
 /// //  b label: `b`,
-/// //  b debug: `2`
+/// //  b debug: `\"xx\"`,
+/// //  b.len(): `2`"
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_len_ge!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_len_ge.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_len_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `2`"
+/// #     " b debug: `\"xx\"`\n",
+/// #     " b.len(): `2`",
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -412,7 +424,7 @@
 <span class="doccomment">/// Assert a value is greater than an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// a.len() ≥ b
+/// a.len() ≥ b.len()
 ///
 /// This macro provides the same statements as [`assert_len_ge`](macro.assert_len_ge.html),
 /// except this macro's statements are only enabled in non-optimized

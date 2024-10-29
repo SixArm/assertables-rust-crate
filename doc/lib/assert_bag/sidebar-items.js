@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["assert_bag_eq2","assert_bag_ne2","assert_bag_subbag","assert_bag_superbag"]};
+window.SIDEBAR_ITEMS = {"mod":["assert_bag_eq","assert_bag_ne","assert_bag_subbag","assert_bag_superbag"]};

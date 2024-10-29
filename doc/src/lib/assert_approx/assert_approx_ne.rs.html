@@ -352,7 +352,7 @@
 /// Pseudocode:&lt;br&gt;
 /// | a - b | &gt; 1e-6
 ///
-/// * If true, return Result `Ok(diff, approx)`.
+/// * If true, return Result `Ok(abs_diff, approx)`.
 ///
 /// * When false, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -375,15 +375,15 @@
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
             (a, b) =&gt; {
                 <span class="kw">let </span>approx = <span class="number">1e-6</span>;
-                <span class="kw">let </span>diff = <span class="kw">if </span>(a &gt;= b) { a - b } <span class="kw">else </span>{ b - a };
-                <span class="kw">if </span>diff &gt; approx {
-                    <span class="prelude-val">Ok</span>((diff, approx))
+                <span class="kw">let </span>abs_diff = <span class="kw">if </span>(a &gt;= b) { a - b } <span class="kw">else </span>{ b - a };
+                <span class="kw">if </span>abs_diff &gt; approx {
+                    <span class="prelude-val">Ok</span>((abs_diff, approx))
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_approx_ne!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_ne.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_approx_ne.html\n"</span>,
                                 <span class="string">"            a label: `{}`,\n"</span>,
                                 <span class="string">"            a debug: `{:?}`,\n"</span>,
                                 <span class="string">"            b label: `{}`,\n"</span>,
@@ -396,7 +396,7 @@
                             a,
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
                             b,
-                            diff,
+                            abs_diff,
                             approx
                         )
                     )
@@ -410,7 +410,7 @@
 </span><span class="kw">mod </span>tests {
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_approx_ne_as_result_x_success() {
+    </span><span class="kw">fn </span>ne() {
         <span class="kw">let </span>a: f32 = <span class="number">1.0000001</span>;
         <span class="kw">let </span>b: f32 = <span class="number">1.0000012</span>;
         <span class="kw">let </span>result = <span class="macro">assert_approx_ne_as_result!</span>(a, b);
@@ -418,7 +418,7 @@
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_approx_ne_as_result_x_failure() {
+    </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span>a: f32 = <span class="number">1.0000001</span>;
         <span class="kw">let </span>b: f32 = <span class="number">1.0000011</span>;
         <span class="kw">let </span>result = <span class="macro">assert_approx_ne_as_result!</span>(a, b);
@@ -426,7 +426,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_approx_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_ne.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_approx_ne.html\n"</span>,
                 <span class="string">"            a label: `a`,\n"</span>,
                 <span class="string">"            a debug: `1.0000001`,\n"</span>,
                 <span class="string">"            b label: `b`,\n"</span>,
@@ -467,7 +467,7 @@
 /// assert_approx_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_approx_ne!(a, b)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_ne.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_approx_ne.html
 /// //             a label: `a`,
 /// //             a debug: `1.0000001`,
 /// //             b label: `b`,
@@ -478,7 +478,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_approx_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_approx_ne.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_approx_ne.html\n",
 /// #     "            a label: `a`,\n",
 /// #     "            a debug: `1.0000001`,\n",
 /// #     "            b label: `b`,\n",

@@ -282,7 +282,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_ends_with!(whole, part)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_ends_with.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ends_with.html\n"</span>,
                                 <span class="string">" whole label: `{}`,\n"</span>,
                                 <span class="string">" whole debug: `{:?}`,\n"</span>,
                                 <span class="string">"  part label: `{}`,\n"</span>,
@@ -319,7 +319,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_ends_with!(whole, part)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_ends_with.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ends_with.html\n"</span>,
             <span class="string">" whole label: `whole`,\n"</span>,
             <span class="string">" whole debug: `\"alfa\"`,\n"</span>,
             <span class="string">"  part label: `part`,\n"</span>,
@@ -363,7 +363,7 @@
 /// assert_ends_with!(whole, part);
 /// # });
 /// // assertion failed: `assert_ends_with!(whole, part)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_ends_with.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_ends_with.html
 /// //  whole label: `whole`,
 /// //  whole debug: `\"alfa\"`,
 /// //   part label: `part`,
@@ -371,7 +371,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ends_with!(whole, part)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_ends_with.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ends_with.html\n",
 /// #     " whole label: `whole`,\n",
 /// #     " whole debug: `\"alfa\"`,\n",
 /// #     "  part label: `part`,\n",

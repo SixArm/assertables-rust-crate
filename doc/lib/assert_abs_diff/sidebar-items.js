@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["assert_abs_diff_eq","assert_abs_diff_ge","assert_abs_diff_gt","assert_abs_diff_le","assert_abs_diff_lt","assert_abs_diff_ne"]};

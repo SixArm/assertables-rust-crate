@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["assert_fn_ok_eq","assert_fn_ok_eq2","assert_fn_ok_ge","assert_fn_ok_ge2","assert_fn_ok_gt","assert_fn_ok_gt2","assert_fn_ok_le","assert_fn_ok_le2","assert_fn_ok_lt","assert_fn_ok_lt2","assert_fn_ok_ne","assert_fn_ok_ne2"]};
+window.SIDEBAR_ITEMS = {"mod":["assert_fn_ok_eq","assert_fn_ok_eq_x","assert_fn_ok_ge","assert_fn_ok_ge_x","assert_fn_ok_gt","assert_fn_ok_gt_x","assert_fn_ok_le","assert_fn_ok_le_x","assert_fn_ok_lt","assert_fn_ok_lt_x","assert_fn_ok_ne","assert_fn_ok_ne_x"]};

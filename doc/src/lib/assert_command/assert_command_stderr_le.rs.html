@@ -261,10 +261,18 @@
 <a href="#261" id="261">261</a>
 <a href="#262" id="262">262</a>
 <a href="#263" id="263">263</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string is equal to an expression.
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (command ⇒ stderr) = (expr into string)
+//! (command1 ⇒ stderr) = (command2 ⇒ stderr)
 //!
 //! # Example
 //!
@@ -273,10 +281,11 @@
 //! use std::process::Command;
 //!
 //! # fn main() {
-//! let mut command = Command::new("bin/printf-stderr");
-//! command.args(["%s", "alfa"]);
-//! let bytes = vec![b'z', b'z'];
-//! assert_command_stderr_le!(command, bytes);
+//! let mut a = Command::new("bin/printf-stderr");
+//! a.args(["%s", "alfa"]);
+//! let mut b = Command::new("bin/printf-stderr");
+//! b.args(["%s", "zz"]);
+//! assert_command_stderr_le!(a, b);
 //! # }
 //! ```
 //!
@@ -286,10 +295,10 @@
 //! * [`assert_command_stderr_le_as_result`](macro@crate::assert_command_stderr_le_as_result)
 //! * [`debug_assert_command_stderr_le`](macro@crate::debug_assert_command_stderr_le)
 
-/// Assert a command stderr string is equal to an expression.
+/// Assert a command stderr string is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (command ⇒ stderr) = (expr into string)
+/// (command1 ⇒ stderr) = (command2 ⇒ stderr)
 ///
 /// * If true, return Result `Ok(stderr)`.
 ///
@@ -309,58 +318,57 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_le_as_result {
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="comment">/*&amp;$command,*/ </span><span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
-            b =&gt; {
-                <span class="kw">match </span><span class="macro-nonterminal">$a_command</span>.output() {
-                    <span class="prelude-val">Ok</span>(a) =&gt; {
-                        <span class="kw">let </span>a = a.stderr;
-                        <span class="kw">if </span>a.le(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
-                            <span class="prelude-val">Ok</span>(a)
-                        } <span class="kw">else </span>{
-                            <span class="prelude-val">Err</span>(
-                                <span class="macro">format!</span>(
-                                    <span class="macro">concat!</span>(
-                                        <span class="string">"assertion failed: `assert_command_stderr_le!(command, expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_le.html\n"</span>,
-                                        <span class="string">" command label: `{}`,\n"</span>,
-                                        <span class="string">" command debug: `{:?}`,\n"</span>,
-                                        <span class="string">"    expr label: `{}`,\n"</span>,
-                                        <span class="string">"    expr debug: `{:?}`,\n"</span>,
-                                        <span class="string">" command value: `{:?}`,\n"</span>,
-                                        <span class="string">"    expr value: `{:?}`"
-                                    </span>),
-                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
-                                    <span class="macro-nonterminal">$a_command</span>,
-                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                                    <span class="macro-nonterminal">$b_expr</span>,
-                                    a,
-                                    b
-                                )
-                            )
-                        }
-                    },
-                    <span class="prelude-val">Err</span>(err) =&gt; {
-                        <span class="prelude-val">Err</span>(
-                            <span class="macro">format!</span>(
-                                <span class="macro">concat!</span>(
-                                    <span class="string">"assertion failed: `assert_command_stderr_le!(command, expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_le.html\n"</span>,
-                                    <span class="string">"  command label: `{}`,\n"</span>,
-                                    <span class="string">"  command debug: `{:?}`,\n"</span>,
-                                    <span class="string">"     expr label: `{}`,\n"</span>,
-                                    <span class="string">"     expr debug: `{:?}`,\n"</span>,
-                                    <span class="string">"  output is err: `{:?}`"
-                                </span>),
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
-                                <span class="macro-nonterminal">$a_command</span>,
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                                b,
-                                err
-                            )
+    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="macro-nonterminal">$a_command</span>.output(), <span class="macro-nonterminal">$b_command</span>.output()) {
+            (<span class="prelude-val">Ok</span>(a), <span class="prelude-val">Ok</span>(b)) =&gt; {
+                <span class="kw">let </span>a = a.stderr;
+                <span class="kw">let </span>b = b.stderr;
+                <span class="kw">if </span>a.le(<span class="kw-2">&amp;</span>b) {
+                    <span class="prelude-val">Ok</span>((a, b))
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_le.html\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`,\n"</span>,
+                                <span class="string">" b label: `{}`,\n"</span>,
+                                <span class="string">" b debug: `{:?}`,\n"</span>,
+                                <span class="string">"       a: `{:?}`,\n"</span>,
+                                <span class="string">"       b: `{:?}`"
+                            </span>),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
+                            <span class="macro-nonterminal">$a_command</span>,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_command</span>),
+                            <span class="macro-nonterminal">$b_command</span>,
+                            a,
+                            b
                         )
-                    }
+                    )
                 }
+            },
+            (a, b) =&gt; {
+                <span class="prelude-val">Err</span>(
+                    <span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_le.html\n"</span>,
+                            <span class="string">" a label: `{}`,\n"</span>,
+                            <span class="string">" a debug: `{:?}`,\n"</span>,
+                            <span class="string">" b label: `{}`,\n"</span>,
+                            <span class="string">" b debug: `{:?}`,\n"</span>,
+                            <span class="string">" a output: `{:?}`,\n"</span>,
+                            <span class="string">" b output: `{:?}`"
+                        </span>),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
+                        <span class="macro-nonterminal">$a_command</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_command</span>),
+                        <span class="macro-nonterminal">$b_command</span>,
+                        a,
+                        b
+                    )
+                )
             }
         }
     }};
@@ -375,45 +383,54 @@
     </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stderr"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
-        <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'z'</span>, <span class="string">b'z'</span>];
+        <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stderr"</span>);
+        b.args([<span class="string">"%s"</span>, <span class="string">"zz"</span>]);
         <span class="kw">let </span>result = <span class="macro">assert_command_stderr_le_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>]);
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'z'</span>, <span class="string">b'z'</span>])
+        );
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stderr"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
-        <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>];
+        <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stderr"</span>);
+        b.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
         <span class="kw">let </span>result = <span class="macro">assert_command_stderr_le_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>]);
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>])
+        );
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/printf-stderr"</span>);
         a.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
-        <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'a'</span>];
+        <span class="kw">let </span><span class="kw-2">mut </span>b = Command::new(<span class="string">"bin/printf-stderr"</span>);
+        b.args([<span class="string">"%s"</span>, <span class="string">"aa"</span>]);
         <span class="kw">let </span>result = <span class="macro">assert_command_stderr_le_as_result!</span>(a, b);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_command_stderr_le!(command, expr)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_le.html\n"</span>,
-            <span class="string">" command label: `a`,\n"</span>,
-            <span class="string">" command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n"</span>,
-            <span class="string">"    expr label: `b`,\n"</span>,
-            <span class="string">"    expr debug: `[97, 97]`,\n"</span>,
-            <span class="string">" command value: `[97, 108, 102, 97]`,\n"</span>,
-            <span class="string">"    expr value: `[97, 97]`"
+            <span class="string">"assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_le.html\n"</span>,
+            <span class="string">" a label: `a`,\n"</span>,
+            <span class="string">" a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n"</span>,
+            <span class="string">" b label: `b`,\n"</span>,
+            <span class="string">" b debug: `\"bin/printf-stderr\" \"%s\" \"aa\"`,\n"</span>,
+            <span class="string">"       a: `[97, 108, 102, 97]`,\n"</span>,
+            <span class="string">"       b: `[97, 97]`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
 }
 
-<span class="doccomment">/// Assert a command stderr string is equal to an expression.
+<span class="doccomment">/// Assert a command stderr string is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (command ⇒ stderr) = (expr into string)
+/// (command1 ⇒ stderr) = (command2 ⇒ stderr)
 ///
 /// * If true, return `()`.
 ///
@@ -428,36 +445,38 @@
 /// use std::process::Command;
 ///
 /// # fn main() {
-/// let mut command = Command::new("bin/printf-stderr");
-/// command.args(["%s", "alfa"]);
-/// let bytes = vec![b'z', b'z'];
-/// assert_command_stderr_le!(command, bytes);
+/// let mut a = Command::new("bin/printf-stderr");
+/// a.args(["%s", "alfa"]);
+/// let mut b = Command::new("bin/printf-stderr");
+/// b.args(["%s", "zz"]);
+/// assert_command_stderr_le!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let mut command = Command::new("bin/printf-stderr");
-/// command.args(["%s", "alfa"]);
-/// let bytes = vec![b'a', b'a'];
-/// assert_command_stderr_le!(command, bytes);
+/// let mut a = Command::new("bin/printf-stderr");
+/// a.args(["%s", "alfa"]);
+/// let mut b = Command::new("bin/printf-stderr");
+/// b.args(["%s", "aa"]);
+/// assert_command_stderr_le!(a, b);
 /// # });
-/// // assertion failed: `assert_command_stderr_le!(command, expr)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_le.html
-/// //  command label: `command`,
-/// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
-/// //     expr label: `bytes`,
-/// //     expr debug: `[97, 97]`,
-/// //  command value: `[97, 108, 102, 97]`,
-/// //     expr value: `[97, 97]`
+/// // assertion failed: `assert_command_stderr_le!(a_command, b_command)`
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_le.html
+/// //  a label: `a`,
+/// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
+/// //  b label: `b`,
+/// //  b debug: `\"bin/printf-stderr\" \"%s\" \"aa\"`,
+/// //        a: `[97, 108, 102, 97]`,
+/// //        b: `[97, 97]`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_command_stderr_le!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_command_stderr_le.html\n",
-/// #     " command label: `command`,\n",
-/// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
-/// #     "    expr label: `bytes`,\n",
-/// #     "    expr debug: `[97, 97]`,\n",
-/// #     " command value: `[97, 108, 102, 97]`,\n",
-/// #     "    expr value: `[97, 97]`"
+/// #     "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stderr_le.html\n",
+/// #     " a label: `a`,\n",
+/// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `\"bin/printf-stderr\" \"%s\" \"aa\"`,\n",
+/// #     "       a: `[97, 108, 102, 97]`,\n",
+/// #     "       b: `[97, 97]`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -471,26 +490,23 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_command_stderr_le {
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_command_stderr_le_as_result!</span>(<span class="macro-nonterminal">$a_command</span>, <span class="macro-nonterminal">$b_expr</span>) {
+    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_command_stderr_le_as_result!</span>(<span class="macro-nonterminal">$a_command</span>, <span class="macro-nonterminal">$b_command</span>) {
             <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
-    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_command_stderr_le_as_result!</span>(<span class="macro-nonterminal">$a_command</span>, <span class="macro-nonterminal">$b_expr</span>) {
+    (<span class="macro-nonterminal">$a_command</span>:expr, <span class="macro-nonterminal">$b_command</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_command_stderr_le_as_result!</span>(<span class="macro-nonterminal">$a_command</span>, <span class="macro-nonterminal">$b_command</span>) {
             <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
 }
 
-<span class="doccomment">/// Assert a command stderr string is equal to an expression.
+<span class="doccomment">/// Assert a command stderr string is equal to another.
 ///
-/// Pseudocode:&lt;br&gt;
-/// (command ⇒ stderr) = (expr into string)
-///
-/// This macro provides the same statements as [`assert_command_stderr_le`](macro.assert_command_stderr_le.html),
+/// This macro provides the same statements as [`assert_command_stderr_le {`](macro.assert_command_stderr_le {.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -512,9 +528,9 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_command_stderr_le`](macro@crate::assert_command_stderr_le)
-/// * [`assert_command_stderr_le`](macro@crate::assert_command_stderr_le)
-/// * [`debug_assert_command_stderr_le`](macro@crate::debug_assert_command_stderr_le)
+/// * [`assert_command_stderr_le {`](macro@crate::assert_command_stderr_le {)
+/// * [`assert_command_stderr_le {`](macro@crate::assert_command_stderr_le {)
+/// * [`debug_assert_command_stderr_le {`](macro@crate::debug_assert_command_stderr_le {)
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> debug_assert_command_stderr_le {

@@ -64,9 +64,9 @@
 //!
 //! For eq &amp; ne:
 //!
-//! * [`assert_set_eq2!(collection1, collection2)`](macro@crate::assert_set_eq2) ≈ set a = set b
+//! * [`assert_set_eq!(collection1, collection2)`](macro@crate::assert_set_eq) ≈ set a = set b
 //!
-//! * [`assert_set_ne2!(collection1, collection2)`](macro@crate::assert_set_ne2) ≈ set a ≠ set b
+//! * [`assert_set_ne!(collection1, collection2)`](macro@crate::assert_set_ne) ≈ set a ≠ set b
 //!
 //! For subset &amp; superset:
 //!
@@ -89,7 +89,7 @@
 //! # fn main() {
 //! let a = [1, 2];
 //! let b = [2, 1];
-//! assert_set_eq2!(&amp;a, &amp;b);
+//! assert_set_eq!(&amp;a, &amp;b);
 //! # }
 //! ```
 
@@ -104,8 +104,8 @@
 }
 
 <span class="comment">// Comparisons
-</span><span class="kw">pub mod </span>assert_set_eq2;
-<span class="kw">pub mod </span>assert_set_ne2;
+</span><span class="kw">pub mod </span>assert_set_eq;
+<span class="kw">pub mod </span>assert_set_ne;
 
 <span class="comment">// Overlaps
 </span><span class="kw">pub mod </span>assert_set_disjoint;

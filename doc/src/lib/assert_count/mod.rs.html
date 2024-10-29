@@ -48,16 +48,6 @@
 <a href="#48" id="48">48</a>
 <a href="#49" id="49">49</a>
 <a href="#50" id="50">50</a>
-<a href="#51" id="51">51</a>
-<a href="#52" id="52">52</a>
-<a href="#53" id="53">53</a>
-<a href="#54" id="54">54</a>
-<a href="#55" id="55">55</a>
-<a href="#56" id="56">56</a>
-<a href="#57" id="57">57</a>
-<a href="#58" id="58">58</a>
-<a href="#59" id="59">59</a>
-<a href="#60" id="60">60</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing counts.
 //!
 //! These macros help with collection counts, such as for strings, arrays,
@@ -65,31 +55,21 @@
 //!
 //! Compare a count with another count:
 //!
-//! * [`assert_count_eq2!(a, b)`](macro@crate::assert_count_eq2) ≈ a.count() = b.count()
-//!
-//! * [`assert_count_ne2!(a, b)`](macro@crate::assert_count_ne2) ≈ a.count() ≠ b.count()
-//!
-//! * [`assert_count_lt2!(a, b)`](macro@crate::assert_count_lt2) ≈ a.count() &lt; b.count()
-//!
-//! * [`assert_count_le2!(a, b)`](macro@crate::assert_count_le2) ≈ a.count() ≤ b.count()
-//!
-//! * [`assert_count_gt2!(a, b)`](macro@crate::assert_count_gt2) ≈ a.count() &gt; b.count()
-//!
-//! * [`assert_count_ge2!(a, b)`](macro@crate::assert_count_ge2) ≈ a.count() ≥ b.count()
+//! * [`assert_count_eq!(a, b)`](macro@crate::assert_count_eq) ≈ a.count() = b.count()
+//! * [`assert_count_ne!(a, b)`](macro@crate::assert_count_ne) ≈ a.count() ≠ b.count()
+//! * [`assert_count_lt!(a, b)`](macro@crate::assert_count_lt) ≈ a.count() &lt; b.count()
+//! * [`assert_count_le!(a, b)`](macro@crate::assert_count_le) ≈ a.count() ≤ b.count()
+//! * [`assert_count_gt!(a, b)`](macro@crate::assert_count_gt) ≈ a.count() &gt; b.count()
+//! * [`assert_count_ge!(a, b)`](macro@crate::assert_count_ge) ≈ a.count() ≥ b.count()
 //!
 //! Compare a count with an expression:
 //!
-//! * [`assert_count_eq!(a, expr)`](macro@crate::assert_count_eq) ≈ a.count() = expr
-//!
-//! * [`assert_count_ne!(a, expr)`](macro@crate::assert_count_ne) ≈ a.count() ≠ expr
-//!
-//! * [`assert_count_lt!(a, expr)`](macro@crate::assert_count_lt) ≈ a.count() &lt; expr
-//!
-//! * [`assert_count_le!(a, expr)`](macro@crate::assert_count_le) ≈ a.count() ≤ expr
-//!
-//! * [`assert_count_gt!(a, expr)`](macro@crate::assert_count_gt) ≈ a.count() &gt; expr
-//!
-//! * [`assert_count_ge!(a, expr)`](macro@crate::assert_count_ge) ≈ a.count() ≥ expr
+//! * [`assert_count_eq_x!(a, expr)`](macro@crate::assert_count_eq_x) ≈ a.count() = expr
+//! * [`assert_count_ne_x!(a, expr)`](macro@crate::assert_count_ne_x) ≈ a.count() ≠ expr
+//! * [`assert_count_lt_x!(a, expr)`](macro@crate::assert_count_lt_x) ≈ a.count() &lt; expr
+//! * [`assert_count_le_x!(a, expr)`](macro@crate::assert_count_le_x) ≈ a.count() ≤ expr
+//! * [`assert_count_gt_x!(a, expr)`](macro@crate::assert_count_gt_x) ≈ a.count() &gt; expr
+//! * [`assert_count_ge_x!(a, expr)`](macro@crate::assert_count_ge_x) ≈ a.count() ≥ expr
 //!
 //! # Example
 //!
@@ -99,23 +79,23 @@
 //! # fn main() {
 //! let a = "x".chars();
 //! let b = "x".chars();
-//! assert_count_eq2!(a, b);
+//! assert_count_eq!(a, b);
 //! # }
 //! ```
 
 </span><span class="comment">// Compare another
-</span><span class="kw">pub mod </span>assert_count_eq2;
-<span class="kw">pub mod </span>assert_count_ge2;
-<span class="kw">pub mod </span>assert_count_gt2;
-<span class="kw">pub mod </span>assert_count_le2;
-<span class="kw">pub mod </span>assert_count_lt2;
-<span class="kw">pub mod </span>assert_count_ne2;
-
-<span class="comment">// Compare expression
 </span><span class="kw">pub mod </span>assert_count_eq;
 <span class="kw">pub mod </span>assert_count_ge;
 <span class="kw">pub mod </span>assert_count_gt;
 <span class="kw">pub mod </span>assert_count_le;
 <span class="kw">pub mod </span>assert_count_lt;
 <span class="kw">pub mod </span>assert_count_ne;
+
+<span class="comment">// Compare expression
+</span><span class="kw">pub mod </span>assert_count_eq_x;
+<span class="kw">pub mod </span>assert_count_ge_x;
+<span class="kw">pub mod </span>assert_count_gt_x;
+<span class="kw">pub mod </span>assert_count_le_x;
+<span class="kw">pub mod </span>assert_count_lt_x;
+<span class="kw">pub mod </span>assert_count_ne_x;
 </code></pre></div></section></main></body></html>

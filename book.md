@@ -41,16 +41,16 @@ let output2 = function2(input2);
 assert_eq!(output1, output2);
 ```
 
-Rust `assertables` provides the macro `assert_fn_eq2!` that does the same kind of processing, by automatically calling functions with inputs, then comparing the outputs:
+Rust `assertables` provides the macro `assert_fn_eq!` that does the same kind of processing, by automatically calling functions with inputs, then comparing the outputs:
 
 ```rust
-assert_fn_eq2!(function1, input1, function2, input2);
+assert_fn_eq!(function1, input1, function2, input2);
 ```
 
 The `assertables` message looks like:
 
 ```text
-assertion failed: `assert_fn_eq2!(left_function, left_input, right_function, right_input)`,
+assertion failed: `assert_fn_eq!(left_function, left_input, right_function, right_input)`,
   left_function label: `function1`,
      left_input label: `input1`,
      left_input debug: `…`,
@@ -63,27 +63,27 @@ assertion failed: `assert_fn_eq2!(left_function, left_input, right_function, rig
 
 Rust `assertables` provides these macros for functions:
 
-* `assert_fn_eq2!`
+* `assert_fn_eq!`
 
 * `assert_fn_eq_other!`
 
-* `assert_fn_ge2!`
+* `assert_fn_ge!`
 
 * `assert_fn_ge_other!`
 
-* `assert_fn_gt2!`
+* `assert_fn_gt!`
 
 * `assert_fn_gt_other!`
 
-* `assert_fn_le2!`
+* `assert_fn_le!`
 
 * `assert_fn_le_other!`
 
-* `assert_fn_lt2!`
+* `assert_fn_lt!`
 
 * `assert_fn_lt_other!`
 
-* `assert_fn_ne2!`
+* `assert_fn_ne!`
 
 * `assert_fn_ne_other!`
 
@@ -96,20 +96,20 @@ TODO
 
 let a = 1;
 let b = String::from("1");
-assert_fn_ok_eq2!(example_digit_to_string, a, b);
+assert_fn_ok_eq!(example_digit_to_string, a, b);
 //-> ()
 
 let a = 1;
 let b = String::from("2");
 // Panic with error message
 let result = panic::catch_unwind(|| {
-assert_fn_ok_eq2!(example_digit_to_string, a, b);
+assert_fn_ok_eq!(example_digit_to_string, a, b);
 //-> panic!
 });
 assert!(result.is_err());
 
 ```text
-assertion failed: `assert_fn_ok_eq2!(left_function, left_input, right_function, right_input)`
+assertion failed: `assert_fn_ok_eq!(left_function, left_input, right_function, right_input)`
   left_function label: `example_digit_to_string`,
      left_input label: `a`,
      left_input debug: `1`,
@@ -125,51 +125,51 @@ assertion failed: `assert_fn_ok_eq2!(left_function, left_input, right_function, 
 
 Rust `assertables` provides these macros for functions that return a Result of `Ok`, `Err`:
 
-* `assert_fn_ok_eq2!`
+* `assert_fn_ok_eq!`
 
 * `assert_fn_ok_eq_other!`
 
-* `assert_fn_ok_ge2!`
+* `assert_fn_ok_ge!`
 
 * `assert_fn_ok_ge_other!`
 
-* `assert_fn_ok_gt2!`
+* `assert_fn_ok_gt!`
 
 * `assert_fn_ok_gt_other!`
 
-* `assert_fn_ok_le2!`
+* `assert_fn_ok_le!`
 
 * `assert_fn_ok_le_other!`
 
-* `assert_fn_ok_lt2!`
+* `assert_fn_ok_lt!`
 
 * `assert_fn_ok_lt_other!`
 
-* `assert_fn_ok_ne2!`
+* `assert_fn_ok_ne!`
 
 * `assert_fn_ok_ne_other!`
 
-* `assert_fn_err_eq2!`
+* `assert_fn_err_eq!`
 
 * `assert_fn_err_eq_other!`
 
-* `assert_fn_err_ge2!`
+* `assert_fn_err_ge!`
 
 * `assert_fn_err_ge_other!`
 
-* `assert_fn_err_gt2!`
+* `assert_fn_err_gt!`
 
 * `assert_fn_err_gt_other!`
 
-* `assert_fn_err_le2!`
+* `assert_fn_err_le!`
 
 * `assert_fn_err_le_other!`
 
-* `assert_fn_err_lt2!`
+* `assert_fn_err_lt!`
 
 * `assert_fn_err_lt_other!`
 
-* `assert_fn_err_ne2!`
+* `assert_fn_err_ne!`
 
 * `assert_fn_err_ne_other!`
 
@@ -232,16 +232,16 @@ let set2: std::collections::BTreeSet<_> = array2.into_iter().collect();
 assert_eq!(set1, set2);
 ```
 
-Rust `assertables` provides the macro `assert_set_eq2!` that does the same kind of processing, by automatically converting inputs into sets, then comparing them as sets:
+Rust `assertables` provides the macro `assert_set_eq!` that does the same kind of processing, by automatically converting inputs into sets, then comparing them as sets:
 
 ```rust
-assert_set_eq2!(array1, array2);
+assert_set_eq!(array1, array2);
 ```
 
 The `assertables` message looks like:
 
 ```text
-assertion failed: `assert_set_eq2!(left_set, right_set)`
+assertion failed: `assert_set_eq!(left_set, right_set)`
   left_set label: `&array1`,
   left_set debug: `[1, 2]`,
  right_set label: `&array2`,
@@ -252,9 +252,9 @@ assertion failed: `assert_set_eq2!(left_set, right_set)`
 
 Rust `assertables` provides these macros for sets:
 
-* `assert_set_eq2`
+* `assert_set_eq`
 
-* `assert_set_ne2`
+* `assert_set_ne`
 
 * `assert_set_subset`
 
@@ -327,16 +327,16 @@ for x in array2.into_iter() {
 assert_eq!(bag1, bag2);
 ```
 
-Rust `assertables` provides the macro `assert_bag_eq2!` that does the same kind of processing, by automatically converting inputs into sets, then comparing them as bags:
+Rust `assertables` provides the macro `assert_bag_eq!` that does the same kind of processing, by automatically converting inputs into sets, then comparing them as bags:
 
 ```rust
-assert_bag_eq2!(array1, array2);
+assert_bag_eq!(array1, array2);
 ```
 
 The `aasertables` message looks like:
 
 ```text
-assertion failed: `assert_bag_eq2!(left_bag, right_bag)`
+assertion failed: `assert_bag_eq!(left_bag, right_bag)`
   left_bag label: `&array1`,
   left_bag debug: `[1, 1]`,
  right_bag label: `&array2`,
@@ -347,9 +347,9 @@ assertion failed: `assert_bag_eq2!(left_bag, right_bag)`
 
 Rust `assertables` provides these macros for bags:
 
-* `assert_bag_eq2`
+* `assert_bag_eq`
 
-* `assert_bag_ne2`
+* `assert_bag_ne`
 
 * `assert_bag_subbag`
 
@@ -389,35 +389,35 @@ let result2 = reader2.read_to_string(&mut string2);
 assert_eq!(string1, string2);
 ```
 
-Rust `assertables` provides the macro `assert_io_read_to_string_eq2!` that does the same kind of processing, by automatically calling `read_to_string()`, then comparing the outputs as strings:
+Rust `assertables` provides the macro `assert_io_read_to_string_eq!` that does the same kind of processing, by automatically calling `read_to_string()`, then comparing the outputs as strings:
 
 ```rust
-assert_io_read_to_string_eq2!(reader1, reader2);
+assert_io_read_to_string_eq!(reader1, reader2);
 ```
 
 Rust `assertables` provides these macros for readers:
 
-* `assert_io_read_to_string_eq2!`
+* `assert_io_read_to_string_eq!`
 
 * `assert_io_read_to_string_eq_other!`
 
-* `assert_io_read_to_string_ne2!`
+* `assert_io_read_to_string_ne!`
 
 * `assert_io_read_to_string_ne_other!`
 
-* `assert_io_read_to_string_lt2!`
+* `assert_io_read_to_string_lt!`
 
 * `assert_io_read_to_string_lt_other!`
 
-* `assert_io_read_to_string_le2!`
+* `assert_io_read_to_string_le!`
 
 * `assert_io_read_to_string_le_other!`
 
-* `assert_io_read_to_string_gt2!`
+* `assert_io_read_to_string_gt!`
 
 * `assert_io_read_to_string_gt_other!`
 
-* `assert_io_read_to_string_ge2!`
+* `assert_io_read_to_string_ge!`
 
 * `assert_io_read_to_string_ge_other!`
 
@@ -470,22 +470,22 @@ let string2 = String::from_utf8(command2.output().unwrap().stdout).unwrap();
 assert_eq!(string1, string2);
 ```
 
-Rust `assertables` provides the macro `assert_command_stdout_eq2!` that does the same kind of processing, by automatically converting commands into standard outputs, then into UTF-8 strings, then comparing them as strings:
+Rust `assertables` provides the macro `assert_command_stdout_eq!` that does the same kind of processing, by automatically converting commands into standard outputs, then into UTF-8 strings, then comparing them as strings:
 
 ```rust
-assert_command_eq2!(command1, command2);
+assert_command_eq!(command1, command2);
 ```
 
 Rust `assertables` provides these macros for commands and standard output:
 
-* assert_command_stdout_eq2.rs
+* assert_command_stdout_eq.rs
 * assert_command_stdout_eq_other.rs
 * assert_command_stdout_contains.rs
 * assert_command_stdout_is_match.rs
 
 Rust `assertables` provides these macros for commands and standard error:
 
-* assert_command_stderr_eq2.rs
+* assert_command_stderr_eq.rs
 * assert_command_stderr_eq_other.rs
 * assert_command_stderr_contains.rs
 * assert_command_stderr_is_match.rs
@@ -501,7 +501,7 @@ let mut command = Command::new("printf");
 command.args(["%s", "hello"]);
 ```
 
-The previous section showed that Rust `assertables` provides the macro `assert_command_stdout_eq2!` such as:
+The previous section showed that Rust `assertables` provides the macro `assert_command_stdout_eq!` such as:
 
 ```rust
 use std::process::Command;
@@ -509,18 +509,18 @@ let mut command1 = Command::new("printf");
 command1.args(["%s", "hello"]);
 let mut command2 = Command::new("printf");
 command2.args(["%s", "hello"]);
-assert_command_eq2!(string1, string2);
+assert_command_eq!(string1, string2);
 ```
 
-Rust `assertables` provides the macro `assert_program_args_eq2` that does the same kind of processing, by automatically converting programs and args into commands, then to standard outputs, then into UTF-8 stringss, then comparing them as strings:
+Rust `assertables` provides the macro `assert_program_args_eq` that does the same kind of processing, by automatically converting programs and args into commands, then to standard outputs, then into UTF-8 stringss, then comparing them as strings:
 
 ```rust
-assert_program_args_eq2!("printf", ["%s", "hello"], "printf", ["%s", "hello"]);
+assert_program_args_eq!("printf", ["%s", "hello"], "printf", ["%s", "hello"]);
 ```
 
 Rust `assertables` provides these macros for program args and standard output:
 
-* `assert_program_args_stdout_eq2!`
+* `assert_program_args_stdout_eq!`
 
 * `assert_program_args_stdout_eq_other!`
 
@@ -530,7 +530,7 @@ Rust `assertables` provides these macros for program args and standard output:
 
 Rust `assertables` provides these macros for program args and standard error:
 
-* `assert_program_args_stderr_eq2!`
+* `assert_program_args_stderr_eq!`
 
 * `assert_program_args_stderr_eq_other!`
 

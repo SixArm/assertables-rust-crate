@@ -282,10 +282,20 @@
 <a href="#282" id="282">282</a>
 <a href="#283" id="283">283</a>
 <a href="#284" id="284">284</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is equal to an expression.
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (program1 + args1 ⇒ command ⇒ stderr) = (expr into string)
+//! (program1 + args1 ⇒ command ⇒ stderr) = (program2 + args2 ⇒ command ⇒ stderr)
 //!
 //! # Example
 //!
@@ -293,23 +303,24 @@
 //! use assertables::*;
 //!
 //! # fn main() {
-//! let program = "bin/printf-stderr";
-//! let args = ["%s", "alfa"];
-//! let bytes = vec![b'a', b'l', b'f', b'a'];
-//! assert_program_args_stderr_eq!(&amp;program, &amp;args, bytes);
+//! let a_program = "bin/printf-stderr";
+//! let a_args = ["%s", "alfa"];
+//! let b_program = "bin/printf-stderr";
+//! let b_args = ["%s", "alfa"];
+//! assert_program_args_stderr_eq!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 //! # }
 //! ```
 //!
-//! # Module macros
+//! /// # Module macros
 //!
 //! * [`assert_program_args_stderr_eq`](macro@crate::assert_program_args_stderr_eq)
 //! * [`assert_program_args_stderr_eq_as_result`](macro@crate::assert_program_args_stderr_eq_as_result)
 //! * [`debug_assert_program_args_stderr_eq`](macro@crate::debug_assert_program_args_stderr_eq)
 
-/// Assert a command (built with program and args) stderr string is equal to an expression.
+/// Assert a command (built with program and args) stderr string is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr) = (expr into string)
+/// (program1 + args1 ⇒ command ⇒ stderr) = (program2 + args2 ⇒ command ⇒ stderr)
 ///
 /// * If true, return Result `Ok(stderr)`.
 ///
@@ -329,26 +340,32 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stderr_eq_as_result {
-    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
-            (a_program, a_args, b_expr) =&gt; {
-                <span class="kw">match </span><span class="macro">assert_program_args_impl_prep!</span>(a_program, a_args) {
-                    <span class="prelude-val">Ok</span>(a_output) =&gt; {
+    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
+            (a_program, a_args, b_program, b_args) =&gt; {
+                <span class="kw">match </span>(
+                    <span class="macro">assert_program_args_impl_prep!</span>(a_program, a_args),
+                    <span class="macro">assert_program_args_impl_prep!</span>(b_program, b_args)
+                ) {
+                    (<span class="prelude-val">Ok</span>(a_output), <span class="prelude-val">Ok</span>(b_output)) =&gt; {
                         <span class="kw">let </span>a = a_output.stderr;
-                        <span class="kw">if </span>a.eq(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$b_expr</span>) {
-                            <span class="prelude-val">Ok</span>(a)
+                        <span class="kw">let </span>b = b_output.stderr;
+                        <span class="kw">if </span>a.eq(<span class="kw-2">&amp;</span>b) {
+                            <span class="prelude-val">Ok</span>((a, b))
                         } <span class="kw">else </span>{
                             <span class="prelude-val">Err</span>(
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
-                                        <span class="string">"assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_eq.html\n"</span>,
+                                        <span class="string">"assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_eq.html\n"</span>,
                                         <span class="string">" a_program label: `{}`,\n"</span>,
                                         <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                         <span class="string">"    a_args label: `{}`,\n"</span>,
                                         <span class="string">"    a_args debug: `{:?}`,\n"</span>,
-                                        <span class="string">"    b_expr label: `{}`,\n"</span>,
-                                        <span class="string">"    b_expr debug: `{:?}`,\n"</span>,
+                                        <span class="string">" b_program label: `{}`,\n"</span>,
+                                        <span class="string">" b_program debug: `{:?}`,\n"</span>,
+                                        <span class="string">"    b_args label: `{}`,\n"</span>,
+                                        <span class="string">"    b_args debug: `{:?}`,\n"</span>,
                                         <span class="string">"               a: `{:?}`,\n"</span>,
                                         <span class="string">"               b: `{:?}`"
                                     </span>),
@@ -356,35 +373,43 @@
                                     a_program,
                                     <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
                                     a_args,
-                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                                    <span class="macro-nonterminal">$b_expr</span>,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
+                                    b_program,
+                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
+                                    b_args,
                                     a,
-                                    b_expr
+                                    b
                                 )
                             )
                         }
                     },
-                    <span class="prelude-val">Err</span>(err) =&gt; {
+                    (a, b) =&gt; {
                         <span class="prelude-val">Err</span>(
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
-                                    <span class="string">"assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_eq.html\n"</span>,
+                                    <span class="string">"assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_eq.html\n"</span>,
                                     <span class="string">" a_program label: `{}`,\n"</span>,
                                     <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                     <span class="string">"    a_args label: `{}`,\n"</span>,
                                     <span class="string">"    a_args debug: `{:?}`,\n"</span>,
-                                    <span class="string">"    b_expr label: `{}`,\n"</span>,
-                                    <span class="string">"    b_expr debug: `{:?}`,\n"</span>,
-                                    <span class="string">"             err: `{:?}`"
+                                    <span class="string">" b_program label: `{}`,\n"</span>,
+                                    <span class="string">" b_program debug: `{:?}`,\n"</span>,
+                                    <span class="string">"    b_args label: `{}`,\n"</span>,
+                                    <span class="string">"    b_args debug: `{:?}`,\n"</span>,
+                                    <span class="string">"               a: `{:?}`,\n"</span>,
+                                    <span class="string">"               b: `{:?}`"
                                 </span>),
                                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_program</span>),
                                 a_program,
                                 <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_args</span>),
                                 a_args,
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_expr</span>),
-                                <span class="macro-nonterminal">$b_expr</span>,
-                                err
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_program</span>),
+                                b_program,
+                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b_args</span>),
+                                b_args,
+                                a,
+                                b
                             )
                         )
                     }
@@ -398,61 +423,50 @@
 </span><span class="kw">mod </span>tests {
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>eq() {
+    </span><span class="kw">fn </span>test_assert_program_args_stderr_eq_as_result_success() {
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
-        <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>];
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stderr_eq_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>]);
+        <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
+        <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
+        <span class="kw">let </span>result =
+            <span class="macro">assert_program_args_stderr_eq_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
+        <span class="macro">assert_eq!</span>(
+            result.unwrap(),
+            (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>])
+        );
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>lt() {
+    </span><span class="kw">fn </span>test_assert_program_args_stderr_eq_as_result_failure() {
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
-        <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'z'</span>, <span class="string">b'z'</span>];
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stderr_eq_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
+        <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
+        <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"zz"</span>];
+        <span class="kw">let </span>result =
+            <span class="macro">assert_program_args_stderr_eq_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_expr)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_eq.html\n"</span>,
+            <span class="string">"assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_eq.html\n"</span>,
             <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
             <span class="string">" a_program debug: `\"bin/printf-stderr\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
             <span class="string">"    a_args debug: `[\"%s\", \"alfa\"]`,\n"</span>,
-            <span class="string">"    b_expr label: `b`,\n"</span>,
-            <span class="string">"    b_expr debug: `[122, 122]`,\n"</span>,
+            <span class="string">" b_program label: `&amp;b_program`,\n"</span>,
+            <span class="string">" b_program debug: `\"bin/printf-stderr\"`,\n"</span>,
+            <span class="string">"    b_args label: `&amp;b_args`,\n"</span>,
+            <span class="string">"    b_args debug: `[\"%s\", \"zz\"]`,\n"</span>,
             <span class="string">"               a: `[97, 108, 102, 97]`,\n"</span>,
-            <span class="string">"               b: `[122, 122]`"</span>);
-        <span class="macro">assert_eq!</span>(actual, expect);
-    }
-
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>gt() {
-        <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
-        <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
-        <span class="kw">let </span>b = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'a'</span>];
-        <span class="kw">let </span>result = <span class="macro">assert_program_args_stderr_eq_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, b);
-        <span class="kw">let </span>actual = result.unwrap_err();
-        <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_expr)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_eq.html\n"</span>,
-            <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
-            <span class="string">" a_program debug: `\"bin/printf-stderr\"`,\n"</span>,
-            <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
-            <span class="string">"    a_args debug: `[\"%s\", \"alfa\"]`,\n"</span>,
-            <span class="string">"    b_expr label: `b`,\n"</span>,
-            <span class="string">"    b_expr debug: `[97, 97]`,\n"</span>,
-            <span class="string">"               a: `[97, 108, 102, 97]`,\n"</span>,
-            <span class="string">"               b: `[97, 97]`"</span>);
+            <span class="string">"               b: `[122, 122]`"
+        </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
 }
 
-<span class="doccomment">/// Assert a command (built with program and args) stderr string is equal to an expression.
+<span class="doccomment">/// Assert a command (built with program and args) stderr string is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr) = (expr into string)
+/// (program1 + args1 ⇒ command ⇒ stderr) = (program2 + args2 ⇒ command ⇒ stderr)
 ///
 /// * If true, return `()`.
 ///
@@ -466,38 +480,44 @@
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let program = "bin/printf-stderr";
-/// let args = ["%s", "alfa"];
-/// let bytes = vec![b'a', b'l', b'f', b'a'];
-/// assert_program_args_stderr_eq!(&amp;program, &amp;args, bytes);
+/// let a_program = "bin/printf-stderr";
+/// let a_args = ["%s", "alfa"];
+/// let b_program = "bin/printf-stderr";
+/// let b_args = ["%s", "alfa"];
+/// assert_program_args_stderr_eq!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let program = "bin/printf-stderr";
-/// let args = ["%s", "alfa"];
-/// let bytes = vec![b'z', b'z'];
-/// assert_program_args_stderr_eq!(&amp;program, &amp;args, bytes);
+/// let a_program = "bin/printf-stderr";
+/// let a_args = ["%s", "alfa"];
+/// let b_program = "bin/printf-stderr";
+/// let b_args = ["%s", "zz"];
+/// assert_program_args_stderr_eq!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 /// # });
-/// // assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_expr)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_eq.html
-/// //  a_program label: `&amp;program`,
+/// // assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_eq.html
+/// //  a_program label: `&amp;a_program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
-/// //     a_args label: `&amp;args`,
+/// //     a_args label: `&amp;a_args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
-/// //     b_expr label: `bytes`,
-/// //     b_expr debug: `[122, 122]`,
+/// //  b_program label: `&amp;b_program`,
+/// //  b_program debug: `\"bin/printf-stderr\"`,
+/// //     b_args label: `&amp;b_args`,
+/// //     b_args debug: `[\"%s\", \"zz\"]`,
 /// //                a: `[97, 108, 102, 97]`,
-/// //                b: `[122]`
+/// //                b: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_program_args_stderr_eq.html\n",
-/// #     " a_program label: `&amp;program`,\n",
+/// #     "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_eq.html\n",
+/// #     " a_program label: `&amp;a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
-/// #     "    a_args label: `&amp;args`,\n",
+/// #     "    a_args label: `&amp;a_args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-/// #     "    b_expr label: `bytes`,\n",
-/// #     "    b_expr debug: `[122, 122]`,\n",
+/// #     " b_program label: `&amp;b_program`,\n",
+/// #     " b_program debug: `\"bin/printf-stderr\"`,\n",
+/// #     "    b_args label: `&amp;b_args`,\n",
+/// #     "    b_args debug: `[\"%s\", \"zz\"]`,\n",
 /// #     "               a: `[97, 108, 102, 97]`,\n",
 /// #     "               b: `[122, 122]`"
 /// # );
@@ -505,7 +525,7 @@
 /// # }
 /// ```
 ///
-/// # Module macros
+/// /// # Module macros
 ///
 /// * [`assert_program_args_stderr_eq`](macro@crate::assert_program_args_stderr_eq)
 /// * [`assert_program_args_stderr_eq_as_result`](macro@crate::assert_program_args_stderr_eq_as_result)
@@ -513,24 +533,24 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_program_args_stderr_eq {
-    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_program_args_stderr_eq_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_expr</span>) {
+    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, <span class="macro-nonterminal">$b_args</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_program_args_stderr_eq_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
             <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
-    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_expr</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_program_args_stderr_eq_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_expr</span>) {
+    (<span class="macro-nonterminal">$a_program</span>:expr, <span class="macro-nonterminal">$a_args</span>:expr, <span class="macro-nonterminal">$b_program</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_program_args_stderr_eq_as_result!</span>(<span class="macro-nonterminal">$a_program</span>, <span class="macro-nonterminal">$a_args</span>, <span class="macro-nonterminal">$b_program</span>, <span class="macro-nonterminal">$b_args</span>) {
             <span class="prelude-val">Ok</span>(x) =&gt; x,
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }
     }};
 }
 
-<span class="doccomment">/// Assert a command (built with program and args) stderr string is equal to an expression.
+<span class="doccomment">/// Assert a command (built with program and args) stderr string is equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr) = (expr into string)
+/// (program1 + args1 ⇒ command ⇒ stderr) = (program2 + args2 ⇒ command ⇒ stderr)
 ///
 /// This macro provides the same statements as [`assert_program_args_stderr_eq`](macro.assert_program_args_stderr_eq.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["assert_set_disjoint","assert_set_eq2","assert_set_joint","assert_set_ne2","assert_set_subset","assert_set_superset"]};
+window.SIDEBAR_ITEMS = {"mod":["assert_set_disjoint","assert_set_eq","assert_set_joint","assert_set_ne","assert_set_subset","assert_set_superset"]};

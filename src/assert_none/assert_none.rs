@@ -55,7 +55,7 @@ macro_rules! assert_none_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_none!(a)`\n",
-                                    "https://docs.rs/assertables/9.0.0/assertables/macro.assert_none.html\n",
+                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_none.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`",
                                 ),
@@ -74,21 +74,21 @@ macro_rules! assert_none_as_result {
 mod tests {
 
     #[test]
-    fn test_assert_none_as_result_x_success() {
+    fn test_assert_none_as_result_success() {
         let a: Option<i8> = Option::None;
         let result = assert_none_as_result!(a);
         assert_eq!(result, Ok(()));
     }
 
     #[test]
-    fn test_assert_none_as_result_x_failure() {
+    fn test_assert_none_as_result_failure() {
         let a: Option<i8> = Option::Some(1);
         let result = assert_none_as_result!(a);
         assert_eq!(
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_none!(a)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_none.html\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_none.html\n",
                 " a label: `a`,\n",
                 " a debug: `Some(1)`",
             )
@@ -122,13 +122,13 @@ mod tests {
 /// assert_none!(a);
 /// # });
 /// // assertion failed: `assert_none!(a)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_none.html
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_none.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_none!(a)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_none.html\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_none.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`",
 /// # );

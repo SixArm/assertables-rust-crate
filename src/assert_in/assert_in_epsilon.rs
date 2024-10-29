@@ -89,26 +89,26 @@ macro_rules! assert_in_epsilon_as_result {
     ($a:expr, $b:expr, $epsilon:expr $(,)?) => {{
         match (&$a, &$b, &$epsilon) {
             (a, b, epsilon) => {
-                let diff = if (a >= b) { a - b } else { b - a };
+                let abs_diff = if (a >= b) { a - b } else { b - a };
                 let min = if (a < b) { a } else { b };
                 let rhs = *epsilon * min;
-                if diff <= rhs {
-                    Ok((diff, rhs))
+                if abs_diff <= rhs {
+                    Ok((abs_diff, rhs))
                 } else {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
-                                "                         a label: `{}`,\n",
-                                "                         a debug: `{:?}`,\n",
-                                "                         b label: `{}`,\n",
-                                "                         b debug: `{:?}`,\n",
-                                "                   epsilon label: `{}`,\n",
-                                "                   epsilon debug: `{:?}`,\n",
-                                "                       | a - b |: `{:?}`,\n",
-                                "             epsilon * min(a, b): `{:?}`,\n",
-                                " | a - b | ≤ epsilon * min(a, b): {}",
+                                "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
+                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_in_epsilon.html\n",
+                                "                   a label: `{}`,\n",
+                                "                   a debug: `{:?}`,\n",
+                                "                   b label: `{}`,\n",
+                                "                   b debug: `{:?}`,\n",
+                                "                   ε label: `{}`,\n",
+                                "                   ε debug: `{:?}`,\n",
+                                "                 | a - b |: `{:?}`,\n",
+                                "             ε * min(a, b): `{:?}`,\n",
+                                " | a - b | ≤ ε * min(a, b): {}",
                             ),
                             stringify!($a),
                             a,
@@ -116,7 +116,7 @@ macro_rules! assert_in_epsilon_as_result {
                             b,
                             stringify!($epsilon),
                             epsilon,
-                            diff,
+                            abs_diff,
                             rhs,
                             false
                         )
@@ -143,22 +143,22 @@ mod tests {
     fn test_assert_in_epsilon_as_result_x_failure() {
         let a: i8 = 10;
         let b: i8 = 30;
-        let e: i8 = 1;
-        let result = assert_in_epsilon_as_result!(a, b, e);
+        let epsilon: i8 = 1;
+        let result = assert_in_epsilon_as_result!(a, b, epsilon);
         assert_eq!(
             result.unwrap_err(),
             concat!(
-                "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-                "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
-                "                         a label: `a`,\n",
-                "                         a debug: `10`,\n",
-                "                         b label: `b`,\n",
-                "                         b debug: `30`,\n",
-                "                   epsilon label: `e`,\n",
-                "                   epsilon debug: `1`,\n",
-                "                       | a - b |: `20`,\n",
-                "             epsilon * min(a, b): `10`,\n",
-                " | a - b | ≤ epsilon * min(a, b): false"
+                "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
+                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_in_epsilon.html\n",
+                "                   a label: `a`,\n",
+                "                   a debug: `10`,\n",
+                "                   b label: `b`,\n",
+                "                   b debug: `30`,\n",
+                "                   ε label: `epsilon`,\n",
+                "                   ε debug: `1`,\n",
+                "                 | a - b |: `20`,\n",
+                "             ε * min(a, b): `10`,\n",
+                " | a - b | ≤ ε * min(a, b): false"
             )
         );
     }
@@ -190,33 +190,33 @@ mod tests {
 /// // This will panic
 /// let a: i8 = 10;
 /// let b: i8 = 30;
-/// let e: i8 = 1;
-/// assert_in_epsilon!(a, b, e);
+/// let epsilon: i8 = 1;
+/// assert_in_epsilon!(a, b, epsilon);
 /// # });
 /// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-/// // https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html
-/// //                          a label: `a`,
-/// //                          a debug: `10`,
-/// //                          b label: `b`,
-/// //                          b debug: `30`,
-/// //                    epsilon label: `e`,
-/// //                    epsilon debug: `1`,
-/// //                        | a - b |: `20`,
-/// //              epsilon * min(a, b): `10`,\n",
-/// //  | a - b | ≤ epsilon * min(a, b): false"
+/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_in_epsilon.html
+/// //                    a label: `a`,
+/// //                    a debug: `10`,
+/// //                    b label: `b`,
+/// //                    b debug: `30`,
+/// //                    ε label: `epsilon`,
+/// //                    ε debug: `1`,
+/// //                  | a - b |: `20`,
+/// //              ε * min(a, b): `10`,\n",
+/// //  | a - b | ≤ ε * min(a, b): false"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_in_epsilon!(a, b, epsilon)`\n",
-/// #     "https://docs.rs/assertables/9.0.0/assertables/macro.assert_in_epsilon.html\n",
-/// #     "                         a label: `a`,\n",
-/// #     "                         a debug: `10`,\n",
-/// #     "                         b label: `b`,\n",
-/// #     "                         b debug: `30`,\n",
-/// #     "                   epsilon label: `e`,\n",
-/// #     "                   epsilon debug: `1`,\n",
-/// #     "                       | a - b |: `20`,\n",
-/// #     "             epsilon * min(a, b): `10`,\n",
-/// #     " | a - b | ≤ epsilon * min(a, b): false"
+/// #     "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
+/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_in_epsilon.html\n",
+/// #     "                   a label: `a`,\n",
+/// #     "                   a debug: `10`,\n",
+/// #     "                   b label: `b`,\n",
+/// #     "                   b debug: `30`,\n",
+/// #     "                   ε label: `epsilon`,\n",
+/// #     "                   ε debug: `1`,\n",
+/// #     "                 | a - b |: `20`,\n",
+/// #     "             ε * min(a, b): `10`,\n",
+/// #     " | a - b | ≤ ε * min(a, b): false"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
