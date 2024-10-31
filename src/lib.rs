@@ -17,132 +17,118 @@
 //! * Test values with
 //!   [assert_lt](module@crate::assert_lt),
 //!   [assert_gt](module@crate::assert_gt),
-//!   [etc.](https://docs.rs/assertables/)
-//! * Test strings with
-//!   [assert_starts_with](module@crate::assert_starts_with),
-//!   [assert_ends_with](module@crate::assert_ends_with),
-//!   [etc.](https://docs.rs/assertables/)
+//!   [more…](module@crate::assert_approx))
+//! * Test results with
+//!   [assert_ok](module@crate::assert_ok),
+//!   [assert_err](module@crate::assert_err),
+//!   [more…](module@crate::assert_ok::assert_ok_eq_x)
 //! * Test groups with
 //!   [assert_all](module@crate::assert_all),
 //!   [assert_any](module@crate::assert_any),
-//!   [etc.](https://docs.rs/assertables/)
-//!
-//! There are many more for
-//!   [results](https://docs.rs/assertables/9.1.0/assertables/assert_result),
-//!   [options](https://docs.rs/assertables/9.1.0/assertables/assert_option),
-//!   [polls](https://docs.rs/assertables/9.1.0/assertables/assert_poll),
-//!   [matches](https://docs.rs/assertables/9.1.0/assertables/assert_matches),
-//!   [iterators](https://docs.rs/assertables/9.1.0/assertables/assert_iter),
-//!   [sets](https://docs.rs/assertables/9.1.0/assertables/assert_set),
-//!   [files](https://docs.rs/assertables/9.1.0/assertables/assert_fs_read_to_string),
-//!   [bytes](https://docs.rs/assertables/9.1.0/assertables/assert_io_read_to_string),
-//!   [commands](https://docs.rs/assertables/9.1.0/assertables/assert_command),
-//!   [etc.](https://docs.rs/assertables/)
+//!   [more…](module@crate::assert_iter)
+//! * Many more below.
 //!
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.1.0"
+//! assertables = "9.2.0"
 //! ``````
 //!
-//! Top benefits:
+//! Benefits:
 //!
-//! 1. You can write better tests to improve reliability and maintainability.
-//! 2. You can handle more corner cases without needing to write custom code.
-//! 3. You can troubleshoot faster because error messages show specifics.
+//! * You will write better tests to improve reliability and maintainability.
+//! * You will handle more corner cases without needing to write custom code.
+//! * You will troubleshoot faster because error messages show more detail.
 //!
-//! Top features:
+//! Features:
 //!
-//! 1. Easy to use: everything is well-documented with runnable examples.
-//! 2. Zero overhead: if you don't use a macro, then it's not compiled.
-//! 3. Multiple forms: for debugging, for results, and for success returns.
+//! * Easy to use: everything is well-documented with runnable examples.
+//! * Zero overhead: if you don't use a macro, then it's not compiled.
+//! * Multiple forms: for panic, debug, result return, success return.
 //!
-//! Help:
+//! Learning:
+//! [FAQ](https://github.com/SixArm/assertables-rust-crate/tree/main/help/faq),
+//! [examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/examples/),
+//! [changes](https://github.com/SixArm/assertables-rust-crate/tree/main/CHANGES.md),
+//! [upgrades](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9),
+//! [docs](https://docs.rs/assertables/).
 //!
-//! * [Documentation](https://docs.rs/assertables/)
-//! * [Frequently asked questions](https://github.com/SixArm/assertables-rust-crate/tree/main/help/faq)
-//! * [Examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/examples/)
-//! * [Upgrade from version 8 to 9](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9)
-//! * [Comparisons to more_asserts, cool_asserts, assert2, claims, etc.](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
+//! Comparisons:
+//! [more_asserts](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/more_asserts), [cool_asserts](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/cool_asserts),
+//! [assert2](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/assert2),
+//! [claims](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/more_asserts),
+//! [etc.](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
 //!
 //! ## Highlights
 //!
 //! Values:
 //!
-//! * [`assert_eq!(a, b)`](module@crate::assert_eq) `// a == b`
-//! * [`assert_ne!(a, b)`](module@crate::assert_ne) `// a != b`
-//! * [`assert_lt!(a, b)`](module@crate::assert_lt) `// a < b`
-//! * [`assert_le!(a, b)`](module@crate::assert_le) `// a <= b`
-//! * [`assert_gt!(a, b)`](module@crate::assert_gt) `// a > b`
-//! * [`assert_ge!(a, b)`](module@crate::assert_ge) `// a >= b`
+//! * [`assert_eq!(a, b)`](module@crate::assert_eq) ≈ a = b
+//! * [`assert_ne!(a, b)`](module@crate::assert_ne) ≈ a ≠ b
+//! * [`assert_lt!(a, b)`](module@crate::assert_lt) ≈ a < b
+//! * [`assert_le!(a, b)`](module@crate::assert_le) ≈ a ≤ b
+//! * [`assert_gt!(a, b)`](module@crate::assert_gt) ≈ a > b
+//! * [`assert_ge!(a, b)`](module@crate::assert_ge) ≈ a ≥ b
 //!
 //! Differences:
 //!
-//! * [`assert_approx_eq!(a, b)`](module@crate::assert_approx::assert_approx_eq) `// |a-b| <= 1e-6`
-//! * [`assert_abs_diff_eq!(a, b, delta)`](module@crate::assert_abs_diff::assert_abs_diff_eq) `// |a-b| == Δ`
-//! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta) `// |a-b| <= Δ`
-//! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon) `// |a-b| <= ε min(a,b)`
+//! * [`assert_approx_eq!(a, b)`](module@crate::assert_approx::assert_approx_eq) ≈ |a-b| ≤ 1e-6
+//! * [`assert_abs_diff_eq!(a, b, delta)`](module@crate::assert_abs_diff::assert_abs_diff_eq) ≈ |a-b| = Δ
+//! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta) ≈ |a-b| ≤ Δ
+//! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)
 //!
-//! Groups for iterators, chars, etc.:
+//! Groups:
 //!
-//! * [`assert_all!(group, predicate)`](module@crate::assert_all) `// group.all(predicate)`
-//! * [`assert_any!(group, predicate)`](module@crate::assert_any) `// group.any(predicate)`
-//!
-//! Infix for order operators, logic operators, etc.:
-//!
-//! * [`assert_infix!(a == b)`](module@crate::assert_infix) `// order operators: == != < <= > >=`
-//! * [`assert_infix!(a && b)`](module@crate::assert_infix) `// logic operators: && || ^ & |`
-//!
-//! Lengths and counts for strings, vectors, iterators, etc.:
-//!
-//! * [`assert_len_eq!(item, x)`](module@crate::assert_len::assert_len_eq) `// item.len() == x`
-//! * [`assert_count_eq!(item, x)`](module@crate::assert_count::assert_count_eq) `// item.count() == x`
-//! * [`assert_is_empty!(item)`](module@crate::assert_is_empty::assert_is_empty) `// item.is_empty()`
+//! * [`assert_all!(group, predicate)`](module@crate::assert_all) ≈ group.all(predicate)
+//! * [`assert_any!(group, predicate)`](module@crate::assert_any) ≈ group.any(predicate)
+//! * [`assert_is_empty!(group)`](module@crate::assert_is_empty::assert_is_empty) ≈ a.is_empty()
+//! * [`assert_len_eq!(a, b)`](module@crate::assert_len::assert_len_eq) ≈ a.len() = b.len()
+//! * [`assert_count_eq!(a, b)`](module@crate::assert_count::assert_count_eq) ≈ a.count() = b.count()
 //!
 //! Matching:
 //!
-//! * [`assert_starts_with!(whole, part)`](module@crate::assert_starts_with) `// whole.starts_with(part)`
-//! * [`assert_ends_with!(whole, part)`](module@crate::assert_ends_with) `// whole.ends_with(part)`
-//! * [`assert_contains!(container, x)`](module@crate::assert_contains) `// container.contains(x)`
-//! * [`assert_matches!(expr, pattern)`](module@crate::assert_matches) `// matches!(expr, pattern)`
-//! * [`assert_is_match!(matcher, x)`](module@crate::assert_is_match) `// matcher.is_match(x)`
+//! * [`assert_starts_with!(sequence, x)`](module@crate::assert_starts_with) ≈ sequence.starts_with(x)
+//! * [`assert_ends_with!(sequence, x)`](module@crate::assert_ends_with) ≈ sequence.ends_with(x)
+//! * [`assert_contains!(container, x)`](module@crate::assert_contains) ≈ container.contains(x)
+//! * [`assert_is_match!(matcher, x)`](module@crate::assert_is_match) ≈ matcher.is_match(x)
+//! * [`assert_matches!(expr, pattern)`](module@crate::assert_matches) ≈ matches!(expr, pattern)
 //!
 //! Results:
 //!
-//! * [`assert_ok!(a)`](module@crate::assert_ok) `// a is Ok`
-//! * [`assert_ok_eq_x!(a, 1)`](module@crate::assert_ok::assert_ok_eq_x) `// a is Ok(1)`
-//! * [`assert_err!(a)`](module@crate::assert_err) `// a is Err`
+//! * [`assert_ok!(a)`](module@crate::assert_ok) ≈ a is Ok
+//! * [`assert_err!(a)`](module@crate::assert_err) ≈ a is Err
+//! * [`assert_ok_eq_x!(a, x)`](module@crate::assert_ok::assert_ok_eq_x) ≈ (a is Ok ⇒ unwrap) = x
 //!
 //! Options:
 //!
-//! * [`assert_some!(a)`](module@crate::assert_some) `// a is Some`
-//! * [`assert_some_eq_x!(a, 1)`](module@crate::assert_some::assert_some_eq_x) `// a is Some(1)`
-//! * [`assert_none!(a)`](module@crate::assert_none) `// a is None`
+//! * [`assert_some!(a)`](module@crate::assert_some) ≈ a is Some
+//! * [`assert_none!(a)`](module@crate::assert_none) ≈ a is None
+//! * [`assert_some_eq_x!(a, x)`](module@crate::assert_some::assert_some_eq_x) ≈ (a is Some ⇒ unwrap) = x
 //!
 //! Polls:
 //!
-//! * [`assert_ready!(a)`](module@crate::assert_ready) `// a is Ready`
-//! * [`assert_ready_eq_x!(a, 1)`](module@crate::assert_ready::assert_ready_eq_x) `// a is Ready(1)`
-//! * [`assert_pending!(a)`](module@crate::assert_pending) `// a is Pending`
+//! * [`assert_ready!(a)`](module@crate::assert_ready) ≈ a is Ready
+//! * [`assert_pending!(a)`](module@crate::assert_pending) ≈ a is Pending
+//! * [`assert_ready_eq_x!(a, x)`](module@crate::assert_ready::assert_ready_eq_x) ≈ (a is Ready ⇒ unwrap) = x
 //!
 //! Readers:
 //!
-//! * [`assert_fs_read_to_string_eq!(a_path, b_path)`](module@crate::assert_fs_read_to_string) `// read a_path == read b_path`
-//! * [`assert_io_read_to_string_eq!(a_bytes, b_bytes)`](module@crate::assert_io_read_to_string) `// read a_bytes == read b_bytes`
-//!
-//! Commands:
-//!
-//! * [`assert_command_stdout_eq!(a_command, b_command)`](module@crate::assert_command) `// a_command stdout == b_command stdout`
-//! * [`assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`](module@crate::assert_program_args) `// a_program a_args stderr == b_program b_args stderr`
+//! * [`assert_fs_read_to_string_eq!(a_path, b_path)`](module@crate::assert_fs_read_to_string) ≈ (a_path ⇒ string) = (b_path ⇒ string)
+//! * [`assert_io_read_to_string_eq!(a_bytes, b_bytes)`](module@crate::assert_io_read_to_string) ≈ (a_bytes ⇒ string) = (b_bytes ⇒ string)
 //!
 //! Collections:
 //!
-//! * [`assert_iter_eq!(a, b)`](module@crate::assert_iter) `// a into iter == b into iter`
-//! * [`assert_set_eq!(a, b)`](module@crate::assert_set) `// a into set == b into set`
-//! * [`assert_bag_eq!(a, b)`](module@crate::assert_bag) `// a into bag == = b into bag`
+//! * [`assert_iter_eq!(a, b)`](module@crate::assert_iter) ≈ a into iter = b into iter
+//! * [`assert_set_eq!(a, b)`](module@crate::assert_set) ≈ a into set = b into set
+//! * [`assert_bag_eq!(a, b)`](module@crate::assert_bag) ≈ a into bag = = b into bag
+//!
+//! Infix notation:
+//!
+//! * [`assert_infix!(a == b)`](module@crate::assert_infix) ≈ order operators == != < <= > >=
+//! * [`assert_infix!(a && b)`](module@crate::assert_infix) ≈ logic operators && || ^ & |
 //!
 //! For a complete list of modules and macros, see the
-//! [docs](https://docs.rs/assertables/)
+//! [docs](https://docs.rs/assertables/).
 //!
 //! ## Forms
 //!
@@ -150,19 +136,21 @@
 //!
 //! All the macros have forms for an optional message:
 //!
-//! * [`assert_gt!(a, b)`](module@crate::assert_gt) `// default message`
-//! * [`assert_gt!(a, b, "your text")`](module@crate::assert_gt) `// custom message`
+//! * [`assert_gt!(a, b)`](module@crate::assert_gt) ≈ default message
+//! * [`assert_gt!(a, b, "your text")`](module@crate::assert_gt) ≈ custom message
 //!
 //! All the macros have forms for different outcomes:
 //!
-//! * [`assert_gt!(a, b)`](macro@crate::assert_gt) `// panic`
-//! * [`assert_gt_as_result!(a, b)`](macro@crate::assert_gt_as_result) `// return Result, no panic`
-//! * [`debug_assert_gt!(a, b)`](macro@crate::debug_assert_gt) `// special use in debug mode`
+//! * [`assert_gt!(1, 2)`](macro@crate::assert_gt) ≈ panic
+//! * [`assert_gt_as_result!(1, 2)`](macro@crate::assert_gt_as_result) ≈ Result Err
+//! * [`debug_assert_gt!(1, 2)`](macro@crate::debug_assert_gt) ≈ panic in debug mode
 //!
-//! Many of the macros have a "solo" form for comparing one item to an expression, and a "pair" form for comparing two items to each other:
+//! Many of the macros have a form "compare left item to right item" that compares
+//! items of the same kind, and a form "compare left item to right expression" that
+//! compares one item to any arbitrary expression:
 //!
-//! * [`assert_ok_eq!(a, x)`](module@crate::assert_ok::assert_ok_eq)) `// a.unwrap() == x`
-//! * [`assert_ok_eq!(a, b)`](module@crate::assert_ok::assert_ok_eq) `// a.unwrap() == b.unwrap()`
+//! * [`assert_len_eq!(a, b)`](module@crate::assert_ok::assert_ok_eq) ≈ a.len() = b.len()
+//! * [`assert_len_eq_x!(a, x)`](module@crate::assert_ok::assert_ok_eq_x)) ≈ a.len() = x
 //!
 //! Many of the macros has a "success return", which means the macro returns data that you can optionally use for more testing.
 //!
@@ -173,9 +161,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.1.0
+//! * Version: 9.2.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-29T20:21:37Z
+//! * Updated: 2024-10-31T11:04:30Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
@@ -243,4 +231,5 @@ pub mod assert_io_read_to_string;
 
 // For externals
 pub mod assert_command;
+pub mod assert_process;
 pub mod assert_program_args;

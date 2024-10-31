@@ -187,16 +187,6 @@
 <a href="#187" id="187">187</a>
 <a href="#188" id="188">188</a>
 <a href="#189" id="189">189</a>
-<a href="#190" id="190">190</a>
-<a href="#191" id="191">191</a>
-<a href="#192" id="192">192</a>
-<a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
-<a href="#195" id="195">195</a>
-<a href="#196" id="196">196</a>
-<a href="#197" id="197">197</a>
-<a href="#198" id="198">198</a>
-<a href="#199" id="199">199</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert expression is Err.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -242,31 +232,21 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_err_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>) {
-            a =&gt; {
-                <span class="kw">match </span>(a) {
-                    <span class="prelude-val">Err</span>(a1) =&gt; {
-                        <span class="prelude-val">Ok</span>(a1)
-                    },
-                    <span class="kw">_ </span>=&gt; {
-                        <span class="prelude-val">Err</span>(
-                            <span class="macro">format!</span>(
-                                <span class="macro">concat!</span>(
-                                    <span class="string">"assertion failed: `assert_err!(a)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err.html\n"</span>,
-                                    <span class="string">" a label: `{}`,\n"</span>,
-                                    <span class="string">" a debug: `{:?}`"</span>,
-                                ),
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                                a
-                            )
-                        )
-                    }
-                }
-            }
+    (<span class="macro-nonterminal">$a</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {
+        <span class="kw">match </span>(<span class="macro-nonterminal">$a</span>) {
+            <span class="prelude-val">Err</span>(a1) =&gt; <span class="prelude-val">Ok</span>(a1),
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
+                <span class="macro">concat!</span>(
+                    <span class="string">"assertion failed: `assert_err!(a)`\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_err.html\n"</span>,
+                    <span class="string">" a label: `{}`,\n"</span>,
+                    <span class="string">" a debug: `{:?}`"</span>,
+                ),
+                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                <span class="macro-nonterminal">$a
+            </span>)),
         }
-    }};
+    };
 }
 
 <span class="attr">#[cfg(test)]
@@ -276,7 +256,7 @@
     </span><span class="kw">fn </span>test_assert_err_as_result_x_success() {
         <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_err_as_result!</span>(a);
-        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="kw-2">&amp;</span><span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="number">1</span>);
     }
 
     <span class="attr">#[test]
@@ -287,7 +267,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_err!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_err.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ok(1)`"</span>,
             )
@@ -321,13 +301,13 @@
 /// assert_err!(a);
 /// # });
 /// // assertion failed: `assert_err!(a)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_err.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_err!(a)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`",
 /// # );

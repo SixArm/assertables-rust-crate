@@ -261,7 +261,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_any!(collection, predicate)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_any.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_any.html\n"</span>,
                             <span class="string">" collection label: `{}`,\n"</span>,
                             <span class="string">" collection debug: `{:?}`,\n"</span>,
                             <span class="string">"        predicate: `{}`"</span>,
@@ -294,7 +294,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_any!(collection, predicate)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_any.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_any.html\n"</span>,
                 <span class="string">" collection label: `a.into_iter()`,\n"</span>,
                 <span class="string">" collection debug: `IntoIter([1, 2, 3])`,\n"</span>,
                 <span class="string">"        predicate: `|x: i8| x &gt; 3`"
@@ -329,14 +329,14 @@
 /// assert_any!(a.into_iter(), |x: i8| x &gt; 3);
 /// # });
 /// // assertion failed: `assert_any!(collection, predicate)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_any.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_any.html
 /// //  collection label: `a.into_iter()`,
 /// //  collection debug: `IntoIter([1, 2, 3])`,
 /// //         predicate: `|x: i8| x &gt; 3`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_any!(collection, predicate)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_any.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_any.html\n",
 /// #     " collection label: `a.into_iter()`,\n",
 /// #     " collection debug: `IntoIter([1, 2, 3])`,\n",
 /// #     "        predicate: `|x: i8| x &gt; 3`",

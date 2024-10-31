@@ -59,7 +59,7 @@ macro_rules! assert_command_stdout_le_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_le.html\n",
+                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_le.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -82,7 +82,7 @@ macro_rules! assert_command_stdout_le_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_le.html\n",
+                            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_le.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -144,7 +144,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_le.html\n",
+            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -189,7 +189,7 @@ mod tests {
 /// assert_command_stdout_le!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stdout_le!(a_command, b_command)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_le.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_le.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
@@ -199,7 +199,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_le.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",

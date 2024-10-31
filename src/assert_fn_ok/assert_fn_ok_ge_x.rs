@@ -65,7 +65,7 @@ macro_rules! assert_fn_ok_ge_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fn_ok_ge_x!(a_function, a_param, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_ok_ge_x.html\n",
+                                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_ok_ge_x.html\n",
                                         " a_function label: `{}`,\n",
                                         "    a_param label: `{}`,\n",
                                         "    a_param debug: `{:?}`,\n",
@@ -90,7 +90,7 @@ macro_rules! assert_fn_ok_ge_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fn_ok_ge_x!(a_function, a_param, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_ok_ge_x.html\n",
+                                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_ok_ge_x.html\n",
                                     " a_function label: `{}`,\n",
                                     "    a_param label: `{}`,\n",
                                     "    a_param debug: `{:?}`,\n",
@@ -126,7 +126,7 @@ macro_rules! assert_fn_ok_ge_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fn_ok_ge_x!(a_function, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_ok_ge_x.html\n",
+                                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_ok_ge_x.html\n",
                                         " a_function label: `{}`,\n",
                                         "     b_expr label: `{}`,\n",
                                         "     b_expr debug: `{:?}`,\n",
@@ -147,7 +147,7 @@ macro_rules! assert_fn_ok_ge_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fn_ok_ge_x!(a_function, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_ok_ge_x.html\n",
+                                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_ok_ge_x.html\n",
                                     " a_function label: `{}`,\n",
                                     "     b_expr label: `{}`,\n",
                                     "     b_expr debug: `{:?}`,\n",
@@ -203,7 +203,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_ok_ge_x!(a_function, a_param, b_expr)`\n",
-                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_ok_ge_x.html\n",
+                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_ok_ge_x.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
@@ -244,7 +244,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_ok_ge_x!(a_function, b_expr)`\n",
-                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_ok_ge_x.html\n",
+                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_ok_ge_x.html\n",
                         " a_function label: `f`,\n",
                         "     b_expr label: `b`,\n",
                         "     b_expr debug: `2`,\n",
@@ -291,7 +291,7 @@ mod tests {
 /// assert_fn_ok_ge_x!(f, a, b);
 /// # });
 /// // assertion failed: `assert_fn_ok_ge_x!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_ok_ge_x.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_ok_ge_x.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `1`,
@@ -302,7 +302,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_ok_ge_x!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fn_ok_ge_x.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_ok_ge_x.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `1`,\n",

@@ -262,7 +262,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_ge!(a, b)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ge.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_ge.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -299,7 +299,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ge!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ge.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_ge.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `1`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -337,7 +337,7 @@
 /// assert_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_ge!(a, b)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_ge.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_ge.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,
@@ -345,7 +345,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ge!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ge.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",

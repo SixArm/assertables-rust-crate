@@ -248,7 +248,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_is_empty!(a)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_is_empty.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_is_empty.html\n"</span>,
                                 <span class="string">" label: `{}`,\n"</span>,
                                 <span class="string">" debug: `{:?}`"</span>,
                             ),
@@ -279,7 +279,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_is_empty!(a)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_is_empty.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_is_empty.html\n"</span>,
             <span class="string">" label: `a`,\n"</span>,
             <span class="string">" debug: `\"alfa\"`"
         </span>);
@@ -313,13 +313,13 @@
 /// assert_is_empty!(a);
 /// # });
 /// // assertion failed: `assert_is_empty!(a)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_is_empty.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_is_empty.html
 /// //  label: `a`,
 /// //  debug: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_is_empty!(a)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_is_empty.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_is_empty.html\n",
 /// #     " label: `a`,\n",
 /// #     " debug: `\"alfa\"`"
 /// # );

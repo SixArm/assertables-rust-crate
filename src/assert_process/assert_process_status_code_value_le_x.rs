@@ -45,8 +45,8 @@
 ///
 #[macro_export]
 macro_rules! assert_process_status_code_value_le_x_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        match ($a.status()) {
+    ($a_process:expr, $b:expr $(,)?) => {{
+        match ($a_process.status()) {
             Ok(a1) => {
                 match (a1.code()) {
                     Some(a2) => {
@@ -64,8 +64,8 @@ macro_rules! assert_process_status_code_value_le_x_as_result {
                                         " b label: `{}`,\n",
                                         " b debug: `{:?}`"
                                     ),
-                                    stringify!($a),
-                                    $a,
+                                    stringify!($a_process),
+                                    $a_process,
                                     a2,
                                     stringify!($b),
                                     $b
@@ -85,8 +85,8 @@ macro_rules! assert_process_status_code_value_le_x_as_result {
                                     " b label: `{}`,\n",
                                     " b debug: `{:?}`",
                                 ),
-                                stringify!($a),
-                                $a,
+                                stringify!($a_process),
+                                $a_process,
                                 a_code,
                                 stringify!($b),
                                 $b,
@@ -107,8 +107,8 @@ macro_rules! assert_process_status_code_value_le_x_as_result {
                             "  b label: `{}`,\n",
                             "  b debug: `{:?}`",
                         ),
-                        stringify!($a),
-                        $a,
+                        stringify!($a_process),
+                        $a_process,
                         a_status,
                         stringify!($b),
                         $b
@@ -219,14 +219,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_process_status_code_value_le_x {
-    ($a:expr, $b:expr $(,)?) => {{
-        match $crate::assert_process_status_code_value_le_x_as_result!($a, $b) {
+    ($a_process:expr, $b:expr $(,)?) => {{
+        match $crate::assert_process_status_code_value_le_x_as_result!($a_process, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
-    ($a:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_process_status_code_value_le_x_as_result!($a, $b) {
+    ($a_process:expr, $b:expr, $($message:tt)+) => {{
+        match $crate::assert_process_status_code_value_le_x_as_result!($a_process, $b) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }

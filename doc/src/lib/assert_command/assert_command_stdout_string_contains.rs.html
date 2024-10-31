@@ -313,7 +313,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_contains.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_contains.html\n"</span>,
                                         <span class="string">"   command label: `{}`,\n"</span>,
                                         <span class="string">"   command debug: `{:?}`,\n"</span>,
                                         <span class="string">" containee label: `{}`,\n"</span>,
@@ -334,7 +334,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_contains.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_contains.html\n"</span>,
                                     <span class="string">"   command label: `{}`,\n"</span>,
                                     <span class="string">"   command debug: `{:?}`,\n"</span>,
                                     <span class="string">" containee label: `{}`,\n"</span>,
@@ -378,7 +378,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_contains.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_contains.html\n"</span>,
             <span class="string">"   command label: `a`,\n"</span>,
             <span class="string">"   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">" containee label: `b`,\n"</span>,
@@ -425,7 +425,7 @@
 /// assert_command_stdout_string_contains!(command, &amp;containee);
 /// # });
 /// // assertion failed: `assert_command_stdout_string_contains!(command, containee)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_contains.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_contains.html
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  containee label: `&amp;containee`,
@@ -434,7 +434,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_contains.html\n",
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " containee label: `&amp;containee`,\n",

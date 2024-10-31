@@ -255,8 +255,6 @@
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert two expressions are Ok and their values are equal.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -303,56 +301,54 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_ok_eq_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
-            (a, b) =&gt; <span class="kw">match </span>(a, b) {
-                (<span class="prelude-val">Ok</span>(a1), <span class="prelude-val">Ok</span>(b1)) =&gt; {
-                    <span class="kw">if </span>a1 == b1 {
-                        <span class="prelude-val">Ok</span>((a1, b1))
-                    } <span class="kw">else </span>{
-                        <span class="prelude-val">Err</span>(
-                            <span class="macro">format!</span>(
-                                <span class="macro">concat!</span>(
-                                    <span class="string">"assertion failed: `assert_ok_eq!(a, b)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq.html\n"</span>,
-                                    <span class="string">" a label: `{}`,\n"</span>,
-                                    <span class="string">" a debug: `{:?}`,\n"</span>,
-                                    <span class="string">" a inner: `{:?}`,\n"</span>,
-                                    <span class="string">" b label: `{}`,\n"</span>,
-                                    <span class="string">" b debug: `{:?}`,\n"</span>,
-                                    <span class="string">" b inner: `{:?}`"
-                                </span>),
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                                a,
-                                a1,
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                                b,
-                                b1
-                            )
-                        )
-                    }
-                },
-                <span class="kw">_ </span>=&gt; {
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {
+        <span class="kw">match </span>(<span class="macro-nonterminal">$a</span>, <span class="macro-nonterminal">$b</span>) {
+            (<span class="prelude-val">Ok</span>(a1), <span class="prelude-val">Ok</span>(b1)) =&gt; {
+                <span class="kw">if </span>a1 == b1 {
+                    <span class="prelude-val">Ok</span>((a1, b1))
+                } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_ok_eq!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
+                                <span class="string">" a inner: `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
-                                <span class="string">" b debug: `{:?}`"</span>,
-                            ),
+                                <span class="string">" b debug: `{:?}`,\n"</span>,
+                                <span class="string">" b inner: `{:?}`"
+                            </span>),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                            a,
+                            <span class="macro-nonterminal">$a</span>,
+                            a1,
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                            b
+                            <span class="macro-nonterminal">$b</span>,
+                            b1
                         )
                     )
                 }
+            },
+            <span class="kw">_ </span>=&gt; {
+                <span class="prelude-val">Err</span>(
+                    <span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_ok_eq!(a, b)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq.html\n"</span>,
+                            <span class="string">" a label: `{}`,\n"</span>,
+                            <span class="string">" a debug: `{:?}`,\n"</span>,
+                            <span class="string">" b label: `{}`,\n"</span>,
+                            <span class="string">" b debug: `{:?}`"</span>,
+                        ),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                        <span class="macro-nonterminal">$a</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                        <span class="macro-nonterminal">$b
+                    </span>)
+                )
             }
         }
-    }};
+    };
 }
 
 <span class="attr">#[cfg(test)]
@@ -363,7 +359,7 @@
         <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
         <span class="kw">let </span>b: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Ok</span>(<span class="number">1</span>);
         <span class="kw">let </span>result = <span class="macro">assert_ok_eq_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="kw-2">&amp;</span><span class="number">1</span>, <span class="kw-2">&amp;</span><span class="number">1</span>));
+        <span class="macro">assert_eq!</span>(result.unwrap(), (<span class="number">1</span>, <span class="number">1</span>));
     }
 
     <span class="attr">#[test]
@@ -375,7 +371,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ok_eq!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ok(1)`,\n"</span>,
                 <span class="string">" a inner: `1`,\n"</span>,
@@ -395,7 +391,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ok_eq!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Err(1)`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -433,7 +429,7 @@
 /// assert_ok_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_ok_eq!(a, b)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,
@@ -443,7 +439,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ok_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",

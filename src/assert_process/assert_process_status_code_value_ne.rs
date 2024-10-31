@@ -45,8 +45,8 @@
 ///
 #[macro_export]
 macro_rules! assert_process_status_code_value_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        match ($a.status(), $b.status()) {
+    ($a_process:expr, $b_process:expr $(,)?) => {{
+        match ($a_process.status(), $b_process.status()) {
             (Ok(a1), Ok(b1)) => {
                 match (a1.code(), b1.code()) {
                     (Some(a2), Some(b2)) => {
@@ -65,11 +65,11 @@ macro_rules! assert_process_status_code_value_ne_as_result {
                                         " b debug: `{:?}`\n",
                                         " b value: `{:?}`",
                                     ),
-                                    stringify!($a),
-                                    $a,
+                                    stringify!($a_process),
+                                    $a_process,
                                     a2,
-                                    stringify!($b),
-                                    $b,
+                                    stringify!($b_process),
+                                    $b_process,
                                     b2
                                 )
                             )
@@ -88,11 +88,11 @@ macro_rules! assert_process_status_code_value_ne_as_result {
                                     " b debug: `{:?}`\n",
                                     "  b code: `{:?}`",
                                 ),
-                                stringify!($a),
-                                $a,
+                                stringify!($a_process),
+                                $a_process,
                                 a_code,
                                 stringify!($b),
-                                $b,
+                                $b_process,
                                 b_code
                             )
                         )
@@ -112,11 +112,11 @@ macro_rules! assert_process_status_code_value_ne_as_result {
                             "  b debug: `{:?}`\n",
                             " b status: `{:?}`",
                         ),
-                        stringify!($a),
-                        $a,
+                        stringify!($a_process),
+                        $a_process,
                         a_status,
                         stringify!($b),
-                        $b,
+                        $b_process,
                         b_status
                     )
                 )
@@ -231,14 +231,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_process_status_code_value_ne {
-    ($a:expr, $b:expr $(,)?) => {{
-        match $crate::assert_process_status_code_value_ne_as_result!($a, $b) {
+    ($a_process:expr, $b_process:expr $(,)?) => {{
+        match $crate::assert_process_status_code_value_ne_as_result!($a_process, $b_process) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
     }};
-    ($a:expr, $b:expr, $($message:tt)+) => {{
-        match $crate::assert_process_status_code_value_ne_as_result!($a, $b) {
+    ($a_process:expr, $b_process:expr, $($message:tt)+) => {{
+        match $crate::assert_process_status_code_value_ne_as_result!($a_process, $b_process) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }

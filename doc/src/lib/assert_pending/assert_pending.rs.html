@@ -261,7 +261,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_pending!(a)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_pending.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_pending.html\n"</span>,
                                     <span class="string">" a label: `{}`,\n"</span>,
                                     <span class="string">" a debug: `{:?}`"</span>,
                                 ),
@@ -296,7 +296,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_pending!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_pending.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_pending.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ready(1)`"
             </span>)
@@ -331,13 +331,13 @@
 /// assert_pending!(a);
 /// # });
 /// // assertion failed: `assert_pending!(a)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_pending.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_pending.html
 /// //  a label: `a`,
 /// //  a debug: `Ready(1)`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_pending!(a)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_pending.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_pending.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`",
 /// # );

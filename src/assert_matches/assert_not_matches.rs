@@ -51,7 +51,7 @@ macro_rules! assert_not_matches_as_result {
                 format!(
                     concat!(
                         "assertion failed: `assert_not_matches!(a)`\n",
-                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_matches.html\n",
+                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_matches.html\n",
                         " args: `{}`",
                     ),
                     stringify!($($arg)*)
@@ -81,7 +81,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_not_matches!(a)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_matches.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_matches.html\n",
                 " args: `a, 'a'..='z'`",
             )
         );
@@ -104,7 +104,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_not_matches!(a)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_matches.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_matches.html\n",
                 " args: `a, Some(x) if x < 2`",
             )
         );
@@ -134,12 +134,12 @@ mod tests {
 /// assert_not_matches!(a, 'a'..='z');
 /// # });
 /// // assertion failed: `assert_not_matches!(a)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_matches.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_matches.html
 /// //  args: `a, 'a'..='z'`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_not_matches!(a)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_matches.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_matches.html\n",
 /// #     " args: `a, 'a'..='z'`",
 /// # );
 /// # assert_eq!(actual, expect);

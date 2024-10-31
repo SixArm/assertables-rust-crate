@@ -56,7 +56,7 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+                                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
                                         "      path label: `{}`,\n",
                                         "      path debug: `{:?}`,\n",
                                         " containee label: `{}`,\n",
@@ -77,7 +77,7 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+                                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
                                     "      path label: `{}`,\n",
                                     "      path debug: `{:?}`,\n",
                                     " containee label: `{}`,\n",
@@ -131,7 +131,7 @@ mod tests {
             format!(
                 concat!(
                     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
                     "      path label: `&path`,\n",
                     "      path debug: `{:?}`,\n",
                     " containee label: `&containee`,\n",
@@ -173,7 +173,7 @@ mod tests {
 /// assert_fs_read_to_string_contains!(&path, &containee);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_contains!(path, containee)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_contains.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_contains.html
 /// //       path label: `&path`,
 /// //       path debug: `\"alfa.txt\"`,
 /// //  containee label: `&containee`,
@@ -182,7 +182,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
 /// #     "      path label: `&path`,\n",
 /// #     "      path debug: `\"alfa.txt\"`,\n",
 /// #     " containee label: `&containee`,\n",

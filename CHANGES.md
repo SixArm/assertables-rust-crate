@@ -5,7 +5,7 @@ Changes highlights for recent major versions.
 
 ## Version 9.0
 
-* 9.1.0: Add absolute difference macros: `assert_abs_diff*`.
+* 9.2.0: Add absolute difference macros: `assert_abs_diff*`.
 
 * 9.0.0: Breaking change: many macros now return data upon success.
 

@@ -287,7 +287,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_count_le!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_le.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_count_le.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" a.count(): `{:?}`,\n"</span>,
@@ -337,7 +337,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_count_le!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_le.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_count_le.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Chars(['x', 'x'])`,\n"</span>,
                 <span class="string">" a.count(): `2`,\n"</span>,
@@ -377,7 +377,7 @@
 /// assert_count_le!(a, b);
 /// # });
 /// // assertion failed: `assert_count_le!(a, b)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_le.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_count_le.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",
@@ -387,7 +387,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_count_le!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_le.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_count_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x', 'x'])`,\n",
 /// #     " a.count(): `2`,\n",

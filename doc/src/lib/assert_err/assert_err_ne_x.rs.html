@@ -250,10 +250,6 @@
 <a href="#250" id="250">250</a>
 <a href="#251" id="251">251</a>
 <a href="#252" id="252">252</a>
-<a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Err and its value is not equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -300,56 +296,52 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_err_ne_x_as_result {
-    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$a</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$b</span>) {
-            (a, b) =&gt; {
-                <span class="kw">match </span>a {
-                    <span class="prelude-val">Err</span>(a1) =&gt; {
-                        <span class="kw">if </span>a1 != b {
-                            <span class="prelude-val">Ok</span>(a1)
-                        } <span class="kw">else </span>{
-                            <span class="prelude-val">Err</span>(
-                                <span class="macro">format!</span>(
-                                    <span class="macro">concat!</span>(
-                                        <span class="string">"assertion failed: `assert_err_ne_x!(a, b)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne_x.html\n"</span>,
-                                        <span class="string">" a label: `{}`,\n"</span>,
-                                        <span class="string">" a debug: `{:?}`,\n"</span>,
-                                        <span class="string">" a inner: `{:?}`,\n"</span>,
-                                        <span class="string">" b label: `{}`,\n"</span>,
-                                        <span class="string">" b debug: `{:?}`"</span>,
-                                    ),
-                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                                    a,
-                                    a1,
-                                    <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                                    b
-                                )
-                            )
-                        }
-                    },
-                    <span class="kw">_ </span>=&gt; {
-                        <span class="prelude-val">Err</span>(
-                            <span class="macro">format!</span>(
-                                <span class="macro">concat!</span>(
-                                    <span class="string">"assertion failed: `assert_err_ne_x!(a, b)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne_x.html\n"</span>,
-                                    <span class="string">" a label: `{}`,\n"</span>,
-                                    <span class="string">" a debug: `{:?}`,\n"</span>,
-                                    <span class="string">" b label: `{}`,\n"</span>,
-                                    <span class="string">" b debug: `{:?}`"</span>,
-                                ),
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
-                                a,
-                                <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
-                                b,
-                            )
-                        )
-                    }
+    (<span class="macro-nonterminal">$a</span>:expr, <span class="macro-nonterminal">$b</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {
+        <span class="kw">match </span>(<span class="macro-nonterminal">$a</span>) {
+            <span class="prelude-val">Err</span>(a1) =&gt; {
+                <span class="kw">if </span>a1 != <span class="macro-nonterminal">$b </span>{
+                    <span class="prelude-val">Ok</span>(a1)
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">Err</span>(
+                        <span class="macro">format!</span>(
+                            <span class="macro">concat!</span>(
+                                <span class="string">"assertion failed: `assert_err_ne_x!(a, b)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne_x.html\n"</span>,
+                                <span class="string">" a label: `{}`,\n"</span>,
+                                <span class="string">" a debug: `{:?}`,\n"</span>,
+                                <span class="string">" a inner: `{:?}`,\n"</span>,
+                                <span class="string">" b label: `{}`,\n"</span>,
+                                <span class="string">" b debug: `{:?}`"</span>,
+                            ),
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                            <span class="macro-nonterminal">$a</span>,
+                            a1,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                            <span class="macro-nonterminal">$b
+                        </span>)
+                    )
                 }
+            },
+            <span class="kw">_ </span>=&gt; {
+                <span class="prelude-val">Err</span>(
+                    <span class="macro">format!</span>(
+                        <span class="macro">concat!</span>(
+                            <span class="string">"assertion failed: `assert_err_ne_x!(a, b)`\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne_x.html\n"</span>,
+                            <span class="string">" a label: `{}`,\n"</span>,
+                            <span class="string">" a debug: `{:?}`,\n"</span>,
+                            <span class="string">" b label: `{}`,\n"</span>,
+                            <span class="string">" b debug: `{:?}`"</span>,
+                        ),
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a</span>),
+                        <span class="macro-nonterminal">$a</span>,
+                        <span class="macro">stringify!</span>(<span class="macro-nonterminal">$b</span>),
+                        <span class="macro-nonterminal">$b</span>,
+                    )
+                )
             }
         }
-    }};
+    };
 }
 
 <span class="attr">#[cfg(test)]
@@ -360,7 +352,7 @@
         <span class="kw">let </span>a: <span class="prelude-ty">Result</span>&lt;i8, i8&gt; = <span class="prelude-val">Err</span>(<span class="number">1</span>);
         <span class="kw">let </span>b: i8 = <span class="number">2</span>;
         <span class="kw">let </span>result = <span class="macro">assert_err_ne_x_as_result!</span>(a, b);
-        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="kw-2">&amp;</span><span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="number">1</span>);
     }
 
     <span class="attr">#[test]
@@ -372,7 +364,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_err_ne_x!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne_x.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne_x.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Err(1)`,\n"</span>,
                 <span class="string">" a inner: `1`,\n"</span>,
@@ -391,7 +383,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_err_ne_x!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne_x.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne_x.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ok(1)`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -429,7 +421,7 @@
 /// assert_err_ne_x!(a, b);
 /// # });
 /// // assertion failed: `assert_err_ne_x!(a, b)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne_x.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne_x.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`,
 /// //  a inner: `1`,
@@ -438,7 +430,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_err_ne_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`,\n",
 /// #     " a inner: `1`,\n",
