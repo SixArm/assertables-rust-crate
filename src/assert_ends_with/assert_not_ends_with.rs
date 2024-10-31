@@ -10,14 +10,14 @@
 //!
 //! # fn main() {
 //! // String ends with substring?
-//! let whole: &str = "alfa";
-//! let part: &str = "al";
-//! assert_not_ends_with!(sequence, x);
+//! let sequence: &str = "alfa";
+//! let subsequence: &str = "al";
+//! assert_not_ends_with!(sequence, subsequence);
 //!
 //! // Vector ends with element?
-//! let whole = vec![1, 2, 3];
-//! let part = [1];
-//! assert_not_ends_with!(sequence, x);
+//! let sequence = vec![1, 2, 3];
+//! let subsequence = [1];
+//! assert_not_ends_with!(sequence, subsequence);
 //! # }
 //! ```
 //!
@@ -50,26 +50,26 @@
 ///
 #[macro_export]
 macro_rules! assert_not_ends_with_as_result {
-    ($whole:expr, $part:expr $(,)?) => {{
-        match (&$whole, &$part) {
-            (sequence, x) => {
-                if !(sequence.ends_with(x)) {
+    ($sequence:expr, $subsequence:expr $(,)?) => {{
+        match (&$sequence, &$subsequence) {
+            (sequence, subsequence) => {
+                if !(sequence.ends_with(subsequence)) {
                     Ok(())
                 } else {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_not_ends_with!(sequence, x)`\n",
+                                "assertion failed: `assert_not_ends_with!(sequence, subsequence)`\n",
                                 "https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_ends_with.html\n",
-                                " whole label: `{}`,\n",
-                                " whole debug: `{:?}`,\n",
-                                "  part label: `{}`,\n",
-                                "  part debug: `{:?}`",
+                                "     sequence label: `{}`,\n",
+                                "     sequence debug: `{:?}`,\n",
+                                "  subsequence label: `{}`,\n",
+                                "  subsequence debug: `{:?}`",
                             ),
-                            stringify!($whole),
-                            whole,
-                            stringify!($part),
-                            part,
+                            stringify!($sequence),
+                            sequence,
+                            stringify!($subsequence),
+                            subsequence
                         )
                     )
                 }
@@ -83,25 +83,25 @@ mod tests {
 
     #[test]
     fn test_assert_not_ends_with_as_result_success() {
-        let whole = "alfa";
-        let part = "al";
-        let result = assert_not_ends_with_as_result!(sequence, x);
+        let sequence = "alfa";
+        let subsequence = "al";
+        let result = assert_not_ends_with_as_result!(sequence, subsequence);
         assert_eq!(result.unwrap(), ());
     }
 
     #[test]
     fn test_assert_not_ends_with_as_result_x_failure() {
-        let whole = "alfa";
-        let part = "fa";
-        let result = assert_not_ends_with_as_result!(sequence, x);
+        let sequence = "alfa";
+        let subsequence = "fa";
+        let result = assert_not_ends_with_as_result!(sequence, subsequence);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_not_ends_with!(sequence, x)`\n",
+            "assertion failed: `assert_not_ends_with!(sequence, subsequence)`\n",
             "https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_ends_with.html\n",
-            " whole label: `whole`,\n",
-            " whole debug: `\"alfa\"`,\n",
-            "  part label: `part`,\n",
-            "  part debug: `\"fa\"`"
+            "     sequence label: `sequence`,\n",
+            "     sequence debug: `\"alfa\"`,\n",
+            "  subsequence label: `subsequence`,\n",
+            "  subsequence debug: `\"fa\"`"
         );
         assert_eq!(actual, expect);
     }
@@ -125,35 +125,35 @@ mod tests {
 ///
 /// # fn main() {
 /// // String ends with substring?
-/// let whole: &str = "alfa";
-/// let part: &str = "al";
-/// assert_not_ends_with!(sequence, x);
+/// let sequence: &str = "alfa";
+/// let subsequence: &str = "al";
+/// assert_not_ends_with!(sequence, subsequence);
 ///
 /// // Vector ends with element?
-/// let whole = vec![1, 2, 3];
-/// let part = [1];
-/// assert_not_ends_with!(sequence, x);
+/// let sequence = vec![1, 2, 3];
+/// let subsequence = [1];
+/// assert_not_ends_with!(sequence, subsequence);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let whole = "alfa";
-/// let part = "fa";
-/// assert_not_ends_with!(sequence, x);
+/// let sequence = "alfa";
+/// let subsequence = "fa";
+/// assert_not_ends_with!(sequence, subsequence);
 /// # });
-/// // assertion failed: `assert_not_ends_with!(sequence, x)`
+/// // assertion failed: `assert_not_ends_with!(sequence, subsequence)`
 /// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_ends_with.html
-/// //  whole label: `whole`,
-/// //  whole debug: `\"alfa\"`,
-/// //   part label: `part`,
+/// //  sequence label: `sequence`,
+/// //  sequence debug: `\"alfa\"`,
+/// //   part label: `subsequence`,
 /// //   part debug: `\"fa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_not_ends_with!(sequence, x)`\n",
+/// #     "assertion failed: `assert_not_ends_with!(sequence, subsequence)`\n",
 /// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_ends_with.html\n",
-/// #     " whole label: `whole`,\n",
-/// #     " whole debug: `\"alfa\"`,\n",
-/// #     "  part label: `part`,\n",
-/// #     "  part debug: `\"fa\"`"
+/// #     "     sequence label: `sequence`,\n",
+/// #     "     sequence debug: `\"alfa\"`,\n",
+/// #     "  subsequence label: `subsequence`,\n",
+/// #     "  subsequence debug: `\"fa\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -167,14 +167,14 @@ mod tests {
 ///
 #[macro_export]
 macro_rules! assert_not_ends_with {
-    ($whole:expr, $part:expr $(,)?) => {{
-        match $crate::assert_not_ends_with_as_result!($whole, $part) {
+    ($sequence:expr, $subsequence:expr $(,)?) => {{
+        match $crate::assert_not_ends_with_as_result!($sequence, $subsequence) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     }};
-    ($whole:expr, $part:expr, $($message:tt)+) => {{
-        match $crate::assert_not_ends_with_as_result!($whole, $part) {
+    ($sequence:expr, $subsequence:expr, $($message:tt)+) => {{
+        match $crate::assert_not_ends_with_as_result!($sequence, $subsequence) {
             Ok(()) => (),
             Err(_err) => panic!("{}", $($message)+),
         }

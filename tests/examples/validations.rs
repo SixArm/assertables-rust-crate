@@ -9,7 +9,7 @@
 use assertables::*;
 
 /// Validate an email address format, such as "alice@example.com".
-/// Of course real-world code would use more-complex email validation.
+/// Note that real-world code would use more-complex email validation.
 #[test]
 fn validate_email_address() {
 
@@ -34,7 +34,7 @@ fn validate_email_address() {
 }
 
 /// Validate point nearness, such as point (1.01, 2.01) being near point (1.02, 2.02).
-/// Of course real-world code would use more-complex geometry validation.
+/// Note that real-world code would use more-complex geometry validation.
 #[test]
 fn validate_point_nearness() {
 
@@ -60,7 +60,7 @@ fn validate_point_nearness() {
 
 
 /// Validate a string contains certain words such as "alfa" and "bravo".
-/// Of course real-world code would use more-complex text validation.
+/// Note that real-world code would use more-complex text validation.
 #[test]
 fn validate_words() {
 

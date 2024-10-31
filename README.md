@@ -129,9 +129,9 @@ Readers:
 
 Collections:
 
-* [`assert_iter_eq!(arr1, arr2)`](https://docs.rs/assertables/9.2.0/assertables/assert_iter) ≈ a into iter = b into iter
-* [`assert_set_eq!(vec1, vec2)`](https://docs.rs/assertables/9.2.0/assertables/assert_set) ≈ a into set = b into set
-* [`assert_bag_eq!(map1, map2)`](https://docs.rs/assertables/9.2.0/assertables/assert_bag) ≈ a into bag = b into bag
+* [`assert_iter_eq!(a, b)`](https://docs.rs/assertables/9.2.0/assertables/assert_iter) ≈ a into iter = b into iter
+* [`assert_set_eq!(a, b)`](https://docs.rs/assertables/9.2.0/assertables/assert_set) ≈ a into set = b into set
+* [`assert_bag_eq!(a, b)`](https://docs.rs/assertables/9.2.0/assertables/assert_bag) ≈ a into bag = b into bag
 
 Infix notation:
 

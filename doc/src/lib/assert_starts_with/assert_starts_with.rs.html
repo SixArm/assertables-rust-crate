@@ -232,14 +232,14 @@
 //!
 //! # fn main() {
 //! // String starts with substring?
-//! let whole: &amp;str = "alfa";
-//! let part: &amp;str = "al";
-//! assert_starts_with!(sequence, x);
+//! let sequence: &amp;str = "alfa";
+//! let subsequence: &amp;str = "al";
+//! assert_starts_with!(sequence, subsequence);
 //!
 //! // Vector starts with element?
-//! let whole = vec![1, 2, 3];
-//! let part = [1];
-//! assert_starts_with!(sequence, x);
+//! let sequence = vec![1, 2, 3];
+//! let subsequence = [1];
+//! assert_starts_with!(sequence, subsequence);
 //! # }
 //! ```
 //!
@@ -272,26 +272,26 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_starts_with_as_result {
-    (<span class="macro-nonterminal">$whole</span>:expr, <span class="macro-nonterminal">$part</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$whole</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$part</span>) {
-            (sequence, x) =&gt; {
-                <span class="kw">if </span>sequence.starts_with(x) {
+    (<span class="macro-nonterminal">$sequence</span>:expr, <span class="macro-nonterminal">$subsequence</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$sequence</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$subsequence</span>) {
+            (sequence, subsequence) =&gt; {
+                <span class="kw">if </span>sequence.starts_with(subsequence) {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_starts_with!(sequence, x)`\n"</span>,
+                                <span class="string">"assertion failed: `assert_starts_with!(sequence, subsequence)`\n"</span>,
                                 <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_starts_with.html\n"</span>,
-                                <span class="string">" whole label: `{}`,\n"</span>,
-                                <span class="string">" whole debug: `{:?}`,\n"</span>,
-                                <span class="string">"  part label: `{}`,\n"</span>,
-                                <span class="string">"  part debug: `{:?}`"</span>,
+                                <span class="string">"     sequence label: `{}`,\n"</span>,
+                                <span class="string">"     sequence debug: `{:?}`,\n"</span>,
+                                <span class="string">"  subsequence label: `{}`,\n"</span>,
+                                <span class="string">"  subsequence debug: `{:?}`"</span>,
                             ),
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$whole</span>),
-                            whole,
-                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$part</span>),
-                            part,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$sequence</span>),
+                            sequence,
+                            <span class="macro">stringify!</span>(<span class="macro-nonterminal">$subsequence</span>),
+                            subsequence
                         )
                     )
                 }
@@ -305,25 +305,25 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_starts_with_as_result_success() {
-        <span class="kw">let </span>whole = <span class="string">"alfa"</span>;
-        <span class="kw">let </span>part = <span class="string">"al"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_starts_with_as_result!</span>(sequence, x);
+        <span class="kw">let </span>sequence = <span class="string">"alfa"</span>;
+        <span class="kw">let </span>subsequence = <span class="string">"al"</span>;
+        <span class="kw">let </span>result = <span class="macro">assert_starts_with_as_result!</span>(sequence, subsequence);
         <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>test_assert_starts_with_as_result_x_failure() {
-        <span class="kw">let </span>whole = <span class="string">"alfa"</span>;
-        <span class="kw">let </span>part = <span class="string">"fa"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_starts_with_as_result!</span>(sequence, x);
+        <span class="kw">let </span>sequence = <span class="string">"alfa"</span>;
+        <span class="kw">let </span>subsequence = <span class="string">"fa"</span>;
+        <span class="kw">let </span>result = <span class="macro">assert_starts_with_as_result!</span>(sequence, subsequence);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_starts_with!(sequence, x)`\n"</span>,
+            <span class="string">"assertion failed: `assert_starts_with!(sequence, subsequence)`\n"</span>,
             <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_starts_with.html\n"</span>,
-            <span class="string">" whole label: `whole`,\n"</span>,
-            <span class="string">" whole debug: `\"alfa\"`,\n"</span>,
-            <span class="string">"  part label: `part`,\n"</span>,
-            <span class="string">"  part debug: `\"fa\"`"
+            <span class="string">"     sequence label: `sequence`,\n"</span>,
+            <span class="string">"     sequence debug: `\"alfa\"`,\n"</span>,
+            <span class="string">"  subsequence label: `subsequence`,\n"</span>,
+            <span class="string">"  subsequence debug: `\"fa\"`"
         </span>);
         <span class="macro">assert_eq!</span>(actual, expect);
     }
@@ -347,35 +347,35 @@
 ///
 /// # fn main() {
 /// // String starts with substring?
-/// let whole: &amp;str = "alfa";
-/// let part: &amp;str = "al";
-/// assert_starts_with!(sequence, x);
+/// let sequence: &amp;str = "alfa";
+/// let subsequence: &amp;str = "al";
+/// assert_starts_with!(sequence, subsequence);
 ///
 /// // Vector starts with element?
-/// let whole = vec![1, 2, 3];
-/// let part = [1];
-/// assert_starts_with!(sequence, x);
+/// let sequence = vec![1, 2, 3];
+/// let subsequence = [1];
+/// assert_starts_with!(sequence, subsequence);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let whole = "alfa";
-/// let part = "fa";
-/// assert_starts_with!(sequence, x);
-/// // assertion failed: `assert_starts_with!(sequence, x)`
+/// let sequence = "alfa";
+/// let subsequence = "fa";
+/// assert_starts_with!(sequence, subsequence);
+/// // assertion failed: `assert_starts_with!(sequence, subsequence)`
 /// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_starts_with.html
-/// //  whole label: `whole`,
-/// //  whole debug: `\"alfa\"`,
-/// //   part label: `part`,
+/// //  sequence label: `sequence`,
+/// //  sequence debug: `\"alfa\"`,
+/// //   part label: `subsequence`,
 /// //   part debug: `\"fa\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_starts_with!(sequence, x)`\n",
+/// #     "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
 /// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_starts_with.html\n",
-/// #     " whole label: `whole`,\n",
-/// #     " whole debug: `\"alfa\"`,\n",
-/// #     "  part label: `part`,\n",
-/// #     "  part debug: `\"fa\"`"
+/// #     "     sequence label: `sequence`,\n",
+/// #     "     sequence debug: `\"alfa\"`,\n",
+/// #     "  subsequence label: `subsequence`,\n",
+/// #     "  subsequence debug: `\"fa\"`"
 /// # );
 /// # assert_eq!(actual, expect);
 /// # }
@@ -389,14 +389,14 @@
 ///
 </span><span class="attr">#[macro_export]
 </span><span class="macro">macro_rules!</span> assert_starts_with {
-    (<span class="macro-nonterminal">$whole</span>:expr, <span class="macro-nonterminal">$part</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_starts_with_as_result!</span>(<span class="macro-nonterminal">$whole</span>, <span class="macro-nonterminal">$part</span>) {
+    (<span class="macro-nonterminal">$sequence</span>:expr, <span class="macro-nonterminal">$subsequence</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_starts_with_as_result!</span>(<span class="macro-nonterminal">$sequence</span>, <span class="macro-nonterminal">$subsequence</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, err),
         }
     }};
-    (<span class="macro-nonterminal">$whole</span>:expr, <span class="macro-nonterminal">$part</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
-        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_starts_with_as_result!</span>(<span class="macro-nonterminal">$whole</span>, <span class="macro-nonterminal">$part</span>) {
+    (<span class="macro-nonterminal">$sequence</span>:expr, <span class="macro-nonterminal">$subsequence</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
+        <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_starts_with_as_result!</span>(<span class="macro-nonterminal">$sequence</span>, <span class="macro-nonterminal">$subsequence</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
             <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
         }

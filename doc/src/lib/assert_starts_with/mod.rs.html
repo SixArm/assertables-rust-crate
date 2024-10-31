@@ -28,14 +28,14 @@
 <a href="#28" id="28">28</a>
 <a href="#29" id="29">29</a>
 <a href="#30" id="30">30</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert for a whole that may start with a part.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert for a sequence that may start with a part.
 //!
-//! These macros help with comparison of a whole (such as a string, vector, range)
+//! These macros help with comparison of a sequence (such as a string, vector, range)
 //! and a part (such as a string substring, an array element, a range value).
 //!
-//! * [`assert_starts_with(sequence, x)`](macro@crate::assert_starts_with) ≈ container.contains(containee)
+//! * [`assert_starts_with(sequence, subsequence)`](macro@crate::assert_starts_with) ≈ container.contains(containee)
 //!
-//! * [`assert_not_starts_with!(sequence, x)`](macro@crate::assert_not_starts_with) ≈ !container.contains(containee)
+//! * [`assert_not_starts_with!(sequence, subsequence)`](macro@crate::assert_not_starts_with) ≈ !container.contains(containee)
 //!
 //!
 //! # Example
@@ -45,14 +45,14 @@
 //!
 //! # fn main() {
 //! // String starts with substring?
-//! let whole: &amp;str = "alfa";
-//! let part: &amp;str = "al";
-//! assert_starts_with!(sequence, x);
+//! let sequence: &amp;str = "alfa";
+//! let subsequence: &amp;str = "al";
+//! assert_starts_with!(sequence, subsequence);
 //!
 //! // Vector starts with element?
-//! let whole = vec![1, 2, 3];
-//! let part = [1];
-//! assert_starts_with!(sequence, x);
+//! let sequence = vec![1, 2, 3];
+//! let subsequence = [1];
+//! assert_starts_with!(sequence, subsequence);
 //! # }
 //! ```
 

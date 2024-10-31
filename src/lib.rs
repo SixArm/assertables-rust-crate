@@ -142,6 +142,79 @@
 //! For a complete list of modules and macros, see the
 //! [docs](https://docs.rs/assertables/).
 //!
+//! ## Examples
+//!
+//! Examples with values:
+//!
+//! ```rust
+//! # use assertables::*;
+//! # fn main() {
+//! assert_eq!(1, 1); // equal to
+//! assert_ne!(2, 1); // not equal to
+//! assert_lt!(1, 2); // less than
+//! assert_le!(1, 2); // less than or equal to
+//! assert_gt!(2, 1); // greater than
+//! assert_ge!(2, 1); // greater than or equal to
+//! # }
+//! ```
+//!
+//! Examples with values:
+//!
+//! ```rust
+//! # use assertables::*;
+//! # fn main() {
+//! assert_eq!(1, 1); // equal to
+//! assert_ne!(2, 1); // not equal to
+//! assert_lt!(1, 2); // less than
+//! assert_le!(1, 2); // less than or equal to
+//! assert_gt!(2, 1); // greater than
+//! assert_ge!(2, 1); // greater than or equal to
+//! # }
+//! ```
+//!
+//! Examples with strings:
+//!
+//! ```rust
+//! # use assertables::*;
+//! # use regex::Regex;
+//! # fn main() {
+//! let s = "hello world";
+//! assert_starts_with!(s, "hello");
+//! assert_ends_with!(s, "world");
+//! assert_contains!(s, "lo");
+//! assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
+//! assert_not_empty!(s);
+//! assert_len_eq!(s, "***********");
+//! assert_len_eq_x!(s, 11);
+//! assert_all!(s.chars(), |c: char| c < 'x');
+//! assert_any!(s.chars(), |c: char| c.is_whitespace());
+//! # }
+//! ```
+//!
+//! Examples with nearness:
+//!
+//! ```rust
+//! # use assertables::*;
+//! # fn main() {
+//! assert_approx_eq!(1.00000001, 1.00000002);
+//! assert_abs_diff_eq!(10, 13, 3);
+//! assert_in_delta!(10, 13, 4);
+//! assert_in_epsilon!(10, 13, 5);
+//! # }
+//! ```
+//!
+//! Examples with iterators:
+//!
+//! ```rust
+//! # use assertables::*;
+//! # fn main() {
+//! assert_iter_eq!([1, 2], [1, 2]);
+//! assert_iter_ne!([1, 2], [2, 1]);
+//! assert_iter_lt!([1, 2], [3, 4]);
+//! assert_iter_gt!([3, 4], [1, 2]);
+//! # }
+//! ```
+//!
 //! ## Forms
 //!
 //! The Assertables macros have a variety of forms to help you write the tests that matter most to you.
