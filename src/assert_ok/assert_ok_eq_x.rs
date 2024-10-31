@@ -44,56 +44,52 @@
 ///
 #[macro_export]
 macro_rules! assert_ok_eq_x_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        match (&$a, &$b) {
-            (a, b) => {
-                match a {
-                    Ok(a1) => {
-                        if a1 == b {
-                            Ok(a1)
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq_x.html\n",
-                                        " a label: `{}`,\n",
-                                        " a debug: `{:?}`,\n",
-                                        " a inner: `{:?}`,\n",
-                                        " b label: `{}`,\n",
-                                        " b debug: `{:?}`",
-                                    ),
-                                    stringify!($a),
-                                    a,
-                                    a1,
-                                    stringify!($b),
-                                    b
-                                )
-                            )
-                        }
-                    },
-                    _ => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq_x.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`,\n",
-                                    " b label: `{}`,\n",
-                                    " b debug: `{:?}`",
-                                ),
-                                stringify!($a),
-                                a,
-                                stringify!($b),
-                                b
-                            )
+    ($a:expr, $b:expr $(,)?) => {
+        match ($a) {
+            Ok(a1) => {
+                if a1 == $b {
+                    Ok(a1)
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_ok_eq_x!(a, b)`\n",
+                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq_x.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " a inner: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`",
+                            ),
+                            stringify!($a),
+                            $a,
+                            a1,
+                            stringify!($b),
+                            $b
                         )
-                    }
+                    )
                 }
+            },
+            _ => {
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_ok_eq_x!(a, b)`\n",
+                            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq_x.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`",
+                        ),
+                        stringify!($a),
+                        $a,
+                        stringify!($b),
+                        $b
+                    )
+                )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -104,7 +100,7 @@ mod tests {
         let a: Result<i8, i8> = Ok(1);
         let b: i8 = 1;
         let result = assert_ok_eq_x_as_result!(a, b);
-        assert_eq!(result.unwrap(), &1);
+        assert_eq!(result.unwrap(), 1);
     }
 
     #[test]
@@ -116,7 +112,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq_x.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
                 " a inner: `1`,\n",
@@ -135,7 +131,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq_x.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `Err(1)`,\n",
                 " b label: `b`,\n",
@@ -173,7 +169,7 @@ mod tests {
 /// assert_ok_eq_x!(a, b);
 /// # });
 /// // assertion failed: `assert_ok_eq_x!(a, b)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq_x.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq_x.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,
@@ -182,7 +178,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ok_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ok_eq_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",

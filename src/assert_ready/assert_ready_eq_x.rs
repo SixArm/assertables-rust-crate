@@ -45,56 +45,52 @@
 ///
 #[macro_export]
 macro_rules! assert_ready_eq_x_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        match (&$a, &$b) {
-            (a, b) => {
-                match a {
-                    Ready(a1) => {
-                        if a1 == b {
-                            Ok(a1)
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ready_eq_x.html\n",
-                                        " a label: `{}`,\n",
-                                        " a debug: `{:?}`,\n",
-                                        " a inner: `{:?}`,\n",
-                                        " b label: `{}`,\n",
-                                        " b debug: `{:?}`"
-                                    ),
-                                    stringify!($a),
-                                    a,
-                                    a1,
-                                    stringify!($b),
-                                    b
-                                )
-                            )
-                        }
-                    },
-                    _ => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ready_eq_x.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`,\n",
-                                    " b label: `{}`,\n",
-                                    " b debug: `{:?}`",
-                                ),
-                                stringify!($a),
-                                a,
-                                stringify!($b),
-                                $b
-                            )
+    ($a:expr, $b:expr $(,)?) => {
+        match ($a) {
+            Ready(a1) => {
+                if a1 == $b {
+                    Ok(a1)
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_ready_eq_x!(a, b)`\n",
+                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ready_eq_x.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " a inner: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`"
+                            ),
+                            stringify!($a),
+                            $a,
+                            a1,
+                            stringify!($b),
+                            $b
                         )
-                    }
+                    )
                 }
+            },
+            _ => {
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_ready_eq_x!(a, b)`\n",
+                            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ready_eq_x.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`",
+                        ),
+                        stringify!($a),
+                        $a,
+                        stringify!($b),
+                        $b
+                    )
+                )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -107,7 +103,7 @@ mod tests {
         let a: Poll<i8> = Ready(1);
         let b: i8 = 1;
         let result = assert_ready_eq_x_as_result!(a, b);
-        assert_eq!(result.unwrap(), &1);
+        assert_eq!(result.unwrap(), 1);
     }
 
     #[test]

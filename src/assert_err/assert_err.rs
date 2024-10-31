@@ -43,31 +43,21 @@
 ///
 #[macro_export]
 macro_rules! assert_err_as_result {
-    ($a:expr $(,)?) => {{
-        match (&$a) {
-            a => {
-                match (a) {
-                    Err(a1) => {
-                        Ok(a1)
-                    },
-                    _ => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_err!(a)`\n",
-                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`",
-                                ),
-                                stringify!($a),
-                                a
-                            )
-                        )
-                    }
-                }
-            }
+    ($a:expr $(,)?) => {
+        match ($a) {
+            Err(a1) => Ok(a1),
+            _ => Err(format!(
+                concat!(
+                    "assertion failed: `assert_err!(a)`\n",
+                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err.html\n",
+                    " a label: `{}`,\n",
+                    " a debug: `{:?}`",
+                ),
+                stringify!($a),
+                $a
+            )),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -77,7 +67,7 @@ mod tests {
     fn test_assert_err_as_result_x_success() {
         let a: Result<i8, i8> = Err(1);
         let result = assert_err_as_result!(a);
-        assert_eq!(result.unwrap(), &1);
+        assert_eq!(result.unwrap(), 1);
     }
 
     #[test]
@@ -88,7 +78,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_err!(a)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`",
             )
@@ -122,13 +112,13 @@ mod tests {
 /// assert_err!(a);
 /// # });
 /// // assertion failed: `assert_err!(a)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_err.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_err!(a)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`",
 /// # );

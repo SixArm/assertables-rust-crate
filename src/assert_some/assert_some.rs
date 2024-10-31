@@ -43,31 +43,21 @@
 ///
 #[macro_export]
 macro_rules! assert_some_as_result {
-    ($a:expr $(,)?) => {{
-        match (&$a) {
-            option => {
-                match (option) {
-                    Some(a1) => {
-                        Ok(a1)
-                    },
-                    _ => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_some!(a)`\n",
-                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_some.html\n",
-                                    " option label: `{}`,\n",
-                                    " option debug: `{:?}`",
-                                ),
-                                stringify!($a),
-                                option
-                            )
-                        )
-                    }
-                }
-            }
+    ($a:expr $(,)?) => {
+        match ($a) {
+            Some(a1) => Ok(a1),
+            _ => Err(format!(
+                concat!(
+                    "assertion failed: `assert_some!(a)`\n",
+                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_some.html\n",
+                    " option label: `{}`,\n",
+                    " option debug: `{:?}`",
+                ),
+                stringify!($a),
+                $a
+            )),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -77,7 +67,7 @@ mod tests {
     fn test_assert_some_as_result_x_success() {
         let a: Option<i8> = Option::Some(1);
         let result = assert_some_as_result!(a);
-        assert_eq!(result.unwrap(), &1);
+        assert_eq!(result.unwrap(), 1);
     }
 
     #[test]
@@ -88,7 +78,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_some!(a)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_some.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_some.html\n",
                 " option label: `a`,\n",
                 " option debug: `None`",
             )
@@ -122,13 +112,13 @@ mod tests {
 /// assert_some!(a);
 /// # });
 /// // assertion failed: `assert_some!(a)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_some.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_some.html
 /// //  option label: `a`,
 /// //  option debug: `None`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_some!(a)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_some.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_some.html\n",
 /// #     " option label: `a`,\n",
 /// #     " option debug: `None`",
 /// # );

@@ -44,58 +44,54 @@
 ///
 #[macro_export]
 macro_rules! assert_err_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        match (&$a, &$b) {
-            (a, b) => {
-                match (a, b) {
-                    (Err(a1), Err(b1)) => {
-                        if a1 != b1 {
-                            Ok((a1, b1))
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_err_ne!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n",
-                                        " a label: `{}`,\n",
-                                        " a debug: `{:?}`,\n",
-                                        " a inner: `{:?}`,\n",
-                                        " b label: `{}`,\n",
-                                        " b debug: `{:?}`,\n",
-                                        " b inner: `{:?}`"
-                                    ),
-                                    stringify!($a),
-                                    a,
-                                    a1,
-                                    stringify!($b),
-                                    b,
-                                    b1
-                                )
-                            )
-                        }
-                    },
-                    _ => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_err_ne!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`,\n",
-                                    " b label: `{}`,\n",
-                                    " b debug: `{:?}`",
-                                ),
-                                stringify!($a),
-                                a,
-                                stringify!($b),
-                                b,
-                            )
+    ($a:expr, $b:expr $(,)?) => {
+        match ($a, $b) {
+            (Err(a1), Err(b1)) => {
+                if a1 != b1 {
+                    Ok((a1, b1))
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_err_ne!(a, b)`\n",
+                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " a inner: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`,\n",
+                                " b inner: `{:?}`"
+                            ),
+                            stringify!($a),
+                            $a,
+                            a1,
+                            stringify!($b),
+                            $b,
+                            b1
                         )
-                    }
+                    )
                 }
+            },
+            _ => {
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_err_ne!(a, b)`\n",
+                            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`",
+                        ),
+                        stringify!($a),
+                        $a,
+                        stringify!($b),
+                        $b,
+                    )
+                )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -106,7 +102,7 @@ mod tests {
         let a: Result<i8, i8> = Err(1);
         let b: Result<i8, i8> = Err(2);
         let result = assert_err_ne_as_result!(a, b);
-        assert_eq!(result.unwrap(), (&1, &2));
+        assert_eq!(result.unwrap(), (1, 2));
     }
 
     #[test]
@@ -118,7 +114,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_err_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Err(1)`,\n",
                 " a inner: `1`,\n",
@@ -138,7 +134,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_err_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
                 " b label: `b`,\n",
@@ -176,7 +172,7 @@ mod tests {
 /// assert_err_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_err_ne!(a, b)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`,
 /// //  a inner: `1`,
@@ -186,7 +182,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_err_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_err_ne.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_err_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`,\n",
 /// #     " a inner: `1`,\n",

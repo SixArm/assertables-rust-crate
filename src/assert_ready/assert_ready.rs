@@ -45,31 +45,21 @@
 ///
 #[macro_export]
 macro_rules! assert_ready_as_result {
-    ($a:expr $(,)?) => {{
-        match (&$a) {
-            a => {
-                match (a) {
-                    Ready(a1) => {
-                        Ok(a1)
-                    },
-                    _ => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_ready!(a)`\n",
-                                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ready.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`",
-                                ),
-                                stringify!($a),
-                                a,
-                            )
-                        )
-                    }
-                }
-            }
+    ($a:expr $(,)?) => {
+        match ($a) {
+            Ready(a1) => Ok(a1),
+            _ => Err(format!(
+                concat!(
+                    "assertion failed: `assert_ready!(a)`\n",
+                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ready.html\n",
+                    " a label: `{}`,\n",
+                    " a debug: `{:?}`",
+                ),
+                stringify!($a),
+                $a,
+            )),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -81,7 +71,7 @@ mod tests {
     fn test_assert_ready_as_result_x_success() {
         let a: Poll<i8> = Ready(1);
         let result = assert_ready_as_result!(a);
-        assert_eq!(result.unwrap(), &1);
+        assert_eq!(result.unwrap(), 1);
     }
 
     #[test]
