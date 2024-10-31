@@ -19,19 +19,19 @@ expressions with their debug representations.</p>
 <span class="comment">// String starts with substring?
 </span><span class="kw">let </span>whole: <span class="kw-2">&amp;</span>str = <span class="string">"alfa"</span>;
 <span class="kw">let </span>part: <span class="kw-2">&amp;</span>str = <span class="string">"z"</span>;
-<span class="macro">assert_not_starts_with!</span>(whole, part);
+<span class="macro">assert_not_starts_with!</span>(sequence, x);
 
 <span class="comment">// Vector starts with element?
 </span><span class="kw">let </span>whole = <span class="macro">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
 <span class="kw">let </span>part = [<span class="number">3</span>];
-<span class="macro">assert_not_starts_with!</span>(whole, part);
+<span class="macro">assert_not_starts_with!</span>(sequence, x);
 
 <span class="comment">// This will panic
 </span><span class="kw">let </span>whole = <span class="string">"alfa"</span>;
 <span class="kw">let </span>part = <span class="string">"al"</span>;
-<span class="macro">assert_not_starts_with!</span>(whole, part);
-<span class="comment">// assertion failed: `assert_not_starts_with!(whole, part)`
-// https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_starts_with.html
+<span class="macro">assert_not_starts_with!</span>(sequence, x);
+<span class="comment">// assertion failed: `assert_not_starts_with!(sequence, x)`
+// https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_starts_with.html
 //  whole label: `whole`,
 //  whole debug: `\"alfa\"`,
 //   part label: `part`,

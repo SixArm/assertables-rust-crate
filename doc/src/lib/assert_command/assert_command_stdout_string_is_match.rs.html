@@ -317,7 +317,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_is_match.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_is_match.html\n"</span>,
                                         <span class="string">" command label: `{}`,\n"</span>,
                                         <span class="string">" command debug: `{:?}`,\n"</span>,
                                         <span class="string">" matcher label: `{}`,\n"</span>,
@@ -340,7 +340,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_is_match.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_is_match.html\n"</span>,
                                     <span class="string">"  command label: `{}`,\n"</span>,
                                     <span class="string">"  command debug: `{:?}`,\n"</span>,
                                     <span class="string">"  matcher label: `{}`,\n"</span>,
@@ -385,7 +385,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_is_match.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_is_match.html\n"</span>,
             <span class="string">" command label: `a`,\n"</span>,
             <span class="string">" command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">" matcher label: `b`,\n"</span>,
@@ -429,7 +429,7 @@
 /// assert_command_stdout_string_is_match!(command, &amp;matcher);
 /// # });
 /// // assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_is_match.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_is_match.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  matcher label: `&amp;matcher`,
@@ -439,7 +439,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_command_stdout_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_string_is_match.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " matcher label: `&amp;matcher`,\n",

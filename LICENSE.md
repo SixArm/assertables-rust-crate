@@ -1,6 +1,6 @@
 # License
 
-MIT or Apache or GPL or or BSD or contact us for custom license choices.
+License is any of these or contact us for custom license options.
 
 * [MIT](https://opensource.org/license/mit) ([SPDX: MIT](https://spdx.org/licenses/MIT.html))
 

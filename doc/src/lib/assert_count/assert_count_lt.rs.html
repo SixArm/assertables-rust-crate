@@ -299,7 +299,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_count_lt!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_lt.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_count_lt.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" a.count(): `{:?}`,\n"</span>,
@@ -341,7 +341,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_count_lt!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_lt.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_count_lt.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Chars(['x'])`,\n"</span>,
                 <span class="string">" a.count(): `1`,\n"</span>,
@@ -361,7 +361,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_count_lt!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_lt.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_count_lt.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Chars(['x', 'x'])`,\n"</span>,
                 <span class="string">" a.count(): `2`,\n"</span>,
@@ -401,7 +401,7 @@
 /// assert_count_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_count_lt!(a, b)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_lt.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_count_lt.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",
@@ -411,7 +411,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_count_lt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_count_lt.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_count_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x', 'x'])`,\n",
 /// #     " a.count(): `2`,\n",

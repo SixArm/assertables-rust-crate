@@ -12,12 +12,12 @@
 //! // String ends with substring?
 //! let whole: &str = "alfa";
 //! let part: &str = "fa";
-//! assert_ends_with!(whole, part);
+//! assert_ends_with!(sequence, x);
 //!
 //! // Vector ends with element?
 //! let whole = vec![1, 2, 3];
 //! let part = [3];
-//! assert_ends_with!(whole, part);
+//! assert_ends_with!(sequence, x);
 //! # }
 //! ```
 //!
@@ -52,15 +52,15 @@
 macro_rules! assert_ends_with_as_result {
     ($whole:expr, $part:expr $(,)?) => {{
         match (&$whole, &$part) {
-            (whole, part) => {
-                if whole.ends_with(part) {
+            (sequence, x) => {
+                if sequence.ends_with(x) {
                     Ok(())
                 } else {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_ends_with!(whole, part)`\n",
-                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ends_with.html\n",
+                                "assertion failed: `assert_ends_with!(sequence, x)`\n",
+                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ends_with.html\n",
                                 " whole label: `{}`,\n",
                                 " whole debug: `{:?}`,\n",
                                 "  part label: `{}`,\n",
@@ -85,7 +85,7 @@ mod tests {
     fn test_assert_ends_with_as_result_success() {
         let whole = "alfa";
         let part = "fa";
-        let result = assert_ends_with_as_result!(whole, part);
+        let result = assert_ends_with_as_result!(sequence, x);
         assert_eq!(result.unwrap(), ());
     }
 
@@ -93,11 +93,11 @@ mod tests {
     fn test_assert_ends_with_as_result_x_failure() {
         let whole = "alfa";
         let part = "al";
-        let result = assert_ends_with_as_result!(whole, part);
+        let result = assert_ends_with_as_result!(sequence, x);
         let actual = result.unwrap_err();
         let expect = concat!(
-            "assertion failed: `assert_ends_with!(whole, part)`\n",
-            "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ends_with.html\n",
+            "assertion failed: `assert_ends_with!(sequence, x)`\n",
+            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ends_with.html\n",
             " whole label: `whole`,\n",
             " whole debug: `\"alfa\"`,\n",
             "  part label: `part`,\n",
@@ -127,29 +127,29 @@ mod tests {
 /// // String ends with substring?
 /// let whole: &str = "alfa";
 /// let part: &str = "fa";
-/// assert_ends_with!(whole, part);
+/// assert_ends_with!(sequence, x);
 ///
 /// // Vector ends with element?
 /// let whole = vec![1, 2, 3];
 /// let part = [3];
-/// assert_ends_with!(whole, part);
+/// assert_ends_with!(sequence, x);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let whole = "alfa";
 /// let part = "al";
-/// assert_ends_with!(whole, part);
+/// assert_ends_with!(sequence, x);
 /// # });
-/// // assertion failed: `assert_ends_with!(whole, part)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_ends_with.html
+/// // assertion failed: `assert_ends_with!(sequence, x)`
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_ends_with.html
 /// //  whole label: `whole`,
 /// //  whole debug: `\"alfa\"`,
 /// //   part label: `part`,
 /// //   part debug: `\"al\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_ends_with!(whole, part)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_ends_with.html\n",
+/// #     "assertion failed: `assert_ends_with!(sequence, x)`\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ends_with.html\n",
 /// #     " whole label: `whole`,\n",
 /// #     " whole debug: `\"alfa\"`,\n",
 /// #     "  part label: `part`,\n",

@@ -234,12 +234,12 @@
 //! // String ends with substring?
 //! let whole: &amp;str = "alfa";
 //! let part: &amp;str = "al";
-//! assert_not_ends_with!(whole, part);
+//! assert_not_ends_with!(sequence, x);
 //!
 //! // Vector ends with element?
 //! let whole = vec![1, 2, 3];
 //! let part = [1];
-//! assert_not_ends_with!(whole, part);
+//! assert_not_ends_with!(sequence, x);
 //! # }
 //! ```
 //!
@@ -274,15 +274,15 @@
 </span><span class="macro">macro_rules!</span> assert_not_ends_with_as_result {
     (<span class="macro-nonterminal">$whole</span>:expr, <span class="macro-nonterminal">$part</span>:expr $(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">match </span>(<span class="kw-2">&amp;</span><span class="macro-nonterminal">$whole</span>, <span class="kw-2">&amp;</span><span class="macro-nonterminal">$part</span>) {
-            (whole, part) =&gt; {
-                <span class="kw">if </span>!(whole.ends_with(part)) {
+            (sequence, x) =&gt; {
+                <span class="kw">if </span>!(sequence.ends_with(x)) {
                     <span class="prelude-val">Ok</span>(())
                 } <span class="kw">else </span>{
                     <span class="prelude-val">Err</span>(
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
-                                <span class="string">"assertion failed: `assert_not_ends_with!(whole, part)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_ends_with.html\n"</span>,
+                                <span class="string">"assertion failed: `assert_not_ends_with!(sequence, x)`\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_ends_with.html\n"</span>,
                                 <span class="string">" whole label: `{}`,\n"</span>,
                                 <span class="string">" whole debug: `{:?}`,\n"</span>,
                                 <span class="string">"  part label: `{}`,\n"</span>,
@@ -307,7 +307,7 @@
     </span><span class="kw">fn </span>test_assert_not_ends_with_as_result_success() {
         <span class="kw">let </span>whole = <span class="string">"alfa"</span>;
         <span class="kw">let </span>part = <span class="string">"al"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_not_ends_with_as_result!</span>(whole, part);
+        <span class="kw">let </span>result = <span class="macro">assert_not_ends_with_as_result!</span>(sequence, x);
         <span class="macro">assert_eq!</span>(result.unwrap(), ());
     }
 
@@ -315,11 +315,11 @@
     </span><span class="kw">fn </span>test_assert_not_ends_with_as_result_x_failure() {
         <span class="kw">let </span>whole = <span class="string">"alfa"</span>;
         <span class="kw">let </span>part = <span class="string">"fa"</span>;
-        <span class="kw">let </span>result = <span class="macro">assert_not_ends_with_as_result!</span>(whole, part);
+        <span class="kw">let </span>result = <span class="macro">assert_not_ends_with_as_result!</span>(sequence, x);
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
-            <span class="string">"assertion failed: `assert_not_ends_with!(whole, part)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_ends_with.html\n"</span>,
+            <span class="string">"assertion failed: `assert_not_ends_with!(sequence, x)`\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_ends_with.html\n"</span>,
             <span class="string">" whole label: `whole`,\n"</span>,
             <span class="string">" whole debug: `\"alfa\"`,\n"</span>,
             <span class="string">"  part label: `part`,\n"</span>,
@@ -349,29 +349,29 @@
 /// // String ends with substring?
 /// let whole: &amp;str = "alfa";
 /// let part: &amp;str = "al";
-/// assert_not_ends_with!(whole, part);
+/// assert_not_ends_with!(sequence, x);
 ///
 /// // Vector ends with element?
 /// let whole = vec![1, 2, 3];
 /// let part = [1];
-/// assert_not_ends_with!(whole, part);
+/// assert_not_ends_with!(sequence, x);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let whole = "alfa";
 /// let part = "fa";
-/// assert_not_ends_with!(whole, part);
+/// assert_not_ends_with!(sequence, x);
 /// # });
-/// // assertion failed: `assert_not_ends_with!(whole, part)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_ends_with.html
+/// // assertion failed: `assert_not_ends_with!(sequence, x)`
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_ends_with.html
 /// //  whole label: `whole`,
 /// //  whole debug: `\"alfa\"`,
 /// //   part label: `part`,
 /// //   part debug: `\"fa\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
-/// #     "assertion failed: `assert_not_ends_with!(whole, part)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_not_ends_with.html\n",
+/// #     "assertion failed: `assert_not_ends_with!(sequence, x)`\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_not_ends_with.html\n",
 /// #     " whole label: `whole`,\n",
 /// #     " whole debug: `\"alfa\"`,\n",
 /// #     "  part label: `part`,\n",

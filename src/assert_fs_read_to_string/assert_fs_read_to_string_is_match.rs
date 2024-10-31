@@ -57,7 +57,7 @@ macro_rules! assert_fs_read_to_string_is_match_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                                        "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
                                         "    path label: `{}`,\n",
                                         "    path debug: `{:?}`,\n",
                                         " matcher label: `{}`,\n",
@@ -78,7 +78,7 @@ macro_rules! assert_fs_read_to_string_is_match_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
                                     "    path label: `{}`,\n",
                                     "    path debug: `{:?}`,\n",
                                     " matcher label: `{}`,\n",
@@ -131,7 +131,7 @@ mod tests {
             format!(
                 concat!(
                     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                    "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
                     "    path label: `&path`,\n",
                     "    path debug: `{:?}`,\n",
                     " matcher label: `&matcher`,\n",
@@ -174,7 +174,7 @@ mod tests {
 /// assert_fs_read_to_string_is_match!(&path, &matcher);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_is_match.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_is_match.html
 /// //     path label: `&path`,
 /// //     path debug: `\"alfa.txt\"`,
 /// //  matcher label: `&matcher`,
@@ -183,7 +183,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
 /// #     "    path label: `&path`,\n",
 /// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `&matcher`,\n",

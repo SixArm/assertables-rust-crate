@@ -47,7 +47,7 @@ macro_rules! assert_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert!(condition)`\n",
-                            "https://docs.rs/assertables/9.1.0/assertables/macro.assert.html\n",
+                            "https://docs.rs/assertables/9.2.0/assertables/macro.assert.html\n",
                             " condition label: `{}`,\n",
                             " condition debug: `{:?}`,\n",
                         ),
@@ -78,7 +78,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert!(condition)`\n",
-            "https://docs.rs/assertables/9.1.0/assertables/macro.assert.html\n",
+            "https://docs.rs/assertables/9.2.0/assertables/macro.assert.html\n",
             " condition label: `a`,\n",
             " condition debug: `false`,\n",
         );

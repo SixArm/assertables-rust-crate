@@ -42,7 +42,7 @@ To the best of our knowledge, as of this writing, these crates use these license
 
 | Name                                                | Version | Year | Licenses                    |
 |-----------------------------------------------------|---------|------|-----------------------------|
-| [assertables](https://crates.io/crates/assertables) | 9.1.0   | 2024 | Apache, MIT, BSD, GPL       |
+| [assertables](https://crates.io/crates/assertables) | 9.2.0   | 2024 | Apache, MIT, BSD, GPL       |
 | [assert_approx_eq](assert_approx_eq)                | 1.1.0   | 2018 | Apache, MIT                 |
 | [assert_matches](assert_matches)                    | 1.5.0   | 2021 | Apache, MIT                 | 
 | [cool_asserts](cool_asserts)                        | 2.0.3   | 2022 | Mozilla                     |

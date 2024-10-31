@@ -337,7 +337,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_string_contains.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_program_args_stderr_string_contains.html\n"</span>,
                                         <span class="string">" a_program label: `{}`,\n"</span>,
                                         <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                         <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -364,7 +364,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_string_contains.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_program_args_stderr_string_contains.html\n"</span>,
                                     <span class="string">" a_program label: `{}`,\n"</span>,
                                     <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                     <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -410,7 +410,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_string_contains.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_program_args_stderr_string_contains.html\n"</span>,
             <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
             <span class="string">" a_program debug: `\"bin/printf-stderr\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
@@ -459,7 +459,7 @@
 /// assert_program_args_stderr_string_contains!(&amp;program, &amp;args, &amp;containee);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_string_contains.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_program_args_stderr_string_contains.html
 /// //  a_program label: `&amp;program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&amp;args`,
@@ -471,7 +471,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_program_args_stderr_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_program_args_stderr_string_contains.html\n",
 /// #     " a_program label: `&amp;program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&amp;args`,\n",

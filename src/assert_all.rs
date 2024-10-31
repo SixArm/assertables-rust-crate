@@ -56,7 +56,7 @@ macro_rules! assert_all_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_all!(collection, predicate)`\n",
-                            "https://docs.rs/assertables/9.1.0/assertables/macro.assert_all.html\n",
+                            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_all.html\n",
                             " collection label: `{}`,\n",
                             " collection debug: `{:?}`,\n",
                             "        predicate: `{}`"
@@ -89,7 +89,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_all!(collection, predicate)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_all.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_all.html\n",
                 " collection label: `a.into_iter()`,\n",
                 " collection debug: `IntoIter([1, -2, 3])`,\n",
                 "        predicate: `|x: i8| x > 0`"
@@ -124,14 +124,14 @@ mod tests {
 /// assert_all!(a.into_iter(), |x: i8| x > 0);
 /// # });
 /// // assertion failed: `assert_all!(collection, predicate)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_all.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_all.html
 /// //  collection label: `a.into_iter()`,
 /// //  collection debug: `IntoIter([1, -2, 3])`,
 /// //         predicate: `|x: i8| x > 0`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_all!(collection, predicate)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_all.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_all.html\n",
 /// #     " collection label: `a.into_iter()`,\n",
 /// #     " collection debug: `IntoIter([1, -2, 3])`,\n",
 /// #     "        predicate: `|x: i8| x > 0`",

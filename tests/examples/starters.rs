@@ -407,6 +407,32 @@ fn examples_with_assert_program_args_stderr() {
 
 }
 
+/// Examples with assert_process_status_code_value_*
+#[test]
+fn examples_with_assert_process_status_code_value() {
+
+    let program = BIN.join("exit-with-arg");
+    let mut a = Command::new(&program);
+    a.arg("1");
+
+    // Compare another
+    let mut b = Command::new(&program); b.arg("1"); assert_process_status_code_value_eq!(a, b);
+    let mut b = Command::new(&program); b.arg("2"); assert_process_status_code_value_ne!(a, b);
+    let mut b = Command::new(&program); b.arg("2"); assert_process_status_code_value_lt!(a, b);
+    let mut b = Command::new(&program); b.arg("2"); assert_process_status_code_value_le!(a, b);
+    let mut b = Command::new(&program); b.arg("0"); assert_process_status_code_value_gt!(a, b);
+    let mut b = Command::new(&program); b.arg("0"); assert_process_status_code_value_ge!(a, b);
+
+    // Compare expression
+    assert_process_status_code_value_eq_x!(a, 1);
+    assert_process_status_code_value_ne_x!(a, 2);
+    assert_process_status_code_value_lt_x!(a, 2);
+    assert_process_status_code_value_le_x!(a, 2);
+    assert_process_status_code_value_gt_x!(a, 0);
+    assert_process_status_code_value_ge_x!(a, 0);
+
+}
+
 //// Functions
 
 /// Examples with assert_fn.
@@ -555,13 +581,13 @@ fn examples_of_success_return_with_results() {
     let a_result: Result<i8, i8> = Ok(1);
     let b_result: Result<i8, i8> = Ok(2);
     let (a_inner, b_inner) = assert_ok_ne!(a_result, b_result);
-    assert_eq!(a_inner, &1);
-    assert_eq!(b_inner, &2);
+    assert_eq!(a_inner, 1);
+    assert_eq!(b_inner, 2);
 
     // Compare expression
     let result: Result<i8, i8> = Ok(2);
     let inner = assert_ok_ne_x!(result, 1);
-    assert_eq!(inner, &2);
+    assert_eq!(inner, 2);
 
 }
 
@@ -609,7 +635,6 @@ fn examples_of_success_return_with_commands() {
     let program = BIN.join("printf-stdout");
 
     // Compare another
-    let program = BIN.join("printf-stdout");
     let mut a_command = Command::new(&program);
     a_command.args(["%s", "alfa"]);
     let mut b_command = Command::new(&&program);

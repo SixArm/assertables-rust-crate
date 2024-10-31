@@ -58,7 +58,7 @@ macro_rules! assert_bag_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_bag_ne.html\n",
+                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_bag_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -104,7 +104,7 @@ mod test {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.1.0/assertables/macro.assert_bag_ne.html\n",
+                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_bag_ne.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 1]`,\n",
                 " b label: `&b`,\n",
@@ -144,7 +144,7 @@ mod test {
 /// assert_bag_ne!(&a, &b);
 /// # });
 /// // assertion failed: `assert_bag_ne!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_bag_ne.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_bag_ne.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 1]`,
 /// //  b label: `&b`,
@@ -154,7 +154,7 @@ mod test {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_bag_ne.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_bag_ne.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 1]`,\n",
 /// #     " b label: `&b`,\n",

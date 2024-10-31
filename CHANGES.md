@@ -3,7 +3,9 @@
 Changes highlights for recent major versions.
 
 
-## Version 9.0
+## Version 9.x
+
+* 9.2.0: Add process macros: `assert_process_status_code_value*`.
 
 * 9.1.0: Add absolute difference macros: `assert_abs_diff*`.
 

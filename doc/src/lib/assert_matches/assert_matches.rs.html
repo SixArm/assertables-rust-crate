@@ -269,7 +269,7 @@
                 <span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_matches!(a)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_matches.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_matches.html\n"</span>,
                         <span class="string">" args: `{}`"</span>,
                     ),
                     <span class="macro">stringify!</span>($(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>)
@@ -299,7 +299,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_matches!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_matches.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_matches.html\n"</span>,
                 <span class="string">" args: `a, 'b'..='z'`"</span>,
             )
         );
@@ -322,7 +322,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_matches!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.1.0/assertables/macro.assert_matches.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_matches.html\n"</span>,
                 <span class="string">" args: `a, Some(x) if x &lt; 2`"</span>,
             )
         );
@@ -352,12 +352,12 @@
 /// assert_matches!(a, 'b'..='z');
 /// # });
 /// // assertion failed: `assert_matches!(a)`
-/// // https://docs.rs/assertables/9.1.0/assertables/macro.assert_matches.html
+/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_matches.html
 /// //  args: `a, 'b'..='z'`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_matches!(a)`\n",
-/// #     "https://docs.rs/assertables/9.1.0/assertables/macro.assert_matches.html\n",
+/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_matches.html\n",
 /// #     " args: `a, 'b'..='z'`",
 /// # );
 /// # assert_eq!(actual, expect);
