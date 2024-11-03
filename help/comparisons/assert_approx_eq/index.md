@@ -1,8 +1,10 @@
-# Comparisons: assert_approx_eq
+# Comparisons: assert_approx_eq and Assertables
 
 https://crates.io/crates/assert_approx_eq
 
 The `assert_approx_eq` crate provides the `assert_approx_eq` macro. The `assertables` crate has a deliberately-similar macro because we want to make it easy to migrate.
+
+## Top comparison
 
 Both crates have the same syntax for a comparison that uses the default delta:
 

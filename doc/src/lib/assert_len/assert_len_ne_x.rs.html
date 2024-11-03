@@ -223,7 +223,7 @@
 <a href="#223" id="223">223</a>
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is equal to an expression.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is not equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
 //! a.len() ≠ b
@@ -246,7 +246,7 @@
 //! * [`assert_len_ne_x_as_result`](macro@crate::assert_len_ne_x_as_result)
 //! * [`debug_assert_len_ne_x`](macro@crate::debug_assert_len_ne_x)
 
-/// Assert a length is equal to an expression.
+/// Assert a length is not equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// a.len() ≠ b
@@ -280,7 +280,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_len_ne_x!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_len_ne_x.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_ne_x.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" a.len(): `{:?}`,\n"</span>,
@@ -328,7 +328,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_len_ne_x!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_len_ne_x.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_ne_x.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `\"x\"`,\n"</span>,
                 <span class="string">" a.len(): `1`,\n"</span>,
@@ -339,7 +339,7 @@
     }
 }
 
-<span class="doccomment">/// Assert a length is equal to an expression.
+<span class="doccomment">/// Assert a length is not equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// a.len() ≠ b
@@ -367,7 +367,7 @@
 /// assert_len_ne_x!(a, b);
 /// # });
 /// // assertion failed: `assert_len_ne_x!(a, b)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_len_ne_x.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_ne_x.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
@@ -376,7 +376,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_len_ne_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_len_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_ne_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
@@ -409,7 +409,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert a value is greater than an expression.
+<span class="doccomment">/// Assert a length is not equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
 /// a.len() ≠ b

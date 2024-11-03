@@ -1,4 +1,4 @@
-# Comparisons: approx
+# Comparisons: approx and Assertables
 
 https://crates.io/crates/approx
 
@@ -18,5 +18,7 @@ Assertables has some basic equivalents:
 * assert_approx_ne!(a, b)
 * assert_in_delta(a, b, delta)
 * assert_in_epsilon(a, b, epsilon)
+
+## Top comparison
 
 For developers who want general kinds of tests, and also want specific floating point comparison tests, we recommend using both `assertables` and `approx`.

@@ -1,4 +1,4 @@
-//! Assert a number is approximately equal to another number.
+//! Assert a number is approximately equal to another.
 //!
 //! Pseudocode:<br>
 //! | a - b | ≤ 1e-6
@@ -61,7 +61,7 @@
 //! * [`assert_approx_eq_as_result`](macro@crate::assert_approx_eq_as_result)
 //! * [`debug_assert_approx_eq`](macro@crate::debug_assert_approx_eq)
 
-/// Assert a number is approximately equal to another number.
+/// Assert a number is approximately equal to another.
 ///
 /// Pseudocode:<br>
 /// | a - b | ≤ 1e-6
@@ -97,7 +97,7 @@ macro_rules! assert_approx_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_approx_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_approx_eq.html\n",
+                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_approx_eq.html\n",
                                 "            a label: `{}`,\n",
                                 "            a debug: `{:?}`,\n",
                                 "            b label: `{}`,\n",
@@ -140,7 +140,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_approx_eq!(a, b)`\n",
-                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_approx_eq.html\n",
+                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_approx_eq.html\n",
                 "            a label: `a`,\n",
                 "            a debug: `1.0000001`,\n",
                 "            b label: `b`,\n",
@@ -153,7 +153,7 @@ mod tests {
     }
 }
 
-/// Assert a number is approximately equal to another number.
+/// Assert a number is approximately equal to another.
 ///
 /// Pseudocode:<br>
 /// | a - b | ≤ 1e-6
@@ -181,7 +181,7 @@ mod tests {
 /// assert_approx_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_approx_eq!(a, b)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_approx_eq.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_approx_eq.html
 /// //             a label: `a`,
 /// //             a debug: `1.0000001`,
 /// //             b label: `b`,
@@ -192,7 +192,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_approx_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_approx_eq.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_approx_eq.html\n",
 /// #     "            a label: `a`,\n",
 /// #     "            a debug: `1.0000001`,\n",
 /// #     "            b label: `b`,\n",
@@ -245,7 +245,7 @@ macro_rules! assert_approx_eq {
     }};
 }
 
-/// Assert a number is approximately equal to another number.
+/// Assert a number is approximately equal to another.
 ///
 /// Pseudocode:<br>
 /// | a - b | ≤ 1e-6

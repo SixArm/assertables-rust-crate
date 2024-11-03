@@ -269,7 +269,7 @@
 <a href="#269" id="269">269</a>
 <a href="#270" id="270">270</a>
 <a href="#271" id="271">271</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string is equal to another.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string is greater than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
 //! (command1 ⇒ stderr) = (command2 ⇒ stderr)
@@ -295,7 +295,7 @@
 //! * [`assert_command_stderr_ge_as_result`](macro@crate::assert_command_stderr_ge_as_result)
 //! * [`debug_assert_command_stderr_ge`](macro@crate::debug_assert_command_stderr_ge)
 
-/// Assert a command stderr string is equal to another.
+/// Assert a command stderr string is greater than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (command1 ⇒ stderr) = (command2 ⇒ stderr)
@@ -330,7 +330,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stderr_ge.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_ge.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
@@ -353,7 +353,7 @@
                     <span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stderr_ge.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_ge.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -415,7 +415,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stderr_ge.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_ge.html\n"</span>,
             <span class="string">" a label: `a`,\n"</span>,
             <span class="string">" a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">" b label: `b`,\n"</span>,
@@ -427,7 +427,7 @@
     }
 }
 
-<span class="doccomment">/// Assert a command stderr string is equal to another.
+<span class="doccomment">/// Assert a command stderr string is greater than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
 /// (command1 ⇒ stderr) = (command2 ⇒ stderr)
@@ -460,7 +460,7 @@
 /// assert_command_stderr_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stderr_ge!(a_command, b_command)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stderr_ge.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_ge.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
@@ -470,7 +470,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stderr_ge.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
@@ -504,7 +504,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert a command stderr string is equal to another.
+<span class="doccomment">/// Assert a command stderr string is greater than or equal to another.
 ///
 /// This macro provides the same statements as [`assert_command_stderr_ge {`](macro.assert_command_stderr_ge {.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -5,7 +5,7 @@
 //!
 //! The macros use these capabilities:
 //!
-//! * implements `.is_err() -> boolean`
+//! * implements `.is_err() -> bool`
 //!
 //! * implements `.unwrap_err() -> comparable`
 //!

@@ -291,33 +291,6 @@
 <a href="#291" id="291">291</a>
 <a href="#292" id="292">292</a>
 <a href="#293" id="293">293</a>
-<a href="#294" id="294">294</a>
-<a href="#295" id="295">295</a>
-<a href="#296" id="296">296</a>
-<a href="#297" id="297">297</a>
-<a href="#298" id="298">298</a>
-<a href="#299" id="299">299</a>
-<a href="#300" id="300">300</a>
-<a href="#301" id="301">301</a>
-<a href="#302" id="302">302</a>
-<a href="#303" id="303">303</a>
-<a href="#304" id="304">304</a>
-<a href="#305" id="305">305</a>
-<a href="#306" id="306">306</a>
-<a href="#307" id="307">307</a>
-<a href="#308" id="308">308</a>
-<a href="#309" id="309">309</a>
-<a href="#310" id="310">310</a>
-<a href="#311" id="311">311</a>
-<a href="#312" id="312">312</a>
-<a href="#313" id="313">313</a>
-<a href="#314" id="314">314</a>
-<a href="#315" id="315">315</a>
-<a href="#316" id="316">316</a>
-<a href="#317" id="317">317</a>
-<a href="#318" id="318">318</a>
-<a href="#319" id="319">319</a>
-<a href="#320" id="320">320</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! # Assertables: Rust crate of assert macros for testing
 //!
 //! Assertables is a Rust crate that provides many assert macros
@@ -356,14 +329,14 @@
 //!   […](https://docs.rs/assertables/)
 //! * Test programs with
 //!   [assert_command](module@crate::assert_command),
-//!   [assert_process](module@crate::assert_process),
+//!   [assert_status](module@crate::assert_status),
 //!   […](https://docs.rs/assertables)
 //! * Many more below.
 //!
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.2.0"
+//! assertables = "9.3.0"
 //! ``````
 //!
 //! Benefits:
@@ -390,6 +363,48 @@
 //! [assert2](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/assert2),
 //! [claims](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/more_asserts),
 //! [etc.](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
+//!
+//! ## Examples
+//!
+//! Examples with numbers:
+//!
+//! ```rust
+//! # use assertables::*;
+//! # fn main() {
+//! assert_lt!(1, 2); // less than
+//! assert_gt!(2, 1); // greater than
+//! assert_approx_eq!(1.00000001, 1.00000002); // approximately equal to
+//! assert_abs_diff_eq!(10, 13, 3); // absolute difference equal to
+//! # }
+//! ```
+//!
+//! Examples with strings:
+//!
+//! ```rust
+//! # use assertables::*;
+//! # use regex::Regex;
+//! # fn main() {
+//! let s = "hello world";
+//! assert_starts_with!(s, "hello");
+//! assert_ends_with!(s, "world");
+//! assert_contains!(s, "lo");
+//! assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
+//! # }
+//! ```
+//!
+//! Examples with arrays:
+//!
+//! ```rust
+//! # use assertables::*;
+//! # use regex::Regex;
+//! # fn main() {
+//! let a = [1, 2, 3];
+//! assert_not_empty!(a);
+//! assert_len_eq_x!(a, 3);
+//! assert_all!(a.into_iter(), |i: i32| i &lt; 4);
+//! assert_any!(a.into_iter(), |i: i32| i &gt; 2);
+//! # }
+//! ```
 //!
 //! ## Highlights
 //!
@@ -462,78 +477,6 @@
 //! For a complete list of modules and macros, see the
 //! [docs](https://docs.rs/assertables/).
 //!
-//! ## Examples
-//!
-//! Examples with values:
-//!
-//! ```rust
-//! # use assertables::*;
-//! # fn main() {
-//! assert_eq!(1, 1); // equal to
-//! assert_ne!(2, 1); // not equal to
-//! assert_lt!(1, 2); // less than
-//! assert_le!(1, 2); // less than or equal to
-//! assert_gt!(2, 1); // greater than
-//! assert_ge!(2, 1); // greater than or equal to
-//! # }
-//! ```
-//!
-//! Examples with values:
-//!
-//! ```rust
-//! # use assertables::*;
-//! # fn main() {
-//! assert_eq!(1, 1); // equal to
-//! assert_ne!(2, 1); // not equal to
-//! assert_lt!(1, 2); // less than
-//! assert_le!(1, 2); // less than or equal to
-//! assert_gt!(2, 1); // greater than
-//! assert_ge!(2, 1); // greater than or equal to
-//! # }
-//! ```
-//!
-//! Examples with strings:
-//!
-//! ```rust
-//! # use assertables::*;
-//! # use regex::Regex;
-//! # fn main() {
-//! let s = "hello world";
-//! assert_starts_with!(s, "hello");
-//! assert_ends_with!(s, "world");
-//! assert_contains!(s, "lo");
-//! assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
-//! assert_not_empty!(s);
-//! assert_len_eq!(s, "***********");
-//! assert_len_eq_x!(s, 11);
-//! assert_all!(s.chars(), |c: char| c &lt; 'x');
-//! assert_any!(s.chars(), |c: char| c.is_whitespace());
-//! # }
-//! ```
-//!
-//! Examples with nearness:
-//!
-//! ```rust
-//! # use assertables::*;
-//! # fn main() {
-//! assert_approx_eq!(1.00000001, 1.00000002);
-//! assert_abs_diff_eq!(10, 13, 3);
-//! assert_in_delta!(10, 13, 4);
-//! assert_in_epsilon!(10, 13, 5);
-//! # }
-//! ```
-//!
-//! Examples with iterators:
-//!
-//! ```rust
-//! # use assertables::*;
-//! # fn main() {
-//! assert_iter_eq!([1, 2], [1, 2]);
-//! assert_iter_ne!([1, 2], [2, 1]);
-//! assert_iter_lt!([1, 2], [3, 4]);
-//! assert_iter_gt!([3, 4], [1, 2]);
-//! # }
-//! ```
 //!
 //! ## Forms
 //!
@@ -566,9 +509,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.2.0
+//! * Version: 9.3.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-10-31T11:04:30Z
+//! * Updated: 2024-11-03T21:01:28Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
@@ -636,6 +579,9 @@
 
 <span class="comment">// For externals
 </span><span class="kw">pub mod </span>assert_command;
-<span class="kw">pub mod </span>assert_process;
 <span class="kw">pub mod </span>assert_program_args;
+<span class="kw">pub mod </span>assert_status;
+
+<span class="comment">// Misc
+</span><span class="kw">pub mod </span>assert_success;
 </code></pre></div></section></main></body></html>

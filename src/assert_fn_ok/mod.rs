@@ -5,7 +5,7 @@
 //!
 //! The macros use these capabilities:
 //!
-//! * implements `.is_ok() -> boolean`
+//! * implements `.is_ok() -> bool`
 //!
 //! * implements `.unwrap_ok() -> comparable`
 //!

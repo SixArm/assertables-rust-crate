@@ -1,4 +1,4 @@
-//! Assert a number is within epsilon of another number.
+//! Assert a number is within epsilon of another.
 //!
 //! Pseudocode:<br>
 //! | a - b | ≤ ε * min(a, b)
@@ -62,7 +62,7 @@
 //! * [`assert_in_epsilon_as_result`](macro@crate::assert_in_epsilon_as_result)
 //! * [`debug_assert_in_epsilon`](macro@crate::debug_assert_in_epsilon)
 
-/// Assert a number is within epsilon of another number.
+/// Assert a number is within epsilon of another.
 ///
 /// Pseudocode:<br>
 /// | a - b | ≤ ε * min(a, b)
@@ -99,7 +99,7 @@ macro_rules! assert_in_epsilon_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_in_epsilon.html\n",
+                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_epsilon.html\n",
                                 "                   a label: `{}`,\n",
                                 "                   a debug: `{:?}`,\n",
                                 "                   b label: `{}`,\n",
@@ -149,7 +149,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_in_epsilon.html\n",
+                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_epsilon.html\n",
                 "                   a label: `a`,\n",
                 "                   a debug: `10`,\n",
                 "                   b label: `b`,\n",
@@ -164,7 +164,7 @@ mod tests {
     }
 }
 
-/// Assert a number is within epsilon of another number.
+/// Assert a number is within epsilon of another.
 ///
 /// Pseudocode:<br>
 /// | a - b | ≤ ε * min(a, b)
@@ -194,7 +194,7 @@ mod tests {
 /// assert_in_epsilon!(a, b, epsilon);
 /// # });
 /// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_in_epsilon.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_epsilon.html
 /// //                    a label: `a`,
 /// //                    a debug: `10`,
 /// //                    b label: `b`,
@@ -207,7 +207,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_in_epsilon.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_epsilon.html\n",
 /// #     "                   a label: `a`,\n",
 /// #     "                   a debug: `10`,\n",
 /// #     "                   b label: `b`,\n",
@@ -262,7 +262,7 @@ macro_rules! assert_in_epsilon {
     }};
 }
 
-/// Assert a number is within epsilon of another number.
+/// Assert a number is within epsilon of another.
 ///
 /// Pseudocode:<br>
 /// | a - b | ≤ ε * min(a, b)

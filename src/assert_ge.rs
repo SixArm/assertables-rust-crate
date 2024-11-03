@@ -1,4 +1,4 @@
-//! Assert an expression is greater than or equal to another expression.
+//! Assert an expression is greater than or equal to another.
 //!
 //! Pseudocode:<br>
 //! a ≥ b
@@ -21,7 +21,7 @@
 //! * [`assert_ge_as_result`](macro@crate::assert_ge_as_result)
 //! * [`debug_assert_ge`](macro@crate::debug_assert_ge)
 
-/// Assert an expression is greater than or equal to another expression.
+/// Assert an expression is greater than or equal to another.
 ///
 /// Pseudocode:<br>
 /// a ≥ b
@@ -53,7 +53,7 @@ macro_rules! assert_ge_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_ge!(a, b)`\n",
-                            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ge.html\n",
+                            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_ge.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -90,7 +90,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_ge!(a, b)`\n",
-                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ge.html\n",
+                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_ge.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
@@ -100,7 +100,7 @@ mod tests {
     }
 }
 
-/// Assert an expression is greater than or equal to another expression.
+/// Assert an expression is greater than or equal to another.
 ///
 /// Pseudocode:<br>
 /// a ≥ b
@@ -128,7 +128,7 @@ mod tests {
 /// assert_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_ge!(a, b)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_ge.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_ge.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,
@@ -136,7 +136,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ge!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ge.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",
@@ -168,7 +168,7 @@ macro_rules! assert_ge {
     }};
 }
 
-/// Assert an expression is greater than or equal to another expression.
+/// Assert an expression is greater than or equal to another.
 ///
 /// Pseudocode:<br>
 /// a ≥ b

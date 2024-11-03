@@ -1,4 +1,4 @@
-//! Assert a command stdout string is equal to an expression.
+//! Assert a command stdout string is greater than or equal to an expression.
 //!
 //! Pseudocode:<br>
 //! (command ⇒ stdout) = (expr into string)
@@ -23,7 +23,7 @@
 //! * [`assert_command_stdout_ge_x_as_result`](macro@crate::assert_command_stdout_ge_x_as_result)
 //! * [`debug_assert_command_stdout_ge_x`](macro@crate::debug_assert_command_stdout_ge_x)
 
-/// Assert a command stdout string is equal to an expression.
+/// Assert a command stdout string is greater than or equal to an expression.
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout) = (expr into string)
@@ -59,7 +59,7 @@ macro_rules! assert_command_stdout_ge_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-                                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ge_x.html\n",
+                                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ge_x.html\n",
                                         " command label: `{}`,\n",
                                         " command debug: `{:?}`,\n",
                                         "    expr label: `{}`,\n",
@@ -82,7 +82,7 @@ macro_rules! assert_command_stdout_ge_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-                                    "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ge_x.html\n",
+                                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ge_x.html\n",
                                     "  command label: `{}`,\n",
                                     "  command debug: `{:?}`,\n",
                                     "     expr label: `{}`,\n",
@@ -135,7 +135,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ge_x.html\n",
+            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ge_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             "    expr label: `b`,\n",
@@ -147,7 +147,7 @@ mod tests {
     }
 }
 
-/// Assert a command stdout string is equal to an expression.
+/// Assert a command stdout string is greater than or equal to an expression.
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout) = (expr into string)
@@ -178,7 +178,7 @@ mod tests {
 /// assert_command_stdout_ge_x!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_ge_x!(command, expr)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ge_x.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ge_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //     expr label: `bytes`,
@@ -188,7 +188,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ge_x.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ge_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     "    expr label: `bytes`,\n",
@@ -222,7 +222,7 @@ macro_rules! assert_command_stdout_ge_x {
     }};
 }
 
-/// Assert a command stdout string is equal to an expression.
+/// Assert a command stdout string is greater than or equal to an expression.
 ///
 /// Pseudocode:<br>
 /// (command ⇒ stdout) = (expr into string)

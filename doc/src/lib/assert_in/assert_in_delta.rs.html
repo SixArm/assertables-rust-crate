@@ -294,7 +294,7 @@
 <a href="#294" id="294">294</a>
 <a href="#295" id="295">295</a>
 <a href="#296" id="296">296</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a number is within delta of another number.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a number is within delta of another.
 //!
 //! Pseudocode:&lt;br&gt;
 //! | a - b | ≤ Δ
@@ -358,7 +358,7 @@
 //! * [`assert_in_delta_as_result`](macro@crate::assert_in_delta_as_result)
 //! * [`debug_assert_in_delta`](macro@crate::debug_assert_in_delta)
 
-/// Assert a number is within delta of another number.
+/// Assert a number is within delta of another.
 ///
 /// Pseudocode:&lt;br&gt;
 /// | a - b | ≤ Δ
@@ -393,7 +393,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_in_delta!(a, b, Δ)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_in_delta.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_delta.html\n"</span>,
                                 <span class="string">"       a label: `{}`,\n"</span>,
                                 <span class="string">"       a debug: `{:?}`,\n"</span>,
                                 <span class="string">"       b label: `{}`,\n"</span>,
@@ -441,7 +441,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_in_delta!(a, b, Δ)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.2.0/assertables/macro.assert_in_delta.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_delta.html\n"</span>,
                 <span class="string">"       a label: `a`,\n"</span>,
                 <span class="string">"       a debug: `10`,\n"</span>,
                 <span class="string">"       b label: `b`,\n"</span>,
@@ -455,7 +455,7 @@
     }
 }
 
-<span class="doccomment">/// Assert a number is within delta of another number.
+<span class="doccomment">/// Assert a number is within delta of another.
 ///
 /// Pseudocode:&lt;br&gt;
 /// | a - b | ≤ Δ
@@ -485,7 +485,7 @@
 /// assert_in_delta!(a, b, delta);
 /// # });
 /// // assertion failed: `assert_in_delta!(a, b, Δ)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_in_delta.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_delta.html
 /// //        a label: `a`,
 /// //        a debug: `10`,
 /// //        b label: `b`,
@@ -497,7 +497,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_in_delta.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_delta.html\n",
 /// #     "       a label: `a`,\n",
 /// #     "       a debug: `10`,\n",
 /// #     "       b label: `b`,\n",
@@ -551,7 +551,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert a number is within delta of another number.
+<span class="doccomment">/// Assert a number is within delta of another.
 ///
 /// Pseudocode:&lt;br&gt;
 /// | a - b | ≤ Δ

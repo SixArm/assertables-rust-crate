@@ -1,4 +1,4 @@
-//! Assert a function output is equal to another function output.
+//! Assert a function output is equal to another.
 //!
 //! Pseudocode:<br>
 //! a_function(a) == b_function(b)
@@ -21,7 +21,7 @@
 //! * [`assert_fn_eq_as_result`](macro@crate::assert_fn_eq_as_result)
 //! * [`debug_assert_fn_eq`](macro@crate::debug_assert_fn_eq)
 
-/// Assert a function output is equal to another function output.
+/// Assert a function output is equal to another.
 ///
 /// Pseudocode:<br>
 /// a_function(a) == b_function(b)
@@ -59,7 +59,7 @@ macro_rules! assert_fn_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
-                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_eq.html\n",
+                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_eq.html\n",
                                 " a_function label: `{}`,\n",
                                 "    a_param label: `{}`,\n",
                                 "    a_param debug: `{:?}`,\n",
@@ -96,7 +96,7 @@ macro_rules! assert_fn_eq_as_result {
                 format!(
                     concat!(
                         "assertion failed: `assert_fn_eq!(a_function, b_function)`\n",
-                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_eq.html\n",
+                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_eq.html\n",
                         " a_function label: `{}`,\n",
                         " b_function label: `{}`,\n",
                         "                a: `{:?}`,\n",
@@ -145,7 +145,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
-                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_eq.html\n",
+                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_eq.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
@@ -182,7 +182,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_eq!(a_function, b_function)`\n",
-                        "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_eq.html\n",
+                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_eq.html\n",
                         " a_function label: `f`,\n",
                         " b_function label: `g`,\n",
                         "                a: `1`,\n",
@@ -194,7 +194,7 @@ mod tests {
     }
 }
 
-/// Assert a function output is equal to another function output.
+/// Assert a function output is equal to another.
 ///
 /// Pseudocode:<br>
 /// a_function(a) == b_function(b)
@@ -222,7 +222,7 @@ mod tests {
 /// assert_fn_eq!(i8::abs, a, i8::abs, b);
 /// # });
 /// // assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_eq.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_eq.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `-1`,
@@ -234,7 +234,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_fn_eq.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_eq.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",
@@ -291,7 +291,7 @@ macro_rules! assert_fn_eq {
 
 }
 
-/// Assert a function output is equal to another function output.
+/// Assert a function output is equal to another.
 ///
 /// Pseudocode:<br>
 /// a_function(a) == b_function(b)

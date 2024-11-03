@@ -60,7 +60,7 @@ macro_rules! assert_ends_with_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_ends_with!(sequence, subsequence)`\n",
-                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ends_with.html\n",
+                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_ends_with.html\n",
                                 "     sequence label: `{}`,\n",
                                 "     sequence debug: `{:?}`,\n",
                                 "  subsequence label: `{}`,\n",
@@ -97,7 +97,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_ends_with!(sequence, subsequence)`\n",
-            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ends_with.html\n",
+            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_ends_with.html\n",
             "     sequence label: `sequence`,\n",
             "     sequence debug: `\"alfa\"`,\n",
             "  subsequence label: `subsequence`,\n",
@@ -141,7 +141,7 @@ mod tests {
 /// assert_ends_with!(sequence, subsequence);
 /// # });
 /// // assertion failed: `assert_ends_with!(sequence, subsequence)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_ends_with.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_ends_with.html
 /// //  sequence label: `sequence`,
 /// //  sequence debug: `\"alfa\"`,
 /// //   part label: `subsequence`,
@@ -149,7 +149,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ends_with!(sequence, subsequence)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_ends_with.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_ends_with.html\n",
 /// #     "     sequence label: `sequence`,\n",
 /// #     "     sequence debug: `\"alfa\"`,\n",
 /// #     "  subsequence label: `subsequence`,\n",

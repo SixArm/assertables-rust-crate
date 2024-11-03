@@ -1,4 +1,4 @@
-//! Assert a command stdout string is equal to another.
+//! Assert a command stdout string is not equal to another.
 //!
 //! Pseudocode:<br>
 //! (command1 ⇒ stdout) = (command2 ⇒ stdout)
@@ -24,7 +24,7 @@
 //! * [`assert_command_stdout_ne_as_result`](macro@crate::assert_command_stdout_ne_as_result)
 //! * [`debug_assert_command_stdout_ne`](macro@crate::debug_assert_command_stdout_ne)
 
-/// Assert a command stdout string is equal to another.
+/// Assert a command stdout string is not equal to another.
 ///
 /// Pseudocode:<br>
 /// (command1 ⇒ stdout) = (command2 ⇒ stdout)
@@ -59,7 +59,7 @@ macro_rules! assert_command_stdout_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stdout_ne!(a_command, b_command)`\n",
-                                "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ne.html\n",
+                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -82,7 +82,7 @@ macro_rules! assert_command_stdout_ne_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_ne!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ne.html\n",
+                            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ne.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -144,7 +144,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_ne!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ne.html\n",
+            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ne.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -156,7 +156,7 @@ mod tests {
     }
 }
 
-/// Assert a command stdout string is equal to another.
+/// Assert a command stdout string is not equal to another.
 ///
 /// Pseudocode:<br>
 /// (command1 ⇒ stdout) = (command2 ⇒ stdout)
@@ -189,7 +189,7 @@ mod tests {
 /// assert_command_stdout_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stdout_ne!(a_command, b_command)`
-/// // https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ne.html
+/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ne.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
@@ -199,7 +199,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_ne!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.2.0/assertables/macro.assert_command_stdout_ne.html\n",
+/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
@@ -233,7 +233,7 @@ macro_rules! assert_command_stdout_ne {
     }};
 }
 
-/// Assert a command stdout string is equal to another.
+/// Assert a command stdout string is not equal to another.
 ///
 /// This macro provides the same statements as [`assert_command_stdout_ne {`](macro.assert_command_stdout_ne {.html),
 /// except this macro's statements are only enabled in non-optimized
