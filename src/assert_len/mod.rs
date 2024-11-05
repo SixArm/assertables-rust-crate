@@ -26,11 +26,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = "x";
 //! let b = "x";
 //! assert_len_eq!(a, b);
-//! # }
 //! ```
 
 // Compare another

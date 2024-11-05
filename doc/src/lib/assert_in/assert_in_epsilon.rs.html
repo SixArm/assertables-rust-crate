@@ -299,8 +299,6 @@
 <a href="#299" id="299">299</a>
 <a href="#300" id="300">300</a>
 <a href="#301" id="301">301</a>
-<a href="#302" id="302">302</a>
-<a href="#303" id="303">303</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a number is within epsilon of another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -311,12 +309,10 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a: i8 = 10;
 //! let b: i8 = 20;
 //! let epsilon: i8 = 1;
 //! assert_in_epsilon!(a, b, epsilon);
-//! # }
 //! ```
 //!
 //!
@@ -402,7 +398,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_in_epsilon!(a, b, ε)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_epsilon.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_in_epsilon.html\n"</span>,
                                 <span class="string">"                   a label: `{}`,\n"</span>,
                                 <span class="string">"                   a debug: `{:?}`,\n"</span>,
                                 <span class="string">"                   b label: `{}`,\n"</span>,
@@ -452,7 +448,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_in_epsilon!(a, b, ε)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_epsilon.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_in_epsilon.html\n"</span>,
                 <span class="string">"                   a label: `a`,\n"</span>,
                 <span class="string">"                   a debug: `10`,\n"</span>,
                 <span class="string">"                   b label: `b`,\n"</span>,
@@ -497,7 +493,7 @@
 /// assert_in_epsilon!(a, b, epsilon);
 /// # });
 /// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_epsilon.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_in_epsilon.html
 /// //                    a label: `a`,
 /// //                    a debug: `10`,
 /// //                    b label: `b`,
@@ -510,7 +506,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_in_epsilon.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_in_epsilon.html\n",
 /// #     "                   a label: `a`,\n",
 /// #     "                   a debug: `10`,\n",
 /// #     "                   b label: `b`,\n",

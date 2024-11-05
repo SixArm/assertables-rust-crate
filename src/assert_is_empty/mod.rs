@@ -11,10 +11,8 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = "";
 //! assert_is_empty!(a);
-//! # }
 //! ```
 
 pub mod assert_is_empty;

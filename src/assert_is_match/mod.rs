@@ -12,11 +12,9 @@
 //! use assertables::*;
 //! use regex::Regex;
 //!
-//! # fn main() {
 //! let a = Regex::new(r"lf").unwrap();
 //! let b = "alfa";
 //! assert_is_match!(a, b);
-//! # }
 //! ```
 
 pub mod assert_is_match;

@@ -9,12 +9,10 @@
 //! use assertables::*;
 //! use std::process::Command;
 //!
-//! # fn main() {
 //! let mut command = Command::new("bin/printf-stdout");
 //! command.args(["%s", "alfa"]);
 //! let containee = "lf";
 //! assert_command_stdout_string_contains!(command, &containee);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -59,7 +57,7 @@ macro_rules! assert_command_stdout_string_contains_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-                                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html\n",
                                         "   command label: `{}`,\n",
                                         "   command debug: `{:?}`,\n",
                                         " containee label: `{}`,\n",
@@ -80,7 +78,7 @@ macro_rules! assert_command_stdout_string_contains_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-                                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html\n",
                                     "   command label: `{}`,\n",
                                     "   command debug: `{:?}`,\n",
                                     " containee label: `{}`,\n",
@@ -124,7 +122,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html\n",
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " containee label: `b`,\n",
@@ -171,7 +169,7 @@ mod tests {
 /// assert_command_stdout_string_contains!(command, &containee);
 /// # });
 /// // assertion failed: `assert_command_stdout_string_contains!(command, containee)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_string_contains.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  containee label: `&containee`,
@@ -180,7 +178,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html\n",
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " containee label: `&containee`,\n",

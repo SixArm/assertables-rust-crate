@@ -35,8 +35,6 @@
 <a href="#35" id="35">35</a>
 <a href="#36" id="36">36</a>
 <a href="#37" id="37">37</a>
-<a href="#38" id="38">38</a>
-<a href="#39" id="39">39</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for Err(…) items.
 //!
 //! These macros help compare Err(…) items, such as `::std::Result::Err` or similar.
@@ -60,10 +58,8 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a: Result&lt;i8, i8&gt; = Err(1);
 //! assert_err!(a);
-//! # }
 //! ```
 
 </span><span class="comment">// Verify Err(_)

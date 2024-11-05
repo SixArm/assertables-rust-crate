@@ -8,11 +8,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a: Result<i8, i8> = Err(1);
 //! let b: i8 = 1;
 //! assert_err_eq_x!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -54,7 +52,7 @@ macro_rules! assert_err_eq_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_err_eq_x!(a, b)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_err_eq_x.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a inner: `{:?}`,\n",
@@ -75,7 +73,7 @@ macro_rules! assert_err_eq_x_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_err_eq_x!(a, b)`\n",
-                            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_err_eq_x.html\n",
+                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -112,7 +110,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_err_eq_x!(a, b)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_err_eq_x.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `Err(1)`,\n",
                 " a inner: `1`,\n",
@@ -131,7 +129,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_err_eq_x!(a, b)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_err_eq_x.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `Ok(1)`,\n",
                 " b label: `b`,\n",
@@ -169,7 +167,7 @@ mod tests {
 /// assert_err_eq_x!(a, b);
 /// # });
 /// // assertion failed: `assert_err_eq_x!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_err_eq_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`,
 /// //  a inner: `1`,
@@ -178,7 +176,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_err_eq_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_err_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`,\n",
 /// #     " a inner: `1`,\n",

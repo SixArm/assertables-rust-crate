@@ -1,7 +1,7 @@
-//! Assert a command (built with program and args) stdout string contains a given containee.
+//! Assert a command (built with program and args) stdout into a string contains a given containee.
 //!
 //! Pseudocode:<br>
-//! (program1 + args1 ⇒ command ⇒ stdout ⇒ string) contains (expr into string)
+//! (a_program + a_args ⇒ command ⇒ stdout ⇒ string) contains (expr into string)
 //!
 //! This uses [`::std::String`](https://doc.rust-lang.org/std/string/struct.String.html) method `contains`.
 //!
@@ -13,12 +13,10 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "alfa"];
 //! let containee = "lf";
 //! assert_program_args_stdout_string_contains!(&program, &args, &containee);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -27,12 +25,12 @@
 //! * [`assert_program_args_stdout_string_contains_as_result`](macro@crate::assert_program_args_stdout_string_contains_as_result)
 //! * [`debug_assert_program_args_stdout_string_contains`](macro@crate::debug_assert_program_args_stdout_string_contains)
 
-/// Assert a command (built with program and args) stdout string contains a given containee.
+/// Assert a command (built with program and args) stdout into a string contains a given containee.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) contains (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stdout ⇒ string) contains (expr into string)
 ///
-/// * If true, return Result `Ok(program1 + args1 ⇒ command ⇒ stdout ⇒ string)`.
+/// * If true, return Result `Ok(a_program + a_args ⇒ command ⇒ stdout ⇒ string)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -63,7 +61,7 @@ macro_rules! assert_program_args_stdout_string_contains_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`\n",
-                                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_contains.html\n",
+                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_contains.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -90,7 +88,7 @@ macro_rules! assert_program_args_stdout_string_contains_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`\n",
-                                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_contains.html\n",
+                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_contains.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -136,7 +134,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`\n",
-            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_contains.html\n",
+            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_contains.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -150,12 +148,12 @@ mod tests {
     }
 }
 
-/// Assert a command (built with program and args) stdout string contains a given containee.
+/// Assert a command (built with program and args) stdout into a string contains a given containee.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) contains (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stdout ⇒ string) contains (expr into string)
 ///
-/// * If true, return (program1 + args1 ⇒ command ⇒ stdout ⇒ string).
+/// * If true, return (a_program + a_args ⇒ command ⇒ stdout ⇒ string).
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -185,7 +183,7 @@ mod tests {
 /// assert_program_args_stdout_string_contains!(&program, &args, &containee);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_contains.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_contains.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&args`,
@@ -197,7 +195,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_contains.html\n",
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&args`,\n",
@@ -233,7 +231,7 @@ macro_rules! assert_program_args_stdout_string_contains {
     }};
 }
 
-/// Assert a command (built with program and args) stdout string contains a given containee.
+/// Assert a command (built with program and args) stdout into a string contains a given containee.
 ///
 /// This macro provides the same statements as [`assert_program_args_stdout_string_contains`](macro.assert_program_args_stdout_string_contains.html),
 /// except this macro's statements are only enabled in non-optimized

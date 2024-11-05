@@ -1,7 +1,7 @@
 //! Assert a command stderr string is equal to another.
 //!
 //! Pseudocode:<br>
-//! (command1 ⇒ stderr) = (command2 ⇒ stderr)
+//! (a_command ⇒ stderr) = (b_command ⇒ stderr)
 //!
 //! # Example
 //!
@@ -9,13 +9,11 @@
 //! use assertables::*;
 //! use std::process::Command;
 //!
-//! # fn main() {
 //! let mut a = Command::new("bin/printf-stderr");
 //! a.args(["%s", "alfa"]);
 //! let mut b = Command::new("bin/printf-stderr");
 //! b.args(["%s", "alfa"]);
 //! assert_command_stderr_eq!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -27,7 +25,7 @@
 /// Assert a command stderr string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (command1 ⇒ stderr) = (command2 ⇒ stderr)
+/// (a_command ⇒ stderr) = (b_command ⇒ stderr)
 ///
 /// * If true, return Result `Ok(stderr)`.
 ///
@@ -59,7 +57,7 @@ macro_rules! assert_command_stderr_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_eq.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -82,7 +80,7 @@ macro_rules! assert_command_stderr_eq_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_eq.html\n",
+                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -131,7 +129,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_eq.html\n",
+            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_eq.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -152,7 +150,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_eq.html\n",
+            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_eq.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -167,7 +165,7 @@ mod tests {
 /// Assert a command stderr string is equal to another.
 ///
 /// Pseudocode:<br>
-/// (command1 ⇒ stderr) = (command2 ⇒ stderr)
+/// (a_command ⇒ stderr) = (b_command ⇒ stderr)
 ///
 /// * If true, return `()`.
 ///
@@ -197,7 +195,7 @@ mod tests {
 /// assert_command_stderr_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stderr_eq!(a_command, b_command)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_eq.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_eq.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
@@ -207,7 +205,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_eq.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",

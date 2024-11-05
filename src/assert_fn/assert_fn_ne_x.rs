@@ -8,11 +8,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a: i8 = 1;
 //! let b: i8 = -2;
 //! assert_fn_ne_x!(i8::abs, a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -58,7 +56,7 @@ macro_rules! assert_fn_ne_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_ne_x!(a_function, a_param, b_expr)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ne_x.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne_x.html\n",
                                 " a_function label: `{}`,\n",
                                 "    a_param label: `{}`,\n",
                                 "    a_param debug: `{:?}`,\n",
@@ -94,7 +92,7 @@ macro_rules! assert_fn_ne_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_ne_x!(a_function, b_expr)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ne_x.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne_x.html\n",
                                 " a_function label: `{}`,\n",
                                 "     b_expr label: `{}`,\n",
                                 "     b_expr debug: `{:?}`,\n",
@@ -143,7 +141,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_ne_x!(a_function, a_param, b_expr)`\n",
-                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ne_x.html\n",
+                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne_x.html\n",
                         " a_function label: `f`,\n",
                         "    a_param label: `a`,\n",
                         "    a_param debug: `1`,\n",
@@ -177,7 +175,7 @@ mod tests {
                     result.unwrap_err(),
                     concat!(
                         "assertion failed: `assert_fn_ne_x!(a_function, b_expr)`\n",
-                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ne_x.html\n",
+                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne_x.html\n",
                         " a_function label: `f`,\n",
                         "     b_expr label: `b`,\n",
                         "     b_expr debug: `1`,\n",
@@ -227,7 +225,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_ne_x!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne_x.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",

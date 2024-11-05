@@ -255,8 +255,6 @@
 <a href="#255" id="255">255</a>
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::io::Read read_to_string() value is greater than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -268,11 +266,9 @@
 //! use assertables::*;
 //! use std::io::Read;
 //!
-//! # fn main() {
 //! let mut reader = "bravo".as_bytes();
 //! let value = String::from("alfa");
 //! assert_io_read_to_string_ge_x!(reader, &amp;value);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -318,7 +314,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge_x.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge_x.html\n"</span>,
                                         <span class="string">" a_reader label: `{}`,\n"</span>,
                                         <span class="string">" a_reader debug: `{:?}`,\n"</span>,
                                         <span class="string">"   b_expr label: `{}`,\n"</span>,
@@ -341,7 +337,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge_x.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge_x.html\n"</span>,
                                     <span class="string">" a_reader label: `{}`,\n"</span>,
                                     <span class="string">" a_reader debug: `{:?}`,\n"</span>,
                                     <span class="string">"   b_expr label: `{}`,\n"</span>,
@@ -392,7 +388,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge_x.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge_x.html\n"</span>,
                 <span class="string">" a_reader label: `reader`,\n"</span>,
                 <span class="string">" a_reader debug: `[]`,\n"</span>,
                 <span class="string">"   b_expr label: `&amp;value`,\n"</span>,
@@ -433,7 +429,7 @@
 /// assert_io_read_to_string_ge_x!(reader, &amp;value);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge_x.html
 /// //  a_reader label: `reader`,
 /// //  a_reader debug: `[]`,
 /// //    b_expr label: `&amp;value`,
@@ -443,7 +439,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge_x.html\n",
 /// #     " a_reader label: `reader`,\n",
 /// #     " a_reader debug: `[]`,\n",
 /// #     "   b_expr label: `&amp;value`,\n",

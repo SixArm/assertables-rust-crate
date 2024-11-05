@@ -52,12 +52,75 @@
 <a href="#52" id="52">52</a>
 <a href="#53" id="53">53</a>
 <a href="#54" id="54">54</a>
+<a href="#55" id="55">55</a>
+<a href="#56" id="56">56</a>
+<a href="#57" id="57">57</a>
+<a href="#58" id="58">58</a>
+<a href="#59" id="59">59</a>
+<a href="#60" id="60">60</a>
+<a href="#61" id="61">61</a>
+<a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
+<a href="#65" id="65">65</a>
+<a href="#66" id="66">66</a>
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
+<a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing bag collections.
 //!
 //! These macros help with comparison of bag parameters, such as comparison of
 //! two arrays or two vectors, where the item order does not matter, and the
 //! item count does matter. These macros convert their inputs into HashMap
-//! iterators.
+//! iterators. See tutorial below.
 //!
 //! For eq &amp; ne:
 //!
@@ -77,11 +140,74 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = [1, 1];
 //! let b = [1, 1];
 //! assert_bag_eq!(&amp;a, &amp;b);
-//! # }
+//! ```
+//!
+//! ## Tutorial
+//!
+//! A **bag** means a collection of elements, without any ordering, and tracking duplicate elements.
+//!
+//! A bag is sometimes written by using mathematical notation, which looks like this:
+//!
+//! ```text
+//! bag = {1, 1, 1, 2, 3}
+//! ```
+//!
+//! Bags are equal when they contain all the same elements and corresponding counts in any order:
+//!
+//! ```text
+//! {1, 1, 1, 2, 3} = {1, 1, 1, 2, 3} (same order)
+//! {1, 1, 1, 2, 3} = {1, 3, 1, 2, 1} (different order)
+//! ```
+//!
+//! Bags are not equal when they contain any different elements or any different corresponding counts:
+//!
+//! ```text
+//! {1, 1, 1, 2, 3} ≠ {1, 1, 2, 3}
+//! {1, 1, 1, 2, 3} ≠ {1, 1, 1, 2, 3, 4}
+//! ```
+//!
+//! To create a bag using Rust, one way is to create an array or vector, then convert it into an iterator by using the method `into_iter`, then convert the elements into a map by using `std::collections::BTreeMap` and tracking each element's count:
+//!
+//! ```rust
+//! # use ::std::collections::BTreeMap;
+//! let array = [1, 1, 1, 2, 3];
+//! let mut bag: BTreeMap&lt;_, usize&gt; = BTreeMap::new();
+//! for x in array.into_iter() {
+//!     let n = bag.entry(x).or_insert(0);
+//!     *n += 1;
+//! }
+//! ```
+//!
+//! To compare two arrays as bags, one way is to convert each array to a bag, then use `assert_eq!` to compare the bags:
+//!
+//! ```rust
+//! # use ::std::collections::BTreeMap;
+//! let array1 = [1, 1, 1, 2, 3];
+//! let array2 = [1, 3, 1, 2, 1];
+//! let mut bag1: BTreeMap&lt;_, usize&gt; = BTreeMap::new();
+//! for x in array1.into_iter() {
+//!     let n = bag1.entry(x).or_insert(0);
+//!     *n += 1;
+//! }
+//! let mut bag2: BTreeMap&lt;_, usize&gt; = BTreeMap::new();
+//! for x in array2.into_iter() {
+//!     let n = bag2.entry(x).or_insert(0);
+//!     *n += 1;
+//! }
+//! assert_eq!(bag1, bag2);
+//! ```
+//!
+//! The `assertables` crate provides macros that do the conversion for you:
+//!
+//! ```rust
+//! # use ::std::collections::BTreeMap;
+//! # use assertables::*;
+//! let array1 = [1, 2, 3];
+//! let array2 = [3, 2, 1];
+//! assert_bag_eq!(array1, array2);
 //! ```
 
 /// Assert bag implementation preparation.

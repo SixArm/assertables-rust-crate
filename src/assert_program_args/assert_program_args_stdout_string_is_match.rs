@@ -1,7 +1,7 @@
-//! Assert a command (built with program and args) stdout string is a match to a regex.
+//! Assert a command (built with program and args) stdout into a string is a match to a regex.
 //!
 //! Pseudocode:<br>
-//! (program1 + args1 ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
+//! (a_program + a_args ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
 //!
 //! # Example
 //!
@@ -9,12 +9,10 @@
 //! use assertables::*;
 //! use regex::Regex;
 //!
-//! # fn main() {
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "alfa"];
 //! let matcher = Regex::new(r"lf").unwrap();
 //! assert_program_args_stdout_string_is_match!(&program, &args, &matcher);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -23,12 +21,12 @@
 //! * [`assert_program_args_stdout_string_is_match_as_result`](macro@crate::assert_program_args_stdout_string_is_match_as_result)
 //! * [`debug_assert_program_args_stdout_string_is_match`](macro@crate::debug_assert_program_args_stdout_string_is_match)
 
-/// Assert a command (built with program and args) stdout string is a match to a regex.
+/// Assert a command (built with program and args) stdout into a string is a match to a regex.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
 ///
-/// * If true, return Result `Ok(program1 + args1 ⇒ command ⇒ stdout ⇒ string)`.
+/// * If true, return Result `Ok(a_program + a_args ⇒ command ⇒ stdout ⇒ string)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -59,7 +57,7 @@ macro_rules! assert_program_args_stdout_string_is_match_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-                                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -86,7 +84,7 @@ macro_rules! assert_program_args_stdout_string_is_match_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-                                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -134,7 +132,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -148,12 +146,12 @@ mod tests {
     }
 }
 
-/// Assert a command (built with program and args) stdout string is a match to a regex.
+/// Assert a command (built with program and args) stdout into a string is a match to a regex.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
 ///
-/// * If true, return (program1 + args1 ⇒ command ⇒ stdout ⇒ string).
+/// * If true, return (a_program + a_args ⇒ command ⇒ stdout ⇒ string).
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -179,7 +177,7 @@ mod tests {
 /// assert_program_args_stdout_string_is_match!(&program, &args, &matcher);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_is_match.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_is_match.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&args`,
@@ -191,7 +189,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&args`,\n",
@@ -227,10 +225,10 @@ macro_rules! assert_program_args_stdout_string_is_match {
     }};
 }
 
-/// Assert a command (built with program and args) stdout string is a match to a regex.
+/// Assert a command (built with program and args) stdout into a string is a match to a regex.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stdout ⇒ string) is match (expr into string)
 ///
 /// This macro provides the same statements as [`assert_program_args_stdout_string_is_match`](macro.assert_program_args_stdout_string_is_match.html),
 /// except this macro's statements are only enabled in non-optimized

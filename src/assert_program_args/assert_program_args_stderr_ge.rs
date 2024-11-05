@@ -1,20 +1,18 @@
-//! Assert a command (built with program and args) stderr string is greater than or equal to another.
+//! Assert a command (built with program and args) stderr is greater than or equal to another.
 //!
 //! Pseudocode:<br>
-//! (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
+//! (a_program + a_args ⇒ command ⇒ stderr) ≥ (b_program + b_args ⇒ command ⇒ stderr)
 //!
 //! # Example
 //!
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a_program = "bin/printf-stderr";
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stderr";
 //! let b_args = ["%s", "aa"];
 //! assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, &b_args);
-//! # }
 //! ```
 //!
 //! /// # Module macros
@@ -23,10 +21,10 @@
 //! * [`assert_program_args_stderr_ge_as_result`](macro@crate::assert_program_args_stderr_ge_as_result)
 //! * [`debug_assert_program_args_stderr_ge`](macro@crate::debug_assert_program_args_stderr_ge)
 
-/// Assert a command (built with program and args) stderr string is greater than or equal to another.
+/// Assert a command (built with program and args) stderr is greater than or equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
+/// (a_program + a_args ⇒ command ⇒ stderr) ≥ (b_program + b_args ⇒ command ⇒ stderr)
 ///
 /// * If true, return Result `Ok(stderr)`.
 ///
@@ -63,7 +61,7 @@ macro_rules! assert_program_args_stderr_ge_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
-                                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge.html\n",
+                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -94,7 +92,7 @@ macro_rules! assert_program_args_stderr_ge_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
-                                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge.html\n",
+                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -167,7 +165,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge.html\n",
+            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -183,10 +181,10 @@ mod tests {
     }
 }
 
-/// Assert a command (built with program and args) stderr string is greater than or equal to another.
+/// Assert a command (built with program and args) stderr is greater than or equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
+/// (a_program + a_args ⇒ command ⇒ stderr) ≥ (b_program + b_args ⇒ command ⇒ stderr)
 ///
 /// * If true, return `()`.
 ///
@@ -215,7 +213,7 @@ mod tests {
 /// assert_program_args_stderr_ge!(&a_program, &a_args, &b_program, &b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge.html
 /// //  a_program label: `&a_program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&a_args`,
@@ -229,7 +227,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge.html\n",
 /// #     " a_program label: `&a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&a_args`,\n",
@@ -267,10 +265,10 @@ macro_rules! assert_program_args_stderr_ge {
     }};
 }
 
-/// Assert a command (built with program and args) stderr string greater than or equal to another.
+/// Assert a command (built with program and args) stderr greater than or equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stderr) ≥ (program2 + args2 ⇒ command ⇒ stderr)
+/// (a_program + a_args ⇒ command ⇒ stderr) ≥ (b_program + b_args ⇒ command ⇒ stderr)
 ///
 /// This macro provides the same statements as [`assert_program_args_stderr_ge`](macro.assert_program_args_stderr_ge.html),
 /// except this macro's statements are only enabled in non-optimized

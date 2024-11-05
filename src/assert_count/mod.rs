@@ -26,11 +26,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = "x".chars();
 //! let b = "x".chars();
 //! assert_count_eq!(a, b);
-//! # }
 //! ```
 
 // Compare another

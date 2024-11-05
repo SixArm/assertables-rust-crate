@@ -8,11 +8,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = "x".chars();
 //! let b = "xx".chars();
 //! assert_count_le!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -56,7 +54,7 @@ macro_rules! assert_count_le_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_count_le!(a, b)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_le.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_le.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
@@ -106,7 +104,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_count_le!(a, b)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_le.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_le.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x', 'x'])`,\n",
                 " a.count(): `2`,\n",
@@ -146,7 +144,7 @@ mod tests {
 /// assert_count_le!(a, b);
 /// # });
 /// // assertion failed: `assert_count_le!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_le.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_le.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",
@@ -156,7 +154,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_count_le!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_le.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x', 'x'])`,\n",
 /// #     " a.count(): `2`,\n",

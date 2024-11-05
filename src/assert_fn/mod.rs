@@ -27,11 +27,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a: i8 = -1;
 //! let b: i8 = 1;
 //! assert_fn_eq!(i8::abs, a, i8::abs, b);
-//! # }
 //! ```
 
 // Compare another

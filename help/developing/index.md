@@ -1,23 +1,25 @@
-# Developers: how we write our test macros
+# Developing
 
-We write each macro in three flavors:
+Developing Assertables is straightforward. This page explains how to create the code for a typical Assertables macro, in three forms, using the example of the macro `assert_gt`.
 
-* `assert_gt_as_result` returns a `Result` as `Ok`, `Err`. This macro contains all the logic, all the error formatting, etc. This macro is especially useful for runtime checks, such as when you want to know success or failure, and you don't want to panic. This macro is called by the other flavors below.
+We write each macro in three forms:
+
+* `assert_gt_as_result` returns a `Result` as `Ok`, `Err`. This macro contains all the logic, all the error formatting, etc. This macro is especially useful for runtime checks, such as when you want to know success or failure, and you don't want to panic. This macro is called by the other forms below.
 
 * `assert_gt` returns successfully or does a panic. This is the typical macro that most developers will use for testing. This macro wraps `assert_gt_as_result`. This macro provides two arms: one arm is for returning the error message as is, and one arm is for returning a developer's custom error message.
 
 * `debug_assert_gt` returns successfully or does a panic, when the program is running using Rust debug configuration. This macro's statements are only enabled in non-optimized builds by default. An optimized build will not execute this macro's statements unless `-C debug-assertions` is passed to the compiler.
 
-The sections below show each of the three flavors, using our simplest macro group: `assert_gt_as_result`, `assert_gt`, `debug_assert_gt`.
+The sections below show each of the three forms, using our simplest macro group: `assert_gt_as_result`, `assert_gt`, `debug_assert_gt`.
 
 
-### assert_gt_as_result
+## assert_gt_as_result
 
 The macro `assert_gt_as_result` returns a `Result` as `Ok`, `Err`.
 
 The macro contains all the logic and all the error formatting.
 
-The macro is called by the other flavors: directly by `assert_gt` and indirectly by `debug_assert_gt`.
+The macro is called by the other forms: directly by `assert_gt` and indirectly by `debug_assert_gt`.
 
 The macros is useful for runtime checks, such as when you want to know success or failure, and you don't want to panic.
 
@@ -36,15 +38,15 @@ macro_rules! assert_gt_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_gt!(a, b)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_gt.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_gt.html\n",
                                 "  left label: `{}`,\n",
                                 "  left debug: `{:?}`,\n",
                                 " right label: `{}`,\n",
                                 " right debug: `{:?}`"
                             ),
-                            stringify!($a), 
+                            stringify!($a),
                             $a,
-                            stringify!($b), 
+                            stringify!($b),
                             $b
                         )
                     )
@@ -56,7 +58,7 @@ macro_rules! assert_gt_as_result {
 ```
 
 
-### assert_gt
+## assert_gt
 
 The macro `assert_gt` returns successfully or panics.
 
@@ -87,7 +89,7 @@ macro_rules! assert_gt {
 ```
 
 
-### debug_assert_gt
+## debug_assert_gt
 
 The macro `debug_assert_gt` return `()` or panics.
 

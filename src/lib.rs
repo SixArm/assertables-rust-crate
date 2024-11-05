@@ -17,7 +17,7 @@
 //! * Test values with
 //!   [assert_lt](module@crate::assert_lt),
 //!   [assert_gt](module@crate::assert_gt),
-//!   […](module@crate::assert_approx))
+//!   […](module@crate::assert_approx)
 //! * Test results with
 //!   [assert_ok](module@crate::assert_ok),
 //!   [assert_err](module@crate::assert_err),
@@ -43,7 +43,7 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.3.0"
+//! assertables = "9.4.0"
 //! ``````
 //!
 //! Benefits:
@@ -60,15 +60,17 @@
 //!
 //! Learning:
 //! [FAQ](https://github.com/SixArm/assertables-rust-crate/tree/main/help/faq),
+//! [docs](https://docs.rs/assertables/),
 //! [examples](https://github.com/SixArm/assertables-rust-crate/blob/main/tests/examples/),
 //! [changes](https://github.com/SixArm/assertables-rust-crate/tree/main/CHANGES.md),
 //! [upgrades](https://github.com/SixArm/assertables-rust-crate/tree/main/help/upgrades/upgrade-from-version-8-to-9),
-//! [docs](https://docs.rs/assertables/).
+//! [developing](https://github.com/SixArm/assertables-rust-crate/tree/main/help/developing/).
 //!
 //! Comparisons:
-//! [more_asserts](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/more_asserts), [cool_asserts](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/cool_asserts),
+//! [more_asserts](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/more_asserts),
+//! [cool_asserts](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/cool_asserts),
 //! [assert2](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/assert2),
-//! [claims](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/more_asserts),
+//! [claims](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons/claims),
 //! [etc.](https://github.com/SixArm/assertables-rust-crate/tree/main/help/comparisons)
 //!
 //! ## Examples
@@ -77,12 +79,11 @@
 //!
 //! ```rust
 //! # use assertables::*;
-//! # fn main() {
-//! assert_lt!(1, 2); // less than
-//! assert_gt!(2, 1); // greater than
-//! assert_approx_eq!(1.00000001, 1.00000002); // approximately equal to
-//! assert_abs_diff_eq!(10, 13, 3); // absolute difference equal to
-//! # }
+//! let i = 10;
+//! assert_lt!(i, 11);
+//! assert_gt!(i, 9);
+//! assert_in_range!(i, 1..100);
+//! assert_abs_diff_eq!(i, 12, 2);
 //! ```
 //!
 //! Examples with strings:
@@ -90,13 +91,11 @@
 //! ```rust
 //! # use assertables::*;
 //! # use regex::Regex;
-//! # fn main() {
 //! let s = "hello world";
 //! assert_starts_with!(s, "hello");
 //! assert_ends_with!(s, "world");
-//! assert_contains!(s, "lo");
+//! assert_contains!(s, " ");
 //! assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
-//! # }
 //! ```
 //!
 //! Examples with arrays:
@@ -104,13 +103,11 @@
 //! ```rust
 //! # use assertables::*;
 //! # use regex::Regex;
-//! # fn main() {
 //! let a = [1, 2, 3];
 //! assert_not_empty!(a);
 //! assert_len_eq_x!(a, 3);
 //! assert_all!(a.into_iter(), |i: i32| i < 4);
 //! assert_any!(a.into_iter(), |i: i32| i > 2);
-//! # }
 //! ```
 //!
 //! ## Highlights
@@ -124,12 +121,13 @@
 //! * [`assert_gt!(a, b)`](module@crate::assert_gt) ≈ a > b
 //! * [`assert_ge!(a, b)`](module@crate::assert_ge) ≈ a ≥ b
 //!
-//! Differences:
+//! Nearness:
 //!
 //! * [`assert_approx_eq!(a, b)`](module@crate::assert_approx::assert_approx_eq) ≈ |a-b| ≤ 1e-6
 //! * [`assert_abs_diff_eq!(a, b, delta)`](module@crate::assert_abs_diff::assert_abs_diff_eq) ≈ |a-b| = Δ
 //! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta) ≈ |a-b| ≤ Δ
 //! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)
+//! * [`assert_in_range!(a, range)`](module@crate::assert_in::assert_in_range) ≈ range.contains(a)
 //!
 //! Groups:
 //!
@@ -165,18 +163,28 @@
 //! * [`assert_pending!(a)`](module@crate::assert_pending) ≈ a is Pending
 //! * [`assert_ready_eq_x!(a, x)`](module@crate::assert_ready::assert_ready_eq_x) ≈ a is Ready unwrap = x
 //!
-//! Readers:
-//!
-//! * [`assert_fs_read_to_string_eq!(a_path, b_path)`](module@crate::assert_fs_read_to_string) ≈ (a_path ⇒ string) = (b_path ⇒ string)
-//! * [`assert_io_read_to_string_eq!(a_bytes, b_bytes)`](module@crate::assert_io_read_to_string) ≈ (a_bytes ⇒ string) = (b_bytes ⇒ string)
-//!
 //! Collections:
 //!
 //! * [`assert_iter_eq!(a, b)`](module@crate::assert_iter) ≈ a into iter = b into iter
 //! * [`assert_set_eq!(a, b)`](module@crate::assert_set) ≈ a into set = b into set
 //! * [`assert_bag_eq!(a, b)`](module@crate::assert_bag) ≈ a into bag = = b into bag
 //!
-//! Infix notation:
+//! Readers:
+//!
+//! * [`assert_fs_read_to_string_eq_x!(path, x)`](module@crate::assert_fs_read_to_string) ≈ path ⇒ file ⇒ string = x
+//! * [`assert_io_read_to_string_eq_x!(reader, x)`](module@crate::assert_io_read_to_string) ≈ reader ⇒ bytes ⇒ string = x
+//!
+//! Commands:
+//!
+//! * [`assert_command_stdout_eq_x!(command, x)`](module@crate::assert_command) `// command ⇒ stdout == x`
+//! * [`assert_program_args_stdout_eq_x!(program, args, x)`](module@crate::assert_program_args) `// program.args ⇒ stdout == x`
+//!
+//! Status:
+//!
+//! * [`assert_status_success!(a)`](module@crate::assert_status::assert_status_success) ≈ a.status().success()
+//! * [`assert_status_code_value_eq_x!(a, x)`](module@crate::assert_status::assert_status_code_value_eq_x) ≈ a.status().code().unwrap() = x
+//!
+//! Infix:
 //!
 //! * [`assert_infix!(a == b)`](module@crate::assert_infix) ≈ order operators == != < <= > >=
 //! * [`assert_infix!(a && b)`](module@crate::assert_infix) ≈ logic operators && || ^ & |
@@ -216,9 +224,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.3.0
+//! * Version: 9.4.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2024-11-03T21:01:28Z
+//! * Updated: 2024-11-05T16:40:19Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 

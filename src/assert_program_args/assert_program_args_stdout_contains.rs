@@ -1,8 +1,8 @@
-//! Assert a command (built with program and args) stdout string contains a given containee.
+//! Assert a command (built with program and args) stdout into a string contains a given containee.
 //!
 //! Deprecated. Please rename from `assert_program_args_stdout_contains` to `assert_program_args_stdout_string_contains`.
 
-/// Assert a command (built with program and args) stdout string contains a given containee.
+/// Assert a command (built with program and args) stdout into a string contains a given containee.
 ///
 /// Deprecated. Please rename from `assert_program_args_stdout_contains_as_result` to `assert_program_args_stdout_string_contains_as_result`.
 ///
@@ -16,7 +16,7 @@ macro_rules! assert_program_args_stdout_contains_as_result {
     }
 }
 
-/// Assert a command (built with program and args) stdout string contains a given containee.
+/// Assert a command (built with program and args) stdout into a string contains a given containee.
 ///
 /// Deprecated. Please rename from `assert_program_args_stdout_contains` to `assert_program_args_stdout_string_contains`.
 ///
@@ -30,7 +30,7 @@ macro_rules! assert_program_args_stdout_contains {
     }
 }
 
-/// Assert a command (built with program and args) stdout string contains a given containee.
+/// Assert a command (built with program and args) stdout into a string contains a given containee.
 ///
 /// Deprecated. Please rename from `debug_assert_program_args_stdout_contains` to `debug_assert_program_args_stdout_string_contains`.
 ///

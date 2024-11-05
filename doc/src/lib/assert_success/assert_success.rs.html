@@ -209,8 +209,6 @@
 <a href="#209" id="209">209</a>
 <a href="#210" id="210">210</a>
 <a href="#211" id="211">211</a>
-<a href="#212" id="212">212</a>
-<a href="#213" id="213">213</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert success.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -221,13 +219,11 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! #[derive(Debug)]
 //! struct A;
 //! impl A { fn success(&amp;self) -&gt; bool { true }}
 //! let a = A{};
 //! assert_success!(a);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -266,7 +262,7 @@
             <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_success!(a)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_success.html\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_success.html\n"</span>,
                     <span class="string">" a label: `{}`,\n"</span>,
                     <span class="string">" a debug: `{:?}`"</span>,
                 ),
@@ -309,7 +305,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_success!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_success.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_success.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `A`"</span>,
             )
@@ -349,13 +345,13 @@
 /// assert_success!(a);
 /// # });
 /// // assertion failed: `assert_success!(a)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_success.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_success.html
 /// //  a label: `a`,
 /// //  a debug: `A`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_success!(a)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_success.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_success.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `A`",
 /// # );

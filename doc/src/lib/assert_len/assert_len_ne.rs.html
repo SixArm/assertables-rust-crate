@@ -227,8 +227,6 @@
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
 <a href="#229" id="229">229</a>
-<a href="#230" id="230">230</a>
-<a href="#231" id="231">231</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -239,11 +237,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = "x";
 //! let b = "xx";
 //! assert_len_ne!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -287,7 +283,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_len_ne!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_ne.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_ne.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" a.len(): `{:?}`,\n"</span>,
@@ -337,7 +333,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_len_ne!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_ne.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_ne.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `\"x\"`,\n"</span>,
                 <span class="string">" a.len(): `1`,\n"</span>,
@@ -377,7 +373,7 @@
 /// assert_len_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_len_ne!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_ne.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_ne.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
@@ -387,7 +383,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_len_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_ne.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",

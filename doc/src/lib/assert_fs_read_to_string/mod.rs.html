@@ -60,11 +60,38 @@
 <a href="#60" id="60">60</a>
 <a href="#61" id="61">61</a>
 <a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
+<a href="#65" id="65">65</a>
+<a href="#66" id="66">66</a>
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
+<a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing file system path contents.
 //!
 //! These macros help with file system paths, such as disk files, `Path`,
 //! `PathBuf`, the trait `AsRef&lt;Path&gt;`, and anything that is readable via
-//! `::std::fs::read_to_string(…)`.
+//! `::std::fs::read_to_string(…)`. See tutorial below.
 //!
 //! Compare a path with another path:
 //!
@@ -87,7 +114,7 @@
 //! Compare a path with its contents:
 //!
 //! * [`assert_fs_read_to_string_contains!(path, containee)`](macro@crate::assert_fs_read_to_string_contains) ≈ std::fs::read_to_string(path).contains(containee)
-//! * [`assert_fs_read_to_string_is_match!(path, matcher)`](macro@crate::assert_fs_read_to_string_is_match) ≈ matcher.is_match(std::fs::read_to_string(path))
+//! * [`assert_fs_read_to_string_is_match!(path, matcher)`](macro@crate::assert_fs_read_to_string_is_match) ≈ matcher.is_match(::std::fs::read_to_string(path))
 //!
 //! # Example
 //!
@@ -95,11 +122,38 @@
 //! use assertables::*;
 //! use std::io::Read;
 //!
-//! # fn main() {
 //! let a ="alfa.txt";
 //! let b = "alfa.txt";
 //! assert_fs_read_to_string_eq!(&amp;a, &amp;b);
-//! # }
+//! ```
+//!
+//! ## Tutorial
+//!
+//! Rust has a concept of a "file system" and a function "read to string"
+//! that makes it easy to read a file to a string:
+//!
+//! ```rust
+//! let path = "alfa.txt";
+//! let string = ::std::fs::read_to_string(path);
+//! ```
+//!
+//! Rust can compare a file's string to another file's string:
+//!
+//! ```rust
+//! let path1 = "alfa.txt";
+//! let path2 = "bravo.txt";
+//! let a_string = ::std::fs::read_to_string(path1).unwrap();
+//! let b_string = ::std::fs::read_to_string(path2).unwrap();
+//! assert_ne!(a_string, b_string);
+//! ```
+//!
+//! The `assertables` crate provides macros that do the reading for you:
+//!
+//! ```rust
+//! # use assertables::*;
+//! let path1 = "alfa.txt";
+//! let path2 = "bravo.txt";
+//! assert_fs_read_to_string_ne!(path1, path2);
 //! ```
 
 </span><span class="comment">// Compare another

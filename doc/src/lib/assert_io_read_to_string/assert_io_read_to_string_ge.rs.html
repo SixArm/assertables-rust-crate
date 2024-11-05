@@ -262,8 +262,6 @@
 <a href="#262" id="262">262</a>
 <a href="#263" id="263">263</a>
 <a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::io::Read read_to_string() value is greater than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -275,11 +273,9 @@
 //! use assertables::*;
 //! use std::io::Read;
 //!
-//! # fn main() {
 //! let mut a = "alfa".as_bytes();
 //! let mut b = "bravo".as_bytes();
 //! assert_io_read_to_string_ge!(b, a);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -326,7 +322,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
@@ -349,7 +345,7 @@
                     <span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge.html\n"</span>,
                             <span class="string">"  a label: `{}`,\n"</span>,
                             <span class="string">"  a debug: `{:?}`,\n"</span>,
                             <span class="string">"  b label: `{}`,\n"</span>,
@@ -406,7 +402,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `[]`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -447,7 +443,7 @@
 /// assert_io_read_to_string_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge.html
 /// //  a label: `a`,
 /// //  a debug: `[]`,
 /// //  b label: `b`,
@@ -457,7 +453,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_ge.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[]`,\n",
 /// #     " b label: `b`,\n",

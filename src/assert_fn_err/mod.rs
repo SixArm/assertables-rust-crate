@@ -39,11 +39,9 @@
 //!     }
 //! }
 //!
-//! # fn main() {
 //! let a: i8 = 10;
 //! let b: i8 = 10;
 //! assert_fn_err_eq!(f, a, f, b);
-//! # }
 //! ```
 
 // Compare another

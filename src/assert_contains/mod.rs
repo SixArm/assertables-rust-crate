@@ -13,7 +13,6 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! // String contains substring
 //! let a: &str = "alfa";
 //! let b: &str = "lf";
@@ -28,7 +27,6 @@
 //! let a = vec![1, 2, 3];
 //! let b = 2;
 //! assert_contains!(a, &b);
-//! # }
 //! ```
 
 pub mod assert_contains;

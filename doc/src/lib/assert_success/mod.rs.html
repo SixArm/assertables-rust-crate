@@ -21,8 +21,6 @@
 <a href="#21" id="21">21</a>
 <a href="#22" id="22">22</a>
 <a href="#23" id="23">23</a>
-<a href="#24" id="24">24</a>
-<a href="#25" id="25">25</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a success method is true.
 //!
 //! These macros help compare None items, such as `::std::Option::None` or similar.
@@ -37,13 +35,11 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! #[derive(Debug)]
 //! struct A;
 //! impl A { fn success(&amp;self) -&gt; bool { true }}
 //! let a = A{};
 //! assert_success!(a);
-//! # }
 //! ```
 
 </span><span class="kw">pub mod </span>assert_success;

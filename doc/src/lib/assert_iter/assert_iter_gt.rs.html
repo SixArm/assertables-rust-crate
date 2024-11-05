@@ -233,8 +233,6 @@
 <a href="#233" id="233">233</a>
 <a href="#234" id="234">234</a>
 <a href="#235" id="235">235</a>
-<a href="#236" id="236">236</a>
-<a href="#237" id="237">237</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an iter is greater than another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -245,11 +243,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = [3, 4];
 //! let b = [1, 2];
 //! assert_iter_gt!(&amp;a, &amp;b);
-//! # }
 //! ```
 //!
 //! This implementation uses [`::std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
@@ -297,7 +293,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_gt.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_gt.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
@@ -335,7 +331,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_gt.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_gt.html\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[1, 2]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -353,7 +349,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_gt.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_gt.html\n"</span>,
                 <span class="string">" a label: `&amp;a`,\n"</span>,
                 <span class="string">" a debug: `[1, 2]`,\n"</span>,
                 <span class="string">" b label: `&amp;b`,\n"</span>,
@@ -391,7 +387,7 @@
 /// assert_iter_gt!(&amp;a, &amp;b);
 /// # });
 /// // assertion failed: `assert_iter_gt!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_gt.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_gt.html
 /// //  a label: `&amp;a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&amp;b`,
@@ -399,7 +395,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_gt.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_gt.html\n",
 /// #     " a label: `&amp;a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `&amp;b`,\n",

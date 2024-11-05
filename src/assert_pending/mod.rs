@@ -14,10 +14,8 @@
 //! use std::task::Poll;
 //! use std::task::Poll::*;
 //!
-//! # fn main() {
 //! let a: Poll<i8> = Pending;
 //! assert_pending!(a);
-//! # }
 //! ```
 
 pub mod assert_pending;

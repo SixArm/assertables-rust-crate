@@ -26,8 +26,6 @@
 <a href="#26" id="26">26</a>
 <a href="#27" id="27">27</a>
 <a href="#28" id="28">28</a>
-<a href="#29" id="29">29</a>
-<a href="#30" id="30">30</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for a sequence that may end with a part.
 //!
 //! These macros help with comparison of a sequence (such as a string, array, range)
@@ -43,7 +41,6 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! // String ends with substring?
 //! let sequence: &amp;str = "alfa";
 //! let subsequence: &amp;str = "fa";
@@ -53,7 +50,6 @@
 //! let sequence = vec![1, 2, 3];
 //! let subsequence = [3];
 //! assert_ends_with!(sequence, subsequence);
-//! # }
 //! ```
 
 </span><span class="kw">pub mod </span>assert_ends_with;

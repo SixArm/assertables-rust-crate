@@ -38,11 +38,9 @@
 //!     }
 //! }
 //!
-//! # fn main() {
 //! let a: i8 = 1;
 //! let b: i8 = 1;
 //! assert_fn_ok_eq!(f, a, f, b);
-//! # }
 //! ```
 
 // Compare another

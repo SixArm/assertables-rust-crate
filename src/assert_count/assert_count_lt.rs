@@ -8,11 +8,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = "x".chars();
 //! let b = "xx".chars();
 //! assert_count_lt!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -56,7 +54,7 @@ macro_rules! assert_count_lt_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_count_lt!(a, b)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_lt.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_lt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
@@ -98,7 +96,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_count_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_lt.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x'])`,\n",
                 " a.count(): `1`,\n",
@@ -118,7 +116,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_count_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_lt.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `Chars(['x', 'x'])`,\n",
                 " a.count(): `2`,\n",
@@ -158,7 +156,7 @@ mod tests {
 /// assert_count_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_count_lt!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_lt.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_lt.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",
@@ -168,7 +166,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_count_lt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_lt.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x', 'x'])`,\n",
 /// #     " a.count(): `2`,\n",

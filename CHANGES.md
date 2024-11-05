@@ -1,34 +1,37 @@
 # Changes
 
-Changes highlights for recent major versions.
+Changes as highlights for recent major versions.
 
 
 ## Version 9.x
 
-* 9.3.0: Add status macros: `assert_status_success`,  `assert_status_failure`.
+* 9.4.0 Add `assert_in`, `assert_in_range`.
 
-* 9.2.0: Add status comparison macros: `assert_status_code_value*`.
+* 9.3.0 Add status macros: `assert_status_success`,  `assert_status_success_false`.
+ge
 
-* 9.1.0: Add absolute difference macros: `assert_abs_diff*`.
+* 9.2.0 Add status comparison macros: `assert_status_code_value*`.
 
-* 9.0.0: Breaking change: many macros now return data upon success.
+* 9.1.0 Add absolute difference macros: `assert_abs_diff*`.
 
-* 9.0.0: Breaking change: rename macros from `assert_*_expr` into `assert_*_x`.
+* 9.0.0 Breaking change: many macros now return data upon success.
+
+* 9.0.0 Breaking change: rename macros from `assert_*_expr` into `assert_*_x`.
 
 
 ## Version 8.x
 
 * Add matches macros: `assert_matches`, `assert_not_matches`.
 
-* Add Iterator macros: `assert_iter_all`, `assert_iter_any`, `assert_iter_eq`, etc.
+* Add iterator macros: `assert_iter_all`, `assert_iter_any`, `assert_iter_eq`, etc.
 
-* Add Result macros: `assert_ok`, `assert_err`, etc.
+* Add result macros: `assert_ok`, `assert_err`, etc.
 
-* Add Option macros: `assert_some`, `assert_none`, etc.
+* Add option macros: `assert_some`, `assert_none`, etc.
 
-* Add Poll macros: `assert_ready`, `assert_pending`, etc.
+* Add poll macros: `assert_ready`, `assert_pending`, etc.
 
-* Add length & count macros: `assert_len`, `assert_count`, `assert_is_empty`, etc.
+* Add list macros: `assert_len`, `assert_count`, `assert_is_empty`, etc.
 
 * Add read macros: `assert_fs_read_to_string`, `assert_io_read_to_string`, etc.
 

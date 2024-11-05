@@ -24,11 +24,9 @@
 //! use std::task::Poll;
 //! use std::task::Poll::*;
 //!
-//! # fn main() {
 //! let a: Poll<i8> = Ready(1);
 //! let b: Poll<i8> = Ready(1);
 //! assert_ready_eq!(a, b);
-//! # }
 //! ```
 
 // Verify Ready(_)

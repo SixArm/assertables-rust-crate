@@ -253,8 +253,6 @@
 <a href="#253" id="253">253</a>
 <a href="#254" id="254">254</a>
 <a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::fs::read_to_string(path) is a match to a regex.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -266,11 +264,9 @@
 //! use assertables::*;
 //! use regex::Regex;
 //!
-//! # fn main() {
 //! let path = "alfa.txt";
 //! let matcher = Regex::new(r"alfa").unwrap();
 //! assert_fs_read_to_string_is_match!(&amp;path, &amp;matcher);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -314,7 +310,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_is_match.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html\n"</span>,
                                         <span class="string">"    path label: `{}`,\n"</span>,
                                         <span class="string">"    path debug: `{:?}`,\n"</span>,
                                         <span class="string">" matcher label: `{}`,\n"</span>,
@@ -335,7 +331,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_is_match.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html\n"</span>,
                                     <span class="string">"    path label: `{}`,\n"</span>,
                                     <span class="string">"    path debug: `{:?}`,\n"</span>,
                                     <span class="string">" matcher label: `{}`,\n"</span>,
@@ -388,7 +384,7 @@
             <span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_is_match.html\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html\n"</span>,
                     <span class="string">"    path label: `&amp;path`,\n"</span>,
                     <span class="string">"    path debug: `{:?}`,\n"</span>,
                     <span class="string">" matcher label: `&amp;matcher`,\n"</span>,
@@ -431,7 +427,7 @@
 /// assert_fs_read_to_string_is_match!(&amp;path, &amp;matcher);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_is_match.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html
 /// //     path label: `&amp;path`,
 /// //     path debug: `\"alfa.txt\"`,
 /// //  matcher label: `&amp;matcher`,
@@ -440,7 +436,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
 /// #     "    path label: `&amp;path`,\n",
 /// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `&amp;matcher`,\n",

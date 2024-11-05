@@ -13,7 +13,6 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! // String ends with substring?
 //! let sequence: &str = "alfa";
 //! let subsequence: &str = "fa";
@@ -23,7 +22,6 @@
 //! let sequence = vec![1, 2, 3];
 //! let subsequence = [3];
 //! assert_ends_with!(sequence, subsequence);
-//! # }
 //! ```
 
 pub mod assert_ends_with;

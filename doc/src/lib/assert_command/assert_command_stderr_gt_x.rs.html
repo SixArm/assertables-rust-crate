@@ -270,8 +270,6 @@
 <a href="#270" id="270">270</a>
 <a href="#271" id="271">271</a>
 <a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stderr string is greater than an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -283,12 +281,10 @@
 //! use assertables::*;
 //! use std::process::Command;
 //!
-//! # fn main() {
 //! let mut command = Command::new("bin/printf-stderr");
 //! command.args(["%s", "alfa"]);
 //! let bytes = vec![b'a', b'a'];
 //! assert_command_stderr_gt_x!(command, bytes);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -333,7 +329,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_gt_x.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_gt_x.html\n"</span>,
                                         <span class="string">" command label: `{}`,\n"</span>,
                                         <span class="string">" command debug: `{:?}`,\n"</span>,
                                         <span class="string">"    expr label: `{}`,\n"</span>,
@@ -356,7 +352,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_gt_x.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_gt_x.html\n"</span>,
                                     <span class="string">"  command label: `{}`,\n"</span>,
                                     <span class="string">"  command debug: `{:?}`,\n"</span>,
                                     <span class="string">"     expr label: `{}`,\n"</span>,
@@ -400,7 +396,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_gt_x.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_gt_x.html\n"</span>,
             <span class="string">" command label: `a`,\n"</span>,
             <span class="string">" command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">"    expr label: `b`,\n"</span>,
@@ -420,7 +416,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_gt_x.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_gt_x.html\n"</span>,
             <span class="string">" command label: `a`,\n"</span>,
             <span class="string">" command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">"    expr label: `b`,\n"</span>,
@@ -463,7 +459,7 @@
 /// assert_command_stderr_gt_x!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stderr_gt_x!(command, expr)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_gt_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_gt_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //     expr label: `bytes`,
@@ -473,7 +469,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stderr_gt_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stderr_gt_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     "    expr label: `bytes`,\n",

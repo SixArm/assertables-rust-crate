@@ -266,8 +266,6 @@
 <a href="#266" id="266">266</a>
 <a href="#267" id="267">267</a>
 <a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -278,11 +276,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let path = "alfa.txt";
 //! let value = String::from("bravo\n");
 //! assert_fs_read_to_string_le_x!(&amp;path, &amp;value);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -327,7 +323,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_fs_read_to_string_le_x!(a_path, b_expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_le_x.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_le_x.html\n"</span>,
                                         <span class="string">" a_path label: `{}`,\n"</span>,
                                         <span class="string">" a_path debug: `{:?}`,\n"</span>,
                                         <span class="string">" b_expr label: `{}`,\n"</span>,
@@ -350,7 +346,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_fs_read_to_string_le_x!(a_path, b_expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_le_x.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_le_x.html\n"</span>,
                                     <span class="string">" a_path label: `{}`,\n"</span>,
                                     <span class="string">" a_path debug: `{:?}`,\n"</span>,
                                     <span class="string">" b_expr label: `{}`,\n"</span>,
@@ -412,7 +408,7 @@
             <span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_fs_read_to_string_le_x!(a_path, b_expr)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_le_x.html\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_le_x.html\n"</span>,
                     <span class="string">" a_path label: `&amp;path`,\n"</span>,
                     <span class="string">" a_path debug: `{:?}`,\n"</span>,
                     <span class="string">" b_expr label: `&amp;value`,\n"</span>,
@@ -455,7 +451,7 @@
 /// assert_fs_read_to_string_le_x!(&amp;path, &amp;value);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_le_x!(a_path, b_expr)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_le_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_le_x.html
 /// //  a_path label: `&amp;path`,
 /// //  a_path debug: `\"bravo.txt\"`,
 /// //  b_expr label: `&amp;value`,
@@ -465,7 +461,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_le_x!(a_path, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_le_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_le_x.html\n",
 /// #     " a_path label: `&amp;path`,\n",
 /// #     " a_path debug: `\"bravo.txt\"`,\n",
 /// #     " b_expr label: `&amp;value`,\n",

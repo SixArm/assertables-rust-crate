@@ -11,10 +11,8 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = 'a';
 //! assert_matches!(a, 'a'..='z');
-//! # }
 //! ```
 
 pub mod assert_matches;

@@ -8,13 +8,11 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! #[derive(Debug)]
 //! struct A;
 //! impl A { fn success(&self) -> bool { false }}
 //! let a = A{};
 //! assert_success_false!(a);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -53,7 +51,7 @@ macro_rules! assert_success_false_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_success_false!(a)`\n",
-                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_success_false.html\n",
+                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_success_false.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`",
                 ),
@@ -96,7 +94,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_success_false!(a)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_success_false.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_success_false.html\n",
                 " a label: `a`,\n",
                 " a debug: `A`",
             )
@@ -136,13 +134,13 @@ mod tests {
 /// assert_success_false!(a);
 /// # });
 /// // assertion failed: `assert_success_false!(a)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_success_false.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_success_false.html
 /// //  a label: `a`,
 /// //  a debug: `A`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_success_false!(a)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_success_false.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_success_false.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `A`",
 /// # );

@@ -259,24 +259,20 @@
 <a href="#259" id="259">259</a>
 <a href="#260" id="260">260</a>
 <a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is greater than or equal to an expression.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr is greater than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (program1 + args1 ⇒ command ⇒ stderr) ≥ (expr into string)
+//! (a_program + a_args ⇒ command ⇒ stderr) ≥ (expr into string)
 //!
 //! # Examples
 //!
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let program = "bin/printf-stderr";
 //! let args = ["%s", "alfa"];
 //! let bytes = vec![b'a', b'a'];
 //! assert_program_args_stderr_ge_x!(&amp;program, &amp;args, bytes);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -285,10 +281,10 @@
 //! * [`assert_program_args_stderr_ge_x`](macro@crate::assert_program_args_stderr_ge_x)
 //! * [`debug_assert_program_args_stderr_ge_x`](macro@crate::debug_assert_program_args_stderr_ge_x)
 
-/// Assert a command (built with program and args) stderr string is greater than or equal to an expression.
+/// Assert a command (built with program and args) stderr is greater than or equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr) ≥ (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stderr) ≥ (expr into string)
 ///
 /// * If true, return Result `Ok(stderr)`.
 ///
@@ -321,7 +317,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_program_args_stderr_ge_x!(a_program, a_args, b_expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge_x.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge_x.html\n"</span>,
                                         <span class="string">" a_program label: `{}`,\n"</span>,
                                         <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                         <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -348,7 +344,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_program_args_stderr_ge_x!(a_program, a_args, b_expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge_x.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge_x.html\n"</span>,
                                     <span class="string">" a_program label: `{}`,\n"</span>,
                                     <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                     <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -394,7 +390,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_program_args_stderr_ge_x!(a_program, a_args, b_expr)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge_x.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge_x.html\n"</span>,
             <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
             <span class="string">" a_program debug: `\"bin/printf-stderr\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
@@ -407,10 +403,10 @@
     }
 }
 
-<span class="doccomment">/// Assert a command (built with program and args) stderr string is greater than or equal to an expression.
+<span class="doccomment">/// Assert a command (built with program and args) stderr is greater than or equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr) ≥ (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stderr) ≥ (expr into string)
 ///
 /// * If true, return `()`.
 ///
@@ -437,7 +433,7 @@
 /// assert_program_args_stderr_ge_x!(&amp;program, &amp;args, bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_ge_x!(a_program, a_args, b_expr)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge_x.html
 /// //  a_program label: `&amp;program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&amp;args`,
@@ -449,7 +445,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_ge_x!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_ge_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_ge_x.html\n",
 /// #     " a_program label: `&amp;program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&amp;args`,\n",
@@ -485,10 +481,10 @@
     }};
 }
 
-<span class="doccomment">/// Assert a command (built with program and args) stderr string is greater than or equal to an expression.
+<span class="doccomment">/// Assert a command (built with program and args) stderr is greater than or equal to an expression.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr) ≥ (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stderr) ≥ (expr into string)
 ///
 /// This macro provides the same statements as [`assert_program_args_stderr_ge_x`](macro.assert_program_args_stderr_ge_x.html),
 /// except this macro's statements are only enabled in non-optimized

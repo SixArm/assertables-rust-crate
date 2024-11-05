@@ -304,25 +304,21 @@
 <a href="#304" id="304">304</a>
 <a href="#305" id="305">305</a>
 <a href="#306" id="306">306</a>
-<a href="#307" id="307">307</a>
-<a href="#308" id="308">308</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr string is less than or equal to another.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr is less than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (program1 + args1 ⇒ command ⇒ stderr) ≤ (program2 + args2 ⇒ command ⇒ stderr)
+//! (a_program + a_args ⇒ command ⇒ stderr) ≤ (b_program + b_args ⇒ command ⇒ stderr)
 //!
 //! # Example
 //!
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a_program = "bin/printf-stderr";
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stderr";
 //! let b_args = ["%s", "zz"];
 //! assert_program_args_stderr_le!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
-//! # }
 //! ```
 //!
 //! /// # Module macros
@@ -331,10 +327,10 @@
 //! * [`assert_program_args_stderr_le_as_result`](macro@crate::assert_program_args_stderr_le_as_result)
 //! * [`debug_assert_program_args_stderr_le`](macro@crate::debug_assert_program_args_stderr_le)
 
-/// Assert a command (built with program and args) stderr string is less than or equal to another.
+/// Assert a command (built with program and args) stderr is less than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr) ≤ (program2 + args2 ⇒ command ⇒ stderr)
+/// (a_program + a_args ⇒ command ⇒ stderr) ≤ (b_program + b_args ⇒ command ⇒ stderr)
 ///
 /// * If true, return Result `Ok(stderr)`.
 ///
@@ -371,7 +367,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
                                         <span class="string">" a_program label: `{}`,\n"</span>,
                                         <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                         <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -402,7 +398,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
                                     <span class="string">" a_program label: `{}`,\n"</span>,
                                     <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                     <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -475,7 +471,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
             <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
             <span class="string">" a_program debug: `\"bin/printf-stderr\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
@@ -491,10 +487,10 @@
     }
 }
 
-<span class="doccomment">/// Assert a command (built with program and args) stderr string is less than or equal to another.
+<span class="doccomment">/// Assert a command (built with program and args) stderr is less than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr) ≤ (program2 + args2 ⇒ command ⇒ stderr)
+/// (a_program + a_args ⇒ command ⇒ stderr) ≤ (b_program + b_args ⇒ command ⇒ stderr)
 ///
 /// * If true, return `()`.
 ///
@@ -523,7 +519,7 @@
 /// assert_program_args_stderr_le!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_le.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html
 /// //  a_program label: `&amp;a_program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&amp;a_args`,
@@ -537,7 +533,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_le.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html\n",
 /// #     " a_program label: `&amp;a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&amp;a_args`,\n",
@@ -575,10 +571,10 @@
     }};
 }
 
-<span class="doccomment">/// Assert a command (built with program and args) stderr string is less than or equal to another.
+<span class="doccomment">/// Assert a command (built with program and args) stderr is less than or equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stderr) ≤ (program2 + args2 ⇒ command ⇒ stderr)
+/// (a_program + a_args ⇒ command ⇒ stderr) ≤ (b_program + b_args ⇒ command ⇒ stderr)
 ///
 /// This macro provides the same statements as [`assert_program_args_stderr_le`](macro.assert_program_args_stderr_le.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -8,11 +8,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = "x";
 //! let b = "x";
 //! assert_len_eq!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -56,7 +54,7 @@ macro_rules! assert_len_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_len_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_eq.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.len(): `{:?}`,\n",
@@ -98,7 +96,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_len_eq!(a, b)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_eq.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_eq.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"x\"`,\n",
                 " a.len(): `1`,\n",
@@ -118,7 +116,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_len_eq!(a, b)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_eq.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_eq.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"xx\"`,\n",
                 " a.len(): `2`,\n",
@@ -158,7 +156,7 @@ mod tests {
 /// assert_len_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_len_eq!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_eq.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_eq.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
@@ -168,7 +166,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_len_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_len_eq.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",

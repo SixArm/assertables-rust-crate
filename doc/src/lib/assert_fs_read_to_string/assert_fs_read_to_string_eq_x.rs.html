@@ -281,8 +281,6 @@
 <a href="#281" id="281">281</a>
 <a href="#282" id="282">282</a>
 <a href="#283" id="283">283</a>
-<a href="#284" id="284">284</a>
-<a href="#285" id="285">285</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::fs::read_to_string(path) value is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -293,11 +291,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let path = "alfa.txt";
 //! let value = String::from("alfa\n");
 //! assert_fs_read_to_string_eq_x!(&amp;path, &amp;value);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -342,7 +338,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n"</span>,
                                         <span class="string">" a_path label: `{}`,\n"</span>,
                                         <span class="string">" a_path debug: `{:?}`,\n"</span>,
                                         <span class="string">" b_expr label: `{}`,\n"</span>,
@@ -365,7 +361,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n"</span>,
                                     <span class="string">" a_path label: `{}`,\n"</span>,
                                     <span class="string">" a_path debug: `{:?}`,\n"</span>,
                                     <span class="string">" b_expr label: `{}`,\n"</span>,
@@ -419,7 +415,7 @@
             <span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n"</span>,
                     <span class="string">" a_path label: `&amp;path`,\n"</span>,
                     <span class="string">" a_path debug: `{:?}`,\n"</span>,
                     <span class="string">" b_expr label: `&amp;value`,\n"</span>,
@@ -442,7 +438,7 @@
             <span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n"</span>,
                     <span class="string">" a_path label: `&amp;path`,\n"</span>,
                     <span class="string">" a_path debug: `{:?}`,\n"</span>,
                     <span class="string">" b_expr label: `&amp;value`,\n"</span>,
@@ -485,7 +481,7 @@
 /// assert_fs_read_to_string_eq_x!(&amp;path, &amp;value);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_eq_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_eq_x.html
 /// //  a_path label: `&amp;path`,
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_expr label: `&amp;value`,
@@ -495,7 +491,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
 /// #     " a_path label: `&amp;path`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_expr label: `&amp;value`,\n",

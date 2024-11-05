@@ -8,11 +8,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a ="alfa.txt";
 //! let b ="bravo.txt";
 //! assert_fs_read_to_string_gt!(&b, &a);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -47,7 +45,7 @@ macro_rules! assert_fs_read_to_string_gt_as_result {
     ($a_path:expr, $b_path:expr $(,)?) => {{
         match (&$a_path, &$b_path) {
             (a_path, b_path) => {
-                match (std::fs::read_to_string(a_path), std::fs::read_to_string(b_path)) {
+                match (::std::fs::read_to_string(a_path), ::std::fs::read_to_string(b_path)) {
                     (Ok(a_string), Ok(b_string)) => {
                         if a_string > b_string {
                             Ok((a_string, b_string))
@@ -56,7 +54,7 @@ macro_rules! assert_fs_read_to_string_gt_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n",
-                                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
+                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
                                         " a_path label: `{}`,\n",
                                         " a_path debug: `{:?}`,\n",
                                         " b_path label: `{}`,\n",
@@ -79,7 +77,7 @@ macro_rules! assert_fs_read_to_string_gt_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n",
-                                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
+                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
                                     " a_path label: `{}`,\n",
                                     " a_path debug: `{:?}`,\n",
                                     " b_path label: `{}`,\n",
@@ -138,7 +136,7 @@ mod tests {
             format!(
                 concat!(
                     "assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n",
-                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
+                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
                     " a_path label: `&a`,\n",
                     " a_path debug: `{:?}`,\n",
                     " b_path label: `&b`,\n",
@@ -162,7 +160,7 @@ mod tests {
             format!(
                 concat!(
                     "assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n",
-                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
+                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
                     " a_path label: `&a`,\n",
                     " a_path debug: `{:?}`,\n",
                     " b_path label: `&b`,\n",
@@ -206,7 +204,7 @@ mod tests {
 /// assert_fs_read_to_string_gt!(&a, &b);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_gt.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_gt.html
 /// //  a_path label: `&a`,
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_path label: `&b`,
@@ -216,7 +214,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_gt.html\n",
 /// #     " a_path label: `&a`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_path label: `&b`,\n",

@@ -288,25 +288,21 @@
 <a href="#288" id="288">288</a>
 <a href="#289" id="289">289</a>
 <a href="#290" id="290">290</a>
-<a href="#291" id="291">291</a>
-<a href="#292" id="292">292</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout string is not equal to another.
+</pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stdout is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
-//! (program1 + args1 ⇒ command ⇒ stdout) ≠ (program2 + args2 ⇒ command ⇒ stdout)
+//! (a_program + a_args ⇒ command ⇒ stdout) ≠ (b_program + b_args ⇒ command ⇒ stdout)
 //!
 //! # Example
 //!
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a_program = "bin/printf-stdout";
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stdout";
 //! let b_args = ["%s%s", "z", "z" ];
 //! assert_program_args_stdout_ne!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -315,10 +311,10 @@
 //! * [`assert_program_args_stdout_ne_as_result`](macro@crate::assert_program_args_stdout_ne_as_result)
 //! * [`debug_assert_program_args_stdout_ne`](macro@crate::debug_assert_program_args_stdout_ne)
 
-/// Assert a command (built with program and args) stdout string is not equal to another.
+/// Assert a command (built with program and args) stdout is not equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stdout) ≠ (program2 + args2 ⇒ command ⇒ stdout)
+/// (a_program + a_args ⇒ command ⇒ stdout) ≠ (b_program + b_args ⇒ command ⇒ stdout)
 ///
 /// * If true, return `(a_stdout, b_stdout)`.
 ///
@@ -356,7 +352,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
                                         <span class="string">" a_program label: `{}`,\n"</span>,
                                         <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                         <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -387,7 +383,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
                                     <span class="string">" a_program label: `{}`,\n"</span>,
                                     <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                     <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -446,7 +442,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_ne.html\n"</span>,
             <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
             <span class="string">" a_program debug: `\"bin/printf-stdout\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
@@ -462,10 +458,10 @@
     }
 }
 
-<span class="doccomment">/// Assert a command (built with program and args) stdout string is not equal to another.
+<span class="doccomment">/// Assert a command (built with program and args) stdout is not equal to another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// (program1 + args1 ⇒ command ⇒ stdout) ≠ (program2 + args2 ⇒ command ⇒ stdout)
+/// (a_program + a_args ⇒ command ⇒ stdout) ≠ (b_program + b_args ⇒ command ⇒ stdout)
 ///
 /// * If true, return `(a_stdout, b_stdout)`.
 ///
@@ -494,7 +490,7 @@
 /// assert_program_args_stdout_ne!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_ne.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_ne.html
 /// //  a_program label: `&amp;a_program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&amp;a_args`,
@@ -508,7 +504,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_ne.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_ne.html\n",
 /// #     " a_program label: `&amp;a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&amp;a_args`,\n",
@@ -546,7 +542,7 @@
     }};
 }
 
-<span class="doccomment">/// Assert a command (built with program and args) stdout string is not equal to another.
+<span class="doccomment">/// Assert a command (built with program and args) stdout is not equal to another.
 ///
 /// This macro provides the same statements as [`assert_program_args_stdout_ne`](macro.assert_program_args_stdout_ne.html),
 /// except this macro's statements are only enabled in non-optimized

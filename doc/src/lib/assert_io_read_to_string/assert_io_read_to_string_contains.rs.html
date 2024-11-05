@@ -241,8 +241,6 @@
 <a href="#241" id="241">241</a>
 <a href="#242" id="242">242</a>
 <a href="#243" id="243">243</a>
-<a href="#244" id="244">244</a>
-<a href="#245" id="245">245</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a ::std::io::Read read_to_string() contains a pattern.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -254,11 +252,9 @@
 //! use assertables::*;
 //! use std::io::Read;
 //!
-//! # fn main() {
 //! let mut reader = "hello".as_bytes();
 //! let containee = "ell";
 //! assert_io_read_to_string_contains!(reader, &amp;containee);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -303,7 +299,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_contains.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html\n"</span>,
                                         <span class="string">"    reader label: `{}`,\n"</span>,
                                         <span class="string">"    reader debug: `{:?}`,\n"</span>,
                                         <span class="string">" containee label: `{}`,\n"</span>,
@@ -324,7 +320,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_contains.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html\n"</span>,
                                     <span class="string">"    reader label: `{}`,\n"</span>,
                                     <span class="string">"    reader debug: `{:?}`,\n"</span>,
                                     <span class="string">" containee label: `{}`,\n"</span>,
@@ -367,7 +363,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_contains.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html\n"</span>,
                 <span class="string">"    reader label: `reader`,\n"</span>,
                 <span class="string">"    reader debug: `[]`,\n"</span>,
                 <span class="string">" containee label: `&amp;containee`,\n"</span>,
@@ -407,7 +403,7 @@
 /// assert_io_read_to_string_contains!(reader, &amp;containee);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_contains.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html
 /// //     reader label: `&amp;reader`,
 /// //     reader debug: `[]`,
 /// //  containee label: `&amp;containee`,
@@ -416,7 +412,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &amp;containee)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_io_read_to_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html\n",
 /// #     "    reader label: `reader`,\n",
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&amp;containee`,\n",

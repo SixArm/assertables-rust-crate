@@ -22,10 +22,8 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a: Result<i8, i8> = Ok(1);
 //! assert_ok!(a);
-//! # }
 //! ```
 
 // Verify Ok(_)

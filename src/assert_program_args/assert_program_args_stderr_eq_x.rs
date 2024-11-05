@@ -1,19 +1,17 @@
-//! Assert a command (built with program and args) stderr string is equal to an expression.
+//! Assert a command (built with program and args) stderr is equal to an expression.
 //!
 //! Pseudocode:<br>
-//! (program1 + args1 ⇒ command ⇒ stderr) = (expr into string)
+//! (a_program + a_args ⇒ command ⇒ stderr) = (expr into string)
 //!
 //! # Example
 //!
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let program = "bin/printf-stderr";
 //! let args = ["%s", "alfa"];
 //! let bytes = vec![b'a', b'l', b'f', b'a'];
 //! assert_program_args_stderr_eq_x!(&program, &args, bytes);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -22,10 +20,10 @@
 //! * [`assert_program_args_stderr_eq_x_as_result`](macro@crate::assert_program_args_stderr_eq_x_as_result)
 //! * [`debug_assert_program_args_stderr_eq_x`](macro@crate::debug_assert_program_args_stderr_eq_x)
 
-/// Assert a command (built with program and args) stderr string is equal to an expression.
+/// Assert a command (built with program and args) stderr is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stderr) = (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stderr) = (expr into string)
 ///
 /// * If true, return Result `Ok(stderr)`.
 ///
@@ -58,7 +56,7 @@ macro_rules! assert_program_args_stderr_eq_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -85,7 +83,7 @@ macro_rules! assert_program_args_stderr_eq_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -131,7 +129,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -152,7 +150,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -165,10 +163,10 @@ mod tests {
     }
 }
 
-/// Assert a command (built with program and args) stderr string is equal to an expression.
+/// Assert a command (built with program and args) stderr is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stderr) = (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stderr) = (expr into string)
 ///
 /// * If true, return `()`.
 ///
@@ -195,7 +193,7 @@ mod tests {
 /// assert_program_args_stderr_eq_x!(&program, &args, bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_eq_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_eq_x.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&args`,
@@ -207,7 +205,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_eq_x.html\n",
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&args`,\n",
@@ -243,10 +241,10 @@ macro_rules! assert_program_args_stderr_eq_x {
     }};
 }
 
-/// Assert a command (built with program and args) stderr string is equal to an expression.
+/// Assert a command (built with program and args) stderr is equal to an expression.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stderr) = (expr into string)
+/// (a_program + a_args ⇒ command ⇒ stderr) = (expr into string)
 ///
 /// This macro provides the same statements as [`assert_program_args_stderr_eq_x`](macro.assert_program_args_stderr_eq_x.html),
 /// except this macro's statements are only enabled in non-optimized

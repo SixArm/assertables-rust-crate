@@ -185,8 +185,6 @@
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
 <a href="#187" id="187">187</a>
-<a href="#188" id="188">188</a>
-<a href="#189" id="189">189</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//!Assert expression is Some.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -197,10 +195,8 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a: Option&lt;i8&gt; = Option::Some(1);
 //! assert_some!(a);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -238,7 +234,7 @@
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_some!(a)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_some.html\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_some.html\n"</span>,
                     <span class="string">" option label: `{}`,\n"</span>,
                     <span class="string">" option debug: `{:?}`"</span>,
                 ),
@@ -267,7 +263,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_some!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_some.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_some.html\n"</span>,
                 <span class="string">" option label: `a`,\n"</span>,
                 <span class="string">" option debug: `None`"</span>,
             )
@@ -301,13 +297,13 @@
 /// assert_some!(a);
 /// # });
 /// // assertion failed: `assert_some!(a)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_some.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_some.html
 /// //  option label: `a`,
 /// //  option debug: `None`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_some!(a)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_some.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_some.html\n",
 /// #     " option label: `a`,\n",
 /// #     " option debug: `None`",
 /// # );

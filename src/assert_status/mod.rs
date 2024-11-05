@@ -35,11 +35,9 @@
 //! use assertables::*;
 //! use std::process::Command;
 //!
-//! # fn main() {
 //! let mut a = Command::new("bin/exit-with-arg"); a.arg("1");
 //! let mut b = Command::new("bin/exit-with-arg"); b.arg("1");
 //! assert_status_code_value_eq!(a, b);
-//! # }
 //! ```
 
 // For success/failure

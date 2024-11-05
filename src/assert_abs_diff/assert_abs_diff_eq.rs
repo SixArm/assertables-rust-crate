@@ -8,12 +8,10 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = 10;
 //! let b = 13;
 //! let delta = 3;
 //! assert_abs_diff_eq!(a, b, delta);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -57,7 +55,7 @@ macro_rules! assert_abs_diff_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_abs_diff_eq!(a, b, delta)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_abs_diff_eq.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_abs_diff_eq.html\n",
                                 "       a label: `{}`,\n",
                                 "       a debug: `{:?}`,\n",
                                 "       b label: `{}`,\n",
@@ -105,7 +103,7 @@ mod test {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_abs_diff_eq!(a, b, delta)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_abs_diff_eq.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_abs_diff_eq.html\n",
                 "       a label: `a`,\n",
                 "       a debug: `10`,\n",
                 "       b label: `b`,\n",
@@ -128,7 +126,7 @@ mod test {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_abs_diff_eq!(a, b, delta)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_abs_diff_eq.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_abs_diff_eq.html\n",
                 "       a label: `a`,\n",
                 "       a debug: `10`,\n",
                 "       b label: `b`,\n",
@@ -172,7 +170,7 @@ mod test {
 /// assert_abs_diff_eq!(a, b, delta);
 /// # });
 /// // assertion failed: `assert_abs_diff_eq!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_abs_diff_eq.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_abs_diff_eq.html
 /// //        a label: `a`,
 /// //        a debug: `10`,
 /// //        b label: `b`,
@@ -184,7 +182,7 @@ mod test {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_abs_diff_eq!(a, b, delta)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_abs_diff_eq.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_abs_diff_eq.html\n",
 /// #     "       a label: `a`,\n",
 /// #     "       a debug: `10`,\n",
 /// #     "       b label: `b`,\n",

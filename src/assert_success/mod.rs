@@ -12,13 +12,11 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! #[derive(Debug)]
 //! struct A;
 //! impl A { fn success(&self) -> bool { true }}
 //! let a = A{};
 //! assert_success!(a);
-//! # }
 //! ```
 
 pub mod assert_success;

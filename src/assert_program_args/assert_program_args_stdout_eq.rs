@@ -1,20 +1,18 @@
-//! Assert a command (built with program and args) stdout string is equal to another.
+//! Assert a command (built with program and args) stdout is equal to another.
 //!
 //! Pseudocode:<br>
-//! (program1 + args1 ⇒ command ⇒ stdout) = (program2 + args2 ⇒ command ⇒ stdout)
+//! (a_program + a_args ⇒ command ⇒ stdout) = (b_program + b_args ⇒ command ⇒ stdout)
 //!
 //! # Example
 //!
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a_program = "bin/printf-stdout";
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stdout";
 //! let b_args = ["%s%s%s%s", "a", "l", "f", "a"];
 //! assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -23,10 +21,10 @@
 //! * [`assert_program_args_stdout_eq_as_result`](macro@crate::assert_program_args_stdout_eq_as_result)
 //! * [`debug_assert_program_args_stdout_eq`](macro@crate::debug_assert_program_args_stdout_eq)
 
-/// Assert a command (built with program and args) stdout string is equal to another.
+/// Assert a command (built with program and args) stdout is equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout) = (program2 + args2 ⇒ command ⇒ stdout)
+/// (a_program + a_args ⇒ command ⇒ stdout) = (b_program + b_args ⇒ command ⇒ stdout)
 ///
 /// * If true, return `(a_stdout, b_stdout)`.
 ///
@@ -64,7 +62,7 @@ macro_rules! assert_program_args_stdout_eq_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`\n",
-                                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_eq.html\n",
+                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -95,7 +93,7 @@ macro_rules! assert_program_args_stdout_eq_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`\n",
-                                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_eq.html\n",
+                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -154,7 +152,7 @@ mod tests {
         let actual = result.unwrap_err();
         let expect = concat!(
             "assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_eq.html\n",
+            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -170,10 +168,10 @@ mod tests {
     }
 }
 
-/// Assert a command (built with program and args) stdout string is equal to another.
+/// Assert a command (built with program and args) stdout is equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout) = (program2 + args2 ⇒ command ⇒ stdout)
+/// (a_program + a_args ⇒ command ⇒ stdout) = (b_program + b_args ⇒ command ⇒ stdout)
 ///
 /// * If true, return `(a_stdout, b_stdout)`.
 ///
@@ -202,7 +200,7 @@ mod tests {
 /// assert_program_args_stdout_eq!(&a_program, &a_args, &b_program, &b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_eq.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq.html
 /// //  a_program label: `&a_program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&a_args`,
@@ -216,7 +214,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_program_args_stdout_eq.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq.html\n",
 /// #     " a_program label: `&a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&a_args`,\n",
@@ -254,10 +252,10 @@ macro_rules! assert_program_args_stdout_eq {
     }};
 }
 
-/// Assert a command (built with program and args) stdout string is equal to another.
+/// Assert a command (built with program and args) stdout is equal to another.
 ///
 /// Pseudocode:<br>
-/// (program1 + args1 ⇒ command ⇒ stdout) = (program2 + args2 ⇒ command ⇒ stdout)
+/// (a_program + a_args ⇒ command ⇒ stdout) = (b_program + b_args ⇒ command ⇒ stdout)
 ///
 /// This macro provides the same statements as [`assert_program_args_stdout_eq`](macro.assert_program_args_stdout_eq.html),
 /// except this macro's statements are only enabled in non-optimized

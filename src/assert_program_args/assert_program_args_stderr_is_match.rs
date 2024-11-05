@@ -1,8 +1,8 @@
-//! Assert a command (built with program and args) stderr string is a match to a regex.
+//! Assert a command (built with program and args) stderr into a string is a match to a regex.
 //!
 //! Deprecated. Please rename from `assert_program_args_stderr_is_match` to `assert_program_args_stderr_string_is_match`.
 
-/// Assert a command (built with program and args) stderr string is a match to a regex.
+/// Assert a command (built with program and args) stderr into a string is a match to a regex.
 ///
 /// Deprecated. Please rename from `assert_program_args_stderr_is_match_as_result` to `assert_program_args_stderr_string_is_match_as_result`.
 ///
@@ -16,7 +16,7 @@ macro_rules! assert_program_args_stderr_is_match_as_result {
     }
 }
 
-/// Assert a command (built with program and args) stderr string is a match to a regex.
+/// Assert a command (built with program and args) stderr into a string is a match to a regex.
 ///
 /// Deprecated. Please rename from `assert_program_args_stderr_is_match` to `assert_program_args_stderr_string_is_match`.
 ///
@@ -30,7 +30,7 @@ macro_rules! assert_program_args_stderr_is_match {
     }
 }
 
-/// Assert a command (built with program and args) stderr string is a match to a regex.
+/// Assert a command (built with program and args) stderr into a string is a match to a regex.
 ///
 /// Deprecated. Please rename from `debug_assert_program_args_stderr_is_match` to `debug_assert_program_args_stderr_string_is_match`.
 ///

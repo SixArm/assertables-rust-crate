@@ -252,8 +252,6 @@
 <a href="#252" id="252">252</a>
 <a href="#253" id="253">253</a>
 <a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ready and its value is equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -265,11 +263,9 @@
 //! use assertables::*;
 //! use std::task::Poll;
 //! use std::task::Poll::*;
-//! # fn main() {
 //! let a: Poll&lt;i8&gt; = Ready(1);
 //! let b: i8 = 1;
 //! assert_ready_eq_x!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -311,7 +307,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_ready_eq_x!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready_eq_x.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready_eq_x.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" a inner: `{:?}`,\n"</span>,
@@ -332,7 +328,7 @@
                     <span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_ready_eq_x!(a, b)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready_eq_x.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready_eq_x.html\n"</span>,
                             <span class="string">" a label: `{}`,\n"</span>,
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
@@ -371,7 +367,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ready_eq_x!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready_eq_x.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready_eq_x.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Ready(1)`,\n"</span>,
                 <span class="string">" a inner: `1`,\n"</span>,
@@ -390,7 +386,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ready_eq_x!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready_eq_x.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready_eq_x.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Pending`,\n"</span>,
                 <span class="string">" b label: `b`,\n"</span>,
@@ -429,7 +425,7 @@
 /// assert_ready_eq_x!(a, b);
 /// # });
 /// // assertion failed: `assert_ready_eq_x!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready_eq_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready_eq_x.html
 /// //  a label: `a`,
 /// //  a debug: `Ready(1)`,
 /// //  a inner: `1`,
@@ -438,7 +434,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready_eq_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`,\n",
 /// #     " a inner: `1`,\n",

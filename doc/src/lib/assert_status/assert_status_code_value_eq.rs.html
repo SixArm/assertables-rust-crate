@@ -294,8 +294,6 @@
 <a href="#294" id="294">294</a>
 <a href="#295" id="295">295</a>
 <a href="#296" id="296">296</a>
-<a href="#297" id="297">297</a>
-<a href="#298" id="298">298</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a status code value is equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -307,11 +305,9 @@
 //! use assertables::*;
 //! use std::process::Command;
 //!
-//! # fn main() {
 //! let mut a = Command::new("bin/exit-with-arg"); a.arg("1");
 //! let mut b = Command::new("bin/exit-with-arg"); b.arg("1");
 //! assert_status_code_value_eq!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -355,7 +351,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_status_code_value_eq!(a, b)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
                                         <span class="string">" a label: `{}`,\n"</span>,
                                         <span class="string">" a debug: `{:?}`,\n"</span>,
                                         <span class="string">" a value: `{:?}`,\n"</span>,
@@ -378,7 +374,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_status_code_value_eq!(a, b)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
                                     <span class="string">" a label: `{}`,\n"</span>,
                                     <span class="string">" a debug: `{:?}`,\n"</span>,
                                     <span class="string">"  a code: `{:?}`,\n"</span>,
@@ -402,7 +398,7 @@
                     <span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_status_code_value_eq!(a, b)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
                             <span class="string">"  a label: `{}`,\n"</span>,
                             <span class="string">"  a debug: `{:?}`,\n"</span>,
                             <span class="string">" a status: `{:?}`,\n"</span>,
@@ -448,7 +444,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_status_code_value_eq!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `\"bin/exit-with-arg\" \"1\"`,\n"</span>,
                 <span class="string">" a value: `1`,\n"</span>,
@@ -470,7 +466,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_status_code_value_eq!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_eq.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `\"bin/exit-with-arg\" \"2\"`,\n"</span>,
                 <span class="string">" a value: `2`,\n"</span>,
@@ -511,7 +507,7 @@
 /// assert_status_code_value_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_status_code_value_eq!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_eq.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_eq.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 /// //  a value: `1`",
@@ -521,7 +517,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_status_code_value_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_eq.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 /// #     " a value: `1`,\n",

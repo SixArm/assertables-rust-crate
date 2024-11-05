@@ -13,7 +13,7 @@ Developers ask many questions about Assertables, Rust testing in general, macros
 
 
 ## What are the top features?
- 
+
 1. Easy to use: everything is well-documented with runnable examples.
 
 2. More forms: for results, for solo/pair, for success return, etc.
@@ -103,10 +103,10 @@ Because Assertables provides the additional forms for success returns and result
 ## Are there license reasons to use Assertables instead of other assertion crates?
 
 Yes, for some developers and organizations. Assertables provides more license
-choices than each of those crates. 
+choices than each of those crates.
 
 Assertables provides Apache, MIT, GPL, BSD, and custom licenses for custom
-needs. See the LICENSE file for specifics. 
+needs. See the LICENSE file for specifics.
 
 
 ## Are there assertion crates that are good to use with Assertables?
@@ -117,7 +117,7 @@ for more-sophisticated needs.
 1. The crate `static_assertions` provides static code analysis, even before running `cargo test`.
 
 2. The crate `assert_matches` provides matching macros that have even more functionality than Assertables macros `assert_matches` and `assert_not_matches`.
-   
+
 3. The crate `approx` provides floating point approximation macros that provide even more functionality than Assertables macros `assert_approx_eq`, `assert_in_delta`, `assert_in_epsilon`, etc.
 
 

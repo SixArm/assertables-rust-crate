@@ -113,23 +113,62 @@
 <a href="#113" id="113">113</a>
 <a href="#114" id="114">114</a>
 <a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing commands and their stdout &amp; stderr.
 //!
 //! These macros help with calling external commands, then capturing the
 //! standard output stream and standard error stream.
+//! See tutorial below.
 //!
 //! These macros have corresponding the macros in the module [`assert_program_args`](module@crate::assert_program_args).
 //!
-//! ## Command standard output
+//! ## Macros for command standard output
 //!
 //! Compare command standard output to another command standard output:
 //!
-//! * [`assert_command_stdout_eq!(command1, command2)`](macro@crate::assert_command_stdout_eq) ≈ command1 stdout = command2 stdout
-//! * [`assert_command_stdout_ne!(command1, command2)`](macro@crate::assert_command_stdout_ne) ≈ command1 stdout ≠ command2 stdout
-//! * [`assert_command_stdout_lt!(command1, command2)`](macro@crate::assert_command_stdout_lt) ≈ command1 stdout &lt; command2 stdout
-//! * [`assert_command_stdout_le!(command1, command2)`](macro@crate::assert_command_stdout_le) ≈ command1 stdout ≤ command2 stdout
-//! * [`assert_command_stdout_gt!(command1, command2)`](macro@crate::assert_command_stdout_gt) ≈ command1 stdout &gt; command2 stdout
-//! * [`assert_command_stdout_ge!(command1, command2)`](macro@crate::assert_command_stdout_ge) ≈ command1 stdout ≥ command2 stdout
+//! * [`assert_command_stdout_eq!(a_command, b_command)`](macro@crate::assert_command_stdout_eq) ≈ a_command stdout = b_command stdout
+//! * [`assert_command_stdout_ne!(a_command, b_command)`](macro@crate::assert_command_stdout_ne) ≈ a_command stdout ≠ b_command stdout
+//! * [`assert_command_stdout_lt!(a_command, b_command)`](macro@crate::assert_command_stdout_lt) ≈ a_command stdout &lt; b_command stdout
+//! * [`assert_command_stdout_le!(a_command, b_command)`](macro@crate::assert_command_stdout_le) ≈ a_command stdout ≤ b_command stdout
+//! * [`assert_command_stdout_gt!(a_command, b_command)`](macro@crate::assert_command_stdout_gt) ≈ a_command stdout &gt; b_command stdout
+//! * [`assert_command_stdout_ge!(a_command, b_command)`](macro@crate::assert_command_stdout_ge) ≈ a_command stdout ≥ b_command stdout
 //!
 //! Compare command standard output to an expression:
 //!
@@ -145,16 +184,16 @@
 //! * [`assert_command_stdout_string_contains!(command, containee)`](macro@crate::assert_command_stdout_string_contains) ≈ command stdout string contains containee
 //! * [`assert_command_stdout_string_is_match!(command, matcher)`](macro@crate::assert_command_stdout_string_is_match) ≈ command stdout string is a matcher match
 //!
-//! ## Command standard error
+//! ## Macros for command standard error
 //!
 //! Compare command standard error to another command standard error:
 //!
-//! * [`assert_command_stderr_eq!(command1, command2)`](macro@crate::assert_command_stderr_eq) ≈ command1 stderr = command2 stderr
-//! * [`assert_command_stderr_ne!(command1, command2)`](macro@crate::assert_command_stderr_ne) ≈ command1 stderr ≠ command2 stderr
-//! * [`assert_command_stderr_lt!(command1, command2)`](macro@crate::assert_command_stderr_lt) ≈ command1 stderr &lt; command2 stderr
-//! * [`assert_command_stderr_le!(command1, command2)`](macro@crate::assert_command_stderr_le) ≈ command1 stderr ≤ command2 stderr
-//! * [`assert_command_stderr_gt!(command1, command2)`](macro@crate::assert_command_stderr_gt) ≈ command1 stderr &gt; command2 stderr
-//! * [`assert_command_stderr_ge!(command1, command2)`](macro@crate::assert_command_stderr_ge) ≈ command1 stderr ≥ command2 stderr
+//! * [`assert_command_stderr_eq!(a_command, b_command)`](macro@crate::assert_command_stderr_eq) ≈ a_command stderr = b_command stderr
+//! * [`assert_command_stderr_ne!(a_command, b_command)`](macro@crate::assert_command_stderr_ne) ≈ a_command stderr ≠ b_command stderr
+//! * [`assert_command_stderr_lt!(a_command, b_command)`](macro@crate::assert_command_stderr_lt) ≈ a_command stderr &lt; b_command stderr
+//! * [`assert_command_stderr_le!(a_command, b_command)`](macro@crate::assert_command_stderr_le) ≈ a_command stderr ≤ b_command stderr
+//! * [`assert_command_stderr_gt!(a_command, b_command)`](macro@crate::assert_command_stderr_gt) ≈ a_command stderr &gt; b_command stderr
+//! * [`assert_command_stderr_ge!(a_command, b_command)`](macro@crate::assert_command_stderr_ge) ≈ a_command stderr ≥ b_command stderr
 //!
 //! Compare command standard error to an expression:
 //!
@@ -176,13 +215,50 @@
 //! use assertables::*;
 //! use std::process::Command;
 //!
-//! # fn main() {
 //! let mut a = Command::new("bin/printf-stdout");
 //! a.args(["%s", "alfa"]);
 //! let mut b = Command::new("bin/printf-stdout");
 //! b.args(["%s%s%s%s", "a", "l", "f", "a"]);
 //! assert_command_stdout_eq!(a, b);
-//! # }
+//! ```
+//!
+//! ## Tutorial
+//!
+//! Rust programs can call system commands.
+//!
+//! For example this system command will print the word hello:
+//!
+//! ```sh
+//! printf %s hello
+//! ```
+//!
+//! Rust can create a system command then capture its standard output, by using:
+//!
+//! ```rust
+//! # use std::process::Command;
+//! let mut command = Command::new("printf"); command.args(["%s", "hello"]);
+//! let stdout = command.output().unwrap().stdout;
+//! ```
+//!
+//! Rust can compare a command's standard output to another command's standard output, by using:
+//!
+//! ```rust
+//! # use std::process::Command;
+//! let mut a_command = Command::new("printf"); a_command.args(["%s", "hello"]);
+//! let mut b_command = Command::new("printf"); a_command.args(["%s", "world"]);
+//! let a_stdout = a_command.output().unwrap().stdout;
+//! let b_stdout = b_command.output().unwrap().stdout;
+//! assert_ne!(a_stdout, b_stdout);
+//! ```
+//!
+//! The `assertables` crate provides macros that do the same kind of processing, by automatically converting each command into standard output:
+//!
+//! ```rust
+//! # use std::process::Command;
+//! # use assertables::*;
+//! let mut a_command = Command::new("printf"); a_command.args(["%s", "hello"]);
+//! let mut b_command = Command::new("printf"); a_command.args(["%s", "world"]);
+//! assert_command_stdout_ne!(a_command, b_command);
 //! ```
 
 </span><span class="comment">// Compare another

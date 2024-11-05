@@ -22,12 +22,10 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = 10;
 //! let b = 13;
 //! let delta = 3;
 //! assert_abs_diff_eq!(a, b, delta);
-//! # }
 //! ```
 
 pub mod assert_abs_diff_eq;

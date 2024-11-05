@@ -6,7 +6,7 @@
 //! This file has some very simple demonstrations of "before" code that uses
 //! just the build-in Rust assert macros, then of "after" code that shows the
 //! better Assertables macros.
-//! 
+//!
 //! In most of these examples, the real value of the Assertables macros happens
 //! when a test fails, because you get better failure messages, which help you
 //! find bugs faster, and confirm fixes more easily.
@@ -83,7 +83,7 @@ fn compare_text_file_to_string() {
     let s = "alfa\n";
 
     // Standard Rust
-    assert_eq!(std::fs::read_to_string(path).unwrap(), s);
+    assert_eq!(::std::fs::read_to_string(path).unwrap(), s);
 
     // Assertables
     assert_fs_read_to_string_eq_x!(path, s);

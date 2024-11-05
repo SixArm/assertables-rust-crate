@@ -21,10 +21,8 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a: Result<i8, i8> = Err(1);
 //! assert_err!(a);
-//! # }
 //! ```
 
 // Verify Err(_)

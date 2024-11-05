@@ -239,8 +239,6 @@
 <a href="#239" id="239">239</a>
 <a href="#240" id="240">240</a>
 <a href="#241" id="241">241</a>
-<a href="#242" id="242">242</a>
-<a href="#243" id="243">243</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a count is greater than another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -251,11 +249,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = "xx".chars();
 //! let b = "x".chars();
 //! assert_count_gt!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -299,7 +295,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_count_gt!(a, b)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_gt.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_gt.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" a.count(): `{:?}`,\n"</span>,
@@ -341,7 +337,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_count_gt!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_gt.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_gt.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Chars(['x'])`,\n"</span>,
                 <span class="string">" a.count(): `1`,\n"</span>,
@@ -361,7 +357,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_count_gt!(a, b)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_gt.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_gt.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Chars(['x'])`,\n"</span>,
                 <span class="string">" a.count(): `1`,\n"</span>,
@@ -401,7 +397,7 @@
 /// assert_count_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_count_gt!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_gt.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_gt.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",
@@ -411,7 +407,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_count_gt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_count_gt.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",

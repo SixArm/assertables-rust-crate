@@ -394,8 +394,6 @@
 <a href="#394" id="394">394</a>
 <a href="#395" id="395">395</a>
 <a href="#396" id="396">396</a>
-<a href="#397" id="397">397</a>
-<a href="#398" id="398">398</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Err(…) is greater than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -412,11 +410,9 @@
 //!     }
 //! }
 //!
-//! # fn main() {
 //! let a: i8 = 20;
 //! let b = String::from("10 is out of range");
 //! assert_fn_err_ge_x!(f, a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -463,7 +459,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_fn_err_ge_x!(a_function, a_param, b_expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
                                         <span class="string">" a_function label: `{}`,\n"</span>,
                                         <span class="string">"    a_param label: `{}`,\n"</span>,
                                         <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -488,7 +484,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_fn_err_ge_x!(a_function, a_param, b_expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
                                     <span class="string">" a_function label: `{}`,\n"</span>,
                                     <span class="string">"    a_param label: `{}`,\n"</span>,
                                     <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -524,7 +520,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_fn_err_ge_x!(a_function, b_expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
                                         <span class="string">" a_function label: `{}`,\n"</span>,
                                         <span class="string">"     b_expr label: `{}`,\n"</span>,
                                         <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
@@ -545,7 +541,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_fn_err_ge_x!(a_function, b_expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
                                     <span class="string">" a_function label: `{}`,\n"</span>,
                                     <span class="string">"     b_expr label: `{}`,\n"</span>,
                                     <span class="string">"     b_expr debug: `{:?}`,\n"</span>,
@@ -601,7 +597,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_err_ge_x!(a_function, a_param, b_expr)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `1`,\n"</span>,
@@ -642,7 +638,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_err_ge_x!(a_function, b_expr)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ge_x.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"     b_expr label: `b`,\n"</span>,
                         <span class="string">"     b_expr debug: `2`,\n"</span>,
@@ -689,7 +685,7 @@
 /// assert_fn_err_ge_x!(f, a, b);
 /// # });
 /// // assertion failed: `assert_fn_err_ge_x!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_ge_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ge_x.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `10`,
@@ -700,7 +696,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_err_ge_x!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_ge_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ge_x.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `10`,\n",

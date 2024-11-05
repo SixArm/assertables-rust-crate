@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["assert_in_delta","assert_in_epsilon"]};
+window.SIDEBAR_ITEMS = {"mod":["assert_in","assert_in_delta","assert_in_epsilon","assert_in_range"]};

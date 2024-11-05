@@ -259,8 +259,6 @@
 <a href="#259" id="259">259</a>
 <a href="#260" id="260">260</a>
 <a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command stdout string is less than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -272,12 +270,10 @@
 //! use assertables::*;
 //! use std::process::Command;
 //!
-//! # fn main() {
 //! let mut command = Command::new("bin/printf-stdout");
 //! command.args(["%s", "alfa"]);
 //! let bytes = vec![b'z', b'z'];
 //! assert_command_stdout_le_x!(command, bytes);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -322,7 +318,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_command_stdout_le_x!(command, expr)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_le_x.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_le_x.html\n"</span>,
                                         <span class="string">" command label: `{}`,\n"</span>,
                                         <span class="string">" command debug: `{:?}`,\n"</span>,
                                         <span class="string">"    expr label: `{}`,\n"</span>,
@@ -345,7 +341,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_command_stdout_le_x!(command, expr)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_le_x.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_le_x.html\n"</span>,
                                     <span class="string">"  command label: `{}`,\n"</span>,
                                     <span class="string">"  command debug: `{:?}`,\n"</span>,
                                     <span class="string">"     expr label: `{}`,\n"</span>,
@@ -398,7 +394,7 @@
         <span class="kw">let </span>actual = result.unwrap_err();
         <span class="kw">let </span>expect = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_command_stdout_le_x!(command, expr)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_le_x.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_le_x.html\n"</span>,
             <span class="string">" command label: `a`,\n"</span>,
             <span class="string">" command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">"    expr label: `b`,\n"</span>,
@@ -441,7 +437,7 @@
 /// assert_command_stdout_le_x!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_le_x!(command, expr)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_le_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_le_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //     expr label: `bytes`,
@@ -451,7 +447,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_command_stdout_le_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_command_stdout_le_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_le_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     "    expr label: `bytes`,\n",

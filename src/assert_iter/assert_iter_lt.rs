@@ -8,11 +8,9 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! let a = [1, 2];
 //! let b = [3, 4];
 //! assert_iter_lt!(&a, &b);
-//! # }
 //! ```
 //!
 //! This implementation uses [`::std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
@@ -60,7 +58,7 @@ macro_rules! assert_iter_lt_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_lt.html\n",
+                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_lt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -98,7 +96,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_lt.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_lt.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[1, 2]`,\n",
                 " b label: `&b`,\n",
@@ -116,7 +114,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_lt.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_lt.html\n",
                 " a label: `&a`,\n",
                 " a debug: `[3, 4]`,\n",
                 " b label: `&b`,\n",
@@ -154,7 +152,7 @@ mod tests {
 /// assert_iter_lt!(&a, &b);
 /// # });
 /// // assertion failed: `assert_iter_lt!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_lt.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_lt.html
 /// //  a label: `&a`,
 /// //  a debug: `[3, 4]`,
 /// //  b label: `&b`,
@@ -162,7 +160,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_iter_lt.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_lt.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[3, 4]`,\n",
 /// #     " b label: `&b`,\n",

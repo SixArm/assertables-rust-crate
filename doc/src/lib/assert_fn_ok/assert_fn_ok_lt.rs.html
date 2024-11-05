@@ -429,8 +429,6 @@
 <a href="#429" id="429">429</a>
 <a href="#430" id="430">430</a>
 <a href="#431" id="431">431</a>
-<a href="#432" id="432">432</a>
-<a href="#433" id="433">433</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Ok(…) is less than another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -447,11 +445,9 @@
 //!     }
 //! }
 //!
-//! # fn main() {
 //! let a: i8 = 1;
 //! let b: i8 = 2;
 //! assert_fn_ok_lt!(f, a, f, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -501,7 +497,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_fn_ok_lt!(a_function, a_param, b_function, b_param)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
                                         <span class="string">" a_function label: `{}`,\n"</span>,
                                         <span class="string">"    a_param label: `{}`,\n"</span>,
                                         <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -528,7 +524,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_lt.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_lt.html\n"</span>,
                                     <span class="string">" a_function label: `{}`,\n"</span>,
                                     <span class="string">"    a_param label: `{}`,\n"</span>,
                                     <span class="string">"    a_param debug: `{:?}`,\n"</span>,
@@ -569,7 +565,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_fn_ok_lt!(a_function, b_function)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
                                 <span class="string">" a_function label: `{}`,\n"</span>,
                                 <span class="string">" b_function label: `{}`,\n"</span>,
                                 <span class="string">"                a: `{:?}`,\n"</span>,
@@ -588,7 +584,7 @@
                     <span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_fn_err_lt!(a_function, b_function)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_err_lt.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_lt.html\n"</span>,
                             <span class="string">" a_function label: `{}`,\n"</span>,
                             <span class="string">" b_function label: `{}`,\n"</span>,
                             <span class="string">"                a: `{:?}`,\n"</span>,
@@ -638,7 +634,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_ok_lt!(a_function, a_param, b_function, b_param)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `1`,\n"</span>,
@@ -660,7 +656,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_ok_lt!(a_function, a_param, b_function, b_param)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">"    a_param label: `a`,\n"</span>,
                         <span class="string">"    a_param debug: `2`,\n"</span>,
@@ -697,7 +693,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_ok_lt!(a_function, b_function)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
                         <span class="string">" a_function label: `f`,\n"</span>,
                         <span class="string">" b_function label: `f`,\n"</span>,
                         <span class="string">"                a: `1`,\n"</span>,
@@ -713,7 +709,7 @@
                     result.unwrap_err(),
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_fn_ok_lt!(a_function, b_function)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_lt.html\n"</span>,
                         <span class="string">" a_function label: `g`,\n"</span>,
                         <span class="string">" b_function label: `f`,\n"</span>,
                         <span class="string">"                a: `2`,\n"</span>,
@@ -769,7 +765,7 @@
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_fn_ok_lt!(a_function, a_param, b_function, b_param)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_fn_ok_lt.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_lt.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `2`,\n",

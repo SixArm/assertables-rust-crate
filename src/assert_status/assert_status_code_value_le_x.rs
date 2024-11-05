@@ -9,11 +9,9 @@
 //! use assertables::*;
 //! use std::process::Command;
 //!
-//! # fn main() {
 //! let mut a = Command::new("bin/exit-with-arg"); a.arg("1");
 //! let b = 2;
 //! assert_status_code_value_le_x!(a, b);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -57,7 +55,7 @@ macro_rules! assert_status_code_value_le_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_status_code_value_le_x!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_le_x.html\n",
+                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_le_x.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
                                         " a value: `{:?}`,\n",
@@ -78,7 +76,7 @@ macro_rules! assert_status_code_value_le_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_status_code_value_le_x!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_le_x.html\n",
+                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_le_x.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     "  a code: `{:?}`,\n",
@@ -100,7 +98,7 @@ macro_rules! assert_status_code_value_le_x_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_status_code_value_le_x!(a, b)`\n",
-                            "https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_le_x.html\n",
+                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_le_x.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             " a status: `{:?}`,\n",
@@ -151,7 +149,7 @@ mod tests {
             result.unwrap_err(),
             concat!(
                 "assertion failed: `assert_status_code_value_le_x!(a, b)`\n",
-                "https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_le_x.html\n",
+                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_le_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
                 " a value: `2`,\n",
@@ -191,7 +189,7 @@ mod tests {
 /// assert_status_code_value_le_x!(a, b);
 /// # });
 /// // assertion failed: `assert_status_code_value_le_x!(a, b)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_le_x.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_le_x.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 /// //  a value: `2`",
@@ -200,7 +198,7 @@ mod tests {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_status_code_value_le_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_status_code_value_le_x.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_le_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 /// #     " a value: `2`,\n",

@@ -4,7 +4,7 @@
 //! sanitization, reliability engineering, chaos engineering, and the like.
 //!
 //! This file has typical demonstrations of the most-common use cases.
-//! 
+//!
 //! In most of these examples, the real value of the Assertables macros happens
 //! when a test fails, because you get better failure messages, which help you
 //! find bugs faster, and confirm fixes more easily.
@@ -56,7 +56,7 @@ fn examples_with_infix_logic_operators() {
 #[test]
 fn examples_with_strings() {
     let s = "hello world";
-    assert_matches!(s, "hello world"); 
+    assert_matches!(s, "hello world");
     assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
     assert_starts_with!(s, "hello");
     assert_ends_with!(s, "world");
@@ -203,11 +203,11 @@ fn examples_with_assert_some() {
     let a: Option<i8> = Some(1);
     let b: Option<i8> = Some(2);
     assert_some!(a);
- 
+
     // Compare another
     assert_some_eq!(a, a);
     assert_some_ne!(a, b);
-    
+
     // Compare expression
     assert_some_eq_x!(a, 1);
     assert_some_ne_x!(a, 2);
@@ -511,7 +511,7 @@ fn examples_with_assert_fn_err() {
     assert_fn_err_gt_x!(g, 1);
     assert_fn_err_ge_x!(g, 1);
 
-    
+
 }
 
 //// Readers
@@ -601,7 +601,7 @@ fn examples_of_success_return_with_files() {
     let (a_string, b_string) = assert_fs_read_to_string_ne!(a_path, b_path);
     assert_eq!(a_string, String::from("alfa\n"));
     assert_eq!(b_string, String::from("bravo\n"));
-    
+
     // Compare expression
     let path = "alfa.txt";
     let string = assert_fs_read_to_string_ne_x!(path, "");
@@ -620,7 +620,7 @@ fn examples_of_success_return_with_bytes() {
     let (a_string, b_string) = assert_io_read_to_string_ne!(a, b);
     assert_eq!(a_string, String::from("alfa"));
     assert_eq!(b_string, String::from("bravo"));
-    
+
     // Compare expression
     let mut a = "alfa".as_bytes();
     let string = assert_io_read_to_string_ne_x!(a, "");

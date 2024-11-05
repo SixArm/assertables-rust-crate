@@ -13,7 +13,6 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! # fn main() {
 //! // String starts with substring?
 //! let sequence: &str = "alfa";
 //! let subsequence: &str = "al";
@@ -23,7 +22,6 @@
 //! let sequence = vec![1, 2, 3];
 //! let subsequence = [1];
 //! assert_starts_with!(sequence, subsequence);
-//! # }
 //! ```
 
 pub mod assert_not_starts_with;

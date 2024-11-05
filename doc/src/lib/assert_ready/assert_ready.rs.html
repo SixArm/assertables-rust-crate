@@ -190,8 +190,6 @@
 <a href="#190" id="190">190</a>
 <a href="#191" id="191">191</a>
 <a href="#192" id="192">192</a>
-<a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression is Ready.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -204,10 +202,8 @@
 //! use std::task::Poll;
 //! use std::task::Poll::*;
 //!
-//! # fn main() {
 //! let a: Poll&lt;i8&gt; = Ready(1);
 //! assert_ready!(a);
-//! # }
 //! ```
 //!
 //! # Module macros
@@ -245,7 +241,7 @@
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                 <span class="macro">concat!</span>(
                     <span class="string">"assertion failed: `assert_ready!(a)`\n"</span>,
-                    <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready.html\n"</span>,
+                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready.html\n"</span>,
                     <span class="string">" a label: `{}`,\n"</span>,
                     <span class="string">" a debug: `{:?}`"</span>,
                 ),
@@ -276,7 +272,7 @@
             result.unwrap_err(),
             <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_ready!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready.html\n"</span>,
                 <span class="string">" a label: `a`,\n"</span>,
                 <span class="string">" a debug: `Pending`"</span>,
             )
@@ -311,13 +307,13 @@
 /// assert_ready!(a);
 /// # });
 /// // assertion failed: `assert_ready!(a)`
-/// // https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready.html
+/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready.html
 /// //  a label: `a`,
 /// //  a debug: `Pending`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let expect = concat!(
 /// #     "assertion failed: `assert_ready!(a)`\n",
-/// #     "https://docs.rs/assertables/9.3.0/assertables/macro.assert_ready.html\n",
+/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Pending`",
 /// # );
