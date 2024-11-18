@@ -156,7 +156,7 @@ macro_rules! assert_pending {
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_pending_as_result!($a) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

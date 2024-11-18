@@ -203,7 +203,7 @@ macro_rules! assert_io_read_to_string_lt_x {
     ($a_reader:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_io_read_to_string_lt_x_as_result!($a_reader, $b_expr) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

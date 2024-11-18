@@ -209,7 +209,7 @@ macro_rules! assert_ok_eq {
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_ok_eq_as_result!($a, $b) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

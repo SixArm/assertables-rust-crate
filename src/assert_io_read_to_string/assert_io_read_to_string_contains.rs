@@ -197,7 +197,7 @@ macro_rules! assert_io_read_to_string_contains {
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_io_read_to_string_contains_as_result!($reader, $containee) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

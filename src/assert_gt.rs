@@ -161,7 +161,7 @@ macro_rules! assert_gt {
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_gt_as_result!($a, $b) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

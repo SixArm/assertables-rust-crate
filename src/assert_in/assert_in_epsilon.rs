@@ -255,7 +255,7 @@ macro_rules! assert_in_epsilon {
     ($a:expr, $b:expr, $epsilon:expr, $($message:tt)+) => {{
         match $crate::assert_in_epsilon_as_result!($a, $b, $epsilon) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

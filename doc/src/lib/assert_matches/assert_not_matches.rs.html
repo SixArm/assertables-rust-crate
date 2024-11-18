@@ -383,13 +383,13 @@
     (<span class="macro-nonterminal">$expression</span>:expr, <span class="macro-nonterminal">$pattern</span>:pat <span class="kw">if </span><span class="macro-nonterminal">$guard</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_not_matches_as_result!</span>(<span class="macro-nonterminal">$expression</span>, <span class="macro-nonterminal">$pattern </span><span class="kw">if </span><span class="macro-nonterminal">$guard</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
-            <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
+            <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}\n{}"</span>, <span class="macro">format_args!</span>($(<span class="macro-nonterminal">$message</span>)+), err),
         }
     }};
     (<span class="macro-nonterminal">$expression</span>:expr, <span class="macro-nonterminal">$pattern</span>:pat, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; {{
         <span class="kw">match </span><span class="macro-nonterminal">$</span><span class="macro">crate::assert_not_matches_as_result!</span>(<span class="macro-nonterminal">$expression</span>, <span class="macro-nonterminal">$pattern </span><span class="kw">if </span><span class="macro-nonterminal">$guard</span>) {
             <span class="prelude-val">Ok</span>(()) =&gt; (),
-            <span class="prelude-val">Err</span>(_err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}"</span>, $(<span class="macro-nonterminal">$message</span>)+),
+            <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}\n{}"</span>, <span class="macro">format_args!</span>($(<span class="macro-nonterminal">$message</span>)+), err),
         }
     }};
 }

@@ -208,7 +208,7 @@ macro_rules! assert_fs_read_to_string_contains {
     ($path:expr, $containee:expr, $($message:tt)+) => {{
         match $crate::assert_fs_read_to_string_contains_as_result!($path, $containee) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

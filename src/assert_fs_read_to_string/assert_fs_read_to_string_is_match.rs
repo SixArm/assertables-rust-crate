@@ -209,7 +209,7 @@ macro_rules! assert_fs_read_to_string_is_match {
     ($path:expr, $matcher:expr, $($message:tt)+) => {{
         match $crate::assert_fs_read_to_string_is_match_as_result!($path, $matcher) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

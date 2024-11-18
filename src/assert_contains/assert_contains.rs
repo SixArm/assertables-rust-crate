@@ -238,7 +238,7 @@ macro_rules! assert_contains {
     ($container:expr, $containee:expr, $($message:tt)+) => {{
         match $crate::assert_contains_as_result!($container, $containee) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

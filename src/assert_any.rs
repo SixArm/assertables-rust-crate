@@ -157,7 +157,7 @@ macro_rules! assert_any {
     ($collection:expr, $predicate:expr, $($message:tt)+) => {{
         match $crate::assert_any_as_result!($collection, $predicate) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

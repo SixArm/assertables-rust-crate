@@ -166,7 +166,7 @@ macro_rules! assert_in_range {
     ($a:expr, $range:expr, $($message:tt)+) => {{
         match $crate::assert_in_range_as_result!($a, $range) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

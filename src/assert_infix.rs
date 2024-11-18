@@ -241,7 +241,7 @@ macro_rules! assert_infix {
     ($a:tt $infix:tt $b:tt, $($message:tt)+) => {{
         match $crate::assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

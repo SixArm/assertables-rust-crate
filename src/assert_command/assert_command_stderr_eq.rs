@@ -234,7 +234,7 @@ macro_rules! assert_command_stderr_eq {
     ($a_command:expr, $b_command:expr, $($message:tt)+) => {{
         match $crate::assert_command_stderr_eq_as_result!($a_command, $b_command) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

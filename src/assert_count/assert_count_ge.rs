@@ -183,7 +183,7 @@ macro_rules! assert_count_ge {
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_count_ge_as_result!($a, $b) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

@@ -247,7 +247,7 @@ macro_rules! assert_program_args_stdout_gt {
     ($a_program:expr, $a_args:expr, $b_program:expr, $($message:tt)+) => {{
         match $crate::assert_program_args_stdout_gt_as_result!($a_program, $a_args, $b_program, $b_args) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

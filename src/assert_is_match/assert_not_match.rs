@@ -166,7 +166,7 @@ macro_rules! assert_not_match {
     ($matcher:expr, $matchee:expr, $($message:tt)+) => {{
         match $crate::assert_not_match_as_result!($matcher, $matchee) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

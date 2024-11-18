@@ -169,7 +169,7 @@ macro_rules! assert_status_success {
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_status_success_as_result!($a) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

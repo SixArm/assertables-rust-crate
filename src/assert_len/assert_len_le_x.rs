@@ -177,7 +177,7 @@ macro_rules! assert_len_le_x {
     ($a:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_len_le_x_as_result!($a, $b) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

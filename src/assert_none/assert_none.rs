@@ -151,7 +151,7 @@ macro_rules! assert_none {
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_none_as_result!($a) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

@@ -243,7 +243,7 @@ macro_rules! assert_fs_read_to_string_eq {
     ($a_path:expr, $b_path:expr, $($message:tt)+) => {{
         match $crate::assert_fs_read_to_string_eq_as_result!($a_path, $b_path) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

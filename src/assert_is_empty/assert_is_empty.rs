@@ -147,7 +147,7 @@ macro_rules! assert_is_empty {
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_is_empty_as_result!($a) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

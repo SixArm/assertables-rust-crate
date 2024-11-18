@@ -171,7 +171,7 @@ macro_rules! assert_iter_ne {
     ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {{
         match $crate::assert_iter_ne_as_result!($a_collection, $b_collection) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

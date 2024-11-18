@@ -237,7 +237,7 @@ macro_rules! assert_status_code_value_gt_x {
     ($a_process:expr, $b:expr, $($message:tt)+) => {{
         match $crate::assert_status_code_value_gt_x_as_result!($a_process, $b) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

@@ -174,7 +174,7 @@ macro_rules! assert_starts_with {
     ($sequence:expr, $subsequence:expr, $($message:tt)+) => {{
         match $crate::assert_starts_with_as_result!($sequence, $subsequence) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

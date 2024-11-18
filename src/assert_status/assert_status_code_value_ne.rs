@@ -238,7 +238,7 @@ macro_rules! assert_status_code_value_ne {
     ($a_process:expr, $b_process:expr, $($message:tt)+) => {{
         match $crate::assert_status_code_value_ne_as_result!($a_process, $b_process) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

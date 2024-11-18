@@ -335,7 +335,7 @@ macro_rules! assert_fn_ok_le_x {
     ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_fn_ok_le_x_as_result!($a_function, $a_param, $b_expr) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 
@@ -351,7 +351,7 @@ macro_rules! assert_fn_ok_le_x {
     ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_fn_ok_le_x_as_result!($a_function, $b_expr) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

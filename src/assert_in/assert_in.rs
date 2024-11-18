@@ -156,7 +156,7 @@ macro_rules! assert_in {
     ($a:expr, $container:expr, $($message:tt)+) => {{
         match $crate::assert_in_as_result!($a, $container) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

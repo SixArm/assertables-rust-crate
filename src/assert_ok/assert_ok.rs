@@ -141,7 +141,7 @@ macro_rules! assert_ok {
     ($a:expr, $($message:tt)+) => {{
         match $crate::assert_ok_as_result!($a) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

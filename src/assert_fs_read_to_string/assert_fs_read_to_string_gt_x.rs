@@ -237,7 +237,7 @@ macro_rules! assert_fs_read_to_string_gt_x {
     ($a_path:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_fs_read_to_string_gt_x_as_result!($a_path, $b_expr) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

@@ -17,15 +17,19 @@
 //! * Test values with
 //!   [assert_lt](module@crate::assert_lt),
 //!   [assert_gt](module@crate::assert_gt),
-//!   […](module@crate::assert_approx)
-//! * Test results with
-//!   [assert_ok](module@crate::assert_ok),
-//!   [assert_err](module@crate::assert_err),
-//!   […](module@crate::assert_ok::assert_ok_eq_x)
+//!   […](https://docs.rs/assertables)
 //! * Test groups with
 //!   [assert_all](module@crate::assert_all),
 //!   [assert_any](module@crate::assert_any),
-//!   […](module@crate::assert_iter)
+//!   […](https://docs.rs/assertables)
+//! * Test results with
+//!   [assert_ok](module@crate::assert_ok),
+//!   [assert_err](module@crate::assert_err),
+//!   […](https://docs.rs/assertables)
+//! * Test options with
+//!   [assert_some](module@crate::assert_some),
+//!   [assert_none](module@crate::assert_none),
+//!   […](https://docs.rs/assertables)
 //! * Test matching with
 //!   [assert_matches](module@crate::assert_matches),
 //!   [assert_is_match](module@crate::assert_is_match),
@@ -51,12 +55,6 @@
 //! * You will write better tests to improve reliability and maintainability.
 //! * You will handle more corner cases without needing to write custom code.
 //! * You will troubleshoot faster because error messages show more detail.
-//!
-//! Features:
-//!
-//! * Easy to use: everything is well-documented with runnable examples.
-//! * Zero overhead: if you don't use a macro, then it's not compiled.
-//! * Multiple forms: for panic, debug, result return, success return.
 //!
 //! Learning:
 //! [FAQ](https://github.com/SixArm/assertables-rust-crate/tree/main/help/faq),
@@ -114,12 +112,12 @@
 //!
 //! Values:
 //!
-//! * [`assert_eq!(a, b)`](module@crate::assert_eq) ≈ a = b
-//! * [`assert_ne!(a, b)`](module@crate::assert_ne) ≈ a ≠ b
-//! * [`assert_lt!(a, b)`](module@crate::assert_lt) ≈ a < b
-//! * [`assert_le!(a, b)`](module@crate::assert_le) ≈ a ≤ b
-//! * [`assert_gt!(a, b)`](module@crate::assert_gt) ≈ a > b
-//! * [`assert_ge!(a, b)`](module@crate::assert_ge) ≈ a ≥ b
+//! * [`assert_eq!(a, b)`](module@crate::assert_eq) ≈ a = b ≈ equal to
+//! * [`assert_ne!(a, b)`](module@crate::assert_ne) ≈ a ≠ b ≈ not equal to
+//! * [`assert_lt!(a, b)`](module@crate::assert_lt) ≈ a < b ≈ less than
+//! * [`assert_le!(a, b)`](module@crate::assert_le) ≈ a ≤ b ≈ less than or equal to
+//! * [`assert_gt!(a, b)`](module@crate::assert_gt) ≈ a > b ≈ greater than
+//! * [`assert_ge!(a, b)`](module@crate::assert_ge) ≈ a ≥ b ≈ greater than or equal to
 //!
 //! Nearness:
 //!
@@ -149,19 +147,19 @@
 //!
 //! * [`assert_ok!(a)`](module@crate::assert_ok) ≈ a is Ok
 //! * [`assert_err!(a)`](module@crate::assert_err) ≈ a is Err
-//! * [`assert_ok_eq_x!(a, x)`](module@crate::assert_ok::assert_ok_eq_x) ≈ a is Ok unwrap = x
+//! * [`assert_ok_eq_x!(a, x)`](module@crate::assert_ok::assert_ok_eq_x) ≈ a is Ok ⇒ unwrap = x
 //!
 //! Options:
 //!
 //! * [`assert_some!(a)`](module@crate::assert_some) ≈ a is Some
 //! * [`assert_none!(a)`](module@crate::assert_none) ≈ a is None
-//! * [`assert_some_eq_x!(a, x)`](module@crate::assert_some::assert_some_eq_x) ≈ a is Some unwrap = x
+//! * [`assert_some_eq_x!(a, x)`](module@crate::assert_some::assert_some_eq_x) ≈ a is Some ⇒ unwrap = x
 //!
 //! Polls:
 //!
 //! * [`assert_ready!(a)`](module@crate::assert_ready) ≈ a is Ready
 //! * [`assert_pending!(a)`](module@crate::assert_pending) ≈ a is Pending
-//! * [`assert_ready_eq_x!(a, x)`](module@crate::assert_ready::assert_ready_eq_x) ≈ a is Ready unwrap = x
+//! * [`assert_ready_eq_x!(a, x)`](module@crate::assert_ready::assert_ready_eq_x) ≈ a is Ready ⇒ unwrap = x
 //!
 //! Collections:
 //!

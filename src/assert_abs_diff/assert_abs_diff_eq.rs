@@ -213,7 +213,7 @@ macro_rules! assert_abs_diff_eq {
     ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => {{
         match $crate::assert_abs_diff_eq_as_result!($a, $b, $delta) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

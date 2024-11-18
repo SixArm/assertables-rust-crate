@@ -167,13 +167,13 @@ macro_rules! assert_matches {
     ($expression:expr, $pattern:pat if $guard:expr, $($message:tt)+) => {{
         match $crate::assert_matches_as_result!($expression, $pattern if $guard) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
     ($expression:expr, $pattern:pat, $($message:tt)+) => {{
         match $crate::assert_matches_as_result!($expression, $pattern if $guard) {
             Ok(()) => (),
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

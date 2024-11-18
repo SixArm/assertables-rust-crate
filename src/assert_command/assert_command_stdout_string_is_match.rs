@@ -209,7 +209,7 @@ macro_rules! assert_command_stdout_string_is_match {
     ($command:expr, $matcher:expr, $($message:tt)+) => {{
         match $crate::assert_command_stdout_string_is_match_as_result!($command, $matcher) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

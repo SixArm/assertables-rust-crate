@@ -215,7 +215,7 @@ macro_rules! assert_program_args_stderr_ne_x {
     ($a_program:expr, $a_args:expr, $b_expr:expr, $($message:tt)+) => {{
         match $crate::assert_program_args_stderr_ne_x_as_result!($a_program, $a_args, $b_expr) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

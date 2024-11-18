@@ -365,7 +365,7 @@ macro_rules! assert_fn_err_lt {
     ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => {{
         match $crate::assert_fn_err_lt_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 
@@ -381,7 +381,7 @@ macro_rules! assert_fn_err_lt {
     ($a_function:path, $b_function:path, $($message:tt)+) => {{
         match $crate::assert_fn_err_lt_as_result!($a_function, $b_function) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }

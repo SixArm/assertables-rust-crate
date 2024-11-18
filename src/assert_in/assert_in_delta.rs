@@ -248,7 +248,7 @@ macro_rules! assert_in_delta {
     ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => {{
         match $crate::assert_in_delta_as_result!($a, $b, $delta) {
             Ok(x) => x,
-            Err(_err) => panic!("{}", $($message)+),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
 }
