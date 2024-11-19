@@ -56,7 +56,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html\n",
+                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_contains.html\n",
                                         "    reader label: `{}`,\n",
                                         "    reader debug: `{:?}`,\n",
                                         " containee label: `{}`,\n",
@@ -77,7 +77,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html\n",
+                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_contains.html\n",
                                     "    reader label: `{}`,\n",
                                     "    reader debug: `{:?}`,\n",
                                     " containee label: `{}`,\n",
@@ -99,35 +99,33 @@ macro_rules! assert_io_read_to_string_contains_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_io_read_to_string_contains_as_result {
     #[allow(unused_imports)]
     use std::io::Read;
 
     #[test]
-    fn test_assert_io_read_to_string_contains_as_result_x_success() {
+    fn success() {
         let mut reader = "alfa".as_bytes();
         let containee = "alfa";
-        let result = assert_io_read_to_string_contains_as_result!(reader, &containee);
-        assert_eq!(result.unwrap(), String::from("alfa"));
+        let actual = assert_io_read_to_string_contains_as_result!(reader, &containee);
+        assert_eq!(actual.unwrap(), String::from("alfa"));
     }
 
     #[test]
-    fn test_assert_io_read_to_string_contains_as_result_x_failure() {
+    fn failure() {
         let mut reader = "alfa".as_bytes();
         let containee = "zz";
-        let result = assert_io_read_to_string_contains_as_result!(reader, &containee);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html\n",
-                "    reader label: `reader`,\n",
-                "    reader debug: `[]`,\n",
-                " containee label: `&containee`,\n",
-                " containee debug: `\"zz\"`,\n",
-                "          string: `\"alfa\"`",
-            )
+        let actual = assert_io_read_to_string_contains_as_result!(reader, &containee);
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_contains.html\n",
+            "    reader label: `reader`,\n",
+            "    reader debug: `[]`,\n",
+            " containee label: `&containee`,\n",
+            " containee debug: `\"zz\"`,\n",
+            "          string: `\"alfa\"`",
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -160,23 +158,23 @@ mod tests {
 /// assert_io_read_to_string_contains!(reader, &containee);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_contains.html
 /// //     reader label: `&reader`,
 /// //     reader debug: `[]`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zz\"`,
 /// //           string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_contains.html\n",
 /// #     "    reader label: `reader`,\n",
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zz\"`,\n",
 /// #     "          string: `\"hello\"`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -200,6 +198,47 @@ macro_rules! assert_io_read_to_string_contains {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_io_read_to_string_contains {
+    #[allow(unused_imports)]
+    use std::io::Read;
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let mut reader = "alfa".as_bytes();
+        let containee = "alfa";
+        let actual = assert_io_read_to_string_contains!(reader, &containee);
+        assert_eq!(actual, String::from("alfa"));
+    }
+
+    #[test]
+    fn failure() {
+        let result = panic::catch_unwind(|| {
+            let mut reader = "alfa".as_bytes();
+            let containee = "zz";
+            let _actual = assert_io_read_to_string_contains!(reader, &containee);
+        });
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_contains.html\n",
+            "    reader label: `reader`,\n",
+            "    reader debug: `[]`,\n",
+            " containee label: `&containee`,\n",
+            " containee debug: `\"zz\"`,\n",
+            "          string: `\"alfa\"`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a ::std::io::Read read_to_string() contains a pattern.

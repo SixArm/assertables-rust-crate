@@ -57,7 +57,7 @@ macro_rules! assert_command_stdout_ne_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
                                         " command label: `{}`,\n",
                                         " command debug: `{:?}`,\n",
                                         "    expr label: `{}`,\n",
@@ -80,7 +80,7 @@ macro_rules! assert_command_stdout_ne_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
                                     "  command label: `{}`,\n",
                                     "  command debug: `{:?}`,\n",
                                     "     expr label: `{}`,\n",
@@ -102,8 +102,7 @@ macro_rules! assert_command_stdout_ne_x_as_result {
 }
 
 #[cfg(test)]
-mod tests {
-
+mod test_assert_command_stdout_ne_x_as_result {
     use std::process::Command;
 
     #[test]
@@ -111,8 +110,8 @@ mod tests {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];
-        let result = assert_command_stdout_ne_x_as_result!(a, b);
-        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
+        let actual = assert_command_stdout_ne_x_as_result!(a, b);
+        assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
@@ -120,8 +119,8 @@ mod tests {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
-        let result = assert_command_stdout_ne_x_as_result!(a, b);
-        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
+        let actual = assert_command_stdout_ne_x_as_result!(a, b);
+        assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
@@ -129,11 +128,10 @@ mod tests {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'l', b'f', b'a'];
-        let result = assert_command_stdout_ne_x_as_result!(a, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_command_stdout_ne_x_as_result!(a, b);
+        let message = concat!(
             "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             "    expr label: `b`,\n",
@@ -141,7 +139,7 @@ mod tests {
             " command value: `[97, 108, 102, 97]`,\n",
             "    expr value: `[97, 108, 102, 97]`"
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -176,7 +174,7 @@ mod tests {
 /// assert_command_stdout_ne_x!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_ne_x!(command, expr)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_ne_x.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //     expr label: `bytes`,
@@ -184,9 +182,9 @@ mod tests {
 /// //  command value: `[97, 108, 102, 97]`,
 /// //     expr value: `[97, 108, 102, 97]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     "    expr label: `bytes`,\n",
@@ -194,7 +192,7 @@ mod tests {
 /// #     " command value: `[97, 108, 102, 97]`,\n",
 /// #     "    expr value: `[97, 108, 102, 97]`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -218,6 +216,58 @@ macro_rules! assert_command_stdout_ne_x {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_command_stdout_ne_x {
+    use std::panic;
+    use std::process::Command;
+
+    #[test]
+    fn lt() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let b = vec![b'z', b'z'];
+        let actual = assert_command_stdout_ne_x!(a, b);
+        assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
+    }
+
+    #[test]
+    fn gt() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let b = vec![b'a', b'a'];
+        let actual = assert_command_stdout_ne_x!(a, b);
+        assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
+    }
+
+    #[test]
+    fn eq() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/printf-stdout");
+            a.args(["%s", "alfa"]);
+            let b = vec![b'a', b'l', b'f', b'a'];
+            let _actual = assert_command_stdout_ne_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+            " command label: `a`,\n",
+            " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            "    expr label: `b`,\n",
+            "    expr debug: `[97, 108, 102, 97]`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
+            "    expr value: `[97, 108, 102, 97]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a command stdout string is not equal to an expression.

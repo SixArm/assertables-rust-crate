@@ -63,7 +63,7 @@ macro_rules! assert_not_contains_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_contains.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_contains.html\n",
                                 " container label: `{}`,\n",
                                 " container debug: `{:?}`,\n",
                                 " containee label: `{}`,\n",
@@ -82,7 +82,7 @@ macro_rules! assert_not_contains_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_not_contains_as_result {
 
     mod str {
 
@@ -90,25 +90,24 @@ mod tests {
         fn success() {
             let a = "alfa";
             let b = "zz";
-            let result = assert_not_contains_as_result!(a, b);
-            assert_eq!(result.unwrap(), ());
+            let actual = assert_not_contains_as_result!(a, b);
+            assert_eq!(actual.unwrap(), ());
         }
 
         #[test]
         fn failure() {
             let a = "alfa";
             let b = "lf";
-            let result = assert_not_contains_as_result!(a, b);
-            let actual = result.unwrap_err();
-            let expect = concat!(
+            let actual = assert_not_contains_as_result!(a, b);
+            let message = concat!(
                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_contains.html\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `b`,\n",
                 " containee debug: `\"lf\"`"
             );
-            assert_eq!(actual, expect);
+            assert_eq!(actual.unwrap_err(), message);
         }
     }
 
@@ -118,25 +117,24 @@ mod tests {
         fn success() {
             let a = 1..3;
             let b = 4;
-            let result = assert_not_contains_as_result!(a, &b);
-            assert_eq!(result.unwrap(), ());
+            let actual = assert_not_contains_as_result!(a, &b);
+            assert_eq!(actual.unwrap(), ());
         }
 
         #[test]
         fn failure() {
             let a = 1..3;
             let b = 2;
-            let result = assert_not_contains_as_result!(a, &b);
-            let actual = result.unwrap_err();
-            let expect = concat!(
+            let actual = assert_not_contains_as_result!(a, &b);
+            let message = concat!(
                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_contains.html\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `&b`,\n",
                 " containee debug: `2`"
             );
-            assert_eq!(actual, expect);
+            assert_eq!(actual.unwrap_err(), message);
         }
     }
 
@@ -146,25 +144,24 @@ mod tests {
         fn success() {
             let a = 1..3;
             let b = 4;
-            let result = assert_not_contains_as_result!(a, &b);
-            assert_eq!(result.unwrap(), ());
+            let actual = assert_not_contains_as_result!(a, &b);
+            assert_eq!(actual.unwrap(), ());
         }
 
         #[test]
         fn failure() {
             let a = vec![1, 2, 3];
             let b = 2;
-            let result = assert_not_contains_as_result!(a, &b);
-            let actual = result.unwrap_err();
-            let expect = concat!(
+            let actual = assert_not_contains_as_result!(a, &b);
+            let message = concat!(
                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_contains.html\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[1, 2, 3]`,\n",
                 " containee label: `&b`,\n",
                 " containee debug: `2`"
             );
-            assert_eq!(actual, expect);
+            assert_eq!(actual.unwrap_err(), message);
         }
     }
 }
@@ -208,21 +205,21 @@ mod tests {
 /// assert_not_contains!(a, b);
 /// # });
 /// // assertion failed: `assert_not_contains!(container, containee)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_contains.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_contains.html
 /// //  container label: `a`,
 /// //  container debug: `\"alfa\"`,
 /// //  containee label: `b`,
 /// //  containee debug: `\"lf\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_not_contains!(container, containee)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_contains.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_contains.html\n",
 /// #     " container label: `a`,\n",
 /// #     " container debug: `\"alfa\"`,\n",
 /// #     " containee label: `b`,\n",
 /// #     " containee debug: `\"lf\"`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -246,6 +243,121 @@ macro_rules! assert_not_contains {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_not_contains {
+
+    mod str {
+        use std::panic;
+
+        #[test]
+        fn success() {
+            let a = "alfa";
+            let b = "zz";
+            let actual = assert_not_contains!(a, b);
+            assert_eq!(actual, ());
+        }
+
+        #[test]
+        fn failure() {
+            let result = panic::catch_unwind(|| {
+                let a = "alfa";
+                let b = "lf";
+                let _actual = assert_not_contains!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_not_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `\"alfa\"`,\n",
+                " containee label: `b`,\n",
+                " containee debug: `\"lf\"`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod range {
+        use std::panic;
+
+        #[test]
+        fn success() {
+            let a = 1..3;
+            let b = 4;
+            let actual = assert_not_contains!(a, &b);
+            assert_eq!(actual, ());
+        }
+
+        #[test]
+        fn failure() {
+            let result = panic::catch_unwind(|| {
+                let a = 1..3;
+                let b = 2;
+                let _actual = assert_not_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_not_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `1..3`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `2`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod vec {
+        use std::panic;
+
+        #[test]
+        fn success() {
+            let a = 1..3;
+            let b = 4;
+            let actual = assert_not_contains!(a, &b);
+            assert_eq!(actual, ());
+        }
+
+        #[test]
+        fn failure() {
+            let result = panic::catch_unwind(|| {
+                let a = vec![1, 2, 3];
+                let b = 2;
+                let _actual = assert_not_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_not_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `[1, 2, 3]`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `2`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
 }
 
 /// Assert an expression (such as a string) does not contain an expression (such as a substring).

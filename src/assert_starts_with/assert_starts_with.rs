@@ -58,7 +58,7 @@ macro_rules! assert_starts_with_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_starts_with.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_starts_with.html\n",
                                 "     sequence label: `{}`,\n",
                                 "     sequence debug: `{:?}`,\n",
                                 "  subsequence label: `{}`,\n",
@@ -77,31 +77,30 @@ macro_rules! assert_starts_with_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_starts_with_as_result {
 
     #[test]
-    fn test_assert_starts_with_as_result_success() {
+    fn success() {
         let sequence = "alfa";
         let subsequence = "al";
-        let result = assert_starts_with_as_result!(sequence, subsequence);
-        assert_eq!(result.unwrap(), ());
+        let actual = assert_starts_with_as_result!(sequence, subsequence);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_starts_with_as_result_x_failure() {
+    fn failure() {
         let sequence = "alfa";
         let subsequence = "fa";
-        let result = assert_starts_with_as_result!(sequence, subsequence);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_starts_with_as_result!(sequence, subsequence);
+        let message = concat!(
             "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_starts_with.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_starts_with.html\n",
             "     sequence label: `sequence`,\n",
             "     sequence debug: `\"alfa\"`,\n",
             "  subsequence label: `subsequence`,\n",
             "  subsequence debug: `\"fa\"`"
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -138,22 +137,22 @@ mod tests {
 /// let subsequence = "fa";
 /// assert_starts_with!(sequence, subsequence);
 /// // assertion failed: `assert_starts_with!(sequence, subsequence)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_starts_with.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_starts_with.html
 /// //  sequence label: `sequence`,
 /// //  sequence debug: `\"alfa\"`,
 /// //   part label: `subsequence`,
 /// //   part debug: `\"fa\"`
 /// # });
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_starts_with.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_starts_with.html\n",
 /// #     "     sequence label: `sequence`,\n",
 /// #     "     sequence debug: `\"alfa\"`,\n",
 /// #     "  subsequence label: `subsequence`,\n",
 /// #     "  subsequence debug: `\"fa\"`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -177,6 +176,44 @@ macro_rules! assert_starts_with {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_starts_with {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let sequence = "alfa";
+        let subsequence = "al";
+        let actual = assert_starts_with!(sequence, subsequence);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn failure() {
+        let sequence = "alfa";
+        let subsequence = "fa";
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_starts_with!(sequence, subsequence);
+        });
+        let message = concat!(
+            "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_starts_with.html\n",
+            "     sequence label: `sequence`,\n",
+            "     sequence debug: `\"alfa\"`,\n",
+            "  subsequence label: `subsequence`,\n",
+            "  subsequence debug: `\"fa\"`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an expression (such as a string) starts with an expression (such as a string).

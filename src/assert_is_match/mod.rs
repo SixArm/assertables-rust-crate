@@ -12,7 +12,7 @@
 //! use assertables::*;
 //! use regex::Regex;
 //!
-//! let a = Regex::new(r"lf").unwrap();
+//! let a = Regex::new(r"lf").expect("regex");
 //! let b = "alfa";
 //! assert_is_match!(a, b);
 //! ```

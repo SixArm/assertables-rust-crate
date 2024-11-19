@@ -12,7 +12,7 @@
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
 <span class="kw">use </span>regex::Regex;
 
-<span class="kw">let </span>a = Regex::new(<span class="string">r"lf"</span>).unwrap();
+<span class="kw">let </span>a = Regex::new(<span class="string">r"lf"</span>).expect(<span class="string">"regex"</span>);
 <span class="kw">let </span>b = <span class="string">"alfa"</span>;
 <span class="macro">assert_is_match!</span>(a, b);</code></pre></div>
 </div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="assert_is_match/index.html" title="mod lib::assert_is_match::assert_is_match">assert_<wbr>is_<wbr>match</a></div><div class="desc docblock-short">Assert a matcher is a match for an expression.</div></li><li><div class="item-name"><a class="mod" href="assert_not_match/index.html" title="mod lib::assert_is_match::assert_not_match">assert_<wbr>not_<wbr>match</a></div><div class="desc docblock-short">Assert an expression (such as a regex) is not a match for an expression (such as a string).</div></li></ul></section></div></main></body></html>

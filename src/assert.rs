@@ -47,7 +47,7 @@ macro_rules! assert_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert!(condition)`\n",
-                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert.html\n",
+                            "https://docs.rs/assertables/9.5.0/assertables/macro.assert.html\n",
                             " condition label: `{}`,\n",
                             " condition debug: `{:?}`,\n",
                         ),
@@ -61,27 +61,25 @@ macro_rules! assert_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_as_result {
 
     #[test]
-    fn test_assert_as_result_x_success() {
+    fn success() {
         let a = true;
-        let result = assert_as_result!(a);
-        assert_eq!(result, Ok(()));
+        let actual = assert_as_result!(a);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_as_result_x_failure() {
+    fn failure() {
         let a = false;
-        let result = assert_as_result!(a);
-        assert_eq!(result.is_err(), true);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_as_result!(a);
+        let message = concat!(
             "assertion failed: `assert!(condition)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert.html\n",
             " condition label: `a`,\n",
             " condition debug: `false`,\n",
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 }

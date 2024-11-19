@@ -66,7 +66,7 @@ macro_rules! assert_fn_ok_ne_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fn_ok_ne!(a_function, a_param, b_function, b_param)`\n",
-                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_ne.html\n",
+                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ok_ne.html\n",
                                         " a_function label: `{}`,\n",
                                         "    a_param label: `{}`,\n",
                                         "    a_param debug: `{:?}`,\n",
@@ -93,7 +93,7 @@ macro_rules! assert_fn_ok_ne_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fn_err_ne!(a_function, a_param, b_function, b_param)`\n",
-                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ne.html\n",
+                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_ne.html\n",
                                     " a_function label: `{}`,\n",
                                     "    a_param label: `{}`,\n",
                                     "    a_param debug: `{:?}`,\n",
@@ -134,7 +134,7 @@ macro_rules! assert_fn_ok_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_ok_ne!(a_function, b_function)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_ne.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ok_ne.html\n",
                                 " a_function label: `{}`,\n",
                                 " b_function label: `{}`,\n",
                                 "                a: `{:?}`,\n",
@@ -153,7 +153,7 @@ macro_rules! assert_fn_ok_ne_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_fn_err_ne!(a_function, b_function)`\n",
-                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_err_ne.html\n",
+                            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_ne.html\n",
                             " a_function label: `{}`,\n",
                             " b_function label: `{}`,\n",
                             "                a: `{:?}`,\n",
@@ -172,82 +172,75 @@ macro_rules! assert_fn_ok_ne_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_fn_ok_ne_as_result {
 
-    mod assert_fn_ok_ne_as_result {
+    mod arity_1 {
 
-        mod arity_1 {
-
-            fn f(i: i8) -> Result<i8, i8> {
-                return Ok(i);
-            }
-
-            fn g(i: i8) -> Result<i8, i8> {
-                return Ok(i);
-            }
-
-            #[test]
-            fn test_ne() {
-                let a: i8 = 1;
-                let b: i8 = 2;
-                let result = assert_fn_ok_ne_as_result!(f, a, g, b);
-                assert_eq!(result.unwrap(), (1, 2));
-            }
-
-            #[test]
-            fn eq() {
-                let a: i8 = 1;
-                let b: i8 = 1;
-                let result = assert_fn_ok_ne_as_result!(f, a, g, b);
-                assert_eq!(
-                    result.unwrap_err(),
-                    concat!(
-                        "assertion failed: `assert_fn_ok_ne!(a_function, a_param, b_function, b_param)`\n",
-                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_ne.html\n",
-                        " a_function label: `f`,\n",
-                        "    a_param label: `a`,\n",
-                        "    a_param debug: `1`,\n",
-                        " b_function label: `g`,\n",
-                        "    b_param label: `b`,\n",
-                        "    b_param debug: `1`,\n",
-                        "                a: `1`,\n",
-                        "                b: `1`"
-                    )
-                );
-            }
+        fn f(i: i8) -> Result<i8, i8> {
+            return Ok(i);
         }
 
-        mod arity_0 {
+        fn g(i: i8) -> Result<i8, i8> {
+            return Ok(i);
+        }
 
-            fn f() -> Result<i8, i8> {
-                return Ok(1);
-            }
+        #[test]
+        fn ne() {
+            let a: i8 = 1;
+            let b: i8 = 2;
+            let actual = assert_fn_ok_ne_as_result!(f, a, g, b);
+            assert_eq!(actual.unwrap(), (1, 2));
+        }
 
-            fn g() -> Result<i8, i8> {
-                return Ok(2);
-            }
+        #[test]
+        fn eq() {
+            let a: i8 = 1;
+            let b: i8 = 1;
+            let actual = assert_fn_ok_ne_as_result!(f, a, g, b);
+            let message = concat!(
+                "assertion failed: `assert_fn_ok_ne!(a_function, a_param, b_function, b_param)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ok_ne.html\n",
+                " a_function label: `f`,\n",
+                "    a_param label: `a`,\n",
+                "    a_param debug: `1`,\n",
+                " b_function label: `g`,\n",
+                "    b_param label: `b`,\n",
+                "    b_param debug: `1`,\n",
+                "                a: `1`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+    }
 
-            #[test]
-            fn test_ne() {
-                let result = assert_fn_ok_ne_as_result!(f, g);
-                assert_eq!(result.unwrap(), (1, 2));
-            }
+    mod arity_0 {
 
-            #[test]
-            fn eq() {
-                let result = assert_fn_ok_ne_as_result!(f, f);
-                assert_eq!(
-                    result.unwrap_err(),
-                    concat!(
-                        "assertion failed: `assert_fn_ok_ne!(a_function, b_function)`\n",
-                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_ne.html\n",
-                        " a_function label: `f`,\n",
-                        " b_function label: `f`,\n",
-                        "                a: `1`,\n",
-                        "                b: `1`"
-                    )
-                );
-            }
+        fn f() -> Result<i8, i8> {
+            return Ok(1);
+        }
+
+        fn g() -> Result<i8, i8> {
+            return Ok(2);
+        }
+
+        #[test]
+        fn ne() {
+            let actual = assert_fn_ok_ne_as_result!(f, g);
+            assert_eq!(actual.unwrap(), (1, 2));
+        }
+
+        #[test]
+        fn eq() {
+            let actual = assert_fn_ok_ne_as_result!(f, f);
+            let message = concat!(
+                "assertion failed: `assert_fn_ok_ne!(a_function, b_function)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ok_ne.html\n",
+                " a_function label: `f`,\n",
+                " b_function label: `f`,\n",
+                "                a: `1`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(actual.unwrap_err(), message);
         }
     }
 }
@@ -286,7 +279,7 @@ mod tests {
 /// assert_fn_ok_ne!(f, a, f, b);
 /// # });
 /// // assertion failed: `assert_fn_ok_ne!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_ne.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ok_ne.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `1`,
@@ -296,9 +289,9 @@ mod tests {
 /// //                 a: `\"1\"`,
 /// //                 b: `\"1\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_fn_ok_ne!(a_function, a_param, b_function, b_param)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ok_ne.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ok_ne.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `1`,\n",
@@ -308,7 +301,7 @@ mod tests {
 /// #     "                a: `\"1\"`,\n",
 /// #     "                b: `\"1\"`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -352,6 +345,101 @@ macro_rules! assert_fn_ok_ne {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_fn_ok_ne {
+    use std::panic;
+
+    mod arity_1 {
+        use super::*;
+
+        fn f(i: i8) -> Result<i8, i8> {
+            return Ok(i);
+        }
+
+        fn g(i: i8) -> Result<i8, i8> {
+            return Ok(i);
+        }
+
+        #[test]
+        fn ne() {
+            let a: i8 = 1;
+            let b: i8 = 2;
+            let actual = assert_fn_ok_ne!(f, a, g, b);
+            assert_eq!(actual, (1, 2));
+        }
+
+        #[test]
+        fn eq() {
+            let result = panic::catch_unwind(|| {
+                let a: i8 = 1;
+                let b: i8 = 1;
+                let _actual = assert_fn_ok_ne!(f, a, g, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_fn_ok_ne!(a_function, a_param, b_function, b_param)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ok_ne.html\n",
+                " a_function label: `f`,\n",
+                "    a_param label: `a`,\n",
+                "    a_param debug: `1`,\n",
+                " b_function label: `g`,\n",
+                "    b_param label: `b`,\n",
+                "    b_param debug: `1`,\n",
+                "                a: `1`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod arity_0 {
+        use super::*;
+
+        fn f() -> Result<i8, i8> {
+            return Ok(1);
+        }
+
+        fn g() -> Result<i8, i8> {
+            return Ok(2);
+        }
+
+        #[test]
+        fn ne() {
+            let actual = assert_fn_ok_ne!(f, g);
+            assert_eq!(actual, (1, 2));
+        }
+
+        #[test]
+        fn eq() {
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_fn_ok_ne!(f, f);
+            });
+            let message = concat!(
+                "assertion failed: `assert_fn_ok_ne!(a_function, b_function)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ok_ne.html\n",
+                " a_function label: `f`,\n",
+                " b_function label: `f`,\n",
+                "                a: `1`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
 }
 
 /// Assert a function Ok(…) is not equal to another.

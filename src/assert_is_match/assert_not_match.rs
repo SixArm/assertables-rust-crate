@@ -9,7 +9,7 @@
 //! use assertables::*;
 //! use regex::Regex;
 //!
-//! let a = Regex::new(r"lf").unwrap();
+//! let a = Regex::new(r"lf").expect("regex");
 //! let b = "bravo";
 //! assert_not_match!(a, b);
 //! ```
@@ -53,7 +53,7 @@ macro_rules! assert_not_match_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_match.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_match.html\n",
                                 " matcher label: `{}`,\n",
                                 " matcher debug: `{:?}`,\n",
                                 " matchee label: `{}`,\n",
@@ -72,33 +72,31 @@ macro_rules! assert_not_match_as_result {
 }
 
 #[cfg(test)]
-mod tests {
-
+mod test_assert_not_match_as_result {
     use regex::Regex;
 
     #[test]
-    fn test_assert_not_match_as_result_x_success() {
-        let a = Regex::new(r"lf").unwrap();
+    fn success() {
+        let a = Regex::new(r"lf").expect("regex");
         let b = "bravo";
-        let result = assert_not_match_as_result!(a, b);
-        assert_eq!(result.unwrap(), ());
+        let actual = assert_not_match_as_result!(a, b);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_not_match_as_result_x_failure() {
-        let a = Regex::new(r"lf").unwrap();
+    fn failure() {
+        let a = Regex::new(r"lf").expect("regex");
         let b = "alfa";
-        let result = assert_not_match_as_result!(a, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_not_match_as_result!(a, b);
+        let message = concat!(
             "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_match.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_match.html\n",
             " matcher label: `a`,\n",
             " matcher debug: `Regex(\"lf\")`,\n",
             " matchee label: `b`,\n",
             " matchee debug: `\"alfa\"`"
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -120,32 +118,32 @@ mod tests {
 /// use regex::Regex;
 ///
 /// # fn main() {
-/// let a = Regex::new(r"lf").unwrap();
+/// let a = Regex::new(r"lf").expect("regex");
 /// let b = "bravo";
 /// assert_not_match!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a = Regex::new(r"lf").unwrap();
+/// let a = Regex::new(r"lf").expect("regex");
 /// let b = "alfa";
 /// assert_not_match!(a, b);
 /// # });
 /// // assertion failed: `assert_not_match!(matcher, matchee)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_match.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_match.html
 /// //  matcher label: `a`,
 /// //  matcher debug: `Regex(\"lf\")`,
 /// //  matchee label: `b`,
 /// //  matchee debug: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_not_match.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_match.html\n",
 /// #     " matcher label: `a`,\n",
 /// #     " matcher debug: `Regex(\"lf\")`,\n",
 /// #     " matchee label: `b`,\n",
 /// #     " matchee debug: `\"alfa\"`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -169,6 +167,45 @@ macro_rules! assert_not_match {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_not_match {
+    use regex::Regex;
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a = Regex::new(r"lf").expect("regex");
+        let b = "bravo";
+        let actual = assert_not_match!(a, b);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn failure() {
+        let result = panic::catch_unwind(|| {
+            let a = Regex::new(r"lf").expect("regex");
+            let b = "alfa";
+            let _actual = assert_not_match!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_not_match!(matcher, matchee)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_not_match.html\n",
+            " matcher label: `a`,\n",
+            " matcher debug: `Regex(\"lf\")`,\n",
+            " matchee label: `b`,\n",
+            " matchee debug: `\"alfa\"`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an expression (such as a regex) is not a match for an expression (such as a string).

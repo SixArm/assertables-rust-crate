@@ -213,6 +213,41 @@
 <a href="#213" id="213">213</a>
 <a href="#214" id="214">214</a>
 <a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a status is a failure.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -267,7 +302,7 @@
                         <span class="macro">format!</span>(
                             <span class="macro">concat!</span>(
                                 <span class="string">"assertion failed: `assert_status_success_false!(a)`\n"</span>,
-                                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_success_false.html\n"</span>,
+                                <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_success_false.html\n"</span>,
                                 <span class="string">" a label: `{}`,\n"</span>,
                                 <span class="string">" a debug: `{:?}`"</span>,
                             ),
@@ -282,7 +317,7 @@
                     <span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_status_success_false!(a)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_success_false.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_success_false.html\n"</span>,
                             <span class="string">"  a label: `{}`,\n"</span>,
                             <span class="string">"  a debug: `{:?}`,\n"</span>,
                             <span class="string">" a status: `{:?}`"</span>,
@@ -298,31 +333,29 @@
 }
 
 <span class="attr">#[cfg(test)]
-</span><span class="kw">mod </span>tests {
+</span><span class="kw">mod </span>test_assert_status_success_false_as_result {
     <span class="kw">use </span>std::process::Command;
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>success() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/exit-with-arg"</span>);
         a.arg(<span class="string">"1"</span>);
-        <span class="kw">let </span>result = <span class="macro">assert_status_success_false_as_result!</span>(a);
-        <span class="macro">assert_eq!</span>(result.unwrap(), <span class="bool-val">true</span>);
+        <span class="kw">let </span>actual = <span class="macro">assert_status_success_false_as_result!</span>(a);
+        <span class="macro">assert_eq!</span>(actual.unwrap(), <span class="bool-val">true</span>);
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>failure() {
         <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/exit-with-arg"</span>);
         a.arg(<span class="string">"0"</span>);
-        <span class="kw">let </span>result = <span class="macro">assert_status_success_false_as_result!</span>(a);
-        <span class="macro">assert_eq!</span>(
-            result.unwrap_err(),
-            <span class="macro">concat!</span>(
-                <span class="string">"assertion failed: `assert_status_success_false!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_success_false.html\n"</span>,
-                <span class="string">" a label: `a`,\n"</span>,
-                <span class="string">" a debug: `\"bin/exit-with-arg\" \"0\"`"</span>,
-            )
+        <span class="kw">let </span>actual = <span class="macro">assert_status_success_false_as_result!</span>(a);
+        <span class="kw">let </span>message = <span class="macro">concat!</span>(
+            <span class="string">"assertion failed: `assert_status_success_false!(a)`\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_success_false.html\n"</span>,
+            <span class="string">" a label: `a`,\n"</span>,
+            <span class="string">" a debug: `\"bin/exit-with-arg\" \"0\"`"</span>,
         );
+        <span class="macro">assert_eq!</span>(actual.unwrap_err(), message);
     }
 }
 
@@ -353,17 +386,17 @@
 /// assert_status_success_false!(a);
 /// # });
 /// // assertion failed: `assert_status_success_false!(a)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_success_false.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_success_false.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/exit-with-arg\" \"0\"`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_status_success_false!(a)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_success_false.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_success_false.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"0\"`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -387,6 +420,43 @@
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}\n{}"</span>, <span class="macro">format_args!</span>($(<span class="macro-nonterminal">$message</span>)+), err),
         }
     }};
+}
+
+<span class="attr">#[cfg(test)]
+</span><span class="kw">mod </span>test_assert_status_success_false {
+    <span class="kw">use </span>std::panic;
+    <span class="kw">use </span>std::process::Command;
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>success() {
+        <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/exit-with-arg"</span>);
+        a.arg(<span class="string">"1"</span>);
+        <span class="kw">let </span>actual = <span class="macro">assert_status_success_false!</span>(a);
+        <span class="macro">assert_eq!</span>(actual, <span class="bool-val">true</span>);
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>failure() {
+        <span class="kw">let </span>result = panic::catch_unwind(|| {
+            <span class="kw">let </span><span class="kw-2">mut </span>a = Command::new(<span class="string">"bin/exit-with-arg"</span>);
+            a.arg(<span class="string">"0"</span>);
+            <span class="kw">let </span>_actual = <span class="macro">assert_status_success_false!</span>(a);
+        });
+        <span class="kw">let </span>message = <span class="macro">concat!</span>(
+            <span class="string">"assertion failed: `assert_status_success_false!(a)`\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_success_false.html\n"</span>,
+            <span class="string">" a label: `a`,\n"</span>,
+            <span class="string">" a debug: `\"bin/exit-with-arg\" \"0\"`"</span>,
+        );
+        <span class="macro">assert_eq!</span>(
+            result
+                .unwrap_err()
+                .downcast::&lt;String&gt;()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 <span class="doccomment">/// Assert a status is a failure.

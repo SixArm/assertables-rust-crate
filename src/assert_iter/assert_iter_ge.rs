@@ -58,7 +58,7 @@ macro_rules! assert_iter_ge_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_iter_ge!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_ge.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_iter_ge.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -77,40 +77,38 @@ macro_rules! assert_iter_ge_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_iter_ge_as_result {
 
     #[test]
     fn gt() {
         let a = [3, 4];
         let b = [1, 2];
-        let result = assert_iter_ge_as_result!(&a, &b);
-        assert_eq!(result, Ok(()));
+        let actual = assert_iter_ge_as_result!(&a, &b);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
     fn eq() {
         let a = [1, 2];
         let b = [1, 2];
-        let result = assert_iter_ge_as_result!(&a, &b);
-        assert_eq!(result, Ok(()));
+        let actual = assert_iter_ge_as_result!(&a, &b);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
     fn lt() {
         let a = [1, 2];
         let b = [3, 4];
-        let result = assert_iter_ge_as_result!(&a, &b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_iter_ge!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_ge.html\n",
-                " a label: `&a`,\n",
-                " a debug: `[1, 2]`,\n",
-                " b label: `&b`,\n",
-                " b debug: `[3, 4]`"
-            )
+        let actual = assert_iter_ge_as_result!(&a, &b);
+        let message = concat!(
+            "assertion failed: `assert_iter_ge!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_iter_ge.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[1, 2]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[3, 4]`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -142,21 +140,21 @@ mod tests {
 /// assert_iter_ge!(&a, &b);
 /// # });
 /// // assertion failed: `assert_iter_ge!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_ge.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_iter_ge.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&b`,
 /// //  b debug: `[3, 4]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_iter_ge!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_iter_ge.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_iter_ge.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `&b`,\n",
 /// #     " b debug: `[3, 4]`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -182,6 +180,52 @@ macro_rules! assert_iter_ge {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_iter_ge {
+    use std::panic;
+
+    #[test]
+    fn gt() {
+        let a = [3, 4];
+        let b = [1, 2];
+        let actual = assert_iter_ge!(&a, &b);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn eq() {
+        let a = [1, 2];
+        let b = [1, 2];
+        let actual = assert_iter_ge!(&a, &b);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn lt() {
+        let a = [1, 2];
+        let b = [3, 4];
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_iter_ge!(&a, &b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_iter_ge!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_iter_ge.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[1, 2]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[3, 4]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an iterable is greater than or equal to another.

@@ -54,7 +54,7 @@ macro_rules! assert_len_lt_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_len_lt!(a, b)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_lt.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_lt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.len(): `{:?}`,\n",
@@ -77,54 +77,50 @@ macro_rules! assert_len_lt_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_len_lt_as_result {
 
     #[test]
     fn lt() {
         let a = "x";
         let b = "xx";
-        let result = assert_len_lt_as_result!(a, b);
-        assert_eq!(result, Ok((1, 2)));
+        let actual = assert_len_lt_as_result!(a, b);
+        assert_eq!(actual.unwrap(), (1, 2));
     }
 
     #[test]
     fn eq() {
         let a = "x";
         let b = "x";
-        let result = assert_len_lt_as_result!(a, b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_len_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_lt.html\n",
-                " a label: `a`,\n",
-                " a debug: `\"x\"`,\n",
-                " a.len(): `1`,\n",
-                " b label: `b`,\n",
-                " b debug: `\"x\"`\n",
-                " b.len(): `1`"
-            )
+        let actual = assert_len_lt_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_len_lt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"x\"`,\n",
+            " a.len(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"x\"`\n",
+            " b.len(): `1`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
     #[test]
     fn gt() {
         let a = "xx";
         let b = "x";
-        let result = assert_len_lt_as_result!(a, b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_len_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_lt.html\n",
-                " a label: `a`,\n",
-                " a debug: `\"xx\"`,\n",
-                " a.len(): `2`,\n",
-                " b label: `b`,\n",
-                " b debug: `\"x\"`\n",
-                " b.len(): `1`"
-            )
+        let actual = assert_len_lt_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_len_lt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"xx\"`,\n",
+            " a.len(): `2`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"x\"`\n",
+            " b.len(): `1`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -156,7 +152,7 @@ mod tests {
 /// assert_len_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_len_lt!(a, b)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_lt.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_lt.html
 /// //  a label: `a`,
 /// //  a debug: `\"xx\"`,
 /// //  a.len(): `2`",
@@ -164,9 +160,9 @@ mod tests {
 /// //  b debug: `\"x\"`,
 /// //  b.len(): `1`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_len_lt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_lt.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"xx\"`,\n",
 /// #     " a.len(): `2`,\n",
@@ -174,7 +170,7 @@ mod tests {
 /// #     " b debug: `\"x\"`\n",
 /// #     " b.len(): `1`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -198,6 +194,73 @@ macro_rules! assert_len_lt {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_len_lt {
+    use std::panic;
+
+    #[test]
+    fn lt() {
+        let a = "x";
+        let b = "xx";
+        let actual = assert_len_lt!(a, b);
+        assert_eq!(actual, (1, 2));
+    }
+
+    #[test]
+    fn eq() {
+        let a = "x";
+        let b = "x";
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_len_lt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_len_lt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"x\"`,\n",
+            " a.len(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"x\"`\n",
+            " b.len(): `1`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn gt() {
+        let a = "xx";
+        let b = "x";
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_len_lt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_len_lt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"xx\"`,\n",
+            " a.len(): `2`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"x\"`\n",
+            " b.len(): `1`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a length is less than another.

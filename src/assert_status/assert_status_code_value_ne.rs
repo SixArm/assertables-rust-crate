@@ -55,7 +55,7 @@ macro_rules! assert_status_code_value_ne_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_status_code_value_ne!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_ne.html\n",
+                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_code_value_ne.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
                                         " a value: `{:?}`,\n",
@@ -78,7 +78,7 @@ macro_rules! assert_status_code_value_ne_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_status_code_value_ne!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_ne.html\n",
+                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_code_value_ne.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     "  a code: `{:?}`,\n",
@@ -102,7 +102,7 @@ macro_rules! assert_status_code_value_ne_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_status_code_value_ne!(a, b)`\n",
-                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_ne.html\n",
+                            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_code_value_ne.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             " a status: `{:?}`,\n",
@@ -124,7 +124,7 @@ macro_rules! assert_status_code_value_ne_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_status_code_value_ne_as_result {
     use std::process::Command;
 
     #[test]
@@ -133,8 +133,8 @@ mod tests {
         a.arg("1");
         let mut b = Command::new("bin/exit-with-arg");
         b.arg("2");
-        let result = assert_status_code_value_ne_as_result!(a, b);
-        assert_eq!(result, Ok((1, 2)));
+        let actual = assert_status_code_value_ne_as_result!(a, b);
+        assert_eq!(actual.unwrap(), (1, 2));
     }
 
     #[test]
@@ -143,8 +143,8 @@ mod tests {
         a.arg("2");
         let mut b = Command::new("bin/exit-with-arg");
         b.arg("1");
-        let result = assert_status_code_value_ne_as_result!(a, b);
-        assert_eq!(result.unwrap(), (2, 1));
+        let actual = assert_status_code_value_ne_as_result!(a, b);
+        assert_eq!(actual.unwrap(), (2, 1));
     }
 
     #[test]
@@ -153,20 +153,18 @@ mod tests {
         a.arg("1");
         let mut b = Command::new("bin/exit-with-arg");
         b.arg("1");
-        let result = assert_status_code_value_ne_as_result!(a, b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_status_code_value_ne!(a, b)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_ne.html\n",
-                " a label: `a`,\n",
-                " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
-                " a value: `1`,\n",
-                " b label: `b`,\n",
-                " b debug: `\"bin/exit-with-arg\" \"1\"`\n",
-                " b value: `1`"
-            )
+        let actual = assert_status_code_value_ne_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_status_code_value_ne!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_code_value_ne.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
+            " a value: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/exit-with-arg\" \"1\"`\n",
+            " b value: `1`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -199,7 +197,7 @@ mod tests {
 /// assert_status_code_value_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_status_code_value_ne!(a, b)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_ne.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_code_value_ne.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 /// //  a value: `1`",
@@ -207,9 +205,9 @@ mod tests {
 /// //  b debug: `\"bin/exit-with-arg\" \"1\"`,
 /// //  b value: `1`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_status_code_value_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_status_code_value_ne.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_code_value_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 /// #     " a value: `1`,\n",
@@ -217,7 +215,7 @@ mod tests {
 /// #     " b debug: `\"bin/exit-with-arg\" \"1\"`\n",
 /// #     " b value: `1`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -241,6 +239,61 @@ macro_rules! assert_status_code_value_ne {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_status_code_value_ne {
+    use std::panic;
+    use std::process::Command;
+
+    #[test]
+    fn lt() {
+        let mut a = Command::new("bin/exit-with-arg");
+        a.arg("1");
+        let mut b = Command::new("bin/exit-with-arg");
+        b.arg("2");
+        let actual = assert_status_code_value_ne!(a, b);
+        assert_eq!(actual, (1, 2));
+    }
+
+    #[test]
+    fn gt() {
+        let mut a = Command::new("bin/exit-with-arg");
+        a.arg("2");
+        let mut b = Command::new("bin/exit-with-arg");
+        b.arg("1");
+        let actual = assert_status_code_value_ne!(a, b);
+        assert_eq!(actual, (2, 1));
+    }
+
+    #[test]
+    fn eq() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/exit-with-arg");
+            a.arg("1");
+            let mut b = Command::new("bin/exit-with-arg");
+            b.arg("1");
+            let _actual = assert_status_code_value_ne!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_status_code_value_ne!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_status_code_value_ne.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
+            " a value: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/exit-with-arg\" \"1\"`\n",
+            " b value: `1`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a status code value is not equal to another.

@@ -57,7 +57,7 @@ fn examples_with_infix_logic_operators() {
 fn examples_with_strings() {
     let s = "hello world";
     assert_matches!(s, "hello world");
-    assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
+    assert_is_match!(Regex::new(r"h.* w.*").expect("regex"), s);
     assert_starts_with!(s, "hello");
     assert_ends_with!(s, "world");
     assert_contains!(s, "lo");
@@ -161,8 +161,8 @@ fn examples_with_assert_is_empty() {
 /// Examples with assert_is_match.
 #[test]
 fn examples_with_assert_is_match() {
-    assert_is_match!(Regex::new(r"lf").unwrap(), "alfa");
-    assert_not_match!(Regex::new(r"zz").unwrap(), "alfa");
+    assert_is_match!(Regex::new(r"lf").expect("regex"), "alfa");
+    assert_not_match!(Regex::new(r"zz").expect("regex"), "alfa");
 }
 
 /// Examples with assert_ok.
@@ -311,7 +311,7 @@ fn examples_with_assert_command_stdout() {
 
     // Matching
     assert_command_stdout_string_contains!(a, "lf");
-    assert_command_stdout_string_is_match!(a, Regex::new(r"lf").unwrap());
+    assert_command_stdout_string_is_match!(a, Regex::new(r"lf").expect("regex"));
 
 }
 
@@ -341,7 +341,7 @@ fn examples_with_assert_command_stderr() {
 
     // Matching
     assert_command_stderr_string_contains!(a, "lf");
-    assert_command_stderr_string_is_match!(a, Regex::new(r"lf").unwrap());
+    assert_command_stderr_string_is_match!(a, Regex::new(r"lf").expect("regex"));
 
 }
 
@@ -373,7 +373,7 @@ fn examples_with_assert_program_args_stdout() {
 
     // Matching
     assert_program_args_stdout_string_contains!(&a_program, &a_args, "lf");
-    assert_program_args_stdout_string_is_match!(&a_program, &a_args, Regex::new(r"lf").unwrap());
+    assert_program_args_stdout_string_is_match!(&a_program, &a_args, Regex::new(r"lf").expect("regex"));
 
 }
 
@@ -403,7 +403,7 @@ fn examples_with_assert_program_args_stderr() {
 
     // Matching
     assert_program_args_stderr_string_contains!(&a_program, &a_args, "lf");
-    assert_program_args_stderr_string_is_match!(&a_program, &a_args, Regex::new(r"lf").unwrap());
+    assert_program_args_stderr_string_is_match!(&a_program, &a_args, Regex::new(r"lf").expect("regex"));
 
 }
 
@@ -538,13 +538,14 @@ fn examples_with_assert_fs_read_to_string() {
 
     // Matching
     assert_fs_read_to_string_contains!("alfa.txt", "lf");
-    assert_fs_read_to_string_is_match!("alfa.txt", Regex::new("lf").unwrap());
+    assert_fs_read_to_string_is_match!("alfa.txt", Regex::new("lf").expect("regex"));
 
 }
 
 /// Examples with assert_io_read_to_string.
 #[test]
 fn examples_with_assert_io_read_to_string() {
+    #[allow(unused_imports)]
     use std::io::Read;
     let mut a: &[u8];
     let mut b: &[u8];
@@ -567,7 +568,7 @@ fn examples_with_assert_io_read_to_string() {
 
     // Matching
     a = "alfa".as_bytes(); assert_io_read_to_string_contains!(a, "lf");
-    a = "alfa".as_bytes(); assert_io_read_to_string_is_match!(a, Regex::new("lf").unwrap());
+    a = "alfa".as_bytes(); assert_io_read_to_string_is_match!(a, Regex::new("lf").expect("regex"));
 
 }
 
@@ -612,6 +613,7 @@ fn examples_of_success_return_with_files() {
 /// Examples of success return with byte strings.
 #[test]
 fn examples_of_success_return_with_bytes() {
+    #[allow(unused_imports)]
     use std::io::Read;
 
     // Compare another

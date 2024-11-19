@@ -54,7 +54,7 @@ macro_rules! assert_any_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_any!(collection, predicate)`\n",
-                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_any.html\n",
+                            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_any.html\n",
                             " collection label: `{}`,\n",
                             " collection debug: `{:?}`,\n",
                             "        predicate: `{}`",
@@ -70,29 +70,27 @@ macro_rules! assert_any_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_any_as_result {
 
     #[test]
-    fn test_assert_any_as_result_x_success() {
+    fn success() {
         let a = [1, 2, 3];
-        let result = assert_any_as_result!(a.into_iter(), |x: i8| x > 0);
-        assert_eq!(result, Ok(()));
+        let actual = assert_any_as_result!(a.into_iter(), |x: i8| x > 0);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_any_as_result_x_failure() {
+    fn failure() {
         let a = [1, 2, 3];
-        let result = assert_any_as_result!(a.into_iter(), |x: i8| x > 3);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_any!(collection, predicate)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_any.html\n",
-                " collection label: `a.into_iter()`,\n",
-                " collection debug: `IntoIter([1, 2, 3])`,\n",
-                "        predicate: `|x: i8| x > 3`"
-            )
+        let actual = assert_any_as_result!(a.into_iter(), |x: i8| x > 3);
+        let message = concat!(
+            "assertion failed: `assert_any!(collection, predicate)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_any.html\n",
+            " collection label: `a.into_iter()`,\n",
+            " collection debug: `IntoIter([1, 2, 3])`,\n",
+            "        predicate: `|x: i8| x > 3`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -122,19 +120,19 @@ mod tests {
 /// assert_any!(a.into_iter(), |x: i8| x > 3);
 /// # });
 /// // assertion failed: `assert_any!(collection, predicate)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_any.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_any.html
 /// //  collection label: `a.into_iter()`,
 /// //  collection debug: `IntoIter([1, 2, 3])`,
 /// //         predicate: `|x: i8| x > 3`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_any!(collection, predicate)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_any.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_any.html\n",
 /// #     " collection label: `a.into_iter()`,\n",
 /// #     " collection debug: `IntoIter([1, 2, 3])`,\n",
 /// #     "        predicate: `|x: i8| x > 3`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -160,6 +158,41 @@ macro_rules! assert_any {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_any {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a = [1, 2, 3];
+        let actual = assert_any!(a.into_iter(), |x: i8| x > 0);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn failure() {
+        let a = [1, 2, 3];
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_any!(a.into_iter(), |x: i8| x > 3);
+        });
+        let message = concat!(
+            "assertion failed: `assert_any!(collection, predicate)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_any.html\n",
+            " collection label: `a.into_iter()`,\n",
+            " collection debug: `IntoIter([1, 2, 3])`,\n",
+            "        predicate: `|x: i8| x > 3`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert every element of the iterator matches a predicate.

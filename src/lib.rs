@@ -17,18 +17,17 @@
 //! * Test values with
 //!   [assert_lt](module@crate::assert_lt),
 //!   [assert_gt](module@crate::assert_gt),
+//!   [assert_in](module@crate::assert_in),
 //!   […](https://docs.rs/assertables)
 //! * Test groups with
 //!   [assert_all](module@crate::assert_all),
 //!   [assert_any](module@crate::assert_any),
+//!   [assert_iter](module@crate::assert_iter),
 //!   […](https://docs.rs/assertables)
-//! * Test results with
+//! * Test wrappers with
 //!   [assert_ok](module@crate::assert_ok),
-//!   [assert_err](module@crate::assert_err),
-//!   […](https://docs.rs/assertables)
-//! * Test options with
 //!   [assert_some](module@crate::assert_some),
-//!   [assert_none](module@crate::assert_none),
+//!   [assert_ready](module@crate::assert_ready),
 //!   […](https://docs.rs/assertables)
 //! * Test matching with
 //!   [assert_matches](module@crate::assert_matches),
@@ -47,7 +46,7 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.4.0"
+//! assertables = "9.5.0"
 //! ``````
 //!
 //! Benefits:
@@ -79,7 +78,6 @@
 //! # use assertables::*;
 //! let i = 10;
 //! assert_lt!(i, 11);
-//! assert_gt!(i, 9);
 //! assert_in_range!(i, 1..100);
 //! assert_abs_diff_eq!(i, 12, 2);
 //! ```
@@ -89,11 +87,10 @@
 //! ```rust
 //! # use assertables::*;
 //! # use regex::Regex;
-//! let s = "hello world";
-//! assert_starts_with!(s, "hello");
-//! assert_ends_with!(s, "world");
-//! assert_contains!(s, " ");
-//! assert_is_match!(Regex::new(r"h.* w.*").unwrap(), s);
+//! let s = "hello";
+//! assert_starts_with!(s, "h");
+//! assert_contains!(s, "e");
+//! assert_is_match!(Regex::new(r"h.*o").expect("regex"), s);
 //! ```
 //!
 //! Examples with arrays:
@@ -105,7 +102,6 @@
 //! assert_not_empty!(a);
 //! assert_len_eq_x!(a, 3);
 //! assert_all!(a.into_iter(), |i: i32| i < 4);
-//! assert_any!(a.into_iter(), |i: i32| i > 2);
 //! ```
 //!
 //! ## Highlights
@@ -126,6 +122,7 @@
 //! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta) ≈ |a-b| ≤ Δ
 //! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)
 //! * [`assert_in_range!(a, range)`](module@crate::assert_in::assert_in_range) ≈ range.contains(a)
+//! * [`assert_delta_eq_x!(a, b, x)`](module@crate::assert_delta::assert_delta_eq_x) ≈ (b-a) = x
 //!
 //! Groups:
 //!
@@ -222,7 +219,7 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.4.0
+//! * Version: 9.5.0
 //! * Created: 2021-03-30T15:47:49Z
 //! * Updated: 2024-11-05T16:40:19Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
@@ -242,6 +239,7 @@ pub mod assert_ne; // (in addition to what's provided by Rust `std`)
 // Assert difference
 pub mod assert_abs_diff;
 pub mod assert_approx;
+pub mod assert_delta;
 pub mod assert_in;
 
 // Assert all/any

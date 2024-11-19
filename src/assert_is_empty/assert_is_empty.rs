@@ -51,7 +51,7 @@ macro_rules! assert_is_empty_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_is_empty!(a)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_is_empty.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_is_empty.html\n",
                                 " label: `{}`,\n",
                                 " debug: `{:?}`",
                             ),
@@ -66,27 +66,26 @@ macro_rules! assert_is_empty_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_is_empty_as_result {
 
     #[test]
-    fn test_assert_is_empty_as_result_x_success() {
+    fn success() {
         let a = "";
-        let result = assert_is_empty_as_result!(a);
-        assert_eq!(result.unwrap(), ());
+        let actual = assert_is_empty_as_result!(a);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_is_empty_as_result_x_failure() {
+    fn failure() {
         let a = "alfa";
-        let result = assert_is_empty_as_result!(a);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_is_empty_as_result!(a);
+        let message = concat!(
             "assertion failed: `assert_is_empty!(a)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_is_empty.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_is_empty.html\n",
             " label: `a`,\n",
             " debug: `\"alfa\"`"
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -116,17 +115,17 @@ mod tests {
 /// assert_is_empty!(a);
 /// # });
 /// // assertion failed: `assert_is_empty!(a)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_is_empty.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_is_empty.html
 /// //  label: `a`,
 /// //  debug: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_is_empty!(a)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_is_empty.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_is_empty.html\n",
 /// #     " label: `a`,\n",
 /// #     " debug: `\"alfa\"`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -150,6 +149,40 @@ macro_rules! assert_is_empty {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_is_empty {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a = "";
+        let actual = assert_is_empty!(a);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn failure() {
+        let a = "alfa";
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_is_empty!(a);
+        });
+        let message = concat!(
+            "assertion failed: `assert_is_empty!(a)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_is_empty.html\n",
+            " label: `a`,\n",
+            " debug: `\"alfa\"`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an expression (such as a string or array) is empty.

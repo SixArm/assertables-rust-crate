@@ -51,7 +51,7 @@ macro_rules! assert_gt_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_gt!(a, b)`\n",
-                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_gt.html\n",
+                            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_gt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -69,32 +69,46 @@ macro_rules! assert_gt_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_gt_as_result {
 
     #[test]
-    fn test_assert_gt_as_result_success() {
+    fn gt() {
         let a: i32 = 2;
         let b: i32 = 1;
-        let result = assert_gt_as_result!(a, b);
-        assert_eq!(result, Ok(()));
+        let actual = assert_gt_as_result!(a, b);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_gt_as_result_failure() {
+    fn eq() {
+        let a: i32 = 1;
+        let b: i32 = 1;
+        let actual = assert_gt_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_gt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `1`",
+        );
+        assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn lt() {
         let a: i32 = 1;
         let b: i32 = 2;
-        let result = assert_gt_as_result!(a, b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_gt!(a, b)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_gt.html\n",
-                " a label: `a`,\n",
-                " a debug: `1`,\n",
-                " b label: `b`,\n",
-                " b debug: `2`",
-            )
+        let actual = assert_gt_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_gt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `2`",
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -126,21 +140,21 @@ mod tests {
 /// assert_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_gt!(a, b)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_gt.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_gt.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,
 /// //  b debug: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_gt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_gt.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `2`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -164,6 +178,69 @@ macro_rules! assert_gt {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_gt {
+    use std::panic;
+
+    #[test]
+    fn gt() {
+        let a: i32 = 2;
+        let b: i32 = 1;
+        let actual = assert_gt!(a, b);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn eq() {
+        let a: i32 = 1;
+        let b: i32 = 1;
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_gt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_gt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `1`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn lt() {
+        let a: i32 = 1;
+        let b: i32 = 2;
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_gt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_gt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `2`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an expression is greater than another.

@@ -5,6 +5,8 @@ Changes as highlights for recent major versions.
 
 ## Version 9.x
 
+* 9.5.0 Add `assert_delta_*`.
+
 * 9.4.0 Add `assert_in`, `assert_in_range`.
 
 * 9.3.0 Add status macros: `assert_status_success`,  `assert_status_success_false`.

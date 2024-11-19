@@ -49,7 +49,7 @@ macro_rules! assert_in_range_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_in_range!(a, range)`\n",
-                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_in_range.html\n",
+                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html\n",
                     "     a label: `{}`,\n",
                     "     a debug: `{:?}`,\n",
                     " range label: `{}`,\n",
@@ -69,25 +69,24 @@ macro_rules! assert_in_range_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_in_range_as_result {
 
     #[test]
     fn success() {
         let a = 1;
         let b = 0..2;
-        let result = assert_in_range_as_result!(a, b);
-        assert_eq!(result.unwrap(), ());
+        let actual = assert_in_range_as_result!(a, b);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
     fn failure() {
         let a = 1;
         let b = 2..4;
-        let result = assert_in_range_as_result!(a, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_in_range_as_result!(a, b);
+        let message = concat!(
             "assertion failed: `assert_in_range!(a, range)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_in_range.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html\n",
             "     a label: `a`,\n",
             "     a debug: `1`,\n",
             " range label: `b`,\n",
@@ -95,7 +94,7 @@ mod tests {
             " range start: `2`,\n",
             "   range end: `4`"
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -127,7 +126,7 @@ mod tests {
 /// assert_in_range!(a, b);
 /// # });
 /// // assertion failed: `assert_in_range!(a, range)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_in_range.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  range label: `b`,
@@ -135,9 +134,9 @@ mod tests {
 /// //  range start: `2`,
 /// //    range end: `4`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_in_range!(a, range)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_in_range.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html\n",
 /// #     "     a label: `a`,\n",
 /// #     "     a debug: `1`,\n",
 /// #     " range label: `b`,\n",
@@ -145,7 +144,7 @@ mod tests {
 /// #     " range start: `2`,\n",
 /// #     "   range end: `4`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -169,6 +168,46 @@ macro_rules! assert_in_range {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_in_range {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a = 1;
+        let b = 0..2;
+        let actual = assert_in_range!(a, b);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn failure() {
+        let a = 1;
+        let b = 2..4;
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_in_range!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_in_range!(a, range)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html\n",
+            "     a label: `a`,\n",
+            "     a debug: `1`,\n",
+            " range label: `b`,\n",
+            " range debug: `2..4`,\n",
+            " range start: `2`,\n",
+            "   range end: `4`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an item is in a range.

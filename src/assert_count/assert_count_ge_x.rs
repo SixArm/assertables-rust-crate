@@ -53,7 +53,7 @@ macro_rules! assert_count_ge_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_count_ge_x!(a, b)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_ge_x.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_count_ge_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
@@ -74,41 +74,39 @@ macro_rules! assert_count_ge_x_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_count_ge_x_as_result {
 
     #[test]
     fn gt() {
         let a = "xx".chars();
         let b = 1;
-        let result = assert_count_ge_x_as_result!(a, b);
-        assert_eq!(result, Ok((2, 1)));
+        let actual = assert_count_ge_x_as_result!(a, b);
+        assert_eq!(actual.unwrap(), (2, 1));
     }
 
     #[test]
     fn eq() {
         let a = "x".chars();
         let b = 1;
-        let result = assert_count_ge_x_as_result!(a, b);
-        assert_eq!(result, Ok((1, 1)));
+        let actual = assert_count_ge_x_as_result!(a, b);
+        assert_eq!(actual.unwrap(), (1, 1));
     }
 
     #[test]
     fn lt() {
         let a = "x".chars();
         let b = 2;
-        let result = assert_count_ge_x_as_result!(a, b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_count_ge_x!(a, b)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_ge_x.html\n",
-                " a label: `a`,\n",
-                " a debug: `Chars(['x'])`,\n",
-                " a.count(): `1`,\n",
-                " b label: `b`,\n",
-                " b debug: `2`"
-            )
+        let actual = assert_count_ge_x_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_count_ge_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_count_ge_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `Chars(['x'])`,\n",
+            " a.count(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `2`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -140,23 +138,23 @@ mod tests {
 /// assert_count_ge_x!(a, b);
 /// # });
 /// // assertion failed: `assert_count_ge_x!(a, b)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_ge_x.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_count_ge_x.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",
 /// //  b label: `b`,
 /// //  b debug: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_count_ge_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_count_ge_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_count_ge_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `2`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -180,6 +178,53 @@ macro_rules! assert_count_ge_x {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_count_ge_x {
+    use std::panic;
+
+    #[test]
+    fn gt() {
+        let a = "xx".chars();
+        let b = 1;
+        let actual = assert_count_ge_x!(a, b);
+        assert_eq!(actual, (2, 1));
+    }
+
+    #[test]
+    fn eq() {
+        let a = "x".chars();
+        let b = 1;
+        let actual = assert_count_ge_x!(a, b);
+        assert_eq!(actual, (1, 1));
+    }
+
+    #[test]
+    fn lt() {
+        let result = panic::catch_unwind(|| {
+            let a = "x".chars();
+            let b = 2;
+            let _actual = assert_count_ge_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_count_ge_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_count_ge_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `Chars(['x'])`,\n",
+            " a.count(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `2`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a count is greater than or equal to an expression.

@@ -57,7 +57,7 @@ macro_rules! assert_fn_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ne.html\n",
                                 " a_function label: `{}`,\n",
                                 "    a_param label: `{}`,\n",
                                 "    a_param debug: `{:?}`,\n",
@@ -94,7 +94,7 @@ macro_rules! assert_fn_ne_as_result {
                 format!(
                     concat!(
                         "assertion failed: `assert_fn_ne!(a_function, b_function)`\n",
-                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne.html\n",
+                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ne.html\n",
                         " a_function label: `{}`,\n",
                         " b_function label: `{}`,\n",
                         "                a: `{:?}`,\n",
@@ -112,82 +112,75 @@ macro_rules! assert_fn_ne_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_fn_ne_as_result {
 
-    mod assert_fn_ne_as_result {
+    mod arity_1 {
 
-        mod arity_0 {
-
-            fn f() -> i8 {
-                return 1;
-            }
-
-            fn g() -> i8 {
-                return 2;
-            }
-
-            #[test]
-            fn test_ne() {
-                let result = assert_fn_ne_as_result!(f, g);
-                assert_eq!(result.unwrap(), (1, 2));
-            }
-
-            #[test]
-            fn eq() {
-                let result = assert_fn_ne_as_result!(f, f);
-                assert_eq!(
-                    result.unwrap_err(),
-                    concat!(
-                        "assertion failed: `assert_fn_ne!(a_function, b_function)`\n",
-                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne.html\n",
-                        " a_function label: `f`,\n",
-                        " b_function label: `f`,\n",
-                        "                a: `1`,\n",
-                        "                b: `1`"
-                    )
-                );
-            }
+        fn f(i: i8) -> i8 {
+            return i;
         }
 
-        mod arity_1 {
+        fn g(i: i8) -> i8 {
+            return i;
+        }
 
-            fn f(i: i8) -> i8 {
-                return i;
-            }
+        #[test]
+        fn ne() {
+            let a: i8 = 1;
+            let b: i8 = 2;
+            let actual = assert_fn_ne_as_result!(f, a, g, b);
+            assert_eq!(actual.unwrap(), (1, 2));
+        }
 
-            fn g(i: i8) -> i8 {
-                return i;
-            }
+        #[test]
+        fn failure() {
+            let a: i8 = 1;
+            let b: i8 = 1;
+            let actual = assert_fn_ne_as_result!(f, a, g, b);
+            let message = concat!(
+                "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ne.html\n",
+                " a_function label: `f`,\n",
+                "    a_param label: `a`,\n",
+                "    a_param debug: `1`,\n",
+                " b_function label: `g`,\n",
+                "    b_param label: `b`,\n",
+                "    b_param debug: `1`,\n",
+                "                a: `1`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+    }
 
-            #[test]
-            fn test_ne() {
-                let a: i8 = 1;
-                let b: i8 = 2;
-                let result = assert_fn_ne_as_result!(f, a, g, b);
-                assert_eq!(result.unwrap(), (1, 2));
-            }
+    mod arity_0 {
 
-            #[test]
-            fn test_assert_fn_ne_as_result_arity_1_x_failure() {
-                let a: i8 = 1;
-                let b: i8 = 1;
-                let result = assert_fn_ne_as_result!(f, a, g, b);
-                assert_eq!(
-                    result.unwrap_err(),
-                    concat!(
-                        "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
-                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne.html\n",
-                        " a_function label: `f`,\n",
-                        "    a_param label: `a`,\n",
-                        "    a_param debug: `1`,\n",
-                        " b_function label: `g`,\n",
-                        "    b_param label: `b`,\n",
-                        "    b_param debug: `1`,\n",
-                        "                a: `1`,\n",
-                        "                b: `1`"
-                    )
-                );
-            }
+        fn f() -> i8 {
+            return 1;
+        }
+
+        fn g() -> i8 {
+            return 2;
+        }
+
+        #[test]
+        fn ne() {
+            let actual = assert_fn_ne_as_result!(f, g);
+            assert_eq!(actual.unwrap(), (1, 2));
+        }
+
+        #[test]
+        fn eq() {
+            let actual = assert_fn_ne_as_result!(f, f);
+            let message = concat!(
+                "assertion failed: `assert_fn_ne!(a_function, b_function)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ne.html\n",
+                " a_function label: `f`,\n",
+                " b_function label: `f`,\n",
+                "                a: `1`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(actual.unwrap_err(), message);
         }
     }
 }
@@ -220,7 +213,7 @@ mod tests {
 /// assert_fn_ne!(i8::abs, a, i8::abs, b);
 /// # });
 /// // assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ne.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `-1`,
@@ -230,9 +223,9 @@ mod tests {
 /// //                 a: `1`,
 /// //                 b: `1`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fn_ne.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ne.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",
@@ -242,7 +235,7 @@ mod tests {
 /// #     "                a: `1`,\n",
 /// #     "                b: `1`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -287,6 +280,101 @@ macro_rules! assert_fn_ne {
         }
     }};
 
+}
+
+#[cfg(test)]
+mod test_assert_fn_ne {
+    use std::panic;
+
+    mod arity_1 {
+        use super::*;
+
+        fn f(i: i8) -> i8 {
+            return i;
+        }
+
+        fn g(i: i8) -> i8 {
+            return i;
+        }
+
+        #[test]
+        fn ne() {
+            let a: i8 = 1;
+            let b: i8 = 2;
+            let actual = assert_fn_ne!(f, a, g, b);
+            assert_eq!(actual, (1, 2));
+        }
+
+        #[test]
+        fn failure() {
+            let result = panic::catch_unwind(|| {
+                let a: i8 = 1;
+                let b: i8 = 1;
+                let _actual = assert_fn_ne!(f, a, g, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ne.html\n",
+                " a_function label: `f`,\n",
+                "    a_param label: `a`,\n",
+                "    a_param debug: `1`,\n",
+                " b_function label: `g`,\n",
+                "    b_param label: `b`,\n",
+                "    b_param debug: `1`,\n",
+                "                a: `1`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod arity_0 {
+        use super::*;
+
+        fn f() -> i8 {
+            return 1;
+        }
+
+        fn g() -> i8 {
+            return 2;
+        }
+
+        #[test]
+        fn ne() {
+            let actual = assert_fn_ne!(f, g);
+            assert_eq!(actual, (1, 2));
+        }
+
+        #[test]
+        fn eq() {
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_fn_ne!(f, f);
+            });
+            let message = concat!(
+                "assertion failed: `assert_fn_ne!(a_function, b_function)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_ne.html\n",
+                " a_function label: `f`,\n",
+                " b_function label: `f`,\n",
+                "                a: `1`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
 }
 
 /// Assert a function output is not equal to another.

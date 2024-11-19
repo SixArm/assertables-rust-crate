@@ -57,7 +57,7 @@ macro_rules! assert_command_stdout_string_contains_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_string_contains.html\n",
                                         "   command label: `{}`,\n",
                                         "   command debug: `{:?}`,\n",
                                         " containee label: `{}`,\n",
@@ -78,7 +78,7 @@ macro_rules! assert_command_stdout_string_contains_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_string_contains.html\n",
                                     "   command label: `{}`,\n",
                                     "   command debug: `{:?}`,\n",
                                     " containee label: `{}`,\n",
@@ -100,36 +100,34 @@ macro_rules! assert_command_stdout_string_contains_as_result {
 }
 
 #[cfg(test)]
-mod tests {
-
+mod test_assert_command_stdout_string_contains_as_result {
     use std::process::Command;
 
     #[test]
-    fn test_assert_command_stdout_string_contains_x_success() {
+    fn success() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = "lf";
-        let result = assert_command_stdout_string_contains_as_result!(a, b);
-        assert_eq!(result.unwrap(), "alfa");
+        let actual = assert_command_stdout_string_contains_as_result!(a, b);
+        assert_eq!(actual.unwrap(), "alfa");
     }
 
     #[test]
-    fn test_assert_command_stdout_string_contains_x_failure() {
+    fn failure() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = "zz";
-        let result = assert_command_stdout_string_contains_as_result!(a, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_command_stdout_string_contains_as_result!(a, b);
+        let message = concat!(
             "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_string_contains.html\n",
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " containee label: `b`,\n",
             " containee debug: `\"zz\"`,\n",
             "          string: `\"alfa\"`",
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -169,23 +167,23 @@ mod tests {
 /// assert_command_stdout_string_contains!(command, &containee);
 /// # });
 /// // assertion failed: `assert_command_stdout_string_contains!(command, containee)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_string_contains.html
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zz\"`,
 /// //           string: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_string_contains.html\n",
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zz\"`,\n",
 /// #     "          string: `\"alfa\"`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -209,6 +207,48 @@ macro_rules! assert_command_stdout_string_contains {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_command_stdout_string_contains {
+    use std::panic;
+    use std::process::Command;
+
+    #[test]
+    fn success() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let b = "lf";
+        let actual = assert_command_stdout_string_contains!(a, b);
+        assert_eq!(actual, "alfa");
+    }
+
+    #[test]
+    fn failure() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/printf-stdout");
+            a.args(["%s", "alfa"]);
+            let b = "zz";
+            let _actual = assert_command_stdout_string_contains!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_string_contains.html\n",
+            "   command label: `a`,\n",
+            "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " containee label: `b`,\n",
+            " containee debug: `\"zz\"`,\n",
+            "          string: `\"alfa\"`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a command stdout string contains a given containee.

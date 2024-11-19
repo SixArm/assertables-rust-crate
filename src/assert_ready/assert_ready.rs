@@ -49,7 +49,7 @@ macro_rules! assert_ready_as_result {
             _ => Err(format!(
                 concat!(
                     "assertion failed: `assert_ready!(a)`\n",
-                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready.html\n",
+                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_ready.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`",
                 ),
@@ -61,30 +61,28 @@ macro_rules! assert_ready_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_ready_as_result {
     use std::task::Poll;
     use std::task::Poll::*;
 
     #[test]
-    fn test_assert_ready_as_result_x_success() {
+    fn success() {
         let a: Poll<i8> = Ready(1);
-        let result = assert_ready_as_result!(a);
-        assert_eq!(result.unwrap(), 1);
+        let actual = assert_ready_as_result!(a);
+        assert_eq!(actual.unwrap(), 1);
     }
 
     #[test]
-    fn test_assert_ready_as_result_x_failure() {
+    fn failure() {
         let a: Poll<i8> = Pending;
-        let result = assert_ready_as_result!(a);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_ready!(a)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready.html\n",
-                " a label: `a`,\n",
-                " a debug: `Pending`",
-            )
+        let actual = assert_ready_as_result!(a);
+        let message = concat!(
+            "assertion failed: `assert_ready!(a)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_ready.html\n",
+            " a label: `a`,\n",
+            " a debug: `Pending`",
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -115,17 +113,17 @@ mod tests {
 /// assert_ready!(a);
 /// # });
 /// // assertion failed: `assert_ready!(a)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_ready.html
 /// //  a label: `a`,
 /// //  a debug: `Pending`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_ready!(a)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_ready.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_ready.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Pending`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -149,6 +147,42 @@ macro_rules! assert_ready {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_ready {
+    use std::panic;
+    use std::task::Poll;
+    use std::task::Poll::*;
+
+    #[test]
+    fn success() {
+        let a: Poll<i8> = Ready(1);
+        let actual = assert_ready!(a);
+        assert_eq!(actual, 1);
+    }
+
+    #[test]
+    fn failure() {
+        let a: Poll<i8> = Pending;
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_ready!(a);
+        });
+        let message = concat!(
+            "assertion failed: `assert_ready!(a)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_ready.html\n",
+            " a label: `a`,\n",
+            " a debug: `Pending`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an expression is Ready.

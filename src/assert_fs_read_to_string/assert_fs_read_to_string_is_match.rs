@@ -10,7 +10,7 @@
 //! use regex::Regex;
 //!
 //! let path = "alfa.txt";
-//! let matcher = Regex::new(r"alfa").unwrap();
+//! let matcher = Regex::new(r"alfa").expect("regex");
 //! assert_fs_read_to_string_is_match!(&path, &matcher);
 //! ```
 //!
@@ -55,7 +55,7 @@ macro_rules! assert_fs_read_to_string_is_match_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
                                         "    path label: `{}`,\n",
                                         "    path debug: `{:?}`,\n",
                                         " matcher label: `{}`,\n",
@@ -76,7 +76,7 @@ macro_rules! assert_fs_read_to_string_is_match_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
                                     "    path label: `{}`,\n",
                                     "    path debug: `{:?}`,\n",
                                     " matcher label: `{}`,\n",
@@ -98,7 +98,7 @@ macro_rules! assert_fs_read_to_string_is_match_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_fs_read_to_string_is_match_as_result {
     use regex::Regex;
     use std::path::PathBuf;
     use std::sync::LazyLock;
@@ -112,33 +112,31 @@ mod tests {
     });
 
     #[test]
-    fn test_read_to_string_is_match_as_result_x_success() {
+    fn success() {
         let path = DIR.join("alfa.txt");
-        let matcher = Regex::new(r"alfa").unwrap();
-        let result = assert_fs_read_to_string_is_match_as_result!(&path, &matcher);
-        assert_eq!(result.unwrap(), String::from("alfa\n"));
+        let matcher = Regex::new(r"alfa").expect("regex");
+        let actual = assert_fs_read_to_string_is_match_as_result!(&path, &matcher);
+        assert_eq!(actual.unwrap(), String::from("alfa\n"));
     }
 
     #[test]
-    fn test_read_to_string_is_match_as_result_x_failure() {
+    fn failure() {
         let path = DIR.join("alfa.txt");
-        let matcher = Regex::new(r"zz").unwrap();
-        let result = assert_fs_read_to_string_is_match_as_result!(&path, &matcher);
-        assert_eq!(
-            result.unwrap_err(),
-            format!(
-                concat!(
-                    "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
-                    "    path label: `&path`,\n",
-                    "    path debug: `{:?}`,\n",
-                    " matcher label: `&matcher`,\n",
-                    " matcher debug: `Regex(\"zz\")`,\n",
-                    "        string: `\"alfa\\n\"`",
-                ),
-                path
-            )
+        let matcher = Regex::new(r"zz").expect("regex");
+        let actual = assert_fs_read_to_string_is_match_as_result!(&path, &matcher);
+        let message = format!(
+            concat!(
+                "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                "    path label: `&path`,\n",
+                "    path debug: `{:?}`,\n",
+                " matcher label: `&matcher`,\n",
+                " matcher debug: `Regex(\"zz\")`,\n",
+                "        string: `\"alfa\\n\"`",
+            ),
+            path
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -162,33 +160,33 @@ mod tests {
 ///
 /// # fn main() {
 /// let path = "alfa.txt";
-/// let matcher = Regex::new(r"alfa").unwrap();
+/// let matcher = Regex::new(r"alfa").expect("regex");
 /// assert_fs_read_to_string_is_match!(&path, &matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let path = "alfa.txt";
-/// let matcher = Regex::new(r"zz").unwrap();
+/// let matcher = Regex::new(r"zz").expect("regex");
 /// assert_fs_read_to_string_is_match!(&path, &matcher);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_fs_read_to_string_is_match.html
 /// //     path label: `&path`,
 /// //     path debug: `\"alfa.txt\"`,
 /// //  matcher label: `&matcher`,
 /// //  matcher debug: `Regex(\"zz\")`,
 /// //         string: `\"alfa\\n\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
 /// #     "    path label: `&path`,\n",
 /// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `&matcher`,\n",
 /// #     " matcher debug: `Regex(\"zz\")`,\n",
 /// #     "        string: `\"alfa\\n\"`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -212,6 +210,59 @@ macro_rules! assert_fs_read_to_string_is_match {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_fs_read_to_string_is_match {
+    use regex::Regex;
+    use std::panic;
+    use std::path::PathBuf;
+    use std::sync::LazyLock;
+
+    pub static DIR: LazyLock<PathBuf> = LazyLock::new(|| {
+        PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("tests")
+            .join("src")
+            .join("std")
+            .join("fs")
+    });
+
+    #[test]
+    fn success() {
+        let path = DIR.join("alfa.txt");
+        let matcher = Regex::new(r"alfa").expect("regex");
+        let actual = assert_fs_read_to_string_is_match!(&path, &matcher);
+        assert_eq!(actual, String::from("alfa\n"));
+    }
+
+    #[test]
+    fn failure() {
+        let path = DIR.join("alfa.txt");
+        let matcher = Regex::new(r"zz").expect("regex");
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_fs_read_to_string_is_match!(&path, &matcher);
+        });
+        let message = format!(
+            concat!(
+                "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                "    path label: `&path`,\n",
+                "    path debug: `{:?}`,\n",
+                " matcher label: `&matcher`,\n",
+                " matcher debug: `Regex(\"zz\")`,\n",
+                "        string: `\"alfa\\n\"`",
+            ),
+            path
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a ::std::fs::read_to_string(path) is a match to a regex.

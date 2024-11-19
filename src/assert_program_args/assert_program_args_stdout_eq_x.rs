@@ -56,7 +56,7 @@ macro_rules! assert_program_args_stdout_eq_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
+                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -83,7 +83,7 @@ macro_rules! assert_program_args_stdout_eq_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
+                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -110,27 +110,26 @@ macro_rules! assert_program_args_stdout_eq_x_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_program_args_stdout_eq_x_as_result {
 
     #[test]
-    fn test_assert_program_args_stdout_eq_x_expr_as_result_x_success() {
+    fn eq() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'l', b'f', b'a'];
-        let result = assert_program_args_stdout_eq_x_as_result!(&a_program, &a_args, b);
-        assert_eq!(result.unwrap(), vec![b'a', b'l', b'f', b'a']);
+        let actual = assert_program_args_stdout_eq_x_as_result!(&a_program, &a_args, b);
+        assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
     #[test]
-    fn test_assert_program_args_stdout_eq_x_expr_as_result_x_failure() {
+    fn lt() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'z', b'z'];
-        let result = assert_program_args_stdout_eq_x_as_result!(&a_program, &a_args, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_program_args_stdout_eq_x_as_result!(&a_program, &a_args, b);
+        let message = concat!(
           "assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`\n",
-          "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
+          "https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
           " a_program label: `&a_program`,\n",
           " a_program debug: `\"bin/printf-stdout\"`,\n",
           "    a_args label: `&a_args`,\n",
@@ -140,7 +139,28 @@ mod tests {
           "               a: `[97, 108, 102, 97]`,\n",
           "               b: `[122, 122]`"
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn gt() {
+        let a_program = "bin/printf-stdout";
+        let a_args = ["%s", "alfa"];
+        let b = vec![b'a', b'a'];
+        let actual = assert_program_args_stdout_eq_x_as_result!(&a_program, &a_args, b);
+        let message = concat!(
+          "assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`\n",
+          "https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
+          " a_program label: `&a_program`,\n",
+          " a_program debug: `\"bin/printf-stdout\"`,\n",
+          "    a_args label: `&a_args`,\n",
+          "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+          "    b_expr label: `b`,\n",
+          "    b_expr debug: `[97, 97]`,\n",
+          "               a: `[97, 108, 102, 97]`,\n",
+          "               b: `[97, 97]`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -174,7 +194,7 @@ mod tests {
 /// assert_program_args_stdout_eq_x!(&program, &args, bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq_x.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stdout_eq_x.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&args`,
@@ -184,9 +204,9 @@ mod tests {
 /// //                a: `[97, 108, 102, 97]`,
 /// //                b: `[122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&args`,\n",
@@ -196,7 +216,7 @@ mod tests {
 /// #     "               a: `[97, 108, 102, 97]`,\n",
 /// #     "               b: `[122, 122]`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -220,6 +240,80 @@ macro_rules! assert_program_args_stdout_eq_x {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_program_args_stdout_eq_x {
+    use std::panic;
+
+    #[test]
+    fn eq() {
+        let a_program = "bin/printf-stdout";
+        let a_args = ["%s", "alfa"];
+        let b = vec![b'a', b'l', b'f', b'a'];
+        let actual = assert_program_args_stdout_eq_x!(&a_program, &a_args, b);
+        assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
+    }
+
+    #[test]
+    fn lt() {
+        let a_program = "bin/printf-stdout";
+        let a_args = ["%s", "alfa"];
+        let b = vec![b'z', b'z'];
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_program_args_stdout_eq_x!(&a_program, &a_args, b);
+        });
+        let message = concat!(
+          "assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`\n",
+          "https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
+          " a_program label: `&a_program`,\n",
+          " a_program debug: `\"bin/printf-stdout\"`,\n",
+          "    a_args label: `&a_args`,\n",
+          "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+          "    b_expr label: `b`,\n",
+          "    b_expr debug: `[122, 122]`,\n",
+          "               a: `[97, 108, 102, 97]`,\n",
+          "               b: `[122, 122]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn gt() {
+        let a_program = "bin/printf-stdout";
+        let a_args = ["%s", "alfa"];
+        let b = vec![b'a', b'a'];
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_program_args_stdout_eq_x!(&a_program, &a_args, b);
+        });
+        let message = concat!(
+          "assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`\n",
+          "https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stdout_eq_x.html\n",
+          " a_program label: `&a_program`,\n",
+          " a_program debug: `\"bin/printf-stdout\"`,\n",
+          "    a_args label: `&a_args`,\n",
+          "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+          "    b_expr label: `b`,\n",
+          "    b_expr debug: `[97, 97]`,\n",
+          "               a: `[97, 108, 102, 97]`,\n",
+          "               b: `[97, 97]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a command (built with program and args) stdout is equal to an expression.

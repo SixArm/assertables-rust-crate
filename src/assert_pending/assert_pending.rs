@@ -55,7 +55,7 @@ macro_rules! assert_pending_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_pending!(a)`\n",
-                                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_pending.html\n",
+                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_pending.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`",
                                 ),
@@ -71,30 +71,28 @@ macro_rules! assert_pending_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_pending_as_result {
     use std::task::Poll;
     use std::task::Poll::*;
 
     #[test]
-    fn test_assert_pending_as_result_x_success() {
+    fn success() {
         let a: Poll<i8> = Pending;
-        let result = assert_pending_as_result!(a);
-        assert_eq!(result, Ok(()));
+        let actual = assert_pending_as_result!(a);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
-    fn test_assert_pending_as_result_x_failure() {
+    fn failure() {
         let a: Poll<i8> = Ready(1);
-        let result = assert_pending_as_result!(a);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_pending!(a)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_pending.html\n",
-                " a label: `a`,\n",
-                " a debug: `Ready(1)`"
-            )
+        let actual = assert_pending_as_result!(a);
+        let message = concat!(
+            "assertion failed: `assert_pending!(a)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_pending.html\n",
+            " a label: `a`,\n",
+            " a debug: `Ready(1)`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -125,17 +123,17 @@ mod tests {
 /// assert_pending!(a);
 /// # });
 /// // assertion failed: `assert_pending!(a)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_pending.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_pending.html
 /// //  a label: `a`,
 /// //  a debug: `Ready(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_pending!(a)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_pending.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_pending.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -159,6 +157,42 @@ macro_rules! assert_pending {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_pending {
+    use std::panic;
+    use std::task::Poll;
+    use std::task::Poll::*;
+
+    #[test]
+    fn success() {
+        let a: Poll<i8> = Pending;
+        let actual = assert_pending!(a);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn failure() {
+        let a: Poll<i8> = Ready(1);
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_pending!(a);
+        });
+        let message = concat!(
+            "assertion failed: `assert_pending!(a)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_pending.html\n",
+            " a label: `a`,\n",
+            " a debug: `Ready(1)`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an expression is Pending.

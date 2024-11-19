@@ -51,7 +51,7 @@ macro_rules! assert_success_false_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_success_false!(a)`\n",
-                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_success_false.html\n",
+                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_success_false.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`",
                 ),
@@ -63,7 +63,7 @@ macro_rules! assert_success_false_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_success_false_as_result {
 
     #[test]
     fn success() {
@@ -75,8 +75,8 @@ mod tests {
             }
         }
         let a = A {};
-        let result = assert_success_false_as_result!(a);
-        assert_eq!(result.unwrap(), true);
+        let actual = assert_success_false_as_result!(a);
+        assert_eq!(actual.unwrap(), true);
     }
 
     #[test]
@@ -89,16 +89,14 @@ mod tests {
             }
         }
         let a = A {};
-        let result = assert_success_false_as_result!(a);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_success_false!(a)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_success_false.html\n",
-                " a label: `a`,\n",
-                " a debug: `A`",
-            )
+        let actual = assert_success_false_as_result!(a);
+        let message = concat!(
+            "assertion failed: `assert_success_false!(a)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_success_false.html\n",
+            " a label: `a`,\n",
+            " a debug: `A`",
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -134,17 +132,17 @@ mod tests {
 /// assert_success_false!(a);
 /// # });
 /// // assertion failed: `assert_success_false!(a)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_success_false.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_success_false.html
 /// //  a label: `a`,
 /// //  a debug: `A`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_success_false!(a)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_success_false.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_success_false.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `A`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -168,6 +166,54 @@ macro_rules! assert_success_false {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_success_false {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        #[derive(Debug)]
+        struct A;
+        impl A {
+            fn success(&self) -> bool {
+                false
+            }
+        }
+        let a = A {};
+        let actual = assert_success_false!(a);
+        assert_eq!(actual, true);
+    }
+
+    #[test]
+    fn failure() {
+        #[derive(Debug)]
+        struct A;
+        impl A {
+            fn success(&self) -> bool {
+                true
+            }
+        }
+        let a = A {};
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_success_false!(a);
+        });
+        let message = concat!(
+            "assertion failed: `assert_success_false!(a)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_success_false.html\n",
+            " a label: `a`,\n",
+            " a debug: `A`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a failure method is true.

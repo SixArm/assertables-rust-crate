@@ -52,7 +52,7 @@ macro_rules! assert_err_eq_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_err_eq_x!(a, b)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_err_eq_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a inner: `{:?}`,\n",
@@ -73,7 +73,7 @@ macro_rules! assert_err_eq_x_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_err_eq_x!(a, b)`\n",
-                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
+                            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_err_eq_x.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -91,51 +91,47 @@ macro_rules! assert_err_eq_x_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_err_eq_x_as_result {
 
     #[test]
-    fn test_assert_err_eq_x_expr_as_result_x_success() {
+    fn success() {
         let a: Result<i8, i8> = Err(1);
         let b: i8 = 1;
-        let result = assert_err_eq_x_as_result!(a, b);
-        assert_eq!(result.unwrap(), 1);
+        let actual = assert_err_eq_x_as_result!(a, b);
+        assert_eq!(actual.unwrap(), 1);
     }
 
     #[test]
     fn ne() {
         let a: Result<i8, i8> = Err(1);
         let b: i8 = 2;
-        let result = assert_err_eq_x_as_result!(a, b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_err_eq_x!(a, b)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
-                " a label: `a`,\n",
-                " a debug: `Err(1)`,\n",
-                " a inner: `1`,\n",
-                " b label: `b`,\n",
-                " b debug: `2`"
-            )
+        let actual = assert_err_eq_x_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_err_eq_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_err_eq_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `Err(1)`,\n",
+            " a inner: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `2`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
     #[test]
-    fn test_assert_err_eq_x_expr_as_result_x_failure_because_not_err() {
+    fn failure_because_not_err() {
         let a: Result<i8, i8> = Ok(1);
         let b: i8 = 1;
-        let result = assert_err_eq_x_as_result!(a, b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_err_eq_x!(a, b)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
-                " a label: `a`,\n",
-                " a debug: `Ok(1)`,\n",
-                " b label: `b`,\n",
-                " b debug: `1`",
-            )
+        let actual = assert_err_eq_x_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_err_eq_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_err_eq_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `Ok(1)`,\n",
+            " b label: `b`,\n",
+            " b debug: `1`",
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -167,23 +163,23 @@ mod tests {
 /// assert_err_eq_x!(a, b);
 /// # });
 /// // assertion failed: `assert_err_eq_x!(a, b)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_err_eq_x.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`,
 /// //  a inner: `1`,
 /// //  b label: `b`,
 /// //  b debug: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_err_eq_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_err_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_err_eq_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`,\n",
 /// #     " a inner: `1`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `2`",
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -207,6 +203,70 @@ macro_rules! assert_err_eq_x {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_err_eq_x {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a: Result<i8, i8> = Err(1);
+        let b: i8 = 1;
+        let actual = assert_err_eq_x!(a, b);
+        assert_eq!(actual, 1);
+    }
+
+    #[test]
+    fn ne() {
+        let result = panic::catch_unwind(|| {
+            let a: Result<i8, i8> = Err(1);
+            let b: i8 = 2;
+            let _actual = assert_err_eq_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_err_eq_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_err_eq_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `Err(1)`,\n",
+            " a inner: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `2`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn failure_because_not_err() {
+        let result = panic::catch_unwind(|| {
+            let a: Result<i8, i8> = Ok(1);
+            let b: i8 = 1;
+            let _actual = assert_err_eq_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_err_eq_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_err_eq_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `Ok(1)`,\n",
+            " b label: `b`,\n",
+            " b debug: `1`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an expression is Err and its value is equal to an expression.

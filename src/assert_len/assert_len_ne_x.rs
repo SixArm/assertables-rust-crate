@@ -53,7 +53,7 @@ macro_rules! assert_len_ne_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_len_ne_x!(a, b)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_ne_x.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_ne_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.len(): `{:?}`,\n",
@@ -74,41 +74,39 @@ macro_rules! assert_len_ne_x_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_len_ne_x_as_result {
 
     #[test]
     fn lt() {
         let a = "x";
         let b = 2;
-        let result = assert_len_ne_x_as_result!(a, b);
-        assert_eq!(result, Ok((1, 2)));
+        let actual = assert_len_ne_x_as_result!(a, b);
+        assert_eq!(actual.unwrap(), (1, 2));
     }
 
     #[test]
     fn gt() {
         let a = "xx";
         let b = 1;
-        let result = assert_len_ne_x_as_result!(a, b);
-        assert_eq!(result, Ok((2, 1)));
+        let actual = assert_len_ne_x_as_result!(a, b);
+        assert_eq!(actual.unwrap(), (2, 1));
     }
 
     #[test]
-    fn test_assert_len_ne_x_expr_as_result_x_failure() {
+    fn failure() {
         let a = "x";
         let b = 1;
-        let result = assert_len_ne_x_as_result!(a, b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_len_ne_x!(a, b)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_ne_x.html\n",
-                " a label: `a`,\n",
-                " a debug: `\"x\"`,\n",
-                " a.len(): `1`,\n",
-                " b label: `b`,\n",
-                " b debug: `1`"
-            )
+        let actual = assert_len_ne_x_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_len_ne_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_ne_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"x\"`,\n",
+            " a.len(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `1`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -140,23 +138,23 @@ mod tests {
 /// assert_len_ne_x!(a, b);
 /// # });
 /// // assertion failed: `assert_len_ne_x!(a, b)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_ne_x.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_ne_x.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
 /// //  b label: `b`,
 /// //  b debug: `1`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_len_ne_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_len_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_ne_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `1`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -180,6 +178,53 @@ macro_rules! assert_len_ne_x {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_len_ne_x {
+    use std::panic;
+
+    #[test]
+    fn lt() {
+        let a = "x";
+        let b = 2;
+        let actual = assert_len_ne_x!(a, b);
+        assert_eq!(actual, (1, 2));
+    }
+
+    #[test]
+    fn gt() {
+        let a = "xx";
+        let b = 1;
+        let actual = assert_len_ne_x!(a, b);
+        assert_eq!(actual, (2, 1));
+    }
+
+    #[test]
+    fn failure() {
+        let a = "x";
+        let b = 1;
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_len_ne_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_len_ne_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_len_ne_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"x\"`,\n",
+            " a.len(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `1`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a length is not equal to an expression.

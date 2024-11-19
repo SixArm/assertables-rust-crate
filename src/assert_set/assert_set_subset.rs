@@ -56,7 +56,7 @@ macro_rules! assert_set_subset_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_set_subset.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_set_subset.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -79,38 +79,36 @@ macro_rules! assert_set_subset_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_set_subset_as_result {
     use std::collections::BTreeSet;
 
     #[test]
-    fn test_assert_set_subset_as_result_x_success() {
+    fn success() {
         let a = [1, 2];
         let b = [1, 2, 3];
-        let result = assert_set_subset_as_result!(&a, &b);
+        let actual = assert_set_subset_as_result!(&a, &b);
         assert_eq!(
-            result.unwrap(),
+            actual.unwrap(),
             (BTreeSet::from([&1, &2]), BTreeSet::from([&1, &2, &3]))
         );
     }
 
     #[test]
-    fn test_assert_set_subset_as_result_x_failure() {
+    fn failure() {
         let a = [1, 2, 3];
         let b = [1, 2];
-        let result = assert_set_subset_as_result!(&a, &b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_set_subset.html\n",
-                " a label: `&a`,\n",
-                " a debug: `[1, 2, 3]`,\n",
-                " b label: `&b`,\n",
-                " b debug: `[1, 2]`,\n",
-                "       a: `{1, 2, 3}`,\n",
-                "       b: `{1, 2}`"
-            )
+        let actual = assert_set_subset_as_result!(&a, &b);
+        let message = concat!(
+            "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_set_subset.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[1, 2, 3]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[1, 2]`,\n",
+            "       a: `{1, 2, 3}`,\n",
+            "       b: `{1, 2}`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -142,7 +140,7 @@ mod tests {
 /// assert_set_subset!(&a, &b);
 /// # });
 /// // assertion failed: `assert_set_subset!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_set_subset.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_set_subset.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2, 3]`,
 /// //  b label: `&b`,
@@ -150,9 +148,9 @@ mod tests {
 /// //        a: `{1, 2, 3}`,
 /// //        b: `{1, 2}`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_set_subset.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_set_subset.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 2, 3]`,\n",
 /// #     " b label: `&b`,\n",
@@ -160,7 +158,7 @@ mod tests {
 /// #     "       a: `{1, 2, 3}`,\n",
 /// #     "       b: `{1, 2}`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -186,6 +184,50 @@ macro_rules! assert_set_subset {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_set_subset {
+    use std::collections::BTreeSet;
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a = [1, 2];
+        let b = [1, 2, 3];
+        let actual = assert_set_subset!(&a, &b);
+        assert_eq!(
+            actual,
+            (BTreeSet::from([&1, &2]), BTreeSet::from([&1, &2, &3]))
+        );
+    }
+
+    #[test]
+    fn failure() {
+        let a = [1, 2, 3];
+        let b = [1, 2];
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_set_subset!(&a, &b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_set_subset.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[1, 2, 3]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[1, 2]`,\n",
+            "       a: `{1, 2, 3}`,\n",
+            "       b: `{1, 2}`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a set is a subset of another.

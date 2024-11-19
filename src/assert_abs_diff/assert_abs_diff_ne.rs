@@ -55,7 +55,7 @@ macro_rules! assert_abs_diff_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_abs_diff_ne!(a, b, delta)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_abs_diff_ne.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_ne.html\n",
                                 "       a label: `{}`,\n",
                                 "       a debug: `{:?}`,\n",
                                 "       b label: `{}`,\n",
@@ -82,15 +82,15 @@ macro_rules! assert_abs_diff_ne_as_result {
 }
 
 #[cfg(test)]
-mod test {
+mod test_assert_abs_diff_ne_as_result {
 
     #[test]
     fn lt() {
         let a = 10;
         let b = 13;
         let delta = 4;
-        let result = assert_abs_diff_ne_as_result!(a, b, delta);
-        assert_eq!(result, Ok(3));
+        let actual = assert_abs_diff_ne_as_result!(a, b, delta);
+        assert_eq!(actual.unwrap(), 3);
     }
 
     #[test]
@@ -98,8 +98,8 @@ mod test {
         let a = 10;
         let b = 13;
         let delta = 2;
-        let result = assert_abs_diff_ne_as_result!(a, b, delta);
-        assert_eq!(result, Ok(3));
+        let actual = assert_abs_diff_ne_as_result!(a, b, delta);
+        assert_eq!(actual.unwrap(), 3);
     }
 
     #[test]
@@ -107,22 +107,20 @@ mod test {
         let a = 10;
         let b = 13;
         let delta = 3;
-        let result = assert_abs_diff_ne_as_result!(a, b, delta);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_abs_diff_ne!(a, b, delta)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_abs_diff_ne.html\n",
-                "       a label: `a`,\n",
-                "       a debug: `10`,\n",
-                "       b label: `b`,\n",
-                "       b debug: `13`,\n",
-                "       Δ label: `delta`,\n",
-                "       Δ debug: `3`,\n",
-                "     | a - b |: `3`,\n",
-                " | a - b | ≠ Δ: false"
-            )
+        let actual = assert_abs_diff_ne_as_result!(a, b, delta);
+        let message = concat!(
+            "assertion failed: `assert_abs_diff_ne!(a, b, delta)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_ne.html\n",
+            "       a label: `a`,\n",
+            "       a debug: `10`,\n",
+            "       b label: `b`,\n",
+            "       b debug: `13`,\n",
+            "       Δ label: `delta`,\n",
+            "       Δ debug: `3`,\n",
+            "     | a - b |: `3`,\n",
+            " | a - b | ≠ Δ: false"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -156,7 +154,7 @@ mod test {
 /// assert_abs_diff_ne!(a, b, delta);
 /// # });
 /// // assertion failed: `assert_abs_diff_ne!(a, b)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_abs_diff_ne.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_ne.html
 /// //        a label: `a`,
 /// //        a debug: `10`,
 /// //        b label: `b`,
@@ -166,9 +164,9 @@ mod test {
 /// //      | a - b |: `3`,
 /// //  | a - b | ≠ Δ: false
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_abs_diff_ne!(a, b, delta)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_abs_diff_ne.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_ne.html\n",
 /// #     "       a label: `a`,\n",
 /// #     "       a debug: `10`,\n",
 /// #     "       b label: `b`,\n",
@@ -178,7 +176,7 @@ mod test {
 /// #     "     | a - b |: `3`,\n",
 /// #     " | a - b | ≠ Δ: false"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -202,6 +200,59 @@ macro_rules! assert_abs_diff_ne {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_abs_diff_ne {
+    use std::panic;
+
+    #[test]
+    fn lt() {
+        let a = 10;
+        let b = 13;
+        let delta = 4;
+        let actual = assert_abs_diff_ne!(a, b, delta);
+        assert_eq!(actual, 3);
+    }
+
+    #[test]
+    fn gt() {
+        let a = 10;
+        let b = 13;
+        let delta = 2;
+        let actual = assert_abs_diff_ne!(a, b, delta);
+        assert_eq!(actual, 3);
+    }
+
+    #[test]
+    fn eq() {
+        let result = panic::catch_unwind(|| {
+            let a = 10;
+            let b = 13;
+            let delta = 3;
+            let _result = assert_abs_diff_ne!(a, b, delta);
+        });
+        let message = concat!(
+            "assertion failed: `assert_abs_diff_ne!(a, b, delta)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_ne.html\n",
+            "       a label: `a`,\n",
+            "       a debug: `10`,\n",
+            "       b label: `b`,\n",
+            "       b debug: `13`,\n",
+            "       Δ label: `delta`,\n",
+            "       Δ debug: `3`,\n",
+            "     | a - b |: `3`,\n",
+            " | a - b | ≠ Δ: false"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an absolute difference is not equal to a delta expression.

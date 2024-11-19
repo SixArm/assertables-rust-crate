@@ -58,7 +58,7 @@ macro_rules! assert_io_read_to_string_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ne.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -81,7 +81,7 @@ macro_rules! assert_io_read_to_string_ne_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ne.html\n",
+                            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_ne.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             "  b label: `{}`,\n",
@@ -103,39 +103,37 @@ macro_rules! assert_io_read_to_string_ne_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_io_read_to_string_ne_as_result {
     #[allow(unused_imports)]
     use std::io::Read;
 
     #[test]
-    fn test_assert_io_read_to_string_ne_as_result_success() {
+    fn success() {
         let mut a = "alfa".as_bytes();
         let mut b = "bravo".as_bytes();
-        let result = assert_io_read_to_string_ne_as_result!(a, b);
+        let actual = assert_io_read_to_string_ne_as_result!(a, b);
         assert_eq!(
-            result.unwrap(),
+            actual.unwrap(),
             (String::from("alfa"), String::from("bravo"))
         );
     }
 
     #[test]
-    fn test_assert_io_read_to_string_ne_as_result_failure() {
+    fn failure() {
         let mut a = "alfa".as_bytes();
         let mut b = "alfa".as_bytes();
-        let result = assert_io_read_to_string_ne_as_result!(a, b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ne.html\n",
-                " a label: `a`,\n",
-                " a debug: `[]`,\n",
-                " b label: `b`,\n",
-                " b debug: `[]`,\n",
-                "       a: `\"alfa\"`,\n",
-                "       b: `\"alfa\"`"
-            )
+        let actual = assert_io_read_to_string_ne_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_ne.html\n",
+            " a label: `a`,\n",
+            " a debug: `[]`,\n",
+            " b label: `b`,\n",
+            " b debug: `[]`,\n",
+            "       a: `\"alfa\"`,\n",
+            "       b: `\"alfa\"`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -168,7 +166,7 @@ mod tests {
 /// assert_io_read_to_string_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ne.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_ne.html
 /// //  a label: `a`,
 /// //  a debug: `[]`,
 /// //  b label: `b`,
@@ -176,9 +174,9 @@ mod tests {
 /// //        a: `\"alfa\"`,
 /// //        b: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_io_read_to_string_ne.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[]`,\n",
 /// #     " b label: `b`,\n",
@@ -186,7 +184,7 @@ mod tests {
 /// #     "       a: `\"alfa\"`,\n",
 /// #     "       b: `\"alfa\"`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -210,6 +208,48 @@ macro_rules! assert_io_read_to_string_ne {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_io_read_to_string_ne {
+    #[allow(unused_imports)]
+    use std::io::Read;
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let mut a = "alfa".as_bytes();
+        let mut b = "bravo".as_bytes();
+        let actual = assert_io_read_to_string_ne!(a, b);
+        assert_eq!(actual, (String::from("alfa"), String::from("bravo")));
+    }
+
+    #[test]
+    fn failure() {
+        let result = panic::catch_unwind(|| {
+            let mut a = "alfa".as_bytes();
+            let mut b = "alfa".as_bytes();
+            let _actual = assert_io_read_to_string_ne!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_io_read_to_string_ne.html\n",
+            " a label: `a`,\n",
+            " a debug: `[]`,\n",
+            " b label: `b`,\n",
+            " b debug: `[]`,\n",
+            "       a: `\"alfa\"`,\n",
+            "       b: `\"alfa\"`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a ::std::io::Read read_to_string() is not equal to another.

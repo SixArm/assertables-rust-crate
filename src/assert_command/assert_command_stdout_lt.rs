@@ -57,7 +57,7 @@ macro_rules! assert_command_stdout_lt_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stdout_lt!(a_command, b_command)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_lt.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_lt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -80,7 +80,7 @@ macro_rules! assert_command_stdout_lt_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_lt!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_lt.html\n",
+                            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_lt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -102,8 +102,7 @@ macro_rules! assert_command_stdout_lt_as_result {
 }
 
 #[cfg(test)]
-mod tests {
-
+mod test_assert_command_stdout_lt_as_result {
     use std::process::Command;
 
     #[test]
@@ -112,9 +111,9 @@ mod tests {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
         b.args(["%s", "zz"]);
-        let result = assert_command_stdout_lt_as_result!(a, b);
+        let actual = assert_command_stdout_lt_as_result!(a, b);
         assert_eq!(
-            result.unwrap(),
+            actual.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z'])
         );
     }
@@ -125,11 +124,10 @@ mod tests {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
         b.args(["%s", "alfa"]);
-        let result = assert_command_stdout_lt_as_result!(a, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_command_stdout_lt_as_result!(a, b);
+        let message = concat!(
             "assertion failed: `assert_command_stdout_lt!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_lt.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -137,7 +135,7 @@ mod tests {
             "       a: `[97, 108, 102, 97]`,\n",
             "       b: `[97, 108, 102, 97]`"
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 
     #[test]
@@ -146,11 +144,10 @@ mod tests {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stdout");
         b.args(["%s", "aa"]);
-        let result = assert_command_stdout_lt_as_result!(a, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_command_stdout_lt_as_result!(a, b);
+        let message = concat!(
             "assertion failed: `assert_command_stdout_lt!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_lt.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -158,7 +155,7 @@ mod tests {
             "       a: `[97, 108, 102, 97]`,\n",
             "       b: `[97, 97]`"
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -195,7 +192,7 @@ mod tests {
 /// assert_command_stdout_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stdout_lt!(a_command, b_command)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_lt.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_lt.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
@@ -203,9 +200,9 @@ mod tests {
 /// //        a: `[97, 108, 102, 97]`,
 /// //        b: `[97, 997]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_lt!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_command_stdout_lt.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
@@ -213,7 +210,7 @@ mod tests {
 /// #     "       a: `[97, 108, 102, 97]`,\n",
 /// #     "       b: `[97, 97]`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -237,6 +234,80 @@ macro_rules! assert_command_stdout_lt {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_command_stdout_lt {
+    use std::panic;
+    use std::process::Command;
+
+    #[test]
+    fn lt() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let mut b = Command::new("bin/printf-stdout");
+        b.args(["%s", "zz"]);
+        let actual = assert_command_stdout_lt!(a, b);
+        assert_eq!(actual, (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z']));
+    }
+
+    #[test]
+    fn eq() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/printf-stdout");
+            a.args(["%s", "alfa"]);
+            let mut b = Command::new("bin/printf-stdout");
+            b.args(["%s", "alfa"]);
+            let _actual = assert_command_stdout_lt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_command_stdout_lt!(a_command, b_command)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            "       a: `[97, 108, 102, 97]`,\n",
+            "       b: `[97, 108, 102, 97]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn gt() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/printf-stdout");
+            a.args(["%s", "alfa"]);
+            let mut b = Command::new("bin/printf-stdout");
+            b.args(["%s", "aa"]);
+            let _actual = assert_command_stdout_lt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_command_stdout_lt!(a_command, b_command)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/printf-stdout\" \"%s\" \"aa\"`,\n",
+            "       a: `[97, 108, 102, 97]`,\n",
+            "       b: `[97, 97]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a command stdout string is less than another.

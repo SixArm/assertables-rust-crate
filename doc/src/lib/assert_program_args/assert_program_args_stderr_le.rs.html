@@ -304,6 +304,66 @@
 <a href="#304" id="304">304</a>
 <a href="#305" id="305">305</a>
 <a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a command (built with program and args) stderr is less than or equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -367,7 +427,7 @@
                                 <span class="macro">format!</span>(
                                     <span class="macro">concat!</span>(
                                         <span class="string">"assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n"</span>,
-                                        <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
+                                        <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
                                         <span class="string">" a_program label: `{}`,\n"</span>,
                                         <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                         <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -398,7 +458,7 @@
                             <span class="macro">format!</span>(
                                 <span class="macro">concat!</span>(
                                     <span class="string">"assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n"</span>,
-                                    <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
+                                    <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
                                     <span class="string">" a_program label: `{}`,\n"</span>,
                                     <span class="string">" a_program debug: `{:?}`,\n"</span>,
                                     <span class="string">"    a_args label: `{}`,\n"</span>,
@@ -430,7 +490,7 @@
 }
 
 <span class="attr">#[cfg(test)]
-</span><span class="kw">mod </span>tests {
+</span><span class="kw">mod </span>test_assert_program_args_stderr_le_as_result {
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>lt() {
@@ -438,10 +498,10 @@
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"zz"</span>];
-        <span class="kw">let </span>result =
+        <span class="kw">let </span>actual =
             <span class="macro">assert_program_args_stderr_le_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
         <span class="macro">assert_eq!</span>(
-            result.unwrap(),
+            actual.unwrap(),
             (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'z'</span>, <span class="string">b'z'</span>])
         );
     }
@@ -452,26 +512,25 @@
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
-        <span class="kw">let </span>result =
+        <span class="kw">let </span>actual =
             <span class="macro">assert_program_args_stderr_le_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
         <span class="macro">assert_eq!</span>(
-            result.unwrap(),
+            actual.unwrap(),
             (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>])
         );
     }
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>test_assert_program_args_stderr_le_as_result_failure() {
+    </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
         <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
         <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"aa"</span>];
-        <span class="kw">let </span>result =
+        <span class="kw">let </span>actual =
             <span class="macro">assert_program_args_stderr_le_as_result!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
-        <span class="kw">let </span>actual = result.unwrap_err();
-        <span class="kw">let </span>expect = <span class="macro">concat!</span>(
+        <span class="kw">let </span>message = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
             <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
             <span class="string">" a_program debug: `\"bin/printf-stderr\"`,\n"</span>,
             <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
@@ -483,7 +542,7 @@
             <span class="string">"               a: `[97, 108, 102, 97]`,\n"</span>,
             <span class="string">"               b: `[97, 97]`"
         </span>);
-        <span class="macro">assert_eq!</span>(actual, expect);
+        <span class="macro">assert_eq!</span>(actual.unwrap_err(), message);
     }
 }
 
@@ -519,7 +578,7 @@
 /// assert_program_args_stderr_le!(&amp;a_program, &amp;a_args, &amp;b_program, &amp;b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stderr_le.html
 /// //  a_program label: `&amp;a_program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `&amp;a_args`,
@@ -531,9 +590,9 @@
 /// //                a: `[97, 108, 102, 97]`,
 /// //                b: `[97, 97]`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_program_args_stderr_le.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stderr_le.html\n",
 /// #     " a_program label: `&amp;a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `&amp;a_args`,\n",
@@ -545,7 +604,7 @@
 /// #     "               a: `[97, 108, 102, 97]`,\n",
 /// #     "               b: `[97, 97]`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -569,6 +628,67 @@
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">"{}\n{}"</span>, <span class="macro">format_args!</span>($(<span class="macro-nonterminal">$message</span>)+), err),
         }
     }};
+}
+
+<span class="attr">#[cfg(test)]
+</span><span class="kw">mod </span>test_assert_program_args_stderr_le {
+    <span class="kw">use </span>std::panic;
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>lt() {
+        <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
+        <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
+        <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
+        <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"zz"</span>];
+        <span class="kw">let </span>actual = <span class="macro">assert_program_args_stderr_le!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
+        <span class="macro">assert_eq!</span>(actual, (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'z'</span>, <span class="string">b'z'</span>]));
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>eq() {
+        <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
+        <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
+        <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
+        <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
+        <span class="kw">let </span>actual = <span class="macro">assert_program_args_stderr_le!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
+        <span class="macro">assert_eq!</span>(
+            actual,
+            (<span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>], <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'l'</span>, <span class="string">b'f'</span>, <span class="string">b'a'</span>])
+        );
+    }
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>gt() {
+        <span class="kw">let </span>a_program = <span class="string">"bin/printf-stderr"</span>;
+        <span class="kw">let </span>a_args = [<span class="string">"%s"</span>, <span class="string">"alfa"</span>];
+        <span class="kw">let </span>b_program = <span class="string">"bin/printf-stderr"</span>;
+        <span class="kw">let </span>b_args = [<span class="string">"%s"</span>, <span class="string">"aa"</span>];
+        <span class="kw">let </span>result = panic::catch_unwind(|| {
+            <span class="kw">let </span>_actual = <span class="macro">assert_program_args_stderr_le!</span>(<span class="kw-2">&amp;</span>a_program, <span class="kw-2">&amp;</span>a_args, <span class="kw-2">&amp;</span>b_program, <span class="kw-2">&amp;</span>b_args);
+        });
+        <span class="kw">let </span>message = <span class="macro">concat!</span>(
+            <span class="string">"assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_program_args_stderr_le.html\n"</span>,
+            <span class="string">" a_program label: `&amp;a_program`,\n"</span>,
+            <span class="string">" a_program debug: `\"bin/printf-stderr\"`,\n"</span>,
+            <span class="string">"    a_args label: `&amp;a_args`,\n"</span>,
+            <span class="string">"    a_args debug: `[\"%s\", \"alfa\"]`,\n"</span>,
+            <span class="string">" b_program label: `&amp;b_program`,\n"</span>,
+            <span class="string">" b_program debug: `\"bin/printf-stderr\"`,\n"</span>,
+            <span class="string">"    b_args label: `&amp;b_args`,\n"</span>,
+            <span class="string">"    b_args debug: `[\"%s\", \"aa\"]`,\n"</span>,
+            <span class="string">"               a: `[97, 108, 102, 97]`,\n"</span>,
+            <span class="string">"               b: `[97, 97]`"
+        </span>);
+        <span class="macro">assert_eq!</span>(
+            result
+                .unwrap_err()
+                .downcast::&lt;String&gt;()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 <span class="doccomment">/// Assert a command (built with program and args) stderr is less than or equal to another.

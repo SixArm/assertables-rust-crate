@@ -49,7 +49,7 @@ macro_rules! assert_in_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_in!(a, container)`\n",
-                    "https://docs.rs/assertables/9.4.0/assertables/macro.assert_in.html\n",
+                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in.html\n",
                     "         a label: `{}`,\n",
                     "         a debug: `{:?}`,\n",
                     " container label: `{}`,\n",
@@ -65,31 +65,30 @@ macro_rules! assert_in_as_result {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_assert_in_as_result {
 
     #[test]
     fn success() {
         let a = 1;
         let b = 0..2;
-        let result = assert_in_as_result!(a, b);
-        assert_eq!(result.unwrap(), ());
+        let actual = assert_in_as_result!(a, b);
+        assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
     fn failure() {
         let a = 1;
         let b = 2..4;
-        let result = assert_in_as_result!(a, b);
-        let actual = result.unwrap_err();
-        let expect = concat!(
+        let actual = assert_in_as_result!(a, b);
+        let message = concat!(
             "assertion failed: `assert_in!(a, container)`\n",
-            "https://docs.rs/assertables/9.4.0/assertables/macro.assert_in.html\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in.html\n",
             "         a label: `a`,\n",
             "         a debug: `1`,\n",
             " container label: `b`,\n",
             " container debug: `2..4`"
         );
-        assert_eq!(actual, expect);
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -121,21 +120,21 @@ mod tests {
 /// assert_in!(a, b);
 /// # });
 /// // assertion failed: `assert_in!(a, container)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_in.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_in.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  container label: `b`,
 /// //  container debug: `2..4`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_in!(a, container)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_in.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in.html\n",
 /// #     "         a label: `a`,\n",
 /// #     "         a debug: `1`,\n",
 /// #     " container label: `b`,\n",
 /// #     " container debug: `2..4`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -159,6 +158,44 @@ macro_rules! assert_in {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_in {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a = 1;
+        let b = 0..2;
+        let actual = assert_in!(a, b);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn failure() {
+        let a = 1;
+        let b = 2..4;
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_in!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_in!(a, container)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in.html\n",
+            "         a label: `a`,\n",
+            "         a debug: `1`,\n",
+            " container label: `b`,\n",
+            " container debug: `2..4`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert an item is in a container.

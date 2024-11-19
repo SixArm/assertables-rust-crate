@@ -56,7 +56,7 @@ macro_rules! assert_bag_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_bag_ne.html\n",
+                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_bag_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -79,38 +79,36 @@ macro_rules! assert_bag_ne_as_result {
 }
 
 #[cfg(test)]
-mod test {
+mod test_assert_bag_ne_as_result {
     use std::collections::BTreeMap;
 
     #[test]
-    fn test_assert_bag_ne_as_result_success() {
+    fn success() {
         let a = [1, 1];
         let b = [1, 1, 1];
-        let result = assert_bag_ne_as_result!(&a, &b);
+        let actual = assert_bag_ne_as_result!(&a, &b);
         assert_eq!(
-            result.unwrap(),
+            actual.unwrap(),
             (BTreeMap::from([(&1, 2)]), BTreeMap::from([(&1, 3)]))
         );
     }
 
     #[test]
-    fn test_assert_bag_ne_as_result_failure() {
+    fn failure() {
         let a = [1, 1];
         let b = [1, 1];
-        let result = assert_bag_ne_as_result!(&a, &b);
-        assert_eq!(
-            result.unwrap_err(),
-            concat!(
-                "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-                "https://docs.rs/assertables/9.4.0/assertables/macro.assert_bag_ne.html\n",
-                " a label: `&a`,\n",
-                " a debug: `[1, 1]`,\n",
-                " b label: `&b`,\n",
-                " b debug: `[1, 1]`,\n",
-                "   a bag: `{1: 2}`,\n",
-                "   b bag: `{1: 2}`"
-            )
+        let actual = assert_bag_ne_as_result!(&a, &b);
+        let message = concat!(
+            "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_bag_ne.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[1, 1]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[1, 1]`,\n",
+            "   a bag: `{1: 2}`,\n",
+            "   b bag: `{1: 2}`"
         );
+        assert_eq!(actual.unwrap_err(), message);
     }
 }
 
@@ -142,7 +140,7 @@ mod test {
 /// assert_bag_ne!(&a, &b);
 /// # });
 /// // assertion failed: `assert_bag_ne!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.4.0/assertables/macro.assert_bag_ne.html
+/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_bag_ne.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 1]`,
 /// //  b label: `&b`,
@@ -150,9 +148,9 @@ mod test {
 /// //    a bag: `{1: 2}`,
 /// //    b bag: `{1: 2}`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
-/// # let expect = concat!(
+/// # let message = concat!(
 /// #     "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.4.0/assertables/macro.assert_bag_ne.html\n",
+/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_bag_ne.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 1]`,\n",
 /// #     " b label: `&b`,\n",
@@ -160,7 +158,7 @@ mod test {
 /// #     "   a bag: `{1: 2}`,\n",
 /// #     "   b bag: `{1: 2}`"
 /// # );
-/// # assert_eq!(actual, expect);
+/// # assert_eq!(actual, message);
 /// # }
 /// ```
 ///
@@ -186,6 +184,50 @@ macro_rules! assert_bag_ne {
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
     }};
+}
+
+#[cfg(test)]
+mod test_assert_bag_ne {
+    use std::collections::BTreeMap;
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a = [1, 1];
+        let b = [1, 1, 1];
+        let actual = assert_bag_ne!(&a, &b);
+        assert_eq!(
+            actual,
+            (BTreeMap::from([(&1, 2)]), BTreeMap::from([(&1, 3)]))
+        );
+    }
+
+    #[test]
+    fn failure() {
+        let result = panic::catch_unwind(|| {
+            let a = [1, 1];
+            let b = [1, 1];
+            let _actual = assert_bag_ne!(&a, &b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_bag_ne.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[1, 1]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[1, 1]`,\n",
+            "   a bag: `{1: 2}`,\n",
+            "   b bag: `{1: 2}`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
 
 /// Assert a bag is not equal to another.
