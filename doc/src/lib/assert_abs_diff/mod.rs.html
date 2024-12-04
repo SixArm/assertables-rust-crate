@@ -34,24 +34,31 @@
 <a href="#34" id="34">34</a>
 <a href="#35" id="35">35</a>
 <a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
+<a href="#39" id="39">39</a>
+<a href="#40" id="40">40</a>
+<a href="#41" id="41">41</a>
+<a href="#42" id="42">42</a>
+<a href="#43" id="43">43</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert for comparing absolute differences.
 //!
 //! These macros help with collection lengths, such as for strings, arrays,
 //! vectors, iterators, and anything that has a typical `.len()` method.
 //!
-//! Compare an absolute difference with an deltaession:
+//! Compare an absolute difference with an expression:
 //!
-//! * [`assert_abs_diff_eq!(a, b, delta)`](macro@crate::assert_abs_diff_eq) ≈ | a - b | = Δ
+//! * [`assert_abs_diff_eq_x!(a, b, x)`](macro@crate::assert_abs_diff_eq) ≈ | a - b | = x
 //!
-//! * [`assert_abs_diff_ne!(a, b, delta)`](macro@crate::assert_abs_diff_ne) ≈ | a - b | ≠ Δ
+//! * [`assert_abs_diff_ne_x!(a, b, x)`](macro@crate::assert_abs_diff_ne) ≈ | a - b | ≠ x
 //!
-//! * [`assert_abs_diff_lt!(a, b, delta)`](macro@crate::assert_abs_diff_lt) ≈ | a - b | &lt; Δ
+//! * [`assert_abs_diff_lt_x!(a, b, x)`](macro@crate::assert_abs_diff_lt) ≈ | a - b | &lt; x
 //!
-//! * [`assert_abs_diff_le!(a, b, delta)`](macro@crate::assert_abs_diff_le) ≈ | a - b | ≤ Δ
+//! * [`assert_abs_diff_le_x!(a, b, x)`](macro@crate::assert_abs_diff_le) ≈ | a - b | ≤ x
 //!
-//! * [`assert_abs_diff_gt!(a, b, delta)`](macro@crate::assert_abs_diff_gt) ≈ | a - b | &gt; Δ
+//! * [`assert_abs_diff_gt_x!(a, b, x)`](macro@crate::assert_abs_diff_gt) ≈ | a - b | &gt; x
 //!
-//! * [`assert_abs_diff_ge!(a, b, delta)`](macro@crate::assert_abs_diff_ge) ≈ | a - b | ≥ Δ
+//! * [`assert_abs_diff_ge_x!(a, b, x)`](macro@crate::assert_abs_diff_ge) ≈ | a - b | ≥ x
 //!
 //! # Example
 //!
@@ -60,14 +67,21 @@
 //!
 //! let a = 10;
 //! let b = 13;
-//! let delta = 3;
-//! assert_abs_diff_eq!(a, b, delta);
+//! let x = 3;
+//! assert_abs_diff_eq_x!(a, b, x);
 //! ```
 
-</span><span class="kw">pub mod </span>assert_abs_diff_eq;
-<span class="kw">pub mod </span>assert_abs_diff_ge;
-<span class="kw">pub mod </span>assert_abs_diff_gt;
-<span class="kw">pub mod </span>assert_abs_diff_le;
-<span class="kw">pub mod </span>assert_abs_diff_lt;
-<span class="kw">pub mod </span>assert_abs_diff_ne;
-</code></pre></div></section></main></body></html>
+</span><span class="kw">pub mod </span>assert_abs_diff_eq_x;
+<span class="kw">pub mod </span>assert_abs_diff_ge_x;
+<span class="kw">pub mod </span>assert_abs_diff_gt_x;
+<span class="kw">pub mod </span>assert_abs_diff_le_x;
+<span class="kw">pub mod </span>assert_abs_diff_lt_x;
+<span class="kw">pub mod </span>assert_abs_diff_ne_x;
+
+<span class="kw">pub mod </span>assert_abs_diff_eq; <span class="comment">// Deprecated
+</span><span class="kw">pub mod </span>assert_abs_diff_ge; <span class="comment">// Deprecated
+</span><span class="kw">pub mod </span>assert_abs_diff_gt; <span class="comment">// Deprecated
+</span><span class="kw">pub mod </span>assert_abs_diff_le; <span class="comment">// Deprecated
+</span><span class="kw">pub mod </span>assert_abs_diff_lt; <span class="comment">// Deprecated
+</span><span class="kw">pub mod </span>assert_abs_diff_ne; <span class="comment">// Deprecated
+</span></code></pre></div></section></main></body></html>

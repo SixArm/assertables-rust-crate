@@ -118,11 +118,11 @@
 //! Nearness:
 //!
 //! * [`assert_approx_eq!(a, b)`](module@crate::assert_approx::assert_approx_eq) ≈ |a-b| ≤ 1e-6
-//! * [`assert_abs_diff_eq!(a, b, delta)`](module@crate::assert_abs_diff::assert_abs_diff_eq) ≈ |a-b| = Δ
+//! * [`assert_delta_eq_x!(a, b, x)`](module@crate::assert_delta::assert_delta_eq_x) ≈ (b-a) = x
+//! * [`assert_abs_diff_eq_x!(a, b, x)`](module@crate::assert_abs_diff::assert_abs_diff_eq_x) ≈ |b-a| = x
 //! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta) ≈ |a-b| ≤ Δ
 //! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)
 //! * [`assert_in_range!(a, range)`](module@crate::assert_in::assert_in_range) ≈ range.contains(a)
-//! * [`assert_delta_eq_x!(a, b, x)`](module@crate::assert_delta::assert_delta_eq_x) ≈ (b-a) = x
 //!
 //! Groups:
 //!

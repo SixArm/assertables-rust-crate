@@ -5,7 +5,7 @@ Changes as highlights for recent major versions.
 
 ## Version 9.x
 
-* 9.5.0 Add `assert_delta_*`.
+* 9.5.0 Add difference comparison macros: `assert_delta_*_x`, `assert_abs_diff_*_x`.
 
 * 9.4.0 Add `assert_in`, `assert_in_range`.
 

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["assert_abs_diff_eq","assert_abs_diff_ge","assert_abs_diff_gt","assert_abs_diff_le","assert_abs_diff_lt","assert_abs_diff_ne"]};
+window.SIDEBAR_ITEMS = {"mod":["assert_abs_diff_eq","assert_abs_diff_eq_x","assert_abs_diff_ge","assert_abs_diff_ge_x","assert_abs_diff_gt","assert_abs_diff_gt_x","assert_abs_diff_le","assert_abs_diff_le_x","assert_abs_diff_lt","assert_abs_diff_lt_x","assert_abs_diff_ne","assert_abs_diff_ne_x"]};
