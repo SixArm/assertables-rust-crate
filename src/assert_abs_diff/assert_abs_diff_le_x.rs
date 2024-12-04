@@ -1,7 +1,7 @@
 //! Assert an absolute difference is less than or equal to an expression.
 //!
 //! Pseudocode:<br>
-//! | a - b | ≤ x
+//! |Δ| ≤ x
 //!
 //! # Example
 //!
@@ -23,9 +23,9 @@
 /// Assert an absolute difference is less than or equal to an expression.
 ///
 /// Pseudocode:<br>
-/// | a - b | ≤ x
+/// |Δ| ≤ x
 ///
-/// * If true, return `Ok(abs_diff)`.
+/// * If true, return `Ok((lhs, rhs))`.
 ///
 /// * Otherwise, return [`Err`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -47,34 +47,60 @@ macro_rules! assert_abs_diff_le_x_as_result {
     ($a:expr, $b:expr, $x:expr $(,)?) => {{
         match (&$a, &$b, &$x) {
             (a, b, x) => {
-                let abs_diff = if (a >= b) { a - b } else { b - a };
-                if abs_diff.le(x) {
-                    Ok(abs_diff)
-                } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_le_x.html\n",
-                                "       a label: `{}`,\n",
-                                "       a debug: `{:?}`,\n",
-                                "       b label: `{}`,\n",
-                                "       b debug: `{:?}`,\n",
-                                "       x label: `{}`,\n",
-                                "       x debug: `{:?}`,\n",
-                                "     | a - b |: `{:?}`,\n",
-                                " | a - b | ≤ x: {}"
-                            ),
-                            stringify!($a),
-                            a,
-                            stringify!($b),
-                            b,
-                            stringify!($x),
-                            x,
-                            abs_diff,
-                            false
+                match ::std::panic::catch_unwind(|| if (a >= b) { a - b } else { b - a }) {
+                    Ok(abs_diff) => {
+                        if abs_diff <= *x {
+                            Ok((abs_diff, *x))
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
+                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_le_x.html\n",
+                                        " a label: `{}`,\n",
+                                        " a debug: `{:?}`,\n",
+                                        " b label: `{}`,\n",
+                                        " b debug: `{:?}`,\n",
+                                        " x label: `{}`,\n",
+                                        " x debug: `{:?}`,\n",
+                                        "     |Δ|: `{:?}`,\n",
+                                        " |Δ| ≤ x: {}"
+                                    ),
+                                    stringify!($a),
+                                    a,
+                                    stringify!($b),
+                                    b,
+                                    stringify!($x),
+                                    x,
+                                    abs_diff,
+                                    false
+                                )
+                            )
+                        }
+                    },
+                    Err(_err) => {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
+                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_le_x.html\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`,\n",
+                                    " b label: `{}`,\n",
+                                    " b debug: `{:?}`,\n",
+                                    " x label: `{}`,\n",
+                                    " x debug: `{:?}`,\n",
+                                    "     |Δ|: panic", //TODO add the panic message
+                                ),
+                                stringify!($a),
+                                a,
+                                stringify!($b),
+                                b,
+                                stringify!($x),
+                                x
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
@@ -90,7 +116,7 @@ mod test_assert_abs_diff_le_x_as_result {
         let b = 13;
         let x = 4;
         let actual = assert_abs_diff_le_x_as_result!(a, b, x);
-        assert_eq!(actual.unwrap(), 3);
+        assert_eq!(actual.unwrap(), (3, 4));
     }
 
     #[test]
@@ -99,7 +125,7 @@ mod test_assert_abs_diff_le_x_as_result {
         let b = 13;
         let x = 3;
         let actual = assert_abs_diff_le_x_as_result!(a, b, x);
-        assert_eq!(actual.unwrap(), 3);
+        assert_eq!(actual.unwrap(), (3, 3));
     }
 
     #[test]
@@ -111,14 +137,37 @@ mod test_assert_abs_diff_le_x_as_result {
         let message = concat!(
             "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
             "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_le_x.html\n",
-            "       a label: `a`,\n",
-            "       a debug: `10`,\n",
-            "       b label: `b`,\n",
-            "       b debug: `13`,\n",
-            "       x label: `x`,\n",
-            "       x debug: `2`,\n",
-            "     | a - b |: `3`,\n",
-            " | a - b | ≤ x: false"
+            " a label: `a`,\n",
+            " a debug: `10`,\n",
+            " b label: `b`,\n",
+            " b debug: `13`,\n",
+            " x label: `x`,\n",
+            " x debug: `2`,\n",
+            "     |Δ|: `3`,\n",
+            " |Δ| ≤ x: false"
+        );
+        assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn overflow() {
+        let a: i8 = i8::MAX;
+        let b: i8 = i8::MIN;
+        let x: i8 = 0;
+        let actual = assert_abs_diff_le_x_as_result!(a, b, x);
+        let message = format!(
+            concat!(
+                "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_le_x.html\n",
+                " a label: `a`,\n",
+                " a debug: `{}`,\n",
+                " b label: `b`,\n",
+                " b debug: `{}`,\n",
+                " x label: `x`,\n",
+                " x debug: `{}`,\n",
+                "     |Δ|: panic"
+            ),
+            a, b, x
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -127,9 +176,9 @@ mod test_assert_abs_diff_le_x_as_result {
 /// Assert an absolute difference is less than or equal to an expression.
 ///
 /// Pseudocode:<br>
-/// | a - b | ≤ x
+/// |Δ| ≤ x
 ///
-/// * If true, return `abs_diff`.
+/// * If true, return `(lhs, rhs)`.
 ///
 /// * Otherwise, call [`panic!`] with a message and the values of the
 ///   expressions with their debug representations.
@@ -155,26 +204,26 @@ mod test_assert_abs_diff_le_x_as_result {
 /// # });
 /// // assertion failed: `assert_abs_diff_le_x!(a, b)`
 /// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_le_x.html
-/// //        a label: `a`,
-/// //        a debug: `10`,
-/// //        b label: `b`,
-/// //        b debug: `13`,
-/// //        x label: `x`,
-/// //        x debug: `2`,
-/// //      | a - b |: `3`,
-/// //  | a - b | ≤ x: false
+/// //  a label: `a`,
+/// //  a debug: `10`,
+/// //  b label: `b`,
+/// //  b debug: `13`,
+/// //  x label: `x`,
+/// //  x debug: `2`,
+/// //      |Δ|: `3`,
+/// //  |Δ| ≤ x: false
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
 /// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_le_x.html\n",
-/// #     "       a label: `a`,\n",
-/// #     "       a debug: `10`,\n",
-/// #     "       b label: `b`,\n",
-/// #     "       b debug: `13`,\n",
-/// #     "       x label: `x`,\n",
-/// #     "       x debug: `2`,\n",
-/// #     "     | a - b |: `3`,\n",
-/// #     " | a - b | ≤ x: false"
+/// #     " a label: `a`,\n",
+/// #     " a debug: `10`,\n",
+/// #     " b label: `b`,\n",
+/// #     " b debug: `13`,\n",
+/// #     " x label: `x`,\n",
+/// #     " x debug: `2`,\n",
+/// #     "     |Δ|: `3`,\n",
+/// #     " |Δ| ≤ x: false"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -212,7 +261,7 @@ mod test_assert_abs_diff_le_x {
         let b = 13;
         let x = 4;
         let actual = assert_abs_diff_le_x!(a, b, x);
-        assert_eq!(actual, 3);
+        assert_eq!(actual, (3, 4));
     }
 
     #[test]
@@ -221,7 +270,7 @@ mod test_assert_abs_diff_le_x {
         let b = 13;
         let x = 3;
         let actual = assert_abs_diff_le_x!(a, b, x);
-        assert_eq!(actual, 3);
+        assert_eq!(actual, (3, 3));
     }
 
     #[test]
@@ -235,14 +284,46 @@ mod test_assert_abs_diff_le_x {
         let message = concat!(
             "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
             "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_le_x.html\n",
-            "       a label: `a`,\n",
-            "       a debug: `10`,\n",
-            "       b label: `b`,\n",
-            "       b debug: `13`,\n",
-            "       x label: `x`,\n",
-            "       x debug: `2`,\n",
-            "     | a - b |: `3`,\n",
-            " | a - b | ≤ x: false"
+            " a label: `a`,\n",
+            " a debug: `10`,\n",
+            " b label: `b`,\n",
+            " b debug: `13`,\n",
+            " x label: `x`,\n",
+            " x debug: `2`,\n",
+            "     |Δ|: `3`,\n",
+            " |Δ| ≤ x: false"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn overflow() {
+        let a: i8 = i8::MAX;
+        let b: i8 = i8::MIN;
+        let x: i8 = 0;
+        let result = panic::catch_unwind(|| {
+            let _actual = assert_abs_diff_le_x!(a, b, x);
+        });
+        let message = format!(
+            concat!(
+                "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
+                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_abs_diff_le_x.html\n",
+                " a label: `a`,\n",
+                " a debug: `{}`,\n",
+                " b label: `b`,\n",
+                " b debug: `{}`,\n",
+                " x label: `x`,\n",
+                " x debug: `{}`,\n",
+                "     |Δ|: panic"
+            ),
+            a, b, x
         );
         assert_eq!(
             result
@@ -258,7 +339,7 @@ mod test_assert_abs_diff_le_x {
 /// Assert an absolute difference is less than or equal to an expression.
 ///
 /// Pseudocode:<br>
-/// | a - b | ≤ c
+/// |Δ| ≤ c
 ///
 /// This macro provides the same statements as [`assert_abs_diff_le_x`](macro.assert_abs_diff_le_x.html),
 /// except this macro's statements are only enabled in non-optimized

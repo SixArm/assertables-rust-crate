@@ -1,7 +1,7 @@
 //! Assert a delta difference is equal to a value.
 //!
 //! Pseudocode:<br>
-//! b - a = x
+//! Δ = x
 //!
 //! # Example
 //!
@@ -9,15 +9,15 @@
 //! use assertables::*;
 //!
 //! let a: i8 = 10;
-//! let b: i8 = 12;
-//! let x: i8 = 2;
+//! let b: i8 = 13;
+//! let x: i8 = 3;
 //! assert_delta_eq_x!(a, b, x);
 //! ```
 
 /// Assert a number is within delta of another.
 ///
 /// Pseudocode:<br>
-/// b - a = x
+/// Δ = x
 ///
 /// * If true, return Result `Ok((lhs, rhs))`.
 ///
@@ -101,17 +101,17 @@ mod test_assert_delta_eq_x_as_result {
     #[test]
     fn eq() {
         let a: i8 = 10;
-        let b: i8 = 12;
-        let x: i8 = 2;
+        let b: i8 = 13;
+        let x: i8 = 3;
         let actual = assert_delta_eq_x_as_result!(a, b, x);
-        assert_eq!(actual.unwrap(), (2 as i8, 2 as i8));
+        assert_eq!(actual.unwrap(), (3 as i8, 3 as i8));
     }
 
     #[test]
     fn lt() {
         let a: i8 = 10;
-        let b: i8 = 12;
-        let x: i8 = 3;
+        let b: i8 = 13;
+        let x: i8 = 4;
         let actual = assert_delta_eq_x_as_result!(a, b, x);
         let message = concat!(
             "assertion failed: `assert_delta_eq_x!(a, b, x)`\n",
@@ -119,10 +119,10 @@ mod test_assert_delta_eq_x_as_result {
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
-            " b debug: `12`,\n",
+            " b debug: `13`,\n",
             " x label: `x`,\n",
-            " x debug: `3`,\n",
-            "       Δ: `2`,\n",
+            " x debug: `4`,\n",
+            "       Δ: `3`,\n",
             "   Δ = x: false"
         );
         assert_eq!(actual.unwrap_err(), message);
@@ -131,8 +131,8 @@ mod test_assert_delta_eq_x_as_result {
     #[test]
     fn gt() {
         let a: i8 = 10;
-        let b: i8 = 12;
-        let x: i8 = 1;
+        let b: i8 = 13;
+        let x: i8 = 2;
         let actual = assert_delta_eq_x_as_result!(a, b, x);
         let message = concat!(
             "assertion failed: `assert_delta_eq_x!(a, b, x)`\n",
@@ -140,10 +140,10 @@ mod test_assert_delta_eq_x_as_result {
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
-            " b debug: `12`,\n",
+            " b debug: `13`,\n",
             " x label: `x`,\n",
-            " x debug: `1`,\n",
-            "       Δ: `2`,\n",
+            " x debug: `2`,\n",
+            "       Δ: `3`,\n",
             "   Δ = x: false"
         );
         assert_eq!(actual.unwrap_err(), message);
@@ -176,7 +176,7 @@ mod test_assert_delta_eq_x_as_result {
 /// Assert a delta difference is equal to a value.
 ///
 /// Pseudocode:<br>
-/// b - a = x
+/// Δ = x
 ///
 /// * If true, return `(lhs, rhs)`.
 ///
@@ -191,15 +191,15 @@ mod test_assert_delta_eq_x_as_result {
 ///
 /// # fn main() {
 /// let a: i8 = 10;
-/// let b: i8 = 12;
-/// let x: i8 = 2;
+/// let b: i8 = 13;
+/// let x: i8 = 3;
 /// assert_delta_eq_x!(a, b, x);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: i8 = 10;
-/// let b: i8 = 12;
-/// let x: i8 = 1;
+/// let b: i8 = 13;
+/// let x: i8 = 2;
 /// assert_delta_eq_x!(a, b, x);
 /// # });
 /// // assertion failed: `assert_delta_eq_x!(a, b, x)`
@@ -207,10 +207,10 @@ mod test_assert_delta_eq_x_as_result {
 /// //  a label: `a`,
 /// //  a debug: `10`,
 /// //  b label: `b`,
-/// //  b debug: `12`,
+/// //  b debug: `13`,
 /// //  x label: `x`,
-/// //  x debug: `1`,
-/// //        Δ: `2`,
+/// //  x debug: `2`,
+/// //        Δ: `3`,
 /// //    Δ = x: false
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
@@ -219,10 +219,10 @@ mod test_assert_delta_eq_x_as_result {
 /// #     " a label: `a`,\n",
 /// #     " a debug: `10`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `12`,\n",
+/// #     " b debug: `13`,\n",
 /// #     " x label: `x`,\n",
-/// #     " x debug: `1`,\n",
-/// #     "       Δ: `2`,\n",
+/// #     " x debug: `2`,\n",
+/// #     "       Δ: `3`,\n",
 /// #     "   Δ = x: false",
 /// # );
 /// # assert_eq!(actual, message);
@@ -252,17 +252,17 @@ mod test_assert_delta_eq_x {
     #[test]
     fn eq() {
         let a: i8 = 10;
-        let b: i8 = 12;
-        let x: i8 = 2;
+        let b: i8 = 13;
+        let x: i8 = 3;
         let actual = assert_delta_eq_x!(a, b, x);
-        assert_eq!(actual, (2 as i8, 2 as i8));
+        assert_eq!(actual, (3 as i8, 3 as i8));
     }
 
     #[test]
     fn lt() {
         let a: i8 = 10;
-        let b: i8 = 12;
-        let x: i8 = 3;
+        let b: i8 = 13;
+        let x: i8 = 4;
         let result = panic::catch_unwind(|| {
             let _actual = assert_delta_eq_x!(a, b, x);
         });
@@ -272,10 +272,10 @@ mod test_assert_delta_eq_x {
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
-            " b debug: `12`,\n",
+            " b debug: `13`,\n",
             " x label: `x`,\n",
-            " x debug: `3`,\n",
-            "       Δ: `2`,\n",
+            " x debug: `4`,\n",
+            "       Δ: `3`,\n",
             "   Δ = x: false"
         );
         assert_eq!(
@@ -291,8 +291,8 @@ mod test_assert_delta_eq_x {
     #[test]
     fn gt() {
         let a: i8 = 10;
-        let b: i8 = 12;
-        let x: i8 = 1;
+        let b: i8 = 13;
+        let x: i8 = 2;
         let result = panic::catch_unwind(|| {
             let _actual = assert_delta_eq_x!(a, b, x);
         });
@@ -302,10 +302,10 @@ mod test_assert_delta_eq_x {
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
-            " b debug: `12`,\n",
+            " b debug: `13`,\n",
             " x label: `x`,\n",
-            " x debug: `1`,\n",
-            "       Δ: `2`,\n",
+            " x debug: `2`,\n",
+            "       Δ: `3`,\n",
             "   Δ = x: false"
         );
         assert_eq!(
@@ -354,7 +354,7 @@ mod test_assert_delta_eq_x {
 /// Assert a delta difference is equal to a value.
 ///
 /// Pseudocode:<br>
-/// b - a = x
+/// Δ = x
 ///
 /// This macro provides the same statements as [`assert_delta_eq_x`](macro.assert_delta_eq_x.html),
 /// except this macro's statements are only enabled in non-optimized

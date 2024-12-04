@@ -354,7 +354,7 @@
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a delta difference is less than or equal to a value.
 //!
 //! Pseudocode:&lt;br&gt;
-//! b - a ≤ x
+//! Δ ≤ x
 //!
 //! # Example
 //!
@@ -362,7 +362,7 @@
 //! use assertables::*;
 //!
 //! let a: i8 = 10;
-//! let b: i8 = 12;
+//! let b: i8 = 13;
 //! let x: i8 = 3;
 //! assert_delta_le_x!(a, b, x);
 //! ```
@@ -370,7 +370,7 @@
 /// Assert a number is within delta of another.
 ///
 /// Pseudocode:&lt;br&gt;
-/// b - a ≤ x
+/// Δ ≤ x
 ///
 /// * If true, return Result `Ok((lhs, rhs))`.
 ///
@@ -454,26 +454,26 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span>a: i8 = <span class="number">10</span>;
-        <span class="kw">let </span>b: i8 = <span class="number">12</span>;
-        <span class="kw">let </span>x: i8 = <span class="number">3</span>;
+        <span class="kw">let </span>b: i8 = <span class="number">13</span>;
+        <span class="kw">let </span>x: i8 = <span class="number">4</span>;
         <span class="kw">let </span>actual = <span class="macro">assert_delta_le_x_as_result!</span>(a, b, x);
-        <span class="macro">assert_eq!</span>(actual.unwrap(), (<span class="number">2 </span><span class="kw">as </span>i8, <span class="number">3 </span><span class="kw">as </span>i8));
+        <span class="macro">assert_eq!</span>(actual.unwrap(), (<span class="number">3 </span><span class="kw">as </span>i8, <span class="number">4 </span><span class="kw">as </span>i8));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span>a: i8 = <span class="number">10</span>;
-        <span class="kw">let </span>b: i8 = <span class="number">12</span>;
-        <span class="kw">let </span>x: i8 = <span class="number">2</span>;
+        <span class="kw">let </span>b: i8 = <span class="number">13</span>;
+        <span class="kw">let </span>x: i8 = <span class="number">3</span>;
         <span class="kw">let </span>actual = <span class="macro">assert_delta_le_x_as_result!</span>(a, b, x);
-        <span class="macro">assert_eq!</span>(actual.unwrap(), (<span class="number">2 </span><span class="kw">as </span>i8, <span class="number">2 </span><span class="kw">as </span>i8));
+        <span class="macro">assert_eq!</span>(actual.unwrap(), (<span class="number">3 </span><span class="kw">as </span>i8, <span class="number">3 </span><span class="kw">as </span>i8));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span>a: i8 = <span class="number">10</span>;
-        <span class="kw">let </span>b: i8 = <span class="number">12</span>;
-        <span class="kw">let </span>x: i8 = <span class="number">1</span>;
+        <span class="kw">let </span>b: i8 = <span class="number">13</span>;
+        <span class="kw">let </span>x: i8 = <span class="number">2</span>;
         <span class="kw">let </span>actual = <span class="macro">assert_delta_le_x_as_result!</span>(a, b, x);
         <span class="kw">let </span>message = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_delta_le_x!(a, b, x)`\n"</span>,
@@ -481,10 +481,10 @@
             <span class="string">" a label: `a`,\n"</span>,
             <span class="string">" a debug: `10`,\n"</span>,
             <span class="string">" b label: `b`,\n"</span>,
-            <span class="string">" b debug: `12`,\n"</span>,
+            <span class="string">" b debug: `13`,\n"</span>,
             <span class="string">" x label: `x`,\n"</span>,
-            <span class="string">" x debug: `1`,\n"</span>,
-            <span class="string">"       Δ: `2`,\n"</span>,
+            <span class="string">" x debug: `2`,\n"</span>,
+            <span class="string">"       Δ: `3`,\n"</span>,
             <span class="string">"   Δ ≤ x: false"
         </span>);
         <span class="macro">assert_eq!</span>(actual.unwrap_err(), message);
@@ -517,7 +517,7 @@
 <span class="doccomment">/// Assert a delta difference is less than or equal to a value.
 ///
 /// Pseudocode:&lt;br&gt;
-/// b - a ≤ x
+/// Δ ≤ x
 ///
 /// * If true, return `(lhs, rhs)`.
 ///
@@ -532,14 +532,14 @@
 ///
 /// # fn main() {
 /// let a: i8 = 10;
-/// let b: i8 = 12;
+/// let b: i8 = 13;
 /// let x: i8 = 3;
 /// assert_delta_le_x!(a, b, x);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: i8 = 10;
-/// let b: i8 = 12;
+/// let b: i8 = 13;
 /// let x: i8 = 1;
 /// assert_delta_le_x!(a, b, x);
 /// # });
@@ -548,10 +548,10 @@
 /// //        a label: `a`,
 /// //        a debug: `10`,
 /// //        b label: `b`,
-/// //        b debug: `12`,
+/// //        b debug: `13`,
 /// //        x label: `x`,
 /// //        x debug: `1`,
-/// //              Δ: `2`,
+/// //              Δ: `3`,
 /// //          Δ ≤ x: false
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let message = concat!(
@@ -560,10 +560,10 @@
 /// #     " a label: `a`,\n",
 /// #     " a debug: `10`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `12`,\n",
+/// #     " b debug: `13`,\n",
 /// #     " x label: `x`,\n",
 /// #     " x debug: `1`,\n",
-/// #     "       Δ: `2`,\n",
+/// #     "       Δ: `3`,\n",
 /// #     "   Δ ≤ x: false",
 /// # );
 /// # assert_eq!(actual, message);
@@ -593,26 +593,26 @@
     <span class="attr">#[test]
     </span><span class="kw">fn </span>lt() {
         <span class="kw">let </span>a: i8 = <span class="number">10</span>;
-        <span class="kw">let </span>b: i8 = <span class="number">12</span>;
-        <span class="kw">let </span>x: i8 = <span class="number">3</span>;
+        <span class="kw">let </span>b: i8 = <span class="number">13</span>;
+        <span class="kw">let </span>x: i8 = <span class="number">4</span>;
         <span class="kw">let </span>actual = <span class="macro">assert_delta_le_x!</span>(a, b, x);
-        <span class="macro">assert_eq!</span>(actual, (<span class="number">2 </span><span class="kw">as </span>i8, <span class="number">3 </span><span class="kw">as </span>i8));
+        <span class="macro">assert_eq!</span>(actual, (<span class="number">3 </span><span class="kw">as </span>i8, <span class="number">4 </span><span class="kw">as </span>i8));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>eq() {
         <span class="kw">let </span>a: i8 = <span class="number">10</span>;
-        <span class="kw">let </span>b: i8 = <span class="number">12</span>;
-        <span class="kw">let </span>x: i8 = <span class="number">2</span>;
+        <span class="kw">let </span>b: i8 = <span class="number">13</span>;
+        <span class="kw">let </span>x: i8 = <span class="number">3</span>;
         <span class="kw">let </span>actual = <span class="macro">assert_delta_le_x!</span>(a, b, x);
-        <span class="macro">assert_eq!</span>(actual, (<span class="number">2 </span><span class="kw">as </span>i8, <span class="number">2 </span><span class="kw">as </span>i8));
+        <span class="macro">assert_eq!</span>(actual, (<span class="number">3 </span><span class="kw">as </span>i8, <span class="number">3 </span><span class="kw">as </span>i8));
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>gt() {
         <span class="kw">let </span>a: i8 = <span class="number">10</span>;
-        <span class="kw">let </span>b: i8 = <span class="number">12</span>;
-        <span class="kw">let </span>x: i8 = <span class="number">1</span>;
+        <span class="kw">let </span>b: i8 = <span class="number">13</span>;
+        <span class="kw">let </span>x: i8 = <span class="number">2</span>;
         <span class="kw">let </span>result = panic::catch_unwind(|| {
             <span class="kw">let </span>_actual = <span class="macro">assert_delta_le_x!</span>(a, b, x);
         });
@@ -622,10 +622,10 @@
             <span class="string">" a label: `a`,\n"</span>,
             <span class="string">" a debug: `10`,\n"</span>,
             <span class="string">" b label: `b`,\n"</span>,
-            <span class="string">" b debug: `12`,\n"</span>,
+            <span class="string">" b debug: `13`,\n"</span>,
             <span class="string">" x label: `x`,\n"</span>,
-            <span class="string">" x debug: `1`,\n"</span>,
-            <span class="string">"       Δ: `2`,\n"</span>,
+            <span class="string">" x debug: `2`,\n"</span>,
+            <span class="string">"       Δ: `3`,\n"</span>,
             <span class="string">"   Δ ≤ x: false"
         </span>);
         <span class="macro">assert_eq!</span>(
@@ -674,7 +674,7 @@
 <span class="doccomment">/// Assert a delta difference is less than or equal to a value.
 ///
 /// Pseudocode:&lt;br&gt;
-/// b - a ≤ x
+/// Δ ≤ x
 ///
 /// This macro provides the same statements as [`assert_delta_le_x`](macro.assert_delta_le_x.html),
 /// except this macro's statements are only enabled in non-optimized
