@@ -28,9 +28,6 @@
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
-/// This macro provides the same statements as [`assert_fs_read_to_string_eq_x`](macro.assert_fs_read_to_string_eq_x.html),
-/// except this macro returns a Result, rather than doing a panic.
-///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///

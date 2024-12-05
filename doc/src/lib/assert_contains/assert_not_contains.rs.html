@@ -396,9 +396,6 @@
 <a href="#396" id="396">396</a>
 <a href="#397" id="397">397</a>
 <a href="#398" id="398">398</a>
-<a href="#399" id="399">399</a>
-<a href="#400" id="400">400</a>
-<a href="#401" id="401">401</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert an expression (such as a string) does not contain an expression (such as a substring).
 //!
 //! Pseudocode:&lt;br&gt;
@@ -439,9 +436,6 @@
 /// * If true, return Result `Ok(())`.
 ///
 /// * Otherwise, return Result `Err(message)`.
-///
-/// This macro provides the same statements as [`assert_not_contains`](macro.assert_not_contains.html),
-/// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.

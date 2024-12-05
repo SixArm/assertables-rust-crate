@@ -399,9 +399,6 @@
 <a href="#399" id="399">399</a>
 <a href="#400" id="400">400</a>
 <a href="#401" id="401">401</a>
-<a href="#402" id="402">402</a>
-<a href="#403" id="403">403</a>
-<a href="#404" id="404">404</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function output is not equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -431,9 +428,6 @@
 /// * If true, return Result `Ok(a)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
-///
-/// This macro provides the same statements as [`assert_`](macro.assert_.html),
-/// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.

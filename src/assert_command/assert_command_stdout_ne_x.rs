@@ -14,12 +14,6 @@
 //! let bytes = vec![b'z', b'z'];
 //! assert_command_stdout_ne_x!(command, bytes);
 //! ```
-//!
-//! # Module macros
-//!
-//! * [`assert_command_stdout_ne_x`](macro@crate::assert_command_stdout_ne_x)
-//! * [`assert_command_stdout_ne_x_as_result`](macro@crate::assert_command_stdout_ne_x_as_result)
-//! * [`debug_assert_command_stdout_ne_x`](macro@crate::debug_assert_command_stdout_ne_x)
 
 /// Assert a command stdout string is not equal to an expression.
 ///
@@ -29,9 +23,6 @@
 /// * If true, return Result `Ok(stdout)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
-///
-/// This macro provides the same statements as [`assert_`](macro.assert_.html),
-/// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.

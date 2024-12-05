@@ -488,9 +488,6 @@
 <a href="#488" id="488">488</a>
 <a href="#489" id="489">489</a>
 <a href="#490" id="490">490</a>
-<a href="#491" id="491">491</a>
-<a href="#492" id="492">492</a>
-<a href="#493" id="493">493</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a function Err(…) is less than or equal to an expression.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -526,9 +523,6 @@
 /// * If true, return Result `Ok(a)`.
 ///
 /// * Otherwise, return Result `Err(message)`.
-///
-/// This macro provides the same statements as [`assert_`](macro.assert_.html),
-/// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.

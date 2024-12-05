@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["assert_delta_eq_x","assert_delta_ge_x","assert_delta_gt_x","assert_delta_le_x","assert_delta_lt_x","assert_delta_ne_x"]};

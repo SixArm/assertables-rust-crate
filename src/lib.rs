@@ -118,7 +118,7 @@
 //! Nearness:
 //!
 //! * [`assert_approx_eq!(a, b)`](module@crate::assert_approx::assert_approx_eq) ≈ |a-b| ≤ 1e-6
-//! * [`assert_delta_eq_x!(a, b, x)`](module@crate::assert_delta::assert_delta_eq_x) ≈ (b-a) = x
+//! * [`assert_diff_eq_x!(a, b, x)`](module@crate::assert_diff::assert_diff_eq_x) ≈ (b-a) = x
 //! * [`assert_abs_diff_eq_x!(a, b, x)`](module@crate::assert_abs_diff::assert_abs_diff_eq_x) ≈ |b-a| = x
 //! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta) ≈ |a-b| ≤ Δ
 //! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)
@@ -239,7 +239,7 @@ pub mod assert_ne; // (in addition to what's provided by Rust `std`)
 // Assert difference
 pub mod assert_abs_diff;
 pub mod assert_approx;
-pub mod assert_delta;
+pub mod assert_diff;
 pub mod assert_in;
 
 // Assert all/any

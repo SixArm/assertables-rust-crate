@@ -30,9 +30,6 @@
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
-/// This macro provides the same statements as [`assert_command_stdout_string_contains`](macro.assert_command_stdout_string_contains.html),
-/// except this macro returns a Result, rather than doing a panic.
-///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///

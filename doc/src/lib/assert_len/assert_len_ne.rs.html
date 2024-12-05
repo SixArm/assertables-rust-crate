@@ -270,9 +270,6 @@
 <a href="#270" id="270">270</a>
 <a href="#271" id="271">271</a>
 <a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! Assert a length is not equal to another.
 //!
 //! Pseudocode:&lt;br&gt;
@@ -302,9 +299,6 @@
 /// * If true, return Result `Ok((a.len(), b.len()))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
-///
-/// This macro provides the same statements as [`assert_`](macro.assert_.html),
-/// except this macro returns a Result, rather than doing a panic.
 ///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.

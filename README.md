@@ -115,7 +115,7 @@ Values:
 Approximations:
 
 * [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/9.5.0/assertables/assert_approx/assert_approx_eq) ≈ |a-b| ≤ 1e-6
-* [`assert_delta_eq_x!(a, b, x)`](https://docs.rs/assertables/9.5.0/assertables/assert_delta/assert_delta_eq_x) ≈ (b-a) = x
+* [`assert_diff_eq_x!(a, b, x)`](https://docs.rs/assertables/9.5.0/assertables/assert_diff/assert_diff_eq_x) ≈ (b-a) = x
 * [`assert_abs_diff_eq_x!(a, b, x)`](https://docs.rs/assertables/9.5.0/assertables/assert_abs_diff/assert_abs_diff_eq_x) ≈ |b-a| = x
 * [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/9.5.0/assertables/assert_in/assert_in_delta) ≈ |a-b| ≤ Δ
 * [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/9.5.0/assertables/assert_in/assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)

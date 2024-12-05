@@ -34,9 +34,6 @@
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
-/// This macro provides the same statements as [`assert_`](macro.assert_.html),
-/// except this macro returns a Result, rather than doing a panic.
-///
 /// This macro is useful for runtime checks, such as checking parameters,
 /// or sanitizing inputs, or handling different results in different ways.
 ///
@@ -269,7 +266,6 @@ mod test_assert_fn_ok_le_x_as_result {
 ///         _ => Err(format!("{:?} is out of range", i)),
 ///     }
 /// }
-///
 ///
 /// # fn main() {
 /// let a: i8 = 1;
