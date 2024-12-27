@@ -4,7 +4,7 @@ tags: #assert #assertion #rust #testing #macros #tdd #testdrivendevelopment
 
 # Assertables: Rust crate of assert macros for testing
 
-Assertables is a Rust crate of assert macros to improve you compile-time testing and run-time reliability.
+Assertables is a Rust crate of assert macros to improve your compile-time tests and run-time reliability.
 
 * Crate: [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
 * Docs: [https://docs.rs/assertables/](https://docs.rs/assertables/)
@@ -77,10 +77,10 @@ Comparisons:
 Examples with numbers:
 
 ```rust
-let i = 10;
-assert_lt!(i, 11);
-assert_in_range!(i, 1..100);
-assert_abs_diff_eq!(i, 12, 2);
+let i = 1;
+assert_lt!(i, 5);
+assert_in_range!(i, 1..5);
+assert_abs_diff_eq!(i, 5, 4);
 ```
 
 Examples with strings:

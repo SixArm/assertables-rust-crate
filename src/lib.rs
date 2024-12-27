@@ -76,10 +76,10 @@
 //!
 //! ```rust
 //! # use assertables::*;
-//! let i = 10;
-//! assert_lt!(i, 11);
-//! assert_in_range!(i, 1..100);
-//! assert_abs_diff_eq!(i, 12, 2);
+//! let i = 1;
+//! assert_lt!(i, 5);
+//! assert_in_range!(i, 1..5);
+//! assert_abs_diff_eq!(i, 5, 4);
 //! ```
 //!
 //! Examples with strings:
@@ -90,14 +90,13 @@
 //! let s = "hello";
 //! assert_starts_with!(s, "h");
 //! assert_contains!(s, "e");
-//! assert_is_match!(Regex::new(r"h.*o").expect("regex"), s);
+//! assert_is_match!(Regex::new(r"h.*o").unwrap(), s);
 //! ```
 //!
 //! Examples with arrays:
 //!
 //! ```rust
 //! # use assertables::*;
-//! # use regex::Regex;
 //! let a = [1, 2, 3];
 //! assert_not_empty!(a);
 //! assert_len_eq_x!(a, 3);
