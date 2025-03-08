@@ -48,7 +48,7 @@ macro_rules! assert_command_stdout_ne_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+                                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_ne_x.html\n",
                                         " command label: `{}`,\n",
                                         " command debug: `{:?}`,\n",
                                         "    expr label: `{}`,\n",
@@ -71,7 +71,7 @@ macro_rules! assert_command_stdout_ne_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+                                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_ne_x.html\n",
                                     "  command label: `{}`,\n",
                                     "  command debug: `{:?}`,\n",
                                     "     expr label: `{}`,\n",
@@ -122,7 +122,7 @@ mod test_assert_command_stdout_ne_x_as_result {
         let actual = assert_command_stdout_ne_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_ne_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             "    expr label: `b`,\n",
@@ -165,7 +165,7 @@ mod test_assert_command_stdout_ne_x_as_result {
 /// assert_command_stdout_ne_x!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_ne_x!(command, expr)`
-/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html
+/// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_ne_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //     expr label: `bytes`,
@@ -175,7 +175,7 @@ mod test_assert_command_stdout_ne_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_ne_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     "    expr label: `bytes`,\n",
@@ -242,7 +242,7 @@ mod test_assert_command_stdout_ne_x {
         });
         let message = concat!(
             "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_ne_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             "    expr label: `b`,\n",

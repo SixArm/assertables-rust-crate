@@ -44,7 +44,7 @@ macro_rules! assert_ok_as_result {
             _ => Err(format!(
                 concat!(
                     "assertion failed: `assert_ok!(a)`\n",
-                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_ok.html\n",
+                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_ok.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`",
                 ),
@@ -71,7 +71,7 @@ mod test_assert_ok_as_result {
         let actual = assert_ok_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_ok!(a)`\n",
-            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_ok.html\n",
+            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_ok.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`",
         );
@@ -105,13 +105,13 @@ mod test_assert_ok_as_result {
 /// assert_ok!(a);
 /// # });
 /// // assertion failed: `assert_ok!(a)`
-/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_ok.html
+/// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_ok.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_ok!(a)`\n",
-/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_ok.html\n",
+/// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_ok.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`",
 /// # );
@@ -160,7 +160,7 @@ mod test_assert_ok {
         });
         let message = concat!(
             "assertion failed: `assert_ok!(a)`\n",
-            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_ok.html\n",
+            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_ok.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`",
         );

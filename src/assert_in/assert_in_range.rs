@@ -46,20 +46,16 @@ macro_rules! assert_in_range_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_in_range!(a, range)`\n",
-                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html\n",
+                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_range.html\n",
                     "     a label: `{}`,\n",
                     "     a debug: `{:?}`,\n",
                     " range label: `{}`,\n",
-                    " range debug: `{:?}`,\n",
-                    " range start: `{:?}`,\n",
-                    "   range end: `{:?}`",
+                    " range debug: `{:?}`"
                 ),
                 stringify!($a),
                 $a,
                 stringify!($range),
-                $range,
-                $range.start,
-                $range.end,
+                $range
             ))
         }
     }};
@@ -69,9 +65,17 @@ macro_rules! assert_in_range_as_result {
 mod test_assert_in_range_as_result {
 
     #[test]
-    fn success() {
+    fn success_with_range_a_dot_dot_b() {
         let a = 1;
         let b = 0..2;
+        let actual = assert_in_range_as_result!(a, b);
+        assert_eq!(actual.unwrap(), ());
+    }
+
+    #[test]
+    fn success_with_range_a_dot_dot_eq_b() {
+        let a = 1;
+        let b = 0..=2;
         let actual = assert_in_range_as_result!(a, b);
         assert_eq!(actual.unwrap(), ());
     }
@@ -83,13 +87,11 @@ mod test_assert_in_range_as_result {
         let actual = assert_in_range_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_in_range!(a, range)`\n",
-            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html\n",
+            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_range.html\n",
             "     a label: `a`,\n",
             "     a debug: `1`,\n",
             " range label: `b`,\n",
-            " range debug: `2..4`,\n",
-            " range start: `2`,\n",
-            "   range end: `4`"
+            " range debug: `2..4`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -123,23 +125,19 @@ mod test_assert_in_range_as_result {
 /// assert_in_range!(a, b);
 /// # });
 /// // assertion failed: `assert_in_range!(a, range)`
-/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html
+/// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_range.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  range label: `b`,
-/// //  range debug: `2..4`,
-/// //  range start: `2`,
-/// //    range end: `4`"
+/// //  range debug: `2..4`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_in_range!(a, range)`\n",
-/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html\n",
+/// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_range.html\n",
 /// #     "     a label: `a`,\n",
 /// #     "     a debug: `1`,\n",
 /// #     " range label: `b`,\n",
-/// #     " range debug: `2..4`,\n",
-/// #     " range start: `2`,\n",
-/// #     "   range end: `4`"
+/// #     " range debug: `2..4`"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -172,9 +170,17 @@ mod test_assert_in_range {
     use std::panic;
 
     #[test]
-    fn success() {
+    fn success_with_range_a_dot_dot_b() {
         let a = 1;
         let b = 0..2;
+        let actual = assert_in_range!(a, b);
+        assert_eq!(actual, ());
+    }
+
+    #[test]
+    fn success_with_range_a_dot_dot_eq_b() {
+        let a = 1;
+        let b = 0..=2;
         let actual = assert_in_range!(a, b);
         assert_eq!(actual, ());
     }
@@ -188,13 +194,11 @@ mod test_assert_in_range {
         });
         let message = concat!(
             "assertion failed: `assert_in_range!(a, range)`\n",
-            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_in_range.html\n",
+            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_range.html\n",
             "     a label: `a`,\n",
             "     a debug: `1`,\n",
             " range label: `b`,\n",
-            " range debug: `2..4`,\n",
-            " range start: `2`,\n",
-            "   range end: `4`"
+            " range debug: `2..4`",
         );
         assert_eq!(
             result

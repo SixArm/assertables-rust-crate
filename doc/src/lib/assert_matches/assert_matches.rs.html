@@ -329,7 +329,7 @@
                 <span class="macro">format!</span>(
                     <span class="macro">concat!</span>(
                         <span class="string">"assertion failed: `assert_matches!(a)`\n"</span>,
-                        <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_matches.html\n"</span>,
+                        <span class="string">"https://docs.rs/assertables/9.5.1/assertables/macro.assert_matches.html\n"</span>,
                         <span class="string">" args: `{}`"</span>,
                     ),
                     <span class="macro">stringify!</span>($(<span class="macro-nonterminal">$arg</span>)<span class="kw-2">*</span>)
@@ -358,7 +358,7 @@
             <span class="kw">let </span>actual = <span class="macro">assert_matches_as_result!</span>(a, <span class="string">'b'</span>..=<span class="string">'z'</span>);
             <span class="kw">let </span>message = <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_matches!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_matches.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.5.1/assertables/macro.assert_matches.html\n"</span>,
                 <span class="string">" args: `a, 'b'..='z'`"</span>,
             );
             <span class="macro">assert_eq!</span>(actual.unwrap_err(), message);
@@ -381,7 +381,7 @@
             <span class="kw">let </span>actual = <span class="macro">assert_matches_as_result!</span>(a, <span class="prelude-val">Some</span>(x) <span class="kw">if </span>x &lt; <span class="number">2</span>);
             <span class="kw">let </span>message = <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_matches!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_matches.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.5.1/assertables/macro.assert_matches.html\n"</span>,
                 <span class="string">" args: `a, Some(x) if x &lt; 2`"</span>,
             );
             <span class="macro">assert_eq!</span>(actual.unwrap_err(), message);
@@ -412,12 +412,12 @@
 /// assert_matches!(a, 'b'..='z');
 /// # });
 /// // assertion failed: `assert_matches!(a)`
-/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_matches.html
+/// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_matches.html
 /// //  args: `a, 'b'..='z'`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_matches!(a)`\n",
-/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_matches.html\n",
+/// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_matches.html\n",
 /// #     " args: `a, 'b'..='z'`",
 /// # );
 /// # assert_eq!(actual, message);
@@ -480,7 +480,7 @@
             });
             <span class="kw">let </span>message = <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_matches!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_matches.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.5.1/assertables/macro.assert_matches.html\n"</span>,
                 <span class="string">" args: `a, 'b'..='z'`"</span>,
             );
             <span class="macro">assert_eq!</span>(
@@ -513,7 +513,7 @@
             });
             <span class="kw">let </span>message = <span class="macro">concat!</span>(
                 <span class="string">"assertion failed: `assert_matches!(a)`\n"</span>,
-                <span class="string">"https://docs.rs/assertables/9.5.0/assertables/macro.assert_matches.html\n"</span>,
+                <span class="string">"https://docs.rs/assertables/9.5.1/assertables/macro.assert_matches.html\n"</span>,
                 <span class="string">" args: `a, Some(x) if x &lt; 2`"</span>,
             );
             <span class="macro">assert_eq!</span>(

@@ -60,7 +60,7 @@ macro_rules! assert_fn_err_lt_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-                                        "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                                         " a_function label: `{}`,\n",
                                         "    a_param label: `{}`,\n",
                                         "    a_param debug: `{:?}`,\n",
@@ -87,7 +87,7 @@ macro_rules! assert_fn_err_lt_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-                                    "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                                     " a_function label: `{}`,\n",
                                     "    a_param label: `{}`,\n",
                                     "    a_param debug: `{:?}`,\n",
@@ -128,7 +128,7 @@ macro_rules! assert_fn_err_lt_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_err_lt!(a_function, b_function)`\n",
-                                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                                 " a_function label: `{}`,\n",
                                 " b_function label: `{}`,\n",
                                 "                a: `{:?}`,\n",
@@ -147,7 +147,7 @@ macro_rules! assert_fn_err_lt_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_fn_err_lt!(a_function, b_function)`\n",
-                            "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                             " a_function label: `{}`,\n",
                             " b_function label: `{}`,\n",
                             "                a: `{:?}`,\n",
@@ -193,7 +193,7 @@ mod test_assert_fn_err_lt_as_result {
             let actual = assert_fn_err_lt_as_result!(f, a, g, b);
             let message = concat!(
                 "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -213,7 +213,7 @@ mod test_assert_fn_err_lt_as_result {
             let actual = assert_fn_err_lt_as_result!(f, a, g, b);
             let message = concat!(
                 "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `2`,\n",
@@ -248,7 +248,7 @@ mod test_assert_fn_err_lt_as_result {
             let actual = assert_fn_err_lt_as_result!(f, f);
             let message = concat!(
                 "assertion failed: `assert_fn_err_lt!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                 " a_function label: `f`,\n",
                 " b_function label: `f`,\n",
                 "                a: `1`,\n",
@@ -262,7 +262,7 @@ mod test_assert_fn_err_lt_as_result {
             let actual = assert_fn_err_lt_as_result!(g, f);
             let message = concat!(
                 "assertion failed: `assert_fn_err_lt!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                 " a_function label: `g`,\n",
                 " b_function label: `f`,\n",
                 "                a: `2`,\n",
@@ -304,7 +304,7 @@ mod test_assert_fn_err_lt_as_result {
 /// assert_fn_err_lt!(f, a, f, b);
 /// # });
 /// // assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html
+/// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `20`,
@@ -316,7 +316,7 @@ mod test_assert_fn_err_lt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-/// #     "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+/// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `20`,\n",
@@ -404,7 +404,7 @@ mod test_assert_fn_err_lt {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -433,7 +433,7 @@ mod test_assert_fn_err_lt {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `2`,\n",
@@ -478,7 +478,7 @@ mod test_assert_fn_err_lt {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_err_lt!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                 " a_function label: `f`,\n",
                 " b_function label: `f`,\n",
                 "                a: `1`,\n",
@@ -501,7 +501,7 @@ mod test_assert_fn_err_lt {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_err_lt!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.5.0/assertables/macro.assert_fn_err_lt.html\n",
+                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_fn_err_lt.html\n",
                 " a_function label: `g`,\n",
                 " b_function label: `f`,\n",
                 "                a: `2`,\n",
