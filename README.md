@@ -48,7 +48,7 @@ that can help you develop, test, and debug.
 To use this crate, add it to your file `Cargo.toml`:
 
 ```toml
-assertables = "9.5.0"
+assertables = "9.5.1"
 ```
 
 Benefits:
