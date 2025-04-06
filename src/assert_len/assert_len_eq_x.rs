@@ -43,8 +43,8 @@ macro_rules! assert_len_eq_x_as_result {
         match (&$a, &$b) {
             (a, b) => {
                 let a_len = a.len();
-                if a_len == $b {
-                    Ok((a_len, $b))
+                if a_len == *b {
+                    Ok((a_len, *b))
                 } else {
                     Err(
                         format!(
