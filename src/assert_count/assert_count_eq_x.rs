@@ -41,10 +41,10 @@
 macro_rules! assert_count_eq_x_as_result {
     ($a:expr, $b:expr $(,)?) => {{
         match (&$a, &$b) {
-            (a, _b) => {
+            (a, b) => {
                 let a_count = a.clone().count();
-                if a_count == $b {
-                    Ok((a_count, $b))
+                if a_count == *b {
+                    Ok((a_count, *b))
                 } else {
                     Err(
                         format!(
@@ -61,7 +61,7 @@ macro_rules! assert_count_eq_x_as_result {
                             a,
                             a_count,
                             stringify!($b),
-                            $b
+                            b
                         )
                     )
                 }
