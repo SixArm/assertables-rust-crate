@@ -41,11 +41,12 @@
 #[macro_export]
 macro_rules! assert_status_code_value_lt_x_as_result {
     ($a_process:expr, $b:expr $(,)?) => {{
+        let b = ($b);
         match ($a_process.status()) {
             Ok(a1) => {
                 match (a1.code()) {
                     Some(a2) => {
-                        if a2 < $b {
+                        if a2 < b {
                             Ok(a2)
                         } else {
                             Err(
@@ -63,7 +64,7 @@ macro_rules! assert_status_code_value_lt_x_as_result {
                                     $a_process,
                                     a2,
                                     stringify!($b),
-                                    $b
+                                    b
                                 )
                             )
                         }
@@ -84,7 +85,7 @@ macro_rules! assert_status_code_value_lt_x_as_result {
                                 $a_process,
                                 a_code,
                                 stringify!($b),
-                                $b,
+                                b,
                             )
                         )
                     }
@@ -106,7 +107,7 @@ macro_rules! assert_status_code_value_lt_x_as_result {
                         $a_process,
                         a_status,
                         stringify!($b),
-                        $b
+                        b
                     )
                 )
             }
