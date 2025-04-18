@@ -38,9 +38,10 @@
 ///
 #[macro_export]
 macro_rules! assert_err_as_result {
-    ($a:expr $(,)?) => {{
-        match ($a) {
-            a => {
+    ($a:expr $(,)?) => {
+        (
+            {
+                let a = ($a);
                 match (a) {
                     Err(a1) => Ok(a1),
                     _ => Err(format!(
@@ -55,8 +56,8 @@ macro_rules! assert_err_as_result {
                     )),
                 }
             }
-        }
-    }};
+        )
+    };
 }
 
 #[cfg(test)]
@@ -81,6 +82,16 @@ mod test_assert_err_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    #[test]
+    fn idempotent() {
+        let a = 100;
+        let atomic = std::sync::atomic::AtomicU32::new(a);
+        let increment = || Err::<u32, u32>(atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
+        let _ = assert_err_as_result!(increment());
+        assert_eq!(atomic.load(std::sync::atomic::Ordering::SeqCst), a + 1);
+    }
+
 }
 
 /// Assert expression is Err.

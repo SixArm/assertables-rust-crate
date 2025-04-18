@@ -5,6 +5,8 @@ Changes as highlights for recent major versions.
 
 ## Version 9.x
 
+* 9.5.2 Fix idempotent access: `assert_ok/`, `assert_err/`.
+
 * 9.5.1 Fix assert_in_range for range syntax `a..=b`.
   
 * 9.5.0 Add difference comparison macros: `assert_diff_*_x`, `assert_abs_diff_*_x`.
