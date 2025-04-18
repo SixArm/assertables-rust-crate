@@ -41,59 +41,59 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_string_contains_as_result {
-    ($command:expr, $containee:expr $(,)?) => {{
-        match (/*&$command,*/ &$containee) {
-            containee => {
-                match $command.output() {
-                    Ok(output) => {
-                        let string = String::from_utf8(output.stdout).unwrap();
-                        if string.contains($containee) {
-                            Ok(string)
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-                                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_contains.html\n",
-                                        "   command label: `{}`,\n",
-                                        "   command debug: `{:?}`,\n",
-                                        " containee label: `{}`,\n",
-                                        " containee debug: `{:?}`,\n",
-                                        "          string: `{:?}`"
-                                    ),
-                                    stringify!($command),
-                                    $command,
-                                    stringify!($containee),
-                                    containee,
-                                    string
-                                )
-                            )
-                        }
-                    },
-                    Err(err) => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-                                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_contains.html\n",
-                                    "   command label: `{}`,\n",
-                                    "   command debug: `{:?}`,\n",
-                                    " containee label: `{}`,\n",
-                                    " containee debug: `{:?}`,\n",
-                                    "      output err: `{:?}`"
-                                ),
-                                stringify!($command),
-                                $command,
-                                stringify!($containee),
-                                containee,
-                                err
-                            )
+    ($command:expr, $containee:expr $(,)?) => {
+        match ($command.output(), &$containee) {
+            (Ok(a), containee) => {
+                let a = String::from_utf8(a.stdout).unwrap();
+                if a.contains($containee) {
+                    Ok(a)
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
+                                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_contains.html\n",
+                                "   command label: `{}`,\n",
+                                "   command debug: `{:?}`,\n",
+                                "   command value: `{:?}`,\n",
+                                " containee label: `{}`,\n",
+                                " containee debug: `{:?}`,\n",
+                                " containee value: `{:?}`"
+                            ),
+                            stringify!($command),
+                            $command,
+                            a,
+                            stringify!($containee),
+                            $containee,
+                            containee
                         )
-                    }
+                    )
                 }
+            },
+            (a, containee) => {
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
+                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_contains.html\n",
+                            "   command label: `{}`,\n",
+                            "   command debug: `{:?}`,\n",
+                            "   command value: `{:?}`,\n",
+                            " containee label: `{}`,\n",
+                            " containee debug: `{:?}`,\n",
+                            " containee value: `{:?}`",
+                        ),
+                        stringify!($command),
+                        $command,
+                        a,
+                        stringify!($containee),
+                        $containee,
+                        containee
+                )
+                )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -120,9 +120,10 @@ mod test_assert_command_stdout_string_contains_as_result {
             "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_contains.html\n",
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            "   command value: `\"alfa\"`,\n",
             " containee label: `b`,\n",
             " containee debug: `\"zz\"`,\n",
-            "          string: `\"alfa\"`",
+            " containee value: `\"zz\"`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -167,18 +168,20 @@ mod test_assert_command_stdout_string_contains_as_result {
 /// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_contains.html
 /// //    command label: `command`,
 /// //    command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
+/// //    command value: `\"alfa\"`,
 /// //  containee label: `&containee`,
 /// //  containee debug: `\"zz\"`,
-/// //           string: `\"alfa\"`
+/// //  containee value: `\"zz\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
 /// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_contains.html\n",
 /// #     "   command label: `command`,\n",
 /// #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+/// #     "   command value: `\"alfa\"`,\n",
 /// #     " containee label: `&containee`,\n",
 /// #     " containee debug: `\"zz\"`,\n",
-/// #     "          string: `\"alfa\"`"
+/// #     " containee value: `\"zz\"`"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -192,18 +195,18 @@ mod test_assert_command_stdout_string_contains_as_result {
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_string_contains {
-    ($command:expr, $containee:expr $(,)?) => {{
+    ($command:expr, $containee:expr $(,)?) => {
         match $crate::assert_command_stdout_string_contains_as_result!($command, $containee) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($command:expr, $containee:expr, $($message:tt)+) => {{
+    };
+    ($command:expr, $containee:expr, $($message:tt)+) => {
         match $crate::assert_command_stdout_string_contains_as_result!($command, $containee) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -233,9 +236,10 @@ mod test_assert_command_stdout_string_contains {
             "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_contains.html\n",
             "   command label: `a`,\n",
             "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            "   command value: `\"alfa\"`,\n",
             " containee label: `b`,\n",
             " containee debug: `\"zz\"`,\n",
-            "          string: `\"alfa\"`",
+            " containee value: `\"zz\"`",
         );
         assert_eq!(
             result

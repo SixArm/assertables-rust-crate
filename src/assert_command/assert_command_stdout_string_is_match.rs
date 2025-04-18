@@ -42,61 +42,59 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_string_is_match_as_result {
-    ($command:expr, $matcher:expr $(,)?) => {{
-        match (/*&$command,*/ &$matcher) {
-            matcher => {
-                match $command.output() {
-                    Ok(output) => {
-                        let string = String::from_utf8(output.stdout).unwrap();
-                        if $matcher.is_match(&string) {
-                            Ok(string)
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-                                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_is_match.html\n",
-                                        " command label: `{}`,\n",
-                                        " command debug: `{:?}`,\n",
-                                        " matcher label: `{}`,\n",
-                                        " matcher debug: `{:?}`,\n",
-                                        " command value: `{:?}`,\n",
-                                        " matcher value: `{:?}`"
-                                    ),
-                                    stringify!($command),
-                                    $command,
-                                    stringify!($matcher),
-                                    matcher,
-                                    string,
-                                    matcher
-                                )
-                            )
-                        }
-                    },
-                    Err(err) => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-                                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_is_match.html\n",
-                                    "  command label: `{}`,\n",
-                                    "  command debug: `{:?}`,\n",
-                                    "  matcher label: `{}`,\n",
-                                    "  matcher debug: `{:?}`,\n",
-                                    "  output is err: `{:?}`"
-                                ),
-                                stringify!($command),
-                                $command,
-                                stringify!($matcher),
-                                matcher,
-                                err
-                            )
+    ($command:expr, $matcher:expr $(,)?) => {
+        match ($command.output(), &$matcher) {
+            (Ok(a), matcher) => {
+                let a = String::from_utf8(a.stdout).unwrap();
+                if matcher.is_match(&a) {
+                    Ok(a)
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
+                                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_is_match.html\n",
+                                " command label: `{}`,\n",
+                                " command debug: `{:?}`,\n",
+                                " command value: `{:?}`,\n",
+                                " matcher label: `{}`,\n",
+                                " matcher debug: `{:?}`,\n",
+                                " matcher value: `{:?}`"
+                            ),
+                            stringify!($command),
+                            $command,
+                            a,
+                            stringify!($matcher),
+                            $matcher,
+                            matcher
                         )
-                    }
+                    )
                 }
+            },
+            (a, matcher) => {
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
+                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_is_match.html\n",
+                            " command label: `{}`,\n",
+                            " command debug: `{:?}`,\n",
+                            " command value: `{:?}`,\n",
+                            " matcher label: `{}`,\n",
+                            " matcher debug: `{:?}`,\n",
+                            " matcher value: `{:?}`"
+                        ),
+                        stringify!($command),
+                        $command,
+                        a,
+                        stringify!($matcher),
+                        $matcher,
+                        matcher
+                )
+                )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -124,9 +122,9 @@ mod test_assert_command_stdout_string_is_match_as_result {
             "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_is_match.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " command value: `\"alfa\"`,\n",
             " matcher label: `b`,\n",
             " matcher debug: `Regex(\"zz\")`,\n",
-            " command value: `\"alfa\"`,\n",
             " matcher value: `Regex(\"zz\")`"
         );
         assert_eq!(actual.unwrap_err(), message);
@@ -168,9 +166,9 @@ mod test_assert_command_stdout_string_is_match_as_result {
 /// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_is_match.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
+/// //  command value: `\"alfa\"`,
 /// //  matcher label: `&matcher`,
 /// //  matcher debug: `Regex(\"zz\")`,
-/// //  command value: `\"alfa\"`,
 /// //  matcher value: `Regex(\"zz\")`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
@@ -178,9 +176,9 @@ mod test_assert_command_stdout_string_is_match_as_result {
 /// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_is_match.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+/// #     " command value: `\"alfa\"`,\n",
 /// #     " matcher label: `&matcher`,\n",
 /// #     " matcher debug: `Regex(\"zz\")`,\n",
-/// #     " command value: `\"alfa\"`,\n",
 /// #     " matcher value: `Regex(\"zz\")`"
 /// # );
 /// # assert_eq!(actual, message);
@@ -195,18 +193,18 @@ mod test_assert_command_stdout_string_is_match_as_result {
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_string_is_match {
-    ($command:expr, $matcher:expr $(,)?) => {{
+    ($command:expr, $matcher:expr $(,)?) => {
         match $crate::assert_command_stdout_string_is_match_as_result!($command, $matcher) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($command:expr, $matcher:expr, $($message:tt)+) => {{
+    };
+    ($command:expr, $matcher:expr, $($message:tt)+) => {
         match $crate::assert_command_stdout_string_is_match_as_result!($command, $matcher) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -237,9 +235,9 @@ mod test_assert_command_stdout_string_is_match {
             "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_string_is_match.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " command value: `\"alfa\"`,\n",
             " matcher label: `b`,\n",
             " matcher debug: `Regex(\"zz\")`,\n",
-            " command value: `\"alfa\"`,\n",
             " matcher value: `Regex(\"zz\")`"
         );
         assert_eq!(

@@ -42,7 +42,7 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_ge_as_result {
-    ($a_command:expr, $b_command:expr $(,)?) => {{
+    ($a_command:expr, $b_command:expr $(,)?) => {
         match ($a_command.output(), $b_command.output()) {
             (Ok(a), Ok(b)) => {
                 let a = a.stderr;
@@ -57,16 +57,16 @@ macro_rules! assert_command_stderr_ge_as_result {
                                 "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stderr_ge.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
+                                " a value: `{:?}`,\n",
                                 " b label: `{}`,\n",
                                 " b debug: `{:?}`,\n",
-                                "       a: `{:?}`,\n",
-                                "       b: `{:?}`"
+                                " b value: `{:?}`"
                             ),
                             stringify!($a_command),
                             $a_command,
+                            a,
                             stringify!($b_command),
                             $b_command,
-                            a,
                             b
                         )
                     )
@@ -80,22 +80,22 @@ macro_rules! assert_command_stderr_ge_as_result {
                             "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stderr_ge.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
+                            " a value: `{:?}`,\n",
                             " b label: `{}`,\n",
                             " b debug: `{:?}`,\n",
-                            "       a: `{:?}`,\n",
-                            "       b: `{:?}`"
+                            " b value: `{:?}`"
                         ),
                         stringify!($a_command),
                         $a_command,
+                        a,
                         stringify!($b_command),
                         $b_command,
-                        a,
                         b
                     )
                 )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -140,10 +140,10 @@ mod test_assert_command_stderr_ge_as_result {
             "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stderr_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            " a value: `[97, 108, 102, 97]`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,\n",
-            "       a: `[97, 108, 102, 97]`,\n",
-            "       b: `[122, 122]`"
+            " b value: `[122, 122]`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -185,20 +185,20 @@ mod test_assert_command_stderr_ge_as_result {
 /// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stderr_ge.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
+/// //  a value: `[97, 108, 102, 97]`,
 /// //  b label: `b`,
 /// //  b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,
-/// //        a: `[97, 108, 102, 97]`,
-/// //        b: `[122, 122]`
+/// //  b value: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
 /// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stderr_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+/// #     " a value: `[97, 108, 102, 97]`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,\n",
-/// #     "       a: `[97, 108, 102, 97]`,\n",
-/// #     "       b: `[122, 122]`"
+/// #     " b value: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -212,18 +212,18 @@ mod test_assert_command_stderr_ge_as_result {
 ///
 #[macro_export]
 macro_rules! assert_command_stderr_ge {
-    ($a_command:expr, $b_command:expr $(,)?) => {{
+    ($a_command:expr, $b_command:expr $(,)?) => {
         match $crate::assert_command_stderr_ge_as_result!($a_command, $b_command) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_command:expr, $b_command:expr, $($message:tt)+) => {{
+    };
+    ($a_command:expr, $b_command:expr, $($message:tt)+) => {
         match $crate::assert_command_stderr_ge_as_result!($a_command, $b_command) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -268,10 +268,10 @@ mod test_assert_command_stderr_ge {
             "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stderr_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            " a value: `[97, 108, 102, 97]`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,\n",
-            "       a: `[97, 108, 102, 97]`,\n",
-            "       b: `[122, 122]`"
+            " b value: `[122, 122]`"
         );
         assert_eq!(
             result

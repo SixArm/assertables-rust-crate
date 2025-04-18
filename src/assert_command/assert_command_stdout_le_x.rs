@@ -41,61 +41,59 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_le_x_as_result {
-    ($a_command:expr, $b_expr:expr $(,)?) => {{
-        match (/*&$command,*/ &$b_expr) {
-            b => {
-                match $a_command.output() {
-                    Ok(a) => {
-                        let a = a.stdout;
-                        if a.le(&$b_expr) {
-                            Ok(a)
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_command_stdout_le_x!(command, expr)`\n",
-                                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_le_x.html\n",
-                                        " command label: `{}`,\n",
-                                        " command debug: `{:?}`,\n",
-                                        "    expr label: `{}`,\n",
-                                        "    expr debug: `{:?}`,\n",
-                                        " command value: `{:?}`,\n",
-                                        "    expr value: `{:?}`"
-                                    ),
-                                    stringify!($a_command),
-                                    $a_command,
-                                    stringify!($b_expr),
-                                    $b_expr,
-                                    a,
-                                    b
-                                )
-                            )
-                        }
-                    },
-                    Err(err) => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_command_stdout_le_x!(command, expr)`\n",
-                                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_le_x.html\n",
-                                    "  command label: `{}`,\n",
-                                    "  command debug: `{:?}`,\n",
-                                    "     expr label: `{}`,\n",
-                                    "     expr debug: `{:?}`,\n",
-                                    "  output is err: `{:?}`"
-                                ),
-                                stringify!($a_command),
-                                $a_command,
-                                stringify!($b_expr),
-                                $b_expr,
-                                err
-                            )
+    ($a_command:expr, $b_expr:expr $(,)?) => {
+        match ($a_command.output(), &$b_expr) {
+            (Ok(a), b) => {
+                let a = a.stdout;
+                if a.le(b) {
+                    Ok(a)
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_command_stdout_le_x!(command, expr)`\n",
+                                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_le_x.html\n",
+                                " command label: `{}`,\n",
+                                " command debug: `{:?}`,\n",
+                                " command value: `{:?}`,\n",
+                                "    expr label: `{}`,\n",
+                                "    expr debug: `{:?}`,\n",
+                                "    expr value: `{:?}`"
+                            ),
+                            stringify!($a_command),
+                            $a_command,
+                            a,
+                            stringify!($b_expr),
+                            $b_expr,
+                            b
                         )
-                    }
+                    )
                 }
+            },
+            (a, b) => {
+                Err(
+                    format!(
+                        concat!(
+                            "assertion failed: `assert_command_stdout_le_x!(command, expr)`\n",
+                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_le_x.html\n",
+                            " command label: `{}`,\n",
+                            " command debug: `{:?}`,\n",
+                            " command value: `{:?}`,\n",
+                            "    expr label: `{}`,\n",
+                            "    expr debug: `{:?}`,\n",
+                            "    expr value: `{:?}`"
+                        ),
+                        stringify!($a_command),
+                        $a_command,
+                        a,
+                        stringify!($b_expr),
+                        $b_expr,
+                        b
+                )
+                )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -131,9 +129,9 @@ mod test_assert_command_stdout_le_x_as_result {
             "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_le_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
             "    expr label: `b`,\n",
             "    expr debug: `[97, 97]`,\n",
-            " command value: `[97, 108, 102, 97]`,\n",
             "    expr value: `[97, 97]`"
         );
         assert_eq!(actual.unwrap_err(), message);
@@ -174,9 +172,9 @@ mod test_assert_command_stdout_le_x_as_result {
 /// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_le_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
+/// //  command value: `[97, 108, 102, 97]`,
 /// //     expr label: `bytes`,
 /// //     expr debug: `[97, 97]`,
-/// //  command value: `[97, 108, 102, 97]`,
 /// //     expr value: `[97, 97]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
@@ -184,9 +182,9 @@ mod test_assert_command_stdout_le_x_as_result {
 /// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_le_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+/// #     " command value: `[97, 108, 102, 97]`,\n",
 /// #     "    expr label: `bytes`,\n",
 /// #     "    expr debug: `[97, 97]`,\n",
-/// #     " command value: `[97, 108, 102, 97]`,\n",
 /// #     "    expr value: `[97, 97]`"
 /// # );
 /// # assert_eq!(actual, message);
@@ -201,18 +199,18 @@ mod test_assert_command_stdout_le_x_as_result {
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_le_x {
-    ($a_command:expr, $b_expr:expr $(,)?) => {{
+    ($a_command:expr, $b_expr:expr $(,)?) => {
         match $crate::assert_command_stdout_le_x_as_result!($a_command, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_command:expr, $b_expr:expr, $($message:tt)+) => {{
+    };
+    ($a_command:expr, $b_expr:expr, $($message:tt)+) => {
         match $crate::assert_command_stdout_le_x_as_result!($a_command, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -251,9 +249,9 @@ mod test_assert_command_stdout_le_x {
             "https://docs.rs/assertables/9.5.1/assertables/macro.assert_command_stdout_le_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
             "    expr label: `b`,\n",
             "    expr debug: `[97, 97]`,\n",
-            " command value: `[97, 108, 102, 97]`,\n",
             "    expr value: `[97, 97]`"
         );
         assert_eq!(

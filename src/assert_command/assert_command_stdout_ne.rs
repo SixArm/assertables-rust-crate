@@ -42,7 +42,7 @@
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_ne_as_result {
-    ($a_command:expr, $b_command:expr $(,)?) => {{
+    ($a_command:expr, $b_command:expr $(,)?) => {
         match ($a_command.output(), $b_command.output()) {
             (Ok(a), Ok(b)) => {
                 let a = a.stdout;
@@ -59,8 +59,8 @@ macro_rules! assert_command_stdout_ne_as_result {
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
                                 " b debug: `{:?}`,\n",
-                                "       a: `{:?}`,\n",
-                                "       b: `{:?}`"
+                                " a value: `{:?}`,\n",
+                                " b value: `{:?}`"
                             ),
                             stringify!($a_command),
                             $a_command,
@@ -82,8 +82,8 @@ macro_rules! assert_command_stdout_ne_as_result {
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
                             " b debug: `{:?}`,\n",
-                            "       a: `{:?}`,\n",
-                            "       b: `{:?}`"
+                            " a value: `{:?}`,\n",
+                            " b value: `{:?}`"
                         ),
                         stringify!($a_command),
                         $a_command,
@@ -95,7 +95,7 @@ macro_rules! assert_command_stdout_ne_as_result {
                 )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -142,8 +142,8 @@ mod test_assert_command_stdout_ne_as_result {
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-            "       a: `[97, 108, 102, 97]`,\n",
-            "       b: `[97, 108, 102, 97]`"
+            " a value: `[97, 108, 102, 97]`,\n",
+            " b value: `[97, 108, 102, 97]`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -187,8 +187,8 @@ mod test_assert_command_stdout_ne_as_result {
 /// //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
 /// //  b debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
-/// //        a: `[97, 108, 102, 97]`,
-/// //        b: `[97, 108, 102, 97]`
+/// //  a value: `[97, 108, 102, 97]`,
+/// //  b value: `[97, 108, 102, 97]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_ne!(a_command, b_command)`\n",
@@ -197,8 +197,8 @@ mod test_assert_command_stdout_ne_as_result {
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-/// #     "       a: `[97, 108, 102, 97]`,\n",
-/// #     "       b: `[97, 108, 102, 97]`"
+/// #     " a value: `[97, 108, 102, 97]`,\n",
+/// #     " b value: `[97, 108, 102, 97]`"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -212,18 +212,18 @@ mod test_assert_command_stdout_ne_as_result {
 ///
 #[macro_export]
 macro_rules! assert_command_stdout_ne {
-    ($a_command:expr, $b_command:expr $(,)?) => {{
+    ($a_command:expr, $b_command:expr $(,)?) => {
         match $crate::assert_command_stdout_ne_as_result!($a_command, $b_command) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_command:expr, $b_command:expr, $($message:tt)+) => {{
+    };
+    ($a_command:expr, $b_command:expr, $($message:tt)+) => {
         match $crate::assert_command_stdout_ne_as_result!($a_command, $b_command) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -267,8 +267,8 @@ mod test_assert_command_stdout_ne {
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-            "       a: `[97, 108, 102, 97]`,\n",
-            "       b: `[97, 108, 102, 97]`"
+            " a value: `[97, 108, 102, 97]`,\n",
+            " b value: `[97, 108, 102, 97]`"
         );
         assert_eq!(
             result
