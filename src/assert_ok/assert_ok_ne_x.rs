@@ -39,9 +39,11 @@
 ///
 #[macro_export]
 macro_rules! assert_ok_ne_x_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
-        match ($a, $b) {
-            (a, b) => {
+    ($a:expr, $b:expr $(,)?) => {
+        (
+            {
+                let a = ($a);
+                let b = ($b);
                 match (a) {
                     Ok(a1) => {
                         if a1 != b {
@@ -59,10 +61,10 @@ macro_rules! assert_ok_ne_x_as_result {
                                         " b debug: `{:?}`",
                                     ),
                                     stringify!($a),
-                                    $a,
+                                    a,
                                     a1,
                                     stringify!($b),
-                                    $b
+                                    b
                                 )
                             )
                         }
@@ -79,16 +81,16 @@ macro_rules! assert_ok_ne_x_as_result {
                                     " b debug: `{:?}`",
                                 ),
                                 stringify!($a),
-                                $a,
+                                a,
                                 stringify!($b),
-                                $b,
+                                b,
                             )
                         )
                     }
                 }
             }
-        }
-    }};
+        )
+    };
 }
 
 #[cfg(test)]
@@ -134,6 +136,17 @@ mod test_assert_ok_ne_x_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    #[test]
+    fn idempotent() {
+        let a = 100;
+        let b = 200;
+        let atomic = std::sync::atomic::AtomicU32::new(a);
+        let increment = || Err::<u32, u32>(atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
+        let _ = assert_ok_ne_x_as_result!(increment(), b);
+        assert_eq!(atomic.load(std::sync::atomic::Ordering::SeqCst), a + 1);
+    }
+
 }
 
 /// Assert an expression is Ok and its value is not equal to an expression.

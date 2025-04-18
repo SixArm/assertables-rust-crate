@@ -40,8 +40,10 @@
 #[macro_export]
 macro_rules! assert_ok_ne_as_result {
     ($a:expr, $b:expr $(,)?) => {
-        match ($a, $b) {
-            (a, b) => {
+        (
+            {
+                let a = ($a);
+                let b = ($b);
                 match (a, b) {
                     (Ok(a1), Ok(b1)) => {
                         if a1 != b1 {
@@ -60,10 +62,10 @@ macro_rules! assert_ok_ne_as_result {
                                         " b inner: `{:?}`"
                                     ),
                                     stringify!($a),
-                                    $a,
+                                    a,
                                     a1,
                                     stringify!($b),
-                                    $b,
+                                    b,
                                     b1
                                 )
                             )
@@ -81,15 +83,15 @@ macro_rules! assert_ok_ne_as_result {
                                     " b debug: `{:?}`",
                                 ),
                                 stringify!($a),
-                                $a,
+                                a,
                                 stringify!($b),
-                                $b
+                                b
                             )
                         )
                     }
                 }
             }
-        }
+        )
     };
 }
 
@@ -137,6 +139,20 @@ mod test_assert_ok_ne_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    #[test]
+    fn idempotent() {
+        let a = 100;
+        let b = 200;
+        let a_atomic = std::sync::atomic::AtomicU32::new(a);
+        let a_increment = || Err::<u32, u32>(a_atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
+        let b_atomic = std::sync::atomic::AtomicU32::new(b);
+        let b_increment = || Err::<u32, u32>(b_atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
+        let _ = assert_ok_ne_as_result!(a_increment(), b_increment());
+        assert_eq!(a_atomic.load(std::sync::atomic::Ordering::SeqCst), a + 1);
+        assert_eq!(b_atomic.load(std::sync::atomic::Ordering::SeqCst), b + 1);
+    }
+
 }
 
 /// Assert two expressions are Ok and their values are not equal.
