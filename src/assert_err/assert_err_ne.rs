@@ -39,54 +39,58 @@
 ///
 #[macro_export]
 macro_rules! assert_err_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => {
+    ($a:expr, $b:expr $(,)?) => {{
         match ($a, $b) {
-            (Err(a1), Err(b1)) => {
-                if a1 != b1 {
-                    Ok((a1, b1))
-                } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_err_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err_ne.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " a inner: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                " b inner: `{:?}`"
-                            ),
-                            stringify!($a),
-                            $a,
-                            a1,
-                            stringify!($b),
-                            $b,
-                            b1
+            (a, b) => {
+                match (a, b) {
+                    (Err(a1), Err(b1)) => {
+                        if a1 != b1 {
+                            Ok((a1, b1))
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_err_ne!(a, b)`\n",
+                                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err_ne.html\n",
+                                        " a label: `{}`,\n",
+                                        " a debug: `{:?}`,\n",
+                                        " a inner: `{:?}`,\n",
+                                        " b label: `{}`,\n",
+                                        " b debug: `{:?}`,\n",
+                                        " b inner: `{:?}`"
+                                    ),
+                                    stringify!($a),
+                                    a,
+                                    a1,
+                                    stringify!($b),
+                                    b,
+                                    b1
+                                )
+                            )
+                        }
+                    },
+                    _ => {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_err_ne!(a, b)`\n",
+                                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err_ne.html\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`,\n",
+                                    " b label: `{}`,\n",
+                                    " b debug: `{:?}`",
+                                ),
+                                stringify!($a),
+                                a,
+                                stringify!($b),
+                                b,
+                            )
                         )
-                    )
+                    }
                 }
-            },
-            _ => {
-                Err(
-                    format!(
-                        concat!(
-                            "assertion failed: `assert_err_ne!(a, b)`\n",
-                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err_ne.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`",
-                        ),
-                        stringify!($a),
-                        $a,
-                        stringify!($b),
-                        $b,
-                    )
-                )
             }
         }
-    };
+    }};
 }
 
 #[cfg(test)]

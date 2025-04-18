@@ -38,21 +38,25 @@
 ///
 #[macro_export]
 macro_rules! assert_err_as_result {
-    ($a:expr $(,)?) => {
+    ($a:expr $(,)?) => {{
         match ($a) {
-            Err(a1) => Ok(a1),
-            _ => Err(format!(
-                concat!(
-                    "assertion failed: `assert_err!(a)`\n",
-                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err.html\n",
-                    " a label: `{}`,\n",
-                    " a debug: `{:?}`",
-                ),
-                stringify!($a),
-                $a
-            )),
+            a => {
+                match (a) {
+                    Err(a1) => Ok(a1),
+                    _ => Err(format!(
+                        concat!(
+                            "assertion failed: `assert_err!(a)`\n",
+                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`",
+                        ),
+                        stringify!($a),
+                        a
+                    )),
+                }
+            }
         }
-    };
+    }};
 }
 
 #[cfg(test)]

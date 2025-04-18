@@ -381,8 +381,8 @@
                                 <span class="string">" a debug: `{:?}`,\n"</span>,
                                 <span class="string">" b label: `{}`,\n"</span>,
                                 <span class="string">" b debug: `{:?}`,\n"</span>,
-                                <span class="string">"       a: `{:?}`,\n"</span>,
-                                <span class="string">"       b: `{:?}`"
+                                <span class="string">" a value: `{:?}`,\n"</span>,
+                                <span class="string">" b value: `{:?}`"
                             </span>),
                             <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
                             <span class="macro-nonterminal">$a_command</span>,
@@ -404,8 +404,8 @@
                             <span class="string">" a debug: `{:?}`,\n"</span>,
                             <span class="string">" b label: `{}`,\n"</span>,
                             <span class="string">" b debug: `{:?}`,\n"</span>,
-                            <span class="string">"       a: `{:?}`,\n"</span>,
-                            <span class="string">"       b: `{:?}`"
+                            <span class="string">" a value: `{:?}`,\n"</span>,
+                            <span class="string">" b value: `{:?}`"
                         </span>),
                         <span class="macro">stringify!</span>(<span class="macro-nonterminal">$a_command</span>),
                         <span class="macro-nonterminal">$a_command</span>,
@@ -464,8 +464,8 @@
             <span class="string">" a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">" b label: `b`,\n"</span>,
             <span class="string">" b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,\n"</span>,
-            <span class="string">"       a: `[97, 108, 102, 97]`,\n"</span>,
-            <span class="string">"       b: `[122, 122]`"
+            <span class="string">" a value: `[97, 108, 102, 97]`,\n"</span>,
+            <span class="string">" b value: `[122, 122]`"
         </span>);
         <span class="macro">assert_eq!</span>(actual.unwrap_err(), message);
     }
@@ -509,8 +509,8 @@
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
 /// //  b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,
-/// //        a: `[97, 108, 102, 97]`,
-/// //        b: `[122, 122]`
+/// //  a value: `[97, 108, 102, 97]`,
+/// //  b value: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
@@ -519,8 +519,8 @@
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,\n",
-/// #     "       a: `[97, 108, 102, 97]`,\n",
-/// #     "       b: `[122, 122]`"
+/// #     " a value: `[97, 108, 102, 97]`,\n",
+/// #     " b value: `[122, 122]`"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -592,8 +592,8 @@
             <span class="string">" a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n"</span>,
             <span class="string">" b label: `b`,\n"</span>,
             <span class="string">" b debug: `\"bin/printf-stderr\" \"%s\" \"zz\"`,\n"</span>,
-            <span class="string">"       a: `[97, 108, 102, 97]`,\n"</span>,
-            <span class="string">"       b: `[122, 122]`"
+            <span class="string">" a value: `[97, 108, 102, 97]`,\n"</span>,
+            <span class="string">" b value: `[122, 122]`"
         </span>);
         <span class="macro">assert_eq!</span>(
             result

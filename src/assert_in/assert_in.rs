@@ -40,23 +40,27 @@
 #[macro_export]
 macro_rules! assert_in_as_result {
     ($a:expr, $container:expr $(,)?) => {{
-        if $container.contains(&$a) {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_in!(a, container)`\n",
-                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in.html\n",
-                    "         a label: `{}`,\n",
-                    "         a debug: `{:?}`,\n",
-                    " container label: `{}`,\n",
-                    " container debug: `{:?}`",
-                ),
-                stringify!($a),
-                $a,
-                stringify!($container),
-                $container,
-            ))
+        match ($a, $container) {
+            (a, container) => {
+                if container.contains(&a) {
+                    Ok(())
+                } else {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_in!(a, container)`\n",
+                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in.html\n",
+                            "         a label: `{}`,\n",
+                            "         a debug: `{:?}`,\n",
+                            " container label: `{}`,\n",
+                            " container debug: `{:?}`",
+                        ),
+                        stringify!($a),
+                        a,
+                        stringify!($container),
+                        container,
+                    ))
+                }
+            }
         }
     }};
 }

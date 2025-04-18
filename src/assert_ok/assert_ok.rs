@@ -39,19 +39,22 @@
 #[macro_export]
 macro_rules! assert_ok_as_result {
     ($a:expr $(,)?) => {
-        match ($a) {
-            Ok(a1) => Ok(a1),
-            _ => Err(format!(
-                concat!(
-                    "assertion failed: `assert_ok!(a)`\n",
-                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_ok.html\n",
-                    " a label: `{}`,\n",
-                    " a debug: `{:?}`",
-                ),
-                stringify!($a),
-                $a
-            )),
-        }
+        ({
+            let a = ($a);
+            match (a) {
+                Ok(a1) => Ok(a1),
+                _ => Err(format!(
+                    concat!(
+                        "assertion failed: `assert_ok!(a)`\n",
+                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_ok.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`",
+                    ),
+                    stringify!($a),
+                    a
+                )),
+            }
+        })
     };
 }
 

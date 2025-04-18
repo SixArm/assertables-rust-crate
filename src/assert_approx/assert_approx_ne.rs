@@ -83,7 +83,7 @@
 ///
 #[macro_export]
 macro_rules! assert_approx_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => {
         match (&$a, &$b) {
             (a, b) => {
                 let approx = 1e-6;
@@ -115,7 +115,7 @@ macro_rules! assert_approx_ne_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]

@@ -28,7 +28,7 @@ Code:
 ```rust
 #[macro_export]
 macro_rules! assert_gt_as_result {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {
         match (&$a, &$b) {
             (a, b) => {
                 if a > b {
@@ -45,15 +45,15 @@ macro_rules! assert_gt_as_result {
                                 " right debug: `{:?}`"
                             ),
                             stringify!($a),
-                            $a,
+                            a,
                             stringify!($b),
-                            $b
+                            b
                         )
                     )
                 }
             }
         }
-    }
+    };
 }
 ```
 
@@ -73,18 +73,18 @@ Code:
 ```rust
 #[macro_export]
 macro_rules! assert_gt {
-    ($a:expr, $b:expr $(,)?) => ({
+    ($a:expr, $b:expr $(,)?) => {
         match $crate::assert_gt_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    });
+    };
     ($a:expr, $b:expr, $($message:tt)+) => ({
         match $crate::assert_gt!($a, $b) {
             Ok(x) => x,
             Err(_err) => panic!("{}", $($message)+),
         }
-    });
+    };
 }
 ```
 

@@ -41,7 +41,7 @@
 ///
 #[macro_export]
 macro_rules! assert_bag_ne_as_result {
-    ($a_collection:expr, $b_collection:expr $(,)?) => {{
+    ($a_collection:expr, $b_collection:expr $(,)?) => {
         match (&$a_collection, &$b_collection) {
             (a_collection, b_collection) => {
                 let a_bag = assert_bag_impl_prep!(a_collection);
@@ -72,7 +72,7 @@ macro_rules! assert_bag_ne_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]

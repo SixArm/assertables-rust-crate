@@ -40,23 +40,27 @@
 #[macro_export]
 macro_rules! assert_in_range_as_result {
     ($a:expr, $range:expr $(,)?) => {{
-        if $range.contains(&$a) {
-            Ok(())
-        } else {
-            Err(format!(
-                concat!(
-                    "assertion failed: `assert_in_range!(a, range)`\n",
-                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_range.html\n",
-                    "     a label: `{}`,\n",
-                    "     a debug: `{:?}`,\n",
-                    " range label: `{}`,\n",
-                    " range debug: `{:?}`"
-                ),
-                stringify!($a),
-                $a,
-                stringify!($range),
-                $range
-            ))
+        match ($a, $range) {
+            (a, range) => {
+                if range.contains(&a) {
+                    Ok(())
+                } else {
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_in_range!(a, range)`\n",
+                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_range.html\n",
+                            "     a label: `{}`,\n",
+                            "     a debug: `{:?}`,\n",
+                            " range label: `{}`,\n",
+                            " range debug: `{:?}`"
+                        ),
+                        stringify!($a),
+                        a,
+                        stringify!($range),
+                        range
+                    ))
+                }
+            }
         }
     }};
 }

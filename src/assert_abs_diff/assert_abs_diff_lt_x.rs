@@ -41,7 +41,7 @@
 ///
 #[macro_export]
 macro_rules! assert_abs_diff_lt_x_as_result {
-    ($a:expr, $b:expr, $x:expr $(,)?) => {{
+    ($a:expr, $b:expr, $x:expr $(,)?) => {
         match (&$a, &$b, &$x) {
             (a, b, x) => {
                 match ::std::panic::catch_unwind(|| if (a >= b) { a - b } else { b - a }) {
@@ -101,7 +101,7 @@ macro_rules! assert_abs_diff_lt_x_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]

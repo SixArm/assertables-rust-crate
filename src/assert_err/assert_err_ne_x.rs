@@ -39,52 +39,56 @@
 ///
 #[macro_export]
 macro_rules! assert_err_ne_x_as_result {
-    ($a:expr, $b:expr $(,)?) => {
-        match ($a) {
-            Err(a1) => {
-                if a1 != $b {
-                    Ok(a1)
-                } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_err_ne_x!(a, b)`\n",
-                                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err_ne_x.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " a inner: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`",
-                            ),
-                            stringify!($a),
-                            $a,
-                            a1,
-                            stringify!($b),
-                            $b
+    ($a:expr, $b:expr $(,)?) => {{
+        match ($a, $b) {
+            (a, b) => {
+                match (a) {
+                    Err(a1) => {
+                        if a1 != b {
+                            Ok(a1)
+                        } else {
+                            Err(
+                                format!(
+                                    concat!(
+                                        "assertion failed: `assert_err_ne_x!(a, b)`\n",
+                                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err_ne_x.html\n",
+                                        " a label: `{}`,\n",
+                                        " a debug: `{:?}`,\n",
+                                        " a inner: `{:?}`,\n",
+                                        " b label: `{}`,\n",
+                                        " b debug: `{:?}`",
+                                    ),
+                                    stringify!($a),
+                                    a,
+                                    a1,
+                                    stringify!($b),
+                                    b
+                                )
+                            )
+                        }
+                    },
+                    _ => {
+                        Err(
+                            format!(
+                                concat!(
+                                    "assertion failed: `assert_err_ne_x!(a, b)`\n",
+                                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err_ne_x.html\n",
+                                    " a label: `{}`,\n",
+                                    " a debug: `{:?}`,\n",
+                                    " b label: `{}`,\n",
+                                    " b debug: `{:?}`",
+                                ),
+                                stringify!($a),
+                                a,
+                                stringify!($b),
+                                b,
+                            )
                         )
-                    )
+                    }
                 }
-            },
-            _ => {
-                Err(
-                    format!(
-                        concat!(
-                            "assertion failed: `assert_err_ne_x!(a, b)`\n",
-                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_err_ne_x.html\n",
-                            " a label: `{}`,\n",
-                            " a debug: `{:?}`,\n",
-                            " b label: `{}`,\n",
-                            " b debug: `{:?}`",
-                        ),
-                        stringify!($a),
-                        $a,
-                        stringify!($b),
-                        $b,
-                    )
-                )
             }
         }
-    };
+    }};
 }
 
 #[cfg(test)]
