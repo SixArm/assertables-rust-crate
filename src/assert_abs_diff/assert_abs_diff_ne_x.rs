@@ -53,7 +53,7 @@ macro_rules! assert_abs_diff_ne_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_abs_diff_ne_x!(a, b, x)`\n",
-                                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_abs_diff_ne_x.html\n",
+                                        "https://docs.rs/assertables/9.5.3/assertables/macro.assert_abs_diff_ne_x.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
                                         " b label: `{}`,\n",
@@ -80,7 +80,7 @@ macro_rules! assert_abs_diff_ne_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_abs_diff_ne_x!(a, b, x)`\n",
-                                    "https://docs.rs/assertables/9.5.1/assertables/macro.assert_abs_diff_ne_x.html\n",
+                                    "https://docs.rs/assertables/9.5.3/assertables/macro.assert_abs_diff_ne_x.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " b label: `{}`,\n",
@@ -106,7 +106,7 @@ macro_rules! assert_abs_diff_ne_x_as_result {
 
 #[cfg(test)]
 mod test_assert_abs_diff_ne_x_as_result {
-
+    
     #[test]
     fn lt() {
         let a = 10;
@@ -133,7 +133,7 @@ mod test_assert_abs_diff_ne_x_as_result {
         let actual = assert_abs_diff_ne_x_as_result!(a, b, x);
         let message = concat!(
             "assertion failed: `assert_abs_diff_ne_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_abs_diff_ne_x.html\n",
+            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_abs_diff_ne_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -155,7 +155,7 @@ mod test_assert_abs_diff_ne_x_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_abs_diff_ne_x!(a, b, x)`\n",
-                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_abs_diff_ne_x.html\n",
+                "https://docs.rs/assertables/9.5.3/assertables/macro.assert_abs_diff_ne_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `{}`,\n",
                 " b label: `b`,\n",
@@ -168,6 +168,40 @@ mod test_assert_abs_diff_ne_x_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> i32 {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            10
+        }
+
+        static B: Once = Once::new();
+        fn b() -> i32 {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            13
+        }
+
+        static X: Once = Once::new();
+        fn x() -> i32 {
+            if X.is_completed() { panic!("X.is_completed()") } else { X.call_once(|| {}) }
+            2
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        assert_eq!(X.is_completed(), false);
+        let result = assert_abs_diff_ne_x_as_result!(a(), b(), x());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        assert_eq!(X.is_completed(), true);
+        
+    }
+
 }
 
 /// Assert an absolute difference is not equal to an expression.
@@ -200,7 +234,7 @@ mod test_assert_abs_diff_ne_x_as_result {
 /// assert_abs_diff_ne_x!(a, b, x);
 /// # });
 /// // assertion failed: `assert_abs_diff_ne_x!(a, b)`
-/// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_abs_diff_ne_x.html
+/// // https://docs.rs/assertables/9.5.3/assertables/macro.assert_abs_diff_ne_x.html
 /// //  a label: `a`,
 /// //  a debug: `10`,
 /// //  b label: `b`,
@@ -212,7 +246,7 @@ mod test_assert_abs_diff_ne_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_abs_diff_ne_x!(a, b, x)`\n",
-/// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_abs_diff_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.3/assertables/macro.assert_abs_diff_ne_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `10`,\n",
 /// #     " b label: `b`,\n",
@@ -280,7 +314,7 @@ mod test_assert_abs_diff_ne_x {
         });
         let message = concat!(
             "assertion failed: `assert_abs_diff_ne_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_abs_diff_ne_x.html\n",
+            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_abs_diff_ne_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -311,7 +345,7 @@ mod test_assert_abs_diff_ne_x {
         let message = format!(
             concat!(
                 "assertion failed: `assert_abs_diff_ne_x!(a, b, x)`\n",
-                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_abs_diff_ne_x.html\n",
+                "https://docs.rs/assertables/9.5.3/assertables/macro.assert_abs_diff_ne_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `{}`,\n",
                 " b label: `b`,\n",

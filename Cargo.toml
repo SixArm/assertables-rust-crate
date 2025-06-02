@@ -1,6 +1,6 @@
 [package]
 name = "assertables"
-version = "9.5.2"
+version = "9.5.3"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2021"
 description = "Assertables: assert macros for better testing, debugging, quality assurance, and runtime reliability."
@@ -27,6 +27,6 @@ split-debuginfo = "packed"
 
 [dev-dependencies]
 cargo-dist = "0.22.1" # Cargo distribution builder for release engineering
-cargo-release = "0.25.12" # Cargo release automation
+cargo-release = "0.25.18" # Cargo release automation
 cargo-diet = "1.2.7" #  Cargo command to make your crate lean
-regex = "1.11.0" # Regular expressions parser, compiler, and executer
+regex = "1.11.1" # Regular expressions parser, compiler, and executer

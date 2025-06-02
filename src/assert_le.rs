@@ -48,7 +48,7 @@ macro_rules! assert_le_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_le!(a, b)`\n",
-                            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_le.html\n",
+                            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_le.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -70,28 +70,28 @@ mod test_assert_le_as_result {
 
     #[test]
     fn lt() {
-        let a: i32 = 1;
-        let b: i32 = 2;
+        let a: i8 = 1;
+        let b: i8 = 2;
         let actual = assert_le_as_result!(a, b);
         assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
     fn eq() {
-        let a: i32 = 1;
-        let b: i32 = 1;
+        let a: i8 = 1;
+        let b: i8 = 1;
         let actual = assert_le_as_result!(a, b);
         assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
     fn gt() {
-        let a: i32 = 2;
-        let b: i32 = 1;
+        let a: i8 = 2;
+        let b: i8 = 1;
         let actual = assert_le_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_le!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_le.html\n",
+            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_le.html\n",
             " a label: `a`,\n",
             " a debug: `2`,\n",
             " b label: `b`,\n",
@@ -99,6 +99,31 @@ mod test_assert_le_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> i8 {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            1
+        }
+
+        static B: Once = Once::new();
+        fn b() -> i8 {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            2
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_le_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);    
+    }
+
 }
 
 /// Assert an expression is less than or equal to another.
@@ -129,7 +154,7 @@ mod test_assert_le_as_result {
 /// assert_le!(a, b);
 /// # });
 /// // assertion failed: `assert_le!(a, b)`
-/// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_le.html
+/// // https://docs.rs/assertables/9.5.3/assertables/macro.assert_le.html
 /// //  a label: `a`,
 /// //  a debug: `2`,
 /// //  b label: `b`,
@@ -137,7 +162,7 @@ mod test_assert_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_le!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_le.html\n",
+/// #     "https://docs.rs/assertables/9.5.3/assertables/macro.assert_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `2`,\n",
 /// #     " b label: `b`,\n",
@@ -175,30 +200,30 @@ mod test_assert_le {
 
     #[test]
     fn lt() {
-        let a: i32 = 1;
-        let b: i32 = 2;
+        let a: i8 = 1;
+        let b: i8 = 2;
         let actual = assert_le!(a, b);
         assert_eq!(actual, ());
     }
 
     #[test]
     fn eq() {
-        let a: i32 = 1;
-        let b: i32 = 1;
+        let a: i8 = 1;
+        let b: i8 = 1;
         let actual = assert_le!(a, b);
         assert_eq!(actual, ());
     }
 
     #[test]
     fn gt() {
-        let a: i32 = 2;
-        let b: i32 = 1;
+        let a: i8 = 2;
+        let b: i8 = 1;
         let result = panic::catch_unwind(|| {
             let _actual = assert_le!(a, b);
         });
         let message = concat!(
             "assertion failed: `assert_le!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_le.html\n",
+            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_le.html\n",
             " a label: `a`,\n",
             " a debug: `2`,\n",
             " b label: `b`,\n",

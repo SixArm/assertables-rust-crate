@@ -94,7 +94,7 @@ macro_rules! assert_in_epsilon_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-                                "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_epsilon.html\n",
+                                "https://docs.rs/assertables/9.5.3/assertables/macro.assert_in_epsilon.html\n",
                                 "                   a label: `{}`,\n",
                                 "                   a debug: `{:?}`,\n",
                                 "                   b label: `{}`,\n",
@@ -142,7 +142,7 @@ mod test_assert_in_epsilon_as_result {
         let actual = assert_in_epsilon_as_result!(a, b, epsilon);
         let message = concat!(
             "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_epsilon.html\n",
+            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_in_epsilon.html\n",
             "                   a label: `a`,\n",
             "                   a debug: `10`,\n",
             "                   b label: `b`,\n",
@@ -155,6 +155,40 @@ mod test_assert_in_epsilon_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> i8 {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            10
+        }
+
+        static B: Once = Once::new();
+        fn b() -> i8 {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            11
+        }
+
+        static EPSILON: Once = Once::new();
+        fn epsilon() -> i8 {
+            if EPSILON.is_completed() { panic!("EPSILON.is_completed()") } else { EPSILON.call_once(|| {}) }
+            1
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        assert_eq!(EPSILON.is_completed(), false);
+        let result = assert_in_epsilon_as_result!(a(), b(), epsilon());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        assert_eq!(EPSILON.is_completed(), true);
+        
+    }
+
 }
 
 /// Assert a number is within epsilon of another.
@@ -187,7 +221,7 @@ mod test_assert_in_epsilon_as_result {
 /// assert_in_epsilon!(a, b, epsilon);
 /// # });
 /// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-/// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_epsilon.html
+/// // https://docs.rs/assertables/9.5.3/assertables/macro.assert_in_epsilon.html
 /// //                    a label: `a`,
 /// //                    a debug: `10`,
 /// //                    b label: `b`,
@@ -200,7 +234,7 @@ mod test_assert_in_epsilon_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-/// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_epsilon.html\n",
+/// #     "https://docs.rs/assertables/9.5.3/assertables/macro.assert_in_epsilon.html\n",
 /// #     "                   a label: `a`,\n",
 /// #     "                   a debug: `10`,\n",
 /// #     "                   b label: `b`,\n",
@@ -278,7 +312,7 @@ mod test_assert_in_epsilon {
         });
         let message = concat!(
             "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_in_epsilon.html\n",
+            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_in_epsilon.html\n",
             "                   a label: `a`,\n",
             "                   a debug: `10`,\n",
             "                   b label: `b`,\n",

@@ -94,7 +94,7 @@ macro_rules! assert_infix_as_result {
                 format!(
                     concat!(
                         "assertion failed: `assert_infix!(a {} b)`\n",
-                        "https://docs.rs/assertables/9.5.1/assertables/macro.assert_infix.html\n",
+                        "https://docs.rs/assertables/9.5.3/assertables/macro.assert_infix.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -116,20 +116,20 @@ mod test_assert_infix_as_result {
 
     #[test]
     fn success() {
-        let a: i32 = 1;
-        let b: i32 = 1;
+        let a: i8 = 1;
+        let b: i8 = 1;
         let actual = assert_infix_as_result!(a == b);
         assert_eq!(actual.unwrap(), ());
     }
 
     #[test]
     fn failure() {
-        let a: i32 = 1;
-        let b: i32 = 2;
+        let a: i8 = 1;
+        let b: i8 = 2;
         let actual = assert_infix_as_result!(a == b);
         let message = concat!(
             "assertion failed: `assert_infix!(a == b)`\n",
-            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_infix.html\n",
+            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_infix.html\n",
             " a label: `a`,\n",
             " a debug: `1`,\n",
             " b label: `b`,\n",
@@ -137,6 +137,7 @@ mod test_assert_infix_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
 }
 
 /// Assert a infix operator, such as assert_infix!(a == b).
@@ -167,7 +168,7 @@ mod test_assert_infix_as_result {
 /// assert_infix!(a == b);
 /// # });
 /// // assertion failed: `assert_infix!(a == b)`
-/// // https://docs.rs/assertables/9.5.1/assertables/macro.assert_infix.html
+/// // https://docs.rs/assertables/9.5.3/assertables/macro.assert_infix.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,
@@ -175,7 +176,7 @@ mod test_assert_infix_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_infix!(a == b)`\n",
-/// #     "https://docs.rs/assertables/9.5.1/assertables/macro.assert_infix.html\n",
+/// #     "https://docs.rs/assertables/9.5.3/assertables/macro.assert_infix.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",
@@ -233,22 +234,22 @@ mod test_assert_infix {
 
     #[test]
     fn success() {
-        let a: i32 = 1;
-        let b: i32 = 1;
+        let a: i8 = 1;
+        let b: i8 = 1;
         let actual = assert_infix!(a == b);
         assert_eq!(actual, ());
     }
 
     #[test]
     fn failure() {
-        let a: i32 = 1;
-        let b: i32 = 2;
+        let a: i8 = 1;
+        let b: i8 = 2;
         let result = panic::catch_unwind(|| {
             let _actual = assert_infix!(a == b);
         });
         let message = concat!(
             "assertion failed: `assert_infix!(a == b)`\n",
-            "https://docs.rs/assertables/9.5.1/assertables/macro.assert_infix.html\n",
+            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_infix.html\n",
             " a label: `a`,\n",
             " a debug: `1`,\n",
             " b label: `b`,\n",

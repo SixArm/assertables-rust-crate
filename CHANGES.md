@@ -5,6 +5,8 @@ Changes as highlights for recent major versions.
 
 ## Version 9.x
 
+* 9.5.3 Fix idempotent access testing via once: `assert_{lt,le,gt,ge,ne}/`, `assert_in_{delta,epsilon,range}/`, `assert_abs_diff_*/`, `assert_diff_*/`, `assert_approx_*/`.
+
 * 9.5.2 Fix idempotent access: `assert_ok/`, `assert_err/`.
 
 * 9.5.1 Fix assert_in_range for range syntax `a..=b`.
