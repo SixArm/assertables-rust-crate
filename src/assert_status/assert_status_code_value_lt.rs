@@ -52,7 +52,7 @@ macro_rules! assert_status_code_value_lt_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.5.3/assertables/macro.assert_status_code_value_lt.html\n",
+                                        "https://docs.rs/assertables/9.5.4/assertables/macro.assert_status_code_value_lt.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
                                         " a value: `{:?}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_status_code_value_lt_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.5.3/assertables/macro.assert_status_code_value_lt.html\n",
+                                    "https://docs.rs/assertables/9.5.4/assertables/macro.assert_status_code_value_lt.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     "  a code: `{:?}`,\n",
@@ -99,7 +99,7 @@ macro_rules! assert_status_code_value_lt_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-                            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_status_code_value_lt.html\n",
+                            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_status_code_value_lt.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             " a status: `{:?}`,\n",
@@ -143,7 +143,7 @@ mod test_assert_status_code_value_lt_as_result {
         let actual = assert_status_code_value_lt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_status_code_value_lt.html\n",
+            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_status_code_value_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             " a value: `1`,\n",
@@ -163,7 +163,7 @@ mod test_assert_status_code_value_lt_as_result {
         let actual = assert_status_code_value_lt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_status_code_value_lt.html\n",
+            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_status_code_value_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
             " a value: `2`,\n",
@@ -204,7 +204,7 @@ mod test_assert_status_code_value_lt_as_result {
 /// assert_status_code_value_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_status_code_value_lt!(a, b)`
-/// // https://docs.rs/assertables/9.5.3/assertables/macro.assert_status_code_value_lt.html
+/// // https://docs.rs/assertables/9.5.4/assertables/macro.assert_status_code_value_lt.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 /// //  a value: `2`",
@@ -214,7 +214,7 @@ mod test_assert_status_code_value_lt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.5.3/assertables/macro.assert_status_code_value_lt.html\n",
+/// #     "https://docs.rs/assertables/9.5.4/assertables/macro.assert_status_code_value_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 /// #     " a value: `2`,\n",
@@ -274,7 +274,7 @@ mod test_assert_status_code_value_lt {
         });
         let message = concat!(
             "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_status_code_value_lt.html\n",
+            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_status_code_value_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             " a value: `1`,\n",
@@ -303,7 +303,7 @@ mod test_assert_status_code_value_lt {
         });
         let message = concat!(
             "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_status_code_value_lt.html\n",
+            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_status_code_value_lt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
             " a value: `2`,\n",

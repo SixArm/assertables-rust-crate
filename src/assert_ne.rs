@@ -45,7 +45,7 @@ macro_rules! assert_ne_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_ne!(a, b)`\n",
-                            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_ne.html\n",
+                            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_ne.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -80,7 +80,7 @@ mod test_assert_ne_as_result {
         let actual = assert_ne_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ne!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.3/assertables/macro.assert_ne.html\n",
+            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_ne.html\n",
             " a label: `a`,\n",
             " a debug: `1`,\n",
             " b label: `b`,\n",
@@ -110,7 +110,7 @@ mod test_assert_ne_as_result {
         let result = assert_ne_as_result!(a(), b());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
-        assert_eq!(B.is_completed(), true);   
+        assert_eq!(B.is_completed(), true);
     }
 
 }
