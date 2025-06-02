@@ -5,6 +5,8 @@ Changes as highlights for recent major versions.
 
 ## Version 9.x
 
+* 9.5.5 Fix documentation link version number also in README.
+
 * 9.5.4 Fix documentation link version number.
 
 * 9.5.3 Fix idempotent access testing via once: `assert_{lt,le,gt,ge,ne}/`, `assert_in_{delta,epsilon,range}/`, `assert_abs_diff_*/`, `assert_diff_*/`, `assert_approx_*/`.

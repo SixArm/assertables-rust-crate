@@ -284,7 +284,7 @@
                     <span class="prelude-val">Err</span>(<span class="macro">format!</span>(
                         <span class="macro">concat!</span>(
                             <span class="string">"assertion failed: `assert_all!(collection, predicate)`\n"</span>,
-                            <span class="string">"https://docs.rs/assertables/9.5.4/assertables/macro.assert_all.html\n"</span>,
+                            <span class="string">"https://docs.rs/assertables/9.5.5/assertables/macro.assert_all.html\n"</span>,
                             <span class="string">" collection label: `{}`,\n"</span>,
                             <span class="string">" collection debug: `{:?}`,\n"</span>,
                             <span class="string">"        predicate: `{}`"
@@ -315,7 +315,7 @@
         <span class="kw">let </span>actual = <span class="macro">assert_all_as_result!</span>(a.into_iter(), |x: i8| x &gt; <span class="number">0</span>);
         <span class="kw">let </span>message = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_all!(collection, predicate)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.5.4/assertables/macro.assert_all.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.5.5/assertables/macro.assert_all.html\n"</span>,
             <span class="string">" collection label: `a.into_iter()`,\n"</span>,
             <span class="string">" collection debug: `IntoIter([1, -2, 3])`,\n"</span>,
             <span class="string">"        predicate: `|x: i8| x &gt; 0`"
@@ -350,14 +350,14 @@
 /// assert_all!(a.into_iter(), |x: i8| x &gt; 0);
 /// # });
 /// // assertion failed: `assert_all!(collection, predicate)`
-/// // https://docs.rs/assertables/9.5.4/assertables/macro.assert_all.html
+/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_all.html
 /// //  collection label: `a.into_iter()`,
 /// //  collection debug: `IntoIter([1, -2, 3])`,
 /// //         predicate: `|x: i8| x &gt; 0`
 /// # let actual = result.unwrap_err().downcast::&lt;String&gt;().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_all!(collection, predicate)`\n",
-/// #     "https://docs.rs/assertables/9.5.4/assertables/macro.assert_all.html\n",
+/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_all.html\n",
 /// #     " collection label: `a.into_iter()`,\n",
 /// #     " collection debug: `IntoIter([1, -2, 3])`,\n",
 /// #     "        predicate: `|x: i8| x &gt; 0`",
@@ -409,7 +409,7 @@
         });
         <span class="kw">let </span>message = <span class="macro">concat!</span>(
             <span class="string">"assertion failed: `assert_all!(collection, predicate)`\n"</span>,
-            <span class="string">"https://docs.rs/assertables/9.5.4/assertables/macro.assert_all.html\n"</span>,
+            <span class="string">"https://docs.rs/assertables/9.5.5/assertables/macro.assert_all.html\n"</span>,
             <span class="string">" collection label: `a.into_iter()`,\n"</span>,
             <span class="string">" collection debug: `IntoIter([1, -2, 3])`,\n"</span>,
             <span class="string">"        predicate: `|x: i8| x &gt; 0`"

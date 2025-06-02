@@ -55,7 +55,7 @@ macro_rules! assert_io_read_to_string_le_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n",
-                                "https://docs.rs/assertables/9.5.4/assertables/macro.assert_io_read_to_string_le.html\n",
+                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_le.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -78,7 +78,7 @@ macro_rules! assert_io_read_to_string_le_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n",
-                            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_io_read_to_string_le.html\n",
+                            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_le.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             "  b label: `{}`,\n",
@@ -122,7 +122,7 @@ mod test_assert_io_read_to_string_le_as_result {
         let actual = assert_io_read_to_string_le_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n",
-            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_io_read_to_string_le.html\n",
+            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_le.html\n",
             " a label: `a`,\n",
             " a debug: `[]`,\n",
             " b label: `b`,\n",
@@ -163,7 +163,7 @@ mod test_assert_io_read_to_string_le_as_result {
 /// assert_io_read_to_string_le!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`
-/// // https://docs.rs/assertables/9.5.4/assertables/macro.assert_io_read_to_string_le.html
+/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_le.html
 /// //  a label: `a`,
 /// //  a debug: `[]`,
 /// //  b label: `b`,
@@ -173,7 +173,7 @@ mod test_assert_io_read_to_string_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n",
-/// #     "https://docs.rs/assertables/9.5.4/assertables/macro.assert_io_read_to_string_le.html\n",
+/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[]`,\n",
 /// #     " b label: `b`,\n",
@@ -230,7 +230,7 @@ mod test_assert_io_read_to_string_le {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n",
-            "https://docs.rs/assertables/9.5.4/assertables/macro.assert_io_read_to_string_le.html\n",
+            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_le.html\n",
             " a label: `a`,\n",
             " a debug: `[]`,\n",
             " b label: `b`,\n",

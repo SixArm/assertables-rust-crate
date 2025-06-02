@@ -51,7 +51,7 @@ macro_rules! assert_fs_read_to_string_ne_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`\n",
-                                        "https://docs.rs/assertables/9.5.4/assertables/macro.assert_fs_read_to_string_ne.html\n",
+                                        "https://docs.rs/assertables/9.5.5/assertables/macro.assert_fs_read_to_string_ne.html\n",
                                         " a_path label: `{}`,\n",
                                         " a_path debug: `{:?}`,\n",
                                         " b_path label: `{}`,\n",
@@ -74,7 +74,7 @@ macro_rules! assert_fs_read_to_string_ne_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`\n",
-                                    "https://docs.rs/assertables/9.5.4/assertables/macro.assert_fs_read_to_string_ne.html\n",
+                                    "https://docs.rs/assertables/9.5.5/assertables/macro.assert_fs_read_to_string_ne.html\n",
                                     " a_path label: `{}`,\n",
                                     " a_path debug: `{:?}`,\n",
                                     " b_path label: `{}`,\n",
@@ -142,7 +142,7 @@ mod test_assert_fs_read_to_string_ne_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.5.4/assertables/macro.assert_fs_read_to_string_ne.html\n",
+                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_fs_read_to_string_ne.html\n",
                 " a_path label: `&a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",
@@ -185,7 +185,7 @@ mod test_assert_fs_read_to_string_ne_as_result {
 /// let b = "alfa.txt";
 /// assert_fs_read_to_string_ne!(&a, &b);
 /// // assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`
-/// // https://docs.rs/assertables/9.5.4/assertables/macro.assert_fs_read_to_string_ne.html
+/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_fs_read_to_string_ne.html
 /// //  a_path label: `&a`,
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_path label: `&b`,
@@ -196,7 +196,7 @@ mod test_assert_fs_read_to_string_ne_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`\n",
-/// #     "https://docs.rs/assertables/9.5.4/assertables/macro.assert_fs_read_to_string_ne.html\n",
+/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_fs_read_to_string_ne.html\n",
 /// #     " a_path label: `&a`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_path label: `&b`,\n",
@@ -272,7 +272,7 @@ mod test_assert_fs_read_to_string_ne {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.5.4/assertables/macro.assert_fs_read_to_string_ne.html\n",
+                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_fs_read_to_string_ne.html\n",
                 " a_path label: `&a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",
