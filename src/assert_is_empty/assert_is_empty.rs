@@ -84,6 +84,23 @@ mod test_assert_is_empty_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static str {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            ""
+        }
+
+        assert_eq!(A.is_completed(), false);
+        let result = assert_is_empty_as_result!(a());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+    }
+
 }
 
 /// Assert an expression (such as a string or array) is empty.
