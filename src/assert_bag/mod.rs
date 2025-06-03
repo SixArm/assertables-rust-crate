@@ -97,7 +97,7 @@
 #[macro_export]
 macro_rules! assert_bag_impl_prep {
     ($impl_into_iter:expr $(,)?) => {{
-        match (&$impl_into_iter) {
+        match ($impl_into_iter) {
             impl_into_iter => {
                 let mut bag: std::collections::BTreeMap<_, usize> =
                     std::collections::BTreeMap::new();
