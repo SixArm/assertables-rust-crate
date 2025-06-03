@@ -79,13 +79,21 @@ mod test_assert_err_as_result {
         assert_eq!(actual.unwrap_err(), message);
     }
 
+    use std::sync::Once;
     #[test]
-    fn idempotent() {
-        let a = 100;
-        let atomic = std::sync::atomic::AtomicU32::new(a);
-        let increment = || Err::<u32, u32>(atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
-        let _ = assert_err_as_result!(increment());
-        assert_eq!(atomic.load(std::sync::atomic::Ordering::SeqCst), a + 1);
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> Result<i8, i8> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            Err(1)
+        }
+
+        assert_eq!(A.is_completed(), false);
+        let result = assert_err_as_result!(a());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+
     }
 
 }

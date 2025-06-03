@@ -136,17 +136,29 @@ mod test_assert_err_ne_as_result {
         assert_eq!(actual.unwrap_err(), message);
     }
 
+    use std::sync::Once;
     #[test]
-    fn idempotent() {
-        let a = 100;
-        let b = 200;
-        let a_atomic = std::sync::atomic::AtomicU32::new(a);
-        let a_increment = || Err::<u32, u32>(a_atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
-        let b_atomic = std::sync::atomic::AtomicU32::new(b);
-        let b_increment = || Err::<u32, u32>(b_atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
-        let _ = assert_err_ne_as_result!(a_increment(), b_increment());
-        assert_eq!(a_atomic.load(std::sync::atomic::Ordering::SeqCst), a + 1);
-        assert_eq!(b_atomic.load(std::sync::atomic::Ordering::SeqCst), b + 1);
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> Result<i8, i8> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            Err(1)
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Result<i8, i8> {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            Err(2)
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_err_ne_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+
     }
 
 }
