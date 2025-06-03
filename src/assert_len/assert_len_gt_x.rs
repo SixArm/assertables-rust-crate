@@ -40,11 +40,11 @@
 #[macro_export]
 macro_rules! assert_len_gt_x_as_result {
     ($a:expr, $b:expr $(,)?) => {{
-        match (&$a, &$b) {
+        match ($a, $b) {
             (a, b) => {
                 let a_len = a.len();
-                if a_len > *b {
-                    Ok((a_len, *b))
+                if a_len > b {
+                    Ok((a_len, b))
                 } else {
                     Err(
                         format!(
@@ -114,6 +114,32 @@ mod test_assert_len_gt_x_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static str {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "xx"
+        }
+
+        static B: Once = Once::new();
+        fn b() -> usize {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            1
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_len_gt_x_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+
+    }
+
 }
 
 /// Assert a length is greater than an expression.
