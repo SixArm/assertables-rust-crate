@@ -12,7 +12,7 @@
 //! let mut command = Command::new("bin/printf-stderr");
 //! command.args(["%s", "alfa"]);
 //! let bytes = vec![b'a', b'a'];
-//! assert_command_stderr_gt_x!(command, bytes);
+//! assert_command_stderr_gt_x!(command, &bytes);
 //! ```
 //!
 //! # Module macros
@@ -42,17 +42,17 @@
 #[macro_export]
 macro_rules! assert_command_stderr_gt_x_as_result {
     ($a_command:expr, $b_expr:expr $(,)?) => {
-        match ($a_command.output(), &$b_expr) {
-            (Ok(a), b) => {
-                let a = a.stderr;
-                if a.gt(b) {
+        match ($a_command.output(), $b_expr) {
+            (Ok(a_output), b_expr) => {
+                let a = a_output.stderr;
+                if a.gt(b_expr) {
                     Ok(a)
                 } else {
                     Err(
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_command_stderr_gt_x.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_gt_x.html\n",
                                 " command label: `{}`,\n",
                                 " command debug: `{:?}`,\n",
                                 " command value: `{:?}`,\n",
@@ -65,7 +65,7 @@ macro_rules! assert_command_stderr_gt_x_as_result {
                             a,
                             stringify!($b_expr),
                             $b_expr,
-                            b
+                            b_expr
                         )
                     )
                 }
@@ -75,7 +75,7 @@ macro_rules! assert_command_stderr_gt_x_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-                            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_command_stderr_gt_x.html\n",
+                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_gt_x.html\n",
                             " command label: `{}`,\n",
                             " command debug: `{:?}`,\n",
                             " command value: `{:?}`,\n",
@@ -105,7 +105,7 @@ mod test_assert_command_stderr_gt_x_as_result {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
-        let actual = assert_command_stderr_gt_x_as_result!(a, b);
+        let actual = assert_command_stderr_gt_x_as_result!(a, &b);
         assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
     }
 
@@ -114,14 +114,14 @@ mod test_assert_command_stderr_gt_x_as_result {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'l', b'f', b'a'];
-        let actual = assert_command_stderr_gt_x_as_result!(a, b);
+        let actual = assert_command_stderr_gt_x_as_result!(a, &b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_command_stderr_gt_x.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_gt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
-            "    expr label: `b`,\n",
+            "    expr label: `&b`,\n",
             "    expr debug: `[97, 108, 102, 97]`,\n",
             "    expr value: `[97, 108, 102, 97]`"
         );
@@ -133,19 +133,47 @@ mod test_assert_command_stderr_gt_x_as_result {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];
-        let actual = assert_command_stderr_gt_x_as_result!(a, b);
+        let actual = assert_command_stderr_gt_x_as_result!(a, &b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_command_stderr_gt_x.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_gt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
-            "    expr label: `b`,\n",
+            "    expr label: `&b`,\n",
             "    expr debug: `[122, 122]`,\n",
             "    expr value: `[122, 122]`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> Command {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            let mut a = Command::new("bin/printf-stderr");
+            a.args(["%s", "alfa"]);
+            a
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Vec<u8> {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            vec![b'a', b'a']
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_command_stderr_gt_x_as_result!(a(), &b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
 }
 
 /// Assert a command stderr string is greater than an expression.
@@ -169,31 +197,31 @@ mod test_assert_command_stderr_gt_x_as_result {
 /// let mut command = Command::new("bin/printf-stderr");
 /// command.args(["%s", "alfa"]);
 /// let bytes = vec![b'a', b'a'];
-/// assert_command_stderr_gt_x!(command, bytes);
+/// assert_command_stderr_gt_x!(command, &bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let mut command = Command::new("bin/printf-stderr");
 /// command.args(["%s", "alfa"]);
 /// let bytes = vec![b'z', b'z'];
-/// assert_command_stderr_gt_x!(command, bytes);
+/// assert_command_stderr_gt_x!(command, &bytes);
 /// # });
 /// // assertion failed: `assert_command_stderr_gt_x!(command, expr)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_command_stderr_gt_x.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_gt_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  command value: `[97, 108, 102, 97]`,
-/// //     expr label: `bytes`,
+/// //     expr label: `&bytes`,
 /// //     expr debug: `[122, 122]`,
 /// //     expr value: `[122, 122]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_command_stderr_gt_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_gt_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " command value: `[97, 108, 102, 97]`,\n",
-/// #     "    expr label: `bytes`,\n",
+/// #     "    expr label: `&bytes`,\n",
 /// #     "    expr debug: `[122, 122]`,\n",
 /// #     "    expr value: `[122, 122]`"
 /// # );
@@ -233,7 +261,7 @@ mod test_assert_command_stderr_gt_x {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
-        let actual = assert_command_stderr_gt_x!(a, b);
+        let actual = assert_command_stderr_gt_x!(a, &b);
         assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
     }
 
@@ -243,15 +271,15 @@ mod test_assert_command_stderr_gt_x {
             let mut a = Command::new("bin/printf-stderr");
             a.args(["%s", "alfa"]);
             let b = vec![b'a', b'l', b'f', b'a'];
-            let _actual = assert_command_stderr_gt_x!(a, b);
+            let _actual = assert_command_stderr_gt_x!(a, &b);
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_command_stderr_gt_x.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_gt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
-            "    expr label: `b`,\n",
+            "    expr label: `&b`,\n",
             "    expr debug: `[97, 108, 102, 97]`,\n",
             "    expr value: `[97, 108, 102, 97]`"
         );
@@ -271,15 +299,15 @@ mod test_assert_command_stderr_gt_x {
             let mut a = Command::new("bin/printf-stderr");
             a.args(["%s", "alfa"]);
             let b = vec![b'z', b'z'];
-            let _actual = assert_command_stderr_gt_x!(a, b);
+            let _actual = assert_command_stderr_gt_x!(a, &b);
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_command_stderr_gt_x.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_gt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
-            "    expr label: `b`,\n",
+            "    expr label: `&b`,\n",
             "    expr debug: `[122, 122]`,\n",
             "    expr value: `[122, 122]`"
         );
