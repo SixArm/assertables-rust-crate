@@ -59,7 +59,7 @@ macro_rules! assert_program_args_stdout_gt_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-                                        "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_gt.html\n",
+                                        "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_gt.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -90,7 +90,7 @@ macro_rules! assert_program_args_stdout_gt_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-                                    "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_gt.html\n",
+                                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_gt.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -148,7 +148,7 @@ mod test_assert_program_args_stdout_gt_as_result {
             assert_program_args_stdout_gt_as_result!(&a_program, &a_args, &b_program, &b_args);
         let message = concat!(
             "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_gt.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_gt.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -173,7 +173,7 @@ mod test_assert_program_args_stdout_gt_as_result {
             assert_program_args_stdout_gt_as_result!(&a_program, &a_args, &b_program, &b_args);
         let message = concat!(
             "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_gt.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_gt.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -187,6 +187,48 @@ mod test_assert_program_args_stdout_gt_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static str {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "bin/printf-stdout"
+        }
+
+        static A_ARGS: Once = Once::new();
+        fn a_args() -> [&'static str; 2] {
+            if A_ARGS.is_completed() { panic!("A_ARGS.is_completed()") } else { A_ARGS.call_once(|| {}) }
+            ["%s", "alfa"]
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static str {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "bin/printf-stdout"
+        }
+
+        static B_ARGS: Once = Once::new();
+        fn b_args() -> [&'static str; 2] {
+            if B_ARGS.is_completed() { panic!("B_ARGS.is_completed()") } else { B_ARGS.call_once(|| {}) }
+            ["%s", "aa"]
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(A_ARGS.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        assert_eq!(B_ARGS.is_completed(), false);
+        let result = assert_program_args_stdout_gt_as_result!(a(), a_args(), b(), b_args());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(A_ARGS.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        assert_eq!(B_ARGS.is_completed(), true);
+        
+    }
+
 }
 
 /// Assert a command (built with program and args) stdout is greater than another.
@@ -221,7 +263,7 @@ mod test_assert_program_args_stdout_gt_as_result {
 /// assert_program_args_stdout_gt!(&a_program, &a_args, &b_program, &b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_gt.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_gt.html
 /// //  a_program label: `&a_program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&a_args`,
@@ -235,7 +277,7 @@ mod test_assert_program_args_stdout_gt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_gt.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_gt.html\n",
 /// #     " a_program label: `&a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&a_args`,\n",
@@ -298,7 +340,7 @@ mod test_assert_program_args_stdout_gt {
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_gt.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_gt.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
@@ -331,7 +373,7 @@ mod test_assert_program_args_stdout_gt {
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_gt.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_gt.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",

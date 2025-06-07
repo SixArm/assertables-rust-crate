@@ -42,19 +42,19 @@
 #[macro_export]
 macro_rules! assert_program_args_stdout_string_is_match_as_result {
     ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {{
-        match ($a_program, $a_args, &$matcher) {
+        match ($a_program, $a_args, $matcher) {
             (a_program, a_args, matcher) => {
                 match assert_program_args_impl_prep!(a_program, a_args) {
                     Ok(a_output) => {
                         let a_string = String::from_utf8(a_output.stdout).unwrap();
-                        if $matcher.is_match(&a_string) {
+                        if matcher.is_match(&a_string) {
                             Ok(a_string)
                         } else {
                             Err(
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-                                        "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+                                        "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -81,7 +81,7 @@ macro_rules! assert_program_args_stdout_string_is_match_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-                                    "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+                                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -115,7 +115,7 @@ mod test_assert_program_args_stdout_string_is_match_as_result {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = Regex::new(r"lf").expect("regex");
-        let actual = assert_program_args_stdout_string_is_match_as_result!(&a_program, &a_args, b);
+        let actual = assert_program_args_stdout_string_is_match_as_result!(&a_program, &a_args, &b);
         assert_eq!(actual.unwrap(), "alfa");
     }
 
@@ -124,21 +124,56 @@ mod test_assert_program_args_stdout_string_is_match_as_result {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = Regex::new(r"zz").expect("regex");
-        let actual = assert_program_args_stdout_string_is_match_as_result!(&a_program, &a_args, b);
+        let actual = assert_program_args_stdout_string_is_match_as_result!(&a_program, &a_args, &b);
         let message = concat!(
             "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_matcher label: `b`,\n",
+            " b_matcher label: `&b`,\n",
             " b_matcher debug: `Regex(\"zz\")`,\n",
             "               a: `\"alfa\"`,\n",
             "               b: `Regex(\"zz\")`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static str {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "bin/printf-stdout"
+        }
+
+        static A_ARGS: Once = Once::new();
+        fn a_args() -> [&'static str; 2] {
+            if A_ARGS.is_completed() { panic!("A_ARGS.is_completed()") } else { A_ARGS.call_once(|| {}) }
+            ["%s", "alfa"]
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Regex {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            Regex::new(r"lf").expect("regex")
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(A_ARGS.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_program_args_stdout_string_is_match_as_result!(&a(), &a_args(), &b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(A_ARGS.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
 }
 
 /// Assert a command (built with program and args) stdout into a string is a match to a regex.
@@ -172,7 +207,7 @@ mod test_assert_program_args_stdout_string_is_match_as_result {
 /// assert_program_args_stdout_string_is_match!(&program, &args, &matcher);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_string_is_match.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_string_is_match.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&args`,
@@ -184,7 +219,7 @@ mod test_assert_program_args_stdout_string_is_match_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&args`,\n",
@@ -230,7 +265,7 @@ mod test_assert_program_args_stdout_string_is_match {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = Regex::new(r"lf").expect("regex");
-        let actual = assert_program_args_stdout_string_is_match!(&a_program, &a_args, b);
+        let actual = assert_program_args_stdout_string_is_match!(&a_program, &a_args, &b);
         assert_eq!(actual, "alfa");
     }
 
@@ -240,16 +275,16 @@ mod test_assert_program_args_stdout_string_is_match {
         let a_args = ["%s", "alfa"];
         let b = Regex::new(r"zz").expect("regex");
         let result = panic::catch_unwind(|| {
-            let _actual = assert_program_args_stdout_string_is_match!(&a_program, &a_args, b);
+            let _actual = assert_program_args_stdout_string_is_match!(&a_program, &a_args, &b);
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
             " a_program label: `&a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `&a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_matcher label: `b`,\n",
+            " b_matcher label: `&b`,\n",
             " b_matcher debug: `Regex(\"zz\")`,\n",
             "               a: `\"alfa\"`,\n",
             "               b: `Regex(\"zz\")`"
