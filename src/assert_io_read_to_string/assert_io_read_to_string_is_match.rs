@@ -42,19 +42,19 @@
 #[macro_export]
 macro_rules! assert_io_read_to_string_is_match_as_result {
     ($reader:expr, $matcher:expr $(,)?) => {{
-        match (/*&$reader,*/ &$matcher) {
+        match (/*&$reader,*/ $matcher) {
             matcher => {
                 let mut string = String::new();
                 match ($reader.read_to_string(&mut string)) {
                     Ok(size) => {
-                        if $matcher.is_match(&string) {
+                        if matcher.is_match(&string) {
                             Ok(string)
                         } else {
                             Err(
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-                                        "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_is_match.html\n",
+                                        "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_is_match.html\n",
                                         "  reader label: `{}`,\n",
                                         "  reader debug: `{:?}`,\n",
                                         " matcher label: `{}`,\n",
@@ -77,7 +77,7 @@ macro_rules! assert_io_read_to_string_is_match_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-                                    "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_is_match.html\n",
+                                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_is_match.html\n",
                                     "  reader label: `{}`,\n",
                                     "  reader debug: `{:?}`,\n",
                                     " matcher label: `{}`,\n",
@@ -106,7 +106,7 @@ mod test_assert_io_read_to_string_is_match_as_result {
     #[test]
     fn success() {
         let mut reader = "alfa".as_bytes();
-        let matcher = Regex::new(r"alfa").expect("regex");
+        let matcher = Regex::new(r"lf").expect("regex");
         let actual = assert_io_read_to_string_is_match_as_result!(reader, &matcher);
         assert_eq!(actual.unwrap(), String::from("alfa"));
     }
@@ -118,7 +118,7 @@ mod test_assert_io_read_to_string_is_match_as_result {
         let actual = assert_io_read_to_string_is_match_as_result!(reader, &matcher);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_is_match.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_is_match.html\n",
             "  reader label: `reader`,\n",
             "  reader debug: `[]`,\n",
             " matcher label: `&matcher`,\n",
@@ -128,6 +128,32 @@ mod test_assert_io_read_to_string_is_match_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static [u8] {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "alfa".as_bytes()
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Regex {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            Regex::new(r"lf").expect("regex")
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_io_read_to_string_is_match_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
 }
 
 /// Assert a ::std::io::Read read_to_string() is a match to a regex.
@@ -160,7 +186,7 @@ mod test_assert_io_read_to_string_is_match_as_result {
 /// assert_io_read_to_string_is_match!(reader, &matcher);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_is_match.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_is_match.html
 /// //   reader label: `reader`,
 /// //   reader debug: `[]`,
 /// //  matcher label: `&matcher`,
@@ -170,7 +196,7 @@ mod test_assert_io_read_to_string_is_match_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_is_match.html\n",
 /// #     "  reader label: `reader`,\n",
 /// #     "  reader debug: `[]`,\n",
 /// #     " matcher label: `&matcher`,\n",
@@ -213,7 +239,7 @@ mod test_assert_io_read_to_string_is_match {
     #[test]
     fn success() {
         let mut reader = "alfa".as_bytes();
-        let matcher = Regex::new(r"alfa").expect("regex");
+        let matcher = Regex::new(r"lf").expect("regex");
         let actual = assert_io_read_to_string_is_match!(reader, &matcher);
         assert_eq!(actual, String::from("alfa"));
     }
@@ -227,7 +253,7 @@ mod test_assert_io_read_to_string_is_match {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_is_match.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_is_match.html\n",
             "  reader label: `reader`,\n",
             "  reader debug: `[]`,\n",
             " matcher label: `&matcher`,\n",

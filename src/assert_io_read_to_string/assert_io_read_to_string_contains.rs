@@ -41,19 +41,19 @@
 #[macro_export]
 macro_rules! assert_io_read_to_string_contains_as_result {
     ($reader:expr, $containee:expr $(,)?) => {{
-        match (/*&$reader,*/ &$containee) {
+        match (/*&$reader,*/ $containee) {
             containee => {
                 let mut string = String::new();
                 match ($reader.read_to_string(&mut string)) {
                     Ok(_size) => {
-                        if string.contains($containee) {
+                        if string.contains(containee) {
                             Ok(string)
                         } else {
                             Err(
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                                        "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_contains.html\n",
+                                        "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
                                         "    reader label: `{}`,\n",
                                         "    reader debug: `{:?}`,\n",
                                         " containee label: `{}`,\n",
@@ -74,7 +74,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                                    "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_contains.html\n",
+                                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
                                     "    reader label: `{}`,\n",
                                     "    reader debug: `{:?}`,\n",
                                     " containee label: `{}`,\n",
@@ -103,7 +103,7 @@ mod test_assert_io_read_to_string_contains_as_result {
     #[test]
     fn success() {
         let mut reader = "alfa".as_bytes();
-        let containee = "alfa";
+        let containee = "lf";
         let actual = assert_io_read_to_string_contains_as_result!(reader, &containee);
         assert_eq!(actual.unwrap(), String::from("alfa"));
     }
@@ -115,7 +115,7 @@ mod test_assert_io_read_to_string_contains_as_result {
         let actual = assert_io_read_to_string_contains_as_result!(reader, &containee);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_contains.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
             "    reader label: `reader`,\n",
             "    reader debug: `[]`,\n",
             " containee label: `&containee`,\n",
@@ -124,6 +124,32 @@ mod test_assert_io_read_to_string_contains_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static [u8] {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "alfa".as_bytes()
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static str {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "lf"
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_io_read_to_string_contains_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
 }
 
 /// Assert a ::std::io::Read read_to_string() contains a pattern.
@@ -155,7 +181,7 @@ mod test_assert_io_read_to_string_contains_as_result {
 /// assert_io_read_to_string_contains!(reader, &containee);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_contains.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html
 /// //     reader label: `&reader`,
 /// //     reader debug: `[]`,
 /// //  containee label: `&containee`,
@@ -164,7 +190,7 @@ mod test_assert_io_read_to_string_contains_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
 /// #     "    reader label: `reader`,\n",
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&containee`,\n",
@@ -220,7 +246,7 @@ mod test_assert_io_read_to_string_contains {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_contains.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
             "    reader label: `reader`,\n",
             "    reader debug: `[]`,\n",
             " containee label: `&containee`,\n",

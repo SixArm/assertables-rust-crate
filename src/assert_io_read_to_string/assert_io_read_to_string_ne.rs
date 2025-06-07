@@ -55,7 +55,7 @@ macro_rules! assert_io_read_to_string_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_ne.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -78,7 +78,7 @@ macro_rules! assert_io_read_to_string_ne_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-                            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_ne.html\n",
+                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_ne.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             "  b label: `{}`,\n",
@@ -122,7 +122,7 @@ mod test_assert_io_read_to_string_ne_as_result {
         let actual = assert_io_read_to_string_ne_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_ne.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_ne.html\n",
             " a label: `a`,\n",
             " a debug: `[]`,\n",
             " b label: `b`,\n",
@@ -132,6 +132,32 @@ mod test_assert_io_read_to_string_ne_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static [u8] {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "alfa".as_bytes()
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static [u8] {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "x".as_bytes()
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_io_read_to_string_ne_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
 }
 
 /// Assert a ::std::io::Read read_to_string() is not equal to another.
@@ -163,7 +189,7 @@ mod test_assert_io_read_to_string_ne_as_result {
 /// assert_io_read_to_string_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_ne.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_ne.html
 /// //  a label: `a`,
 /// //  a debug: `[]`,
 /// //  b label: `b`,
@@ -173,7 +199,7 @@ mod test_assert_io_read_to_string_ne_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_ne.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[]`,\n",
 /// #     " b label: `b`,\n",
@@ -230,7 +256,7 @@ mod test_assert_io_read_to_string_ne {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_io_read_to_string_ne.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_ne.html\n",
             " a label: `a`,\n",
             " a debug: `[]`,\n",
             " b label: `b`,\n",
