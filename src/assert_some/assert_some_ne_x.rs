@@ -95,11 +95,65 @@ mod test_assert_some_ne_x_as_result {
     use std::sync::Once;
 
     #[test]
-    fn ne() {
+    fn lt() {
         let a: Option<i8> = Option::Some(1);
         let b: i8 = 2;
         let actual = assert_some_ne_x_as_result!(a, b);
         assert_eq!(actual.unwrap(), 1);
+    }
+
+    #[test]
+    fn lt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Option<i8> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            Option::Some(1)
+        }
+
+        static B: Once = Once::new();
+        fn b() -> i8 {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            2
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_some_ne_x_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+    }
+
+    #[test]
+    fn gt() {
+        let a: Option<i8> = Option::Some(2);
+        let b: i8 = 1;
+        let actual = assert_some_ne_x_as_result!(a, b);
+        assert_eq!(actual.unwrap(), 1);
+    }
+
+    #[test]
+    fn gt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Option<i8> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            Option::Some(2)
+        }
+
+        static B: Once = Once::new();
+        fn b() -> i8 {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            1
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_some_ne_x_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
     }
 
     #[test]

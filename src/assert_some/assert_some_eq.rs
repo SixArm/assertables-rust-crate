@@ -105,6 +105,29 @@ mod test_assert_some_eq_as_result {
     }
 
     #[test]
+    fn eq_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Option<i8> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            Option::Some(1)
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Option<i8> {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            Option::Some(1)
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_some_eq_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+    }
+
+    #[test]
     fn ne() {
         let a: Option<i8> = Option::Some(1);
         let b: Option<i8> = Option::Some(2);
