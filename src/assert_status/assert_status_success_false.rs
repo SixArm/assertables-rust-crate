@@ -93,6 +93,24 @@ mod test_assert_status_success_false_as_result {
     }
 
     #[test]
+    fn success_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Command {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            let mut a = Command::new("bin/exit-with-arg");
+            a.arg("1");
+            a
+        }
+
+        assert_eq!(A.is_completed(), false);
+        let result = assert_status_success_false_as_result!(a());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        
+    }
+
+    #[test]
     fn failure() {
         let mut a = Command::new("bin/exit-with-arg");
         a.arg("0");

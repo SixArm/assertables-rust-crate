@@ -136,6 +136,34 @@ mod test_assert_status_code_value_lt_as_result {
     }
 
     #[test]
+    fn lt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Command {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            let mut a = Command::new("bin/exit-with-arg");
+            a.arg("1");
+            a
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Command {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            let mut b = Command::new("bin/exit-with-arg");
+            b.arg("2");
+            b
+        }
+        
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_status_code_value_lt_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
+    #[test]
     fn eq() {
         let mut a = Command::new("bin/exit-with-arg");
         a.arg("1");
