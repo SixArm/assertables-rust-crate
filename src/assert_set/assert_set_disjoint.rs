@@ -42,7 +42,7 @@
 #[macro_export]
 macro_rules! assert_set_disjoint_as_result {
     ($a_collection:expr, $b_collection:expr $(,)?) => {{
-        match (&$a_collection, &$b_collection) {
+        match ($a_collection, $b_collection) {
             (a_collection, b_collection) => {
                 let a: ::std::collections::BTreeSet<_> = assert_set_impl_prep!(a_collection);
                 let b: ::std::collections::BTreeSet<_> = assert_set_impl_prep!(b_collection);
@@ -53,7 +53,7 @@ macro_rules! assert_set_disjoint_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_set_disjoint!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_set_disjoint.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_set_disjoint.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -97,7 +97,7 @@ mod test_assert_set_disjoint_as_result {
         let actual = assert_set_disjoint_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_set_disjoint!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_set_disjoint.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_set_disjoint.html\n",
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
@@ -107,6 +107,32 @@ mod test_assert_set_disjoint_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    use std::sync::Once;
+    #[test]
+    fn once() {
+
+        static A: Once = Once::new();
+        fn a() -> [i32; 2] {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            [1, 2]
+        }
+
+        static B: Once = Once::new();
+        fn b() -> [i32; 2] {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            [3, 4]
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_set_disjoint_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+
+    }
+
 }
 
 /// Assert a set is disjoint with another.
@@ -137,7 +163,7 @@ mod test_assert_set_disjoint_as_result {
 /// assert_set_disjoint!(&a, &b);
 /// # });
 /// // assertion failed: `assert_set_disjoint!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_set_disjoint.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_set_disjoint.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&b`,
@@ -147,7 +173,7 @@ mod test_assert_set_disjoint_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_set_disjoint!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_set_disjoint.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_set_disjoint.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `&b`,\n",
@@ -205,7 +231,7 @@ mod test_assert_set_disjoint {
         });
         let message = concat!(
             "assertion failed: `assert_set_disjoint!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_set_disjoint.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_set_disjoint.html\n",
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
