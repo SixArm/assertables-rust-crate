@@ -46,7 +46,7 @@ macro_rules! assert_matches_as_result {
                 format!(
                     concat!(
                         "assertion failed: `assert_matches!(a)`\n",
-                        "https://docs.rs/assertables/9.5.5/assertables/macro.assert_matches.html\n",
+                        "https://docs.rs/assertables/9.5.6/assertables/macro.assert_matches.html\n",
                         " args: `{}`",
                     ),
                     stringify!($($arg)*)
@@ -58,6 +58,7 @@ macro_rules! assert_matches_as_result {
 
 #[cfg(test)]
 mod test_assert_matches_as_result {
+    use std::sync::Once;
 
     //// Use char as per https://doc.rust-lang.org/std/macro.matches.html
     mod use_char {
@@ -75,7 +76,7 @@ mod test_assert_matches_as_result {
             let actual = assert_matches_as_result!(a, 'b'..='z');
             let message = concat!(
                 "assertion failed: `assert_matches!(a)`\n",
-                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_matches.html\n",
+                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_matches.html\n",
                 " args: `a, 'b'..='z'`",
             );
             assert_eq!(actual.unwrap_err(), message);
@@ -98,7 +99,7 @@ mod test_assert_matches_as_result {
             let actual = assert_matches_as_result!(a, Some(x) if x < 2);
             let message = concat!(
                 "assertion failed: `assert_matches!(a)`\n",
-                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_matches.html\n",
+                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_matches.html\n",
                 " args: `a, Some(x) if x < 2`",
             );
             assert_eq!(actual.unwrap_err(), message);
@@ -129,12 +130,12 @@ mod test_assert_matches_as_result {
 /// assert_matches!(a, 'b'..='z');
 /// # });
 /// // assertion failed: `assert_matches!(a)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_matches.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_matches.html
 /// //  args: `a, 'b'..='z'`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_matches!(a)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_matches.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_matches.html\n",
 /// #     " args: `a, 'b'..='z'`",
 /// # );
 /// # assert_eq!(actual, message);
@@ -197,7 +198,7 @@ mod test_assert_matches {
             });
             let message = concat!(
                 "assertion failed: `assert_matches!(a)`\n",
-                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_matches.html\n",
+                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_matches.html\n",
                 " args: `a, 'b'..='z'`",
             );
             assert_eq!(
@@ -230,7 +231,7 @@ mod test_assert_matches {
             });
             let message = concat!(
                 "assertion failed: `assert_matches!(a)`\n",
-                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_matches.html\n",
+                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_matches.html\n",
                 " args: `a, Some(x) if x < 2`",
             );
             assert_eq!(

@@ -48,7 +48,7 @@ macro_rules! assert_in_range_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_in_range!(a, range)`\n",
-                            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_range.html\n",
+                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_range.html\n",
                             "     a label: `{}`,\n",
                             "     a debug: `{:?}`,\n",
                             " range label: `{}`,\n",
@@ -67,6 +67,7 @@ macro_rules! assert_in_range_as_result {
 
 #[cfg(test)]
 mod test_assert_in_range_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success_with_range_a_dot_dot_b() {
@@ -74,6 +75,29 @@ mod test_assert_in_range_as_result {
         let b: std::ops::Range<i8> = 0..2;
         let actual = assert_in_range_as_result!(a, b);
         assert_eq!(actual.unwrap(), ());
+    }
+
+    #[test]
+    fn success_with_range_a_dot_dot_b_once() {
+
+        static A: Once = Once::new();
+        fn a() -> i8 {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            1
+        }
+
+        static B: Once = Once::new();
+        fn b() -> std::ops::Range<i8> {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            0..2
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_in_range_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
     }
 
     #[test]
@@ -85,24 +109,7 @@ mod test_assert_in_range_as_result {
     }
 
     #[test]
-    fn failure() {
-        let a: i8 = 1;
-        let b: std::ops::Range<i8> = 2..4;
-        let actual = assert_in_range_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_in_range!(a, range)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_range.html\n",
-            "     a label: `a`,\n",
-            "     a debug: `1`,\n",
-            " range label: `b`,\n",
-            " range debug: `2..4`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_with_range_a_dot_dot_eq_b_once() {
 
         static A: Once = Once::new();
         fn a() -> i8 {
@@ -111,9 +118,9 @@ mod test_assert_in_range_as_result {
         }
 
         static B: Once = Once::new();
-        fn b() -> std::ops::Range<i8> {
+        fn b() -> std::ops::RangeInclusive<i8> {
             if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
-             0..2
+            0..=2
         }
 
         assert_eq!(A.is_completed(), false);
@@ -122,6 +129,22 @@ mod test_assert_in_range_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
+    }
+    
+    #[test]
+    fn failure() {
+        let a: i8 = 1;
+        let b: std::ops::Range<i8> = 2..4;
+        let actual = assert_in_range_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_in_range!(a, range)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_range.html\n",
+            "     a label: `a`,\n",
+            "     a debug: `1`,\n",
+            " range label: `b`,\n",
+            " range debug: `2..4`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }
@@ -154,7 +177,7 @@ mod test_assert_in_range_as_result {
 /// assert_in_range!(a, b);
 /// # });
 /// // assertion failed: `assert_in_range!(a, range)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_range.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_range.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  range label: `b`,
@@ -162,7 +185,7 @@ mod test_assert_in_range_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_in_range!(a, range)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_range.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_range.html\n",
 /// #     "     a label: `a`,\n",
 /// #     "     a debug: `1`,\n",
 /// #     " range label: `b`,\n",
@@ -223,7 +246,7 @@ mod test_assert_in_range {
         });
         let message = concat!(
             "assertion failed: `assert_in_range!(a, range)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_range.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_range.html\n",
             "     a label: `a`,\n",
             "     a debug: `1`,\n",
             " range label: `b`,\n",

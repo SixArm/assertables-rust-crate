@@ -45,7 +45,7 @@ macro_rules! assert_ok_as_result {
             _ => Err(format!(
                 concat!(
                     "assertion failed: `assert_ok!(a)`\n",
-                    "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok.html\n",
+                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`",
                 ),
@@ -58,6 +58,7 @@ macro_rules! assert_ok_as_result {
 
 #[cfg(test)]
 mod test_assert_ok_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -67,25 +68,31 @@ mod test_assert_ok_as_result {
     }
 
     #[test]
+    fn success_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Result<i8, i8> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            Ok(1)
+        }
+
+        assert_eq!(A.is_completed(), false);
+        let result = assert_ok_as_result!(a());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+    }
+
+    #[test]
     fn failure() {
         let a: Result<i8, i8> = Err(1);
         let actual = assert_ok_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_ok!(a)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`",
         );
         assert_eq!(actual.unwrap_err(), message);
-    }
-
-    #[test]
-    fn idempotent() {
-        let a = 100;
-        let atomic = std::sync::atomic::AtomicU32::new(a);
-        let increment = || Err::<u32, u32>(atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
-        let _ = assert_ok_as_result!(increment());
-        assert_eq!(atomic.load(std::sync::atomic::Ordering::SeqCst), a + 1);
     }
 
 }
@@ -116,13 +123,13 @@ mod test_assert_ok_as_result {
 /// assert_ok!(a);
 /// # });
 /// // assertion failed: `assert_ok!(a)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_ok!(a)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`",
 /// # );
@@ -171,7 +178,7 @@ mod test_assert_ok {
         });
         let message = concat!(
             "assertion failed: `assert_ok!(a)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`",
         );

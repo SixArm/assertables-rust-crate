@@ -48,7 +48,7 @@ macro_rules! assert_success_as_result {
             Err(format!(
                 concat!(
                     "assertion failed: `assert_success!(a)`\n",
-                    "https://docs.rs/assertables/9.5.5/assertables/macro.assert_success.html\n",
+                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_success.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`",
                 ),
@@ -61,6 +61,7 @@ macro_rules! assert_success_as_result {
 
 #[cfg(test)]
 mod test_assert_success_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -89,7 +90,7 @@ mod test_assert_success_as_result {
         let actual = assert_success_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_success!(a)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_success.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_success.html\n",
             " a label: `a`,\n",
             " a debug: `A`",
         );
@@ -129,13 +130,13 @@ mod test_assert_success_as_result {
 /// assert_success!(a);
 /// # });
 /// // assertion failed: `assert_success!(a)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_success.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_success.html
 /// //  a label: `a`,
 /// //  a debug: `A`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_success!(a)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_success.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_success.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `A`",
 /// # );
@@ -198,7 +199,7 @@ mod test_assert_success {
         });
         let message = concat!(
             "assertion failed: `assert_success!(a)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_success.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_success.html\n",
             " a label: `a`,\n",
             " a debug: `A`",
         );

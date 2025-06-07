@@ -20,15 +20,15 @@ expressions with their debug representations.</p>
 <span class="kw">let </span><span class="kw-2">mut </span>command = Command::new(<span class="string">"bin/printf-stderr"</span>);
 command.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
 <span class="kw">let </span>bytes = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'a'</span>];
-<span class="macro">assert_command_stderr_ge_x!</span>(command, bytes);
+<span class="macro">assert_command_stderr_ge_x!</span>(&command, &bytes);
 
 <span class="comment">// This will panic
 </span><span class="kw">let </span><span class="kw-2">mut </span>command = Command::new(<span class="string">"bin/printf-stderr"</span>);
 command.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
 <span class="kw">let </span>bytes = <span class="macro">vec!</span>[<span class="string">b'z'</span>, <span class="string">b'z'</span>];
-<span class="macro">assert_command_stderr_ge_x!</span>(command, bytes);
+<span class="macro">assert_command_stderr_ge_x!</span>(&command, &bytes);
 <span class="comment">// assertion failed: `assert_command_stderr_ge_x!(command, expr)`
-// https://docs.rs/assertables/9.5.5/assertables/macro.assert_command_stderr_ge_x.html
+// https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_ge_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //     expr label: `bytes`,

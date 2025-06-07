@@ -99,6 +99,7 @@ macro_rules! assert_command_stdout_string_is_match_as_result {
 
 #[cfg(test)]
 mod test_assert_command_stdout_string_is_match_as_result {
+    use std::sync::Once;
     use regex::Regex;
     use std::process::Command;
 
@@ -112,27 +113,7 @@ mod test_assert_command_stdout_string_is_match_as_result {
     }
 
     #[test]
-    fn failure() {
-        let mut a = Command::new("bin/printf-stdout");
-        a.args(["%s", "alfa"]);
-        let b = Regex::new(r"zz").expect("regex");
-        let actual = assert_command_stdout_string_is_match_as_result!(a, &b);
-        let message = concat!(
-            "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stdout_string_is_match.html\n",
-            " command label: `a`,\n",
-            " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-            " command value: `\"alfa\"`,\n",
-            " matcher label: `&b`,\n",
-            " matcher debug: `Regex(\"zz\")`,\n",
-            " matcher value: `Regex(\"zz\")`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> Command {
@@ -155,6 +136,25 @@ mod test_assert_command_stdout_string_is_match_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
         
+    }
+
+    #[test]
+    fn failure() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let b = Regex::new(r"zz").expect("regex");
+        let actual = assert_command_stdout_string_is_match_as_result!(a, &b);
+        let message = concat!(
+            "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stdout_string_is_match.html\n",
+            " command label: `a`,\n",
+            " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " command value: `\"alfa\"`,\n",
+            " matcher label: `&b`,\n",
+            " matcher debug: `Regex(\"zz\")`,\n",
+            " matcher value: `Regex(\"zz\")`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }

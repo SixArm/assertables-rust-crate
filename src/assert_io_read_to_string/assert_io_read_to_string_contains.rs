@@ -97,6 +97,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
 
 #[cfg(test)]
 mod test_assert_io_read_to_string_contains_as_result {
+    use std::sync::Once;
     #[allow(unused_imports)]
     use std::io::Read;
 
@@ -109,25 +110,7 @@ mod test_assert_io_read_to_string_contains_as_result {
     }
 
     #[test]
-    fn failure() {
-        let mut reader = "alfa".as_bytes();
-        let containee = "zz";
-        let actual = assert_io_read_to_string_contains_as_result!(reader, &containee);
-        let message = concat!(
-            "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
-            "    reader label: `reader`,\n",
-            "    reader debug: `[]`,\n",
-            " containee label: `&containee`,\n",
-            " containee debug: `\"zz\"`,\n",
-            "          string: `\"alfa\"`",
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> &'static [u8] {
@@ -148,6 +131,23 @@ mod test_assert_io_read_to_string_contains_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
         
+    }
+
+    #[test]
+    fn failure() {
+        let mut reader = "alfa".as_bytes();
+        let containee = "zz";
+        let actual = assert_io_read_to_string_contains_as_result!(reader, &containee);
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
+            "    reader label: `reader`,\n",
+            "    reader debug: `[]`,\n",
+            " containee label: `&containee`,\n",
+            " containee debug: `\"zz\"`,\n",
+            "          string: `\"alfa\"`",
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }

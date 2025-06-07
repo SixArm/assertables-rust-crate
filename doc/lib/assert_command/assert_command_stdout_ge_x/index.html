@@ -8,7 +8,7 @@
 <span class="kw">let </span><span class="kw-2">mut </span>command = Command::new(<span class="string">"bin/printf-stdout"</span>);
 command.args([<span class="string">"%s"</span>, <span class="string">"alfa"</span>]);
 <span class="kw">let </span>bytes = <span class="macro">vec!</span>[<span class="string">b'a'</span>, <span class="string">b'a'</span>];
-<span class="macro">assert_command_stdout_ge_x!</span>(command, bytes);</code></pre></div>
+<span class="macro">assert_command_stdout_ge_x!</span>(command, &bytes);</code></pre></div>
 <h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>
 <ul>
 <li><a href="../../macro.assert_command_stdout_ge_x.html" title="macro lib::assert_command_stdout_ge_x"><code>assert_command_stdout_ge_x</code></a></li>

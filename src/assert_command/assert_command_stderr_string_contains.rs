@@ -98,6 +98,7 @@ macro_rules! assert_command_stderr_string_contains_as_result {
 
 #[cfg(test)]
 mod test_assert_command_stderr_string_contains_as_result {
+    use std::sync::Once;
     use std::process::Command;
 
     #[test]
@@ -110,27 +111,7 @@ mod test_assert_command_stderr_string_contains_as_result {
     }
 
     #[test]
-    fn failure() {
-        let mut a = Command::new("bin/printf-stderr");
-        a.args(["%s", "alfa"]);
-        let b = "zz";
-        let actual = assert_command_stderr_string_contains_as_result!(a, &b);
-        let message = concat!(
-            "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_string_contains.html\n",
-            "   command label: `a`,\n",
-            "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
-            "   command value: `\"alfa\"`,\n",
-            " containee label: `&b`,\n",
-            " containee debug: `\"zz\"`,\n",
-            " containee value: `\"zz\"`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> Command {
@@ -153,6 +134,25 @@ mod test_assert_command_stderr_string_contains_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
         
+    }
+
+    #[test]
+    fn failure() {
+        let mut a = Command::new("bin/printf-stderr");
+        a.args(["%s", "alfa"]);
+        let b = "zz";
+        let actual = assert_command_stderr_string_contains_as_result!(a, &b);
+        let message = concat!(
+            "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_string_contains.html\n",
+            "   command label: `a`,\n",
+            "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
+            "   command value: `\"alfa\"`,\n",
+            " containee label: `&b`,\n",
+            " containee debug: `\"zz\"`,\n",
+            " containee value: `\"zz\"`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }

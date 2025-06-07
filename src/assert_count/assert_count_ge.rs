@@ -51,7 +51,7 @@ macro_rules! assert_count_ge_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_count_ge!(a, b)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_count_ge.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_ge.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
@@ -75,6 +75,7 @@ macro_rules! assert_count_ge_as_result {
 
 #[cfg(test)]
 mod test_assert_count_ge_as_result {
+    use std::sync::Once;
 
     #[test]
     fn gt() {
@@ -85,34 +86,7 @@ mod test_assert_count_ge_as_result {
     }
 
     #[test]
-    fn eq() {
-        let a = "x".chars();
-        let b = "x".chars();
-        let actual = assert_count_ge_as_result!(a, b);
-        assert_eq!(actual.unwrap(), (1, 1));
-    }
-
-    #[test]
-    fn lt() {
-        let a = "x".chars();
-        let b = "xx".chars();
-        let actual = assert_count_ge_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_count_ge!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_count_ge.html\n",
-            " a label: `a`,\n",
-            " a debug: `Chars(['x'])`,\n",
-            " a.count(): `1`,\n",
-            " b label: `b`,\n",
-            " b debug: `Chars(['x', 'x'])`\n",
-            " b.count(): `2`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-        use std::sync::Once;
-    #[test]
-    fn once() {
+    fn gt_once() {
 
         static A: Once = Once::new();
         fn a() -> std::str::Chars<'static> {
@@ -133,6 +107,56 @@ mod test_assert_count_ge_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
 
+    }
+
+    #[test]
+    fn eq() {
+        let a = "x".chars();
+        let b = "x".chars();
+        let actual = assert_count_ge_as_result!(a, b);
+        assert_eq!(actual.unwrap(), (1, 1));
+    }
+
+    #[test]
+    fn eq_once() {
+
+        static A: Once = Once::new();
+        fn a() -> std::str::Chars<'static> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "xx".chars()
+        }
+
+        static B: Once = Once::new();
+        fn b() -> std::str::Chars<'static> {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "x".chars()
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_count_ge_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+
+    }
+
+    #[test]
+    fn lt() {
+        let a = "x".chars();
+        let b = "xx".chars();
+        let actual = assert_count_ge_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_count_ge!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_ge.html\n",
+            " a label: `a`,\n",
+            " a debug: `Chars(['x'])`,\n",
+            " a.count(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `Chars(['x', 'x'])`\n",
+            " b.count(): `2`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }
@@ -165,7 +189,7 @@ mod test_assert_count_ge_as_result {
 /// assert_count_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_count_ge!(a, b)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_count_ge.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_ge.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",
@@ -175,7 +199,7 @@ mod test_assert_count_ge_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_count_ge!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_count_ge.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",
@@ -238,7 +262,7 @@ mod test_assert_count_ge {
         });
         let message = concat!(
             "assertion failed: `assert_count_ge!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_count_ge.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_ge.html\n",
             " a label: `a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",

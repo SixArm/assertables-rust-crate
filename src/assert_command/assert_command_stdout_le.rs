@@ -100,6 +100,7 @@ macro_rules! assert_command_stdout_le_as_result {
 
 #[cfg(test)]
 mod test_assert_command_stdout_le_as_result {
+    use std::sync::Once;
     use std::process::Command;
 
     #[test]
@@ -116,41 +117,7 @@ mod test_assert_command_stdout_le_as_result {
     }
 
     #[test]
-    fn eq() {
-        let mut a = Command::new("bin/printf-stdout");
-        a.args(["%s", "alfa"]);
-        let mut b = Command::new("bin/printf-stdout");
-        b.args(["%s", "alfa"]);
-        let actual = assert_command_stdout_le_as_result!(a, b);
-        assert_eq!(
-            actual.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
-        );
-    }
-
-    #[test]
-    fn gt() {
-        let mut a = Command::new("bin/printf-stdout");
-        a.args(["%s", "alfa"]);
-        let mut b = Command::new("bin/printf-stdout");
-        b.args(["%s", "aa"]);
-        let actual = assert_command_stdout_le_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stdout_le.html\n",
-            " a label: `a`,\n",
-            " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
-            " b label: `b`,\n",
-            " b debug: `\"bin/printf-stdout\" \"%s\" \"aa\"`,\n",
-            " a value: `[97, 108, 102, 97]`,\n",
-            " b value: `[97, 97]`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn lt_once() {
 
         static A: Once = Once::new();
         fn a() -> Command {
@@ -175,6 +142,67 @@ mod test_assert_command_stdout_le_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
         
+    }
+
+    #[test]
+    fn eq() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let mut b = Command::new("bin/printf-stdout");
+        b.args(["%s", "alfa"]);
+        let actual = assert_command_stdout_le_as_result!(a, b);
+        assert_eq!(
+            actual.unwrap(),
+            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
+        );
+    }
+
+    #[test]
+    fn eq_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Command {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            let mut a = Command::new("bin/printf-stdout");
+            a.args(["%s", "alfa"]);
+            a
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Command {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            let mut b = Command::new("bin/printf-stdout");
+            b.args(["%s", "alfa"]);
+            b
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_command_stdout_le_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
+    #[test]
+    fn gt() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let mut b = Command::new("bin/printf-stdout");
+        b.args(["%s", "aa"]);
+        let actual = assert_command_stdout_le_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stdout_le.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/printf-stdout\" \"%s\" \"aa\"`,\n",
+            " a value: `[97, 108, 102, 97]`,\n",
+            " b value: `[97, 97]`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }

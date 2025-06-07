@@ -44,7 +44,7 @@ macro_rules! assert_eq_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_eq!(a, b)`\n",
-                            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_eq.html\n",
+                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -63,6 +63,7 @@ macro_rules! assert_eq_as_result {
 
 #[cfg(test)]
 mod test_assert_eq_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -79,7 +80,7 @@ mod test_assert_eq_as_result {
         let actual = assert_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_eq.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_eq.html\n",
             " a label: `a`,\n",
             " a debug: `1`,\n",
             " b label: `b`,\n",

@@ -7,5 +7,6 @@
         "concat"
     ],
     "ignoreWords": [],
-    "import": []
+    "import": [],
+    "language": "en,en-GB"
 }

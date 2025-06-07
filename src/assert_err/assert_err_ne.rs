@@ -51,7 +51,7 @@ macro_rules! assert_err_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_err_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err_ne.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a inner: `{:?}`,\n",
@@ -74,7 +74,7 @@ macro_rules! assert_err_ne_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_err_ne!(a, b)`\n",
-                            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err_ne.html\n",
+                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err_ne.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -93,9 +93,10 @@ macro_rules! assert_err_ne_as_result {
 
 #[cfg(test)]
 mod test_assert_err_ne_as_result {
+    use std::sync::Once;
 
     #[test]
-    fn success() {
+    fn lt() {
         let a: Result<i8, i8> = Err(1);
         let b: Result<i8, i8> = Err(2);
         let actual = assert_err_ne_as_result!(a, b);
@@ -103,42 +104,7 @@ mod test_assert_err_ne_as_result {
     }
 
     #[test]
-    fn eq() {
-        let a: Result<i8, i8> = Err(1);
-        let b: Result<i8, i8> = Err(1);
-        let actual = assert_err_ne_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_err_ne!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err_ne.html\n",
-            " a label: `a`,\n",
-            " a debug: `Err(1)`,\n",
-            " a inner: `1`,\n",
-            " b label: `b`,\n",
-            " b debug: `Err(1)`,\n",
-            " b inner: `1`",
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    #[test]
-    fn failure_because_not_err() {
-        let a: Result<i8, i8> = Ok(1);
-        let b: Result<i8, i8> = Err(1);
-        let actual = assert_err_ne_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_err_ne!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err_ne.html\n",
-            " a label: `a`,\n",
-            " a debug: `Ok(1)`,\n",
-            " b label: `b`,\n",
-            " b debug: `Err(1)`",
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn lt_once() {
 
         static A: Once = Once::new();
         fn a() -> Result<i8, i8> {
@@ -159,6 +125,72 @@ mod test_assert_err_ne_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
 
+    }
+
+    #[test]
+    fn gt() {
+        let a: Result<i8, i8> = Err(2);
+        let b: Result<i8, i8> = Err(1);
+        let actual = assert_err_ne_as_result!(a, b);
+        assert_eq!(actual.unwrap(), (2, 1));
+    }
+
+    #[test]
+    fn gt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Result<i8, i8> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            Err(2)
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Result<i8, i8> {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            Err(1)
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_err_ne_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+
+    }
+
+    #[test]
+    fn eq() {
+        let a: Result<i8, i8> = Err(1);
+        let b: Result<i8, i8> = Err(1);
+        let actual = assert_err_ne_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_err_ne!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err_ne.html\n",
+            " a label: `a`,\n",
+            " a debug: `Err(1)`,\n",
+            " a inner: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `Err(1)`,\n",
+            " b inner: `1`",
+        );
+        assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn failure_because_not_err() {
+        let a: Result<i8, i8> = Ok(1);
+        let b: Result<i8, i8> = Err(1);
+        let actual = assert_err_ne_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_err_ne!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err_ne.html\n",
+            " a label: `a`,\n",
+            " a debug: `Ok(1)`,\n",
+            " b label: `b`,\n",
+            " b debug: `Err(1)`",
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }
@@ -191,7 +223,7 @@ mod test_assert_err_ne_as_result {
 /// assert_err_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_err_ne!(a, b)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_err_ne.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_err_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`,
 /// //  a inner: `1`,
@@ -201,7 +233,7 @@ mod test_assert_err_ne_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_err_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err_ne.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -256,7 +288,7 @@ mod test_assert_err_ne {
         });
         let message = concat!(
             "assertion failed: `assert_err_ne!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err_ne.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err_ne.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`,\n",
             " a inner: `1`,\n",
@@ -283,7 +315,7 @@ mod test_assert_err_ne {
         });
         let message = concat!(
             "assertion failed: `assert_err_ne!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err_ne.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err_ne.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`,\n",
             " b label: `b`,\n",

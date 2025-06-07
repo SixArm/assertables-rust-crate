@@ -10,7 +10,7 @@
 //! use std::io::Read;
 //!
 //! let mut a = "alfa".as_bytes();
-//! let mut b = "bravo".as_bytes();
+//! let mut b = "zz".as_bytes();
 //! assert_io_read_to_string_lt!(a, b);
 //! ```
 //!
@@ -101,41 +101,23 @@ macro_rules! assert_io_read_to_string_lt_as_result {
 
 #[cfg(test)]
 mod test_assert_io_read_to_string_lt_as_result {
+    use std::sync::Once;
     #[allow(unused_imports)]
     use std::io::Read;
 
     #[test]
-    fn success() {
+    fn lt() {
         let mut a = "alfa".as_bytes();
-        let mut b = "bravo".as_bytes();
+        let mut b = "zz".as_bytes();
         let actual = assert_io_read_to_string_lt_as_result!(a, b);
         assert_eq!(
             actual.unwrap(),
-            (String::from("alfa"), String::from("bravo"))
+            (String::from("alfa"), String::from("zz"))
         );
     }
 
     #[test]
-    fn failure() {
-        let mut a = "bravo".as_bytes();
-        let mut b = "alfa".as_bytes();
-        let actual = assert_io_read_to_string_lt_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_lt.html\n",
-            " a label: `a`,\n",
-            " a debug: `[]`,\n",
-            " b label: `b`,\n",
-            " b debug: `[]`,\n",
-            "       a: `\"bravo\"`,\n",
-            "       b: `\"alfa\"`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn lt_once() {
 
         static A: Once = Once::new();
         fn a() -> &'static [u8] {
@@ -156,6 +138,42 @@ mod test_assert_io_read_to_string_lt_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
         
+    }
+
+    #[test]
+    fn eq() {
+        let mut a = "alfa".as_bytes();
+        let mut b = "alfa".as_bytes();
+        let actual = assert_io_read_to_string_lt_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `[]`,\n",
+            " b label: `b`,\n",
+            " b debug: `[]`,\n",
+            "       a: `\"alfa\"`,\n",
+            "       b: `\"alfa\"`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn gt() {
+        let mut a = "alfa".as_bytes();
+        let mut b = "aa".as_bytes();
+        let actual = assert_io_read_to_string_lt_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `[]`,\n",
+            " b label: `b`,\n",
+            " b debug: `[]`,\n",
+            "       a: `\"alfa\"`,\n",
+            "       b: `\"aa\"`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }
@@ -179,13 +197,13 @@ mod test_assert_io_read_to_string_lt_as_result {
 ///
 /// # fn main() {
 /// let mut a = "alfa".as_bytes();
-/// let mut b = "bravo".as_bytes();
+/// let mut b = "zz".as_bytes();
 /// assert_io_read_to_string_lt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let mut a = "bravo".as_bytes();
-/// let mut b = "alfa".as_bytes();
+/// let mut a = "alfa".as_bytes();
+/// let mut b = "aa".as_bytes();
 /// assert_io_read_to_string_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`
@@ -194,8 +212,8 @@ mod test_assert_io_read_to_string_lt_as_result {
 /// //  a debug: `[]`,
 /// //  b label: `b`,
 /// //  b debug: `[]`,
-/// //        a: `\"bravo\"`,
-/// //        b: `\"alfa\"`
+/// //        a: `\"alfa\"`,
+/// //        b: `\"aa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
@@ -204,8 +222,8 @@ mod test_assert_io_read_to_string_lt_as_result {
 /// #     " a debug: `[]`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `[]`,\n",
-/// #     "       a: `\"bravo\"`,\n",
-/// #     "       b: `\"alfa\"`"
+/// #     "       a: `\"alfa\"`,\n",
+/// #     "       b: `\"aa\"`"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -242,16 +260,16 @@ mod test_assert_io_read_to_string_lt {
     #[test]
     fn success() {
         let mut a = "alfa".as_bytes();
-        let mut b = "bravo".as_bytes();
+        let mut b = "zz".as_bytes();
         let actual = assert_io_read_to_string_lt!(a, b);
-        assert_eq!(actual, (String::from("alfa"), String::from("bravo")));
+        assert_eq!(actual, (String::from("alfa"), String::from("zz")));
     }
 
     #[test]
     fn failure() {
         let result = panic::catch_unwind(|| {
-            let mut a = "bravo".as_bytes();
-            let mut b = "alfa".as_bytes();
+            let mut a = "alfa".as_bytes();
+            let mut b = "aa".as_bytes();
             let _actual = assert_io_read_to_string_lt!(a, b);
         });
         let message = concat!(
@@ -261,8 +279,8 @@ mod test_assert_io_read_to_string_lt {
             " a debug: `[]`,\n",
             " b label: `b`,\n",
             " b debug: `[]`,\n",
-            "       a: `\"bravo\"`,\n",
-            "       b: `\"alfa\"`"
+            "       a: `\"alfa\"`,\n",
+            "       b: `\"aa\"`"
         );
         assert_eq!(
             result

@@ -94,7 +94,7 @@ macro_rules! assert_in_epsilon_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_epsilon.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_epsilon.html\n",
                                 "                   a label: `{}`,\n",
                                 "                   a debug: `{:?}`,\n",
                                 "                   b label: `{}`,\n",
@@ -124,6 +124,7 @@ macro_rules! assert_in_epsilon_as_result {
 
 #[cfg(test)]
 mod test_assert_in_epsilon_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -134,31 +135,8 @@ mod test_assert_in_epsilon_as_result {
         assert_eq!(actual.unwrap(), (10, 10));
     }
 
-    #[test]
-    fn failure() {
-        let a: i8 = 10;
-        let b: i8 = 30;
-        let epsilon: i8 = 1;
-        let actual = assert_in_epsilon_as_result!(a, b, epsilon);
-        let message = concat!(
-            "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_epsilon.html\n",
-            "                   a label: `a`,\n",
-            "                   a debug: `10`,\n",
-            "                   b label: `b`,\n",
-            "                   b debug: `30`,\n",
-            "                   ε label: `epsilon`,\n",
-            "                   ε debug: `1`,\n",
-            "                 | a - b |: `20`,\n",
-            "             ε * min(a, b): `10`,\n",
-            " | a - b | ≤ ε * min(a, b): false"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+        #[test]
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> i8 {
@@ -187,6 +165,28 @@ mod test_assert_in_epsilon_as_result {
         assert_eq!(B.is_completed(), true);
         assert_eq!(EPSILON.is_completed(), true);
 
+    }
+
+    #[test]
+    fn failure() {
+        let a: i8 = 10;
+        let b: i8 = 30;
+        let epsilon: i8 = 1;
+        let actual = assert_in_epsilon_as_result!(a, b, epsilon);
+        let message = concat!(
+            "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_epsilon.html\n",
+            "                   a label: `a`,\n",
+            "                   a debug: `10`,\n",
+            "                   b label: `b`,\n",
+            "                   b debug: `30`,\n",
+            "                   ε label: `epsilon`,\n",
+            "                   ε debug: `1`,\n",
+            "                 | a - b |: `20`,\n",
+            "             ε * min(a, b): `10`,\n",
+            " | a - b | ≤ ε * min(a, b): false"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }
@@ -221,7 +221,7 @@ mod test_assert_in_epsilon_as_result {
 /// assert_in_epsilon!(a, b, epsilon);
 /// # });
 /// // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_epsilon.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_epsilon.html
 /// //                    a label: `a`,
 /// //                    a debug: `10`,
 /// //                    b label: `b`,
@@ -234,7 +234,7 @@ mod test_assert_in_epsilon_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_epsilon.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_epsilon.html\n",
 /// #     "                   a label: `a`,\n",
 /// #     "                   a debug: `10`,\n",
 /// #     "                   b label: `b`,\n",
@@ -312,7 +312,7 @@ mod test_assert_in_epsilon {
         });
         let message = concat!(
             "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_in_epsilon.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_in_epsilon.html\n",
             "                   a label: `a`,\n",
             "                   a debug: `10`,\n",
             "                   b label: `b`,\n",

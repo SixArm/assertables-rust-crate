@@ -112,6 +112,7 @@ macro_rules! assert_program_args_stdout_string_contains_as_result {
 
 #[cfg(test)]
 mod test_assert_program_args_stdout_string_contains_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -123,30 +124,7 @@ mod test_assert_program_args_stdout_string_contains_as_result {
     }
 
     #[test]
-    fn failure() {
-        let a_program = "bin/printf-stdout";
-        let a_args = ["%s", "alfa"];
-        let b = "zz";
-        let actual = assert_program_args_stdout_string_contains_as_result!(&a_program, &a_args, &b);
-        let message = concat!(
-            "assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_string_contains.html\n",
-            " a_program label: `&a_program`,\n",
-            " a_program debug: `\"bin/printf-stdout\"`,\n",
-            "    a_args label: `&a_args`,\n",
-            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " containee label: `&b`,\n",
-            " containee debug: `\"zz\"`,\n",
-            "               a: `\"alfa\"`,\n",
-            "               b: `\"zz\"`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> &'static str {
@@ -175,6 +153,27 @@ mod test_assert_program_args_stdout_string_contains_as_result {
         assert_eq!(A_ARGS.is_completed(), true);
         assert_eq!(B.is_completed(), true);
         
+    }
+
+    #[test]
+    fn failure() {
+        let a_program = "bin/printf-stdout";
+        let a_args = ["%s", "alfa"];
+        let b = "zz";
+        let actual = assert_program_args_stdout_string_contains_as_result!(&a_program, &a_args, &b);
+        let message = concat!(
+            "assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_string_contains.html\n",
+            " a_program label: `&a_program`,\n",
+            " a_program debug: `\"bin/printf-stdout\"`,\n",
+            "    a_args label: `&a_args`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+            " containee label: `&b`,\n",
+            " containee debug: `\"zz\"`,\n",
+            "               a: `\"alfa\"`,\n",
+            "               b: `\"zz\"`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }

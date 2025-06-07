@@ -24,7 +24,7 @@
 /// Pseudocode:<br>
 /// (a_collection ⇒ a_bag) = (b_collection ⇒ b_bag)
 ///
-/// * If true, return Result `Ok((a_bag, b_bag))`.
+/// * If true, return Result `Ok((a, b))`.
 ///
 /// * Otherwise, return Result `Err(message)`.
 ///
@@ -42,16 +42,16 @@ macro_rules! assert_bag_eq_as_result {
     ($a_collection:expr, $b_collection:expr $(,)?) => {
         match ($a_collection, $b_collection) {
             (a_collection, b_collection) => {
-                let a_bag = assert_bag_impl_prep!(a_collection);
-                let b_bag = assert_bag_impl_prep!(b_collection);
-                if a_bag == b_bag {
-                    Ok((a_bag, b_bag))
+                let a = assert_bag_impl_prep!(a_collection);
+                let b = assert_bag_impl_prep!(b_collection);
+                if a == b {
+                    Ok((a, b))
                 } else {
                     Err(
                         format!(
                             concat!(
                                 "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_bag_eq.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_bag_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -63,8 +63,8 @@ macro_rules! assert_bag_eq_as_result {
                             a_collection,
                             stringify!($b_collection),
                             b_collection,
-                            a_bag,
-                            b_bag
+                            a,
+                            b
                         )
                     )
                 }
@@ -75,6 +75,7 @@ macro_rules! assert_bag_eq_as_result {
 
 #[cfg(test)]
 mod test_assert_bag_eq_as_result {
+    use std::sync::Once;
     use std::collections::BTreeMap;
 
     #[test]
@@ -89,26 +90,7 @@ mod test_assert_bag_eq_as_result {
     }
 
     #[test]
-    fn ne() {
-        let a = [1, 1];
-        let b = [1, 1, 1];
-        let actual = assert_bag_eq_as_result!(&a, &b);
-        let message = concat!(
-            "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_bag_eq.html\n",
-            " a label: `&a`,\n",
-            " a debug: `[1, 1]`,\n",
-            " b label: `&b`,\n",
-            " b debug: `[1, 1, 1]`,\n",
-            "   a bag: `{1: 2}`,\n",
-            "   b bag: `{1: 3}`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn eq_once() {
 
         static A: Once = Once::new();
         fn a() -> [i32; 2] {
@@ -131,6 +113,24 @@ mod test_assert_bag_eq_as_result {
 
     }
 
+    #[test]
+    fn ne() {
+        let a = [1, 1];
+        let b = [1, 1, 1];
+        let actual = assert_bag_eq_as_result!(&a, &b);
+        let message = concat!(
+            "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_bag_eq.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[1, 1]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[1, 1, 1]`,\n",
+            "   a bag: `{1: 2}`,\n",
+            "   b bag: `{1: 3}`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
+    }
+
 }
 
 /// Assert a bag is equal to another.
@@ -138,7 +138,7 @@ mod test_assert_bag_eq_as_result {
 /// Pseudocode:<br>
 /// (a_collection ⇒ a_bag) = (b_collection ⇒ b_bag)
 ///
-/// * If true, return `(a_bag, b_bag)`.
+/// * If true, return `(a, b)`.
 ///
 /// * Otherwise, call [`panic!`] in order to print the values of the
 ///   expressions with their debug representations.
@@ -161,7 +161,7 @@ mod test_assert_bag_eq_as_result {
 /// assert_bag_eq!(&a, &b);
 /// # });
 /// // assertion failed: `assert_bag_eq!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_bag_eq.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_bag_eq.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 1]`,
 /// //  b label: `&b`,
@@ -171,7 +171,7 @@ mod test_assert_bag_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_bag_eq.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_bag_eq.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 1]`,\n",
 /// #     " b label: `&b`,\n",
@@ -232,7 +232,7 @@ mod test_assert_bag_eq {
         });
         let message = concat!(
             "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_bag_eq.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_bag_eq.html\n",
             " a label: `&a`,\n",
             " a debug: `[1, 1]`,\n",
             " b label: `&b`,\n",

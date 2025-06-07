@@ -100,6 +100,7 @@ macro_rules! assert_io_read_to_string_is_match_as_result {
 
 #[cfg(test)]
 mod test_assert_io_read_to_string_is_match_as_result {
+    use std::sync::Once;
     use regex::Regex;
     use std::io::Read;
 
@@ -112,26 +113,7 @@ mod test_assert_io_read_to_string_is_match_as_result {
     }
 
     #[test]
-    fn failure() {
-        let mut reader = "alfa".as_bytes();
-        let matcher = Regex::new(r"zz").expect("regex");
-        let actual = assert_io_read_to_string_is_match_as_result!(reader, &matcher);
-        let message = concat!(
-            "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_is_match.html\n",
-            "  reader label: `reader`,\n",
-            "  reader debug: `[]`,\n",
-            " matcher label: `&matcher`,\n",
-            " matcher debug: `Regex(\"zz\")`,\n",
-            "   reader size: `4`,\n",
-            " reader string: `\"alfa\"`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> &'static [u8] {
@@ -152,6 +134,24 @@ mod test_assert_io_read_to_string_is_match_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
         
+    }
+
+    #[test]
+    fn failure() {
+        let mut reader = "alfa".as_bytes();
+        let matcher = Regex::new(r"zz").expect("regex");
+        let actual = assert_io_read_to_string_is_match_as_result!(reader, &matcher);
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_is_match.html\n",
+            "  reader label: `reader`,\n",
+            "  reader debug: `[]`,\n",
+            " matcher label: `&matcher`,\n",
+            " matcher debug: `Regex(\"zz\")`,\n",
+            "   reader size: `4`,\n",
+            " reader string: `\"alfa\"`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }

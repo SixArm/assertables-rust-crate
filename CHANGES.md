@@ -5,6 +5,9 @@ Changes as highlights for recent major versions.
 
 ## Version 9.x
 
+* 9.5.6 Fix idempotent access testing via once: `assert_count/`, `assert_len/`, `assert_bag/`, `assert_set/`, `assert_in/`, `assert_is_empty/`, `assert_is_match/`, `assert_err/`, `assert_starts_with/`, `assert_ends_with/`,
+`assert_program_args_*/`.
+
 * 9.5.5 Fix documentation link version number also in README.
 
 * 9.5.4 Fix documentation link version number.

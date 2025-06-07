@@ -48,7 +48,7 @@ macro_rules! assert_is_empty_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_is_empty!(a)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_is_empty.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_empty.html\n",
                                 " label: `{}`,\n",
                                 " debug: `{:?}`",
                             ),
@@ -64,6 +64,7 @@ macro_rules! assert_is_empty_as_result {
 
 #[cfg(test)]
 mod test_assert_is_empty_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -73,21 +74,7 @@ mod test_assert_is_empty_as_result {
     }
 
     #[test]
-    fn failure() {
-        let a = "alfa";
-        let actual = assert_is_empty_as_result!(a);
-        let message = concat!(
-            "assertion failed: `assert_is_empty!(a)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_is_empty.html\n",
-            " label: `a`,\n",
-            " debug: `\"alfa\"`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> &'static str {
@@ -99,6 +86,19 @@ mod test_assert_is_empty_as_result {
         let result = assert_is_empty_as_result!(a());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
+    }
+
+    #[test]
+    fn failure() {
+        let a = "alfa";
+        let actual = assert_is_empty_as_result!(a);
+        let message = concat!(
+            "assertion failed: `assert_is_empty!(a)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_empty.html\n",
+            " label: `a`,\n",
+            " debug: `\"alfa\"`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }
@@ -129,13 +129,13 @@ mod test_assert_is_empty_as_result {
 /// assert_is_empty!(a);
 /// # });
 /// // assertion failed: `assert_is_empty!(a)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_is_empty.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_empty.html
 /// //  label: `a`,
 /// //  debug: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_is_empty!(a)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_is_empty.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_empty.html\n",
 /// #     " label: `a`,\n",
 /// #     " debug: `\"alfa\"`"
 /// # );
@@ -184,7 +184,7 @@ mod test_assert_is_empty {
         });
         let message = concat!(
             "assertion failed: `assert_is_empty!(a)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_is_empty.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_empty.html\n",
             " label: `a`,\n",
             " debug: `\"alfa\"`"
         );

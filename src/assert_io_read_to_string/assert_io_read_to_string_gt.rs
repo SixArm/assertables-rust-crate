@@ -10,8 +10,8 @@
 //! use std::io::Read;
 //!
 //! let mut a = "alfa".as_bytes();
-//! let mut b = "bravo".as_bytes();
-//! assert_io_read_to_string_gt!(b, a);
+//! let mut b = "aa".as_bytes();
+//! assert_io_read_to_string_gt!(a, b);
 //! ```
 //!
 //! # Module macros
@@ -102,18 +102,43 @@ macro_rules! assert_io_read_to_string_gt_as_result {
 
 #[cfg(test)]
 mod test_assert_io_read_to_string_gt_as_result {
+    use std::sync::Once;
     #[allow(unused_imports)]
     use std::io::Read;
 
     #[test]
     fn gt() {
-        let mut a = "bravo".as_bytes();
-        let mut b = "alfa".as_bytes();
+        let mut a = "alfa".as_bytes();
+        let mut b = "aa".as_bytes();
         let actual = assert_io_read_to_string_gt_as_result!(a, b);
         assert_eq!(
             actual.unwrap(),
-            (String::from("bravo"), String::from("alfa"))
+            (String::from("alfa"), String::from("aa"))
         );
+    }
+
+    #[test]
+    fn gt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static [u8] {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "alfa".as_bytes()
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static [u8] {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "aa".as_bytes()
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_io_read_to_string_gt_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
     }
 
     #[test]
@@ -137,7 +162,7 @@ mod test_assert_io_read_to_string_gt_as_result {
     #[test]
     fn lt() {
         let mut a = "alfa".as_bytes();
-        let mut b = "bravo".as_bytes();
+        let mut b = "zz".as_bytes();
         let actual = assert_io_read_to_string_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
@@ -147,34 +172,9 @@ mod test_assert_io_read_to_string_gt_as_result {
             " b label: `b`,\n",
             " b debug: `[]`,\n",
             "       a: `\"alfa\"`,\n",
-            "       b: `\"bravo\"`"
+            "       b: `\"zz\"`"
         );
         assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
-
-        static A: Once = Once::new();
-        fn a() -> &'static [u8] {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
-            "alfa".as_bytes()
-        }
-
-        static B: Once = Once::new();
-        fn b() -> &'static [u8] {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
-            "aa".as_bytes()
-        }
-
-        assert_eq!(A.is_completed(), false);
-        assert_eq!(B.is_completed(), false);
-        let result = assert_io_read_to_string_gt_as_result!(a(), b());
-        assert!(result.is_ok());
-        assert_eq!(A.is_completed(), true);
-        assert_eq!(B.is_completed(), true);
-        
     }
 
 }
@@ -198,13 +198,13 @@ mod test_assert_io_read_to_string_gt_as_result {
 ///
 /// # fn main() {
 /// let mut a = "alfa".as_bytes();
-/// let mut b = "bravo".as_bytes();
-/// assert_io_read_to_string_gt!(b, a);
+/// let mut b = "aa".as_bytes();
+/// assert_io_read_to_string_gt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let mut a = "alfa".as_bytes();
-/// let mut b = "bravo".as_bytes();
+/// let mut b = "zz".as_bytes();
 /// assert_io_read_to_string_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`
@@ -214,7 +214,7 @@ mod test_assert_io_read_to_string_gt_as_result {
 /// //  b label: `b`,
 /// //  b debug: `[]`,
 /// //        a: `\"alfa\"`,
-/// //        b: `\"bravo\"`
+/// //        b: `\"zz\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
@@ -224,7 +224,7 @@ mod test_assert_io_read_to_string_gt_as_result {
 /// #     " b label: `b`,\n",
 /// #     " b debug: `[]`,\n",
 /// #     "       a: `\"alfa\"`,\n",
-/// #     "       b: `\"bravo\"`",
+/// #     "       b: `\"zz\"`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -260,10 +260,10 @@ mod test_assert_io_read_to_string_gt {
 
     #[test]
     fn gt() {
-        let mut a = "bravo".as_bytes();
-        let mut b = "alfa".as_bytes();
+        let mut a = "alfa".as_bytes();
+        let mut b = "aa".as_bytes();
         let actual = assert_io_read_to_string_gt!(a, b);
-        assert_eq!(actual, (String::from("bravo"), String::from("alfa")));
+        assert_eq!(actual, (String::from("alfa"), String::from("aa")));
     }
 
     #[test]
@@ -297,7 +297,7 @@ mod test_assert_io_read_to_string_gt {
     fn lt() {
         let result = panic::catch_unwind(|| {
             let mut a = "alfa".as_bytes();
-            let mut b = "bravo".as_bytes();
+            let mut b = "zz".as_bytes();
             let _actual = assert_io_read_to_string_gt!(a, b);
         });
         let message = concat!(
@@ -308,7 +308,7 @@ mod test_assert_io_read_to_string_gt {
             " b label: `b`,\n",
             " b debug: `[]`,\n",
             "       a: `\"alfa\"`,\n",
-            "       b: `\"bravo\"`"
+            "       b: `\"zz\"`"
         );
         assert_eq!(
             result

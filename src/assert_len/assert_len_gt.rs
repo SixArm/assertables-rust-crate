@@ -51,7 +51,7 @@ macro_rules! assert_len_gt_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_len_gt!(a, b)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_len_gt.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_len_gt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.len(): `{:?}`,\n",
@@ -75,6 +75,7 @@ macro_rules! assert_len_gt_as_result {
 
 #[cfg(test)]
 mod test_assert_len_gt_as_result {
+    use std::sync::Once;
 
     #[test]
     fn gt() {
@@ -85,45 +86,7 @@ mod test_assert_len_gt_as_result {
     }
 
     #[test]
-    fn eq() {
-        let a = "x";
-        let b = "x";
-        let actual = assert_len_gt_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_len_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_len_gt.html\n",
-            " a label: `a`,\n",
-            " a debug: `\"x\"`,\n",
-            " a.len(): `1`,\n",
-            " b label: `b`,\n",
-            " b debug: `\"x\"`\n",
-            " b.len(): `1`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    #[test]
-    fn lt() {
-        let a = "x";
-        let b = "xx";
-        let actual = assert_len_gt_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_len_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_len_gt.html\n",
-            " a label: `a`,\n",
-            " a debug: `\"x\"`,\n",
-            " a.len(): `1`,\n",
-            " b label: `b`,\n",
-            " b debug: `\"xx\"`\n",
-            " b.len(): `2`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn gt_once() {
 
         static A: Once = Once::new();
         fn a() -> &'static str {
@@ -144,6 +107,42 @@ mod test_assert_len_gt_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
 
+    }
+
+    #[test]
+    fn eq() {
+        let a = "x";
+        let b = "x";
+        let actual = assert_len_gt_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_len_gt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_len_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"x\"`,\n",
+            " a.len(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"x\"`\n",
+            " b.len(): `1`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
+    }
+
+    #[test]
+    fn lt() {
+        let a = "x";
+        let b = "xx";
+        let actual = assert_len_gt_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_len_gt!(a, b)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_len_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"x\"`,\n",
+            " a.len(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"xx\"`\n",
+            " b.len(): `2`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }
@@ -176,7 +175,7 @@ mod test_assert_len_gt_as_result {
 /// assert_len_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_len_gt!(a, b)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_len_gt.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_len_gt.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
@@ -186,7 +185,7 @@ mod test_assert_len_gt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_len_gt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_len_gt.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_len_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
@@ -241,7 +240,7 @@ mod test_assert_len_gt {
         });
         let message = concat!(
             "assertion failed: `assert_len_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_len_gt.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_len_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"x\"`,\n",
             " a.len(): `1`,\n",
@@ -268,7 +267,7 @@ mod test_assert_len_gt {
         });
         let message = concat!(
             "assertion failed: `assert_len_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_len_gt.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_len_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"x\"`,\n",
             " a.len(): `1`,\n",

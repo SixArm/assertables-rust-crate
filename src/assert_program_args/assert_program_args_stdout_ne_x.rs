@@ -10,7 +10,7 @@
 //!
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "alfa"];
-//! let bytes = vec![b'x'];
+//! let bytes = vec![b'x', b'x'];
 //! assert_program_args_stdout_ne_x!(&program, &args, &bytes);
 //! ```
 //!
@@ -45,7 +45,7 @@ macro_rules! assert_program_args_stdout_ne_x_as_result {
             (a_program, a_args, b_expr) => {
                 match assert_program_args_impl_prep!(a_program, a_args) {
                     Ok(a_output) => {
-                        let a: Vec<u8> = a_output.stdout;
+                        let a = a_output.stdout;
                         if a.ne(b_expr) {
                             Ok(a)
                         } else {
@@ -107,14 +107,47 @@ macro_rules! assert_program_args_stdout_ne_x_as_result {
 
 #[cfg(test)]
 mod test_assert_program_args_stdout_ne_x_as_result {
+    use std::sync::Once;
 
     #[test]
     fn lt() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
-        let b = vec![b'x'];
+        let b = vec![b'z', b'z'];
         let actual = assert_program_args_stdout_ne_x_as_result!(&a_program, &a_args, &b);
         assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
+    }
+
+    #[test]
+    fn lt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static str {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "bin/printf-stdout"
+        }
+
+        static A_ARGS: Once = Once::new();
+        fn a_args() -> [&'static str; 2] {
+            if A_ARGS.is_completed() { panic!("A_ARGS.is_completed()") } else { A_ARGS.call_once(|| {}) }
+            ["%s", "alfa"]
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Vec<u8> {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            vec![b'z', b'z']
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(A_ARGS.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_program_args_stdout_ne_x_as_result!(a(), a_args(), &b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(A_ARGS.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
     }
 
     #[test]
@@ -124,6 +157,38 @@ mod test_assert_program_args_stdout_ne_x_as_result {
         let b = vec![b'a', b'a'];
         let actual = assert_program_args_stdout_ne_x_as_result!(&a_program, &a_args, &b);
         assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
+    }
+
+    #[test]
+    fn gt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static str {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "bin/printf-stdout"
+        }
+
+        static A_ARGS: Once = Once::new();
+        fn a_args() -> [&'static str; 2] {
+            if A_ARGS.is_completed() { panic!("A_ARGS.is_completed()") } else { A_ARGS.call_once(|| {}) }
+            ["%s", "alfa"]
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Vec<u8> {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            vec![b'a', b'a']
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(A_ARGS.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_program_args_stdout_ne_x_as_result!(a(), a_args(), &b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(A_ARGS.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
     }
 
     #[test]
@@ -147,40 +212,6 @@ mod test_assert_program_args_stdout_ne_x_as_result {
         assert_eq!(actual.unwrap_err(), message);
     }
 
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
-
-        static A: Once = Once::new();
-        fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
-            "bin/printf-stdout"
-        }
-
-        static A_ARGS: Once = Once::new();
-        fn a_args() -> [&'static str; 2] {
-            if A_ARGS.is_completed() { panic!("A_ARGS.is_completed()") } else { A_ARGS.call_once(|| {}) }
-            ["%s", "alfa"]
-        }
-
-        static B: Once = Once::new();
-        fn b() -> Vec<u8> {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
-            vec![b'x']
-        }
-
-        assert_eq!(A.is_completed(), false);
-        assert_eq!(A_ARGS.is_completed(), false);
-        assert_eq!(B.is_completed(), false);
-        let result = assert_program_args_stdout_ne_x_as_result!(a(), a_args(), &b());
-        assert!(result.is_ok());
-        assert_eq!(A.is_completed(), true);
-        assert_eq!(A_ARGS.is_completed(), true);
-        assert_eq!(B.is_completed(), true);
-        
-    }
-
 }
 
 /// Assert a command (built with program and args) stdout is not equal to an expression.
@@ -202,7 +233,7 @@ mod test_assert_program_args_stdout_ne_x_as_result {
 /// # fn main() {
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "alfa"];
-/// let bytes = vec![b'x'];
+/// let bytes = vec![b'x', b'x'];
 /// assert_program_args_stdout_ne_x!(&program, &args, &bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
@@ -269,7 +300,7 @@ mod test_assert_program_args_stdout_ne_x {
     fn lt() {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
-        let b = vec![b'x'];
+        let b = vec![b'x', b'x'];
         let actual = assert_program_args_stdout_ne_x!(&a_program, &a_args, &b);
         assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
     }

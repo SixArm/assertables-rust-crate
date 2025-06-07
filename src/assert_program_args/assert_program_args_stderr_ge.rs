@@ -123,6 +123,7 @@ macro_rules! assert_program_args_stderr_ge_as_result {
 
 #[cfg(test)]
 mod test_assert_program_args_stderr_ge_as_result {
+    use std::sync::Once;
 
     #[test]
     fn gt() {
@@ -139,47 +140,7 @@ mod test_assert_program_args_stderr_ge_as_result {
     }
 
     #[test]
-    fn eq() {
-        let a_program = "bin/printf-stderr";
-        let a_args = ["%s", "alfa"];
-        let b_program = "bin/printf-stderr";
-        let b_args = ["%s", "alfa"];
-        let actual =
-            assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
-        assert_eq!(
-            actual.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
-        );
-    }
-
-    #[test]
-    fn lt() {
-        let a_program = "bin/printf-stderr";
-        let a_args = ["%s", "alfa"];
-        let b_program = "bin/printf-stderr";
-        let b_args = ["%s", "zz"];
-        let actual =
-            assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
-        let message = concat!(
-            "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stderr_ge.html\n",
-            " a_program label: `&a_program`,\n",
-            " a_program debug: `\"bin/printf-stderr\"`,\n",
-            "    a_args label: `&a_args`,\n",
-            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_program label: `&b_program`,\n",
-            " b_program debug: `\"bin/printf-stderr\"`,\n",
-            "    b_args label: `&b_args`,\n",
-            "    b_args debug: `[\"%s\", \"zz\"]`,\n",
-            "               a: `[97, 108, 102, 97]`,\n",
-            "               b: `[122, 122]`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn gt_once() {
 
         static A: Once = Once::new();
         fn a() -> &'static str {
@@ -217,6 +178,86 @@ mod test_assert_program_args_stderr_ge_as_result {
         assert_eq!(B_ARGS.is_completed(), true);
         
     }
+
+    #[test]
+    fn eq() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "alfa"];
+        let b_program = "bin/printf-stderr";
+        let b_args = ["%s", "alfa"];
+        let actual =
+            assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
+        assert_eq!(
+            actual.unwrap(),
+            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
+        );
+    }
+
+    #[test]
+    fn eq_once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static str {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "bin/printf-stderr"
+        }
+
+        static A_ARGS: Once = Once::new();
+        fn a_args() -> [&'static str; 2] {
+            if A_ARGS.is_completed() { panic!("A_ARGS.is_completed()") } else { A_ARGS.call_once(|| {}) }
+            ["%s", "alfa"]
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static str {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "bin/printf-stderr"
+        }
+
+        static B_ARGS: Once = Once::new();
+        fn b_args() -> [&'static str; 2] {
+            if B_ARGS.is_completed() { panic!("B_ARGS.is_completed()") } else { B_ARGS.call_once(|| {}) }
+            ["%s", "alfa"]
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(A_ARGS.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        assert_eq!(B_ARGS.is_completed(), false);
+        let result = assert_program_args_stderr_ge_as_result!(a(), a_args(), b(), b_args());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(A_ARGS.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        assert_eq!(B_ARGS.is_completed(), true);
+        
+    }
+
+    #[test]
+    fn lt() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "alfa"];
+        let b_program = "bin/printf-stderr";
+        let b_args = ["%s", "zz"];
+        let actual =
+            assert_program_args_stderr_ge_as_result!(&a_program, &a_args, &b_program, &b_args);
+        let message = concat!(
+            "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stderr_ge.html\n",
+            " a_program label: `&a_program`,\n",
+            " a_program debug: `\"bin/printf-stderr\"`,\n",
+            "    a_args label: `&a_args`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+            " b_program label: `&b_program`,\n",
+            " b_program debug: `\"bin/printf-stderr\"`,\n",
+            "    b_args label: `&b_args`,\n",
+            "    b_args debug: `[\"%s\", \"zz\"]`,\n",
+            "               a: `[97, 108, 102, 97]`,\n",
+            "               b: `[122, 122]`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
+    }
+
 }
 
 /// Assert a command (built with program and args) stderr is greater than or equal to another.

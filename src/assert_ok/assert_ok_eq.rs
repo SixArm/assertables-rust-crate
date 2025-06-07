@@ -51,7 +51,7 @@ macro_rules! assert_ok_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_ok_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok_eq.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a inner: `{:?}`,\n",
@@ -74,7 +74,7 @@ macro_rules! assert_ok_eq_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_ok_eq!(a, b)`\n",
-                            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok_eq.html\n",
+                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -93,6 +93,7 @@ macro_rules! assert_ok_eq_as_result {
 
 #[cfg(test)]
 mod test_assert_ok_eq_as_result {
+    use std::sync::Once;
 
     #[test]
     fn eq() {
@@ -103,13 +104,36 @@ mod test_assert_ok_eq_as_result {
     }
 
     #[test]
+    fn eq_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Result<i8, i8> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            Ok(1)
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Result<i8, i8> {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            Ok(1)
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_ok_eq_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+    }
+
+    #[test]
     fn ne() {
         let a: Result<i8, i8> = Ok(1);
         let b: Result<i8, i8> = Ok(2);
         let actual = assert_ok_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ok_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok_eq.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`,\n",
             " a inner: `1`,\n",
@@ -127,26 +151,13 @@ mod test_assert_ok_eq_as_result {
         let actual = assert_ok_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ok_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok_eq.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`,\n",
             " b label: `b`,\n",
             " b debug: `Ok(1)`",
         );
         assert_eq!(actual.unwrap_err(), message);
-    }
-
-    #[test]
-    fn idempotent() {
-        let a = 100;
-        let b = 100;
-        let a_atomic = std::sync::atomic::AtomicU32::new(a);
-        let a_increment = || Err::<u32, u32>(a_atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
-        let b_atomic = std::sync::atomic::AtomicU32::new(b);
-        let b_increment = || Err::<u32, u32>(b_atomic.fetch_add(1, std::sync::atomic::Ordering::SeqCst));
-        let _ = assert_ok_eq_as_result!(a_increment(), b_increment());
-        assert_eq!(a_atomic.load(std::sync::atomic::Ordering::SeqCst), a + 1);
-        assert_eq!(b_atomic.load(std::sync::atomic::Ordering::SeqCst), b + 1);
     }
 
 }
@@ -179,7 +190,7 @@ mod test_assert_ok_eq_as_result {
 /// assert_ok_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_ok_eq!(a, b)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok_eq.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok_eq.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,
@@ -189,7 +200,7 @@ mod test_assert_ok_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_ok_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok_eq.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -244,7 +255,7 @@ mod test_assert_ok_eq {
         });
         let message = concat!(
             "assertion failed: `assert_ok_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok_eq.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`,\n",
             " a inner: `1`,\n",
@@ -271,7 +282,7 @@ mod test_assert_ok_eq {
         });
         let message = concat!(
             "assertion failed: `assert_ok_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_ok_eq.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ok_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`,\n",
             " b label: `b`,\n",

@@ -6,7 +6,7 @@
 (a_collection ⇒ a_bag) ⊂ (b_collection ⇒ b_bag)</p>
 <ul>
 <li>
-<p>If true, return <code>(a_bag, b_bag)</code>.</p>
+<p>If true, return <code>(a, b)</code>.</p>
 </li>
 <li>
 <p>Otherwise, call <a href="https://doc.rust-lang.org/1.82.0/std/macro.panic.html" title="macro std::panic"><code>panic!</code></a> in order to print the values of the
@@ -25,7 +25,7 @@ expressions with their debug representations.</p>
 <span class="kw">let </span>b = [<span class="number">1</span>, <span class="number">1</span>];
 <span class="macro">assert_bag_subbag!</span>(<span class="kw-2">&amp;</span>a, <span class="kw-2">&amp;</span>b);
 <span class="comment">// assertion failed: `assert_bag_subbag!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.5.5/assertables/macro.assert_bag_subbag.html
+// https://docs.rs/assertables/9.5.6/assertables/macro.assert_bag_subbag.html
 //  a label: `&amp;a`,
 //  a debug: `[1, 1, 1]`,
 //  b label: `&amp;b`,

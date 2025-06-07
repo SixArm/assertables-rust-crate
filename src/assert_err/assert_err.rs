@@ -45,7 +45,7 @@ macro_rules! assert_err_as_result {
             _ => Err(format!(
                 concat!(
                     "assertion failed: `assert_err!(a)`\n",
-                    "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err.html\n",
+                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`",
                 ),
@@ -58,6 +58,7 @@ macro_rules! assert_err_as_result {
 
 #[cfg(test)]
 mod test_assert_err_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -67,21 +68,7 @@ mod test_assert_err_as_result {
     }
 
     #[test]
-    fn failure() {
-        let a: Result<i8, i8> = Ok(1);
-        let actual = assert_err_as_result!(a);
-        let message = concat!(
-            "assertion failed: `assert_err!(a)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err.html\n",
-            " a label: `a`,\n",
-            " a debug: `Ok(1)`",
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> Result<i8, i8> {
@@ -94,6 +81,19 @@ mod test_assert_err_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
 
+    }
+
+    #[test]
+    fn failure() {
+        let a: Result<i8, i8> = Ok(1);
+        let actual = assert_err_as_result!(a);
+        let message = concat!(
+            "assertion failed: `assert_err!(a)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err.html\n",
+            " a label: `a`,\n",
+            " a debug: `Ok(1)`",
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }
@@ -124,13 +124,13 @@ mod test_assert_err_as_result {
 /// assert_err!(a);
 /// # });
 /// // assertion failed: `assert_err!(a)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_err.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_err!(a)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`",
 /// # );
@@ -179,7 +179,7 @@ mod test_assert_err {
         });
         let message = concat!(
             "assertion failed: `assert_err!(a)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_err.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`",
         );

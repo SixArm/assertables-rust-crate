@@ -44,7 +44,7 @@ macro_rules! assert_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert!(condition)`\n",
-                            "https://docs.rs/assertables/9.5.5/assertables/macro.assert.html\n",
+                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert.html\n",
                             " condition label: `{}`,\n",
                             " condition debug: `{:?}`,\n",
                         ),
@@ -59,6 +59,7 @@ macro_rules! assert_as_result {
 
 #[cfg(test)]
 mod test_assert_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -73,7 +74,7 @@ mod test_assert_as_result {
         let actual = assert_as_result!(a);
         let message = concat!(
             "assertion failed: `assert!(condition)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert.html\n",
             " condition label: `a`,\n",
             " condition debug: `false`,\n",
         );

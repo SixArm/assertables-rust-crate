@@ -58,7 +58,6 @@ fn validate_point_nearness() {
 
 }
 
-
 /// Validate a string contains certain words such as "alfa" and "bravo".
 /// Note that real-world code would use more-complex text validation.
 #[test]

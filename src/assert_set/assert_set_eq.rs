@@ -79,6 +79,7 @@ macro_rules! assert_set_eq_as_result {
 
 #[cfg(test)]
 mod test_assert_set_eq_as_result {
+    use std::sync::Once;
     use std::collections::BTreeSet;
 
     #[test]
@@ -93,26 +94,7 @@ mod test_assert_set_eq_as_result {
     }
 
     #[test]
-    fn failure() {
-        let a = [1, 2];
-        let b = [3, 4];
-        let actual = assert_set_eq_as_result!(&a, &b);
-        let message = concat!(
-            "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_set_eq.html\n",
-            " a label: `&a`,\n",
-            " a debug: `[1, 2]`,\n",
-            " b label: `&b`,\n",
-            " b debug: `[3, 4]`,\n",
-            "       a: `{1, 2}`,\n",
-            "       b: `{3, 4}`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> [i32; 2] {
@@ -133,6 +115,24 @@ mod test_assert_set_eq_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
 
+    }
+    
+    #[test]
+    fn failure() {
+        let a = [1, 2];
+        let b = [3, 4];
+        let actual = assert_set_eq_as_result!(&a, &b);
+        let message = concat!(
+            "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_set_eq.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[1, 2]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[3, 4]`,\n",
+            "       a: `{1, 2}`,\n",
+            "       b: `{3, 4}`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }

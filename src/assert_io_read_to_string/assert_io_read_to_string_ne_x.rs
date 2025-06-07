@@ -10,7 +10,7 @@
 //! use std::io::Read;
 //!
 //! let mut reader = "alfa".as_bytes();
-//! let value = String::from("bravo");
+//! let value = String::from("zz");
 //! assert_io_read_to_string_ne_x!(reader, &value);
 //! ```
 //!
@@ -100,19 +100,76 @@ macro_rules! assert_io_read_to_string_ne_x_as_result {
 
 #[cfg(test)]
 mod test_assert_io_read_to_string_ne_x_as_result {
+    use std::sync::Once;
     #[allow(unused_imports)]
     use std::io::Read;
 
     #[test]
-    fn success() {
+    fn lt() {
         let mut reader = "alfa".as_bytes();
-        let value = String::from("bravo");
+        let value = String::from("zz");
         let actual = assert_io_read_to_string_ne_x_as_result!(reader, &value);
         assert_eq!(actual.unwrap(), String::from("alfa"));
     }
 
     #[test]
-    fn failure() {
+    fn lt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static [u8] {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "alfa".as_bytes()
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static str {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "zz"
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_io_read_to_string_ne_x_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
+    #[test]
+    fn gt() {
+        let mut reader = "alfa".as_bytes();
+        let value = String::from("aa");
+        let actual = assert_io_read_to_string_ne_x_as_result!(reader, &value);
+        assert_eq!(actual.unwrap(), String::from("alfa"));
+    }
+
+    #[test]
+    fn gt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static [u8] {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "alfa".as_bytes()
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static str {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "aa"
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_io_read_to_string_ne_x_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
+    #[test]
+    fn eq() {
         let mut reader = "alfa".as_bytes();
         let value = String::from("alfa");
         let actual = assert_io_read_to_string_ne_x_as_result!(reader, &value);
@@ -127,31 +184,6 @@ mod test_assert_io_read_to_string_ne_x_as_result {
             "              b: `\"alfa\"`"
         );
         assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
-
-        static A: Once = Once::new();
-        fn a() -> &'static [u8] {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
-            "alfa".as_bytes()
-        }
-
-        static B: Once = Once::new();
-        fn b() -> &'static str {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
-            "xx"
-        }
-
-        assert_eq!(A.is_completed(), false);
-        assert_eq!(B.is_completed(), false);
-        let result = assert_io_read_to_string_ne_x_as_result!(a(), b());
-        assert!(result.is_ok());
-        assert_eq!(A.is_completed(), true);
-        assert_eq!(B.is_completed(), true);
-        
     }
 
 }
@@ -175,7 +207,7 @@ mod test_assert_io_read_to_string_ne_x_as_result {
 ///
 /// # fn main() {
 /// let mut reader = "alfa".as_bytes();
-/// let value = String::from("bravo");
+/// let value = String::from("zz");
 /// assert_io_read_to_string_ne_x!(reader, &value);
 ///
 /// # let result = panic::catch_unwind(|| {
@@ -238,7 +270,7 @@ mod test_assert_io_read_to_string_ne_x {
     #[test]
     fn success() {
         let mut reader = "alfa".as_bytes();
-        let value = String::from("bravo");
+        let value = String::from("zz");
         let actual = assert_io_read_to_string_ne_x!(reader, &value);
         assert_eq!(actual, String::from("alfa"));
     }

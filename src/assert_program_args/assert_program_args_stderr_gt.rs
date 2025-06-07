@@ -123,6 +123,7 @@ macro_rules! assert_program_args_stderr_gt_as_result {
 
 #[cfg(test)]
 mod test_assert_program_args_stderr_gt_as_result {
+    use std::sync::Once;
 
     #[test]
     fn gt() {
@@ -136,6 +137,46 @@ mod test_assert_program_args_stderr_gt_as_result {
             actual.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
         );
+    }
+
+    #[test]
+    fn gt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> &'static str {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            "bin/printf-stderr"
+        }
+
+        static A_ARGS: Once = Once::new();
+        fn a_args() -> [&'static str; 2] {
+            if A_ARGS.is_completed() { panic!("A_ARGS.is_completed()") } else { A_ARGS.call_once(|| {}) }
+            ["%s", "alfa"]
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static str {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "bin/printf-stderr"
+        }
+
+        static B_ARGS: Once = Once::new();
+        fn b_args() -> [&'static str; 2] {
+            if B_ARGS.is_completed() { panic!("B_ARGS.is_completed()") } else { B_ARGS.call_once(|| {}) }
+            ["%s", "aa"]
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(A_ARGS.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        assert_eq!(B_ARGS.is_completed(), false);
+        let result = assert_program_args_stderr_gt_as_result!(a(), a_args(), b(), b_args());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(A_ARGS.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        assert_eq!(B_ARGS.is_completed(), true);
+        
     }
 
     #[test]
@@ -186,47 +227,6 @@ mod test_assert_program_args_stderr_gt_as_result {
             "               b: `[122, 122]`"
         );
         assert_eq!(actual.unwrap_err(), message);
-    }
-
-    use std::sync::Once;
-    #[test]
-    fn once() {
-
-        static A: Once = Once::new();
-        fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
-            "bin/printf-stderr"
-        }
-
-        static A_ARGS: Once = Once::new();
-        fn a_args() -> [&'static str; 2] {
-            if A_ARGS.is_completed() { panic!("A_ARGS.is_completed()") } else { A_ARGS.call_once(|| {}) }
-            ["%s", "alfa"]
-        }
-
-        static B: Once = Once::new();
-        fn b() -> &'static str {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
-            "bin/printf-stderr"
-        }
-
-        static B_ARGS: Once = Once::new();
-        fn b_args() -> [&'static str; 2] {
-            if B_ARGS.is_completed() { panic!("B_ARGS.is_completed()") } else { B_ARGS.call_once(|| {}) }
-            ["%s", "aa"]
-        }
-
-        assert_eq!(A.is_completed(), false);
-        assert_eq!(A_ARGS.is_completed(), false);
-        assert_eq!(B.is_completed(), false);
-        assert_eq!(B_ARGS.is_completed(), false);
-        let result = assert_program_args_stderr_gt_as_result!(a(), a_args(), b(), b_args());
-        assert!(result.is_ok());
-        assert_eq!(A.is_completed(), true);
-        assert_eq!(A_ARGS.is_completed(), true);
-        assert_eq!(B.is_completed(), true);
-        assert_eq!(B_ARGS.is_completed(), true);
-        
     }
 
 }

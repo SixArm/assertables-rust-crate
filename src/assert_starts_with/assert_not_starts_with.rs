@@ -55,7 +55,7 @@ macro_rules! assert_not_starts_with_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_not_starts_with!(sequence, subsequence)`\n",
-                                "https://docs.rs/assertables/9.5.5/assertables/macro.assert_not_starts_with.html\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_not_starts_with.html\n",
                                 "     sequence label: `{}`,\n",
                                 "     sequence debug: `{:?}`,\n",
                                 "  subsequence label: `{}`,\n",
@@ -75,6 +75,7 @@ macro_rules! assert_not_starts_with_as_result {
 
 #[cfg(test)]
 mod test_assert_not_starts_with_as_result {
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -85,24 +86,7 @@ mod test_assert_not_starts_with_as_result {
     }
 
     #[test]
-    fn failure() {
-        let sequence = "alfa";
-        let subsequence = "al";
-        let actual = assert_not_starts_with_as_result!(sequence, subsequence);
-        let message = concat!(
-            "assertion failed: `assert_not_starts_with!(sequence, subsequence)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_not_starts_with.html\n",
-            "     sequence label: `sequence`,\n",
-            "     sequence debug: `\"alfa\"`,\n",
-            "  subsequence label: `subsequence`,\n",
-            "  subsequence debug: `\"al\"`"
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-        use std::sync::Once;
-    #[test]
-    fn once() {
+    fn success_once() {
 
         static A: Once = Once::new();
         fn a() -> &'static str {
@@ -123,6 +107,22 @@ mod test_assert_not_starts_with_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
 
+    }
+    
+    #[test]
+    fn failure() {
+        let sequence = "alfa";
+        let subsequence = "al";
+        let actual = assert_not_starts_with_as_result!(sequence, subsequence);
+        let message = concat!(
+            "assertion failed: `assert_not_starts_with!(sequence, subsequence)`\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_not_starts_with.html\n",
+            "     sequence label: `sequence`,\n",
+            "     sequence debug: `\"alfa\"`,\n",
+            "  subsequence label: `subsequence`,\n",
+            "  subsequence debug: `\"al\"`"
+        );
+        assert_eq!(actual.unwrap_err(), message);
     }
 
 }
@@ -161,7 +161,7 @@ mod test_assert_not_starts_with_as_result {
 /// assert_not_starts_with!(sequence, subsequence);
 /// # });
 /// // assertion failed: `assert_not_starts_with!(sequence, subsequence)`
-/// // https://docs.rs/assertables/9.5.5/assertables/macro.assert_not_starts_with.html
+/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_not_starts_with.html
 /// //  sequence label: `sequence`,
 /// //  sequence debug: `\"alfa\"`,
 /// //   part label: `subsequence`,
@@ -169,7 +169,7 @@ mod test_assert_not_starts_with_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_not_starts_with!(sequence, subsequence)`\n",
-/// #     "https://docs.rs/assertables/9.5.5/assertables/macro.assert_not_starts_with.html\n",
+/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_not_starts_with.html\n",
 /// #     "     sequence label: `sequence`,\n",
 /// #     "     sequence debug: `\"alfa\"`,\n",
 /// #     "  subsequence label: `subsequence`,\n",
@@ -222,7 +222,7 @@ mod test_assert_not_starts_with {
         });
         let message = concat!(
             "assertion failed: `assert_not_starts_with!(sequence, subsequence)`\n",
-            "https://docs.rs/assertables/9.5.5/assertables/macro.assert_not_starts_with.html\n",
+            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_not_starts_with.html\n",
             "     sequence label: `sequence`,\n",
             "     sequence debug: `\"alfa\"`,\n",
             "  subsequence label: `subsequence`,\n",
