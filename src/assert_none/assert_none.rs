@@ -77,6 +77,21 @@ mod test_assert_none_as_result {
     }
 
     #[test]
+    fn success_once() {
+
+        static A: Once = Once::new();
+        fn a() -> Option<i8> {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            Option::None
+        }
+
+        assert_eq!(A.is_completed(), false);
+        let result = assert_none_as_result!(a());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+    }
+
+    #[test]
     fn failure() {
         let a: Option<i8> = Option::Some(1);
         let actual = assert_none_as_result!(a);
