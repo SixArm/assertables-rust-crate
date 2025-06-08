@@ -76,6 +76,21 @@ mod test_assert_all_as_result {
         let actual = assert_all_as_result!(a.into_iter(), |x: i8| x > 0);
         assert_eq!(actual.unwrap(), ());
     }
+    #[test]
+    fn success_once() {
+
+        static A: Once = Once::new();
+        fn a() -> [i8; 3] {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            [1, 2, 3]
+        }
+
+        assert_eq!(A.is_completed(), false);
+        let result = assert_all_as_result!(a().into_iter(), |x: i8| x > 0);
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        
+    }
 
     #[test]
     fn failure() {
