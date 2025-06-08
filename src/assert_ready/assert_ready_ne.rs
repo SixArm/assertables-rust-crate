@@ -201,18 +201,18 @@ mod test_assert_ready_ne_as_result {
 ///
 #[macro_export]
 macro_rules! assert_ready_ne {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => {
         match $crate::assert_ready_ne_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $b:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $b:expr, $($message:tt)+) => {
         match $crate::assert_ready_ne_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

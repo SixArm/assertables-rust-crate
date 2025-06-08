@@ -42,7 +42,7 @@ macro_rules! assert_fn_gt_x_as_result {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
+    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {
         match (&$a_function, &$a_param, &$b_expr) {
             (_a_function, a_param, b_expr) => {
                 let a = $a_function($a_param);
@@ -74,11 +74,11 @@ macro_rules! assert_fn_gt_x_as_result {
                 }
             }
         }
-    }};
+    };
 
     //// Arity 0
 
-    ($a_function:path, $b_expr:expr $(,)?) => {{
+    ($a_function:path, $b_expr:expr $(,)?) => {
         match (&$a_function, &$b_expr) {
             (_a_function, b_expr) => {
                 let a = $a_function();
@@ -106,7 +106,7 @@ macro_rules! assert_fn_gt_x_as_result {
                 }
             }
         }
-    }};
+    };
 
 }
 
@@ -277,35 +277,35 @@ macro_rules! assert_fn_gt_x {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {{
+    ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {
         match $crate::assert_fn_gt_x_as_result!($a_function, $a_param, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
+    };
 
-    ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {{
+    ($a_function:path, $a_param:expr, $b_expr:expr, $($message:tt)+) => {
         match $crate::assert_fn_gt_x_as_result!($a_function, $a_param, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 
     //// Arity 0
 
-    ($a_function:path, $b_expr:expr $(,)?) => {{
+    ($a_function:path, $b_expr:expr $(,)?) => {
         match $crate::assert_fn_gt_x_as_result!($a_function, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
+    };
 
-    ($a_function:path, $b_expr:expr, $($message:tt)+) => {{
+    ($a_function:path, $b_expr:expr, $($message:tt)+) => {
         match $crate::assert_fn_gt_x_as_result!($a_function, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 
 }
 #[cfg(test)]

@@ -96,11 +96,11 @@
 /// Assert set implementation preparation.
 #[macro_export]
 macro_rules! assert_set_impl_prep {
-    ($impl_into_iter:expr $(,)?) => {{
+    ($impl_into_iter:expr $(,)?) => {
         match ($impl_into_iter) {
             impl_into_iter => impl_into_iter.into_iter().collect(),
         }
-    }};
+    };
 }
 
 // Comparisons

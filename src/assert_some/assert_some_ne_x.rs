@@ -130,7 +130,7 @@ mod test_assert_some_ne_x_as_result {
         let a: Option<i8> = Option::Some(2);
         let b: i8 = 1;
         let actual = assert_some_ne_x_as_result!(a, b);
-        assert_eq!(actual.unwrap(), 1);
+        assert_eq!(actual.unwrap(), 2);
     }
 
     #[test]
@@ -246,18 +246,18 @@ mod test_assert_some_ne_x_as_result {
 ///
 #[macro_export]
 macro_rules! assert_some_ne_x {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => {
         match $crate::assert_some_ne_x_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $b:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $b:expr, $($message:tt)+) => {
         match $crate::assert_some_ne_x_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

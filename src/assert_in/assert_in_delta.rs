@@ -84,7 +84,7 @@
 ///
 #[macro_export]
 macro_rules! assert_in_delta_as_result {
-    ($a:expr, $b:expr, $delta:expr $(,)?) => {{
+    ($a:expr, $b:expr, $delta:expr $(,)?) => {
         match (&$a, &$b, &$delta) {
             (a, b, delta) => {
                 let abs_diff = if (a >= b) { a - b } else { b - a };
@@ -118,7 +118,7 @@ macro_rules! assert_in_delta_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -271,18 +271,18 @@ mod test_assert_in_delta_as_result {
 ///
 #[macro_export]
 macro_rules! assert_in_delta {
-    ($a:expr, $b:expr, $delta:expr $(,)?) => {{
+    ($a:expr, $b:expr, $delta:expr $(,)?) => {
         match $crate::assert_in_delta_as_result!($a, $b, $delta) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $b:expr, $delta:expr, $($message:tt)+) => {
         match $crate::assert_in_delta_as_result!($a, $b, $delta) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

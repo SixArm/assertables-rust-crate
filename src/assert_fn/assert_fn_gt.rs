@@ -42,7 +42,7 @@ macro_rules! assert_fn_gt_as_result {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {
         match (&$a_function, &$a_param, &$b_function, &$b_param) {
             (_a_function, a_param, _b_function, b_param) => {
                 let a = $a_function($a_param);
@@ -77,34 +77,38 @@ macro_rules! assert_fn_gt_as_result {
                 }
             }
         }
-    }};
+    };
 
     //// Arity 0
 
-    ($a_function:path, $b_function:path) => {{
-        let a = $a_function();
-        let b = $b_function();
-        if a > b {
-            Ok((a, b))
-        } else {
-            Err(
-                format!(
-                    concat!(
-                        "assertion failed: `assert_fn_gt!(a_function, b_function)`\n",
-                        "https://docs.rs/assertables/9.5.6/assertables/macro.assert_fn_gt.html\n",
-                        " a_function label: `{}`,\n",
-                        " b_function label: `{}`,\n",
-                        "                a: `{:?}`,\n",
-                        "                b: `{:?}`"
-                    ),
-                    stringify!($a_function),
-                    stringify!($b_function),
-                    a,
-                    b
-                )
-            )
+    ($a_function:path, $b_function:path) => {
+        match (&$a_function, &$b_function) {
+            (_a_function, _b_function) => {
+                let a = $a_function();
+                let b = $b_function();
+                if a > b {
+                    Ok((a, b))
+                } else {
+                    Err(
+                        format!(
+                            concat!(
+                                "assertion failed: `assert_fn_gt!(a_function, b_function)`\n",
+                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_fn_gt.html\n",
+                                " a_function label: `{}`,\n",
+                                " b_function label: `{}`,\n",
+                                "                a: `{:?}`,\n",
+                                "                b: `{:?}`"
+                            ),
+                            stringify!($a_function),
+                            stringify!($b_function),
+                            a,
+                            b
+                        )
+                    )
+                }
+            }
         }
-    }};
+    };
 
 }
 
@@ -282,35 +286,35 @@ macro_rules! assert_fn_gt {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {
         match $crate::assert_fn_gt_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
+    };
 
-    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => {{
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => {
         match $crate::assert_fn_gt_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 
     //// Arity 0
 
-    ($a_function:path, $b_function:path) => {{
+    ($a_function:path, $b_function:path) => {
         match $crate::assert_fn_gt_as_result!($a_function, $b_function) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
+    };
 
-    ($a_function:path, $b_function:path, $($message:tt)+) => {{
+    ($a_function:path, $b_function:path, $($message:tt)+) => {
         match $crate::assert_fn_gt_as_result!($a_function, $b_function) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 
 }
 

@@ -38,7 +38,7 @@
 ///
 #[macro_export]
 macro_rules! assert_matches_as_result {
-    ($($arg:tt)*) => {{
+    ($($arg:tt)*) => {
         if matches!($($arg)*) {
             Ok(())
         } else {
@@ -53,7 +53,7 @@ macro_rules! assert_matches_as_result {
                 )
             )
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -150,30 +150,30 @@ mod test_assert_matches_as_result {
 ///
 #[macro_export]
 macro_rules! assert_matches {
-    ($expression:expr, $pattern:pat if $guard:expr $(,)?) => {{
+    ($expression:expr, $pattern:pat if $guard:expr $(,)?) => {
         match $crate::assert_matches_as_result!($expression, $pattern if $guard) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($expression:expr, $pattern:pat) => {{
+    };
+    ($expression:expr, $pattern:pat) => {
         match $crate::assert_matches_as_result!($expression, $pattern) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($expression:expr, $pattern:pat if $guard:expr, $($message:tt)+) => {{
+    };
+    ($expression:expr, $pattern:pat if $guard:expr, $($message:tt)+) => {
         match $crate::assert_matches_as_result!($expression, $pattern if $guard) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
-    ($expression:expr, $pattern:pat, $($message:tt)+) => {{
+    };
+    ($expression:expr, $pattern:pat, $($message:tt)+) => {
         match $crate::assert_matches_as_result!($expression, $pattern if $guard) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

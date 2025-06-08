@@ -40,7 +40,7 @@
 ///
 #[macro_export]
 macro_rules! assert_not_match_as_result {
-    ($matcher:expr, $matchee:expr $(,)?) => {{
+    ($matcher:expr, $matchee:expr $(,)?) => {
         match ($matcher, $matchee) {
             (matcher, matchee) => {
                 if !(matcher.is_match(matchee)) {
@@ -65,7 +65,7 @@ macro_rules! assert_not_match_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -177,18 +177,18 @@ mod test_assert_not_match_as_result {
 ///
 #[macro_export]
 macro_rules! assert_not_match {
-    ($matcher:expr, $matchee:expr $(,)?) => {{
+    ($matcher:expr, $matchee:expr $(,)?) => {
         match $crate::assert_not_match_as_result!($matcher, $matchee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($matcher:expr, $matchee:expr, $($message:tt)+) => {{
+    };
+    ($matcher:expr, $matchee:expr, $($message:tt)+) => {
         match $crate::assert_not_match_as_result!($matcher, $matchee) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

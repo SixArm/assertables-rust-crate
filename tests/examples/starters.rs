@@ -78,12 +78,12 @@ fn examples_with_numeric_nearness() {
 /// Examples with absolute difference
 #[test]
 fn examples_with_absolute_difference() {
-    assert_abs_diff_eq!(10, 13, 3);
-    assert_abs_diff_ne!(10, 13, 0);
-    assert_abs_diff_lt!(10, 13, 4);
-    assert_abs_diff_le!(10, 13, 4);
-    assert_abs_diff_gt!(10, 13, 2);
-    assert_abs_diff_ge!(10, 13, 2);
+    assert_abs_diff_eq_x!(10, 13, 3);
+    assert_abs_diff_ne_x!(10, 13, 0);
+    assert_abs_diff_lt_x!(10, 13, 4);
+    assert_abs_diff_le_x!(10, 13, 4);
+    assert_abs_diff_gt_x!(10, 13, 2);
+    assert_abs_diff_ge_x!(10, 13, 2);
 }
 
 /// Examples with assert_starts_with.

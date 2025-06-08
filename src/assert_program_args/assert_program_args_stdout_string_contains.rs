@@ -45,7 +45,7 @@
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_string_contains_as_result {
-    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => {{
+    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => {
         match ($a_program, $a_args, $containee) {
             (a_program, a_args, containee) => {
                 match assert_program_args_impl_prep!(a_program, a_args) {
@@ -107,7 +107,7 @@ macro_rules! assert_program_args_stdout_string_contains_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -247,18 +247,18 @@ mod test_assert_program_args_stdout_string_contains_as_result {
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_string_contains {
-    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => {{
+    ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => {
         match $crate::assert_program_args_stdout_string_contains_as_result!($a_program, $a_args, $containee) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_program:expr, $a_args:expr, $containee:expr, $($message:tt)+) => {{
+    };
+    ($a_program:expr, $a_args:expr, $containee:expr, $($message:tt)+) => {
         match $crate::assert_program_args_stdout_string_contains_as_result!($a_program, $a_args, $containee) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

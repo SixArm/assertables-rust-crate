@@ -280,18 +280,18 @@ mod test_assert_abs_diff_lt_x_as_result {
 ///
 #[macro_export]
 macro_rules! assert_abs_diff_lt_x {
-    ($a:expr, $b:expr, $x:expr $(,)?) => {{
+    ($a:expr, $b:expr, $x:expr $(,)?) => {
         match $crate::assert_abs_diff_lt_x_as_result!($a, $b, $x) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $b:expr, $x:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $b:expr, $x:expr, $($message:tt)+) => {
         match $crate::assert_abs_diff_lt_x_as_result!($a, $b, $x) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

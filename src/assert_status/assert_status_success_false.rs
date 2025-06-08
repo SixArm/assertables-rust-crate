@@ -39,7 +39,7 @@
 ///
 #[macro_export]
 macro_rules! assert_status_success_false_as_result {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match ($a.status()) {
             Ok(a1) => {
                 if !a1.success()  {
@@ -76,7 +76,7 @@ macro_rules! assert_status_success_false_as_result {
                 )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -174,18 +174,18 @@ mod test_assert_status_success_false_as_result {
 ///
 #[macro_export]
 macro_rules! assert_status_success_false {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match $crate::assert_status_success_false_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $($message:tt)+) => {
         match $crate::assert_status_success_false_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

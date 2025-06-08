@@ -217,18 +217,18 @@ mod test_assert_bag_superbag_as_result {
 ///
 #[macro_export]
 macro_rules! assert_bag_superbag {
-    ($a_collection:expr, $b_collection:expr $(,)?) => {{
+    ($a_collection:expr, $b_collection:expr $(,)?) => {
         match $crate::assert_bag_superbag_as_result!($a_collection, $b_collection) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {{
+    };
+    ($a_collection:expr, $b_collection:expr, $($message:tt)+) => {
         match $crate::assert_bag_superbag_as_result!($a_collection, $b_collection) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

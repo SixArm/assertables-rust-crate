@@ -39,7 +39,7 @@
 ///
 #[macro_export]
 macro_rules! assert_in_range_as_result {
-    ($a:expr, $range:expr $(,)?) => {{
+    ($a:expr, $range:expr $(,)?) => {
         match ($a, $range) {
             (a, range) => {
                 if range.contains(&a) {
@@ -62,7 +62,7 @@ macro_rules! assert_in_range_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -203,18 +203,18 @@ mod test_assert_in_range_as_result {
 ///
 #[macro_export]
 macro_rules! assert_in_range {
-    ($a:expr, $range:expr $(,)?) => {{
+    ($a:expr, $range:expr $(,)?) => {
         match $crate::assert_in_range_as_result!($a, $range) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $range:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $range:expr, $($message:tt)+) => {
         match $crate::assert_in_range_as_result!($a, $range) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

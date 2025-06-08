@@ -133,18 +133,18 @@ mod test_assert_ready_as_result {
 ///
 #[macro_export]
 macro_rules! assert_ready {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match $crate::assert_ready_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $($message:tt)+) => {
         match $crate::assert_ready_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

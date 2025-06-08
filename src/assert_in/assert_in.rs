@@ -39,7 +39,7 @@
 ///
 #[macro_export]
 macro_rules! assert_in_as_result {
-    ($a:expr, $container:expr $(,)?) => {{
+    ($a:expr, $container:expr $(,)?) => {
         match ($a, $container) {
             (a, container) => {
                 if container.contains(&a) {
@@ -62,7 +62,7 @@ macro_rules! assert_in_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -172,18 +172,18 @@ mod test_assert_in_as_result {
 ///
 #[macro_export]
 macro_rules! assert_in {
-    ($a:expr, $container:expr $(,)?) => {{
+    ($a:expr, $container:expr $(,)?) => {
         match $crate::assert_in_as_result!($a, $container) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $container:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $container:expr, $($message:tt)+) => {
         match $crate::assert_in_as_result!($a, $container) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

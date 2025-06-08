@@ -48,7 +48,7 @@ macro_rules! assert_fn_err_eq_as_result {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {
         match (&$a_function, &$a_param, &$b_function, &$b_param) {
             (_a_function, a_param, _b_function, b_param) => {
                 match (
@@ -114,11 +114,11 @@ macro_rules! assert_fn_err_eq_as_result {
                 }
             }
         }
-    }};
+    };
 
     //// Arity 0
 
-    ($a_function:path, $b_function:path) => {{
+    ($a_function:path, $b_function:path) => {
         match (
             $a_function(),
             $b_function()
@@ -164,7 +164,7 @@ macro_rules! assert_fn_err_eq_as_result {
                 )
             }
         }
-    }};
+    };
 
 }
 
@@ -314,35 +314,35 @@ macro_rules! assert_fn_err_eq {
 
     //// Arity 1
 
-    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {{
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr $(,)?) => {
         match $crate::assert_fn_err_eq_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
+    };
 
-    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => {{
+    ($a_function:path, $a_param:expr, $b_function:path, $b_param:expr, $($message:tt)+) => {
         match $crate::assert_fn_err_eq_as_result!($a_function, $a_param, $b_function, $b_param) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 
     //// Arity 0
 
-    ($a_function:path, $b_function:path) => {{
+    ($a_function:path, $b_function:path) => {
         match $crate::assert_fn_err_eq_as_result!($a_function, $b_function) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
+    };
 
-    ($a_function:path, $b_function:path, $($message:tt)+) => {{
+    ($a_function:path, $b_function:path, $($message:tt)+) => {
         match $crate::assert_fn_err_eq_as_result!($a_function, $b_function) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 
 }
 

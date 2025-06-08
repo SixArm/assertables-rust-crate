@@ -40,7 +40,7 @@
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_gt_x_as_result {
-    ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {{
+    ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {
         match ($a_program, $a_args, $b_expr) {
             (a_program, a_args, b_expr) => {
                 match assert_program_args_impl_prep!(a_program, a_args) {
@@ -102,7 +102,7 @@ macro_rules! assert_program_args_stderr_gt_x_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -258,18 +258,18 @@ mod test_assert_program_args_stderr_gt_x_as_result {
 ///
 #[macro_export]
 macro_rules! assert_program_args_stderr_gt_x {
-    ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {{
+    ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {
         match $crate::assert_program_args_stderr_gt_x_as_result!($a_program, $a_args, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_program:expr, $a_args:expr, $b_expr:expr, $($message:tt)+) => {{
+    };
+    ($a_program:expr, $a_args:expr, $b_expr:expr, $($message:tt)+) => {
         match $crate::assert_program_args_stderr_gt_x_as_result!($a_program, $a_args, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

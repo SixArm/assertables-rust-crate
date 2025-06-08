@@ -39,7 +39,7 @@
 ///
 #[macro_export]
 macro_rules! assert_count_gt_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => {
         match ($a, $b) {
             (a, b) => {
                 let a_count = a.clone().count();
@@ -70,7 +70,7 @@ macro_rules! assert_count_gt_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -204,18 +204,18 @@ mod test_assert_count_gt_as_result {
 ///
 #[macro_export]
 macro_rules! assert_count_gt {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => {
         match $crate::assert_count_gt_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $b:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $b:expr, $($message:tt)+) => {
         match $crate::assert_count_gt_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

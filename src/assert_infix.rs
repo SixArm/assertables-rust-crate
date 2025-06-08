@@ -86,7 +86,7 @@
 ///
 #[macro_export]
 macro_rules! assert_infix_as_result {
-    ($a:tt $infix:tt $b:tt) => {{
+    ($a:tt $infix:tt $b:tt) => {
         if $a $infix $b {
             Ok(())
         } else {
@@ -108,7 +108,7 @@ macro_rules! assert_infix_as_result {
                 )
             )
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -215,18 +215,18 @@ mod test_assert_infix_as_result {
 ///
 #[macro_export]
 macro_rules! assert_infix {
-    ($a:tt $infix:tt $b:tt) => {{
+    ($a:tt $infix:tt $b:tt) => {
         match $crate::assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:tt $infix:tt $b:tt, $($message:tt)+) => {{
+    };
+    ($a:tt $infix:tt $b:tt, $($message:tt)+) => {
         match $crate::assert_infix_as_result!($a $infix $b) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

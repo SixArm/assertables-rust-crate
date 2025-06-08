@@ -253,18 +253,18 @@ mod test_assert_approx_eq_as_result {
 ///
 #[macro_export]
 macro_rules! assert_approx_eq {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => {
         match $crate::assert_approx_eq_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $b:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $b:expr, $($message:tt)+) => {
         match $crate::assert_approx_eq_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

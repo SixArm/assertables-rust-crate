@@ -41,7 +41,7 @@
 ///
 #[macro_export]
 macro_rules! assert_success_as_result {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         if $a.success() {
             Ok(true)
         } else {
@@ -56,7 +56,7 @@ macro_rules! assert_success_as_result {
                 $a,
             ))
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -152,18 +152,18 @@ mod test_assert_success_as_result {
 ///
 #[macro_export]
 macro_rules! assert_success {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match $crate::assert_success_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $($message:tt)+) => {
         match $crate::assert_success_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

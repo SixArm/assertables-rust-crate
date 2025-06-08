@@ -45,7 +45,7 @@
 ///
 #[macro_export]
 macro_rules! assert_starts_with_as_result {
-    ($sequence:expr, $subsequence:expr $(,)?) => {{
+    ($sequence:expr, $subsequence:expr $(,)?) => {
         match (&$sequence, &$subsequence) {
             (sequence, subsequence) => {
                 if sequence.starts_with(subsequence) {
@@ -70,7 +70,7 @@ macro_rules! assert_starts_with_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -187,18 +187,18 @@ mod test_assert_starts_with_as_result {
 ///
 #[macro_export]
 macro_rules! assert_starts_with {
-    ($sequence:expr, $subsequence:expr $(,)?) => {{
+    ($sequence:expr, $subsequence:expr $(,)?) => {
         match $crate::assert_starts_with_as_result!($sequence, $subsequence) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($sequence:expr, $subsequence:expr, $($message:tt)+) => {{
+    };
+    ($sequence:expr, $subsequence:expr, $($message:tt)+) => {
         match $crate::assert_starts_with_as_result!($sequence, $subsequence) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

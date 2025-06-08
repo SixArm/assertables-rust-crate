@@ -38,7 +38,7 @@
 ///
 #[macro_export]
 macro_rules! assert_none_as_result {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match (&$a) {
             a => {
                 match (a) {
@@ -62,7 +62,7 @@ macro_rules! assert_none_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -153,18 +153,18 @@ mod test_assert_none_as_result {
 ///
 #[macro_export]
 macro_rules! assert_none {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match $crate::assert_none_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $($message:tt)+) => {
         match $crate::assert_none_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

@@ -41,7 +41,7 @@
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_string_is_match_as_result {
-    ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {{
+    ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {
         match ($a_program, $a_args, $matcher) {
             (a_program, a_args, matcher) => {
                 match assert_program_args_impl_prep!(a_program, a_args) {
@@ -103,7 +103,7 @@ macro_rules! assert_program_args_stdout_string_is_match_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -240,18 +240,18 @@ mod test_assert_program_args_stdout_string_is_match_as_result {
 ///
 #[macro_export]
 macro_rules! assert_program_args_stdout_string_is_match {
-    ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {{
+    ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {
         match $crate::assert_program_args_stdout_string_is_match_as_result!($a_program, $a_args, $matcher) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_program:expr, $a_args:expr, $matcher:expr, $($message:tt)+) => {{
+    };
+    ($a_program:expr, $a_args:expr, $matcher:expr, $($message:tt)+) => {
         match $crate::assert_program_args_stdout_string_is_match_as_result!($a_program, $a_args, $matcher) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

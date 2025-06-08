@@ -40,7 +40,7 @@
 ///
 #[macro_export]
 macro_rules! assert_pending_as_result {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match (&$a) {
             a => {
                 match (a) {
@@ -64,7 +64,7 @@ macro_rules! assert_pending_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -159,18 +159,18 @@ mod test_assert_pending_as_result {
 ///
 #[macro_export]
 macro_rules! assert_pending {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match $crate::assert_pending_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $($message:tt)+) => {
         match $crate::assert_pending_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

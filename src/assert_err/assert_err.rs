@@ -38,22 +38,25 @@
 ///
 #[macro_export]
 macro_rules! assert_err_as_result {
-    ($a:expr $(,)?) => {{
-        let a = ($a);
-        match (a) {
-            Err(a1) => Ok(a1),
-            _ => Err(format!(
-                concat!(
-                    "assertion failed: `assert_err!(a)`\n",
-                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err.html\n",
-                    " a label: `{}`,\n",
-                    " a debug: `{:?}`",
-                ),
-                stringify!($a),
-                a
-            )),
+    ($a:expr $(,)?) => {
+        match($a) {
+            a => {
+                match (a) {
+                    Err(a1) => Ok(a1),
+                    _ => Err(format!(
+                        concat!(
+                            "assertion failed: `assert_err!(a)`\n",
+                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_err.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`",
+                        ),
+                        stringify!($a),
+                        a
+                    )),
+                }
+            }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -146,18 +149,18 @@ mod test_assert_err_as_result {
 ///
 #[macro_export]
 macro_rules! assert_err {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match $crate::assert_err_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $($message:tt)+) => {
         match $crate::assert_err_as_result!($a) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

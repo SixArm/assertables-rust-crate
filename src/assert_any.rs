@@ -42,10 +42,10 @@
 ///
 #[macro_export]
 macro_rules! assert_any_as_result {
-    ($collection:expr, $predicate:expr $(,)?) => {{
-        match (&$collection, &$predicate) {
-            (collection, _predicate) => {
-                if $collection.any($predicate) {
+    ($collection:expr, $predicate:expr $(,)?) => {
+        match ($collection, $predicate) {
+            (mut collection, predicate) => {
+                if collection.any(predicate) {
                     Ok(())
                 } else {
                     Err(format!(
@@ -57,13 +57,13 @@ macro_rules! assert_any_as_result {
                             "        predicate: `{}`",
                         ),
                         stringify!($collection),
-                        collection,
+                        $collection,
                         stringify!($predicate)
                     ))
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -160,18 +160,18 @@ mod test_assert_any_as_result {
 ///
 #[macro_export]
 macro_rules! assert_any {
-    ($collection:expr, $predicate:expr $(,)?) => {{
+    ($collection:expr, $predicate:expr $(,)?) => {
         match $crate::assert_any_as_result!($collection, $predicate) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($collection:expr, $predicate:expr, $($message:tt)+) => {{
+    };
+    ($collection:expr, $predicate:expr, $($message:tt)+) => {
         match $crate::assert_any_as_result!($collection, $predicate) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

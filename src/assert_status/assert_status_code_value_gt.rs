@@ -40,13 +40,13 @@
 ///
 #[macro_export]
 macro_rules! assert_status_code_value_gt_as_result {
-    ($a_process:expr, $b_process:expr $(,)?) => {{
+    ($a_process:expr, $b_process:expr $(,)?) => {
         match ($a_process.status(), $b_process.status()) {
-            (Ok(a1), Ok(b1)) => {
-                match (a1.code(), b1.code()) {
-                    (Some(a2), Some(b2)) => {
-                        if a2 > b2 {
-                            Ok((a2, b2))
+            (Ok(a_status), Ok(b_status)) => {
+                match (a_status.code(), b_status.code()) {
+                    (Some(a_code), Some(b_code)) => {
+                        if a_code > b_code {
+                            Ok((a_code, b_code))
                         } else {
                             Err(
                                 format!(
@@ -55,22 +55,22 @@ macro_rules! assert_status_code_value_gt_as_result {
                                         "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_gt.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
-                                        " a value: `{:?}`,\n",
+                                        "  a code: `{:?}`,\n",
                                         " b label: `{}`,\n",
                                         " b debug: `{:?}`\n",
-                                        " b value: `{:?}`",
+                                        "  b code: `{:?}`",
                                     ),
                                     stringify!($a_process),
                                     $a_process,
-                                    a2,
+                                    a_code,
                                     stringify!($b_process),
                                     $b_process,
-                                    b2
+                                    b_code,
                                 )
                             )
                         }
                     },
-                    (a_code, b_code) => {
+                    _ => {
                         Err(
                             format!(
                                 concat!(
@@ -78,23 +78,19 @@ macro_rules! assert_status_code_value_gt_as_result {
                                     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_gt.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
-                                    "  a code: `{:?}`,\n",
                                     " b label: `{}`,\n",
-                                    " b debug: `{:?}`\n",
-                                    "  b code: `{:?}`",
+                                    " b debug: `{:?}`",
                                 ),
                                 stringify!($a_process),
                                 $a_process,
-                                a_code,
                                 stringify!($b),
                                 $b_process,
-                                b_code
                             )
                         )
                     }
                 }
             },
-            (a_status, b_status) => {
+            _ => {
                 Err(
                     format!(
                         concat!(
@@ -102,22 +98,18 @@ macro_rules! assert_status_code_value_gt_as_result {
                             "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_gt.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
-                            " a status: `{:?}`,\n",
                             "  b label: `{}`,\n",
-                            "  b debug: `{:?}`\n",
-                            " b status: `{:?}`",
+                            "  b debug: `{:?}`",
                         ),
                         stringify!($a_process),
                         $a_process,
-                        a_status,
                         stringify!($b),
                         $b_process,
-                        b_status
                     )
                 )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -175,10 +167,10 @@ mod test_assert_status_code_value_gt_as_result {
             "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
-            " a value: `1`,\n",
+            "  a code: `1`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/exit-with-arg\" \"1\"`\n",
-            " b value: `1`"
+            "  b code: `1`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -195,10 +187,10 @@ mod test_assert_status_code_value_gt_as_result {
             "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
-            " a value: `1`,\n",
+            "  a code: `1`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/exit-with-arg\" \"2\"`\n",
-            " b value: `2`"
+            "  b code: `2`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -246,10 +238,10 @@ mod test_assert_status_code_value_gt_as_result {
 /// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
-/// #     " a value: `1`,\n",
+/// #     "  a code: `1`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `\"bin/exit-with-arg\" \"2\"`\n",
-/// #     " b value: `2`",
+/// #     "  b code: `2`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -263,18 +255,18 @@ mod test_assert_status_code_value_gt_as_result {
 ///
 #[macro_export]
 macro_rules! assert_status_code_value_gt {
-    ($a_process:expr, $b_process:expr $(,)?) => {{
+    ($a_process:expr, $b_process:expr $(,)?) => {
         match $crate::assert_status_code_value_gt_as_result!($a_process, $b_process) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_process:expr, $b_process:expr, $($message:tt)+) => {{
+    };
+    ($a_process:expr, $b_process:expr, $($message:tt)+) => {
         match $crate::assert_status_code_value_gt_as_result!($a_process, $b_process) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -306,10 +298,10 @@ mod test_assert_status_code_value_gt {
             "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
-            " a value: `1`,\n",
+            "  a code: `1`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/exit-with-arg\" \"1\"`\n",
-            " b value: `1`"
+            "  b code: `1`"
         );
         assert_eq!(
             result
@@ -335,10 +327,10 @@ mod test_assert_status_code_value_gt {
             "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
-            " a value: `1`,\n",
+            "  a code: `1`,\n",
             " b label: `b`,\n",
             " b debug: `\"bin/exit-with-arg\" \"2\"`\n",
-            " b value: `2`"
+            "  b code: `2`"
         );
         assert_eq!(
             result

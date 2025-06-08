@@ -38,7 +38,7 @@
 ///
 #[macro_export]
 macro_rules! assert_is_empty_as_result {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match (&$a) {
             a => {
                 if a.is_empty() {
@@ -59,7 +59,7 @@ macro_rules! assert_is_empty_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -151,18 +151,18 @@ mod test_assert_is_empty_as_result {
 ///
 #[macro_export]
 macro_rules! assert_is_empty {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match $crate::assert_is_empty_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $($message:tt)+) => {
         match $crate::assert_is_empty_as_result!($a) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

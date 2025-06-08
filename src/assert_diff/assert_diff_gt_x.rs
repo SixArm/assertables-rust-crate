@@ -44,7 +44,7 @@
 ///
 #[macro_export]
 macro_rules! assert_diff_gt_x_as_result {
-    ($a:expr, $b:expr, $x:expr $(,)?) => {{
+    ($a:expr, $b:expr, $x:expr $(,)?) => {
         match (&$a, &$b, &$x) {
             (a, b, x) => {
                 match ::std::panic::catch_unwind(|| b - a) {
@@ -104,7 +104,7 @@ macro_rules! assert_diff_gt_x_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -283,18 +283,18 @@ mod test_assert_diff_gt_x_as_result {
 ///
 #[macro_export]
 macro_rules! assert_diff_gt_x {
-    ($a:expr, $b:expr, $x:expr $(,)?) => {{
+    ($a:expr, $b:expr, $x:expr $(,)?) => {
         match $crate::assert_diff_gt_x_as_result!($a, $b, $x) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $b:expr, $x:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $b:expr, $x:expr, $($message:tt)+) => {
         match $crate::assert_diff_gt_x_as_result!($a, $b, $x) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

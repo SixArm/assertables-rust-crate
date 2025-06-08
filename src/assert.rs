@@ -35,7 +35,7 @@
 ///
 #[macro_export]
 macro_rules! assert_as_result {
-    ($a:expr $(,)?) => {{
+    ($a:expr $(,)?) => {
         match ($a) {
             a => {
                 if a {
@@ -54,7 +54,7 @@ macro_rules! assert_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]

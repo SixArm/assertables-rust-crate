@@ -40,14 +40,13 @@
 ///
 #[macro_export]
 macro_rules! assert_status_code_value_le_x_as_result {
-    ($a_process:expr, $b:expr $(,)?) => {{
-        let b = ($b);
-        match ($a_process.status()) {
-            Ok(a1) => {
-                match (a1.code()) {
-                    Some(a2) => {
-                        if a2 <= b {
-                            Ok(a2)
+    ($a_process:expr, $b:expr $(,)?) => {
+        match($a_process.status(), $b) {
+            (Ok(a_status), b) => {
+                match (a_status.code()) {
+                    Some(a_code) => {
+                        if a_code <= b {
+                            Ok(a_code)
                         } else {
                             Err(
                                 format!(
@@ -56,20 +55,20 @@ macro_rules! assert_status_code_value_le_x_as_result {
                                         "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_le_x.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
-                                        " a value: `{:?}`,\n",
+                                        "  a code: `{:?}`,\n",
                                         " b label: `{}`,\n",
                                         " b debug: `{:?}`"
                                     ),
                                     stringify!($a_process),
                                     $a_process,
-                                    a2,
+                                    a_code,
                                     stringify!($b),
                                     b
                                 )
                             )
                         }
                     },
-                    a_code => {
+                    None => {
                         Err(
                             format!(
                                 concat!(
@@ -77,13 +76,11 @@ macro_rules! assert_status_code_value_le_x_as_result {
                                     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_le_x.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
-                                    "  a code: `{:?}`,\n",
                                     " b label: `{}`,\n",
                                     " b debug: `{:?}`",
                                 ),
                                 stringify!($a_process),
                                 $a_process,
-                                a_code,
                                 stringify!($b),
                                 b,
                             )
@@ -91,7 +88,7 @@ macro_rules! assert_status_code_value_le_x_as_result {
                     }
                 }
             },
-            a_status => {
+            _ => {
                 Err(
                     format!(
                         concat!(
@@ -99,20 +96,18 @@ macro_rules! assert_status_code_value_le_x_as_result {
                             "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_le_x.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
-                            " a status: `{:?}`,\n",
                             "  b label: `{}`,\n",
                             "  b debug: `{:?}`",
                         ),
                         stringify!($a_process),
                         $a_process,
-                        a_status,
                         stringify!($b),
                         $b
                     )
                 )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -201,7 +196,7 @@ mod test_assert_status_code_value_le_x_as_result {
             "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_le_x.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
-            " a value: `2`,\n",
+            "  a code: `2`,\n",
             " b label: `b`,\n",
             " b debug: `1`"
         );
@@ -250,7 +245,7 @@ mod test_assert_status_code_value_le_x_as_result {
 /// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_le_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
-/// #     " a value: `2`,\n",
+/// #     "  a code: `2`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `1`"
 /// # );
@@ -266,18 +261,18 @@ mod test_assert_status_code_value_le_x_as_result {
 ///
 #[macro_export]
 macro_rules! assert_status_code_value_le_x {
-    ($a_process:expr, $b:expr $(,)?) => {{
+    ($a_process:expr, $b:expr $(,)?) => {
         match $crate::assert_status_code_value_le_x_as_result!($a_process, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_process:expr, $b:expr, $($message:tt)+) => {{
+    };
+    ($a_process:expr, $b:expr, $($message:tt)+) => {
         match $crate::assert_status_code_value_le_x_as_result!($a_process, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -316,7 +311,7 @@ mod test_assert_status_code_value_le_x {
             "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_code_value_le_x.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
-            " a value: `2`,\n",
+            "  a code: `2`,\n",
             " b label: `b`,\n",
             " b debug: `1`"
         );

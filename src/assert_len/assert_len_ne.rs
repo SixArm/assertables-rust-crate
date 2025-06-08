@@ -39,7 +39,7 @@
 ///
 #[macro_export]
 macro_rules! assert_len_ne_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => {
         match ($a, $b) {
             (a, b) => {
                 let a_len = a.len();
@@ -70,7 +70,7 @@ macro_rules! assert_len_ne_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -219,18 +219,18 @@ mod test_assert_len_ne_as_result {
 ///
 #[macro_export]
 macro_rules! assert_len_ne {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => {
         match $crate::assert_len_ne_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $b:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $b:expr, $($message:tt)+) => {
         match $crate::assert_len_ne_as_result!($a, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

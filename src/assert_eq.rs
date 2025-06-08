@@ -35,7 +35,7 @@
 ///
 #[macro_export]
 macro_rules! assert_eq_as_result {
-    ($a:expr, $b:expr $(,)?) => {{
+    ($a:expr, $b:expr $(,)?) => {
         match (&$a, &$b) {
             (a, b) => {
                 if a == b {
@@ -58,7 +58,7 @@ macro_rules! assert_eq_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]

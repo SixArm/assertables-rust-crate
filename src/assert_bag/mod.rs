@@ -96,7 +96,7 @@
 /// Assert bag implementation preparation.
 #[macro_export]
 macro_rules! assert_bag_impl_prep {
-    ($impl_into_iter:expr $(,)?) => {{
+    ($impl_into_iter:expr $(,)?) => {
         match ($impl_into_iter) {
             impl_into_iter => {
                 let mut bag: std::collections::BTreeMap<_, usize> =
@@ -108,7 +108,7 @@ macro_rules! assert_bag_impl_prep {
                 bag
             }
         }
-    }};
+    };
 }
 
 pub mod assert_bag_eq;
