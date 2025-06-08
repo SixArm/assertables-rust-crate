@@ -8,7 +8,7 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! let a ="alfa.txt";
+//! let a = "alfa.txt";
 //! let b ="bravo.txt";
 //! assert_fs_read_to_string_lt!(&a, &b);
 //! ```
@@ -39,8 +39,8 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_lt_as_result {
-    ($a_path:expr, $b_path:expr $(,)?) => {{
-        match (&$a_path, &$b_path) {
+    ($a_path:expr, $b_path:expr $(,)?) => {
+        match ($a_path, $b_path) {
             (a_path, b_path) => {
                 match (::std::fs::read_to_string(a_path), ::std::fs::read_to_string(b_path)) {
                     (Ok(a_string), Ok(b_string)) => {
@@ -56,16 +56,15 @@ macro_rules! assert_fs_read_to_string_lt_as_result {
                                         " a_path debug: `{:?}`,\n",
                                         " b_path label: `{}`,\n",
                                         " b_path debug: `{:?}`,\n",
-                                        "     a string: `{:?}`,\n",
-                                        "     b string: `{:?}`"
+                                        "     a string: `{}`,\n",
+                                        "     b string: `{}`"
                                     ),
                                     stringify!($a_path),
-                                    a_path,
+                                    $a_path,
                                     stringify!($b_path),
-                                    b_path,
+                                    $b_path,
                                     a_string,
-                                    b_string
-                                )
+                                    b_string                                )
                             )
                         }
                     },
@@ -83,9 +82,9 @@ macro_rules! assert_fs_read_to_string_lt_as_result {
                                     "     b result: `{:?}`"
                                 ),
                                 stringify!($a_path),
-                                a_path,
+                                $a_path,
                                 stringify!($b_path),
-                                b_path,
+                                $b_path,
                                 a_result,
                                 b_result
                             )
@@ -94,7 +93,7 @@ macro_rules! assert_fs_read_to_string_lt_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -125,6 +124,30 @@ mod test_assert_fs_read_to_string_lt_as_result {
     }
 
     #[test]
+    fn lt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> PathBuf {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            DIR.join("alfa.txt")
+        }
+
+        static B: Once = Once::new();
+        fn b() -> PathBuf {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            DIR.join("bravo.txt")
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_fs_read_to_string_lt_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
+    #[test]
     fn eq() {
         let a = DIR.join("alfa.txt");
         let b = DIR.join("alfa.txt");
@@ -137,8 +160,8 @@ mod test_assert_fs_read_to_string_lt_as_result {
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",
                 " b_path debug: `{:?}`,\n",
-                "     a string: `\"alfa\\n\"`,\n",
-                "     b string: `\"alfa\\n\"`"
+                "     a string: `alfa\n`,\n",
+                "     b string: `alfa\n`"
             ),
             a,
             b
@@ -159,8 +182,8 @@ mod test_assert_fs_read_to_string_lt_as_result {
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",
                 " b_path debug: `{:?}`,\n",
-                "     a string: `\"bravo\\n\"`,\n",
-                "     b string: `\"alfa\\n\"`"
+                "     a string: `bravo\n`,\n",
+                "     b string: `alfa\n`"
             ),
             a,
             b
@@ -213,8 +236,8 @@ mod test_assert_fs_read_to_string_lt_as_result {
 /// #     " a_path debug: `\"bravo.txt\"`,\n",
 /// #     " b_path label: `&b`,\n",
 /// #     " b_path debug: `\"alfa.txt\"`,\n",
-/// #     "     a string: `\"bravo\\n\"`,\n",
-/// #     "     b string: `\"alfa\\n\"`"
+/// #     "     a string: `bravo\n`,\n",
+/// #     "     b string: `alfa\n`"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -228,18 +251,18 @@ mod test_assert_fs_read_to_string_lt_as_result {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_lt {
-    ($a_path:expr, $b_path:expr $(,)?) => {{
+    ($a_path:expr, $b_path:expr $(,)?) => {
         match $crate::assert_fs_read_to_string_lt_as_result!($a_path, $b_path) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_path:expr, $b_path:expr, $($message:tt)+) => {{
+    };
+    ($a_path:expr, $b_path:expr, $($message:tt)+) => {
         match $crate::assert_fs_read_to_string_lt_as_result!($a_path, $b_path) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -281,8 +304,8 @@ mod test_assert_fs_read_to_string_lt {
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",
                 " b_path debug: `{:?}`,\n",
-                "     a string: `\"alfa\\n\"`,\n",
-                "     b string: `\"alfa\\n\"`"
+                "     a string: `alfa\n`,\n",
+                "     b string: `alfa\n`"
             ),
             a,
             b
@@ -312,8 +335,8 @@ mod test_assert_fs_read_to_string_lt {
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",
                 " b_path debug: `{:?}`,\n",
-                "     a string: `\"bravo\\n\"`,\n",
-                "     b string: `\"alfa\\n\"`"
+                "     a string: `bravo\n`,\n",
+                "     b string: `alfa\n`"
             ),
             a,
             b

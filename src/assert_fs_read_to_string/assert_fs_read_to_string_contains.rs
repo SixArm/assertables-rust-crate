@@ -39,12 +39,12 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_contains_as_result {
-    ($path:expr, $containee:expr $(,)?) => {{
-        match (&$path, &$containee) {
+    ($path:expr, $containee:expr $(,)?) => {
+        match ($path, $containee) {
             (path, containee) => {
                 match (::std::fs::read_to_string(path)) {
                     Ok(string) => {
-                        if string.contains($containee) {
+                        if string.contains(containee) {
                             Ok(string)
                         } else {
                             Err(
@@ -90,7 +90,7 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -112,9 +112,33 @@ mod test_read_to_string_contains_as_result {
     #[test]
     fn success() {
         let path = DIR.join("alfa.txt");
-        let containee = "alfa";
+        let containee = "lf";
         let actual = assert_fs_read_to_string_contains_as_result!(&path, &containee);
         assert_eq!(actual.unwrap(), String::from("alfa\n"));
+    }
+
+    #[test]
+    fn success_once() {
+
+        static A: Once = Once::new();
+        fn a() -> PathBuf {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            DIR.join("alfa.txt")
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static str {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "lf"
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_fs_read_to_string_contains_as_result!(&a(), &b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
     }
 
     #[test]
@@ -195,18 +219,18 @@ mod test_read_to_string_contains_as_result {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_contains {
-    ($path:expr, $containee:expr $(,)?) => {{
+    ($path:expr, $containee:expr $(,)?) => {
         match $crate::assert_fs_read_to_string_contains_as_result!($path, $containee) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($path:expr, $containee:expr, $($message:tt)+) => {{
+    };
+    ($path:expr, $containee:expr, $($message:tt)+) => {
         match $crate::assert_fs_read_to_string_contains_as_result!($path, $containee) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

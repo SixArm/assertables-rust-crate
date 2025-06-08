@@ -9,7 +9,7 @@
 //! use assertables::*;
 //!
 //! let path = "alfa.txt";
-//! let value = String::from("bravo\n");
+//! let value = "bravo\n";
 //! assert_fs_read_to_string_ne_x!(&path, &value);
 //! ```
 //!
@@ -39,12 +39,12 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_ne_x_as_result {
-    ($a_path:expr, $b_expr:expr $(,)?) => {{
-        match (&$a_path, &$b_expr) {
+    ($a_path:expr, $b_expr:expr $(,)?) => {
+        match ($a_path, $b_expr) {
             (a_path, b_expr) => {
                 match (::std::fs::read_to_string(a_path)) {
                     Ok(a_string) => {
-                        let b_string = String::from($b_expr);
+                        let b_string = b_expr.to_string();
                         if a_string != b_string {
                             Ok(a_string)
                         } else {
@@ -57,15 +57,15 @@ macro_rules! assert_fs_read_to_string_ne_x_as_result {
                                         " a_path debug: `{:?}`,\n",
                                         " b_expr label: `{}`,\n",
                                         " b_expr debug: `{:?}`,\n",
-                                        "     a string: `{:?}`,\n",
-                                        "     b string: `{:?}`",
+                                        "     a string: `{}`,\n",
+                                        "     b string: `{}`",
                                     ),
                                     stringify!($a_path),
-                                    a_path,
+                                    $a_path,
                                     stringify!($b_expr),
-                                    b_expr,
+                                    $b_expr,
                                     a_string,
-                                    b_string
+                                    b_string,
                                 )
                             )
                         }
@@ -83,9 +83,9 @@ macro_rules! assert_fs_read_to_string_ne_x_as_result {
                                     "          err: `{:?}`"
                                 ),
                                 stringify!($a_path),
-                                a_path,
+                                $a_path,
                                 stringify!($b_expr),
-                                b_expr,
+                                $b_expr,
                                 err
                             )
                         )
@@ -93,7 +93,7 @@ macro_rules! assert_fs_read_to_string_ne_x_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -115,23 +115,71 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
     #[test]
     fn lt() {
         let path = DIR.join("alfa.txt");
-        let value = String::from("bravo\n");
+        let value = "bravo\n";
         let actual = assert_fs_read_to_string_ne_x_as_result!(&path, &value);
         assert_eq!(actual.unwrap(), String::from("alfa\n"));
     }
 
     #[test]
+    fn lt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> PathBuf {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            DIR.join("alfa.txt")
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static str {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "bravo\n"
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_fs_read_to_string_ne_x_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
+    #[test]
     fn gt() {
         let path = DIR.join("bravo.txt");
-        let value = String::from("alfa\n");
+        let value = "alfa\n";
         let actual = assert_fs_read_to_string_ne_x_as_result!(&path, &value);
         assert_eq!(actual.unwrap(), String::from("bravo\n"));
     }
 
     #[test]
+    fn gt_once() {
+
+        static A: Once = Once::new();
+        fn a() -> PathBuf {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            DIR.join("bravo.txt")
+        }
+
+        static B: Once = Once::new();
+        fn b() -> &'static str {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            "alfa\n"
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_fs_read_to_string_ne_x_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
+    }
+
+    #[test]
     fn eq() {
         let path = DIR.join("alfa.txt");
-        let value = String::from("alfa\n");
+        let value = "alfa\n";
         let actual = assert_fs_read_to_string_ne_x_as_result!(&path, &value);
         let message = format!(
             concat!(
@@ -141,8 +189,8 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
                 " a_path debug: `{:?}`,\n",
                 " b_expr label: `&value`,\n",
                 " b_expr debug: `\"alfa\\n\"`,\n",
-                "     a string: `\"alfa\\n\"`,\n",
-                "     b string: `\"alfa\\n\"`"
+                "     a string: `alfa\n`,\n",
+                "     b string: `alfa\n`"
             ),
             path
         );
@@ -169,13 +217,13 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
 ///
 /// # fn main() {
 /// let path = "alfa.txt";
-/// let value = String::from("bravo\n");
+/// let value = "bravo\n";
 /// assert_fs_read_to_string_ne_x!(&path, &value);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let path = "alfa.txt";
-/// let value = String::from("alfa\n");
+/// let value = "alfa\n";
 /// assert_fs_read_to_string_ne_x!(&path, &value);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`
@@ -194,8 +242,8 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_expr label: `&value`,\n",
 /// #     " b_expr debug: `\"alfa\\n\"`,\n",
-/// #     "     a string: `\"alfa\\n\"`,\n",
-/// #     "     b string: `\"alfa\\n\"`"
+/// #     "     a string: `alfa\n`,\n",
+/// #     "     b string: `alfa\n`"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -209,18 +257,18 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_ne_x {
-    ($a_path:expr, $b_expr:expr $(,)?) => {{
+    ($a_path:expr, $b_expr:expr $(,)?) => {
         match $crate::assert_fs_read_to_string_ne_x_as_result!($a_path, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_path:expr, $b_expr:expr, $($message:tt)+) => {{
+    };
+    ($a_path:expr, $b_expr:expr, $($message:tt)+) => {
         match $crate::assert_fs_read_to_string_ne_x_as_result!($a_path, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -242,7 +290,7 @@ mod test_assert_fs_read_to_string_ne_x {
     #[test]
     fn lt() {
         let path = DIR.join("alfa.txt");
-        let value = String::from("bravo\n");
+        let value = "bravo\n";
         let actual = assert_fs_read_to_string_ne_x!(&path, &value);
         assert_eq!(actual, String::from("alfa\n"));
     }
@@ -250,7 +298,7 @@ mod test_assert_fs_read_to_string_ne_x {
     #[test]
     fn gt() {
         let path = DIR.join("bravo.txt");
-        let value = String::from("alfa\n");
+        let value = "alfa\n";
         let actual = assert_fs_read_to_string_ne_x!(&path, &value);
         assert_eq!(actual, String::from("bravo\n"));
     }
@@ -258,7 +306,7 @@ mod test_assert_fs_read_to_string_ne_x {
     #[test]
     fn eq() {
         let path = DIR.join("alfa.txt");
-        let value = String::from("alfa\n");
+        let value = "alfa\n";
         let result = panic::catch_unwind(|| {
             let _actual = assert_fs_read_to_string_ne_x!(&path, &value);
         });
@@ -270,8 +318,8 @@ mod test_assert_fs_read_to_string_ne_x {
                 " a_path debug: `{:?}`,\n",
                 " b_expr label: `&value`,\n",
                 " b_expr debug: `\"alfa\\n\"`,\n",
-                "     a string: `\"alfa\\n\"`,\n",
-                "     b string: `\"alfa\\n\"`"
+                "     a string: `alfa\n`,\n",
+                "     b string: `alfa\n`"
             ),
             path
         );

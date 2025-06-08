@@ -40,12 +40,12 @@
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_is_match_as_result {
-    ($path:expr, $matcher:expr $(,)?) => {{
-        match (&$path, &$matcher) {
+    ($path:expr, $matcher:expr $(,)?) => {
+        match ($path, $matcher) {
             (path, matcher) => {
                 match (::std::fs::read_to_string(path)) {
                     Ok(string) => {
-                        if $matcher.is_match(&string) {
+                        if matcher.is_match(&string) {
                             Ok(string)
                         } else {
                             Err(
@@ -91,7 +91,7 @@ macro_rules! assert_fs_read_to_string_is_match_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -115,6 +115,30 @@ mod test_assert_fs_read_to_string_is_match_as_result {
         let matcher = Regex::new(r"lf").expect("regex");
         let actual = assert_fs_read_to_string_is_match_as_result!(&path, &matcher);
         assert_eq!(actual.unwrap(), String::from("alfa\n"));
+    }
+
+    #[test]
+    fn success_once() {
+
+        static A: Once = Once::new();
+        fn a() -> PathBuf {
+            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            DIR.join("alfa.txt")
+        }
+
+        static B: Once = Once::new();
+        fn b() -> Regex {
+            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            Regex::new(r"lf").expect("regex")
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_fs_read_to_string_is_match_as_result!(&a(), &b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+        
     }
 
     #[test]
@@ -196,18 +220,18 @@ mod test_assert_fs_read_to_string_is_match_as_result {
 ///
 #[macro_export]
 macro_rules! assert_fs_read_to_string_is_match {
-    ($path:expr, $matcher:expr $(,)?) => {{
+    ($path:expr, $matcher:expr $(,)?) => {
         match $crate::assert_fs_read_to_string_is_match_as_result!($path, $matcher) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($path:expr, $matcher:expr, $($message:tt)+) => {{
+    };
+    ($path:expr, $matcher:expr, $($message:tt)+) => {
         match $crate::assert_fs_read_to_string_is_match_as_result!($path, $matcher) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
