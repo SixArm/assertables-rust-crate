@@ -1,6 +1,4 @@
-//! Assert matches for verifying an item matches a condition.
-//!
-//! Compare a length with another length:
+//! Assert matches for verifying an item matches a case.
 //!
 //! * [`assert_matches!(a, b)`](macro@crate::assert_matches) ≈ match(a) { b }
 //!
