@@ -43,7 +43,7 @@ macro_rules! assert_io_read_to_string_ne_as_result {
     ($a_reader:expr, $b_reader:expr $(,)?) => {{
         let mut a_string = String::new();
         let mut b_string = String::new();
-        match (
+        match(
             $a_reader.read_to_string(&mut a_string),
             $b_reader.read_to_string(&mut b_string)
         ) {
@@ -73,7 +73,7 @@ macro_rules! assert_io_read_to_string_ne_as_result {
                     )
                 }
             },
-            (a, b) => {
+            _ => {
                 Err(
                     format!(
                         concat!(
@@ -82,16 +82,12 @@ macro_rules! assert_io_read_to_string_ne_as_result {
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             "  b label: `{}`,\n",
-                            "  b debug: `{:?}`,\n",
-                            " a result: `{:?}`,\n",
-                            " b result: `{:?}`"
+                            "  b debug: `{:?}`",
                         ),
                         stringify!($a_reader),
                         $a_reader,
                         stringify!($b_reader),
                         $b_reader,
-                        a,
-                        b
                     )
                 )
             }
@@ -254,18 +250,18 @@ mod test_assert_io_read_to_string_ne_as_result {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_ne {
-    ($a_reader:expr, $b:expr $(,)?) => {{
+    ($a_reader:expr, $b:expr $(,)?) => {
         match $crate::assert_io_read_to_string_ne_as_result!($a_reader, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_reader:expr, $b:expr, $($message:tt)+) => {{
+    };
+    ($a_reader:expr, $b:expr, $($message:tt)+) => {
         match $crate::assert_io_read_to_string_ne_as_result!($a_reader, $b) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

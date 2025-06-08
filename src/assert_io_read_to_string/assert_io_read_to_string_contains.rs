@@ -40,7 +40,7 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_contains_as_result {
-    ($reader:expr, $containee:expr $(,)?) => {{
+    ($reader:expr, $containee:expr $(,)?) => {
         match (/*&$reader,*/ $containee) {
             containee => {
                 let mut string = String::new();
@@ -92,7 +92,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -209,18 +209,18 @@ mod test_assert_io_read_to_string_contains_as_result {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_contains {
-    ($reader:expr, $containee:expr $(,)?) => {{
+    ($reader:expr, $containee:expr $(,)?) => {
         match $crate::assert_io_read_to_string_contains_as_result!($reader, $containee) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a:expr, $b:expr, $($message:tt)+) => {{
+    };
+    ($a:expr, $b:expr, $($message:tt)+) => {
         match $crate::assert_io_read_to_string_contains_as_result!($reader, $containee) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

@@ -41,7 +41,7 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_is_match_as_result {
-    ($reader:expr, $matcher:expr $(,)?) => {{
+    ($reader:expr, $matcher:expr $(,)?) => {
         match (/*&$reader,*/ $matcher) {
             matcher => {
                 let mut string = String::new();
@@ -95,7 +95,7 @@ macro_rules! assert_io_read_to_string_is_match_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -216,18 +216,18 @@ mod test_assert_io_read_to_string_is_match_as_result {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_is_match {
-    ($a_reader:expr, $b_matcher:expr $(,)?) => {{
+    ($a_reader:expr, $b_matcher:expr $(,)?) => {
         match $crate::assert_io_read_to_string_is_match_as_result!($a_reader, $b_matcher) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_reader:expr, $b_matcher:expr, $($message:tt)+) => {{
+    };
+    ($a_reader:expr, $b_matcher:expr, $($message:tt)+) => {
         match $crate::assert_io_read_to_string_is_match_as_result!($a_reader, $b_matcher) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]

@@ -40,7 +40,7 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_le_x_as_result {
-    ($a_reader:expr, $b_expr:expr $(,)?) => {{
+    ($a_reader:expr, $b_expr:expr $(,)?) => {
         match (/*&$reader,*/ $b_expr) {
             b_expr => {
                 let mut a_string = String::new();
@@ -95,7 +95,7 @@ macro_rules! assert_io_read_to_string_le_x_as_result {
                 }
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -247,18 +247,18 @@ mod test_assert_io_read_to_string_le_x_as_result {
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_le_x {
-    ($a_reader:expr,  $b_expr:expr $(,)?) => {{
+    ($a_reader:expr,  $b_expr:expr $(,)?) => {
         match $crate::assert_io_read_to_string_le_x_as_result!($a_reader, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}", err),
         }
-    }};
-    ($a_reader:expr, $b_expr:expr, $($message:tt)+) => {{
+    };
+    ($a_reader:expr, $b_expr:expr, $($message:tt)+) => {
         match $crate::assert_io_read_to_string_le_x_as_result!($a_reader, $b_expr) {
             Ok(x) => x,
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
-    }};
+    };
 }
 
 #[cfg(test)]
