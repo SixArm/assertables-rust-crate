@@ -54,7 +54,7 @@ macro_rules! assert_command_stderr_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_ne!(a_command, b_command)`\n",
-                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_ne.html\n",
+                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a value: `{:?}`,\n",
@@ -77,7 +77,7 @@ macro_rules! assert_command_stderr_ne_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_ne!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_ne.html\n",
+                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_ne.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a value: `{:?}`,\n",
@@ -194,7 +194,7 @@ mod test_assert_command_stderr_ne_as_result {
         let actual = assert_command_stderr_ne_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_ne!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_ne.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_ne.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",
@@ -240,7 +240,7 @@ mod test_assert_command_stderr_ne_as_result {
 /// assert_command_stderr_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stderr_ne!(a_command, b_command)`
-/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_ne.html
+/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_ne.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  a value: `[97, 108, 102, 97]`,
@@ -250,7 +250,7 @@ mod test_assert_command_stderr_ne_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_ne!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_ne.html\n",
+/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " a value: `[97, 108, 102, 97]`,\n",
@@ -320,7 +320,7 @@ mod test_assert_command_stderr_ne {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_ne!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_command_stderr_ne.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_ne.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",

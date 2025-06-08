@@ -46,7 +46,7 @@ macro_rules! assert_ready_as_result {
             _ => Err(format!(
                 concat!(
                     "assertion failed: `assert_ready!(a)`\n",
-                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ready.html\n",
+                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`",
                 ),
@@ -76,7 +76,7 @@ mod test_assert_ready_as_result {
         let actual = assert_ready_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_ready!(a)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ready.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready.html\n",
             " a label: `a`,\n",
             " a debug: `Pending`",
         );
@@ -111,13 +111,13 @@ mod test_assert_ready_as_result {
 /// assert_ready!(a);
 /// # });
 /// // assertion failed: `assert_ready!(a)`
-/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_ready.html
+/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready.html
 /// //  a label: `a`,
 /// //  a debug: `Pending`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_ready!(a)`\n",
-/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ready.html\n",
+/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Pending`",
 /// # );
@@ -168,7 +168,7 @@ mod test_assert_ready {
         });
         let message = concat!(
             "assertion failed: `assert_ready!(a)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_ready.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready.html\n",
             " a label: `a`,\n",
             " a debug: `Pending`",
         );

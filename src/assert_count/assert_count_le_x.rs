@@ -50,7 +50,7 @@ macro_rules! assert_count_le_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_count_le_x!(a, b)`\n",
-                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_le_x.html\n",
+                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
@@ -145,7 +145,7 @@ mod test_assert_count_le_x_as_result {
         let actual = assert_count_le_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_count_le_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_le_x.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html\n",
             " a label: `a`,\n",
             " a debug: `Chars(['x', 'x'])`,\n",
             " a.count(): `2`,\n",
@@ -185,7 +185,7 @@ mod test_assert_count_le_x_as_result {
 /// assert_count_le_x!(a, b);
 /// # });
 /// // assertion failed: `assert_count_le_x!(a, b)`
-/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_le_x.html
+/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",
@@ -194,7 +194,7 @@ mod test_assert_count_le_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_count_le_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_le_x.html\n",
+/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x', 'x'])`,\n",
 /// #     " a.count(): `2`,\n",
@@ -256,7 +256,7 @@ mod test_assert_count_le_x {
         });
         let message = concat!(
             "assertion failed: `assert_count_le_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_count_le_x.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html\n",
             " a label: `a`,\n",
             " a debug: `Chars(['x', 'x'])`,\n",
             " a.count(): `2`,\n",

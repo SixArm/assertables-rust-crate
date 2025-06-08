@@ -50,7 +50,7 @@ macro_rules! assert_is_match_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_match.html\n",
+                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_is_match.html\n",
                                 " matcher label: `{}`,\n",
                                 " matcher debug: `{:?}`,\n",
                                 " matchee label: `{}`,\n",
@@ -111,7 +111,7 @@ mod test_assert_is_match_as_result {
         let actual = assert_is_match_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_match.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_is_match.html\n",
             " matcher label: `&a`,\n",
             " matcher debug: `Regex(\"xx\")`,\n",
             " matchee label: `&b`,\n",
@@ -151,7 +151,7 @@ mod test_assert_is_match_as_result {
 /// assert_is_match!(&a, &b);
 /// # });
 /// // assertion failed: `assert_is_match!(matcher, matchee)`
-/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_match.html
+/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_is_match.html
 /// //  matcher label: `&a`,
 /// //  matcher debug: `Regex(\"xx\")`,
 /// //  matchee label: `&b`,
@@ -159,7 +159,7 @@ mod test_assert_is_match_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_is_match.html\n",
 /// #     " matcher label: `&a`,\n",
 /// #     " matcher debug: `Regex(\"xx\")`,\n",
 /// #     " matchee label: `&b`,\n",
@@ -213,7 +213,7 @@ mod test_assert_is_match {
         });
         let message = concat!(
             "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_is_match.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_is_match.html\n",
             " matcher label: `&a`,\n",
             " matcher debug: `Regex(\"xx\")`,\n",
             " matchee label: `&b`,\n",

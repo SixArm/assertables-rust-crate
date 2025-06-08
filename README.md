@@ -136,6 +136,7 @@ Matching:
 * [`assert_contains!(container, x)`](https://docs.rs/assertables/9.5.6/assertables/assert_contains) ≈ container.contains(x)
 * [`assert_is_match!(matcher, x)`](https://docs.rs/assertables/9.5.6/assertables/assert_is_match) ≈ matcher.is_match(x)
 * [`assert_matches!(expr, pattern)`](https://docs.rs/assertables/9.5.6/assertables/assert_matches) ≈ matches!(expr, pattern)
+* [`assert_email_address!(expr)`](https://docs.rs/assertables/9.5.6/assertables/assert_email_address) ≈ expr has local@domain
 
 Results:
 

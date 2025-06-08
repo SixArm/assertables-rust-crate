@@ -53,7 +53,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                                        "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
+                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_contains.html\n",
                                         "    reader label: `{}`,\n",
                                         "    reader debug: `{:?}`,\n",
                                         " containee label: `{}`,\n",
@@ -74,7 +74,7 @@ macro_rules! assert_io_read_to_string_contains_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-                                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
+                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_contains.html\n",
                                     "    reader label: `{}`,\n",
                                     "    reader debug: `{:?}`,\n",
                                     " containee label: `{}`,\n",
@@ -140,7 +140,7 @@ mod test_assert_io_read_to_string_contains_as_result {
         let actual = assert_io_read_to_string_contains_as_result!(reader, &containee);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_contains.html\n",
             "    reader label: `reader`,\n",
             "    reader debug: `[]`,\n",
             " containee label: `&containee`,\n",
@@ -181,7 +181,7 @@ mod test_assert_io_read_to_string_contains_as_result {
 /// assert_io_read_to_string_contains!(reader, &containee);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`
-/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html
+/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_contains.html
 /// //     reader label: `&reader`,
 /// //     reader debug: `[]`,
 /// //  containee label: `&containee`,
@@ -190,7 +190,7 @@ mod test_assert_io_read_to_string_contains_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_contains.html\n",
 /// #     "    reader label: `reader`,\n",
 /// #     "    reader debug: `[]`,\n",
 /// #     " containee label: `&containee`,\n",
@@ -246,7 +246,7 @@ mod test_assert_io_read_to_string_contains {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_contains!(reader, &containee)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_contains.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_contains.html\n",
             "    reader label: `reader`,\n",
             "    reader debug: `[]`,\n",
             " containee label: `&containee`,\n",

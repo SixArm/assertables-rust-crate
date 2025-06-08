@@ -54,7 +54,7 @@ macro_rules! assert_io_read_to_string_eq_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_eq_x.html\n",
+                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_eq_x.html\n",
                                         " a_reader label: `{}`,\n",
                                         " a_reader debug: `{:?}`,\n",
                                         "   b_expr label: `{}`,\n",
@@ -77,7 +77,7 @@ macro_rules! assert_io_read_to_string_eq_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_eq_x.html\n",
+                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_eq_x.html\n",
                                     " a_reader label: `{}`,\n",
                                     " a_reader debug: `{:?}`,\n",
                                     "   b_expr label: `{}`,\n",
@@ -143,7 +143,7 @@ mod test_assert_io_read_to_string_eq_x_as_result {
         let actual = assert_io_read_to_string_eq_x_as_result!(reader, &value);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_eq_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[]`,\n",
             "   b_expr label: `&value`,\n",
@@ -161,7 +161,7 @@ mod test_assert_io_read_to_string_eq_x_as_result {
         let actual = assert_io_read_to_string_eq_x_as_result!(reader, &value);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_eq_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[]`,\n",
             "   b_expr label: `&value`,\n",
@@ -203,7 +203,7 @@ mod test_assert_io_read_to_string_eq_x_as_result {
 /// assert_io_read_to_string_eq_x!(reader, &value);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`
-/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_eq_x.html
+/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_eq_x.html
 /// //  a_reader label: `reader`,
 /// //  a_reader debug: `[]`,
 /// //    b_expr label: `&value`,
@@ -213,7 +213,7 @@ mod test_assert_io_read_to_string_eq_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_eq_x.html\n",
 /// #     " a_reader label: `reader`,\n",
 /// #     " a_reader debug: `[]`,\n",
 /// #     "   b_expr label: `&value`,\n",
@@ -270,7 +270,7 @@ mod test_assert_io_read_to_string_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_eq_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[]`,\n",
             "   b_expr label: `&value`,\n",
@@ -297,7 +297,7 @@ mod test_assert_io_read_to_string_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_io_read_to_string_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_io_read_to_string_eq_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[]`,\n",
             "   b_expr label: `&value`,\n",

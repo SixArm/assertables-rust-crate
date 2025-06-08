@@ -283,6 +283,15 @@ fn examples_with_assert_set() {
     assert_set_disjoint!([1], [2]);
 }
 
+//// Validators
+
+/// Examples of email address.
+#[test]
+fn examples_of_email_address() {
+    assert_email_address!("hello@example.com");
+    assert_not_email_address!("hello*example.com");
+}
+
 //// Commands
 
 /// Examples with assert_command_stdout.

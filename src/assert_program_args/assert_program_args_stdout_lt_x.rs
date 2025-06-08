@@ -53,7 +53,7 @@ macro_rules! assert_program_args_stdout_lt_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_lt_x.html\n",
+                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_program_args_stdout_lt_x.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -80,7 +80,7 @@ macro_rules! assert_program_args_stdout_lt_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_lt_x.html\n",
+                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_program_args_stdout_lt_x.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -158,7 +158,7 @@ mod test_assert_program_args_stdout_lt_x_as_result {
         let actual = assert_program_args_stdout_lt_x_as_result!(&a_program, &a_args, &b);
         let message = concat!(
           "assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`\n",
-          "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_lt_x.html\n",
+          "https://docs.rs/assertables/9.6.0/assertables/macro.assert_program_args_stdout_lt_x.html\n",
           " a_program label: `&a_program`,\n",
           " a_program debug: `\"bin/printf-stdout\"`,\n",
           "    a_args label: `&a_args`,\n",
@@ -178,7 +178,7 @@ mod test_assert_program_args_stdout_lt_x_as_result {
         let actual = assert_program_args_stdout_lt_x_as_result!(&a_program, &a_args, &b);
         let message = concat!(
           "assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`\n",
-          "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_lt_x.html\n",
+          "https://docs.rs/assertables/9.6.0/assertables/macro.assert_program_args_stdout_lt_x.html\n",
           " a_program label: `&a_program`,\n",
           " a_program debug: `\"bin/printf-stdout\"`,\n",
           "    a_args label: `&a_args`,\n",
@@ -223,7 +223,7 @@ mod test_assert_program_args_stdout_lt_x_as_result {
 /// assert_program_args_stdout_lt_x!(&program, &args, &bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`
-/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_lt_x.html
+/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_program_args_stdout_lt_x.html
 /// //  a_program label: `&program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `&args`,
@@ -235,7 +235,7 @@ mod test_assert_program_args_stdout_lt_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_lt_x.html\n",
+/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_program_args_stdout_lt_x.html\n",
 /// #     " a_program label: `&program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `&args`,\n",
@@ -294,7 +294,7 @@ mod test_assert_program_args_stdout_lt_x {
         });
         let message = concat!(
           "assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`\n",
-          "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_lt_x.html\n",
+          "https://docs.rs/assertables/9.6.0/assertables/macro.assert_program_args_stdout_lt_x.html\n",
           " a_program label: `&a_program`,\n",
           " a_program debug: `\"bin/printf-stdout\"`,\n",
           "    a_args label: `&a_args`,\n",
@@ -323,7 +323,7 @@ mod test_assert_program_args_stdout_lt_x {
         });
         let message = concat!(
           "assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`\n",
-          "https://docs.rs/assertables/9.5.6/assertables/macro.assert_program_args_stdout_lt_x.html\n",
+          "https://docs.rs/assertables/9.6.0/assertables/macro.assert_program_args_stdout_lt_x.html\n",
           " a_program label: `&a_program`,\n",
           " a_program debug: `\"bin/printf-stdout\"`,\n",
           "    a_args label: `&a_args`,\n",

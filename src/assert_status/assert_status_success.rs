@@ -49,7 +49,7 @@ macro_rules! assert_status_success_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_status_success!(a)`\n",
-                                "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_success.html\n",
+                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_success.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`",
                             ),
@@ -64,7 +64,7 @@ macro_rules! assert_status_success_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_status_success!(a)`\n",
-                            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_success.html\n",
+                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_success.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             " a status: `{:?}`",
@@ -117,7 +117,7 @@ mod test_assert_status_success_as_result {
         let actual = assert_status_success_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_status_success!(a)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_success.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_success.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`",
         );
@@ -152,13 +152,13 @@ mod test_assert_status_success_as_result {
 /// assert_status_success!(a);
 /// # });
 /// // assertion failed: `assert_status_success!(a)`
-/// // https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_success.html
+/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_success.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/exit-with-arg\" \"1\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_success!(a)`\n",
-/// #     "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_success.html\n",
+/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_success.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"1\"`"
 /// # );
@@ -210,7 +210,7 @@ mod test_assert_status_success {
         });
         let message = concat!(
             "assertion failed: `assert_status_success!(a)`\n",
-            "https://docs.rs/assertables/9.5.6/assertables/macro.assert_status_success.html\n",
+            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_success.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`",
         );
