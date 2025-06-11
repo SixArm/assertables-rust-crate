@@ -46,7 +46,7 @@ macro_rules! assert_email_address_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_email_address!(a)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
                                 " email address must contain an '@' at sign.\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
@@ -69,7 +69,7 @@ macro_rules! assert_email_address_as_result {
                                     format!(
                                         concat!(
                                             "assertion failed: `assert_email_address!(a)`\n",
-                                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+                                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
                                             " email address local part must be 1 character or more.\n",
                                             " a label: `{}`,\n",
                                             " a debug: `{:?}`,\n",
@@ -82,14 +82,14 @@ macro_rules! assert_email_address_as_result {
                                         local_part_len,
                                     )
                                 )
-                            } 
+                            }
                             else
                             if local_part_len > 64 {
                                 Err(
                                     format!(
                                         concat!(
                                             "assertion failed: `assert_email_address!(a)`\n",
-                                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+                                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
                                             " email address local part must be maximum 64 characters.\n",
                                             " a label: `{}`,\n",
                                             " a debug: `{:?}`,\n",
@@ -109,7 +109,7 @@ macro_rules! assert_email_address_as_result {
                                     format!(
                                         concat!(
                                             "assertion failed: `assert_email_address!(a)`\n",
-                                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+                                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
                                             " email address domain part must be 1 character or more.\n",
                                             " a label: `{}`,\n",
                                             " a debug: `{:?}`,\n",
@@ -129,7 +129,7 @@ macro_rules! assert_email_address_as_result {
                                     format!(
                                         concat!(
                                             "assertion failed: `assert_email_address!(a)`\n",
-                                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+                                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
                                             " email address domain part must be maximum 255 characters.\n",
                                             " a label: `{}`,\n",
                                             " a debug: `{:?}`,\n",
@@ -152,7 +152,7 @@ macro_rules! assert_email_address_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_email_address!(a)`\n",
-                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
                                         " email address must contain a local part, then an '@' at sign, then a domain part.\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
@@ -178,17 +178,21 @@ mod test_assert_email_address_as_result {
     #[test]
     fn success() {
         let a = "hello@example.com";
-        let actual = assert_email_address_as_result!(a);
-        assert_eq!(actual.unwrap(), "hello@example.com");
+        for _ in 0..1 {
+            let actual = assert_email_address_as_result!(a);
+            assert_eq!(actual.unwrap(), "hello@example.com");
+        }
     }
-
 
     #[test]
     fn success_once() {
-
         static A: Once = Once::new();
         fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "hello@example.com"
         }
 
@@ -196,7 +200,6 @@ mod test_assert_email_address_as_result {
         let result = assert_email_address_as_result!(a());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
-
     }
 
     #[test]
@@ -205,7 +208,7 @@ mod test_assert_email_address_as_result {
         let actual = assert_email_address_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address must contain an '@' at sign.\n",
             " a label: `a`,\n",
             " a debug: `\"hello*example.com\"`,\n",
@@ -220,7 +223,7 @@ mod test_assert_email_address_as_result {
         let actual = assert_email_address_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address local part must be 1 character or more.\n",
             " a label: `a`,\n",
             " a debug: `\"@example.com\"`,\n",
@@ -236,7 +239,7 @@ mod test_assert_email_address_as_result {
         let actual = assert_email_address_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address local part must be maximum 64 characters.\n",
             " a label: `a`,\n",
             " a debug: `\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@example.com\"`,\n",
@@ -252,7 +255,7 @@ mod test_assert_email_address_as_result {
         let actual = assert_email_address_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address domain part must be 1 character or more.\n",
             " a label: `a`,\n",
             " a debug: `\"hello@\"`,\n",
@@ -268,7 +271,7 @@ mod test_assert_email_address_as_result {
         let actual = assert_email_address_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address domain part must be maximum 255 characters.\n",
             " a label: `a`,\n",
             " a debug: `\"hello@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"`,\n",
@@ -277,7 +280,6 @@ mod test_assert_email_address_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert expression is possibly an email address.
@@ -303,7 +305,7 @@ mod test_assert_email_address_as_result {
 /// assert_email_address!(a);
 /// # });
 /// // assertion failed: `assert_email_address!(a)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html
 /// //  Email address must contain an '@' at sign.
 /// //  a label: `a`,
 /// //  a debug: `\"hello*example.com\"`,
@@ -311,7 +313,7 @@ mod test_assert_email_address_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_email_address!(a)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
 /// #     " email address must contain an '@' at sign.\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"hello*example.com\"`,\n",
@@ -350,8 +352,10 @@ mod test_assert_email_address {
     #[test]
     fn success() {
         let a = "hello@example.com";
-        let actual = assert_email_address!(a);
-        assert_eq!(actual, a);
+        for _ in 0..1 {
+            let actual = assert_email_address!(a);
+            assert_eq!(actual, a);
+        }
     }
 
     #[test]
@@ -362,7 +366,7 @@ mod test_assert_email_address {
         });
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address must contain an '@' at sign.\n",
             " a label: `a`,\n",
             " a debug: `\"hello*example.com\"`,\n",
@@ -386,7 +390,7 @@ mod test_assert_email_address {
         });
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address local part must be 1 character or more.\n",
             " a label: `a`,\n",
             " a debug: `\"@example.com\"`,\n",
@@ -411,7 +415,7 @@ mod test_assert_email_address {
         });
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address local part must be maximum 64 characters.\n",
             " a label: `a`,\n",
             " a debug: `\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@example.com\"`,\n",
@@ -436,7 +440,7 @@ mod test_assert_email_address {
         });
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address domain part must be 1 character or more.\n",
             " a label: `a`,\n",
             " a debug: `\"hello@\"`,\n",
@@ -461,7 +465,7 @@ mod test_assert_email_address {
         });
         let message = concat!(
             "assertion failed: `assert_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_email_address.html\n",
             " email address domain part must be maximum 255 characters.\n",
             " a label: `a`,\n",
             " a debug: `\"hello@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"`,\n",
@@ -477,7 +481,6 @@ mod test_assert_email_address {
             message
         );
     }
-
 }
 
 /// Assert expression is possibly an email address.

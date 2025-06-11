@@ -52,7 +52,7 @@ macro_rules! assert_status_code_value_gt_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_code_value_gt.html\n",
+                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_status_code_value_gt.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
                                         "  a code: `{:?}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_status_code_value_gt_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_code_value_gt.html\n",
+                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_status_code_value_gt.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " b label: `{}`,\n",
@@ -95,7 +95,7 @@ macro_rules! assert_status_code_value_gt_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_code_value_gt.html\n",
+                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_status_code_value_gt.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             "  b label: `{}`,\n",
@@ -114,8 +114,8 @@ macro_rules! assert_status_code_value_gt_as_result {
 
 #[cfg(test)]
 mod test_assert_status_code_value_gt_as_result {
-    use std::sync::Once;
     use std::process::Command;
+    use std::sync::Once;
 
     #[test]
     fn gt() {
@@ -123,16 +123,21 @@ mod test_assert_status_code_value_gt_as_result {
         a.arg("2");
         let mut b = Command::new("bin/exit-with-arg");
         b.arg("1");
-        let actual = assert_status_code_value_gt_as_result!(a, b);
-        assert_eq!(actual.unwrap(), (2, 1));
+        for _ in 0..1 {
+            let actual = assert_status_code_value_gt_as_result!(a, b);
+            assert_eq!(actual.unwrap(), (2, 1));
+        }
     }
 
     #[test]
     fn gt_once() {
-
         static A: Once = Once::new();
         fn a() -> Command {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             let mut a = Command::new("bin/exit-with-arg");
             a.arg("2");
             a
@@ -140,19 +145,22 @@ mod test_assert_status_code_value_gt_as_result {
 
         static B: Once = Once::new();
         fn b() -> Command {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             let mut b = Command::new("bin/exit-with-arg");
             b.arg("1");
             b
         }
-        
+
         assert_eq!(A.is_completed(), false);
         assert_eq!(B.is_completed(), false);
         let result = assert_status_code_value_gt_as_result!(a(), b());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
@@ -164,7 +172,7 @@ mod test_assert_status_code_value_gt_as_result {
         let actual = assert_status_code_value_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_code_value_gt.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_status_code_value_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",
@@ -184,7 +192,7 @@ mod test_assert_status_code_value_gt_as_result {
         let actual = assert_status_code_value_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_code_value_gt.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_status_code_value_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",
@@ -225,7 +233,7 @@ mod test_assert_status_code_value_gt_as_result {
 /// assert_status_code_value_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_status_code_value_gt!(a, b)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_code_value_gt.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_status_code_value_gt.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 /// //  a value: `1`",
@@ -235,7 +243,7 @@ mod test_assert_status_code_value_gt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_code_value_gt.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_status_code_value_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 /// #     "  a code: `1`,\n",
@@ -280,8 +288,10 @@ mod test_assert_status_code_value_gt {
         a.arg("2");
         let mut b = Command::new("bin/exit-with-arg");
         b.arg("1");
-        let actual = assert_status_code_value_gt!(a, b);
-        assert_eq!(actual, (2, 1));
+        for _ in 0..1 {
+            let actual = assert_status_code_value_gt!(a, b);
+            assert_eq!(actual, (2, 1));
+        }
     }
 
     #[test]
@@ -295,7 +305,7 @@ mod test_assert_status_code_value_gt {
         });
         let message = concat!(
             "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_code_value_gt.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_status_code_value_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",
@@ -324,7 +334,7 @@ mod test_assert_status_code_value_gt {
         });
         let message = concat!(
             "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_status_code_value_gt.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_status_code_value_gt.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",

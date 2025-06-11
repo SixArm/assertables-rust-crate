@@ -51,7 +51,7 @@ macro_rules! assert_len_ne_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_len_ne!(a, b)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_len_ne.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_len_ne.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.len(): `{:?}`,\n",
@@ -81,22 +81,31 @@ mod test_assert_len_ne_as_result {
     fn lt() {
         let a = "x";
         let b = "xx";
-        let actual = assert_len_ne_as_result!(a, b);
-        assert_eq!(actual.unwrap(), (1, 2));
+        for _ in 0..1 {
+            let actual = assert_len_ne_as_result!(a, b);
+            assert_eq!(actual.unwrap(), (1, 2));
+        }
     }
 
     #[test]
     fn lt_once() {
-
         static A: Once = Once::new();
         fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "x"
         }
 
         static B: Once = Once::new();
         fn b() -> &'static str {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             "xx"
         }
 
@@ -106,29 +115,37 @@ mod test_assert_len_ne_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-
     }
 
     #[test]
     fn gt() {
         let a = "xx";
         let b = "x";
-        let actual = assert_len_ne_as_result!(a, b);
-        assert_eq!(actual.unwrap(), (2, 1));
+        for _ in 0..1 {
+            let actual = assert_len_ne_as_result!(a, b);
+            assert_eq!(actual.unwrap(), (2, 1));
+        }
     }
 
     #[test]
     fn gt_once() {
-
         static A: Once = Once::new();
         fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "xx"
         }
 
         static B: Once = Once::new();
         fn b() -> &'static str {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             "x"
         }
 
@@ -138,7 +155,6 @@ mod test_assert_len_ne_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-
     }
 
     #[test]
@@ -148,7 +164,7 @@ mod test_assert_len_ne_as_result {
         let actual = assert_len_ne_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_len_ne!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_len_ne.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_len_ne.html\n",
             " a label: `a`,\n",
             " a debug: `\"x\"`,\n",
             " a.len(): `1`,\n",
@@ -158,7 +174,6 @@ mod test_assert_len_ne_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert a length is not equal to another.
@@ -189,7 +204,7 @@ mod test_assert_len_ne_as_result {
 /// assert_len_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_len_ne!(a, b)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_len_ne.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_len_ne.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",
@@ -199,7 +214,7 @@ mod test_assert_len_ne_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_len_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_len_ne.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_len_ne.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
@@ -241,16 +256,20 @@ mod test_assert_len_ne {
     fn lt() {
         let a = "x";
         let b = "xx";
-        let actual = assert_len_ne!(a, b);
-        assert_eq!(actual, (1, 2));
+        for _ in 0..1 {
+            let actual = assert_len_ne!(a, b);
+            assert_eq!(actual, (1, 2));
+        }
     }
 
     #[test]
     fn gt() {
         let a = "xx";
         let b = "x";
-        let actual = assert_len_ne!(a, b);
-        assert_eq!(actual, (2, 1));
+        for _ in 0..1 {
+            let actual = assert_len_ne!(a, b);
+            assert_eq!(actual, (2, 1));
+        }
     }
 
     #[test]
@@ -262,7 +281,7 @@ mod test_assert_len_ne {
         });
         let message = concat!(
             "assertion failed: `assert_len_ne!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_len_ne.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_len_ne.html\n",
             " a label: `a`,\n",
             " a debug: `\"x\"`,\n",
             " a.len(): `1`,\n",

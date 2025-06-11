@@ -53,7 +53,7 @@ macro_rules! assert_command_stderr_string_is_match_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_string_is_match!(command, matcher)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_string_is_match.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_string_is_match.html\n",
                                 " command label: `{}`,\n",
                                 " command debug: `{:?}`,\n",
                                 " command value: `{:?}`,\n",
@@ -76,7 +76,7 @@ macro_rules! assert_command_stderr_string_is_match_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_string_is_match!(command, matcher)`\n",
-                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_string_is_match.html\n",
+                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_string_is_match.html\n",
                             "  command label: `{}`,\n",
                             "  command debug: `{:?}`,\n",
                             "  command value: `{:?}`,\n",
@@ -99,25 +99,30 @@ macro_rules! assert_command_stderr_string_is_match_as_result {
 
 #[cfg(test)]
 mod test_assert_command_stderr_string_is_match_as_result {
-    use std::sync::Once;
     use regex::Regex;
     use std::process::Command;
+    use std::sync::Once;
 
     #[test]
     fn success() {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = Regex::new(r"lf").expect("regex");
-        let actual = assert_command_stderr_string_is_match_as_result!(a, &b);
-        assert_eq!(actual.unwrap(), "alfa");
+        for _ in 0..1 {
+            let actual = assert_command_stderr_string_is_match_as_result!(a, &b);
+            assert_eq!(actual.unwrap(), "alfa");
+        }
     }
 
     #[test]
     fn success_once() {
-
         static A: Once = Once::new();
         fn a() -> Command {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             let mut a = Command::new("bin/printf-stderr");
             a.args(["%s", "alfa"]);
             a
@@ -125,7 +130,11 @@ mod test_assert_command_stderr_string_is_match_as_result {
 
         static B: Once = Once::new();
         fn b() -> Regex {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             Regex::new(r"lf").expect("regex")
         }
 
@@ -135,7 +144,6 @@ mod test_assert_command_stderr_string_is_match_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
@@ -146,7 +154,7 @@ mod test_assert_command_stderr_string_is_match_as_result {
         let actual = assert_command_stderr_string_is_match_as_result!(a, &b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_string_is_match!(command, matcher)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_string_is_match.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_string_is_match.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `\"alfa\"`,\n",
@@ -156,7 +164,6 @@ mod test_assert_command_stderr_string_is_match_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert a command stderr string is a match to a regex.
@@ -191,7 +198,7 @@ mod test_assert_command_stderr_string_is_match_as_result {
 /// assert_command_stderr_string_is_match!(command, &matcher);
 /// # });
 /// // assertion failed: `assert_command_stderr_string_is_match!(command, matcher)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_string_is_match.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_string_is_match.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  command value: `\"alfa\"`,
@@ -201,7 +208,7 @@ mod test_assert_command_stderr_string_is_match_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_string_is_match!(command, matcher)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_string_is_match.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " command value: `\"alfa\"`,\n",
@@ -246,8 +253,10 @@ mod test_assert_command_stderr_string_is_match {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = Regex::new(r"lf").expect("regex");
-        let actual = assert_command_stderr_string_is_match!(a, &b);
-        assert_eq!(actual, "alfa");
+        for _ in 0..1 {
+            let actual = assert_command_stderr_string_is_match!(a, &b);
+            assert_eq!(actual, "alfa");
+        }
     }
 
     #[test]
@@ -260,7 +269,7 @@ mod test_assert_command_stderr_string_is_match {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_string_is_match!(command, matcher)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_string_is_match.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_string_is_match.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `\"alfa\"`,\n",

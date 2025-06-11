@@ -52,7 +52,7 @@ macro_rules! assert_fs_read_to_string_ne_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
                                         " a_path label: `{}`,\n",
                                         " a_path debug: `{:?}`,\n",
                                         " b_expr label: `{}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_fs_read_to_string_ne_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
                                     " a_path label: `{}`,\n",
                                     " a_path debug: `{:?}`,\n",
                                     " b_expr label: `{}`,\n",
@@ -98,11 +98,11 @@ macro_rules! assert_fs_read_to_string_ne_x_as_result {
 
 #[cfg(test)]
 mod test_assert_fs_read_to_string_ne_x_as_result {
-    use std::sync::Once;
     #[allow(unused_imports)]
     use std::io::Read;
     use std::path::PathBuf;
     use std::sync::LazyLock;
+    use std::sync::Once;
 
     pub static DIR: LazyLock<PathBuf> = LazyLock::new(|| {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -116,22 +116,31 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
     fn lt() {
         let path = DIR.join("alfa.txt");
         let value = "bravo\n";
-        let actual = assert_fs_read_to_string_ne_x_as_result!(&path, &value);
-        assert_eq!(actual.unwrap(), String::from("alfa\n"));
+        for _ in 0..1 {
+            let actual = assert_fs_read_to_string_ne_x_as_result!(&path, &value);
+            assert_eq!(actual.unwrap(), String::from("alfa\n"));
+        }
     }
 
     #[test]
     fn lt_once() {
-
         static A: Once = Once::new();
         fn a() -> PathBuf {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             DIR.join("alfa.txt")
         }
 
         static B: Once = Once::new();
         fn b() -> &'static str {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             "bravo\n"
         }
 
@@ -141,29 +150,37 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
     fn gt() {
         let path = DIR.join("bravo.txt");
         let value = "alfa\n";
-        let actual = assert_fs_read_to_string_ne_x_as_result!(&path, &value);
-        assert_eq!(actual.unwrap(), String::from("bravo\n"));
+        for _ in 0..1 {
+            let actual = assert_fs_read_to_string_ne_x_as_result!(&path, &value);
+            assert_eq!(actual.unwrap(), String::from("bravo\n"));
+        }
     }
 
     #[test]
     fn gt_once() {
-
         static A: Once = Once::new();
         fn a() -> PathBuf {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             DIR.join("bravo.txt")
         }
 
         static B: Once = Once::new();
         fn b() -> &'static str {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             "alfa\n"
         }
 
@@ -173,7 +190,6 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
@@ -184,7 +200,7 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
                 " a_path label: `&path`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_expr label: `&value`,\n",
@@ -227,7 +243,7 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
 /// assert_fs_read_to_string_ne_x!(&path, &value);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_ne_x.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_ne_x.html
 /// //  a_path label: `&path`,
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_expr label: `&value`,
@@ -237,7 +253,7 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
 /// #     " a_path label: `&path`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_expr label: `&value`,\n",
@@ -291,16 +307,20 @@ mod test_assert_fs_read_to_string_ne_x {
     fn lt() {
         let path = DIR.join("alfa.txt");
         let value = "bravo\n";
-        let actual = assert_fs_read_to_string_ne_x!(&path, &value);
-        assert_eq!(actual, String::from("alfa\n"));
+        for _ in 0..1 {
+            let actual = assert_fs_read_to_string_ne_x!(&path, &value);
+            assert_eq!(actual, String::from("alfa\n"));
+        }
     }
 
     #[test]
     fn gt() {
         let path = DIR.join("bravo.txt");
         let value = "alfa\n";
-        let actual = assert_fs_read_to_string_ne_x!(&path, &value);
-        assert_eq!(actual, String::from("bravo\n"));
+        for _ in 0..1 {
+            let actual = assert_fs_read_to_string_ne_x!(&path, &value);
+            assert_eq!(actual, String::from("bravo\n"));
+        }
     }
 
     #[test]
@@ -313,7 +333,7 @@ mod test_assert_fs_read_to_string_ne_x {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
                 " a_path label: `&path`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_expr label: `&value`,\n",

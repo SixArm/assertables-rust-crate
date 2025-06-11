@@ -15,7 +15,6 @@ use assertables::*;
 
 #[test]
 fn less_than() {
-
     let a = 1;
     let b = 2;
 
@@ -27,13 +26,11 @@ fn less_than() {
 
     // Assertables using assert_infix
     assert_infix!(a < b);
-
 }
 
 /// Are two numbers near each other?
 #[test]
 fn numbers_nearness() {
-
     let a = 10;
     let b = 12;
     let delta = 2;
@@ -43,12 +40,10 @@ fn numbers_nearness() {
 
     // Assertables
     assert_in_delta!(a, b, delta);
-
 }
 
 #[test]
 fn absolute_difference() {
-
     let a = 10;
     let b = 13;
     let delta = 4;
@@ -58,13 +53,11 @@ fn absolute_difference() {
 
     // Assertables using assert_lt
     assert_abs_diff_lt!(a, b, delta);
-
 }
 
 /// Verify a Result is Ok.
 #[test]
 fn verify_ok() {
-
     let a: Result<i8, i8> = Ok(1);
 
     // Standard Rust
@@ -72,13 +65,11 @@ fn verify_ok() {
 
     // Assertables
     assert_ok!(a);
-
 }
 
 /// Compare a text file to a string.
 #[test]
 fn compare_text_file_to_string() {
-
     let path = "alfa.txt";
     let s = "alfa\n";
 
@@ -87,22 +78,21 @@ fn compare_text_file_to_string() {
 
     // Assertables
     assert_fs_read_to_string_eq_x!(path, s);
-
 }
 
 /// Verify a command standard output stream contains a target string.
 #[test]
 fn verify_command_stdout_contains_text() {
-
     use std::process::Command;
     let mut command = Command::new("echo");
     command.args(["alfa"]);
     let containee = "fa";
 
     // Standard Rust
-    assert!(String::from_utf8(command.output().unwrap().stdout).unwrap().contains(containee));
+    assert!(String::from_utf8(command.output().unwrap().stdout)
+        .unwrap()
+        .contains(containee));
 
     // Assertables
     assert_command_stdout_string_contains!(command, containee);
-
 }

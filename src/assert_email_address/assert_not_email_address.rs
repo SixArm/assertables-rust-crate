@@ -59,7 +59,7 @@ macro_rules! assert_not_email_address_as_result {
                                     format!(
                                         concat!(
                                             "assertion failed: `assert_not_email_address!(a)`\n",
-                                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_not_email_address.html\n",
+                                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_email_address.html\n",
                                             " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
                                             " a label: `{}`,\n",
                                             " a debug: `{:?}`,\n",
@@ -93,16 +93,21 @@ mod test_assert_not_email_address_as_result {
     #[test]
     fn success_because_at_sign_is_absent() {
         let a = "hello*example.com";
-        let actual = assert_not_email_address_as_result!(a);
-        assert_eq!(actual.unwrap(), a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address_as_result!(a);
+            assert_eq!(actual.unwrap(), a);
+        }
     }
 
     #[test]
     fn success_because_at_sign_is_absent_once() {
-
         static A: Once = Once::new();
         fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "hello*example.com"
         }
 
@@ -110,22 +115,26 @@ mod test_assert_not_email_address_as_result {
         let result = assert_not_email_address_as_result!(a());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
-
     }
 
     #[test]
     fn success_because_local_part_is_blank() {
         let a = "@example.com";
-        let actual = assert_not_email_address_as_result!(a);
-        assert_eq!(actual.unwrap(), a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address_as_result!(a);
+            assert_eq!(actual.unwrap(), a);
+        }
     }
 
     #[test]
     fn success_because_local_part_is_blank_once() {
-
         static A: Once = Once::new();
         fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "@example.com"
         }
 
@@ -133,22 +142,26 @@ mod test_assert_not_email_address_as_result {
         let result = assert_not_email_address_as_result!(a());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
-
     }
 
     #[test]
     fn success_because_local_part_is_too_long() {
         let a = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@example.com";
-        let actual = assert_not_email_address_as_result!(a);
-        assert_eq!(actual.unwrap(), a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address_as_result!(a);
+            assert_eq!(actual.unwrap(), a);
+        }
     }
 
     #[test]
     fn success_because_local_part_is_too_long_once() {
-
         static A: Once = Once::new();
         fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@example.com"
         }
 
@@ -156,22 +169,26 @@ mod test_assert_not_email_address_as_result {
         let result = assert_not_email_address_as_result!(a());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
-
     }
 
     #[test]
     fn success_because_domain_part_is_blank() {
         let a = "hello@";
-        let actual = assert_not_email_address_as_result!(a);
-        assert_eq!(actual.unwrap(), a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address_as_result!(a);
+            assert_eq!(actual.unwrap(), a);
+        }
     }
 
     #[test]
     fn success_because_domain_part_is_blank_once() {
-
         static A: Once = Once::new();
         fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "hello@"
         }
 
@@ -179,22 +196,26 @@ mod test_assert_not_email_address_as_result {
         let result = assert_not_email_address_as_result!(a());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
-
     }
 
     #[test]
     fn success_because_domain_part_is_too_long() {
         let a = "hello@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-        let actual = assert_not_email_address_as_result!(a);
-        assert_eq!(actual.unwrap(), a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address_as_result!(a);
+            assert_eq!(actual.unwrap(), a);
+        }
     }
 
     #[test]
     fn success_because_domain_part_is_too_long_once() {
-
         static A: Once = Once::new();
         fn a() -> &'static str {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "hello@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         }
 
@@ -202,7 +223,6 @@ mod test_assert_not_email_address_as_result {
         let result = assert_not_email_address_as_result!(a());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
-
     }
 
     #[test]
@@ -211,7 +231,7 @@ mod test_assert_not_email_address_as_result {
         let actual = assert_not_email_address_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_not_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_not_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_email_address.html\n",
             " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
             " a label: `a`,\n",
             " a debug: `\"hello@example.com\"`,\n",
@@ -221,7 +241,6 @@ mod test_assert_not_email_address_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert expression is possibly not an email address.
@@ -247,7 +266,7 @@ mod test_assert_not_email_address_as_result {
 /// assert_not_email_address!(a);
 /// # });
 /// // assertion failed: `assert_not_email_address!(a)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_not_email_address.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_email_address.html
 /// //  Email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.
 /// //  a label: `a`,
 /// //  a debug: `\"hello@example.com\"`,
@@ -257,7 +276,7 @@ mod test_assert_not_email_address_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_not_email_address!(a)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_not_email_address.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_email_address.html\n",
 /// #     " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"hello@example.com\"`,\n",
@@ -298,36 +317,46 @@ mod test_assert_not_email_address {
     #[test]
     fn success_because_at_sign_is_absent() {
         let a = "hello*example.com";
-        let actual = assert_not_email_address!(a);
-        assert_eq!(actual, a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address!(a);
+            assert_eq!(actual, a);
+        }
     }
 
     #[test]
     fn success_because_local_part_is_blank() {
         let a = "@example.com";
-        let actual = assert_not_email_address!(a);
-        assert_eq!(actual, a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address!(a);
+            assert_eq!(actual, a);
+        }
     }
 
     #[test]
     fn success_because_local_part_is_too_long() {
         let a = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@example.com";
-        let actual = assert_not_email_address!(a);
-        assert_eq!(actual, a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address!(a);
+            assert_eq!(actual, a);
+        }
     }
 
     #[test]
     fn success_because_domain_part_is_blank() {
         let a = "hello@";
-        let actual = assert_not_email_address!(a);
-        assert_eq!(actual, a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address!(a);
+            assert_eq!(actual, a);
+        }
     }
 
     #[test]
     fn success_because_domain_part_is_too_long() {
         let a = "hello@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-        let actual = assert_not_email_address!(a);
-        assert_eq!(actual, a);
+        for _ in 0..1 {
+            let actual = assert_not_email_address!(a);
+            assert_eq!(actual, a);
+        }
     }
 
     #[test]
@@ -338,7 +367,7 @@ mod test_assert_not_email_address {
         });
         let message = concat!(
             "assertion failed: `assert_not_email_address!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_not_email_address.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_email_address.html\n",
             " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
             " a label: `a`,\n",
             " a debug: `\"hello@example.com\"`,\n",
@@ -355,7 +384,6 @@ mod test_assert_not_email_address {
             message
         );
     }
-
 }
 
 /// Assert expression is possibly not an email address.

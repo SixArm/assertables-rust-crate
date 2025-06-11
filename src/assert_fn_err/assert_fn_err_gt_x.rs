@@ -60,7 +60,7 @@ macro_rules! assert_fn_err_gt_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                                         " a_function label: `{}`,\n",
                                         "    a_param label: `{}`,\n",
                                         "    a_param debug: `{:?}`,\n",
@@ -85,7 +85,7 @@ macro_rules! assert_fn_err_gt_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                                     " a_function label: `{}`,\n",
                                     "    a_param label: `{}`,\n",
                                     "    a_param debug: `{:?}`,\n",
@@ -121,7 +121,7 @@ macro_rules! assert_fn_err_gt_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fn_err_gt_x!(a_function, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                                         " a_function label: `{}`,\n",
                                         "     b_expr label: `{}`,\n",
                                         "     b_expr debug: `{:?}`,\n",
@@ -142,7 +142,7 @@ macro_rules! assert_fn_err_gt_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fn_err_gt_x!(a_function, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                                     " a_function label: `{}`,\n",
                                     "     b_expr label: `{}`,\n",
                                     "     b_expr debug: `{:?}`,\n",
@@ -176,8 +176,10 @@ mod test_assert_fn_err_gt_x_as_result {
         fn gt() {
             let a: i8 = 2;
             let b: i8 = 1;
-            let actual = assert_fn_err_gt_x_as_result!(f, a, b);
-            assert_eq!(actual.unwrap(), 2);
+            for _ in 0..1 {
+                let actual = assert_fn_err_gt_x_as_result!(f, a, b);
+                assert_eq!(actual.unwrap(), 2);
+            }
         }
 
         #[test]
@@ -187,7 +189,7 @@ mod test_assert_fn_err_gt_x_as_result {
             let actual = assert_fn_err_gt_x_as_result!(f, a, b);
             let message = concat!(
                 "assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -206,7 +208,7 @@ mod test_assert_fn_err_gt_x_as_result {
             let actual = assert_fn_err_gt_x_as_result!(f, a, b);
             let message = concat!(
                 "assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -228,8 +230,10 @@ mod test_assert_fn_err_gt_x_as_result {
         #[test]
         fn gt() {
             let b: i8 = 0;
-            let actual = assert_fn_err_gt_x_as_result!(f, b);
-            assert_eq!(actual.unwrap(), 1);
+            for _ in 0..1 {
+                let actual = assert_fn_err_gt_x_as_result!(f, b);
+                assert_eq!(actual.unwrap(), 1);
+            }
         }
 
         #[test]
@@ -238,7 +242,7 @@ mod test_assert_fn_err_gt_x_as_result {
             let actual = assert_fn_err_gt_x_as_result!(f, b);
             let message = concat!(
                 "assertion failed: `assert_fn_err_gt_x!(a_function, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "     b_expr label: `b`,\n",
                 "     b_expr debug: `1`,\n",
@@ -254,7 +258,7 @@ mod test_assert_fn_err_gt_x_as_result {
             let actual = assert_fn_err_gt_x_as_result!(f, b);
             let message = concat!(
                 "assertion failed: `assert_fn_err_gt_x!(a_function, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "     b_expr label: `b`,\n",
                 "     b_expr debug: `2`,\n",
@@ -300,7 +304,7 @@ mod test_assert_fn_err_gt_x_as_result {
 /// assert_fn_err_gt_x!(f, a, b);
 /// # });
 /// // assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `10`,
@@ -311,7 +315,7 @@ mod test_assert_fn_err_gt_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `10`,\n",
@@ -381,8 +385,10 @@ mod test_assert_fn_err_gt_x {
         fn gt() {
             let a: i8 = 2;
             let b: i8 = 1;
-            let actual = assert_fn_err_gt_x!(f, a, b);
-            assert_eq!(actual, 2);
+            for _ in 0..1 {
+                let actual = assert_fn_err_gt_x!(f, a, b);
+                assert_eq!(actual, 2);
+            }
         }
 
         #[test]
@@ -394,7 +400,7 @@ mod test_assert_fn_err_gt_x {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -422,7 +428,7 @@ mod test_assert_fn_err_gt_x {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -452,8 +458,10 @@ mod test_assert_fn_err_gt_x {
         #[test]
         fn gt() {
             let b: i8 = 0;
-            let actual = assert_fn_err_gt_x!(f, b);
-            assert_eq!(actual, 1);
+            for _ in 0..1 {
+                let actual = assert_fn_err_gt_x!(f, b);
+                assert_eq!(actual, 1);
+            }
         }
 
         #[test]
@@ -464,7 +472,7 @@ mod test_assert_fn_err_gt_x {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_err_gt_x!(a_function, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "     b_expr label: `b`,\n",
                 "     b_expr debug: `1`,\n",
@@ -489,7 +497,7 @@ mod test_assert_fn_err_gt_x {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_err_gt_x!(a_function, b_expr)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fn_err_gt_x.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fn_err_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "     b_expr label: `b`,\n",
                 "     b_expr debug: `2`,\n",

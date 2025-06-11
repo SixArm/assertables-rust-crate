@@ -60,7 +60,7 @@ macro_rules! assert_contains_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_contains!(container, containee)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_contains.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_contains.html\n",
                                 " container label: `{}`,\n",
                                 " container debug: `{:?}`,\n",
                                 " containee label: `{}`,\n",
@@ -89,22 +89,31 @@ mod test_assert_contains_as_result {
         fn success() {
             let a = "alfa";
             let b = "lf";
-            let actual = assert_contains_as_result!(&a, &b);
-            assert_eq!(actual.unwrap(), ());
+            for _ in 0..1 {
+                let actual = assert_contains_as_result!(&a, &b);
+                assert_eq!(actual.unwrap(), ());
+            }
         }
 
         #[test]
         fn success_once() {
-
             static A: Once = Once::new();
             fn a() -> &'static str {
-                if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
                 "alfa"
             }
 
             static B: Once = Once::new();
             fn b() -> &'static str {
-                if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
                 "lf"
             }
 
@@ -114,7 +123,6 @@ mod test_assert_contains_as_result {
             assert!(result.is_ok());
             assert_eq!(A.is_completed(), true);
             assert_eq!(B.is_completed(), true);
-            
         }
 
         #[test]
@@ -124,7 +132,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(&a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_contains.html\n",
                 " container label: `&a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `&b`,\n",
@@ -132,7 +140,6 @@ mod test_assert_contains_as_result {
             );
             assert_eq!(actual.unwrap_err(), message);
         }
-
     }
 
     mod range {
@@ -142,22 +149,31 @@ mod test_assert_contains_as_result {
         fn success() {
             let a: std::ops::Range<i32> = 1..3;
             let b: i32 = 2;
-            let actual = assert_contains_as_result!(&a, &b);
-            assert_eq!(actual.unwrap(), ());
+            for _ in 0..1 {
+                let actual = assert_contains_as_result!(&a, &b);
+                assert_eq!(actual.unwrap(), ());
+            }
         }
 
         #[test]
         fn success_once() {
-
             static A: Once = Once::new();
             fn a() -> std::ops::Range<i32> {
-                if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
                 1..3
             }
 
             static B: Once = Once::new();
             fn b() -> i32 {
-                if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
                 2
             }
 
@@ -167,7 +183,6 @@ mod test_assert_contains_as_result {
             assert!(result.is_ok());
             assert_eq!(A.is_completed(), true);
             assert_eq!(B.is_completed(), true);
-            
         }
 
         #[test]
@@ -177,7 +192,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(&a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_contains.html\n",
                 " container label: `&a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `&b`,\n",
@@ -192,24 +207,33 @@ mod test_assert_contains_as_result {
 
         #[test]
         fn success() {
-            let a: Vec<i32> =vec![1, 2, 3];
+            let a: Vec<i32> = vec![1, 2, 3];
             let b: i32 = 2;
-            let actual = assert_contains_as_result!(&a, &b);
-            assert_eq!(actual.unwrap(), ());
+            for _ in 0..1 {
+                let actual = assert_contains_as_result!(&a, &b);
+                assert_eq!(actual.unwrap(), ());
+            }
         }
 
         #[test]
         fn success_once() {
-
             static A: Once = Once::new();
             fn a() -> Vec<i32> {
-                if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
                 vec![1, 2, 3]
             }
 
             static B: Once = Once::new();
             fn b() -> i32 {
-                if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
                 2
             }
 
@@ -219,7 +243,6 @@ mod test_assert_contains_as_result {
             assert!(result.is_ok());
             assert_eq!(A.is_completed(), true);
             assert_eq!(B.is_completed(), true);
-            
         }
 
         #[test]
@@ -229,7 +252,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(&a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_contains.html\n",
                 " container label: `&a`,\n",
                 " container debug: `[1, 2, 3]`,\n",
                 " containee label: `&b`,\n",
@@ -274,7 +297,7 @@ mod test_assert_contains_as_result {
 /// assert_contains!(&a, &b);
 /// # });
 /// // assertion failed: `assert_contains!(container, containee)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_contains.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_contains.html
 /// //  container label: `&a`,
 /// //  container debug: `\"alfa\"`,
 /// //  containee label: `&b`,
@@ -282,7 +305,7 @@ mod test_assert_contains_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_contains!(container, containee)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_contains.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_contains.html\n",
 /// #     " container label: `&a`,\n",
 /// #     " container debug: `\"alfa\"`,\n",
 /// #     " containee label: `&b`,\n",
@@ -324,8 +347,10 @@ mod test_assert_contains {
         fn success() {
             let a = "alfa";
             let b = "lf";
-            let actual = assert_contains!(&a, &b);
-            assert_eq!(actual, ());
+            for _ in 0..1 {
+                let actual = assert_contains!(&a, &b);
+                assert_eq!(actual, ());
+            }
         }
 
         #[test]
@@ -337,7 +362,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_contains.html\n",
                 " container label: `&a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `&b`,\n",
@@ -361,8 +386,10 @@ mod test_assert_contains {
         fn success() {
             let a = 1..3;
             let b = 2;
-            let actual = assert_contains!(&a, &b);
-            assert_eq!(actual, ());
+            for _ in 0..1 {
+                let actual = assert_contains!(&a, &b);
+                assert_eq!(actual, ());
+            }
         }
 
         #[test]
@@ -374,7 +401,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_contains.html\n",
                 " container label: `&a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `&b`,\n",
@@ -398,8 +425,10 @@ mod test_assert_contains {
         fn success() {
             let a = 1..3;
             let b = 2;
-            let actual = assert_contains!(&a, &b);
-            assert_eq!(actual, ());
+            for _ in 0..1 {
+                let actual = assert_contains!(&a, &b);
+                assert_eq!(actual, ());
+            }
         }
 
         #[test]
@@ -411,7 +440,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_contains.html\n",
                 " container label: `&a`,\n",
                 " container debug: `[1, 2, 3]`,\n",
                 " containee label: `&b`,\n",

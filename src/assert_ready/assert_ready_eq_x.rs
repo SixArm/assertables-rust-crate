@@ -53,7 +53,7 @@ macro_rules! assert_ready_eq_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready_eq_x.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ready_eq_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a inner: `{:?}`,\n",
@@ -74,7 +74,7 @@ macro_rules! assert_ready_eq_x_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready_eq_x.html\n",
+                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ready_eq_x.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -101,8 +101,10 @@ mod test_assert_ready_eq_x_as_result {
     fn success() {
         let a: Poll<i8> = Ready(1);
         let b: i8 = 1;
-        let actual = assert_ready_eq_x_as_result!(a, b);
-        assert_eq!(actual.unwrap(), 1);
+        for _ in 0..1 {
+            let actual = assert_ready_eq_x_as_result!(a, b);
+            assert_eq!(actual.unwrap(), 1);
+        }
     }
 
     #[test]
@@ -112,7 +114,7 @@ mod test_assert_ready_eq_x_as_result {
         let actual = assert_ready_eq_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ready_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `Ready(1)`,\n",
             " a inner: `1`,\n",
@@ -129,7 +131,7 @@ mod test_assert_ready_eq_x_as_result {
         let actual = assert_ready_eq_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ready_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `Pending`,\n",
             " b label: `b`,\n",
@@ -168,7 +170,7 @@ mod test_assert_ready_eq_x_as_result {
 /// assert_ready_eq_x!(a, b);
 /// # });
 /// // assertion failed: `assert_ready_eq_x!(a, b)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready_eq_x.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_ready_eq_x.html
 /// //  a label: `a`,
 /// //  a debug: `Ready(1)`,
 /// //  a inner: `1`,
@@ -177,7 +179,7 @@ mod test_assert_ready_eq_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ready_eq_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -220,8 +222,10 @@ mod test_assert_ready_eq_x {
     fn eq() {
         let a: Poll<i8> = Ready(1);
         let b: i8 = 1;
-        let actual = assert_ready_eq_x!(a, b);
-        assert_eq!(actual, 1);
+        for _ in 0..1 {
+            let actual = assert_ready_eq_x!(a, b);
+            assert_eq!(actual, 1);
+        }
     }
 
     #[test]
@@ -233,7 +237,7 @@ mod test_assert_ready_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ready_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `Ready(1)`,\n",
             " a inner: `1`,\n",
@@ -259,7 +263,7 @@ mod test_assert_ready_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ready_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ready_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `Pending`,\n",
             " b label: `b`,\n",

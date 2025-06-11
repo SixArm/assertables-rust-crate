@@ -10,7 +10,7 @@
 //!
 //! let a = "x".chars();
 //! let b = 2;
-//! assert_count_le_x!(a, b);
+//! assert_count_le_x!(&a, b);
 //! ```
 //!
 //! # Module macros
@@ -40,17 +40,17 @@
 #[macro_export]
 macro_rules! assert_count_le_x_as_result {
     ($a:expr, $b:expr $(,)?) => {
-        match (&$a, &$b) {
+        match ($a, $b) {
             (a, b) => {
                 let a_count = a.clone().count();
-                if a_count <= *b {
-                    Ok((a_count, *b))
+                if a_count <= b {
+                    Ok((a_count, b))
                 } else {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_count_le_x!(a, b)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html\n",
+                                "assertion failed: `assert_count_le_x!(&a, b)`\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_le_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
@@ -78,22 +78,31 @@ mod test_assert_count_le_x_as_result {
     fn gt() {
         let a = "x".chars();
         let b = 2;
-        let actual = assert_count_le_x_as_result!(a, b);
-        assert_eq!(actual.unwrap(), (1, 2));
+        for _ in 0..1 {
+            let actual = assert_count_le_x_as_result!(&a, b);
+            assert_eq!(actual.unwrap(), (1, 2));
+        }
     }
 
     #[test]
     fn gt_once() {
-
         static A: Once = Once::new();
         fn a() -> std::str::Chars<'static> {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "x".chars()
         }
 
         static B: Once = Once::new();
         fn b() -> usize {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             2
         }
 
@@ -103,29 +112,37 @@ mod test_assert_count_le_x_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-
     }
 
     #[test]
     fn eq() {
         let a = "x".chars();
         let b = 1;
-        let actual = assert_count_le_x_as_result!(a, b);
-        assert_eq!(actual.unwrap(), (1, 1));
+        for _ in 0..1 {
+            let actual = assert_count_le_x_as_result!(&a, b);
+            assert_eq!(actual.unwrap(), (1, 1));
+        }
     }
 
     #[test]
     fn eq_once() {
-
         static A: Once = Once::new();
         fn a() -> std::str::Chars<'static> {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "x".chars()
         }
 
         static B: Once = Once::new();
         fn b() -> usize {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             1
         }
 
@@ -135,18 +152,17 @@ mod test_assert_count_le_x_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-
     }
 
     #[test]
     fn lt() {
         let a = "xx".chars();
         let b = 1;
-        let actual = assert_count_le_x_as_result!(a, b);
+        let actual = assert_count_le_x_as_result!(&a, b);
         let message = concat!(
-            "assertion failed: `assert_count_le_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html\n",
-            " a label: `a`,\n",
+            "assertion failed: `assert_count_le_x!(&a, b)`\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_le_x.html\n",
+            " a label: `&a`,\n",
             " a debug: `Chars(['x', 'x'])`,\n",
             " a.count(): `2`,\n",
             " b label: `b`,\n",
@@ -154,7 +170,6 @@ mod test_assert_count_le_x_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert a count is less than or equal to an expression.
@@ -176,26 +191,26 @@ mod test_assert_count_le_x_as_result {
 /// # fn main() {
 /// let a = "x".chars();
 /// let b = 2;
-/// assert_count_le_x!(a, b);
+/// assert_count_le_x!(&a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "xx".chars();
 /// let b = 1;
-/// assert_count_le_x!(a, b);
+/// assert_count_le_x!(&a, b);
 /// # });
-/// // assertion failed: `assert_count_le_x!(a, b)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html
-/// //  a label: `a`,
+/// // assertion failed: `assert_count_le_x!(&a, b)`
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_le_x.html
+/// //  a label: `&a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",
 /// //  b label: `b`,
 /// //  b debug: `1`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
-/// #     "assertion failed: `assert_count_le_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html\n",
-/// #     " a label: `a`,\n",
+/// #     "assertion failed: `assert_count_le_x!(&a, b)`\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_le_x.html\n",
+/// #     " a label: `&a`,\n",
 /// #     " a debug: `Chars(['x', 'x'])`,\n",
 /// #     " a.count(): `2`,\n",
 /// #     " b label: `b`,\n",
@@ -235,15 +250,17 @@ mod test_assert_count_le_x {
     fn gt() {
         let a = "x".chars();
         let b = 2;
-        let actual = assert_count_le_x!(a, b);
-        assert_eq!(actual, (1, 2));
+        for _ in 0..1 {
+            let actual = assert_count_le_x!(&a, b);
+            assert_eq!(actual, (1, 2));
+        }
     }
 
     #[test]
     fn eq() {
         let a = "x".chars();
         let b = 1;
-        let actual: (usize, usize) = assert_count_le_x!(a, b);
+        let actual: (usize, usize) = assert_count_le_x!(&a, b);
         assert_eq!(actual, (1, 1));
     }
 
@@ -252,12 +269,12 @@ mod test_assert_count_le_x {
         let result = panic::catch_unwind(|| {
             let a = "xx".chars();
             let b = 1;
-            let _actual = assert_count_le_x!(a, b);
+            let _actual = assert_count_le_x!(&a, b);
         });
         let message = concat!(
-            "assertion failed: `assert_count_le_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_le_x.html\n",
-            " a label: `a`,\n",
+            "assertion failed: `assert_count_le_x!(&a, b)`\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_le_x.html\n",
+            " a label: `&a`,\n",
             " a debug: `Chars(['x', 'x'])`,\n",
             " a.count(): `2`,\n",
             " b label: `b`,\n",

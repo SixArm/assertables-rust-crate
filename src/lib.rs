@@ -46,7 +46,7 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.5.0"
+//! assertables = "9.6.1"
 //! ``````
 //!
 //! Benefits:
@@ -78,8 +78,8 @@
 //! # use assertables::*;
 //! let i = 1;
 //! assert_lt!(i, 5);
-//! assert_in_range!(i, 1..5);
-//! assert_abs_diff_eq!(i, 5, 4);
+//! assert_diff_eq_x!(i, 5, 4);
+//! assert_in_range!(&i, &(1..5));
 //! ```
 //!
 //! Examples with strings:
@@ -139,7 +139,7 @@
 //! * [`assert_is_match!(matcher, x)`](module@crate::assert_is_match) ≈ matcher.is_match(x)
 //! * [`assert_matches!(expr, pattern)`](module@crate::assert_matches) ≈ matches!(expr, pattern)
 //! * [`assert_email_address!(expr)`](module@crate::assert_email_address) ≈ expr has local@domain
-//! 
+//!
 //! Results:
 //!
 //! * [`assert_ok!(a)`](module@crate::assert_ok) ≈ a is Ok
@@ -219,9 +219,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.6.0
+//! * Version: 9.6.1
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2025-06-09T07:48:55Z
+//! * Updated: 2025-06-11T21:38:57Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
@@ -294,5 +294,5 @@ pub mod assert_program_args;
 pub mod assert_status;
 
 // Misc
-pub mod assert_success;
 pub mod assert_email_address;
+pub mod assert_success;

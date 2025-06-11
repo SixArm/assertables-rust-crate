@@ -95,7 +95,7 @@ macro_rules! assert_in_delta_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_in_delta.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_in_delta.html\n",
                                 "       a label: `{}`,\n",
                                 "       a debug: `{:?}`,\n",
                                 "       b label: `{}`,\n",
@@ -130,28 +130,41 @@ mod test_assert_in_delta_as_result {
         let a: i8 = 10;
         let b: i8 = 11;
         let delta: i8 = 1;
-        let actual = assert_in_delta_as_result!(a, b, delta);
-        assert_eq!(actual.unwrap(), (1 as i8, 1 as i8));
+        for _ in 0..1 {
+            let actual = assert_in_delta_as_result!(a, b, delta);
+            assert_eq!(actual.unwrap(), (1 as i8, 1 as i8));
+        }
     }
 
     #[test]
     fn success_once() {
-
         static A: Once = Once::new();
         fn a() -> i8 {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             10
         }
 
         static B: Once = Once::new();
         fn b() -> i8 {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             11
         }
 
         static DELTA: Once = Once::new();
         fn delta() -> i8 {
-            if DELTA.is_completed() { panic!("DELTA.is_completed()") } else { DELTA.call_once(|| {}) }
+            if DELTA.is_completed() {
+                panic!("DELTA.is_completed()")
+            } else {
+                DELTA.call_once(|| {})
+            }
             1
         }
 
@@ -163,7 +176,6 @@ mod test_assert_in_delta_as_result {
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
         assert_eq!(DELTA.is_completed(), true);
-
     }
 
     #[test]
@@ -174,7 +186,7 @@ mod test_assert_in_delta_as_result {
         let actual = assert_in_delta_as_result!(a, b, delta);
         let message = concat!(
             "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_in_delta.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_in_delta.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
@@ -186,7 +198,6 @@ mod test_assert_in_delta_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert a number is within delta of another.
@@ -219,7 +230,7 @@ mod test_assert_in_delta_as_result {
 /// assert_in_delta!(a, b, delta);
 /// # });
 /// // assertion failed: `assert_in_delta!(a, b, Δ)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_in_delta.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_in_delta.html
 /// //        a label: `a`,
 /// //        a debug: `10`,
 /// //        b label: `b`,
@@ -231,7 +242,7 @@ mod test_assert_in_delta_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_in_delta.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_in_delta.html\n",
 /// #     "       a label: `a`,\n",
 /// #     "       a debug: `10`,\n",
 /// #     "       b label: `b`,\n",
@@ -294,8 +305,10 @@ mod test_assert_in_delta {
         let a: i8 = 10;
         let b: i8 = 11;
         let delta: i8 = 1;
-        let actual = assert_in_delta!(a, b, delta);
-        assert_eq!(actual, (1 as i8, 1 as i8));
+        for _ in 0..1 {
+            let actual = assert_in_delta!(a, b, delta);
+            assert_eq!(actual, (1 as i8, 1 as i8));
+        }
     }
 
     #[test]
@@ -308,7 +321,7 @@ mod test_assert_in_delta {
         });
         let message = concat!(
             "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_in_delta.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_in_delta.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",

@@ -55,7 +55,7 @@ macro_rules! assert_iter_le_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_iter_le!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_iter_le.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_iter_le.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -81,16 +81,20 @@ mod test_assert_iter_le_as_result {
     fn lt() {
         let a = [1, 2];
         let b = [3, 4];
-        let actual = assert_iter_le_as_result!(&a, &b);
-        assert_eq!(actual.unwrap(), ());
+        for _ in 0..1 {
+            let actual = assert_iter_le_as_result!(&a, &b);
+            assert_eq!(actual.unwrap(), ());
+        }
     }
 
     #[test]
     fn eq() {
         let a = [1, 2];
         let b = [1, 2];
-        let actual = assert_iter_le_as_result!(&a, &b);
-        assert_eq!(actual.unwrap(), ());
+        for _ in 0..1 {
+            let actual = assert_iter_le_as_result!(&a, &b);
+            assert_eq!(actual.unwrap(), ());
+        }
     }
 
     #[test]
@@ -100,7 +104,7 @@ mod test_assert_iter_le_as_result {
         let actual = assert_iter_le_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_iter_le!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_iter_le.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_iter_le.html\n",
             " a label: `&a`,\n",
             " a debug: `[3, 4]`,\n",
             " b label: `&b`,\n",
@@ -138,7 +142,7 @@ mod test_assert_iter_le_as_result {
 /// assert_iter_le!(&a, &b);
 /// # });
 /// // assertion failed: `assert_iter_le!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_iter_le.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_iter_le.html
 /// //  a label: `&a`,
 /// //  a debug: `[3, 4]`,
 /// //  b label: `&b`,
@@ -146,7 +150,7 @@ mod test_assert_iter_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_iter_le!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_iter_le.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_iter_le.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[3, 4]`,\n",
 /// #     " b label: `&b`,\n",
@@ -188,16 +192,20 @@ mod test_assert_iter_le {
     fn lt() {
         let a = [1, 2];
         let b = [3, 4];
-        let actual = assert_iter_le!(&a, &b);
-        assert_eq!(actual, ());
+        for _ in 0..1 {
+            let actual = assert_iter_le!(&a, &b);
+            assert_eq!(actual, ());
+        }
     }
 
     #[test]
     fn eq() {
         let a = [1, 2];
         let b = [1, 2];
-        let actual = assert_iter_le!(&a, &b);
-        assert_eq!(actual, ());
+        for _ in 0..1 {
+            let actual = assert_iter_le!(&a, &b);
+            assert_eq!(actual, ());
+        }
     }
 
     #[test]
@@ -209,7 +217,7 @@ mod test_assert_iter_le {
         });
         let message = concat!(
             "assertion failed: `assert_iter_le!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_iter_le.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_iter_le.html\n",
             " a label: `&a`,\n",
             " a debug: `[3, 4]`,\n",
             " b label: `&b`,\n",

@@ -5,7 +5,7 @@
 //! * [Comparisons: examples of Assertables macros versus standard Rust macros](module@comparisons)
 //! * [Validations: examples that combine Assertable macros into runtime code](module@validations)
 
-mod starters;
-mod namespaces;
 mod comparisons;
+mod namespaces;
+mod starters;
 mod validations;

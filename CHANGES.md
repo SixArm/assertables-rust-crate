@@ -5,6 +5,8 @@ Changes as highlights for recent major versions.
 
 ## Version 9.x
 
+* 9.6.1 Fix pass-by-reference tests by adding loop.
+
 * 9.6.0 Add `assert_email_address`
   
 * 9.5.6 Fix idempotent access testing via once: `assert_count/`, `assert_len/`, `assert_bag/`, `assert_set/`, `assert_in/`, `assert_is_empty/`, `assert_is_match/`, `assert_err/`, `assert_starts_with/`, `assert_ends_with/`,

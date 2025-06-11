@@ -45,7 +45,7 @@ macro_rules! assert_ne_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_ne!(a, b)`\n",
-                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ne.html\n",
+                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ne.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -70,22 +70,31 @@ mod test_assert_ne_as_result {
     fn lt() {
         let a: i8 = 1;
         let b: i8 = 2;
-        let actual = assert_ne_as_result!(a, b);
-        assert_eq!(actual.unwrap(), ());
+        for _ in 0..1 {
+            let actual = assert_ne_as_result!(a, b);
+            assert_eq!(actual.unwrap(), ());
+        }
     }
 
     #[test]
     fn lt_once() {
-
         static A: Once = Once::new();
         fn a() -> i8 {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             1
         }
 
         static B: Once = Once::new();
         fn b() -> i8 {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             2
         }
 
@@ -101,22 +110,31 @@ mod test_assert_ne_as_result {
     fn gt() {
         let a: i8 = 2;
         let b: i8 = 1;
-        let actual = assert_ne_as_result!(a, b);
-        assert_eq!(actual.unwrap(), ());
+        for _ in 0..1 {
+            let actual = assert_ne_as_result!(a, b);
+            assert_eq!(actual.unwrap(), ());
+        }
     }
 
     #[test]
     fn gt_once() {
-
         static A: Once = Once::new();
         fn a() -> i8 {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             2
         }
 
         static B: Once = Once::new();
         fn b() -> i8 {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             1
         }
 
@@ -135,7 +153,7 @@ mod test_assert_ne_as_result {
         let actual = assert_ne_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ne!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ne.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ne.html\n",
             " a label: `a`,\n",
             " a debug: `1`,\n",
             " b label: `b`,\n",
@@ -143,5 +161,4 @@ mod test_assert_ne_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }

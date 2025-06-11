@@ -54,7 +54,7 @@ macro_rules! assert_command_stderr_le_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_le.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_le.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a value: `{:?}`,\n",
@@ -77,7 +77,7 @@ macro_rules! assert_command_stderr_le_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_le.html\n",
+                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_le.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a value: `{:?}`,\n",
@@ -100,8 +100,8 @@ macro_rules! assert_command_stderr_le_as_result {
 
 #[cfg(test)]
 mod test_assert_command_stderr_le_as_result {
-    use std::sync::Once;
     use std::process::Command;
+    use std::sync::Once;
 
     #[test]
     fn lt() {
@@ -109,19 +109,24 @@ mod test_assert_command_stderr_le_as_result {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "zz"]);
-        let actual = assert_command_stderr_le_as_result!(a, b);
-        assert_eq!(
-            actual.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z'])
-        );
+        for _ in 0..1 {
+            let actual = assert_command_stderr_le_as_result!(a, b);
+            assert_eq!(
+                actual.unwrap(),
+                (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z'])
+            );
+        }
     }
 
     #[test]
     fn lt_once() {
-
         static A: Once = Once::new();
         fn a() -> Command {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             let mut a = Command::new("bin/printf-stderr");
             a.args(["%s", "alfa"]);
             a
@@ -129,7 +134,11 @@ mod test_assert_command_stderr_le_as_result {
 
         static B: Once = Once::new();
         fn b() -> Command {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             let mut b = Command::new("bin/printf-stderr");
             b.args(["%s", "zz"]);
             b
@@ -141,7 +150,6 @@ mod test_assert_command_stderr_le_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
@@ -150,19 +158,24 @@ mod test_assert_command_stderr_le_as_result {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "alfa"]);
-        let actual = assert_command_stderr_le_as_result!(a, b);
-        assert_eq!(
-            actual.unwrap(),
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
-        );
+        for _ in 0..1 {
+            let actual = assert_command_stderr_le_as_result!(a, b);
+            assert_eq!(
+                actual.unwrap(),
+                (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
+            );
+        }
     }
 
     #[test]
     fn eq_once() {
-
         static A: Once = Once::new();
         fn a() -> Command {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             let mut a = Command::new("bin/printf-stderr");
             a.args(["%s", "alfa"]);
             a
@@ -170,7 +183,11 @@ mod test_assert_command_stderr_le_as_result {
 
         static B: Once = Once::new();
         fn b() -> Command {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             let mut b = Command::new("bin/printf-stderr");
             b.args(["%s", "alfa"]);
             b
@@ -182,7 +199,6 @@ mod test_assert_command_stderr_le_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
@@ -194,7 +210,7 @@ mod test_assert_command_stderr_le_as_result {
         let actual = assert_command_stderr_le_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_le.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",
@@ -204,7 +220,6 @@ mod test_assert_command_stderr_le_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert a command stderr string is less than or equal to another.
@@ -240,7 +255,7 @@ mod test_assert_command_stderr_le_as_result {
 /// assert_command_stderr_le!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stderr_le!(a_command, b_command)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_le.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_le.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  b label: `b`,
@@ -250,7 +265,7 @@ mod test_assert_command_stderr_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_le.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " a value: `[97, 108, 102, 97]`,\n",
@@ -295,8 +310,10 @@ mod test_assert_command_stderr_le {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "zz"]);
-        let actual = assert_command_stderr_le!(a, b);
-        assert_eq!(actual, (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z']));
+        for _ in 0..1 {
+            let actual = assert_command_stderr_le!(a, b);
+            assert_eq!(actual, (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z']));
+        }
     }
 
     #[test]
@@ -305,11 +322,13 @@ mod test_assert_command_stderr_le {
         a.args(["%s", "alfa"]);
         let mut b = Command::new("bin/printf-stderr");
         b.args(["%s", "alfa"]);
-        let actual = assert_command_stderr_le!(a, b);
-        assert_eq!(
-            actual,
-            (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
-        );
+        for _ in 0..1 {
+            let actual = assert_command_stderr_le!(a, b);
+            assert_eq!(
+                actual,
+                (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
+            );
+        }
     }
 
     #[test]
@@ -323,7 +342,7 @@ mod test_assert_command_stderr_le {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stderr_le.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",

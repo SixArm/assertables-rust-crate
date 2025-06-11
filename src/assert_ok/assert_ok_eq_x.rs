@@ -51,7 +51,7 @@ macro_rules! assert_ok_eq_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ok_eq_x.html\n",
+                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ok_eq_x.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
                                         " a inner: `{:?}`,\n",
@@ -72,7 +72,7 @@ macro_rules! assert_ok_eq_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ok_eq_x.html\n",
+                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ok_eq_x.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " b label: `{}`,\n",
@@ -99,22 +99,31 @@ mod test_assert_ok_eq_x_as_result {
     fn eq() {
         let a: Result<i8, i8> = Ok(1);
         let b: i8 = 1;
-        let actual = assert_ok_eq_x_as_result!(a, b);
-        assert_eq!(actual.unwrap(), 1);
+        for _ in 0..1 {
+            let actual = assert_ok_eq_x_as_result!(a, b);
+            assert_eq!(actual.unwrap(), 1);
+        }
     }
 
     #[test]
     fn eq_once() {
-
         static A: Once = Once::new();
         fn a() -> Result<i8, i8> {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             Ok(1)
         }
 
         static B: Once = Once::new();
         fn b() -> i8 {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             1
         }
 
@@ -133,7 +142,7 @@ mod test_assert_ok_eq_x_as_result {
         let actual = assert_ok_eq_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ok_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ok_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`,\n",
             " a inner: `1`,\n",
@@ -150,7 +159,7 @@ mod test_assert_ok_eq_x_as_result {
         let actual = assert_ok_eq_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ok_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ok_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`,\n",
             " b label: `b`,\n",
@@ -158,7 +167,6 @@ mod test_assert_ok_eq_x_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert an expression is Ok and its value is equal to an expression.
@@ -189,7 +197,7 @@ mod test_assert_ok_eq_x_as_result {
 /// assert_ok_eq_x!(a, b);
 /// # });
 /// // assertion failed: `assert_ok_eq_x!(a, b)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_ok_eq_x.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_ok_eq_x.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`,
 /// //  a inner: `1`,
@@ -198,7 +206,7 @@ mod test_assert_ok_eq_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ok_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ok_eq_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -239,8 +247,10 @@ mod test_assert_ok_eq_x {
     fn eq() {
         let a: Result<i8, i8> = Ok(1);
         let b: i8 = 1;
-        let actual = assert_ok_eq_x!(a, b);
-        assert_eq!(actual, 1);
+        for _ in 0..1 {
+            let actual = assert_ok_eq_x!(a, b);
+            assert_eq!(actual, 1);
+        }
     }
 
     #[test]
@@ -252,7 +262,7 @@ mod test_assert_ok_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ok_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ok_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`,\n",
             " a inner: `1`,\n",
@@ -278,7 +288,7 @@ mod test_assert_ok_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_ok_eq_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ok_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`,\n",
             " b label: `b`,\n",

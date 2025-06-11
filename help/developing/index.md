@@ -38,7 +38,7 @@ macro_rules! assert_gt_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_gt!(a, b)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_gt.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_gt.html\n",
                                 "  left label: `{}`,\n",
                                 "  left debug: `{:?}`,\n",
                                 " right label: `{}`,\n",

@@ -52,7 +52,7 @@ macro_rules! assert_some_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_some_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_some_eq.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_some_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a inner: `{:?}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_some_eq_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_some_eq!(a, b)`\n",
-                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_some_eq.html\n",
+                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_some_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -100,22 +100,31 @@ mod test_assert_some_eq_as_result {
     fn eq() {
         let a: Option<i8> = Option::Some(1);
         let b: Option<i8> = Option::Some(1);
-        let actual = assert_some_eq_as_result!(a, b);
-        assert_eq!(actual.unwrap(), (1, 1));
+        for _ in 0..1 {
+            let actual = assert_some_eq_as_result!(a, b);
+            assert_eq!(actual.unwrap(), (1, 1));
+        }
     }
 
     #[test]
     fn eq_once() {
-
         static A: Once = Once::new();
         fn a() -> Option<i8> {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             Option::Some(1)
         }
 
         static B: Once = Once::new();
         fn b() -> Option<i8> {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             Option::Some(1)
         }
 
@@ -134,7 +143,7 @@ mod test_assert_some_eq_as_result {
         let actual = assert_some_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_some_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_some_eq.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_some_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Some(1)`,\n",
             " a inner: `1`,\n",
@@ -152,7 +161,7 @@ mod test_assert_some_eq_as_result {
         let actual = assert_some_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_some_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_some_eq.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_some_eq.html\n",
             " a label: `a`,\n",
             " a debug: `None`,\n",
             " b label: `b`,\n",
@@ -190,7 +199,7 @@ mod test_assert_some_eq_as_result {
 /// assert_some_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_some_eq!(a, b)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_some_eq.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_some_eq.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`,
 /// //  a inner: `1`,
@@ -200,7 +209,7 @@ mod test_assert_some_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_some_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_some_eq.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_some_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -242,8 +251,10 @@ mod test_assert_some_eq {
     fn eq() {
         let a: Option<i8> = Option::Some(1);
         let b: Option<i8> = Option::Some(1);
-        let actual = assert_some_eq!(a, b);
-        assert_eq!(actual, (1, 1));
+        for _ in 0..1 {
+            let actual = assert_some_eq!(a, b);
+            assert_eq!(actual, (1, 1));
+        }
     }
 
     #[test]
@@ -255,7 +266,7 @@ mod test_assert_some_eq {
         });
         let message = concat!(
             "assertion failed: `assert_some_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_some_eq.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_some_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Some(1)`,\n",
             " a inner: `1`,\n",
@@ -282,7 +293,7 @@ mod test_assert_some_eq {
         });
         let message = concat!(
             "assertion failed: `assert_some_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_some_eq.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_some_eq.html\n",
             " a label: `a`,\n",
             " a debug: `None`,\n",
             " b label: `b`,\n",

@@ -51,7 +51,7 @@ macro_rules! assert_fs_read_to_string_lt_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
                                         " a_path label: `{}`,\n",
                                         " a_path debug: `{:?}`,\n",
                                         " b_path label: `{}`,\n",
@@ -73,7 +73,7 @@ macro_rules! assert_fs_read_to_string_lt_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
                                     " a_path label: `{}`,\n",
                                     " a_path debug: `{:?}`,\n",
                                     " b_path label: `{}`,\n",
@@ -98,11 +98,11 @@ macro_rules! assert_fs_read_to_string_lt_as_result {
 
 #[cfg(test)]
 mod test_assert_fs_read_to_string_lt_as_result {
-    use std::sync::Once;
     #[allow(unused_imports)]
     use std::io::Read;
     use std::path::PathBuf;
     use std::sync::LazyLock;
+    use std::sync::Once;
 
     pub static DIR: LazyLock<PathBuf> = LazyLock::new(|| {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -125,16 +125,23 @@ mod test_assert_fs_read_to_string_lt_as_result {
 
     #[test]
     fn lt_once() {
-
         static A: Once = Once::new();
         fn a() -> PathBuf {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             DIR.join("alfa.txt")
         }
 
         static B: Once = Once::new();
         fn b() -> PathBuf {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             DIR.join("bravo.txt")
         }
 
@@ -144,7 +151,6 @@ mod test_assert_fs_read_to_string_lt_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
@@ -155,7 +161,7 @@ mod test_assert_fs_read_to_string_lt_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
                 " a_path label: `&a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",
@@ -177,7 +183,7 @@ mod test_assert_fs_read_to_string_lt_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
                 " a_path label: `&a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",
@@ -221,7 +227,7 @@ mod test_assert_fs_read_to_string_lt_as_result {
 /// assert_fs_read_to_string_lt!(&a, &b);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_lt.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_lt.html
 /// //  a_path label: `&a`,
 /// //  a_path debug: `\"bravo.txt\"`,
 /// //  b_path label: `&b`,
@@ -231,7 +237,7 @@ mod test_assert_fs_read_to_string_lt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
 /// #     " a_path label: `&a`,\n",
 /// #     " a_path debug: `\"bravo.txt\"`,\n",
 /// #     " b_path label: `&b`,\n",
@@ -285,8 +291,10 @@ mod test_assert_fs_read_to_string_lt {
     fn lt() {
         let a = DIR.join("alfa.txt");
         let b = DIR.join("bravo.txt");
-        let actual = assert_fs_read_to_string_lt!(&a, &b);
-        assert_eq!(actual, (String::from("alfa\n"), String::from("bravo\n")));
+        for _ in 0..1 {
+            let actual = assert_fs_read_to_string_lt!(&a, &b);
+            assert_eq!(actual, (String::from("alfa\n"), String::from("bravo\n")));
+        }
     }
 
     #[test]
@@ -299,7 +307,7 @@ mod test_assert_fs_read_to_string_lt {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
                 " a_path label: `&a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",
@@ -330,7 +338,7 @@ mod test_assert_fs_read_to_string_lt {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_lt.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_lt.html\n",
                 " a_path label: `&a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `&b`,\n",

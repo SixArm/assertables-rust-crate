@@ -10,7 +10,7 @@
 //!
 //! let a = "x".chars();
 //! let b = "x".chars();
-//! assert_count_eq!(a, b);
+//! assert_count_eq!(&a, &b);
 //! ```
 //!
 //! # Module macros
@@ -50,8 +50,8 @@ macro_rules! assert_count_eq_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_count_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_eq.html\n",
+                                "assertion failed: `assert_count_eq!(&a, &b)`\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a.count(): `{:?}`,\n",
@@ -81,22 +81,31 @@ mod test_assert_count_eq_as_result {
     fn eq() {
         let a = "x".chars();
         let b = "x".chars();
-        let actual = assert_count_eq_as_result!(a, b);
-        assert_eq!(actual.unwrap(), (1, 1));
+        for _ in 0..1 {
+            let actual = assert_count_eq_as_result!(&a, &b);
+            assert_eq!(actual.unwrap(), (1, 1));
+        }
     }
 
     #[test]
     fn eq_once() {
-
         static A: Once = Once::new();
         fn a() -> std::str::Chars<'static> {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             "x".chars()
         }
 
         static B: Once = Once::new();
         fn b() -> std::str::Chars<'static> {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             "x".chars()
         }
 
@@ -106,21 +115,20 @@ mod test_assert_count_eq_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-
     }
 
     #[test]
     fn lt() {
         let a = "x".chars();
         let b = "xx".chars();
-        let actual = assert_count_eq_as_result!(a, b);
+        let actual = assert_count_eq_as_result!(&a, &b);
         let message = concat!(
-            "assertion failed: `assert_count_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_eq.html\n",
-            " a label: `a`,\n",
+            "assertion failed: `assert_count_eq!(&a, &b)`\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_eq.html\n",
+            " a label: `&a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
-            " b label: `b`,\n",
+            " b label: `&b`,\n",
             " b debug: `Chars(['x', 'x'])`\n",
             " b.count(): `2`"
         );
@@ -131,20 +139,19 @@ mod test_assert_count_eq_as_result {
     fn gt() {
         let a = "xx".chars();
         let b = "x".chars();
-        let actual = assert_count_eq_as_result!(a, b);
+        let actual = assert_count_eq_as_result!(&a, &b);
         let message = concat!(
-            "assertion failed: `assert_count_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_eq.html\n",
-            " a label: `a`,\n",
+            "assertion failed: `assert_count_eq!(&a, &b)`\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_eq.html\n",
+            " a label: `&a`,\n",
             " a debug: `Chars(['x', 'x'])`,\n",
             " a.count(): `2`,\n",
-            " b label: `b`,\n",
+            " b label: `&b`,\n",
             " b debug: `Chars(['x'])`\n",
             " b.count(): `1`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert a count is equal to another.
@@ -166,30 +173,30 @@ mod test_assert_count_eq_as_result {
 /// # fn main() {
 /// let a = "x".chars();
 /// let b = "x".chars();
-/// assert_count_eq!(a, b);
+/// assert_count_eq!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "x".chars();
 /// let b = "xx".chars();
-/// assert_count_eq!(a, b);
+/// assert_count_eq!(&a, &b);
 /// # });
-/// // assertion failed: `assert_count_eq!(a, b)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_eq.html
-/// //  a label: `a`,
+/// // assertion failed: `assert_count_eq!(&a, &b)`
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_eq.html
+/// //  a label: `&a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",
-/// //  b label: `b`,
+/// //  b label: `&b`,
 /// //  b debug: `Chars(['x', 'x'])`,
 /// //  b.count(): `2`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
-/// #     "assertion failed: `assert_count_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_eq.html\n",
-/// #     " a label: `a`,\n",
+/// #     "assertion failed: `assert_count_eq!(&a, &b)`\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_eq.html\n",
+/// #     " a label: `&a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",
-/// #     " b label: `b`,\n",
+/// #     " b label: `&b`,\n",
 /// #     " b debug: `Chars(['x', 'x'])`\n",
 /// #     " b.count(): `2`",
 /// # );
@@ -227,8 +234,10 @@ mod test_assert_count_eq {
     fn eq() {
         let a = "x".chars();
         let b = "x".chars();
-        let actual = assert_count_eq!(a, b);
-        assert_eq!(actual, (1, 1));
+        for _ in 0..1 {
+            let actual = assert_count_eq!(&a, &b);
+            assert_eq!(actual, (1, 1));
+        }
     }
 
     #[test]
@@ -236,15 +245,15 @@ mod test_assert_count_eq {
         let result = panic::catch_unwind(|| {
             let a = "x".chars();
             let b = "xx".chars();
-            let _actual = assert_count_eq!(a, b);
+            let _actual = assert_count_eq!(&a, &b);
         });
         let message = concat!(
-            "assertion failed: `assert_count_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_eq.html\n",
-            " a label: `a`,\n",
+            "assertion failed: `assert_count_eq!(&a, &b)`\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_eq.html\n",
+            " a label: `&a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
-            " b label: `b`,\n",
+            " b label: `&b`,\n",
             " b debug: `Chars(['x', 'x'])`\n",
             " b.count(): `2`"
         );
@@ -263,15 +272,15 @@ mod test_assert_count_eq {
         let result = panic::catch_unwind(|| {
             let a = "xx".chars();
             let b = "x".chars();
-            let _actual = assert_count_eq!(a, b);
+            let _actual = assert_count_eq!(&a, &b);
         });
         let message = concat!(
-            "assertion failed: `assert_count_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_count_eq.html\n",
-            " a label: `a`,\n",
+            "assertion failed: `assert_count_eq!(&a, &b)`\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_eq.html\n",
+            " a label: `&a`,\n",
             " a debug: `Chars(['x', 'x'])`,\n",
             " a.count(): `2`,\n",
-            " b label: `b`,\n",
+            " b label: `&b`,\n",
             " b debug: `Chars(['x'])`\n",
             " b.count(): `1`"
         );

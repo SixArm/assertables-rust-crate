@@ -51,7 +51,7 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                                        "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_contains.html\n",
                                         "      path label: `{}`,\n",
                                         "      path debug: `{:?}`,\n",
                                         " containee label: `{}`,\n",
@@ -72,7 +72,7 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_contains.html\n",
                                     "      path label: `{}`,\n",
                                     "      path debug: `{:?}`,\n",
                                     " containee label: `{}`,\n",
@@ -95,11 +95,11 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
 
 #[cfg(test)]
 mod test_read_to_string_contains_as_result {
-    use std::sync::Once;
     #[allow(unused_imports)]
     use std::io::Read;
     use std::path::PathBuf;
     use std::sync::LazyLock;
+    use std::sync::Once;
 
     pub static DIR: LazyLock<PathBuf> = LazyLock::new(|| {
         PathBuf::from(env!("CARGO_MANIFEST_DIR"))
@@ -113,22 +113,31 @@ mod test_read_to_string_contains_as_result {
     fn success() {
         let path = DIR.join("alfa.txt");
         let containee = "lf";
-        let actual = assert_fs_read_to_string_contains_as_result!(&path, &containee);
-        assert_eq!(actual.unwrap(), String::from("alfa\n"));
+        for _ in 0..1 {
+            let actual = assert_fs_read_to_string_contains_as_result!(&path, &containee);
+            assert_eq!(actual.unwrap(), String::from("alfa\n"));
+        }
     }
 
     #[test]
     fn success_once() {
-
         static A: Once = Once::new();
         fn a() -> PathBuf {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             DIR.join("alfa.txt")
         }
 
         static B: Once = Once::new();
         fn b() -> &'static str {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             "lf"
         }
 
@@ -138,7 +147,6 @@ mod test_read_to_string_contains_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
@@ -149,7 +157,7 @@ mod test_read_to_string_contains_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_contains.html\n",
                 "      path label: `&path`,\n",
                 "      path debug: `{:?}`,\n",
                 " containee label: `&containee`,\n",
@@ -191,7 +199,7 @@ mod test_read_to_string_contains_as_result {
 /// assert_fs_read_to_string_contains!(&path, &containee);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_contains!(path, containee)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_contains.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_contains.html
 /// //       path label: `&path`,
 /// //       path debug: `\"alfa.txt\"`,
 /// //  containee label: `&containee`,
@@ -200,7 +208,7 @@ mod test_read_to_string_contains_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_contains.html\n",
 /// #     "      path label: `&path`,\n",
 /// #     "      path debug: `\"alfa.txt\"`,\n",
 /// #     " containee label: `&containee`,\n",
@@ -253,8 +261,10 @@ mod test_read_to_string_contains {
     fn success() {
         let path = DIR.join("alfa.txt");
         let containee = "alfa";
-        let actual = assert_fs_read_to_string_contains!(&path, &containee);
-        assert_eq!(actual, String::from("alfa\n"));
+        for _ in 0..1 {
+            let actual = assert_fs_read_to_string_contains!(&path, &containee);
+            assert_eq!(actual, String::from("alfa\n"));
+        }
     }
 
     #[test]
@@ -267,7 +277,7 @@ mod test_read_to_string_contains {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_fs_read_to_string_contains.html\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_contains.html\n",
                 "      path label: `&path`,\n",
                 "      path debug: `{:?}`,\n",
                 " containee label: `&containee`,\n",

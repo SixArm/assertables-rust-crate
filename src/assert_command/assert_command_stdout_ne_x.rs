@@ -46,7 +46,7 @@ macro_rules! assert_command_stdout_ne_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stdout_ne_x.html\n",
                                 " command label: `{}`,\n",
                                 " command debug: `{:?}`,\n",
                                 " command value: `{:?}`,\n",
@@ -69,7 +69,7 @@ macro_rules! assert_command_stdout_ne_x_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-                            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+                            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stdout_ne_x.html\n",
                             " command label: `{}`,\n",
                             " command debug: `{:?}`,\n",
                             " command value: `{:?}`,\n",
@@ -92,24 +92,29 @@ macro_rules! assert_command_stdout_ne_x_as_result {
 
 #[cfg(test)]
 mod test_assert_command_stdout_ne_x_as_result {
-    use std::sync::Once;
     use std::process::Command;
+    use std::sync::Once;
 
     #[test]
     fn lt() {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];
-        let actual = assert_command_stdout_ne_x_as_result!(a, &b);
-        assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
+        for _ in 0..1 {
+            let actual = assert_command_stdout_ne_x_as_result!(a, &b);
+            assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
+        }
     }
 
     #[test]
     fn lt_once() {
-
         static A: Once = Once::new();
         fn a() -> Command {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             let mut a = Command::new("bin/printf-stdout");
             a.args(["%s", "alfa"]);
             a
@@ -117,7 +122,11 @@ mod test_assert_command_stdout_ne_x_as_result {
 
         static B: Once = Once::new();
         fn b() -> Vec<u8> {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             vec![b'z', b'z']
         }
 
@@ -127,7 +136,6 @@ mod test_assert_command_stdout_ne_x_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
@@ -135,16 +143,21 @@ mod test_assert_command_stdout_ne_x_as_result {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
-        let actual = assert_command_stdout_ne_x_as_result!(a, &b);
-        assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
+        for _ in 0..1 {
+            let actual = assert_command_stdout_ne_x_as_result!(a, &b);
+            assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
+        }
     }
 
     #[test]
     fn gt_once() {
-
         static A: Once = Once::new();
         fn a() -> Command {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             let mut a = Command::new("bin/printf-stdout");
             a.args(["%s", "alfa"]);
             a
@@ -152,7 +165,11 @@ mod test_assert_command_stdout_ne_x_as_result {
 
         static B: Once = Once::new();
         fn b() -> Vec<u8> {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             vec![b'a', b'a']
         }
 
@@ -162,7 +179,6 @@ mod test_assert_command_stdout_ne_x_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-        
     }
 
     #[test]
@@ -173,7 +189,7 @@ mod test_assert_command_stdout_ne_x_as_result {
         let actual = assert_command_stdout_ne_x_as_result!(a, &b);
         let message = concat!(
             "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stdout_ne_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -183,7 +199,6 @@ mod test_assert_command_stdout_ne_x_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert a command stdout string is not equal to an expression.
@@ -217,7 +232,7 @@ mod test_assert_command_stdout_ne_x_as_result {
 /// assert_command_stdout_ne_x!(command, &bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_ne_x!(command, expr)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stdout_ne_x.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stdout_ne_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  command value: `[97, 108, 102, 97]`,
@@ -227,7 +242,7 @@ mod test_assert_command_stdout_ne_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stdout_ne_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " command value: `[97, 108, 102, 97]`,\n",
@@ -271,8 +286,10 @@ mod test_assert_command_stdout_ne_x {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];
-        let actual = assert_command_stdout_ne_x!(a, &b);
-        assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
+        for _ in 0..1 {
+            let actual = assert_command_stdout_ne_x!(a, &b);
+            assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
+        }
     }
 
     #[test]
@@ -280,8 +297,10 @@ mod test_assert_command_stdout_ne_x {
         let mut a = Command::new("bin/printf-stdout");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
-        let actual = assert_command_stdout_ne_x!(a, &b);
-        assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
+        for _ in 0..1 {
+            let actual = assert_command_stdout_ne_x!(a, &b);
+            assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
+        }
     }
 
     #[test]
@@ -294,7 +313,7 @@ mod test_assert_command_stdout_ne_x {
         });
         let message = concat!(
             "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_command_stdout_ne_x.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stdout_ne_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",

@@ -53,7 +53,7 @@ macro_rules! assert_set_joint_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_set_joint!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.6.0/assertables/macro.assert_set_joint.html\n",
+                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_set_joint.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -77,8 +77,8 @@ macro_rules! assert_set_joint_as_result {
 
 #[cfg(test)]
 mod test_assert_set_joint_as_result {
-    use std::sync::Once;
     use std::collections::BTreeSet;
+    use std::sync::Once;
 
     #[test]
     fn success() {
@@ -93,16 +93,23 @@ mod test_assert_set_joint_as_result {
 
     #[test]
     fn success_once() {
-
         static A: Once = Once::new();
         fn a() -> [i32; 2] {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             [1, 2]
         }
 
         static B: Once = Once::new();
         fn b() -> [i32; 2] {
-            if B.is_completed() { panic!("B.is_completed()") } else { B.call_once(|| {}) }
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
             [2, 3]
         }
 
@@ -112,7 +119,6 @@ mod test_assert_set_joint_as_result {
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
-
     }
 
     #[test]
@@ -122,7 +128,7 @@ mod test_assert_set_joint_as_result {
         let actual = assert_set_joint_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_set_joint!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_set_joint.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_set_joint.html\n",
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
@@ -132,7 +138,6 @@ mod test_assert_set_joint_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
-
 }
 
 /// Assert a set is joint with another.
@@ -163,7 +168,7 @@ mod test_assert_set_joint_as_result {
 /// assert_set_joint!(&a, &b);
 /// # });
 /// // assertion failed: `assert_set_joint!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_set_joint.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_set_joint.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&b`,
@@ -173,7 +178,7 @@ mod test_assert_set_joint_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_set_joint!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_set_joint.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_set_joint.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `&b`,\n",
@@ -218,8 +223,10 @@ mod test_assert_set_joint {
     fn success() {
         let a = [1, 2];
         let b = [2, 3];
-        let actual = assert_set_joint!(&a, &b);
-        assert_eq!(actual, (BTreeSet::from([&1, &2]), BTreeSet::from([&2, &3])));
+        for _ in 0..1 {
+            let actual = assert_set_joint!(&a, &b);
+            assert_eq!(actual, (BTreeSet::from([&1, &2]), BTreeSet::from([&2, &3])));
+        }
     }
 
     #[test]
@@ -231,7 +238,7 @@ mod test_assert_set_joint {
         });
         let message = concat!(
             "assertion failed: `assert_set_joint!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_set_joint.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_set_joint.html\n",
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",

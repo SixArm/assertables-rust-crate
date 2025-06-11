@@ -50,7 +50,7 @@ macro_rules! assert_none_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_none!(a)`\n",
-                                    "https://docs.rs/assertables/9.6.0/assertables/macro.assert_none.html\n",
+                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_none.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`",
                                 ),
@@ -72,16 +72,21 @@ mod test_assert_none_as_result {
     #[test]
     fn success() {
         let a: Option<i8> = Option::None;
-        let actual = assert_none_as_result!(a);
-        assert_eq!(actual.unwrap(), ());
+        for _ in 0..1 {
+            let actual = assert_none_as_result!(a);
+            assert_eq!(actual.unwrap(), ());
+        }
     }
 
     #[test]
     fn success_once() {
-
         static A: Once = Once::new();
         fn a() -> Option<i8> {
-            if A.is_completed() { panic!("A.is_completed()") } else { A.call_once(|| {}) }
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
             Option::None
         }
 
@@ -97,7 +102,7 @@ mod test_assert_none_as_result {
         let actual = assert_none_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_none!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_none.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_none.html\n",
             " a label: `a`,\n",
             " a debug: `Some(1)`",
         );
@@ -131,13 +136,13 @@ mod test_assert_none_as_result {
 /// assert_none!(a);
 /// # });
 /// // assertion failed: `assert_none!(a)`
-/// // https://docs.rs/assertables/9.6.0/assertables/macro.assert_none.html
+/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_none.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_none!(a)`\n",
-/// #     "https://docs.rs/assertables/9.6.0/assertables/macro.assert_none.html\n",
+/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_none.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`",
 /// # );
@@ -174,8 +179,10 @@ mod test_assert_none {
     #[test]
     fn success() {
         let a: Option<i8> = Option::None;
-        let actual = assert_none!(a);
-        assert_eq!(actual, ());
+        for _ in 0..1 {
+            let actual = assert_none!(a);
+            assert_eq!(actual, ());
+        }
     }
 
     #[test]
@@ -186,7 +193,7 @@ mod test_assert_none {
         });
         let message = concat!(
             "assertion failed: `assert_none!(a)`\n",
-            "https://docs.rs/assertables/9.6.0/assertables/macro.assert_none.html\n",
+            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_none.html\n",
             " a label: `a`,\n",
             " a debug: `Some(1)`",
         );
