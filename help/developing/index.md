@@ -12,7 +12,6 @@ We write each macro in three forms:
 
 The sections below show each of the three forms, using our simplest macro group: `assert_gt_as_result`, `assert_gt`, `debug_assert_gt`.
 
-
 ## assert_gt_as_result
 
 The macro `assert_gt_as_result` returns a `Result` as `Ok`, `Err`.
@@ -29,7 +28,7 @@ Code:
 #[macro_export]
 macro_rules! assert_gt_as_result {
     ($a:expr, $b:expr $(,)?) => {
-        match (&$a, &$b) {
+        match ($a, $b) {
             (a, b) => {
                 if a > b {
                     Ok(())
@@ -56,7 +55,6 @@ macro_rules! assert_gt_as_result {
     };
 }
 ```
-
 
 ## assert_gt
 
@@ -87,7 +85,6 @@ macro_rules! assert_gt {
     };
 }
 ```
-
 
 ## debug_assert_gt
 

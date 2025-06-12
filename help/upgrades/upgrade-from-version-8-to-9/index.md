@@ -8,7 +8,6 @@ For macros that compare one item to an expression:
 
 This is a breaking change, and you may need to change your code.
 
-
 ## How to automate the naming convention changes
 
 To upgrade your code, one way is to do a regular expression search and replace.
