@@ -58,7 +58,7 @@ macro_rules! assert_program_args_stderr_eq_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_eq.html\n",
+                                        "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stderr_eq.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -89,7 +89,7 @@ macro_rules! assert_program_args_stderr_eq_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_eq.html\n",
+                                    "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stderr_eq.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -131,8 +131,7 @@ mod test_assert_program_args_stderr_eq_as_result {
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "alfa"];
-        let actual =
-            assert_program_args_stderr_eq_as_result!(a_program, a_args, b_program, b_args);
+        let actual = assert_program_args_stderr_eq_as_result!(a_program, a_args, b_program, b_args);
         assert_eq!(
             actual.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
@@ -199,11 +198,10 @@ mod test_assert_program_args_stderr_eq_as_result {
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "zz"];
-        let actual =
-            assert_program_args_stderr_eq_as_result!(a_program, a_args, b_program, b_args);
+        let actual = assert_program_args_stderr_eq_as_result!(a_program, a_args, b_program, b_args);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_eq.html\n",
+            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stderr_eq.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -224,11 +222,10 @@ mod test_assert_program_args_stderr_eq_as_result {
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "aa"];
-        let actual =
-            assert_program_args_stderr_eq_as_result!(a_program, a_args, b_program, b_args);
+        let actual = assert_program_args_stderr_eq_as_result!(a_program, a_args, b_program, b_args);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_eq.html\n",
+            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stderr_eq.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -276,7 +273,7 @@ mod test_assert_program_args_stderr_eq_as_result {
 /// assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_eq.html
+/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stderr_eq.html
 /// //  a_program label: `a_program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `a_args`,
@@ -290,7 +287,7 @@ mod test_assert_program_args_stderr_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_eq.html\n",
+/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stderr_eq.html\n",
 /// #     " a_program label: `a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `a_args`,\n",
@@ -356,7 +353,7 @@ mod test_assert_program_args_stderr_eq {
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_eq.html\n",
+            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stderr_eq.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -389,7 +386,7 @@ mod test_assert_program_args_stderr_eq {
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_eq.html\n",
+            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stderr_eq.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",

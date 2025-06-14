@@ -59,7 +59,7 @@ macro_rules! assert_program_args_stdout_ne_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n",
-                                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_ne.html\n",
+                                        "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stdout_ne.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -90,7 +90,7 @@ macro_rules! assert_program_args_stdout_ne_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n",
-                                    "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_ne.html\n",
+                                    "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stdout_ne.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -131,8 +131,7 @@ mod test_assert_program_args_stdout_ne_as_result {
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
         let b_args = ["%s%s", "z", "z"];
-        let actual =
-            assert_program_args_stdout_ne_as_result!(a_program, a_args, b_program, b_args);
+        let actual = assert_program_args_stdout_ne_as_result!(a_program, a_args, b_program, b_args);
         assert_eq!(
             actual.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z'])
@@ -199,8 +198,7 @@ mod test_assert_program_args_stdout_ne_as_result {
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
         let b_args = ["%s%s", "a", "a"];
-        let actual =
-            assert_program_args_stdout_ne_as_result!(a_program, a_args, b_program, b_args);
+        let actual = assert_program_args_stdout_ne_as_result!(a_program, a_args, b_program, b_args);
         assert_eq!(
             actual.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'a'])
@@ -267,11 +265,10 @@ mod test_assert_program_args_stdout_ne_as_result {
         let a_args = ["%s", "alfa"];
         let b_program = "bin/printf-stdout";
         let b_args = ["%s%s%s%s", "a", "l", "f", "a"];
-        let actual =
-            assert_program_args_stdout_ne_as_result!(a_program, a_args, b_program, b_args);
+        let actual = assert_program_args_stdout_ne_as_result!(a_program, a_args, b_program, b_args);
         let message = concat!(
             "assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_ne.html\n",
+            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stdout_ne.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -319,7 +316,7 @@ mod test_assert_program_args_stdout_ne_as_result {
 /// assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_ne.html
+/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stdout_ne.html
 /// //  a_program label: `a_program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `a_args`,
@@ -333,7 +330,7 @@ mod test_assert_program_args_stdout_ne_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_ne.html\n",
+/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stdout_ne.html\n",
 /// #     " a_program label: `a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `a_args`,\n",
@@ -410,7 +407,7 @@ mod test_assert_program_args_stdout_ne {
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_ne.html\n",
+            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_program_args_stdout_ne.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stdout\"`,\n",
             "    a_args label: `a_args`,\n",

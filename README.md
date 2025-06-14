@@ -211,12 +211,11 @@ Many of the macros has a "success return", which means the macro returns data th
 * [`let string = assert_fs_read_to_string_ne!("alfa.txt", "")`](https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_ne.html)
 * [`let stdout = assert_command_stdout_gt!("ls", vec![b' '])`](https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stdout_gt.html)
 
-
 ## Tracking
 
 * Package: assertables-rust-crate
 * Version: 9.6.2
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2025-06-11T21:38:57Z
+* Updated: 2025-06-14T22:56:48Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)

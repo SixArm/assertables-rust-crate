@@ -46,7 +46,7 @@ macro_rules! assert_not_matches_as_result {
                 format!(
                     concat!(
                         "assertion failed: `assert_not_matches!(a)`\n",
-                        "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_matches.html\n",
+                        "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_matches.html\n",
                         " args: `{}`",
                     ),
                     stringify!($($arg)*)
@@ -76,7 +76,7 @@ mod test_assert_not_matches_as_result {
             let actual = assert_not_matches_as_result!(a, 'a'..='z');
             let message = concat!(
                 "assertion failed: `assert_not_matches!(a)`\n",
-                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_matches.html\n",
+                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_matches.html\n",
                 " args: `a, 'a'..='z'`",
             );
             assert_eq!(actual.unwrap_err(), message);
@@ -99,7 +99,7 @@ mod test_assert_not_matches_as_result {
             let actual = assert_not_matches_as_result!(a, Some(x) if x < 2);
             let message = concat!(
                 "assertion failed: `assert_not_matches!(a)`\n",
-                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_matches.html\n",
+                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_matches.html\n",
                 " args: `a, Some(x) if x < 2`",
             );
             assert_eq!(actual.unwrap_err(), message);
@@ -130,12 +130,12 @@ mod test_assert_not_matches_as_result {
 /// assert_not_matches!(a, 'a'..='z');
 /// # });
 /// // assertion failed: `assert_not_matches!(a)`
-/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_matches.html
+/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_matches.html
 /// //  args: `a, 'a'..='z'`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_not_matches!(a)`\n",
-/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_matches.html\n",
+/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_matches.html\n",
 /// #     " args: `a, 'a'..='z'`",
 /// # );
 /// # assert_eq!(actual, message);
@@ -198,7 +198,7 @@ mod test_assert_not_matches {
             });
             let message = concat!(
                 "assertion failed: `assert_not_matches!(a)`\n",
-                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_matches.html\n",
+                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_matches.html\n",
                 " args: `a, 'a'..='z'`",
             );
             assert_eq!(
@@ -231,7 +231,7 @@ mod test_assert_not_matches {
             });
             let message = concat!(
                 "assertion failed: `assert_not_matches!(a)`\n",
-                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_matches.html\n",
+                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_matches.html\n",
                 " args: `a, Some(x) if x < 2`",
             );
             assert_eq!(

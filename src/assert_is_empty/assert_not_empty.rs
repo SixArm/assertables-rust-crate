@@ -48,7 +48,7 @@ macro_rules! assert_not_empty_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_not_empty!(a)`\n",
-                                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_empty.html\n",
+                                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_empty.html\n",
                                 " label: `{}`,\n",
                                 " debug: `{:?}`"
                             ),
@@ -99,7 +99,7 @@ mod test_assert_not_empty_as_result {
         let actual = assert_not_empty_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_not_empty!(a)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_empty.html\n",
+            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_empty.html\n",
             " label: `a`,\n",
             " debug: `\"\"`",
         );
@@ -133,13 +133,13 @@ mod test_assert_not_empty_as_result {
 /// assert_not_empty!(a);
 /// # });
 /// // assertion failed: `assert_not_empty!(a)`
-/// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_empty.html
+/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_empty.html
 /// //  label: `a`,
 /// //  debug: `\"\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_not_empty!(a)`\n",
-/// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_empty.html\n",
+/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_empty.html\n",
 /// #     " label: `a`,\n",
 /// #     " debug: `\"\"`"
 /// # );
@@ -190,7 +190,7 @@ mod test_assert_not_empty {
         });
         let message = concat!(
             "assertion failed: `assert_not_empty!(a)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_not_empty.html\n",
+            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_empty.html\n",
             " label: `a`,\n",
             " debug: `\"\"`",
         );

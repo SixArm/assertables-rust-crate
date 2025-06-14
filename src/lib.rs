@@ -46,7 +46,7 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.6.1"
+//! assertables = "9.6.2"
 //! ``````
 //!
 //! Benefits:
@@ -219,9 +219,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.6.1
+//! * Version: 9.6.2
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2025-06-11T21:38:57Z
+//! * Updated: 2025-06-14T22:56:48Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 

@@ -35,6 +35,7 @@ assertables/1.1.0/
 Verify everything is correct locally:
 
 ```sh
+cargo fmt
 cargo test
 cargo build --release
 cargo doc
