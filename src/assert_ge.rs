@@ -69,101 +69,209 @@ macro_rules! assert_ge_as_result {
 mod test_assert_ge_as_result {
     use std::sync::Once;
 
-    #[test]
-    fn gt() {
-        let a: i8 = 2;
-        let b: i8 = 1;
-        for _ in 0..1 {
+    mod integer {
+        use super::*;
+        
+        #[test]
+        fn gt() {
+            let a: i8 = 2;
+            let b: i8 = 1;
+            for _ in 0..1 {
+                let actual = assert_ge_as_result!(a, b);
+                assert_eq!(actual.unwrap(), ());
+            }
+        }
+
+        #[test]
+        fn gt_once() {
+            static A: Once = Once::new();
+            fn a() -> i8 {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                2
+            }
+
+            static B: Once = Once::new();
+            fn b() -> i8 {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                1
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_ge_as_result!(a(), b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
+        }
+
+        #[test]
+        fn eq() {
+            let a: i8 = 1;
+            let b: i8 = 1;
+            for _ in 0..1 {
+                let actual = assert_ge_as_result!(a, b);
+                assert_eq!(actual.unwrap(), ());
+            }
+        }
+
+        #[test]
+        fn eq_once() {
+            static A: Once = Once::new();
+            fn a() -> i8 {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                1
+            }
+
+            static B: Once = Once::new();
+            fn b() -> i8 {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                1
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_ge_as_result!(a(), b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
+        }
+
+        #[test]
+        fn lt() {
+            let a: i8 = 1;
+            let b: i8 = 2;
             let actual = assert_ge_as_result!(a, b);
-            assert_eq!(actual.unwrap(), ());
+            let message = concat!(
+                "assertion failed: `assert_ge!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ge.html\n",
+                " a label: `a`,\n",
+                " a debug: `1`,\n",
+                " b label: `b`,\n",
+                " b debug: `2`",
+            );
+            assert_eq!(actual.unwrap_err(), message);
         }
+
     }
 
-    #[test]
-    fn gt_once() {
-        static A: Once = Once::new();
-        fn a() -> i8 {
-            if A.is_completed() {
-                panic!("A.is_completed()")
-            } else {
-                A.call_once(|| {})
+
+    mod string {
+        use super::*;
+
+        #[test]
+        fn gt() {
+            let a: String = String::from("2");
+            let b: String = String::from("1");
+            for _ in 0..1 {
+                let actual = assert_ge_as_result!(a, b);
+                assert_eq!(actual.unwrap(), ());
             }
-            2
         }
 
-        static B: Once = Once::new();
-        fn b() -> i8 {
-            if B.is_completed() {
-                panic!("B.is_completed()")
-            } else {
-                B.call_once(|| {})
+        #[test]
+        fn gt_once() {
+            static A: Once = Once::new();
+            fn a() -> String {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                String::from("2")
             }
-            1
+
+            static B: Once = Once::new();
+            fn b() -> String {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                String::from("1")
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_ge_as_result!(a(), b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
         }
 
-        assert_eq!(A.is_completed(), false);
-        assert_eq!(B.is_completed(), false);
-        let result = assert_ge_as_result!(a(), b());
-        assert!(result.is_ok());
-        assert_eq!(A.is_completed(), true);
-        assert_eq!(B.is_completed(), true);
-    }
+        #[test]
+        fn eq() {
+            let a: String = String::from("1");
+            let b: String = String::from("1");
+            for _ in 0..1 {
+                let actual = assert_ge_as_result!(a, b);
+                assert_eq!(actual.unwrap(), ());
+            }
+        }
 
-    #[test]
-    fn eq() {
-        let a: i8 = 1;
-        let b: i8 = 1;
-        for _ in 0..1 {
+        #[test]
+        fn eq_once() {
+            static A: Once = Once::new();
+            fn a() -> String {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                String::from("1")
+            }
+
+            static B: Once = Once::new();
+            fn b() -> String {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                String::from("1")
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_ge_as_result!(a(), b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
+        }
+
+        #[test]
+        fn lt() {
+            let a: String = String::from("1");
+            let b: String = String::from("2");
             let actual = assert_ge_as_result!(a, b);
-            assert_eq!(actual.unwrap(), ());
-        }
-    }
-
-    #[test]
-    fn eq_once() {
-        static A: Once = Once::new();
-        fn a() -> i8 {
-            if A.is_completed() {
-                panic!("A.is_completed()")
-            } else {
-                A.call_once(|| {})
-            }
-            1
+            let message = concat!(
+                "assertion failed: `assert_ge!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ge.html\n",
+                " a label: `a`,\n",
+                " a debug: `\"1\"`,\n",
+                " b label: `b`,\n",
+                " b debug: `\"2\"`",
+            );
+            assert_eq!(actual.unwrap_err(), message);
         }
 
-        static B: Once = Once::new();
-        fn b() -> i8 {
-            if B.is_completed() {
-                panic!("B.is_completed()")
-            } else {
-                B.call_once(|| {})
-            }
-            1
-        }
-
-        assert_eq!(A.is_completed(), false);
-        assert_eq!(B.is_completed(), false);
-        let result = assert_ge_as_result!(a(), b());
-        assert!(result.is_ok());
-        assert_eq!(A.is_completed(), true);
-        assert_eq!(B.is_completed(), true);
     }
 
-    #[test]
-    fn lt() {
-        let a: i8 = 1;
-        let b: i8 = 2;
-        let actual = assert_ge_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_ge!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ge.html\n",
-            " a label: `a`,\n",
-            " a debug: `1`,\n",
-            " b label: `b`,\n",
-            " b debug: `2`",
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
 }
 
 /// Assert an expression is greater than or equal to another.
@@ -238,50 +346,106 @@ macro_rules! assert_ge {
 mod test_assert_ge {
     use std::panic;
 
-    #[test]
-    fn gt() {
-        let a: i8 = 2;
-        let b: i8 = 1;
-        for _ in 0..1 {
-            let actual = assert_ge!(a, b);
-            assert_eq!(actual, ());
+    mod integer {
+        use super::*;
+
+        #[test]
+        fn gt() {
+            let a: i8 = 2;
+            let b: i8 = 1;
+            for _ in 0..1 {
+                let actual = assert_ge!(a, b);
+                assert_eq!(actual, ());
+            }
         }
+
+        #[test]
+        fn eq() {
+            let a: i8 = 1;
+            let b: i8 = 1;
+            for _ in 0..1 {
+                let actual = assert_ge!(a, b);
+                assert_eq!(actual, ());
+            }
+        }
+
+        #[test]
+        fn lt() {
+            let a: i8 = 1;
+            let b: i8 = 2;
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_ge!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_ge!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ge.html\n",
+                " a label: `a`,\n",
+                " a debug: `1`,\n",
+                " b label: `b`,\n",
+                " b debug: `2`",
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+
     }
 
-    #[test]
-    fn eq() {
-        let a: i8 = 1;
-        let b: i8 = 1;
-        for _ in 0..1 {
-            let actual = assert_ge!(a, b);
-            assert_eq!(actual, ());
-        }
-    }
+    mod string {
+        use super::*;
 
-    #[test]
-    fn lt() {
-        let a: i8 = 1;
-        let b: i8 = 2;
-        let result = panic::catch_unwind(|| {
-            let _actual = assert_ge!(a, b);
-        });
-        let message = concat!(
-            "assertion failed: `assert_ge!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ge.html\n",
-            " a label: `a`,\n",
-            " a debug: `1`,\n",
-            " b label: `b`,\n",
-            " b debug: `2`",
-        );
-        assert_eq!(
-            result
-                .unwrap_err()
-                .downcast::<String>()
-                .unwrap()
-                .to_string(),
-            message
-        );
+        #[test]
+        fn gt() {
+            let a: String = String::from("2");
+            let b: String = String::from("1");
+            for _ in 0..1 {
+                let actual = assert_ge!(a, b);
+                assert_eq!(actual, ());
+            }
+        }
+
+        #[test]
+        fn eq() {
+            let a: String = String::from("1");
+            let b: String = String::from("1");
+            for _ in 0..1 {
+                let actual = assert_ge!(a, b);
+                assert_eq!(actual, ());
+            }
+        }
+
+        #[test]
+        fn lt() {
+            let a: String = String::from("1");
+            let b: String = String::from("2");
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_ge!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_ge!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ge.html\n",
+                " a label: `a`,\n",
+                " a debug: `1`,\n",
+                " b label: `b`,\n",
+                " b debug: `2`",
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+
     }
+    
 }
 
 /// Assert an expression is greater than or equal to another.

@@ -70,77 +70,160 @@ macro_rules! assert_lt_as_result {
 mod test_assert_lt_as_result {
     use std::sync::Once;
 
-    #[test]
-    fn lt() {
-        let a: i8 = 1;
-        let b: i8 = 2;
-        for _ in 0..1 {
+    mod integer {
+        use super::*;
+
+        #[test]
+        fn lt() {
+            let a: i8 = 1;
+            let b: i8 = 2;
+            for _ in 0..1 {
+                let actual = assert_lt_as_result!(a, b);
+                assert_eq!(actual.unwrap(), ());
+            }
+        }
+
+        #[test]
+        fn lt_once() {
+            static A: Once = Once::new();
+            fn a() -> i8 {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                1
+            }
+
+            static B: Once = Once::new();
+            fn b() -> i8 {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                2
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_lt_as_result!(a(), b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
+        }
+
+        #[test]
+        fn eq() {
+            let a: i8 = 1;
+            let b: i8 = 1;
             let actual = assert_lt_as_result!(a, b);
-            assert_eq!(actual.unwrap(), ());
+            let message = concat!(
+                "assertion failed: `assert_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
+                " a label: `a`,\n",
+                " a debug: `1`,\n",
+                " b label: `b`,\n",
+                " b debug: `1`",
+            );
+            assert_eq!(actual.unwrap_err(), message);
         }
+
+        #[test]
+        fn gt() {
+            let a: i8 = 2;
+            let b: i8 = 1;
+            let actual = assert_lt_as_result!(a, b);
+            let message = concat!(
+                "assertion failed: `assert_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
+                " a label: `a`,\n",
+                " a debug: `2`,\n",
+                " b label: `b`,\n",
+                " b debug: `1`",
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+
     }
 
-    #[test]
-    fn lt_once() {
-        static A: Once = Once::new();
-        fn a() -> i8 {
-            if A.is_completed() {
-                panic!("A.is_completed()")
-            } else {
-                A.call_once(|| {})
+    mod string {
+        use super::*;
+
+        #[test]
+        fn lt() {
+            let a: String = String::from("1");
+            let b: String = String::from("2");
+            for _ in 0..1 {
+                let actual = assert_lt_as_result!(a, b);
+                assert_eq!(actual.unwrap(), ());
             }
-            1
         }
 
-        static B: Once = Once::new();
-        fn b() -> i8 {
-            if B.is_completed() {
-                panic!("B.is_completed()")
-            } else {
-                B.call_once(|| {})
+        #[test]
+        fn lt_once() {
+            static A: Once = Once::new();
+            fn a() -> String {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                String::from("                ")
             }
-            2
+
+            static B: Once = Once::new();
+            fn b() -> String {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                String::from("                ")
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_lt_as_result!(a(), b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
         }
 
-        assert_eq!(A.is_completed(), false);
-        assert_eq!(B.is_completed(), false);
-        let result = assert_lt_as_result!(a(), b());
-        assert!(result.is_ok());
-        assert_eq!(A.is_completed(), true);
-        assert_eq!(B.is_completed(), true);
+        #[test]
+        fn eq() {
+            let a: String = String::from("1");
+            let b: String = String::from("1");
+            let actual = assert_lt_as_result!(a, b);
+            let message = concat!(
+                "assertion failed: `assert_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
+                " a label: `a`,\n",
+                " a debug: `\"1\"`,\n",
+                " b label: `b`,\n",
+                " b debug: `\"1\"`",
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+
+        #[test]
+        fn gt() {
+            let a: String = String::from("2");
+            let b: String = String::from("1");
+            let actual = assert_lt_as_result!(a, b);
+            let message = concat!(
+                "assertion failed: `assert_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
+                " a label: `a`,\n",
+                " a debug: `\"2\"`,\n",
+                " b label: `b`,\n",
+                " b debug: `\"1\"`",
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+
     }
 
-    #[test]
-    fn eq() {
-        let a: i8 = 1;
-        let b: i8 = 1;
-        let actual = assert_lt_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_lt!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
-            " a label: `a`,\n",
-            " a debug: `1`,\n",
-            " b label: `b`,\n",
-            " b debug: `1`",
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    #[test]
-    fn gt() {
-        let a: i8 = 2;
-        let b: i8 = 1;
-        let actual = assert_lt_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_lt!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
-            " a label: `a`,\n",
-            " a debug: `2`,\n",
-            " b label: `b`,\n",
-            " b debug: `1`",
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
 }
 
 /// Assert an expression is less than another.
@@ -215,65 +298,136 @@ macro_rules! assert_lt {
 mod test_assert_lt {
     use std::panic;
 
-    #[test]
-    fn lt() {
-        let a: i8 = 1;
-        let b: i8 = 2;
-        for _ in 0..1 {
-            let actual = assert_lt!(a, b);
-            assert_eq!(actual, ());
+    mod integer {
+        use super::*;
+
+        #[test]
+        fn lt() {
+            let a: i8 = 1;
+            let b: i8 = 2;
+            for _ in 0..1 {
+                let actual = assert_lt!(a, b);
+                assert_eq!(actual, ());
+            }
         }
+
+        #[test]
+        fn eq() {
+            let a: i8 = 1;
+            let b: i8 = 1;
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_lt!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
+                " a label: `a`,\n",
+                " a debug: `1`,\n",
+                " b label: `b`,\n",
+                " b debug: `1`",
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+
+        #[test]
+        fn gt() {
+            let a: i8 = 2;
+            let b: i8 = 1;
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_lt!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
+                " a label: `a`,\n",
+                " a debug: `2`,\n",
+                " b label: `b`,\n",
+                " b debug: `1`",
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+
     }
 
-    #[test]
-    fn eq() {
-        let a: i8 = 1;
-        let b: i8 = 1;
-        let result = panic::catch_unwind(|| {
-            let _actual = assert_lt!(a, b);
-        });
-        let message = concat!(
-            "assertion failed: `assert_lt!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
-            " a label: `a`,\n",
-            " a debug: `1`,\n",
-            " b label: `b`,\n",
-            " b debug: `1`",
-        );
-        assert_eq!(
-            result
-                .unwrap_err()
-                .downcast::<String>()
-                .unwrap()
-                .to_string(),
-            message
-        );
-    }
+    mod string {
+        use super::*;
 
-    #[test]
-    fn gt() {
-        let a: i8 = 2;
-        let b: i8 = 1;
-        let result = panic::catch_unwind(|| {
-            let _actual = assert_lt!(a, b);
-        });
-        let message = concat!(
-            "assertion failed: `assert_lt!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
-            " a label: `a`,\n",
-            " a debug: `2`,\n",
-            " b label: `b`,\n",
-            " b debug: `1`",
-        );
-        assert_eq!(
-            result
-                .unwrap_err()
-                .downcast::<String>()
-                .unwrap()
-                .to_string(),
-            message
-        );
+        #[test]
+        fn lt() {
+            let a: String = String::from("1");
+            let b: String = String::from("2");
+            for _ in 0..1 {
+                let actual = assert_lt!(a, b);
+                assert_eq!(actual, ());
+            }
+        }
+
+        #[test]
+        fn eq() {
+            let a: String = String::from("1");
+            let b: String = String::from("1");
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_lt!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
+                " a label: `a`,\n",
+                " a debug: `\"1\"`,\n",
+                " b label: `b`,\n",
+                " b debug: `\"1\"`",
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+
+        #[test]
+        fn gt() {
+            let a: String = String::from("2");
+            let b: String = String::from("1");
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_lt!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_lt!(a, b)`\n",
+                "https://docs.rs/assertables/9.6.1/assertables/macro.assert_lt.html\n",
+                " a label: `a`,\n",
+                " a debug: `\"2\"`,\n",
+                " b label: `b`,\n",
+                " b debug: `\"1\"`",
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+
     }
+    
 }
 
 /// Assert an expression is less than another.
