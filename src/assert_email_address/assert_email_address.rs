@@ -39,7 +39,7 @@
 #[macro_export]
 macro_rules! assert_email_address_as_result {
     ($a:expr $(,)?) => {
-        match ($a) {
+        match (&$a) {
             a => {
                 if !a.contains("@") {
                     Err(
@@ -144,7 +144,7 @@ macro_rules! assert_email_address_as_result {
                                 )
                             }
                             else {
-                                Ok(a)
+                                Ok(())
                             }
                         },
                         _ => {
@@ -180,7 +180,7 @@ mod test_assert_email_address_as_result {
         let a = "hello@example.com";
         for _ in 0..1 {
             let actual = assert_email_address_as_result!(a);
-            assert_eq!(actual.unwrap(), "hello@example.com");
+            assert_eq!(actual, Ok(()));
         }
     }
 
@@ -354,7 +354,7 @@ mod test_assert_email_address {
         let a = "hello@example.com";
         for _ in 0..1 {
             let actual = assert_email_address!(a);
-            assert_eq!(actual, a);
+            assert_eq!(actual, ());
         }
     }
 

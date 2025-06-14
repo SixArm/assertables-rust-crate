@@ -75,7 +75,7 @@ macro_rules! assert_iter_lt_as_result {
 
 #[cfg(test)]
 mod test_assert_iter_lt_as_result {
-    use std::sync::Once;
+    // use std::sync::Once;
 
     #[test]
     fn lt() {

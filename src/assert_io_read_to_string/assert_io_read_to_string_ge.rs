@@ -9,8 +9,8 @@
 //! use assertables::*;
 //! use std::io::Read;
 //!
-//! let mut a = "alfa".as_bytes();
-//! let mut b = "aa".as_bytes();
+//! let a = "alfa".as_bytes();
+//! let b = "aa".as_bytes();
 //! assert_io_read_to_string_ge!(a, b);
 //! ```
 //!
@@ -40,14 +40,12 @@
 ///
 #[macro_export]
 macro_rules! assert_io_read_to_string_ge_as_result {
-    ($a_reader:expr, $b_reader:expr $(,)?) => {{
-        let mut a_string = String::new();
-        let mut b_string = String::new();
+    ($a_reader:expr, $b_reader:expr $(,)?) => {
         match(
-            $a_reader.read_to_string(&mut a_string),
-            $b_reader.read_to_string(&mut b_string)
+            std::io::read_to_string($a_reader),
+            std::io::read_to_string($b_reader)
         ) {
-            (Ok(_a_size), Ok(_b_size)) => {
+            (Ok(a_string), Ok(b_string)) => {
                 if a_string >= b_string {
                     Ok((a_string, b_string))
                 } else {
@@ -73,7 +71,7 @@ macro_rules! assert_io_read_to_string_ge_as_result {
                     )
                 }
             },
-            _ => {
+            (a_result, b_result) => {
                 Err(
                     format!(
                         concat!(
@@ -82,17 +80,21 @@ macro_rules! assert_io_read_to_string_ge_as_result {
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             "  b label: `{}`,\n",
-                            "  b debug: `{:?}`",
+                            "  b debug: `{:?},\n`",
+                            " a result: `{:?},\n`",
+                            " b result: `{:?}`",
                         ),
                         stringify!($a_reader),
                         $a_reader,
                         stringify!($b_reader),
                         $b_reader,
+                        a_result,
+                        b_result,
                     )
                 )
             }
         }
-    }};
+    };
 }
 
 #[cfg(test)]
@@ -103,8 +105,8 @@ mod test_assert_io_read_to_string_ge_as_result {
 
     #[test]
     fn gt() {
-        let mut a = "alfa".as_bytes();
-        let mut b = "aa".as_bytes();
+        let a = "alfa".as_bytes();
+        let b = "aa".as_bytes();
         let actual = assert_io_read_to_string_ge_as_result!(a, b);
         assert_eq!(actual.unwrap(), (String::from("alfa"), String::from("aa")));
     }
@@ -141,8 +143,8 @@ mod test_assert_io_read_to_string_ge_as_result {
 
     #[test]
     fn eq() {
-        let mut a = "alfa".as_bytes();
-        let mut b = "alfa".as_bytes();
+        let a = "alfa".as_bytes();
+        let b = "alfa".as_bytes();
         let actual = assert_io_read_to_string_ge_as_result!(a, b);
         assert_eq!(
             actual.unwrap(),
@@ -182,16 +184,16 @@ mod test_assert_io_read_to_string_ge_as_result {
 
     #[test]
     fn lt() {
-        let mut a = "alfa".as_bytes();
-        let mut b = "zz".as_bytes();
+        let a = "alfa".as_bytes();
+        let b = "zz".as_bytes();
         let actual = assert_io_read_to_string_ge_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_ge.html\n",
             " a label: `a`,\n",
-            " a debug: `[]`,\n",
+            " a debug: `[97, 108, 102, 97]`,\n",
             " b label: `b`,\n",
-            " b debug: `[]`,\n",
+            " b debug: `[122, 122]`,\n",
             "       a: `\"alfa\"`,\n",
             "       b: `\"zz\"`"
         );
@@ -217,22 +219,22 @@ mod test_assert_io_read_to_string_ge_as_result {
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// let mut a = "alfa".as_bytes();
-/// let mut b = "aa".as_bytes();
+/// let a = "alfa".as_bytes();
+/// let b = "aa".as_bytes();
 /// assert_io_read_to_string_ge!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let mut a = "alfa".as_bytes();
-/// let mut b = "zz".as_bytes();
+/// let a = "alfa".as_bytes();
+/// let b = "zz".as_bytes();
 /// assert_io_read_to_string_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_ge.html
 /// //  a label: `a`,
-/// //  a debug: `[]`,
+/// //  a debug: `[97, 108, 102, 97]`,
 /// //  b label: `b`,
-/// //  b debug: `[]`,
+/// //  b debug: `[122, 122]`,
 /// //        a: `\"alfa\"`,
 /// //        b: `\"zz\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -240,9 +242,9 @@ mod test_assert_io_read_to_string_ge_as_result {
 /// #     "assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_ge.html\n",
 /// #     " a label: `a`,\n",
-/// #     " a debug: `[]`,\n",
+/// #     " a debug: `[97, 108, 102, 97]`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `[]`,\n",
+/// #     " b debug: `[122, 122]`,\n",
 /// #     "       a: `\"alfa\"`,\n",
 /// #     "       b: `\"zz\"`"
 /// # );
@@ -275,13 +277,12 @@ macro_rules! assert_io_read_to_string_ge {
 #[cfg(test)]
 mod test_assert_io_read_to_string_ge {
     #[allow(unused_imports)]
-    use std::io::Read;
     use std::panic;
 
     #[test]
     fn gt() {
-        let mut a = "alfa".as_bytes();
-        let mut b = "aa".as_bytes();
+        let a = "alfa".as_bytes();
+        let b = "aa".as_bytes();
         for _ in 0..1 {
             let actual = assert_io_read_to_string_ge!(a, b);
             assert_eq!(actual, (String::from("alfa"), String::from("aa")));
@@ -290,8 +291,8 @@ mod test_assert_io_read_to_string_ge {
 
     #[test]
     fn eq() {
-        let mut a = "alfa".as_bytes();
-        let mut b = "alfa".as_bytes();
+        let a = "alfa".as_bytes();
+        let b = "alfa".as_bytes();
         for _ in 0..1 {
             let actual = assert_io_read_to_string_ge!(a, b);
             assert_eq!(actual, (String::from("alfa"), String::from("alfa")));
@@ -301,17 +302,17 @@ mod test_assert_io_read_to_string_ge {
     #[test]
     fn lt() {
         let result = panic::catch_unwind(|| {
-            let mut a = "alfa".as_bytes();
-            let mut b = "zz".as_bytes();
+            let a = "alfa".as_bytes();
+            let b = "zz".as_bytes();
             let _actual = assert_io_read_to_string_ge!(a, b);
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_ge.html\n",
             " a label: `a`,\n",
-            " a debug: `[]`,\n",
+            " a debug: `[97, 108, 102, 97]`,\n",
             " b label: `b`,\n",
-            " b debug: `[]`,\n",
+            " b debug: `[122, 122]`,\n",
             "       a: `\"alfa\"`,\n",
             "       b: `\"zz\"`"
         );

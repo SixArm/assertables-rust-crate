@@ -316,12 +316,12 @@ fn examples_with_assert_command_stdout() {
     assert_command_stdout_ge!(a, b);
 
     // Compare expression
-    assert_command_stdout_eq_x!(a, &vec![b'a', b'l', b'f', b'a']);
-    assert_command_stdout_ne_x!(a, &vec![b'x', b'x']);
-    assert_command_stdout_lt_x!(a, &vec![b'z', b'z']);
-    assert_command_stdout_le_x!(a, &vec![b'z', b'z']);
-    assert_command_stdout_gt_x!(a, &vec![b'a', b'a']);
-    assert_command_stdout_ge_x!(a, &vec![b'a', b'a']);
+    assert_command_stdout_eq_x!(a, vec![b'a', b'l', b'f', b'a']);
+    assert_command_stdout_ne_x!(a, vec![b'x', b'x']);
+    assert_command_stdout_lt_x!(a, vec![b'z', b'z']);
+    assert_command_stdout_le_x!(a, vec![b'z', b'z']);
+    assert_command_stdout_gt_x!(a, vec![b'a', b'a']);
+    assert_command_stdout_ge_x!(a, vec![b'a', b'a']);
 
     // Matching
     assert_command_stdout_string_contains!(a, "lf");
@@ -354,14 +354,13 @@ fn examples_with_assert_command_stderr() {
     let mut b = Command::new(&program);
     b.args(["%s%s%s%s", "a", "a"]);
     assert_command_stderr_ge!(a, b);
-
     // Compare expression
-    assert_command_stderr_eq_x!(a, &vec![b'a', b'l', b'f', b'a']);
-    assert_command_stderr_ne_x!(a, &vec![b'x', b'x']);
-    assert_command_stderr_lt_x!(a, &vec![b'z', b'z']);
-    assert_command_stderr_le_x!(a, &vec![b'z', b'z']);
-    assert_command_stderr_gt_x!(a, &vec![b'a', b'a']);
-    assert_command_stderr_ge_x!(a, &vec![b'a', b'a']);
+    assert_command_stderr_eq_x!(a, vec![b'a', b'l', b'f', b'a']);
+    assert_command_stderr_ne_x!(a, vec![b'x', b'x']);
+    assert_command_stderr_lt_x!(a, vec![b'z', b'z']);
+    assert_command_stderr_le_x!(a, vec![b'z', b'z']);
+    assert_command_stderr_gt_x!(a, vec![b'a', b'a']);
+    assert_command_stderr_ge_x!(a, vec![b'a', b'a']);
 
     // Matching
     assert_command_stderr_string_contains!(a, "lf");
@@ -379,44 +378,44 @@ fn examples_with_assert_program_args_stdout() {
 
     // Compare another
     assert_program_args_stdout_eq!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s", "a", "l", "f", "a"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s", "a", "l", "f", "a"]
     );
     assert_program_args_stdout_ne!(&a_program, &a_args, &b_program, &vec!["%s%s%s%s%s", "x"]);
     assert_program_args_stdout_lt!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s%s", "z", "z"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s%s", "z", "z"]
     );
     assert_program_args_stdout_le!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s%s", "z", "z"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s%s", "z", "z"]
     );
     assert_program_args_stdout_gt!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s%s", "a", "a"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s%s", "a", "a"]
     );
     assert_program_args_stdout_ge!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s%s", "a", "a"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s%s", "a", "a"]
     );
 
     // Compare expression
-    assert_program_args_stdout_eq_x!(&a_program, &a_args, &vec![b'a', b'l', b'f', b'a']);
-    assert_program_args_stdout_ne_x!(&a_program, &a_args, &vec![b'x']);
-    assert_program_args_stdout_lt_x!(&a_program, &a_args, &vec![b'z', b'z']);
-    assert_program_args_stdout_le_x!(&a_program, &a_args, &vec![b'z', b'z']);
-    assert_program_args_stdout_gt_x!(&a_program, &a_args, &vec![b'a', b'a']);
-    assert_program_args_stdout_ge_x!(&a_program, &a_args, &vec![b'a', b'a']);
+    assert_program_args_stdout_eq_x!(a_program, a_args, vec![b'a', b'l', b'f', b'a']);
+    assert_program_args_stdout_ne_x!(a_program, a_args, vec![b'x']);
+    assert_program_args_stdout_lt_x!(a_program, a_args, vec![b'z', b'z']);
+    assert_program_args_stdout_le_x!(a_program, a_args, vec![b'z', b'z']);
+    assert_program_args_stdout_gt_x!(a_program, a_args, vec![b'a', b'a']);
+    assert_program_args_stdout_ge_x!(a_program, a_args, vec![b'a', b'a']);
 
     // Matching
     assert_program_args_stdout_string_contains!(&a_program, &a_args, "lf");
@@ -436,50 +435,50 @@ fn examples_with_assert_program_args_stderr() {
 
     // Compare another
     assert_program_args_stderr_eq!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s", "a", "l", "f", "a"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s", "a", "l", "f", "a"]
     );
     assert_program_args_stderr_ne!(&a_program, &a_args, &b_program, &vec!["%s%s%s%s%s", "x"]);
     assert_program_args_stderr_lt!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s%s", "z", "z"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s%s", "z", "z"]
     );
     assert_program_args_stderr_le!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s%s", "z", "z"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s%s", "z", "z"]
     );
     assert_program_args_stderr_gt!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s%s", "a", "a"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s%s", "a", "a"]
     );
     assert_program_args_stderr_ge!(
-        &a_program,
-        &a_args,
-        &b_program,
-        &vec!["%s%s%s%s%s", "a", "a"]
+        a_program,
+        a_args,
+        b_program,
+        vec!["%s%s%s%s%s", "a", "a"]
     );
 
     // Compare expression
-    assert_program_args_stderr_eq_x!(&a_program, &a_args, &vec![b'a', b'l', b'f', b'a']);
-    assert_program_args_stderr_ne_x!(&a_program, &a_args, &vec![b'x']);
-    assert_program_args_stderr_lt_x!(&a_program, &a_args, &vec![b'z', b'z']);
-    assert_program_args_stderr_le_x!(&a_program, &a_args, &vec![b'z', b'z']);
-    assert_program_args_stderr_gt_x!(&a_program, &a_args, &vec![b'a', b'a']);
-    assert_program_args_stderr_ge_x!(&a_program, &a_args, &vec![b'a', b'a']);
+    assert_program_args_stderr_eq_x!(a_program, a_args, vec![b'a', b'l', b'f', b'a']);
+    assert_program_args_stderr_ne_x!(a_program, a_args, vec![b'x']);
+    assert_program_args_stderr_lt_x!(a_program, a_args, vec![b'z', b'z']);
+    assert_program_args_stderr_le_x!(a_program, a_args, vec![b'z', b'z']);
+    assert_program_args_stderr_gt_x!(a_program, a_args, vec![b'a', b'a']);
+    assert_program_args_stderr_ge_x!(a_program, a_args, vec![b'a', b'a']);
 
     // Matching
-    assert_program_args_stderr_string_contains!(&a_program, &a_args, "lf");
+    assert_program_args_stderr_string_contains!(a_program, a_args, "lf");
     assert_program_args_stderr_string_is_match!(
-        &a_program,
-        &a_args,
+        a_program,
+        a_args,
         Regex::new(r"lf").expect("regex")
     );
 }
@@ -637,48 +636,81 @@ fn examples_with_assert_fs_read_to_string() {
 fn examples_with_assert_io_read_to_string() {
     #[allow(unused_imports)]
     use std::io::Read;
-    let mut a: &[u8];
-    let mut b: &[u8];
 
-    // Compare another
-    a = "alfa".as_bytes();
-    b = "alfa".as_bytes();
+    //// Compare two byte readers
+
+    // equal
+    let a = "alfa".as_bytes();
+    let b = "alfa".as_bytes();
     assert_io_read_to_string_eq!(a, b);
-    a = "alfa".as_bytes();
-    b = "zz".as_bytes();
+
+    // not equal
+    let a = "alfa".as_bytes();
+    let b = "zz".as_bytes();
     assert_io_read_to_string_ne!(a, b);
-    a = "alfa".as_bytes();
-    b = "zz".as_bytes();
+    
+    // less than
+    let a = "alfa".as_bytes();
+    let b = "zz".as_bytes();
     assert_io_read_to_string_lt!(a, b);
-    a = "alfa".as_bytes();
-    b = "zz".as_bytes();
+
+    // less than or equal
+    let a = "alfa".as_bytes();
+    let b = "zz".as_bytes();
     assert_io_read_to_string_le!(a, b);
-    a = "alfa".as_bytes();
-    b = "aa".as_bytes();
+
+    // greater than
+    let a = "alfa".as_bytes();
+    let b = "aa".as_bytes();
     assert_io_read_to_string_gt!(a, b);
-    a = "alfa".as_bytes();
-    b = "aa".as_bytes();
+
+    // greater than or equal
+    let a = "alfa".as_bytes();
+    let b = "aa".as_bytes();
     assert_io_read_to_string_ge!(a, b);
 
-    // Compare expression
-    a = "alfa".as_bytes();
-    assert_io_read_to_string_eq_x!(a, "alfa");
-    a = "alfa".as_bytes();
-    assert_io_read_to_string_ne_x!(a, "zz");
-    a = "alfa".as_bytes();
-    assert_io_read_to_string_lt_x!(a, "zz");
-    a = "alfa".as_bytes();
-    assert_io_read_to_string_le_x!(a, "zz");
-    a = "alfa".as_bytes();
-    assert_io_read_to_string_gt_x!(a, "aa");
-    a = "alfa".as_bytes();
-    assert_io_read_to_string_ge_x!(a, "aa");
+    //// Compare a byte reader to a string expression
 
-    // Matching
-    a = "alfa".as_bytes();
+    // equal
+    let a = "alfa".as_bytes();
+    let x = String::from("alfa");
+    assert_io_read_to_string_eq_x!(a, x);
+
+    // not equal
+    let a = "alfa".as_bytes();
+    let x = String::from("zz");
+    assert_io_read_to_string_ne_x!(a, x);
+
+    // less than
+    let a = "alfa".as_bytes();
+    let x = String::from("zz");
+    assert_io_read_to_string_lt_x!(a, x);
+
+    // less than or equal
+    let a = "alfa".as_bytes();
+    let x = String::from("zz");
+    assert_io_read_to_string_le_x!(a, x);
+
+    // greater than or equal
+    let a = "alfa".as_bytes();
+    let x = String::from("aa");
+    assert_io_read_to_string_gt_x!(a, x);
+
+    // greater than or equal
+    let a = "alfa".as_bytes();
+    let x = String::from("aa");
+    assert_io_read_to_string_ge_x!(a, x);
+
+    //// Misc
+
+    // contains
+    let a = "alfa".as_bytes();
     assert_io_read_to_string_contains!(a, "lf");
-    a = "alfa".as_bytes();
+
+    // is match
+    let a = "alfa".as_bytes();
     assert_io_read_to_string_is_match!(a, Regex::new("lf").expect("regex"));
+
 }
 
 //// Success returns
@@ -722,14 +754,14 @@ fn examples_of_success_return_with_bytes() {
     use std::io::Read;
 
     // Compare another
-    let mut a = "alfa".as_bytes();
-    let mut b = "bravo".as_bytes();
+    let a = "alfa".as_bytes();
+    let b = "bravo".as_bytes();
     let (a_string, b_string) = assert_io_read_to_string_ne!(a, b);
     assert_eq!(a_string, String::from("alfa"));
     assert_eq!(b_string, String::from("bravo"));
 
     // Compare expression
-    let mut a = "alfa".as_bytes();
+    let a = "alfa".as_bytes();
     let string = assert_io_read_to_string_ne_x!(a, "");
     assert_eq!(string, String::from("alfa"));
 }
@@ -752,6 +784,6 @@ fn examples_of_success_return_with_commands() {
     // Compare expression
     let mut command = Command::new(&program);
     command.args(["%s", "alfa"]);
-    let stdout = assert_command_stdout_ne_x!(command, &vec![b'z']);
+    let stdout = assert_command_stdout_ne_x!(command, vec![b'z']);
     assert_eq!(stdout, vec![b'a', b'l', b'f', b'a']);
 }

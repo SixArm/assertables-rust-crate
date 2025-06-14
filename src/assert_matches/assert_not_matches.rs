@@ -58,7 +58,7 @@ macro_rules! assert_not_matches_as_result {
 
 #[cfg(test)]
 mod test_assert_not_matches_as_result {
-    use std::sync::Once;
+    // use std::sync::Once;
 
     //// Use char as per https://doc.rust-lang.org/std/macro.matches.html
     mod use_char {

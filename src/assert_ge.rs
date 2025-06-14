@@ -430,9 +430,9 @@ mod test_assert_ge {
                 "assertion failed: `assert_ge!(a, b)`\n",
                 "https://docs.rs/assertables/9.6.1/assertables/macro.assert_ge.html\n",
                 " a label: `a`,\n",
-                " a debug: `1`,\n",
+                " a debug: `\"1\"`,\n",
                 " b label: `b`,\n",
-                " b debug: `2`",
+                " b debug: `\"2\"`",
             );
             assert_eq!(
                 result

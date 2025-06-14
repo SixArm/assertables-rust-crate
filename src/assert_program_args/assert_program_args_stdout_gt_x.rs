@@ -11,7 +11,7 @@
 //! let program = "bin/printf-stdout";
 //! let args = ["%s", "alfa"];
 //! let bytes = vec![b'a', b'a'];
-//! assert_program_args_stdout_gt_x!(&program, &args, &bytes);
+//! assert_program_args_stdout_gt_x!(program, args, bytes);
 //! ```
 //!
 //! # Module macros
@@ -41,7 +41,7 @@
 #[macro_export]
 macro_rules! assert_program_args_stdout_gt_x_as_result {
     ($a_program:expr, $a_args:expr, $b_expr:expr $(,)?) => {
-        match ($a_program, $a_args, $b_expr) {
+        match (&$a_program, &$a_args, &$b_expr) {
             (a_program, a_args, b_expr) => {
                 match assert_program_args_impl_prep!(a_program, a_args) {
                     Ok(a_output) => {
@@ -115,7 +115,7 @@ mod test_assert_program_args_stdout_gt_x_as_result {
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'a'];
         for _ in 0..1 {
-            let actual = assert_program_args_stdout_gt_x_as_result!(&a_program, &a_args, &b);
+            let actual = assert_program_args_stdout_gt_x_as_result!(a_program, a_args, b);
             assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
         }
     }
@@ -155,7 +155,7 @@ mod test_assert_program_args_stdout_gt_x_as_result {
         assert_eq!(A.is_completed(), false);
         assert_eq!(A_ARGS.is_completed(), false);
         assert_eq!(B.is_completed(), false);
-        let result = assert_program_args_stdout_gt_x_as_result!(a(), a_args(), &b());
+        let result = assert_program_args_stdout_gt_x_as_result!(a(), a_args(), b());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(A_ARGS.is_completed(), true);
@@ -167,15 +167,15 @@ mod test_assert_program_args_stdout_gt_x_as_result {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'l', b'f', b'a'];
-        let actual = assert_program_args_stdout_gt_x_as_result!(&a_program, &a_args, &b);
+        let actual = assert_program_args_stdout_gt_x_as_result!(a_program, a_args, b);
         let message = concat!(
           "assertion failed: `assert_program_args_stdout_gt_x!(a_program, a_args, b_expr)`\n",
           "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_gt_x.html\n",
-          " a_program label: `&a_program`,\n",
+          " a_program label: `a_program`,\n",
           " a_program debug: `\"bin/printf-stdout\"`,\n",
-          "    a_args label: `&a_args`,\n",
+          "    a_args label: `a_args`,\n",
           "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-          "    b_expr label: `&b`,\n",
+          "    b_expr label: `b`,\n",
           "    b_expr debug: `[97, 108, 102, 97]`,\n",
           "               a: `[97, 108, 102, 97]`,\n",
           "               b: `[97, 108, 102, 97]`"
@@ -188,15 +188,15 @@ mod test_assert_program_args_stdout_gt_x_as_result {
         let a_program = "bin/printf-stdout";
         let a_args = ["%s", "alfa"];
         let b = vec![b'z', b'z'];
-        let actual = assert_program_args_stdout_gt_x_as_result!(&a_program, &a_args, &b);
+        let actual = assert_program_args_stdout_gt_x_as_result!(a_program, a_args, b);
         let message = concat!(
           "assertion failed: `assert_program_args_stdout_gt_x!(a_program, a_args, b_expr)`\n",
           "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_gt_x.html\n",
-          " a_program label: `&a_program`,\n",
+          " a_program label: `a_program`,\n",
           " a_program debug: `\"bin/printf-stdout\"`,\n",
-          "    a_args label: `&a_args`,\n",
+          "    a_args label: `a_args`,\n",
           "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-          "    b_expr label: `&b`,\n",
+          "    b_expr label: `b`,\n",
           "    b_expr debug: `[122, 122]`,\n",
           "               a: `[97, 108, 102, 97]`,\n",
           "               b: `[122, 122]`"
@@ -225,22 +225,22 @@ mod test_assert_program_args_stdout_gt_x_as_result {
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'a', b'a'];
-/// assert_program_args_stdout_gt_x!(&program, &args, &bytes);
+/// assert_program_args_stdout_gt_x!(program, args, bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let program = "bin/printf-stdout";
 /// let args = ["%s", "alfa"];
 /// let bytes = vec![b'z', b'z'];
-/// assert_program_args_stdout_gt_x!(&program, &args, &bytes);
+/// assert_program_args_stdout_gt_x!(program, args, bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_gt_x!(a_program, a_args, b_expr)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_gt_x.html
-/// //  a_program label: `&program`,
+/// //  a_program label: `program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
-/// //     a_args label: `&args`,
+/// //     a_args label: `args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
-/// //     b_expr label: `&bytes`,
+/// //     b_expr label: `bytes`,
 /// //     b_expr debug: `[122, 122]`,
 /// //                a: `[97, 108, 102, 97]`,
 /// //                b: `[122, 122]`
@@ -248,11 +248,11 @@ mod test_assert_program_args_stdout_gt_x_as_result {
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_gt_x!(a_program, a_args, b_expr)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_gt_x.html\n",
-/// #     " a_program label: `&program`,\n",
+/// #     " a_program label: `program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
-/// #     "    a_args label: `&args`,\n",
+/// #     "    a_args label: `args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-/// #     "    b_expr label: `&bytes`,\n",
+/// #     "    b_expr label: `bytes`,\n",
 /// #     "    b_expr debug: `[122, 122]`,\n",
 /// #     "               a: `[97, 108, 102, 97]`,\n",
 /// #     "               b: `[122, 122]`"
@@ -293,7 +293,7 @@ mod test_assert_program_args_stdout_gt_x {
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'a'];
         for _ in 0..1 {
-            let actual = assert_program_args_stdout_gt_x!(&a_program, &a_args, &b);
+            let actual = assert_program_args_stdout_gt_x!(a_program, a_args, b);
             assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
         }
     }
@@ -304,16 +304,16 @@ mod test_assert_program_args_stdout_gt_x {
         let a_args = ["%s", "alfa"];
         let b = vec![b'a', b'l', b'f', b'a'];
         let result = panic::catch_unwind(|| {
-            let _actual = assert_program_args_stdout_gt_x!(&a_program, &a_args, &b);
+            let _actual = assert_program_args_stdout_gt_x!(a_program, a_args, b);
         });
         let message = concat!(
           "assertion failed: `assert_program_args_stdout_gt_x!(a_program, a_args, b_expr)`\n",
           "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_gt_x.html\n",
-          " a_program label: `&a_program`,\n",
+          " a_program label: `a_program`,\n",
           " a_program debug: `\"bin/printf-stdout\"`,\n",
-          "    a_args label: `&a_args`,\n",
+          "    a_args label: `a_args`,\n",
           "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-          "    b_expr label: `&b`,\n",
+          "    b_expr label: `b`,\n",
           "    b_expr debug: `[97, 108, 102, 97]`,\n",
           "               a: `[97, 108, 102, 97]`,\n",
           "               b: `[97, 108, 102, 97]`"
@@ -334,16 +334,16 @@ mod test_assert_program_args_stdout_gt_x {
         let a_args = ["%s", "alfa"];
         let b = vec![b'z', b'z'];
         let result = panic::catch_unwind(|| {
-            let _actual = assert_program_args_stdout_gt_x!(&a_program, &a_args, &b);
+            let _actual = assert_program_args_stdout_gt_x!(a_program, a_args, b);
         });
         let message = concat!(
           "assertion failed: `assert_program_args_stdout_gt_x!(a_program, a_args, b_expr)`\n",
           "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stdout_gt_x.html\n",
-          " a_program label: `&a_program`,\n",
+          " a_program label: `a_program`,\n",
           " a_program debug: `\"bin/printf-stdout\"`,\n",
-          "    a_args label: `&a_args`,\n",
+          "    a_args label: `a_args`,\n",
           "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-          "    b_expr label: `&b`,\n",
+          "    b_expr label: `b`,\n",
           "    b_expr debug: `[122, 122]`,\n",
           "               a: `[97, 108, 102, 97]`,\n",
           "               b: `[122, 122]`"

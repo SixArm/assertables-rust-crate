@@ -52,7 +52,7 @@ fn absolute_difference() {
     assert!(i32::abs(a - b) < delta);
 
     // Assertables using assert_lt
-    assert_abs_diff_lt!(a, b, delta);
+    assert_abs_diff_lt_x!(a, b, delta);
 }
 
 /// Verify a Result is Ok.

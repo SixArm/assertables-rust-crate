@@ -10,7 +10,7 @@
 //!
 //! let a = "xx".chars();
 //! let b = "x".chars();
-//! assert_count_ge!(&a, &b);
+//! assert_count_ge!(a, b);
 //! ```
 //!
 //! # Module macros
@@ -40,7 +40,7 @@
 #[macro_export]
 macro_rules! assert_count_ge_as_result {
     ($a:expr, $b:expr $(,)?) => {
-        match ($a, $b) {
+        match (&$a, &$b) {
             (a, b) => {
                 let a_count = a.clone().count();
                 let b_count = b.clone().count();
@@ -50,7 +50,7 @@ macro_rules! assert_count_ge_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_count_ge!(&a, &b)`\n",
+                                "assertion failed: `assert_count_ge!(a, b)`\n",
                                 "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_ge.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
@@ -82,7 +82,7 @@ mod test_assert_count_ge_as_result {
         let a = "xx".chars();
         let b = "x".chars();
         for _ in 0..1 {
-            let actual = assert_count_ge_as_result!(&a, &b);
+            let actual = assert_count_ge_as_result!(a, b);
             assert_eq!(actual.unwrap(), (2, 1));
         }
     }
@@ -122,7 +122,7 @@ mod test_assert_count_ge_as_result {
         let a = "x".chars();
         let b = "x".chars();
         for _ in 0..1 {
-            let actual = assert_count_ge_as_result!(&a, &b);
+            let actual = assert_count_ge_as_result!(a, b);
             assert_eq!(actual.unwrap(), (1, 1));
         }
     }
@@ -161,14 +161,14 @@ mod test_assert_count_ge_as_result {
     fn lt() {
         let a = "x".chars();
         let b = "xx".chars();
-        let actual = assert_count_ge_as_result!(&a, &b);
+        let actual = assert_count_ge_as_result!(a, b);
         let message = concat!(
-            "assertion failed: `assert_count_ge!(&a, &b)`\n",
+            "assertion failed: `assert_count_ge!(a, b)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_ge.html\n",
-            " a label: `&a`,\n",
+            " a label: `a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
-            " b label: `&b`,\n",
+            " b label: `b`,\n",
             " b debug: `Chars(['x', 'x'])`\n",
             " b.count(): `2`"
         );
@@ -195,30 +195,30 @@ mod test_assert_count_ge_as_result {
 /// # fn main() {
 /// let a = "xx".chars();
 /// let b = "x".chars();
-/// assert_count_ge!(&a, &b);
+/// assert_count_ge!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "x".chars();
 /// let b = "xx".chars();
-/// assert_count_ge!(&a, &b);
+/// assert_count_ge!(a, b);
 /// # });
-/// // assertion failed: `assert_count_ge!(&a, &b)`
+/// // assertion failed: `assert_count_ge!(a, b)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_ge.html
-/// //  a label: `&a`,
+/// //  a label: `a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",
-/// //  b label: `&b`,
+/// //  b label: `b`,
 /// //  b debug: `Chars(['x', 'x'])`,
 /// //  b.count(): `2`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
-/// #     "assertion failed: `assert_count_ge!(&a, &b)`\n",
+/// #     "assertion failed: `assert_count_ge!(a, b)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_ge.html\n",
-/// #     " a label: `&a`,\n",
+/// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",
-/// #     " b label: `&b`,\n",
+/// #     " b label: `b`,\n",
 /// #     " b debug: `Chars(['x', 'x'])`\n",
 /// #     " b.count(): `2`",
 /// # );
@@ -257,7 +257,7 @@ mod test_assert_count_ge {
         let a = "xx".chars();
         let b = "x".chars();
         for _ in 0..1 {
-            let actual = assert_count_ge!(&a, &b);
+            let actual = assert_count_ge!(a, b);
             assert_eq!(actual, (2, 1));
         }
     }
@@ -267,7 +267,7 @@ mod test_assert_count_ge {
         let a = "x".chars();
         let b = "x".chars();
         for _ in 0..1 {
-            let actual = assert_count_ge!(&a, &b);
+            let actual = assert_count_ge!(a, b);
             assert_eq!(actual, (1, 1));
         }
     }
@@ -277,15 +277,15 @@ mod test_assert_count_ge {
         let result = panic::catch_unwind(|| {
             let a = "x".chars();
             let b = "xx".chars();
-            let _actual = assert_count_ge!(&a, &b);
+            let _actual = assert_count_ge!(a, b);
         });
         let message = concat!(
-            "assertion failed: `assert_count_ge!(&a, &b)`\n",
+            "assertion failed: `assert_count_ge!(a, b)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_ge.html\n",
-            " a label: `&a`,\n",
+            " a label: `a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
-            " b label: `&b`,\n",
+            " b label: `b`,\n",
             " b debug: `Chars(['x', 'x'])`\n",
             " b.count(): `2`"
         );

@@ -12,7 +12,7 @@
 //! let program = "bin/printf-stderr";
 //! let args = ["%s", "alfa"];
 //! let matcher = Regex::new(r"lf").expect("regex");
-//! assert_program_args_stderr_string_is_match!(&program, &args, &matcher);
+//! assert_program_args_stderr_string_is_match!(program, args, matcher);
 //! ```
 //!
 //! # Module macros
@@ -42,7 +42,7 @@
 #[macro_export]
 macro_rules! assert_program_args_stderr_string_is_match_as_result {
     ($a_program:expr, $a_args:expr, $matcher:expr $(,)?) => {
-        match ($a_program, $a_args, $matcher) {
+        match (&$a_program, &$a_args, &$matcher) {
             (a_program, a_args, matcher) => {
                 match assert_program_args_impl_prep!(a_program, a_args) {
                     Ok(a_output) => {
@@ -118,7 +118,7 @@ mod test_assert_program_args_stderr_string_is_match_as_result {
         let b = Regex::new(r"lf").expect("regex");
         for _ in 0..1 {
             let actual =
-                assert_program_args_stderr_string_is_match_as_result!(&a_program, &a_args, &b);
+                assert_program_args_stderr_string_is_match_as_result!(a_program, a_args, b);
             assert_eq!(actual.unwrap(), "alfa");
         }
     }
@@ -170,15 +170,15 @@ mod test_assert_program_args_stderr_string_is_match_as_result {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b = Regex::new(r"zz").expect("regex");
-        let actual = assert_program_args_stderr_string_is_match_as_result!(&a_program, &a_args, &b);
+        let actual = assert_program_args_stderr_string_is_match_as_result!(a_program, a_args, b);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_string_is_match!(a_program, b_matcher)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_string_is_match.html\n",
-            " a_program label: `&a_program`,\n",
+            " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
-            "    a_args label: `&a_args`,\n",
+            "    a_args label: `a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_matcher label: `&b`,\n",
+            " b_matcher label: `b`,\n",
             " b_matcher debug: `Regex(\"zz\")`,\n",
             "               a: `\"alfa\"`,\n",
             "               b: `Regex(\"zz\")`"
@@ -208,22 +208,22 @@ mod test_assert_program_args_stderr_string_is_match_as_result {
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
 /// let matcher = Regex::new(r"lf").expect("regex");
-/// assert_program_args_stderr_string_is_match!(&program, &args, &matcher);
+/// assert_program_args_stderr_string_is_match!(program, args, matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
 /// let matcher = Regex::new(r"zz").expect("regex");
-/// assert_program_args_stderr_string_is_match!(&program, &args, &matcher);
+/// assert_program_args_stderr_string_is_match!(program, args, matcher);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_string_is_match!(a_program, b_matcher)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_string_is_match.html
-/// //  a_program label: `&program`,
+/// //  a_program label: `program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
-/// //     a_args label: `&args`,
+/// //     a_args label: `args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
-/// //  b_matcher label: `&matcher`,
+/// //  b_matcher label: `matcher`,
 /// //  b_matcher debug: `Regex(\"zz\")`,
 /// //                a: `\"alfa\"`,
 /// //                b: `Regex(\"zz\")`
@@ -231,11 +231,11 @@ mod test_assert_program_args_stderr_string_is_match_as_result {
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_string_is_match!(a_program, b_matcher)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_string_is_match.html\n",
-/// #     " a_program label: `&program`,\n",
+/// #     " a_program label: `program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
-/// #     "    a_args label: `&args`,\n",
+/// #     "    a_args label: `args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-/// #     " b_matcher label: `&matcher`,\n",
+/// #     " b_matcher label: `matcher`,\n",
 /// #     " b_matcher debug: `Regex(\"zz\")`,\n",
 /// #     "               a: `\"alfa\"`,\n",
 /// #     "               b: `Regex(\"zz\")`"
@@ -277,7 +277,7 @@ mod test_assert_program_args_stderr_string_is_match {
         let a_args = ["%s", "alfa"];
         let b = Regex::new(r"lf").expect("regex");
         for _ in 0..1 {
-            let actual = assert_program_args_stderr_string_is_match!(&a_program, &a_args, &b);
+            let actual = assert_program_args_stderr_string_is_match!(a_program, a_args, b);
             assert_eq!(actual, "alfa");
         }
     }
@@ -288,16 +288,16 @@ mod test_assert_program_args_stderr_string_is_match {
         let a_args = ["%s", "alfa"];
         let b = Regex::new(r"zz").expect("regex");
         let result = panic::catch_unwind(|| {
-            let _actual = assert_program_args_stderr_string_is_match!(&a_program, &a_args, &b);
+            let _actual = assert_program_args_stderr_string_is_match!(a_program, a_args, b);
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_string_is_match!(a_program, b_matcher)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_string_is_match.html\n",
-            " a_program label: `&a_program`,\n",
+            " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
-            "    a_args label: `&a_args`,\n",
+            "    a_args label: `a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_matcher label: `&b`,\n",
+            " b_matcher label: `b`,\n",
             " b_matcher debug: `Regex(\"zz\")`,\n",
             "               a: `\"alfa\"`,\n",
             "               b: `Regex(\"zz\")`"

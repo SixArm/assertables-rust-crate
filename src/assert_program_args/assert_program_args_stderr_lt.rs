@@ -12,7 +12,7 @@
 //! let a_args = ["%s", "alfa"];
 //! let b_program = "bin/printf-stderr";
 //! let b_args = ["%s", "zz"];
-//! assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
+//! assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args);
 //! ```
 //!
 //! /// # Module macros
@@ -42,7 +42,7 @@
 #[macro_export]
 macro_rules! assert_program_args_stderr_lt_as_result {
     ($a_program:expr, $a_args:expr, $b_program:expr, $b_args:expr $(,)?) => {
-        match ($a_program, $a_args, $b_program, $b_args) {
+        match (&$a_program, &$a_args, &$b_program, &$b_args) {
             (a_program, a_args, b_program, b_args) => {
                 match (
                     assert_program_args_impl_prep!(a_program, a_args),
@@ -131,7 +131,7 @@ mod test_assert_program_args_stderr_lt_as_result {
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "zz"];
         let actual =
-            assert_program_args_stderr_lt_as_result!(&a_program, &a_args, &b_program, &b_args);
+            assert_program_args_stderr_lt_as_result!(a_program, a_args, b_program, b_args);
         assert_eq!(
             actual.unwrap(),
             (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z'])
@@ -199,17 +199,17 @@ mod test_assert_program_args_stderr_lt_as_result {
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "alfa"];
         let actual =
-            assert_program_args_stderr_lt_as_result!(&a_program, &a_args, &b_program, &b_args);
+            assert_program_args_stderr_lt_as_result!(a_program, a_args, b_program, b_args);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_lt.html\n",
-            " a_program label: `&a_program`,\n",
+            " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
-            "    a_args label: `&a_args`,\n",
+            "    a_args label: `a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_program label: `&b_program`,\n",
+            " b_program label: `b_program`,\n",
             " b_program debug: `\"bin/printf-stderr\"`,\n",
-            "    b_args label: `&b_args`,\n",
+            "    b_args label: `b_args`,\n",
             "    b_args debug: `[\"%s\", \"alfa\"]`,\n",
             "               a: `[97, 108, 102, 97]`,\n",
             "               b: `[97, 108, 102, 97]`"
@@ -224,17 +224,17 @@ mod test_assert_program_args_stderr_lt_as_result {
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "aa"];
         let actual =
-            assert_program_args_stderr_lt_as_result!(&a_program, &a_args, &b_program, &b_args);
+            assert_program_args_stderr_lt_as_result!(a_program, a_args, b_program, b_args);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_lt.html\n",
-            " a_program label: `&a_program`,\n",
+            " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
-            "    a_args label: `&a_args`,\n",
+            "    a_args label: `a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_program label: `&b_program`,\n",
+            " b_program label: `b_program`,\n",
             " b_program debug: `\"bin/printf-stderr\"`,\n",
-            "    b_args label: `&b_args`,\n",
+            "    b_args label: `b_args`,\n",
             "    b_args debug: `[\"%s\", \"aa\"]`,\n",
             "               a: `[97, 108, 102, 97]`,\n",
             "               b: `[97, 97]`"
@@ -264,7 +264,7 @@ mod test_assert_program_args_stderr_lt_as_result {
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stderr";
 /// let b_args = ["%s", "zz"];
-/// assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
+/// assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
@@ -272,17 +272,17 @@ mod test_assert_program_args_stderr_lt_as_result {
 /// let a_args = ["%s", "alfa"];
 /// let b_program = "bin/printf-stderr";
 /// let b_args = ["%s", "aa"];
-/// assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
+/// assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_lt.html
-/// //  a_program label: `&a_program`,
+/// //  a_program label: `a_program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
-/// //     a_args label: `&a_args`,
+/// //     a_args label: `a_args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
-/// //  b_program label: `&b_program`,
+/// //  b_program label: `b_program`,
 /// //  b_program debug: `\"bin/printf-stderr\"`,
-/// //     b_args label: `&b_args`,
+/// //     b_args label: `b_args`,
 /// //     b_args debug: `[\"%s\", \"aa\"]`,
 /// //                a: `[97, 108, 102, 97]`,
 /// //                b: `[97, 97]`
@@ -290,13 +290,13 @@ mod test_assert_program_args_stderr_lt_as_result {
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_lt.html\n",
-/// #     " a_program label: `&a_program`,\n",
+/// #     " a_program label: `a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
-/// #     "    a_args label: `&a_args`,\n",
+/// #     "    a_args label: `a_args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-/// #     " b_program label: `&b_program`,\n",
+/// #     " b_program label: `b_program`,\n",
 /// #     " b_program debug: `\"bin/printf-stderr\"`,\n",
-/// #     "    b_args label: `&b_args`,\n",
+/// #     "    b_args label: `b_args`,\n",
 /// #     "    b_args debug: `[\"%s\", \"aa\"]`,\n",
 /// #     "               a: `[97, 108, 102, 97]`,\n",
 /// #     "               b: `[97, 97]`"
@@ -338,7 +338,7 @@ mod test_assert_program_args_stderr_lt {
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "zz"];
         for _ in 0..1 {
-            let actual = assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
+            let actual = assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args);
             assert_eq!(actual, (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z']));
         }
     }
@@ -350,18 +350,18 @@ mod test_assert_program_args_stderr_lt {
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "alfa"];
         let result = panic::catch_unwind(|| {
-            let _actual = assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
+            let _actual = assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args);
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_lt.html\n",
-            " a_program label: `&a_program`,\n",
+            " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
-            "    a_args label: `&a_args`,\n",
+            "    a_args label: `a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_program label: `&b_program`,\n",
+            " b_program label: `b_program`,\n",
             " b_program debug: `\"bin/printf-stderr\"`,\n",
-            "    b_args label: `&b_args`,\n",
+            "    b_args label: `b_args`,\n",
             "    b_args debug: `[\"%s\", \"alfa\"]`,\n",
             "               a: `[97, 108, 102, 97]`,\n",
             "               b: `[97, 108, 102, 97]`"
@@ -383,18 +383,18 @@ mod test_assert_program_args_stderr_lt {
         let b_program = "bin/printf-stderr";
         let b_args = ["%s", "aa"];
         let result = panic::catch_unwind(|| {
-            let _actual = assert_program_args_stderr_lt!(&a_program, &a_args, &b_program, &b_args);
+            let _actual = assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args);
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_lt.html\n",
-            " a_program label: `&a_program`,\n",
+            " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
-            "    a_args label: `&a_args`,\n",
+            "    a_args label: `a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " b_program label: `&b_program`,\n",
+            " b_program label: `b_program`,\n",
             " b_program debug: `\"bin/printf-stderr\"`,\n",
-            "    b_args label: `&b_args`,\n",
+            "    b_args label: `b_args`,\n",
             "    b_args debug: `[\"%s\", \"aa\"]`,\n",
             "               a: `[97, 108, 102, 97]`,\n",
             "               b: `[97, 97]`"

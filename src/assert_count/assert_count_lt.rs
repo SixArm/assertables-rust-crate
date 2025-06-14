@@ -10,7 +10,7 @@
 //!
 //! let a = "x".chars();
 //! let b = "xx".chars();
-//! assert_count_lt!(&a, &b);
+//! assert_count_lt!(a, b);
 //! ```
 //!
 //! # Module macros
@@ -40,7 +40,7 @@
 #[macro_export]
 macro_rules! assert_count_lt_as_result {
     ($a:expr, $b:expr $(,)?) => {
-        match ($a, $b) {
+        match (&$a, &$b) {
             (a, b) => {
                 let a_count = a.clone().count();
                 let b_count = b.clone().count();
@@ -50,7 +50,7 @@ macro_rules! assert_count_lt_as_result {
                     Err(
                         format!(
                             concat!(
-                                "assertion failed: `assert_count_lt!(&a, &b)`\n",
+                                "assertion failed: `assert_count_lt!(a, b)`\n",
                                 "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_lt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
@@ -82,7 +82,7 @@ mod test_assert_count_lt_as_result {
         let a = "x".chars();
         let b = "xx".chars();
         for _ in 0..1 {
-            let actual = assert_count_lt_as_result!(&a, &b);
+            let actual = assert_count_lt_as_result!(a, b);
             assert_eq!(actual.unwrap(), (1, 2));
         }
     }
@@ -121,14 +121,14 @@ mod test_assert_count_lt_as_result {
     fn eq() {
         let a = "x".chars();
         let b = "x".chars();
-        let actual = assert_count_lt_as_result!(&a, &b);
+        let actual = assert_count_lt_as_result!(a, b);
         let message = concat!(
-            "assertion failed: `assert_count_lt!(&a, &b)`\n",
+            "assertion failed: `assert_count_lt!(a, b)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_lt.html\n",
-            " a label: `&a`,\n",
+            " a label: `a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
-            " b label: `&b`,\n",
+            " b label: `b`,\n",
             " b debug: `Chars(['x'])`\n",
             " b.count(): `1`"
         );
@@ -139,14 +139,14 @@ mod test_assert_count_lt_as_result {
     fn gt() {
         let a = "xx".chars();
         let b = "x".chars();
-        let actual = assert_count_lt_as_result!(&a, &b);
+        let actual = assert_count_lt_as_result!(a, b);
         let message = concat!(
-            "assertion failed: `assert_count_lt!(&a, &b)`\n",
+            "assertion failed: `assert_count_lt!(a, b)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_lt.html\n",
-            " a label: `&a`,\n",
+            " a label: `a`,\n",
             " a debug: `Chars(['x', 'x'])`,\n",
             " a.count(): `2`,\n",
-            " b label: `&b`,\n",
+            " b label: `b`,\n",
             " b debug: `Chars(['x'])`\n",
             " b.count(): `1`"
         );
@@ -173,30 +173,30 @@ mod test_assert_count_lt_as_result {
 /// # fn main() {
 /// let a = "x".chars();
 /// let b = "xx".chars();
-/// assert_count_lt!(&a, &b);
+/// assert_count_lt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "xx".chars();
 /// let b = "x".chars();
-/// assert_count_lt!(&a, &b);
+/// assert_count_lt!(a, b);
 /// # });
-/// // assertion failed: `assert_count_lt!(&a, &b)`
+/// // assertion failed: `assert_count_lt!(a, b)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_lt.html
-/// //  a label: `&a`,
+/// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",
-/// //  b label: `&b`,
+/// //  b label: `b`,
 /// //  b debug: `Chars(['x'])`,
 /// //  b.count(): `1`"
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
-/// #     "assertion failed: `assert_count_lt!(&a, &b)`\n",
+/// #     "assertion failed: `assert_count_lt!(a, b)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_lt.html\n",
-/// #     " a label: `&a`,\n",
+/// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x', 'x'])`,\n",
 /// #     " a.count(): `2`,\n",
-/// #     " b label: `&b`,\n",
+/// #     " b label: `b`,\n",
 /// #     " b debug: `Chars(['x'])`\n",
 /// #     " b.count(): `1`",
 /// # );
@@ -235,7 +235,7 @@ mod test_assert_count_lt {
         let a = "x".chars();
         let b = "xx".chars();
         for _ in 0..1 {
-            let actual = assert_count_lt!(&a, &b);
+            let actual = assert_count_lt!(a, b);
             assert_eq!(actual, (1, 2));
         }
     }
@@ -245,15 +245,15 @@ mod test_assert_count_lt {
         let result = panic::catch_unwind(|| {
             let a = "x".chars();
             let b = "x".chars();
-            let _actual = assert_count_lt!(&a, &b);
+            let _actual = assert_count_lt!(a, b);
         });
         let message = concat!(
-            "assertion failed: `assert_count_lt!(&a, &b)`\n",
+            "assertion failed: `assert_count_lt!(a, b)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_lt.html\n",
-            " a label: `&a`,\n",
+            " a label: `a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
-            " b label: `&b`,\n",
+            " b label: `b`,\n",
             " b debug: `Chars(['x'])`\n",
             " b.count(): `1`"
         );
@@ -272,15 +272,15 @@ mod test_assert_count_lt {
         let result = panic::catch_unwind(|| {
             let a = "xx".chars();
             let b = "x".chars();
-            let _actual = assert_count_lt!(&a, &b);
+            let _actual = assert_count_lt!(a, b);
         });
         let message = concat!(
-            "assertion failed: `assert_count_lt!(&a, &b)`\n",
+            "assertion failed: `assert_count_lt!(a, b)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_count_lt.html\n",
-            " a label: `&a`,\n",
+            " a label: `a`,\n",
             " a debug: `Chars(['x', 'x'])`,\n",
             " a.count(): `2`,\n",
-            " b label: `&b`,\n",
+            " b label: `b`,\n",
             " b debug: `Chars(['x'])`\n",
             " b.count(): `1`"
         );

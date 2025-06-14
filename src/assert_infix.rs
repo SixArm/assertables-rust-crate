@@ -113,7 +113,7 @@ macro_rules! assert_infix_as_result {
 
 #[cfg(test)]
 mod test_assert_infix_as_result {
-    use std::sync::Once;
+    // use std::sync::Once;
 
     #[test]
     fn success() {

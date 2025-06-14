@@ -39,10 +39,10 @@
 #[macro_export]
 macro_rules! assert_not_email_address_as_result {
     ($a:expr $(,)?) => {
-        match ($a) {
+        match (&$a) {
             a => {
                 if !a.contains("@") {
-                    Ok(a)
+                    Ok(())
                 }
                 else {
                     let parts = a.split("@").collect::<Vec<&str>>();
@@ -52,7 +52,7 @@ macro_rules! assert_not_email_address_as_result {
                             let local_part_len = local_part.len();
                             let domain_part_len = domain_part.len();
                             if local_part_len < 1 || local_part_len > 64 || domain_part_len < 1 || domain_part_len > 255 {
-                                Ok(a)
+                                Ok(())
                             }
                             else {
                                 Err(
@@ -77,7 +77,7 @@ macro_rules! assert_not_email_address_as_result {
                             }
                         },
                         _ => {
-                            Ok(a)
+                            Ok(())
                         }
                     }
                 }
@@ -95,7 +95,7 @@ mod test_assert_not_email_address_as_result {
         let a = "hello*example.com";
         for _ in 0..1 {
             let actual = assert_not_email_address_as_result!(a);
-            assert_eq!(actual.unwrap(), a);
+            assert_eq!(actual.unwrap(), ());
         }
     }
 
@@ -122,7 +122,7 @@ mod test_assert_not_email_address_as_result {
         let a = "@example.com";
         for _ in 0..1 {
             let actual = assert_not_email_address_as_result!(a);
-            assert_eq!(actual.unwrap(), a);
+            assert_eq!(actual.unwrap(), ());
         }
     }
 
@@ -149,7 +149,7 @@ mod test_assert_not_email_address_as_result {
         let a = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@example.com";
         for _ in 0..1 {
             let actual = assert_not_email_address_as_result!(a);
-            assert_eq!(actual.unwrap(), a);
+            assert_eq!(actual.unwrap(), ());
         }
     }
 
@@ -176,7 +176,7 @@ mod test_assert_not_email_address_as_result {
         let a = "hello@";
         for _ in 0..1 {
             let actual = assert_not_email_address_as_result!(a);
-            assert_eq!(actual.unwrap(), a);
+            assert_eq!(actual.unwrap(), ());
         }
     }
 
@@ -203,7 +203,7 @@ mod test_assert_not_email_address_as_result {
         let a = "hello@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
         for _ in 0..1 {
             let actual = assert_not_email_address_as_result!(a);
-            assert_eq!(actual.unwrap(), a);
+            assert_eq!(actual.unwrap(), ());
         }
     }
 
@@ -319,7 +319,7 @@ mod test_assert_not_email_address {
         let a = "hello*example.com";
         for _ in 0..1 {
             let actual = assert_not_email_address!(a);
-            assert_eq!(actual, a);
+            assert_eq!(actual, ());
         }
     }
 
@@ -328,7 +328,7 @@ mod test_assert_not_email_address {
         let a = "@example.com";
         for _ in 0..1 {
             let actual = assert_not_email_address!(a);
-            assert_eq!(actual, a);
+            assert_eq!(actual, ());
         }
     }
 
@@ -337,7 +337,7 @@ mod test_assert_not_email_address {
         let a = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@example.com";
         for _ in 0..1 {
             let actual = assert_not_email_address!(a);
-            assert_eq!(actual, a);
+            assert_eq!(actual, ());
         }
     }
 
@@ -346,7 +346,7 @@ mod test_assert_not_email_address {
         let a = "hello@";
         for _ in 0..1 {
             let actual = assert_not_email_address!(a);
-            assert_eq!(actual, a);
+            assert_eq!(actual, ());
         }
     }
 
@@ -355,7 +355,7 @@ mod test_assert_not_email_address {
         let a = "hello@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
         for _ in 0..1 {
             let actual = assert_not_email_address!(a);
-            assert_eq!(actual, a);
+            assert_eq!(actual, ());
         }
     }
 

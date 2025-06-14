@@ -9,9 +9,9 @@
 //! use assertables::*;
 //! use std::io::Read;
 //!
-//! let mut reader = "alfa".as_bytes();
-//! let value = String::from("zz");
-//! assert_io_read_to_string_le_x!(reader, &value);
+//! let reader = "alfa".as_bytes();
+//! let x = String::from("zz");
+//! assert_io_read_to_string_le_x!(reader, x);
 //! ```
 //!
 //! # Module macros
@@ -41,13 +41,11 @@
 #[macro_export]
 macro_rules! assert_io_read_to_string_le_x_as_result {
     ($a_reader:expr, $b_expr:expr $(,)?) => {
-        match (/*&$reader,*/ $b_expr) {
+        match (&$b_expr) {
             b_expr => {
-                let mut a_string = String::new();
-                match ($a_reader.read_to_string(&mut a_string)) {
-                    Ok(_a_size) => {
-                        let b_string = String::from(b_expr);
-                        if (a_string <= b_string) {
+                match (std::io::read_to_string($a_reader)) {
+                    Ok(a_string) => {
+                        if (a_string <= *b_expr) {
                             Ok(a_string)
                         } else {
                             Err(
@@ -67,7 +65,7 @@ macro_rules! assert_io_read_to_string_le_x_as_result {
                                     stringify!($b_expr),
                                     b_expr,
                                     a_string,
-                                    b_string
+                                    b_expr
                                 )
                             )
                         }
@@ -106,10 +104,10 @@ mod test_assert_io_read_to_string_le_x_as_result {
 
     #[test]
     fn lt() {
-        let mut reader = "alfa".as_bytes();
-        let value = String::from("zz");
+        let reader = "alfa".as_bytes();
+        let x = String::from("zz");
         for _ in 0..1 {
-            let actual = assert_io_read_to_string_le_x_as_result!(reader, &value);
+            let actual = assert_io_read_to_string_le_x_as_result!(reader, x);
             assert_eq!(actual.unwrap(), String::from("alfa"));
         }
     }
@@ -127,13 +125,13 @@ mod test_assert_io_read_to_string_le_x_as_result {
         }
 
         static B: Once = Once::new();
-        fn b() -> &'static str {
+        fn b() -> String {
             if B.is_completed() {
                 panic!("B.is_completed()")
             } else {
                 B.call_once(|| {})
             }
-            "zz"
+            String::from("zz")
         }
 
         assert_eq!(A.is_completed(), false);
@@ -146,10 +144,10 @@ mod test_assert_io_read_to_string_le_x_as_result {
 
     #[test]
     fn eq() {
-        let mut reader = "alfa".as_bytes();
-        let value = String::from("alfa");
+        let reader = "alfa".as_bytes();
+        let x = String::from("alfa");
         for _ in 0..1 {
-            let actual = assert_io_read_to_string_le_x_as_result!(reader, &value);
+            let actual = assert_io_read_to_string_le_x_as_result!(reader, x);
             assert_eq!(actual.unwrap(), String::from("alfa"));
         }
     }
@@ -167,13 +165,13 @@ mod test_assert_io_read_to_string_le_x_as_result {
         }
 
         static B: Once = Once::new();
-        fn b() -> &'static str {
+        fn b() -> String {
             if B.is_completed() {
                 panic!("B.is_completed()")
             } else {
                 B.call_once(|| {})
             }
-            "alfa"
+            String::from("alfa")
         }
 
         assert_eq!(A.is_completed(), false);
@@ -186,15 +184,15 @@ mod test_assert_io_read_to_string_le_x_as_result {
 
     #[test]
     fn gt() {
-        let mut reader = "alfa".as_bytes();
-        let value = String::from("aa");
-        let actual = assert_io_read_to_string_le_x_as_result!(reader, &value);
+        let reader = "alfa".as_bytes();
+        let x = String::from("aa");
+        let actual = assert_io_read_to_string_le_x_as_result!(reader, x);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_le_x!(a_reader, b_expr)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_le_x.html\n",
             " a_reader label: `reader`,\n",
-            " a_reader debug: `[]`,\n",
-            "   b_expr label: `&value`,\n",
+            " a_reader debug: `[97, 108, 102, 97]`,\n",
+            "   b_expr label: `x`,\n",
             "   b_expr debug: `\"aa\"`,\n",
             "              a: `\"alfa\"`,\n",
             "              b: `\"aa\"`"
@@ -221,21 +219,21 @@ mod test_assert_io_read_to_string_le_x_as_result {
 /// use std::io::Read;
 ///
 /// # fn main() {
-/// let mut reader = "alfa".as_bytes();
-/// let value = String::from("zz");
-/// assert_io_read_to_string_le_x!(reader, &value);
+/// let reader = "alfa".as_bytes();
+/// let x = String::from("zz");
+/// assert_io_read_to_string_le_x!(reader, x);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let mut reader = "alfa".as_bytes();
-/// let value = String::from("aa");
-/// assert_io_read_to_string_le_x!(reader, &value);
+/// let reader = "alfa".as_bytes();
+/// let x = String::from("aa");
+/// assert_io_read_to_string_le_x!(reader, x);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_le_x!(a_reader, b_expr)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_le_x.html
 /// //  a_reader label: `reader`,
-/// //  a_reader debug: `[]`,
-/// //    b_expr label: `&value`,
+/// //  a_reader debug: `[97, 108, 102, 97]`,
+/// //    b_expr label: `x`,
 /// //    b_expr debug: `\"aa\"`,
 /// //               a: `\"alfa\"`,
 /// //               b: `\"aa\"`
@@ -244,8 +242,8 @@ mod test_assert_io_read_to_string_le_x_as_result {
 /// #     "assertion failed: `assert_io_read_to_string_le_x!(a_reader, b_expr)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_le_x.html\n",
 /// #     " a_reader label: `reader`,\n",
-/// #     " a_reader debug: `[]`,\n",
-/// #     "   b_expr label: `&value`,\n",
+/// #     " a_reader debug: `[97, 108, 102, 97]`,\n",
+/// #     "   b_expr label: `x`,\n",
 /// #     "   b_expr debug: `\"aa\"`,\n",
 /// #     "              a: `\"alfa\"`,\n",
 /// #     "              b: `\"aa\"`"
@@ -279,25 +277,24 @@ macro_rules! assert_io_read_to_string_le_x {
 #[cfg(test)]
 mod test_assert_io_read_to_string_le_x {
     #[allow(unused_imports)]
-    use std::io::Read;
     use std::panic;
 
     #[test]
     fn lt() {
-        let mut reader = "alfa".as_bytes();
-        let value = String::from("zz");
+        let reader = "alfa".as_bytes();
+        let x = String::from("zz");
         for _ in 0..1 {
-            let actual = assert_io_read_to_string_le_x!(reader, &value);
+            let actual = assert_io_read_to_string_le_x!(reader, x);
             assert_eq!(actual, String::from("alfa"));
         }
     }
 
     #[test]
     fn eq() {
-        let mut reader = "alfa".as_bytes();
-        let value = String::from("alfa");
+        let reader = "alfa".as_bytes();
+        let x = String::from("alfa");
         for _ in 0..1 {
-            let actual = assert_io_read_to_string_le_x!(reader, &value);
+            let actual = assert_io_read_to_string_le_x!(reader, x);
             assert_eq!(actual, String::from("alfa"));
         }
     }
@@ -305,16 +302,16 @@ mod test_assert_io_read_to_string_le_x {
     #[test]
     fn gt() {
         let result = panic::catch_unwind(|| {
-            let mut reader = "alfa".as_bytes();
-            let value = String::from("aa");
-            let _actual = assert_io_read_to_string_le_x!(reader, &value);
+            let reader = "alfa".as_bytes();
+            let x = String::from("aa");
+            let _actual = assert_io_read_to_string_le_x!(reader, x);
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_le_x!(a_reader, b_expr)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_le_x.html\n",
             " a_reader label: `reader`,\n",
-            " a_reader debug: `[]`,\n",
-            "   b_expr label: `&value`,\n",
+            " a_reader debug: `[97, 108, 102, 97]`,\n",
+            "   b_expr label: `x`,\n",
             "   b_expr debug: `\"aa\"`,\n",
             "              a: `\"alfa\"`,\n",
             "              b: `\"aa\"`"

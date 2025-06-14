@@ -79,7 +79,7 @@
 //! let i = 1;
 //! assert_lt!(i, 5);
 //! assert_diff_eq_x!(i, 5, 4);
-//! assert_in_range!(&i, &(1..5));
+//! assert_in_range!(i, 1..5);
 //! ```
 //!
 //! Examples with strings:

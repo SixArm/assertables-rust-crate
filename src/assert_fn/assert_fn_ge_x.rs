@@ -112,7 +112,7 @@ macro_rules! assert_fn_ge_x_as_result {
 
 #[cfg(test)]
 mod test_assert_fn_ge_x_as_result {
-    use std::sync::Once;
+    // use std::sync::Once;
 
     mod arity_1 {
 

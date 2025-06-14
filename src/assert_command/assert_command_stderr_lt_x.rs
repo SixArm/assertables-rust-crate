@@ -12,7 +12,7 @@
 //! let mut command = Command::new("bin/printf-stderr");
 //! command.args(["%s", "alfa"]);
 //! let bytes = vec![b'z', b'z'];
-//! assert_command_stderr_lt_x!(command, &bytes);
+//! assert_command_stderr_lt_x!(command, bytes);
 //! ```
 //!
 //! # Module macros
@@ -42,7 +42,7 @@
 #[macro_export]
 macro_rules! assert_command_stderr_lt_x_as_result {
     ($a_command:expr, $b_expr:expr $(,)?) => {
-        match ($a_command.output(), $b_expr) {
+        match ($a_command.output(), &$b_expr) {
             (Ok(a_output), b_expr) => {
                 let a = a_output.stderr;
                 if a.lt(b_expr) {
@@ -107,7 +107,7 @@ mod test_assert_command_stderr_lt_x_as_result {
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];
         for _ in 0..1 {
-            let actual = assert_command_stderr_lt_x_as_result!(a, &b);
+            let actual = assert_command_stderr_lt_x_as_result!(a, b);
             assert_eq!(actual.unwrap(), vec![b'a', b'l', b'f', b'a']);
         }
     }
@@ -138,7 +138,7 @@ mod test_assert_command_stderr_lt_x_as_result {
 
         assert_eq!(A.is_completed(), false);
         assert_eq!(B.is_completed(), false);
-        let result = assert_command_stderr_lt_x_as_result!(a(), &b());
+        let result = assert_command_stderr_lt_x_as_result!(a(), b());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
@@ -149,14 +149,14 @@ mod test_assert_command_stderr_lt_x_as_result {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'l', b'f', b'a'];
-        let actual = assert_command_stderr_lt_x_as_result!(a, &b);
+        let actual = assert_command_stderr_lt_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_lt_x!(command, expr)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_lt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
-            "    expr label: `&b`,\n",
+            "    expr label: `b`,\n",
             "    expr debug: `[97, 108, 102, 97]`,\n",
             "    expr value: `[97, 108, 102, 97]`"
         );
@@ -168,14 +168,14 @@ mod test_assert_command_stderr_lt_x_as_result {
         let mut a = Command::new("bin/printf-stderr");
         a.args(["%s", "alfa"]);
         let b = vec![b'a', b'a'];
-        let actual = assert_command_stderr_lt_x_as_result!(a, &b);
+        let actual = assert_command_stderr_lt_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_lt_x!(command, expr)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_lt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
-            "    expr label: `&b`,\n",
+            "    expr label: `b`,\n",
             "    expr debug: `[97, 97]`,\n",
             "    expr value: `[97, 97]`"
         );
@@ -204,21 +204,21 @@ mod test_assert_command_stderr_lt_x_as_result {
 /// let mut command = Command::new("bin/printf-stderr");
 /// command.args(["%s", "alfa"]);
 /// let bytes = vec![b'z', b'z'];
-/// assert_command_stderr_lt_x!(command, &bytes);
+/// assert_command_stderr_lt_x!(command, bytes);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let mut command = Command::new("bin/printf-stderr");
 /// command.args(["%s", "alfa"]);
 /// let bytes = vec![b'a', b'a'];
-/// assert_command_stderr_lt_x!(command, &bytes);
+/// assert_command_stderr_lt_x!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stderr_lt_x!(command, expr)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_command_stderr_lt_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  command value: `[97, 108, 102, 97]`,
-/// //     expr label: `&bytes`,
+/// //     expr label: `bytes`,
 /// //     expr debug: `[97, 97]`,
 /// //     expr value: `[97, 97]`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -228,7 +228,7 @@ mod test_assert_command_stderr_lt_x_as_result {
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " command value: `[97, 108, 102, 97]`,\n",
-/// #     "    expr label: `&bytes`,\n",
+/// #     "    expr label: `bytes`,\n",
 /// #     "    expr debug: `[97, 97]`,\n",
 /// #     "    expr value: `[97, 97]`"
 /// # );
@@ -269,7 +269,7 @@ mod test_assert_command_stderr_lt_x {
         a.args(["%s", "alfa"]);
         let b = vec![b'z', b'z'];
         for _ in 0..1 {
-            let actual = assert_command_stderr_lt_x!(a, &b);
+            let actual = assert_command_stderr_lt_x!(a, b);
             assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
         }
     }
@@ -280,7 +280,7 @@ mod test_assert_command_stderr_lt_x {
             let mut a = Command::new("bin/printf-stderr");
             a.args(["%s", "alfa"]);
             let b = vec![b'a', b'l', b'f', b'a'];
-            let _actual = assert_command_stderr_lt_x!(a, &b);
+            let _actual = assert_command_stderr_lt_x!(a, b);
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_lt_x!(command, expr)`\n",
@@ -288,7 +288,7 @@ mod test_assert_command_stderr_lt_x {
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
-            "    expr label: `&b`,\n",
+            "    expr label: `b`,\n",
             "    expr debug: `[97, 108, 102, 97]`,\n",
             "    expr value: `[97, 108, 102, 97]`"
         );
@@ -308,7 +308,7 @@ mod test_assert_command_stderr_lt_x {
             let mut a = Command::new("bin/printf-stderr");
             a.args(["%s", "alfa"]);
             let b = vec![b'a', b'a'];
-            let _actual = assert_command_stderr_lt_x!(a, &b);
+            let _actual = assert_command_stderr_lt_x!(a, b);
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_lt_x!(command, expr)`\n",
@@ -316,7 +316,7 @@ mod test_assert_command_stderr_lt_x {
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
-            "    expr label: `&b`,\n",
+            "    expr label: `b`,\n",
             "    expr debug: `[97, 97]`,\n",
             "    expr value: `[97, 97]`"
         );

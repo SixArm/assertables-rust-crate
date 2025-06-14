@@ -169,7 +169,7 @@ mod test_assert_lt_as_result {
                 } else {
                     A.call_once(|| {})
                 }
-                String::from("                ")
+                String::from("1")
             }
 
             static B: Once = Once::new();
@@ -179,7 +179,7 @@ mod test_assert_lt_as_result {
                 } else {
                     B.call_once(|| {})
                 }
-                String::from("                ")
+                String::from("2")
             }
 
             assert_eq!(A.is_completed(), false);

@@ -21,12 +21,12 @@
 //! // Range contains value
 //! let a = 1..3;
 //! let b = 2;
-//! assert_contains!(a, &b);
+//! assert_contains!(a, b);
 //!
 //! // Vector contains element
 //! let a = vec![1, 2, 3];
 //! let b = 2;
-//! assert_contains!(a, &b);
+//! assert_contains!(a, b);
 //! ```
 
 pub mod assert_contains;

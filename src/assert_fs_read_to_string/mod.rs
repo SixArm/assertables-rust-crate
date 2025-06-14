@@ -33,9 +33,9 @@
 //! use assertables::*;
 //! use std::io::Read;
 //!
-//! let a ="alfa.txt";
+//! let a = "alfa.txt";
 //! let b = "alfa.txt";
-//! assert_fs_read_to_string_eq!(&a, &b);
+//! assert_fs_read_to_string_eq!(a, b);
 //! ```
 //!
 //! ## Tutorial

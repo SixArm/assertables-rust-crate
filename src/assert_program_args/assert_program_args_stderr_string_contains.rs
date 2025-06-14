@@ -16,7 +16,7 @@
 //! let program = "bin/printf-stderr";
 //! let args = ["%s", "alfa"];
 //! let containee = "lf";
-//! assert_program_args_stderr_string_contains!(&program, &args, &containee);
+//! assert_program_args_stderr_string_contains!(program, args, containee);
 //! ```
 //!
 //! # Module macros
@@ -46,12 +46,12 @@
 #[macro_export]
 macro_rules! assert_program_args_stderr_string_contains_as_result {
     ($a_program:expr, $a_args:expr, $containee:expr $(,)?) => {
-        match ($a_program, $a_args, $containee) {
+        match (&$a_program, &$a_args, &$containee) {
             (a_program, a_args, containee) => {
                 match assert_program_args_impl_prep!(a_program, a_args) {
                     Ok(a_output) => {
                         let a_string = String::from_utf8(a_output.stderr).unwrap();
-                        if a_string.contains(containee) {
+                        if a_string.contains(*containee) {
                             Ok(a_string)
                         } else {
                             Err(
@@ -121,7 +121,7 @@ mod test_assert_program_args_stderr_string_contains_as_result {
         let b = "lf";
         for _ in 0..1 {
             let actual =
-                assert_program_args_stderr_string_contains_as_result!(&a_program, &a_args, &b);
+                assert_program_args_stderr_string_contains_as_result!(a_program, a_args, b);
             assert_eq!(actual.unwrap(), "alfa");
         }
     }
@@ -173,15 +173,15 @@ mod test_assert_program_args_stderr_string_contains_as_result {
         let a_program = "bin/printf-stderr";
         let a_args = ["%s", "alfa"];
         let b = "zz";
-        let actual = assert_program_args_stderr_string_contains_as_result!(&a_program, &a_args, &b);
+        let actual = assert_program_args_stderr_string_contains_as_result!(a_program, a_args, b);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_string_contains.html\n",
-            " a_program label: `&a_program`,\n",
+            " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
-            "    a_args label: `&a_args`,\n",
+            "    a_args label: `a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " containee label: `&b`,\n",
+            " containee label: `b`,\n",
             " containee debug: `\"zz\"`,\n",
             "               a: `\"alfa\"`,\n",
             "       containee: `\"zz\"`"
@@ -215,22 +215,22 @@ mod test_assert_program_args_stderr_string_contains_as_result {
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
 /// let containee = "lf";
-/// assert_program_args_stderr_string_contains!(&program, &args, &containee);
+/// assert_program_args_stderr_string_contains!(program, args, containee);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let program = "bin/printf-stderr";
 /// let args = ["%s", "alfa"];
 /// let containee = "zz";
-/// assert_program_args_stderr_string_contains!(&program, &args, &containee);
+/// assert_program_args_stderr_string_contains!(program, args, containee);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_string_contains.html
-/// //  a_program label: `&program`,
+/// //  a_program label: `program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
-/// //     a_args label: `&args`,
+/// //     a_args label: `args`,
 /// //     a_args debug: `[\"%s\", \"alfa\"]`,
-/// //  containee label: `&containee`,
+/// //  containee label: `containee`,
 /// //  containee debug: `\"zz\"`,
 /// //                a: `\"alfa\"`,
 /// //        containee: `\"zz\"`
@@ -238,11 +238,11 @@ mod test_assert_program_args_stderr_string_contains_as_result {
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_string_contains.html\n",
-/// #     " a_program label: `&program`,\n",
+/// #     " a_program label: `program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
-/// #     "    a_args label: `&args`,\n",
+/// #     "    a_args label: `args`,\n",
 /// #     "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-/// #     " containee label: `&containee`,\n",
+/// #     " containee label: `containee`,\n",
 /// #     " containee debug: `\"zz\"`,\n",
 /// #     "               a: `\"alfa\"`,\n",
 /// #     "       containee: `\"zz\"`"
@@ -283,7 +283,7 @@ mod test_assert_program_args_stderr_string_contains {
         let a_args = ["%s", "alfa"];
         let b = "lf";
         for _ in 0..1 {
-            let actual = assert_program_args_stderr_string_contains!(&a_program, &a_args, &b);
+            let actual = assert_program_args_stderr_string_contains!(a_program, a_args, b);
             assert_eq!(actual, "alfa");
         }
     }
@@ -294,16 +294,16 @@ mod test_assert_program_args_stderr_string_contains {
         let a_args = ["%s", "alfa"];
         let b = "zz";
         let result = panic::catch_unwind(|| {
-            let _actual = assert_program_args_stderr_string_contains!(&a_program, &a_args, &b);
+            let _actual = assert_program_args_stderr_string_contains!(a_program, a_args, b);
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_program_args_stderr_string_contains.html\n",
-            " a_program label: `&a_program`,\n",
+            " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
-            "    a_args label: `&a_args`,\n",
+            "    a_args label: `a_args`,\n",
             "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-            " containee label: `&b`,\n",
+            " containee label: `b`,\n",
             " containee debug: `\"zz\"`,\n",
             "               a: `\"alfa\"`,\n",
             "       containee: `\"zz\"`"

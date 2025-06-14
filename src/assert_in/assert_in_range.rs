@@ -10,7 +10,7 @@
 //!
 //! let a = 1;
 //! let b = 0..2;
-//! assert_in_range!(&a, &b);
+//! assert_in_range!(a, b);
 //! ```
 //!
 //! # Module macros
@@ -40,7 +40,7 @@
 #[macro_export]
 macro_rules! assert_in_range_as_result {
     ($a:expr, $range:expr $(,)?) => {
-        match ($a, $range) {
+        match (&$a, &$range) {
             (a, range) => {
                 if range.contains(a) {
                     Ok(())
@@ -74,7 +74,7 @@ mod test_assert_in_range_as_result {
         let a: i8 = 1;
         let b: std::ops::Range<i8> = 0..2;
         for _ in 0..1 {
-            let actual = assert_in_range_as_result!(&a, &b);
+            let actual = assert_in_range_as_result!(a, b);
             assert_eq!(actual.unwrap(), ());
         }
     }
@@ -103,7 +103,7 @@ mod test_assert_in_range_as_result {
 
         assert_eq!(A.is_completed(), false);
         assert_eq!(B.is_completed(), false);
-        let result = assert_in_range_as_result!(&a(), &b());
+        let result = assert_in_range_as_result!(a(), b());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
@@ -114,7 +114,7 @@ mod test_assert_in_range_as_result {
         let a: i8 = 1;
         let b: std::ops::RangeInclusive<i8> = 0..=2;
         for _ in 0..1 {
-            let actual = assert_in_range_as_result!(&a, &b);
+            let actual = assert_in_range_as_result!(a, b);
             assert_eq!(actual.unwrap(), ());
         }
     }
@@ -143,7 +143,7 @@ mod test_assert_in_range_as_result {
 
         assert_eq!(A.is_completed(), false);
         assert_eq!(B.is_completed(), false);
-        let result = assert_in_range_as_result!(&a(), &b());
+        let result = assert_in_range_as_result!(a(), b());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
@@ -153,13 +153,13 @@ mod test_assert_in_range_as_result {
     fn failure() {
         let a: i8 = 1;
         let b: std::ops::Range<i8> = 2..4;
-        let actual = assert_in_range_as_result!(&a, &b);
+        let actual = assert_in_range_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_in_range!(a, range)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_in_range.html\n",
-            "     a label: `&a`,\n",
+            "     a label: `a`,\n",
             "     a debug: `1`,\n",
-            " range label: `&b`,\n",
+            " range label: `b`,\n",
             " range debug: `2..4`"
         );
         assert_eq!(actual.unwrap_err(), message);
@@ -185,27 +185,27 @@ mod test_assert_in_range_as_result {
 /// # fn main() {
 /// let a = 1;
 /// let b = 0..2;
-/// assert_in_range!(&a, &b);
+/// assert_in_range!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = 1;
 /// let b = 2..4;
-/// assert_in_range!(&a, &b);
+/// assert_in_range!(a, b);
 /// # });
 /// // assertion failed: `assert_in_range!(a, range)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_in_range.html
-/// //  a label: `&a`,
+/// //  a label: `a`,
 /// //  a debug: `1`,
-/// //  range label: `&b`,
+/// //  range label: `b`,
 /// //  range debug: `2..4`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_in_range!(a, range)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_in_range.html\n",
-/// #     "     a label: `&a`,\n",
+/// #     "     a label: `a`,\n",
 /// #     "     a debug: `1`,\n",
-/// #     " range label: `&b`,\n",
+/// #     " range label: `b`,\n",
 /// #     " range debug: `2..4`"
 /// # );
 /// # assert_eq!(actual, message);
@@ -243,7 +243,7 @@ mod test_assert_in_range {
         let a = 1;
         let b = 0..2;
         for _ in 0..1 {
-            let actual = assert_in_range!(&a, &b);
+            let actual = assert_in_range!(a, b);
             assert_eq!(actual, ());
         }
     }
@@ -253,7 +253,7 @@ mod test_assert_in_range {
         let a = 1;
         let b = 0..=2;
         for _ in 0..1 {
-            let actual = assert_in_range!(&a, &b);
+            let actual = assert_in_range!(a, b);
             assert_eq!(actual, ());
         }
     }
@@ -263,14 +263,14 @@ mod test_assert_in_range {
         let a = 1;
         let b = 2..4;
         let result = panic::catch_unwind(|| {
-            let _actual = assert_in_range!(&a, &b);
+            let _actual = assert_in_range!(a, b);
         });
         let message = concat!(
             "assertion failed: `assert_in_range!(a, range)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_in_range.html\n",
-            "     a label: `&a`,\n",
+            "     a label: `a`,\n",
             "     a debug: `1`,\n",
-            " range label: `&b`,\n",
+            " range label: `b`,\n",
             " range debug: `2..4`",
         );
         assert_eq!(

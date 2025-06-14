@@ -14,7 +14,7 @@ use assertables::*;
 fn validate_email_address() {
     fn validate_email_address(s: &str) -> Result<(), String> {
         assert_contains_as_result!(s, "@")?;
-        assert_contains_as_result!(3..255, &s.len())?;
+        assert_contains_as_result!(3..255, s.len())?;
         Ok(())
     }
 

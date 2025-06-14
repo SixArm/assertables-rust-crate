@@ -95,7 +95,7 @@ macro_rules! assert_ready_ne_as_result {
 
 #[cfg(test)]
 mod test_assert_ready_ne_as_result {
-    use std::sync::Once;
+    // use std::sync::Once;
     use std::task::Poll;
     use std::task::Poll::*;
 

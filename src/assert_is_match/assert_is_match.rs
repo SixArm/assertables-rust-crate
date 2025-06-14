@@ -11,7 +11,7 @@
 //!
 //! let a = Regex::new(r"lf").expect("regex");
 //! let b = "alfa";
-//! assert_is_match!(&a, &b);
+//! assert_is_match!(a, b);
 //! ```
 //!
 //! # Module macros
@@ -41,7 +41,7 @@
 #[macro_export]
 macro_rules! assert_is_match_as_result {
     ($matcher:expr, $matchee:expr $(,)?) => {
-        match ($matcher, $matchee) {
+        match (&$matcher, &$matchee) {
             (matcher, matchee) => {
                 if matcher.is_match(matchee) {
                     Ok(())
@@ -78,7 +78,7 @@ mod test_assert_is_match_as_result {
         let a = Regex::new(r"lf").expect("regex");
         let b = "alfa";
         for _ in 0..1 {
-            let actual = assert_is_match_as_result!(&a, &b);
+            let actual = assert_is_match_as_result!(a, b);
             assert_eq!(actual.unwrap(), ());
         }
     }
@@ -117,13 +117,13 @@ mod test_assert_is_match_as_result {
     fn failure() {
         let a = Regex::new(r"xx").expect("regex");
         let b = "alfa";
-        let actual = assert_is_match_as_result!(&a, &b);
+        let actual = assert_is_match_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_is_match!(matcher, matchee)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_is_match.html\n",
-            " matcher label: `&a`,\n",
+            " matcher label: `a`,\n",
             " matcher debug: `Regex(\"xx\")`,\n",
-            " matchee label: `&b`,\n",
+            " matchee label: `b`,\n",
             " matchee debug: `\"alfa\"`"
         );
         assert_eq!(actual.unwrap_err(), message);
@@ -150,27 +150,27 @@ mod test_assert_is_match_as_result {
 /// # fn main() {
 /// let a = Regex::new(r"lf").expect("regex");
 /// let b = "alfa";
-/// assert_is_match!(&a, &b);
+/// assert_is_match!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = Regex::new(r"xx").expect("regex");
 /// let b = "alfa";
-/// assert_is_match!(&a, &b);
+/// assert_is_match!(a, b);
 /// # });
 /// // assertion failed: `assert_is_match!(matcher, matchee)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_is_match.html
-/// //  matcher label: `&a`,
+/// //  matcher label: `a`,
 /// //  matcher debug: `Regex(\"xx\")`,
-/// //  matchee label: `&b`,
+/// //  matchee label: `b`,
 /// //  matchee debug: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_is_match!(matcher, matchee)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_is_match.html\n",
-/// #     " matcher label: `&a`,\n",
+/// #     " matcher label: `a`,\n",
 /// #     " matcher debug: `Regex(\"xx\")`,\n",
-/// #     " matchee label: `&b`,\n",
+/// #     " matchee label: `b`,\n",
 /// #     " matchee debug: `\"alfa\"`"
 /// # );
 /// # assert_eq!(actual, message);
@@ -209,7 +209,7 @@ mod test_assert_is_match {
         let a = Regex::new(r"lf").expect("regex");
         let b = "alfa";
         for _ in 0..1 {
-            let actual = assert_is_match!(&a, &b);
+            let actual = assert_is_match!(a, b);
             assert_eq!(actual, ());
         }
     }
@@ -219,14 +219,14 @@ mod test_assert_is_match {
         let result = panic::catch_unwind(|| {
             let a = Regex::new(r"xx").expect("regex");
             let b = "alfa";
-            let _actual = assert_is_match!(&a, &b);
+            let _actual = assert_is_match!(a, b);
         });
         let message = concat!(
             "assertion failed: `assert_is_match!(matcher, matchee)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_is_match.html\n",
-            " matcher label: `&a`,\n",
+            " matcher label: `a`,\n",
             " matcher debug: `Regex(\"xx\")`,\n",
-            " matchee label: `&b`,\n",
+            " matchee label: `b`,\n",
             " matchee debug: `\"alfa\"`"
         );
         assert_eq!(

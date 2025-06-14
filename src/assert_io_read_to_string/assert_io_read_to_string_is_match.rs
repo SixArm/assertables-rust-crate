@@ -7,12 +7,11 @@
 //!
 //! ```rust
 //! use assertables::*;
-//! use std::io::Read;
 //! use regex::Regex;
 //!
-//! let mut reader = "hello".as_bytes();
+//! let reader = "hello".as_bytes();
 //! let matcher = Regex::new(r"ell").expect("regex");
-//! assert_io_read_to_string_is_match!(reader, &matcher);
+//! assert_io_read_to_string_is_match!(reader, matcher);
 //! ```
 //!
 //! # Module macros
@@ -42,11 +41,10 @@
 #[macro_export]
 macro_rules! assert_io_read_to_string_is_match_as_result {
     ($reader:expr, $matcher:expr $(,)?) => {
-        match (/*&$reader,*/ $matcher) {
+        match (&$matcher) {
             matcher => {
-                let mut string = String::new();
-                match ($reader.read_to_string(&mut string)) {
-                    Ok(size) => {
+                match (std::io::read_to_string($reader)) {
+                    Ok(string) => {
                         if matcher.is_match(&string) {
                             Ok(string)
                         } else {
@@ -59,14 +57,12 @@ macro_rules! assert_io_read_to_string_is_match_as_result {
                                         "  reader debug: `{:?}`,\n",
                                         " matcher label: `{}`,\n",
                                         " matcher debug: `{:?}`,\n",
-                                        "   reader size: `{:?}`,\n",
                                         " reader string: `{:?}`",
                                     ),
                                     stringify!($reader),
                                     $reader,
                                     stringify!($matcher),
                                     matcher,
-                                    size,
                                     string
                                 )
                             )
@@ -101,15 +97,14 @@ macro_rules! assert_io_read_to_string_is_match_as_result {
 #[cfg(test)]
 mod test_assert_io_read_to_string_is_match_as_result {
     use regex::Regex;
-    use std::io::Read;
     use std::sync::Once;
 
     #[test]
     fn success() {
-        let mut reader = "alfa".as_bytes();
+        let reader = "alfa".as_bytes();
         let matcher = Regex::new(r"lf").expect("regex");
         for _ in 0..1 {
-            let actual = assert_io_read_to_string_is_match_as_result!(reader, &matcher);
+            let actual = assert_io_read_to_string_is_match_as_result!(reader, matcher);
             assert_eq!(actual.unwrap(), String::from("alfa"));
         }
     }
@@ -146,17 +141,16 @@ mod test_assert_io_read_to_string_is_match_as_result {
 
     #[test]
     fn failure() {
-        let mut reader = "alfa".as_bytes();
+        let reader = "alfa".as_bytes();
         let matcher = Regex::new(r"zz").expect("regex");
-        let actual = assert_io_read_to_string_is_match_as_result!(reader, &matcher);
+        let actual = assert_io_read_to_string_is_match_as_result!(reader, matcher);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_is_match.html\n",
             "  reader label: `reader`,\n",
-            "  reader debug: `[]`,\n",
-            " matcher label: `&matcher`,\n",
+            "  reader debug: `[97, 108, 102, 97]`,\n",
+            " matcher label: `matcher`,\n",
             " matcher debug: `Regex(\"zz\")`,\n",
-            "   reader size: `4`,\n",
             " reader string: `\"alfa\"`"
         );
         assert_eq!(actual.unwrap_err(), message);
@@ -178,37 +172,34 @@ mod test_assert_io_read_to_string_is_match_as_result {
 /// ```rust
 /// use assertables::*;
 /// # use std::panic;
-/// use std::io::Read;
 /// use regex::Regex;
 ///
 /// # fn main() {
-/// let mut reader = "hello".as_bytes();
+/// let reader = "hello".as_bytes();
 /// let matcher = Regex::new(r"ell").expect("regex");
-/// assert_io_read_to_string_is_match!(reader, &matcher);
+/// assert_io_read_to_string_is_match!(reader, matcher);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let mut reader = "hello".as_bytes();
+/// let reader = "hello".as_bytes();
 /// let matcher = Regex::new(r"zz").expect("regex");
-/// assert_io_read_to_string_is_match!(reader, &matcher);
+/// assert_io_read_to_string_is_match!(reader, matcher);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_is_match.html
 /// //   reader label: `reader`,
-/// //   reader debug: `[]`,
-/// //  matcher label: `&matcher`,
+/// //   reader debug: `[104, 101, 108, 108, 111]`,
+/// //  matcher label: `matcher`,
 /// //  matcher debug: `Regex(\"zz\")`,
-/// //    reader size: `5`
 /// //  reader string: `\"hello\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_is_match.html\n",
 /// #     "  reader label: `reader`,\n",
-/// #     "  reader debug: `[]`,\n",
-/// #     " matcher label: `&matcher`,\n",
+/// #     "  reader debug: `[104, 101, 108, 108, 111]`,\n",
+/// #     " matcher label: `matcher`,\n",
 /// #     " matcher debug: `Regex(\"zz\")`,\n",
-/// #     "   reader size: `5`,\n",
 /// #     " reader string: `\"hello\"`",
 /// # );
 /// # assert_eq!(actual, message);
@@ -240,15 +231,14 @@ macro_rules! assert_io_read_to_string_is_match {
 #[cfg(test)]
 mod test_assert_io_read_to_string_is_match {
     use regex::Regex;
-    use std::io::Read;
     use std::panic;
 
     #[test]
     fn success() {
-        let mut reader = "alfa".as_bytes();
+        let reader = "alfa".as_bytes();
         let matcher = Regex::new(r"lf").expect("regex");
         for _ in 0..1 {
-            let actual = assert_io_read_to_string_is_match!(reader, &matcher);
+            let actual = assert_io_read_to_string_is_match!(reader, matcher);
             assert_eq!(actual, String::from("alfa"));
         }
     }
@@ -256,18 +246,17 @@ mod test_assert_io_read_to_string_is_match {
     #[test]
     fn failure() {
         let result = panic::catch_unwind(|| {
-            let mut reader = "alfa".as_bytes();
+            let reader = "alfa".as_bytes();
             let matcher = Regex::new(r"zz").expect("regex");
-            let _actual = assert_io_read_to_string_is_match!(reader, &matcher);
+            let _actual = assert_io_read_to_string_is_match!(reader, matcher);
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
             "https://docs.rs/assertables/9.6.1/assertables/macro.assert_io_read_to_string_is_match.html\n",
             "  reader label: `reader`,\n",
-            "  reader debug: `[]`,\n",
-            " matcher label: `&matcher`,\n",
+            "  reader debug: `[97, 108, 102, 97]`,\n",
+            " matcher label: `matcher`,\n",
             " matcher debug: `Regex(\"zz\")`,\n",
-            "   reader size: `4`,\n",
             " reader string: `\"alfa\"`"
         );
         assert_eq!(

@@ -9,8 +9,8 @@
 //! use assertables::*;
 //!
 //! let path = "alfa.txt";
-//! let value = "alfa\n";
-//! assert_fs_read_to_string_eq_x!(&path, &value);
+//! let x = "alfa\n";
+//! assert_fs_read_to_string_eq_x!(path, x);
 //! ```
 //!
 //! # Module macros
@@ -40,7 +40,7 @@
 #[macro_export]
 macro_rules! assert_fs_read_to_string_eq_x_as_result {
     ($a_path:expr, $b_expr:expr $(,)?) => {
-        match ($a_path, $b_expr) {
+        match (&$a_path, &$b_expr) {
             (a_path, b_expr) => {
                 match (::std::fs::read_to_string(a_path)) {
                     Ok(a_string) => {
@@ -115,9 +115,9 @@ mod test_assert_fs_read_to_string_eq_x_as_result {
     #[test]
     fn eq() {
         let path = DIR.join("alfa.txt");
-        let value = "alfa\n";
+        let x = "alfa\n";
         for _ in 0..1 {
-            let actual = assert_fs_read_to_string_eq_x_as_result!(&path, &value);
+            let actual = assert_fs_read_to_string_eq_x_as_result!(path, x);
             assert_eq!(actual.unwrap(), String::from("alfa\n"));
         }
     }
@@ -155,15 +155,15 @@ mod test_assert_fs_read_to_string_eq_x_as_result {
     #[test]
     fn lt() {
         let path = DIR.join("alfa.txt");
-        let value = "bravo\n";
-        let actual = assert_fs_read_to_string_eq_x_as_result!(&path, &value);
+        let x = "bravo\n";
+        let actual = assert_fs_read_to_string_eq_x_as_result!(path, x);
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n",
                 "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
-                " a_path label: `&path`,\n",
+                " a_path label: `path`,\n",
                 " a_path debug: `{:?}`,\n",
-                " b_expr label: `&value`,\n",
+                " b_expr label: `x`,\n",
                 " b_expr debug: `\"bravo\\n\"`,\n",
                 "     a string: `alfa\n`,\n",
                 "     b string: `bravo\n`"
@@ -176,15 +176,15 @@ mod test_assert_fs_read_to_string_eq_x_as_result {
     #[test]
     fn gt() {
         let path = DIR.join("bravo.txt");
-        let value = "alfa\n";
-        let actual = assert_fs_read_to_string_eq_x_as_result!(&path, &value);
+        let x = "alfa\n";
+        let actual = assert_fs_read_to_string_eq_x_as_result!(path, x);
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n",
                 "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
-                " a_path label: `&path`,\n",
+                " a_path label: `path`,\n",
                 " a_path debug: `{:?}`,\n",
-                " b_expr label: `&value`,\n",
+                " b_expr label: `x`,\n",
                 " b_expr debug: `\"alfa\\n\"`,\n",
                 "     a string: `bravo\n`,\n",
                 "     b string: `alfa\n`"
@@ -214,20 +214,20 @@ mod test_assert_fs_read_to_string_eq_x_as_result {
 ///
 /// # fn main() {
 /// let path = "alfa.txt";
-/// let value = "alfa\n";
-/// assert_fs_read_to_string_eq_x!(&path, &value);
+/// let x = "alfa\n";
+/// assert_fs_read_to_string_eq_x!(path, x);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let path = "alfa.txt";
-/// let value = "bravo\n";
-/// assert_fs_read_to_string_eq_x!(&path, &value);
+/// let x = "bravo\n";
+/// assert_fs_read_to_string_eq_x!(path, x);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`
 /// // https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_eq_x.html
-/// //  a_path label: `&path`,
+/// //  a_path label: `path`,
 /// //  a_path debug: `\"alfa.txt\"`,
-/// //  b_expr label: `&value`,
+/// //  b_expr label: `x`,
 /// //  b_expr debug: `\"bravo\\n\"`,
 /// //      a string: `\"alfa\\n\"`,
 /// //      b string: `bravo\\n`
@@ -235,9 +235,9 @@ mod test_assert_fs_read_to_string_eq_x_as_result {
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n",
 /// #     "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
-/// #     " a_path label: `&path`,\n",
+/// #     " a_path label: `path`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
-/// #     " b_expr label: `&value`,\n",
+/// #     " b_expr label: `x`,\n",
 /// #     " b_expr debug: `\"bravo\\n\"`,\n",
 /// #     "     a string: `alfa\n`,\n",
 /// #     "     b string: `bravo\n`"
@@ -287,9 +287,9 @@ mod test_assert_fs_read_to_string_eq_x {
     #[test]
     fn eq() {
         let path = DIR.join("alfa.txt");
-        let value = "alfa\n";
+        let x = "alfa\n";
         for _ in 0..1 {
-            let actual = assert_fs_read_to_string_eq_x!(&path, &value);
+            let actual = assert_fs_read_to_string_eq_x!(path, x);
             assert_eq!(actual, String::from("alfa\n"));
         }
     }
@@ -297,17 +297,17 @@ mod test_assert_fs_read_to_string_eq_x {
     #[test]
     fn lt() {
         let path = DIR.join("alfa.txt");
-        let value = "bravo\n";
+        let x = "bravo\n";
         let result = panic::catch_unwind(|| {
-            let _actual = assert_fs_read_to_string_eq_x!(&path, &value);
+            let _actual = assert_fs_read_to_string_eq_x!(path, x);
         });
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n",
                 "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
-                " a_path label: `&path`,\n",
+                " a_path label: `path`,\n",
                 " a_path debug: `{:?}`,\n",
-                " b_expr label: `&value`,\n",
+                " b_expr label: `x`,\n",
                 " b_expr debug: `\"bravo\\n\"`,\n",
                 "     a string: `alfa\n`,\n",
                 "     b string: `bravo\n`"
@@ -327,17 +327,17 @@ mod test_assert_fs_read_to_string_eq_x {
     #[test]
     fn gt() {
         let path = DIR.join("bravo.txt");
-        let value = "alfa\n";
+        let x = "alfa\n";
         let result = panic::catch_unwind(|| {
-            let _actual = assert_fs_read_to_string_eq_x!(&path, &value);
+            let _actual = assert_fs_read_to_string_eq_x!(path, x);
         });
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n",
                 "https://docs.rs/assertables/9.6.1/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
-                " a_path label: `&path`,\n",
+                " a_path label: `path`,\n",
                 " a_path debug: `{:?}`,\n",
-                " b_expr label: `&value`,\n",
+                " b_expr label: `x`,\n",
                 " b_expr debug: `\"alfa\\n\"`,\n",
                 "     a string: `bravo\n`,\n",
                 "     b string: `alfa\n`"
