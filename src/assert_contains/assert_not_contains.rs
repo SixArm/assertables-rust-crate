@@ -60,7 +60,7 @@ macro_rules! assert_not_contains_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_contains.html\n",
+                                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_not_contains.html\n",
                                 " container label: `{}`,\n",
                                 " container debug: `{:?}`,\n",
                                 " containee label: `{}`,\n",
@@ -131,7 +131,7 @@ mod test_assert_not_contains_as_result {
             let actual = assert_not_contains_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_contains.html\n",
+                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_not_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `b`,\n",
@@ -191,7 +191,7 @@ mod test_assert_not_contains_as_result {
             let actual = assert_not_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_contains.html\n",
+                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_not_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `&b`,\n",
@@ -251,7 +251,7 @@ mod test_assert_not_contains_as_result {
             let actual = assert_not_contains_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_contains.html\n",
+                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_not_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[1, 2, 3]`,\n",
                 " containee label: `b`,\n",
@@ -301,7 +301,7 @@ mod test_assert_not_contains_as_result {
 /// assert_not_contains!(a, b);
 /// # });
 /// // assertion failed: `assert_not_contains!(container, containee)`
-/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_contains.html
+/// // https://docs.rs/assertables/9.5.7/assertables/macro.assert_not_contains.html
 /// //  container label: `a`,
 /// //  container debug: `\"alfa\"`,
 /// //  containee label: `b`,
@@ -309,7 +309,7 @@ mod test_assert_not_contains_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_not_contains!(container, containee)`\n",
-/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_contains.html\n",
+/// #     "https://docs.rs/assertables/9.5.7/assertables/macro.assert_not_contains.html\n",
 /// #     " container label: `a`,\n",
 /// #     " container debug: `\"alfa\"`,\n",
 /// #     " containee label: `b`,\n",
@@ -366,7 +366,7 @@ mod test_assert_not_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_contains.html\n",
+                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_not_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `b`,\n",
@@ -405,7 +405,7 @@ mod test_assert_not_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_contains.html\n",
+                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_not_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `b`,\n",
@@ -444,7 +444,7 @@ mod test_assert_not_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_not_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_not_contains.html\n",
+                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_not_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[1, 2, 3]`,\n",
                 " containee label: `b`,\n",

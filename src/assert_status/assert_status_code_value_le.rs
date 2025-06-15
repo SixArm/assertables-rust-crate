@@ -52,7 +52,7 @@ macro_rules! assert_status_code_value_le_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_status_code_value_le!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.6.2/assertables/macro.assert_status_code_value_le.html\n",
+                                        "https://docs.rs/assertables/9.5.7/assertables/macro.assert_status_code_value_le.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
                                         "  a code: `{:?}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_status_code_value_le_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_status_code_value_le!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.6.2/assertables/macro.assert_status_code_value_le.html\n",
+                                    "https://docs.rs/assertables/9.5.7/assertables/macro.assert_status_code_value_le.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " b label: `{}`,\n",
@@ -95,7 +95,7 @@ macro_rules! assert_status_code_value_le_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_status_code_value_le!(a, b)`\n",
-                            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_status_code_value_le.html\n",
+                            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_status_code_value_le.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             "  b label: `{}`,\n",
@@ -218,7 +218,7 @@ mod test_assert_status_code_value_le_as_result {
         let actual = assert_status_code_value_le_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_status_code_value_le!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_status_code_value_le.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_status_code_value_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
             "  a code: `2`,\n",
@@ -259,7 +259,7 @@ mod test_assert_status_code_value_le_as_result {
 /// assert_status_code_value_le!(a, b);
 /// # });
 /// // assertion failed: `assert_status_code_value_le!(a, b)`
-/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_status_code_value_le.html
+/// // https://docs.rs/assertables/9.5.7/assertables/macro.assert_status_code_value_le.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 /// //  a value: `2`",
@@ -269,7 +269,7 @@ mod test_assert_status_code_value_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_code_value_le!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_status_code_value_le.html\n",
+/// #     "https://docs.rs/assertables/9.5.7/assertables/macro.assert_status_code_value_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 /// #     "  a code: `2`,\n",
@@ -343,7 +343,7 @@ mod test_assert_status_code_value_le {
         });
         let message = concat!(
             "assertion failed: `assert_status_code_value_le!(a, b)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_status_code_value_le.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_status_code_value_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
             "  a code: `2`,\n",

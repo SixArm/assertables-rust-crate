@@ -52,7 +52,7 @@ macro_rules! assert_command_stdout_ge_x_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-                                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_command_stdout_ge_x.html\n",
+                                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_command_stdout_ge_x.html\n",
                                 " command label: `{}`,\n",
                                 " command debug: `{:?}`,\n",
                                 " command value: `{:?}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_command_stdout_ge_x_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-                            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_command_stdout_ge_x.html\n",
+                            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_command_stdout_ge_x.html\n",
                             " command label: `{}`,\n",
                             " command debug: `{:?}`,\n",
                             " command value: `{:?}`,\n",
@@ -195,7 +195,7 @@ mod test_assert_command_stdout_ge_x_as_result {
         let actual = assert_command_stdout_ge_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_command_stdout_ge_x.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_command_stdout_ge_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -238,7 +238,7 @@ mod test_assert_command_stdout_ge_x_as_result {
 /// assert_command_stdout_ge_x!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_ge_x!(command, expr)`
-/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_command_stdout_ge_x.html
+/// // https://docs.rs/assertables/9.5.7/assertables/macro.assert_command_stdout_ge_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  command value: `[97, 108, 102, 97]`,
@@ -248,7 +248,7 @@ mod test_assert_command_stdout_ge_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_command_stdout_ge_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.7/assertables/macro.assert_command_stdout_ge_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " command value: `[97, 108, 102, 97]`,\n",
@@ -319,7 +319,7 @@ mod test_assert_command_stdout_ge_x {
         });
         let message = concat!(
             "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_command_stdout_ge_x.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_command_stdout_ge_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",

@@ -46,7 +46,7 @@ macro_rules! assert_err_as_result {
                     _ => Err(format!(
                         concat!(
                             "assertion failed: `assert_err!(a)`\n",
-                            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_err.html\n",
+                            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_err.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`",
                         ),
@@ -96,7 +96,7 @@ mod test_assert_err_as_result {
         let actual = assert_err_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_err!(a)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_err.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_err.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`",
         );
@@ -130,13 +130,13 @@ mod test_assert_err_as_result {
 /// assert_err!(a);
 /// # });
 /// // assertion failed: `assert_err!(a)`
-/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_err.html
+/// // https://docs.rs/assertables/9.5.7/assertables/macro.assert_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_err!(a)`\n",
-/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_err.html\n",
+/// #     "https://docs.rs/assertables/9.5.7/assertables/macro.assert_err.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`",
 /// # );
@@ -187,7 +187,7 @@ mod test_assert_err {
         });
         let message = concat!(
             "assertion failed: `assert_err!(a)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_err.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_err.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`",
         );

@@ -279,12 +279,12 @@ fn examples_with_assert_set() {
 
 //// Validators
 
-/// Examples of email address.
-#[test]
-fn examples_of_email_address() {
-    assert_email_address!("hello@example.com");
-    assert_not_email_address!("hello*example.com");
-}
+/// Examples of email address. (in 9.6.2)
+// #[test]
+// fn examples_of_email_address() {
+//     assert_email_address!("hello@example.com");
+//     assert_not_email_address!("hello*example.com");
+// }
 
 //// Commands
 

@@ -46,8 +46,8 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.6.2"
-//! ``````
+//! assertables = "9.5.7"
+//! ```
 //!
 //! Benefits:
 //!
@@ -138,7 +138,6 @@
 //! * [`assert_contains!(container, x)`](module@crate::assert_contains) ≈ container.contains(x)
 //! * [`assert_is_match!(matcher, x)`](module@crate::assert_is_match) ≈ matcher.is_match(x)
 //! * [`assert_matches!(expr, pattern)`](module@crate::assert_matches) ≈ matches!(expr, pattern)
-//! * [`assert_email_address!(expr)`](module@crate::assert_email_address) ≈ expr has local@domain
 //!
 //! Results:
 //!
@@ -219,7 +218,7 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.6.2
+//! * Version: 9.5.7
 //! * Created: 2021-03-30T15:47:49Z
 //! * Updated: 2025-06-14T22:56:48Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
@@ -294,5 +293,5 @@ pub mod assert_program_args;
 pub mod assert_status;
 
 // Misc
-pub mod assert_email_address;
+// pub mod assert_email_address; (in 9.6.2)
 pub mod assert_success;

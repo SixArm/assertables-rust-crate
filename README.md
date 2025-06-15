@@ -136,7 +136,7 @@ Matching:
 * [`assert_contains!(container, x)`](https://docs.rs/assertables/9.6.1/assertables/assert_contains) ≈ container.contains(x)
 * [`assert_is_match!(matcher, x)`](https://docs.rs/assertables/9.6.1/assertables/assert_is_match) ≈ matcher.is_match(x)
 * [`assert_matches!(expr, pattern)`](https://docs.rs/assertables/9.6.1/assertables/assert_matches) ≈ matches!(expr, pattern)
-* [`assert_email_address!(expr)`](https://docs.rs/assertables/9.6.1/assertables/assert_email_address) ≈ expr has local@domain
+* [`assert_email_address!(expr)`](https://docs.rs/assertables/9.6.1/assertables/assert_email_address) ≈ expr has local@domain (in 9.6.2)
 
 Results:
 
@@ -214,7 +214,7 @@ Many of the macros has a "success return", which means the macro returns data th
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 9.6.2
+* Version: 9.5.7
 * Created: 2021-03-30T15:47:49Z
 * Updated: 2025-06-14T22:56:48Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more

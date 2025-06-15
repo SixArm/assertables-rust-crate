@@ -55,7 +55,7 @@ macro_rules! assert_set_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_set_eq.html\n",
+                                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_set_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -131,7 +131,7 @@ mod test_assert_set_eq_as_result {
         let actual = assert_set_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_set_eq.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_set_eq.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `b`,\n",
@@ -171,7 +171,7 @@ mod test_assert_set_eq_as_result {
 /// assert_set_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_set_eq!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_set_eq.html
+/// // https://docs.rs/assertables/9.5.7/assertables/macro.assert_set_eq.html
 /// //  a label: `a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `b`,
@@ -181,7 +181,7 @@ mod test_assert_set_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_set_eq.html\n",
+/// #     "https://docs.rs/assertables/9.5.7/assertables/macro.assert_set_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `b`,\n",
@@ -241,7 +241,7 @@ mod test_assert_set_eq {
         });
         let message = concat!(
             "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_set_eq.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_set_eq.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `b`,\n",

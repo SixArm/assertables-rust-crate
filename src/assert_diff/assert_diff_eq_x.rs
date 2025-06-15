@@ -56,7 +56,7 @@ macro_rules! assert_diff_eq_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-                                        "https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html\n",
+                                        "https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html\n",
                                         " a label: `{}`,\n",
                                         " a debug: `{:?}`,\n",
                                         " b label: `{}`,\n",
@@ -83,7 +83,7 @@ macro_rules! assert_diff_eq_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-                                    "https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html\n",
+                                    "https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " b label: `{}`,\n",
@@ -172,7 +172,7 @@ mod test_assert_diff_eq_x_as_result {
         let actual = assert_diff_eq_x_as_result!(a, b, x);
         let message = concat!(
             "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -193,7 +193,7 @@ mod test_assert_diff_eq_x_as_result {
         let actual = assert_diff_eq_x_as_result!(a, b, x);
         let message = concat!(
             "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -215,7 +215,7 @@ mod test_assert_diff_eq_x_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html\n",
+                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `{}`,\n",
                 " b label: `b`,\n",
@@ -260,7 +260,7 @@ mod test_assert_diff_eq_x_as_result {
 /// assert_diff_eq_x!(a, b, x);
 /// # });
 /// // assertion failed: `assert_diff_eq_x!(a, b, x)`
-/// // https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html
+/// // https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html
 /// //  a label: `a`,
 /// //  a debug: `10`,
 /// //  b label: `b`,
@@ -272,7 +272,7 @@ mod test_assert_diff_eq_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-/// #     "https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `10`,\n",
 /// #     " b label: `b`,\n",
@@ -333,7 +333,7 @@ mod test_assert_diff_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -363,7 +363,7 @@ mod test_assert_diff_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html\n",
+            "https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -394,7 +394,7 @@ mod test_assert_diff_eq_x {
         let message = format!(
             concat!(
                 "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-                "https://docs.rs/assertables/9.6.2/assertables/macro.assert_diff_eq_x.html\n",
+                "https://docs.rs/assertables/9.5.7/assertables/macro.assert_diff_eq_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `{}`,\n",
                 " b label: `b`,\n",
