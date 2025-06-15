@@ -46,7 +46,7 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.5.7"
+//! assertables = "9.7.0"
 //! ```
 //!
 //! Benefits:
@@ -116,6 +116,8 @@
 //!
 //! Nearness:
 //!
+//! * [`assert_eq_f32!(a, b)`](module@crate::assert_eq_f32) ≈ |a-b| < f32::ε * 2
+//! * [`assert_eq_f64!(a, b)`](module@crate::assert_eq_f64) ≈ |a-b| < f64::ε * 2
 //! * [`assert_approx_eq!(a, b)`](module@crate::assert_approx::assert_approx_eq) ≈ |a-b| ≤ 1e-6
 //! * [`assert_diff_eq_x!(a, b, x)`](module@crate::assert_diff::assert_diff_eq_x) ≈ (b-a) = x
 //! * [`assert_abs_diff_eq_x!(a, b, x)`](module@crate::assert_abs_diff::assert_abs_diff_eq_x) ≈ |b-a| = x
@@ -138,6 +140,7 @@
 //! * [`assert_contains!(container, x)`](module@crate::assert_contains) ≈ container.contains(x)
 //! * [`assert_is_match!(matcher, x)`](module@crate::assert_is_match) ≈ matcher.is_match(x)
 //! * [`assert_matches!(expr, pattern)`](module@crate::assert_matches) ≈ matches!(expr, pattern)
+//! * [`assert_email_address!(expr)`](module@crate::assert_email_address) ≈ expr has local@domain
 //!
 //! Results:
 //!
@@ -218,9 +221,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.5.7
+//! * Version: 9.7.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2025-06-14T22:56:48Z
+//! * Updated: 2025-06-15T15:31:12Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
@@ -234,6 +237,10 @@ pub mod assert_gt;
 pub mod assert_le;
 pub mod assert_lt;
 pub mod assert_ne; // (in addition to what's provided by Rust `std`)
+
+// Assert value comparison for floats
+pub mod assert_eq_f32;
+pub mod assert_eq_f64;
 
 // Assert difference
 pub mod assert_abs_diff;
@@ -293,5 +300,5 @@ pub mod assert_program_args;
 pub mod assert_status;
 
 // Misc
-// pub mod assert_email_address; (in 9.6.2)
+pub mod assert_email_address;
 pub mod assert_success;
