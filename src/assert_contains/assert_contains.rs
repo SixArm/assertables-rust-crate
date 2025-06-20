@@ -3,24 +3,44 @@
 //! Pseudocode:<br>
 //! a.contains(b)
 //!
+//! These macros work with many kinds of Rust types, such as String, Vec, Range, HashSet.
+//! The specifics depend on each type's implementation of a method `contains`, and some types
+//! require the second argument to be borrowable, so be sure to check the Rust documentation.
+//!
 //! # Example
 //!
 //! ```rust
 //! use assertables::*;
+//! use std::collections::HashSet;
 //!
 //! // String contains substring
 //! let a = "alfa";
 //! let b = "lf";
 //! assert_contains!(a, b);
 //!
-//! // Range contains value
+//! // Range contains value.
+//! // Notice the &b because the macro calls Range.contains(&self, &value).
 //! let a = 1..3;
 //! let b = 2;
-//! assert_contains!(a, b);
+//! assert_contains!(a, &b);
 //!
-//! // Vector contains element
+//! // Vector contains element.
+//! // Notice the &b because the macro calls Vec.contains(&self, &value).
 //! let a = vec![1, 2, 3];
 //! let b = 2;
+//! assert_contains!(a, &b);
+//!
+//! // HashSet contains element.
+//! // Notice the &b because the macro calls HashSet.contains(&self, &value).
+//! let a: HashSet<String> = [String::from("1")].into();
+//! let b: String = String::from("1");
+//! assert_contains!(a, &b);
+//!
+//! // HashSet contains element with automatic borrow optimization.
+//! // Notice the b because the value type &str is already a reference,
+//! // which HashSet.contains knows how to borrow to compare to String.
+//! let a: HashSet<String> = [String::from("1")].into();
+//! let b = "1";
 //! assert_contains!(a, b);
 //! ```
 //!
@@ -53,25 +73,25 @@ macro_rules! assert_contains_as_result {
     ($container:expr, $containee:expr $(,)?) => {
         match (&$container, &$containee) {
             (container, containee) => {
-                if container.contains(containee) {
+                if (container).contains(*containee) {
                     Ok(())
                 } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_contains!(container, containee)`\n",
-                                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_contains.html\n",
-                                " container label: `{}`,\n",
-                                " container debug: `{:?}`,\n",
-                                " containee label: `{}`,\n",
-                                " containee debug: `{:?}`",
-                            ),
-                            stringify!($container),
-                            container,
-                            stringify!($containee),
-                            containee,
-                        )
-                    )
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_contains!(container, containee)`\n",
+                            "https://docs.rs/assertables/",
+                            env!("CARGO_PKG_VERSION"),
+                            "/assertables/macro.assert_contains.html\n",
+                            " container label: `{}`,\n",
+                            " container debug: `{:?}`,\n",
+                            " containee label: `{}`,\n",
+                            " containee debug: `{:?}`",
+                        ),
+                        stringify!($container),
+                        container,
+                        stringify!($containee),
+                        containee,
+                    ))
                 }
             }
         }
@@ -80,6 +100,7 @@ macro_rules! assert_contains_as_result {
 
 #[cfg(test)]
 mod test_assert_contains_as_result {
+    use std::panic;
     use std::sync::Once;
 
     mod str {
@@ -87,8 +108,8 @@ mod test_assert_contains_as_result {
 
         #[test]
         fn success() {
-            let a = "alfa";
-            let b = "lf";
+            let a: &'static str = "alfa";
+            let b: &'static str = "lf";
             for _ in 0..1 {
                 let actual = assert_contains_as_result!(a, b);
                 assert_eq!(actual.unwrap(), ());
@@ -127,12 +148,14 @@ mod test_assert_contains_as_result {
 
         #[test]
         fn failure() {
-            let a = "alfa";
-            let b = "xx";
+            let a: &'static str = "alfa";
+            let b: &'static str = "xx";
             let actual = assert_contains_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `b`,\n",
@@ -142,12 +165,13 @@ mod test_assert_contains_as_result {
         }
     }
 
-    mod range {
+    mod range_i32 {
         use super::*;
+        use std::ops::Range;
 
         #[test]
         fn success() {
-            let a: std::ops::Range<i32> = 1..3;
+            let a: Range<i32> = 1..3;
             let b: i32 = 2;
             for _ in 0..1 {
                 let actual = assert_contains_as_result!(a, &b);
@@ -158,7 +182,7 @@ mod test_assert_contains_as_result {
         #[test]
         fn success_once() {
             static A: Once = Once::new();
-            fn a() -> std::ops::Range<i32> {
+            fn a() -> Range<i32> {
                 if A.is_completed() {
                     panic!("A.is_completed()")
                 } else {
@@ -187,12 +211,14 @@ mod test_assert_contains_as_result {
 
         #[test]
         fn failure() {
-            let a: std::ops::Range<i32> = 1..3;
+            let a: Range<i32> = 1..3;
             let b: i32 = 4;
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `&b`,\n",
@@ -202,7 +228,70 @@ mod test_assert_contains_as_result {
         }
     }
 
-    mod vec {
+    mod range_string {
+        use super::*;
+        use std::ops::Range;
+
+        #[test]
+        fn success() {
+            let a: Range<String> = String::from("1")..String::from("3");
+            let b: String = String::from("2");
+            for _ in 0..1 {
+                let actual = assert_contains_as_result!(a, &b);
+                assert_eq!(actual.unwrap(), ());
+            }
+        }
+
+        #[test]
+        fn success_once() {
+            static A: Once = Once::new();
+            fn a() -> Range<String> {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                String::from("1")..String::from("3")
+            }
+
+            static B: Once = Once::new();
+            fn b() -> String {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                String::from("2")
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_contains_as_result!(a(), &b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
+        }
+
+        #[test]
+        fn failure() {
+            let a: Range<String> = String::from("1")..String::from("3");
+            let b: String = String::from("4");
+            let actual = assert_contains_as_result!(a, &b);
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `\"1\"..\"3\"`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"4\"`"
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+    }
+
+    mod vec_i32 {
         use super::*;
 
         #[test]
@@ -210,7 +299,7 @@ mod test_assert_contains_as_result {
             let a: Vec<i32> = vec![1, 2, 3];
             let b: i32 = 2;
             for _ in 0..1 {
-                let actual = assert_contains_as_result!(a, b);
+                let actual = assert_contains_as_result!(a, &b);
                 assert_eq!(actual.unwrap(), ());
             }
         }
@@ -239,7 +328,7 @@ mod test_assert_contains_as_result {
 
             assert_eq!(A.is_completed(), false);
             assert_eq!(B.is_completed(), false);
-            let result = assert_contains_as_result!(a(), b());
+            let result = assert_contains_as_result!(a(), &b());
             assert!(result.is_ok());
             assert_eq!(A.is_completed(), true);
             assert_eq!(B.is_completed(), true);
@@ -249,14 +338,205 @@ mod test_assert_contains_as_result {
         fn failure() {
             let a: Vec<i32> = vec![1, 2, 3];
             let b: i32 = 4;
+            let actual = assert_contains_as_result!(a, &b);
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `[1, 2, 3]`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `4`"
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+    }
+
+    mod vec_string {
+        use super::*;
+
+        #[test]
+        fn success() {
+            let a: Vec<String> = vec![String::from("1"), String::from("2"), String::from("3")];
+            let b: String = String::from("2");
+
+            for _ in 0..1 {
+                let actual = assert_contains_as_result!(a, &b);
+                assert_eq!(actual.unwrap(), ());
+            }
+        }
+
+        #[test]
+        fn success_once() {
+            static A: Once = Once::new();
+            fn a() -> Vec<String> {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                vec![String::from("1"), String::from("2"), String::from("3")]
+            }
+
+            static B: Once = Once::new();
+            fn b() -> String {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                String::from("2")
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_contains_as_result!(a(), &b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
+        }
+
+        #[test]
+        fn failure() {
+            let a: Vec<String> = vec![String::from("1"), String::from("2"), String::from("3")];
+            let b: String = String::from("4");
+            let actual = assert_contains_as_result!(a, &b);
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `[\"1\", \"2\", \"3\"]`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"4\"`"
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+    }
+
+    mod hashset_string {
+        use super::*;
+        use std::collections::HashSet;
+
+        #[test]
+        fn success() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: String = String::from("1");
+            for _ in 0..1 {
+                let actual = assert_contains_as_result!(a, &b);
+                assert_eq!(actual.unwrap(), ());
+            }
+        }
+
+        #[test]
+        fn success_once() {
+            static A: Once = Once::new();
+            fn a() -> HashSet<String> {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                [String::from("1")].into()
+            }
+
+            static B: Once = Once::new();
+            fn b() -> String {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                String::from("1")
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_contains_as_result!(a(), &b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
+        }
+
+        #[test]
+        fn failure() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: String = String::from("2");
+            let actual = assert_contains_as_result!(a, &b);
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `{\"1\"}`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"2\"`"
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+    }
+
+    mod hashset_string_with_str_automatic_borrow_optimization {
+        use super::*;
+        use std::collections::HashSet;
+
+        #[test]
+        fn success() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: &'static str = "1";
+            for _ in 0..1 {
+                let actual = assert_contains_as_result!(a, b);
+                assert_eq!(actual.unwrap(), ());
+            }
+        }
+
+        #[test]
+        fn success_once() {
+            static A: Once = Once::new();
+            fn a() -> HashSet<String> {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                [String::from("1")].into()
+            }
+
+            static B: Once = Once::new();
+            fn b() -> &'static str {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                "1"
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_contains_as_result!(a(), b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
+        }
+
+        #[test]
+        fn failure() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: &'static str = "2";
             let actual = assert_contains_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
-                " container debug: `[1, 2, 3]`,\n",
+                " container debug: `{\"1\"}`,\n",
                 " containee label: `b`,\n",
-                " containee debug: `4`"
+                " containee debug: `\"2\"`"
             );
             assert_eq!(actual.unwrap_err(), message);
         }
@@ -277,6 +557,7 @@ mod test_assert_contains_as_result {
 ///
 /// ```rust
 /// use assertables::*;
+/// use std::collections::HashSet;
 /// # use std::panic;
 ///
 /// # fn main() {
@@ -288,17 +569,30 @@ mod test_assert_contains_as_result {
 /// // Range contains a value
 /// let a = 1..3;
 /// let b = 2;
-/// assert_contains!(a, b);
+/// assert_contains!(a, &b);
 ///
 /// // Vector contains element
 /// let a = vec![1, 2, 3];
 /// let b = 2;
+/// assert_contains!(a, &b);
+///
+/// // HashSet contains element.
+/// // Notice the &b because the macro calls HashSet.contains(&self, &value).
+/// let a: HashSet<String> = [String::from("1")].into();
+/// let b: String = String::from("1");
+/// assert_contains!(a, &b);
+///
+/// // HashSet contains element with automatic borrow optimization.
+/// // Notice the b because the value type &str is already a reference,
+/// // which HashSet.contains knows how to borrow to compare to String.
+/// let a: HashSet<String> = [String::from("1")].into();
+/// let b = "1";
 /// assert_contains!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = "alfa";
-/// let b = "zz";
+/// let b = "xx";
 /// assert_contains!(a, b);
 /// # });
 /// // assertion failed: `assert_contains!(container, containee)`
@@ -306,21 +600,19 @@ mod test_assert_contains_as_result {
 /// //  container label: `a`,
 /// //  container debug: `\"alfa\"`,
 /// //  containee label: `b`,
-/// //  containee debug: `\"zz\"`
+/// //  containee debug: `\"xx\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_contains!(container, containee)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_contains.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_contains.html\n",
 /// #     " container label: `a`,\n",
 /// #     " container debug: `\"alfa\"`,\n",
 /// #     " containee label: `b`,\n",
-/// #     " containee debug: `\"zz\"`"
+/// #     " containee debug: `\"xx\"`"
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
 /// ```
-///
-/// # Module macros
 ///
 /// * [`assert_contains`](macro@crate::assert_contains)
 /// * [`assert_contains_as_result`](macro@crate::assert_contains_as_result)
@@ -344,14 +636,15 @@ macro_rules! assert_contains {
 
 #[cfg(test)]
 mod test_assert_contains {
+    use std::panic;
 
     mod str {
-        use std::panic;
+        use super::*;
 
         #[test]
         fn success() {
-            let a = "alfa";
-            let b = "lf";
+            let a: &'static str = "alfa";
+            let b: &'static str = "lf";
             for _ in 0..1 {
                 let actual = assert_contains!(a, b);
                 assert_eq!(actual, ());
@@ -360,18 +653,20 @@ mod test_assert_contains {
 
         #[test]
         fn failure() {
-            let a = "alfa";
-            let b = "zz";
+            let a: &'static str = "alfa";
+            let b: &'static str = "xx";
             let result = panic::catch_unwind(|| {
                 let _actual = assert_contains!(a, b);
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `b`,\n",
-                " containee debug: `\"zz\"`"
+                " containee debug: `\"xx\"`"
             );
             assert_eq!(
                 result
@@ -384,32 +679,35 @@ mod test_assert_contains {
         }
     }
 
-    mod range {
-        use std::panic;
+    mod range_i32 {
+        use super::*;
+        use std::ops::Range;
 
         #[test]
         fn success() {
-            let a = 1..3;
-            let b = 2;
+            let a: Range<i32> = 1..3;
+            let b: i32 = 2;
             for _ in 0..1 {
-                let actual = assert_contains!(a, b);
+                let actual = assert_contains!(a, &b);
                 assert_eq!(actual, ());
             }
         }
 
         #[test]
         fn failure() {
-            let a = 1..3;
-            let b = 4;
+            let a: Range<i32> = 1..3;
+            let b: i32 = 4;
             let result = panic::catch_unwind(|| {
-                let _actual = assert_contains!(a, b);
+                let _actual = assert_contains!(a, &b);
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `1..3`,\n",
-                " containee label: `b`,\n",
+                " containee label: `&b`,\n",
                 " containee debug: `4`"
             );
             assert_eq!(
@@ -423,13 +721,180 @@ mod test_assert_contains {
         }
     }
 
-    mod vec {
-        use std::panic;
+    mod range_string {
+        use super::*;
+        use std::ops::Range;
 
         #[test]
         fn success() {
-            let a = 1..3;
-            let b = 2;
+            let a: Range<String> = String::from("1")..String::from("3");
+            let b: String = String::from("2");
+            for _ in 0..1 {
+                let actual = assert_contains!(a, &b);
+                assert_eq!(actual, ());
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a: Range<String> = String::from("1")..String::from("3");
+            let b: String = String::from("4");
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `\"1\"..\"3\"`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"4\"`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod vec_i32 {
+        use super::*;
+
+        #[test]
+        fn success() {
+            let a: Vec<i32> = vec![1, 2, 3];
+            let b: i32 = 2;
+            for _ in 0..1 {
+                let actual = assert_contains!(a, &b);
+                assert_eq!(actual, ());
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a: Vec<i32> = vec![1, 2, 3];
+            let b: i32 = 4;
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `[1, 2, 3]`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `4`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod vec_string {
+        use super::*;
+
+        #[test]
+        fn success() {
+            let a: Vec<String> = vec![String::from("1"), String::from("2"), String::from("3")];
+            let b: String = String::from("2");
+            for _ in 0..1 {
+                let actual = assert_contains!(a, &b);
+                assert_eq!(actual, ());
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a = vec![String::from("1"), String::from("2"), String::from("3")];
+            let b: String = String::from("4");
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `[\"1\", \"2\", \"3\"]`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"4\"`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod hashset_string {
+        use super::*;
+        use std::collections::HashSet;
+
+        #[test]
+        fn success() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: String = String::from("1");
+            for _ in 0..1 {
+                let actual = assert_contains!(a, &b);
+                assert_eq!(actual, ());
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: String = String::from("2");
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `{\"1\"}`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"2\"`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod hashset_string_with_str_automatic_borrow_optimization {
+        use super::*;
+        use std::collections::HashSet;
+
+        #[test]
+        fn success() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: &'static str = "1";
             for _ in 0..1 {
                 let actual = assert_contains!(a, b);
                 assert_eq!(actual, ());
@@ -438,18 +903,20 @@ mod test_assert_contains {
 
         #[test]
         fn failure() {
-            let a = vec![1, 2, 3];
-            let b = 4;
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: &'static str = "2";
             let result = panic::catch_unwind(|| {
                 let _actual = assert_contains!(a, b);
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
-                " container debug: `[1, 2, 3]`,\n",
+                " container debug: `{\"1\"}`,\n",
                 " containee label: `b`,\n",
-                " containee debug: `4`"
+                " containee debug: `\"2\"`"
             );
             assert_eq!(
                 result

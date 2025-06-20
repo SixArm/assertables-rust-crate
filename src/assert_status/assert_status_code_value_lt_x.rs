@@ -41,71 +41,65 @@
 #[macro_export]
 macro_rules! assert_status_code_value_lt_x_as_result {
     ($a_process:expr, $b:expr $(,)?) => {
-        match($a_process.status(), $b) {
-            (Ok(a_status), b) => {
-                match (a_status.code()) {
-                    Some(a_code) => {
-                        if a_code < b {
-                            Ok(a_code)
-                        } else {
-                            Err(
-                                format!(
-                                    concat!(
-                                        "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-                                        "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt_x.html\n",
-                                        " a label: `{}`,\n",
-                                        " a debug: `{:?}`,\n",
-                                        "  a code: `{:?}`,\n",
-                                        " b label: `{}`,\n",
-                                        " b debug: `{:?}`"
-                                    ),
-                                    stringify!($a_process),
-                                    $a_process,
-                                    a_code,
-                                    stringify!($b),
-                                    b
-                                )
-                            )
-                        }
-                    },
-                    None => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-                                    "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt_x.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`,\n",
-                                    " b label: `{}`,\n",
-                                    " b debug: `{:?}`",
-                                ),
-                                stringify!($a_process),
-                                $a_process,
-                                stringify!($b),
-                                b,
-                            )
-                        )
+        match ($a_process.status(), $b) {
+            (Ok(a_status), b) => match (a_status.code()) {
+                Some(a_code) => {
+                    if a_code < b {
+                        Ok(a_code)
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
+                                "https://docs.rs/assertables/",
+                                env!("CARGO_PKG_VERSION"),
+                                "/assertables/macro.assert_status_code_value_lt_x.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                "  a code: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`"
+                            ),
+                            stringify!($a_process),
+                            $a_process,
+                            a_code,
+                            stringify!($b),
+                            b
+                        ))
                     }
                 }
+                None => Err(format!(
+                    concat!(
+                        "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
+                        "https://docs.rs/assertables/",
+                        env!("CARGO_PKG_VERSION"),
+                        "/assertables/macro.assert_status_code_value_lt_x.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`,\n",
+                        " b label: `{}`,\n",
+                        " b debug: `{:?}`",
+                    ),
+                    stringify!($a_process),
+                    $a_process,
+                    stringify!($b),
+                    b,
+                )),
             },
-            _ => {
-                Err(
-                    format!(
-                        concat!(
-                            "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-                            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt_x.html\n",
-                            "  a label: `{}`,\n",
-                            "  a debug: `{:?}`,\n",
-                            "  b label: `{}`,\n",
-                            "  b debug: `{:?}`",
-                        ),
-                        stringify!($a_process),
-                        $a_process,
-                        stringify!($b),
-                        $b
-                    )
-                )
-            }
+            _ => Err(format!(
+                concat!(
+                    "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
+                    "https://docs.rs/assertables/",
+                    env!("CARGO_PKG_VERSION"),
+                    "/assertables/macro.assert_status_code_value_lt_x.html\n",
+                    "  a label: `{}`,\n",
+                    "  a debug: `{:?}`,\n",
+                    "  b label: `{}`,\n",
+                    "  b debug: `{:?}`",
+                ),
+                stringify!($a_process),
+                $a_process,
+                stringify!($b),
+                $b
+            )),
         }
     };
 }
@@ -166,7 +160,9 @@ mod test_assert_status_code_value_lt_x_as_result {
         let actual = assert_status_code_value_lt_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt_x.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_status_code_value_lt_x.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",
@@ -184,7 +180,9 @@ mod test_assert_status_code_value_lt_x_as_result {
         let actual = assert_status_code_value_lt_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt_x.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_status_code_value_lt_x.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
             "  a code: `2`,\n",
@@ -233,7 +231,7 @@ mod test_assert_status_code_value_lt_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt_x.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_status_code_value_lt_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 /// #     "  a code: `2`,\n",
@@ -292,7 +290,9 @@ mod test_assert_status_code_value_lt_x {
         });
         let message = concat!(
             "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt_x.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_status_code_value_lt_x.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",
@@ -319,7 +319,9 @@ mod test_assert_status_code_value_lt_x {
         });
         let message = concat!(
             "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt_x.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_status_code_value_lt_x.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
             "  a code: `2`,\n",

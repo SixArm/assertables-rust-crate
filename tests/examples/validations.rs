@@ -13,8 +13,8 @@ use assertables::*;
 #[test]
 fn validate_email_address() {
     fn validate_email_address(s: &str) -> Result<(), String> {
-        assert_contains_as_result!(s, "@")?;
-        assert_contains_as_result!(3..255, s.len())?;
+        assert_contains_as_result!(s, "@")?; // Skip & because method is String.contains(&self, pattern)
+        assert_contains_as_result!(3..255, &s.len())?; // Use & because method is Range.contains(&self, &value)
         Ok(())
     }
 

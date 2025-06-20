@@ -39,9 +39,7 @@
 ///
 #[macro_export]
 macro_rules! assert_fn_gt_x_as_result {
-
     //// Arity 1
-
     ($a_function:path, $a_param:expr, $b_expr:expr $(,)?) => {
         match (&$a_function, &$a_param, &$b_expr) {
             (_a_function, a_param, b_expr) => {
@@ -49,35 +47,34 @@ macro_rules! assert_fn_gt_x_as_result {
                 if a > $b_expr {
                     Ok(a)
                 } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`\n",
-                                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
-                                " a_function label: `{}`,\n",
-                                "    a_param label: `{}`,\n",
-                                "    a_param debug: `{:?}`,\n",
-                                "     b_expr label: `{}`,\n",
-                                "     b_expr debug: `{:?}`,\n",
-                                "                a: `{:?}`,\n",
-                                "                b: `{:?}`"
-                            ),
-                            stringify!($a_function),
-                            stringify!($a_param),
-                            a_param,
-                            stringify!($b_expr),
-                            b_expr,
-                            a,
-                            b_expr
-                        )
-                    )
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`\n",
+                            "https://docs.rs/assertables/",
+                            env!("CARGO_PKG_VERSION"),
+                            "/assertables/macro.assert_fn_gt_x.html\n",
+                            " a_function label: `{}`,\n",
+                            "    a_param label: `{}`,\n",
+                            "    a_param debug: `{:?}`,\n",
+                            "     b_expr label: `{}`,\n",
+                            "     b_expr debug: `{:?}`,\n",
+                            "                a: `{:?}`,\n",
+                            "                b: `{:?}`"
+                        ),
+                        stringify!($a_function),
+                        stringify!($a_param),
+                        a_param,
+                        stringify!($b_expr),
+                        b_expr,
+                        a,
+                        b_expr
+                    ))
                 }
             }
         }
     };
 
     //// Arity 0
-
     ($a_function:path, $b_expr:expr $(,)?) => {
         match (&$a_function, &$b_expr) {
             (_a_function, b_expr) => {
@@ -85,29 +82,28 @@ macro_rules! assert_fn_gt_x_as_result {
                 if a > $b_expr {
                     Ok(a)
                 } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_fn_gt_x!(a_function, b_expr)`\n",
-                                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
-                                " a_function label: `{}`,\n",
-                                "     b_expr label: `{}`,\n",
-                                "     b_expr debug: `{:?}`,\n",
-                                "                a: `{:?}`,\n",
-                                "                b: `{:?}`"
-                            ),
-                            stringify!($a_function),
-                            stringify!($b_expr),
-                            b_expr,
-                            a,
-                            b_expr
-                        )
-                    )
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_fn_gt_x!(a_function, b_expr)`\n",
+                            "https://docs.rs/assertables/",
+                            env!("CARGO_PKG_VERSION"),
+                            "/assertables/macro.assert_fn_gt_x.html\n",
+                            " a_function label: `{}`,\n",
+                            "     b_expr label: `{}`,\n",
+                            "     b_expr debug: `{:?}`,\n",
+                            "                a: `{:?}`,\n",
+                            "                b: `{:?}`"
+                        ),
+                        stringify!($a_function),
+                        stringify!($b_expr),
+                        b_expr,
+                        a,
+                        b_expr
+                    ))
                 }
             }
         }
     };
-
 }
 
 #[cfg(test)]
@@ -137,7 +133,9 @@ mod test_assert_fn_gt_x_as_result {
             let actual = assert_fn_gt_x_as_result!(f, a, b);
             let message = concat!(
                 "assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -156,7 +154,9 @@ mod test_assert_fn_gt_x_as_result {
             let actual = assert_fn_gt_x_as_result!(f, a, b);
             let message = concat!(
                 "assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -190,7 +190,9 @@ mod test_assert_fn_gt_x_as_result {
             let actual = assert_fn_gt_x_as_result!(f, b);
             let message = concat!(
                 "assertion failed: `assert_fn_gt_x!(a_function, b_expr)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "     b_expr label: `b`,\n",
                 "     b_expr debug: `1`,\n",
@@ -206,7 +208,9 @@ mod test_assert_fn_gt_x_as_result {
             let actual = assert_fn_gt_x_as_result!(f, b);
             let message = concat!(
                 "assertion failed: `assert_fn_gt_x!(a_function, b_expr)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "     b_expr label: `b`,\n",
                 "     b_expr debug: `2`,\n",
@@ -257,7 +261,7 @@ mod test_assert_fn_gt_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_gt_x.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",
@@ -342,7 +346,9 @@ mod test_assert_fn_gt_x {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -370,7 +376,9 @@ mod test_assert_fn_gt_x {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -414,7 +422,9 @@ mod test_assert_fn_gt_x {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_gt_x!(a_function, b_expr)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "     b_expr label: `b`,\n",
                 "     b_expr debug: `1`,\n",
@@ -439,7 +449,9 @@ mod test_assert_fn_gt_x {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_gt_x!(a_function, b_expr)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_gt_x.html\n",
                 " a_function label: `f`,\n",
                 "     b_expr label: `b`,\n",
                 "     b_expr debug: `2`,\n",

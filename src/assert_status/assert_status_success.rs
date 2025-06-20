@@ -42,39 +42,37 @@ macro_rules! assert_status_success_as_result {
     ($a:expr $(,)?) => {
         match ($a.status()) {
             Ok(a1) => {
-                if a1.success()  {
+                if a1.success() {
                     Ok(true)
                 } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_status_success!(a)`\n",
-                                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_success.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`",
-                            ),
-                            stringify!($a),
-                            $a,
-                        )
-                    )
-                }
-            },
-            a_status => {
-                Err(
-                    format!(
+                    Err(format!(
                         concat!(
                             "assertion failed: `assert_status_success!(a)`\n",
-                            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_success.html\n",
-                            "  a label: `{}`,\n",
-                            "  a debug: `{:?}`,\n",
-                            " a status: `{:?}`",
+                            "https://docs.rs/assertables/",
+                            env!("CARGO_PKG_VERSION"),
+                            "/assertables/macro.assert_status_success.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`",
                         ),
                         stringify!($a),
                         $a,
-                        a_status
-                    )
-                )
+                    ))
+                }
             }
+            a_status => Err(format!(
+                concat!(
+                    "assertion failed: `assert_status_success!(a)`\n",
+                    "https://docs.rs/assertables/",
+                    env!("CARGO_PKG_VERSION"),
+                    "/assertables/macro.assert_status_success.html\n",
+                    "  a label: `{}`,\n",
+                    "  a debug: `{:?}`,\n",
+                    " a status: `{:?}`",
+                ),
+                stringify!($a),
+                $a,
+                a_status
+            )),
         }
     };
 }
@@ -121,7 +119,9 @@ mod test_assert_status_success_as_result {
         let actual = assert_status_success_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_status_success!(a)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_success.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_status_success.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`",
         );
@@ -162,7 +162,7 @@ mod test_assert_status_success_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_success!(a)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_success.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_status_success.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"1\"`"
 /// # );
@@ -216,7 +216,9 @@ mod test_assert_status_success {
         });
         let message = concat!(
             "assertion failed: `assert_status_success!(a)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_success.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_status_success.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`",
         );

@@ -42,27 +42,21 @@
 macro_rules! assert_pending_as_result {
     ($a:expr $(,)?) => {
         match (&$a) {
-            a => {
-                match (a) {
-                    Pending => {
-                        Ok(())
-                    },
-                    _ => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_pending!(a)`\n",
-                                    "https://docs.rs/assertables/9.7.0/assertables/macro.assert_pending.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`",
-                                ),
-                                stringify!($a),
-                                a
-                            )
-                        )
-                    }
-                }
-            }
+            a => match (a) {
+                Pending => Ok(()),
+                _ => Err(format!(
+                    concat!(
+                        "assertion failed: `assert_pending!(a)`\n",
+                        "https://docs.rs/assertables/",
+                        env!("CARGO_PKG_VERSION"),
+                        "/assertables/macro.assert_pending.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`",
+                    ),
+                    stringify!($a),
+                    a
+                )),
+            },
         }
     };
 }
@@ -106,7 +100,9 @@ mod test_assert_pending_as_result {
         let actual = assert_pending_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_pending!(a)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_pending.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_pending.html\n",
             " a label: `a`,\n",
             " a debug: `Ready(1)`"
         );
@@ -147,7 +143,7 @@ mod test_assert_pending_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_pending!(a)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_pending.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_pending.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`",
 /// # );
@@ -200,7 +196,9 @@ mod test_assert_pending {
         });
         let message = concat!(
             "assertion failed: `assert_pending!(a)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_pending.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_pending.html\n",
             " a label: `a`,\n",
             " a debug: `Ready(1)`"
         );

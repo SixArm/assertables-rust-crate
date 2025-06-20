@@ -63,7 +63,7 @@ macro_rules! assert_fn_ok_ge_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`\n",
-                                        "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ge.html\n",
+                                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_ok_ge.html\n",
                                         " a_function label: `{}`,\n",
                                         "    a_param label: `{}`,\n",
                                         "    a_param debug: `{:?}`,\n",
@@ -90,7 +90,7 @@ macro_rules! assert_fn_ok_ge_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_function, b_param)`\n",
-                                    "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_ge.html\n",
+                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_err_ge.html\n",
                                     " a_function label: `{}`,\n",
                                     "    a_param label: `{}`,\n",
                                     "    a_param debug: `{:?}`,\n",
@@ -131,7 +131,7 @@ macro_rules! assert_fn_ok_ge_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_ok_ge!(a_function, b_function)`\n",
-                                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ge.html\n",
+                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_ok_ge.html\n",
                                 " a_function label: `{}`,\n",
                                 " b_function label: `{}`,\n",
                                 "                a: `{:?}`,\n",
@@ -150,7 +150,7 @@ macro_rules! assert_fn_ok_ge_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_fn_err_ge!(a_function, b_function)`\n",
-                            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_ge.html\n",
+                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_err_ge.html\n",
                             " a_function label: `{}`,\n",
                             " b_function label: `{}`,\n",
                             "                a: `{:?}`,\n",
@@ -209,7 +209,9 @@ mod test_assert_fn_ok_ge_as_result {
             let actual = assert_fn_ok_ge_as_result!(f, a, g, b);
             let message = concat!(
                 "assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ge.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_ok_ge.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -254,7 +256,9 @@ mod test_assert_fn_ok_ge_as_result {
             let actual = assert_fn_ok_ge_as_result!(f, g);
             let message = concat!(
                 "assertion failed: `assert_fn_ok_ge!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ge.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_ok_ge.html\n",
                 " a_function label: `f`,\n",
                 " b_function label: `g`,\n",
                 "                a: `1`,\n",
@@ -311,7 +315,7 @@ mod test_assert_fn_ok_ge_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ge.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fn_ok_ge.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `1`,\n",
@@ -411,7 +415,9 @@ mod test_assert_fn_ok_ge {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ge.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_ok_ge.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -466,7 +472,9 @@ mod test_assert_fn_ok_ge {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_ok_ge!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ge.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fn_ok_ge.html\n",
                 " a_function label: `f`,\n",
                 " b_function label: `g`,\n",
                 "                a: `1`,\n",

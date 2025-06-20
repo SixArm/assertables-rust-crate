@@ -4,7 +4,9 @@
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
-        "concat"
+        "concat",
+        "fnord",
+        "hashset"
     ],
     "ignoreWords": [],
     "import": [],

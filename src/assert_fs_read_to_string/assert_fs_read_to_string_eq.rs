@@ -51,7 +51,7 @@ macro_rules! assert_fs_read_to_string_eq_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-                                        "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_eq.html\n",
+                                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_eq.html\n",
                                         " a_path label: `{}`,\n",
                                         " a_path debug: `{:?}`,\n",
                                         " b_path label: `{}`,\n",
@@ -73,7 +73,7 @@ macro_rules! assert_fs_read_to_string_eq_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-                                    "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_eq.html\n",
+                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_eq.html\n",
                                     " a_path label: `{}`,\n",
                                     " a_path debug: `{:?}`,\n",
                                     " b_path label: `{}`,\n",
@@ -161,7 +161,9 @@ mod test_assert_fs_read_to_string_eq_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_eq.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fs_read_to_string_eq.html\n",
                 " a_path label: `a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `b`,\n",
@@ -169,8 +171,7 @@ mod test_assert_fs_read_to_string_eq_as_result {
                 "     a string: `alfa\n`,\n",
                 "     b string: `bravo\n`"
             ),
-            a,
-            b
+            a, b
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -183,7 +184,9 @@ mod test_assert_fs_read_to_string_eq_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_eq.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fs_read_to_string_eq.html\n",
                 " a_path label: `a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `b`,\n",
@@ -191,8 +194,7 @@ mod test_assert_fs_read_to_string_eq_as_result {
                 "     a string: `bravo\n`,\n",
                 "     b string: `alfa\n`"
             ),
-            a,
-            b
+            a, b
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -237,7 +239,7 @@ mod test_assert_fs_read_to_string_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_eq.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_eq.html\n",
 /// #     " a_path label: `a`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_path label: `b`,\n",
@@ -307,7 +309,9 @@ mod test_assert_fs_read_to_string_eq {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_eq.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fs_read_to_string_eq.html\n",
                 " a_path label: `a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `b`,\n",
@@ -315,8 +319,7 @@ mod test_assert_fs_read_to_string_eq {
                 "     a string: `alfa\n`,\n",
                 "     b string: `bravo\n`"
             ),
-            a,
-            b
+            a, b
         );
         assert_eq!(
             result
@@ -338,7 +341,9 @@ mod test_assert_fs_read_to_string_eq {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_eq.html\n",
+                "https://docs.rs/assertables/",
+                env!("CARGO_PKG_VERSION"),
+                "/assertables/macro.assert_fs_read_to_string_eq.html\n",
                 " a_path label: `a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `b`,\n",
@@ -346,8 +351,7 @@ mod test_assert_fs_read_to_string_eq {
                 "     a string: `bravo\n`,\n",
                 "     b string: `alfa\n`"
             ),
-            a,
-            b
+            a, b
         );
         assert_eq!(
             result

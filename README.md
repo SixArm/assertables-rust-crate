@@ -114,8 +114,8 @@ Values:
 
 Nearness:
 
-* [`assert_eq_f32!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_eq_f32/assert_eq_f32) ≈ |a-b| ≤ f32::ε * 2
-* [`assert_eq_f64!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_eq_f64/assert_eq_f64) ≈ |a-b| ≤ f64::ε * 2
+* [`assert_eq_f32!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_eq_f32/assert_eq_f32) ≈ |a-b| ≤ f32::ε * 2 (v9.7)
+* [`assert_eq_f64!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_eq_f64/assert_eq_f64) ≈ |a-b| ≤ f64::ε * 2 (v9.7)
 * [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_approx/assert_approx_eq) ≈ |a-b| ≤ 1e-6
 * [`assert_diff_eq_x!(a, b, x)`](https://docs.rs/assertables/9.6.1/assertables/assert_diff/assert_diff_eq_x) ≈ (b-a) = x
 * [`assert_abs_diff_eq_x!(a, b, x)`](https://docs.rs/assertables/9.6.1/assertables/assert_abs_diff/assert_abs_diff_eq_x) ≈ |b-a| = x
@@ -138,7 +138,7 @@ Matching:
 * [`assert_contains!(container, x)`](https://docs.rs/assertables/9.6.1/assertables/assert_contains) ≈ container.contains(x)
 * [`assert_is_match!(matcher, x)`](https://docs.rs/assertables/9.6.1/assertables/assert_is_match) ≈ matcher.is_match(x)
 * [`assert_matches!(expr, pattern)`](https://docs.rs/assertables/9.6.1/assertables/assert_matches) ≈ matches!(expr, pattern)
-* [`assert_email_address!(expr)`](https://docs.rs/assertables/9.6.1/assertables/assert_email_address) ≈ expr has local@domain
+* [`assert_email_address!(expr)`](https://docs.rs/assertables/9.6.1/assertables/assert_email_address) ≈ expr has local@domain (v9.6)
 
 Results:
 

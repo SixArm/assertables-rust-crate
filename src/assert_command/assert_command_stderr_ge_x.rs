@@ -48,34 +48,12 @@ macro_rules! assert_command_stderr_ge_x_as_result {
                 if a.ge(b_expr) {
                     Ok(a)
                 } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_command_stderr_ge_x!(command, expr)`\n",
-                                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ge_x.html\n",
-                                " command label: `{}`,\n",
-                                " command debug: `{:?}`,\n",
-                                " command value: `{:?}`,\n",
-                                "    expr label: `{}`,\n",
-                                "    expr debug: `{:?}`,\n",
-                                "    expr value: `{:?}`"
-                            ),
-                            stringify!($a_command),
-                            $a_command,
-                            a,
-                            stringify!($b_expr),
-                            $b_expr,
-                            b_expr
-                        )
-                    )
-                }
-            },
-            (a, b) => {
-                Err(
-                    format!(
+                    Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_ge_x!(command, expr)`\n",
-                            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ge_x.html\n",
+                            "https://docs.rs/assertables/",
+                            env!("CARGO_PKG_VERSION"),
+                            "/assertables/macro.assert_command_stderr_ge_x.html\n",
                             " command label: `{}`,\n",
                             " command debug: `{:?}`,\n",
                             " command value: `{:?}`,\n",
@@ -88,10 +66,30 @@ macro_rules! assert_command_stderr_ge_x_as_result {
                         a,
                         stringify!($b_expr),
                         $b_expr,
-                        b
-                )
-                )
+                        b_expr
+                    ))
+                }
             }
+            (a, b) => Err(format!(
+                concat!(
+                    "assertion failed: `assert_command_stderr_ge_x!(command, expr)`\n",
+                    "https://docs.rs/assertables/",
+                    env!("CARGO_PKG_VERSION"),
+                    "/assertables/macro.assert_command_stderr_ge_x.html\n",
+                    " command label: `{}`,\n",
+                    " command debug: `{:?}`,\n",
+                    " command value: `{:?}`,\n",
+                    "    expr label: `{}`,\n",
+                    "    expr debug: `{:?}`,\n",
+                    "    expr value: `{:?}`"
+                ),
+                stringify!($a_command),
+                $a_command,
+                a,
+                stringify!($b_expr),
+                $b_expr,
+                b
+            )),
         }
     };
 }
@@ -195,7 +193,9 @@ mod test_assert_command_stderr_ge_x_as_result {
         let actual = assert_command_stderr_ge_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_ge_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ge_x.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_command_stderr_ge_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -248,7 +248,7 @@ mod test_assert_command_stderr_ge_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_ge_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ge_x.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_ge_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " command value: `[97, 108, 102, 97]`,\n",
@@ -319,7 +319,9 @@ mod test_assert_command_stderr_ge_x {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_ge_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ge_x.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_command_stderr_ge_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",

@@ -4,12 +4,18 @@ Changes as highlights for recent major versions.
 
 ## Version 9.x
 
+* 9.7.1 Fix `assert_contains` for methods that require `Borrow`.
+
 * 9.7.0 Add `assert_eq_f32` and `assert_eq_f64`.
+
+* 9.6.3 Fix `assert_contains` for methods that require `Borrow` (backport from 9.7.1).
 
 * 9.6.1-9.6.2 Fix pass-by-reference tests by adding more tests, more references, more loops.
 
 * 9.6.0 Add `assert_email_address`
   
+* 9.5.8 Fix `assert_contains` for methods that require `Borrow` (backport from 9.7.1.).
+ 
 * 9.5.2-9.5.7 Fix idempotent access testing via once.
 
 * 9.5.1 Fix assert_in_range for range syntax `a..=b`.

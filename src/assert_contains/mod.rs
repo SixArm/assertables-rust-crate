@@ -7,6 +7,9 @@
 //!
 //! * [`assert_not_contains!(container, containee)`](macro@crate::assert_not_contains) ≈ !container.contains(containee)
 //!
+//! These macros work with many kinds of Rust types, such as String, Vec, Range, HashSet.
+//! The specifics depend on each type's implementation of a method `contains`, and some types
+//! require the second argument to be borrowable, so be sure to check the Rust documentation.
 //!
 //! # Example
 //!
@@ -21,12 +24,12 @@
 //! // Range contains value
 //! let a = 1..3;
 //! let b = 2;
-//! assert_contains!(a, b);
+//! assert_contains!(a, &b); // Borrow
 //!
-//! // Vector contains element
+//! // Vector contains &element
 //! let a = vec![1, 2, 3];
 //! let b = 2;
-//! assert_contains!(a, b);
+//! assert_contains!(a, &b); // Borrow
 //! ```
 
 pub mod assert_contains;

@@ -94,7 +94,7 @@ macro_rules! assert_infix_as_result {
                 format!(
                     concat!(
                         "assertion failed: `assert_infix!(a {} b)`\n",
-                        "https://docs.rs/assertables/9.7.0/assertables/macro.assert_infix.html\n",
+                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_infix.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -132,7 +132,9 @@ mod test_assert_infix_as_result {
         let actual = assert_infix_as_result!(a == b);
         let message = concat!(
             "assertion failed: `assert_infix!(a == b)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_infix.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_infix.html\n",
             " a label: `a`,\n",
             " a debug: `1`,\n",
             " b label: `b`,\n",
@@ -178,7 +180,7 @@ mod test_assert_infix_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_infix!(a == b)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_infix.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_infix.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",
@@ -253,7 +255,9 @@ mod test_assert_infix {
         });
         let message = concat!(
             "assertion failed: `assert_infix!(a == b)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_infix.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_infix.html\n",
             " a label: `a`,\n",
             " a debug: `1`,\n",
             " b label: `b`,\n",

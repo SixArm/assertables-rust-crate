@@ -51,26 +51,26 @@ macro_rules! assert_set_eq_as_result {
                 if a == b {
                     Ok((a, b))
                 } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-                                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_eq.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                "       a: `{:?}`,\n",
-                                "       b: `{:?}`"
-                            ),
-                            stringify!($a_collection),
-                            a_collection,
-                            stringify!($b_collection),
-                            b_collection,
-                            a,
-                            b
-                        )
-                    )
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
+                            "https://docs.rs/assertables/",
+                            env!("CARGO_PKG_VERSION"),
+                            "/assertables/macro.assert_set_eq.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            "       a: `{:?}`,\n",
+                            "       b: `{:?}`"
+                        ),
+                        stringify!($a_collection),
+                        a_collection,
+                        stringify!($b_collection),
+                        b_collection,
+                        a,
+                        b
+                    ))
                 }
             }
         }
@@ -131,7 +131,9 @@ mod test_assert_set_eq_as_result {
         let actual = assert_set_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_eq.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_set_eq.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `b`,\n",
@@ -181,7 +183,7 @@ mod test_assert_set_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_eq.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_set_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `b`,\n",
@@ -241,7 +243,9 @@ mod test_assert_set_eq {
         });
         let message = concat!(
             "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_eq.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_set_eq.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `b`,\n",
