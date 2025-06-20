@@ -1,3 +1,5 @@
+// By https://github.com/pdh11
+
 use assertables::*;
 use std::sync::Mutex;
 
@@ -6,8 +8,7 @@ struct Foo {
 }
 
 #[test]
-
-fn f() {
+fn test() {
     let s = Mutex::new(Foo {
         s: "alfa".to_string(),
     });

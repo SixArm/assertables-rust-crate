@@ -53,7 +53,7 @@ macro_rules! assert_command_stdout_string_is_match_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-                                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_string_is_match.html\n",
+                                "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_string_is_match.html\n",
                                 " command label: `{}`,\n",
                                 " command debug: `{:?}`,\n",
                                 " command value: `{:?}`,\n",
@@ -76,7 +76,7 @@ macro_rules! assert_command_stdout_string_is_match_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-                            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_string_is_match.html\n",
+                            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_string_is_match.html\n",
                             " command label: `{}`,\n",
                             " command debug: `{:?}`,\n",
                             " command value: `{:?}`,\n",
@@ -154,7 +154,9 @@ mod test_assert_command_stdout_string_is_match_as_result {
         let actual = assert_command_stdout_string_is_match_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_string_is_match.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_command_stdout_string_is_match.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `\"alfa\"`,\n",
@@ -208,7 +210,7 @@ mod test_assert_command_stdout_string_is_match_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stdout_string_is_match.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " command value: `\"alfa\"`,\n",
@@ -269,7 +271,9 @@ mod test_assert_command_stdout_string_is_match {
         });
         let message = concat!(
             "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_string_is_match.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_command_stdout_string_is_match.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `\"alfa\"`,\n",

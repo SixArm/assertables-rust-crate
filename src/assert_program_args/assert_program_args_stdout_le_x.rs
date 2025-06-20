@@ -53,7 +53,7 @@ macro_rules! assert_program_args_stdout_le_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_le_x.html\n",
+                                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stdout_le_x.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -80,7 +80,7 @@ macro_rules! assert_program_args_stdout_le_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_le_x.html\n",
+                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stdout_le_x.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -222,16 +222,18 @@ mod test_assert_program_args_stdout_le_x_as_result {
         let b = vec![b'a', b'a'];
         let actual = assert_program_args_stdout_le_x_as_result!(a_program, a_args, b);
         let message = concat!(
-          "assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`\n",
-          "https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_le_x.html\n",
-          " a_program label: `a_program`,\n",
-          " a_program debug: `\"bin/printf-stdout\"`,\n",
-          "    a_args label: `a_args`,\n",
-          "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-          "    b_expr label: `b`,\n",
-          "    b_expr debug: `[97, 97]`,\n",
-          "               a: `[97, 108, 102, 97]`,\n",
-          "               b: `[97, 97]`"
+            "assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_program_args_stdout_le_x.html\n",
+            " a_program label: `a_program`,\n",
+            " a_program debug: `\"bin/printf-stdout\"`,\n",
+            "    a_args label: `a_args`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+            "    b_expr label: `b`,\n",
+            "    b_expr debug: `[97, 97]`,\n",
+            "               a: `[97, 108, 102, 97]`,\n",
+            "               b: `[97, 97]`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -279,7 +281,7 @@ mod test_assert_program_args_stdout_le_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_le_x.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_program_args_stdout_le_x.html\n",
 /// #     " a_program label: `program`,\n",
 /// #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 /// #     "    a_args label: `args`,\n",
@@ -350,16 +352,18 @@ mod test_assert_program_args_stdout_le_x {
             let _actual = assert_program_args_stdout_le_x!(a_program, a_args, b);
         });
         let message = concat!(
-          "assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`\n",
-          "https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_le_x.html\n",
-          " a_program label: `a_program`,\n",
-          " a_program debug: `\"bin/printf-stdout\"`,\n",
-          "    a_args label: `a_args`,\n",
-          "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
-          "    b_expr label: `b`,\n",
-          "    b_expr debug: `[97, 97]`,\n",
-          "               a: `[97, 108, 102, 97]`,\n",
-          "               b: `[97, 97]`"
+            "assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_program_args_stdout_le_x.html\n",
+            " a_program label: `a_program`,\n",
+            " a_program debug: `\"bin/printf-stdout\"`,\n",
+            "    a_args label: `a_args`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+            "    b_expr label: `b`,\n",
+            "    b_expr debug: `[97, 97]`,\n",
+            "               a: `[97, 108, 102, 97]`,\n",
+            "               b: `[97, 97]`"
         );
         assert_eq!(
             result

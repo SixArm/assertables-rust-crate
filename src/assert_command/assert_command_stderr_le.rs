@@ -50,34 +50,12 @@ macro_rules! assert_command_stderr_le_as_result {
                 if a.le(&b) {
                     Ok((a, b))
                 } else {
-                    Err(
-                        format!(
-                            concat!(
-                                "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-                                "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_le.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " a value: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                " b value: `{:?}`"
-                            ),
-                            stringify!($a_command),
-                            $a_command,
-                            a,
-                            stringify!($b_command),
-                            $b_command,
-                            b
-                        )
-                    )
-                }
-            },
-            (a, b) => {
-                Err(
-                    format!(
+                    Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_le.html\n",
+                            "https://docs.rs/assertables/",
+                            env!("CARGO_PKG_VERSION"),
+                            "/assertables/macro.assert_command_stderr_le.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a value: `{:?}`,\n",
@@ -91,9 +69,29 @@ macro_rules! assert_command_stderr_le_as_result {
                         stringify!($b_command),
                         $b_command,
                         b
-                    )
-                )
+                    ))
+                }
             }
+            (a, b) => Err(format!(
+                concat!(
+                    "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
+                    "https://docs.rs/assertables/",
+                    env!("CARGO_PKG_VERSION"),
+                    "/assertables/macro.assert_command_stderr_le.html\n",
+                    " a label: `{}`,\n",
+                    " a debug: `{:?}`,\n",
+                    " a value: `{:?}`,\n",
+                    " b label: `{}`,\n",
+                    " b debug: `{:?}`,\n",
+                    " b value: `{:?}`"
+                ),
+                stringify!($a_command),
+                $a_command,
+                a,
+                stringify!($b_command),
+                $b_command,
+                b
+            )),
         }
     };
 }
@@ -210,7 +208,9 @@ mod test_assert_command_stderr_le_as_result {
         let actual = assert_command_stderr_le_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_le.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_command_stderr_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",
@@ -265,7 +265,7 @@ mod test_assert_command_stderr_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_le.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_command_stderr_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " a value: `[97, 108, 102, 97]`,\n",
@@ -342,7 +342,9 @@ mod test_assert_command_stderr_le {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_le.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_command_stderr_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " a value: `[97, 108, 102, 97]`,\n",

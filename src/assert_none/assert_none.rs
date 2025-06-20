@@ -40,27 +40,21 @@
 macro_rules! assert_none_as_result {
     ($a:expr $(,)?) => {
         match (&$a) {
-            a => {
-                match (a) {
-                    None => {
-                        Ok(())
-                    },
-                    _ => {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_none!(a)`\n",
-                                    "https://docs.rs/assertables/9.7.0/assertables/macro.assert_none.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`",
-                                ),
-                                stringify!($a),
-                                a
-                            )
-                        )
-                    }
-                }
-            }
+            a => match (a) {
+                None => Ok(()),
+                _ => Err(format!(
+                    concat!(
+                        "assertion failed: `assert_none!(a)`\n",
+                        "https://docs.rs/assertables/",
+                        env!("CARGO_PKG_VERSION"),
+                        "/assertables/macro.assert_none.html\n",
+                        " a label: `{}`,\n",
+                        " a debug: `{:?}`",
+                    ),
+                    stringify!($a),
+                    a
+                )),
+            },
         }
     };
 }
@@ -102,7 +96,9 @@ mod test_assert_none_as_result {
         let actual = assert_none_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_none!(a)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_none.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_none.html\n",
             " a label: `a`,\n",
             " a debug: `Some(1)`",
         );
@@ -142,7 +138,7 @@ mod test_assert_none_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_none!(a)`\n",
-/// #     "https://docs.rs/assertables/9.7.0/assertables/macro.assert_none.html\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_none.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`",
 /// # );
@@ -193,7 +189,9 @@ mod test_assert_none {
         });
         let message = concat!(
             "assertion failed: `assert_none!(a)`\n",
-            "https://docs.rs/assertables/9.7.0/assertables/macro.assert_none.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_none.html\n",
             " a label: `a`,\n",
             " a debug: `Some(1)`",
         );
