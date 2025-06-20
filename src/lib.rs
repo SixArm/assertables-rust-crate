@@ -46,7 +46,7 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.6.3"
+//! assertables = "9.7.1"
 //! ```
 //!
 //! Benefits:
@@ -122,6 +122,8 @@
 //! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta) ≈ |a-b| ≤ Δ
 //! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)
 //! * [`assert_in_range!(a, range)`](module@crate::assert_in::assert_in_range) ≈ range.contains(a)
+//! * [`assert_eq_f32!(a, b)`](module@crate::assert_eq_f32) ≈ |a-b| < f32::ε * 2
+//! * [`assert_eq_f64!(a, b)`](module@crate::assert_eq_f64) ≈ |a-b| < f64::ε * 2
 //!
 //! Groups:
 //!
@@ -219,7 +221,7 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.6.3
+//! * Version: 9.7.1
 //! * Created: 2021-03-30T15:47:49Z
 //! * Updated: 2025-06-20T14:05:28Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
@@ -237,8 +239,8 @@ pub mod assert_lt;
 pub mod assert_ne; // (in addition to what's provided by Rust `std`)
 
 // Assert value comparison for floats
-//pub mod assert_eq_f32;
-//pub mod assert_eq_f64;
+pub mod assert_eq_f32;
+pub mod assert_eq_f64;
 
 // Assert difference
 pub mod assert_abs_diff;

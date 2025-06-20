@@ -114,14 +114,14 @@ Values:
 
 Nearness:
 
-* [`assert_eq_f32!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_eq_f32/assert_eq_f32) ≈ |a-b| ≤ f32::ε * 2 (v9.7)
-* [`assert_eq_f64!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_eq_f64/assert_eq_f64) ≈ |a-b| ≤ f64::ε * 2 (v9.7)
 * [`assert_approx_eq!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_approx/assert_approx_eq) ≈ |a-b| ≤ 1e-6
 * [`assert_diff_eq_x!(a, b, x)`](https://docs.rs/assertables/9.6.1/assertables/assert_diff/assert_diff_eq_x) ≈ (b-a) = x
 * [`assert_abs_diff_eq_x!(a, b, x)`](https://docs.rs/assertables/9.6.1/assertables/assert_abs_diff/assert_abs_diff_eq_x) ≈ |b-a| = x
 * [`assert_in_delta!(a, b, delta)`](https://docs.rs/assertables/9.6.1/assertables/assert_in/assert_in_delta) ≈ |a-b| ≤ Δ
 * [`assert_in_epsilon!(a, b, epsilon)`](https://docs.rs/assertables/9.6.1/assertables/assert_in/assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)
 * [`assert_in_range!(a, range)`](https://docs.rs/assertables/9.6.1/assertables/assert_in/assert_in_range) ≈ a ∈ range
+* [`assert_eq_f32!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_eq_f32/assert_eq_f32) ≈ |a-b| ≤ f32::ε * 2 (v9.7)
+* [`assert_eq_f64!(a, b)`](https://docs.rs/assertables/9.6.1/assertables/assert_eq_f64/assert_eq_f64) ≈ |a-b| ≤ f64::ε * 2 (v9.7)
 
 Groups:
 

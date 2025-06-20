@@ -44,34 +44,32 @@ macro_rules! assert_eq_f64_as_result {
             (a, b) => {
                 if (a == b) {
                     Ok(())
-                }
-                else {
+                } else {
                     let epsilon = f64::EPSILON * 2.0;
                     let delta = if (a >= b) { a - b } else { b - a };
                     if delta <= epsilon {
                         Ok(())
-                    }
-                    else {
-                        Err(
-                            format!(
-                                concat!(
-                                    "assertion failed: `assert_eq_f64!(a, b)`\n",
-                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_eq_f64.html\n",
-                                    " a label: `{}`,\n",
-                                    " a debug: `{:?}`,\n",
-                                    " b label: `{}`,\n",
-                                    " b debug: `{:?}`,\n",
-                                    " Δ: `{}`,\n",
-                                    " ε: `{}`",
-                                ),
-                                stringify!($a),
-                                a,
-                                stringify!($b),
-                                b,
-                                delta,
-                                epsilon
-                            )
-                        )
+                    } else {
+                        Err(format!(
+                            concat!(
+                                "assertion failed: `assert_eq_f64!(a, b)`\n",
+                                "https://docs.rs/assertables/",
+                                env!("CARGO_PKG_VERSION"),
+                                "/assertables/macro.assert_eq_f64.html\n",
+                                " a label: `{}`,\n",
+                                " a debug: `{:?}`,\n",
+                                " b label: `{}`,\n",
+                                " b debug: `{:?}`,\n",
+                                " Δ: `{}`,\n",
+                                " ε: `{}`",
+                            ),
+                            stringify!($a),
+                            a,
+                            stringify!($b),
+                            b,
+                            delta,
+                            epsilon
+                        ))
                     }
                 }
             }
@@ -130,7 +128,9 @@ mod test_assert_eq_f64_as_result {
         let actual = assert_eq_f64_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_eq_f64!(a, b)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_eq_f64.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_eq_f64.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
@@ -148,7 +148,9 @@ mod test_assert_eq_f64_as_result {
         let actual = assert_eq_f64_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_eq_f64!(a, b)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_eq_f64.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_eq_f64.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333338`,\n",
             " b label: `b`,\n",
@@ -255,7 +257,9 @@ mod test_assert_eq_f64 {
         });
         let message = concat!(
             "assertion failed: `assert_eq_f64!(a, b)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_eq_f64.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_eq_f64.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
@@ -282,7 +286,9 @@ mod test_assert_eq_f64 {
         });
         let message = concat!(
             "assertion failed: `assert_eq_f64!(a, b)`\n",
-            "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_eq_f64.html\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_eq_f64.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333338`,\n",
             " b label: `b`,\n",

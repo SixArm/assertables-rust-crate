@@ -68,8 +68,8 @@ fn examples_with_strings() {
 /// Examples with numeric nearness.
 #[test]
 fn examples_with_numeric_nearness() {
-    // assert_eq_f32!(0.3333333 as f32, 0.3333334 as f32);
-    // assert_eq_f64!(0.3333333333333333 as f64, 0.3333333333333334 as f64);
+    assert_eq_f32!(0.3333333 as f32, 0.3333334 as f32);
+    assert_eq_f64!(0.3333333333333333 as f64, 0.3333333333333334 as f64);
     assert_approx_eq!(1.00000001, 1.00000002);
     assert_in_delta!(1, 1, 0);
     assert_in_epsilon!(1, 1, 0);
