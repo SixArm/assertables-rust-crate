@@ -1,4 +1,4 @@
-//! Assert two floating point numbers are equal within 2.0 * f64::EPSILON.
+//! Assert a floating point 64-bit number is equal to another within 2.0 * f64::EPSILON.
 //!
 //! Pseudocode:<br>
 //! a = b
@@ -45,9 +45,9 @@ macro_rules! assert_eq_f64_as_result {
                 if (a == b) {
                     Ok(())
                 } else {
-                    let epsilon = f64::EPSILON * 2.0;
+                    let two_epsilon = 2.0 * f64::EPSILON;
                     let delta = if (a >= b) { a - b } else { b - a };
-                    if delta <= epsilon {
+                    if delta <= two_epsilon {
                         Ok(())
                     } else {
                         Err(format!(
@@ -60,15 +60,15 @@ macro_rules! assert_eq_f64_as_result {
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
                                 " b debug: `{:?}`,\n",
-                                " Δ: `{}`,\n",
-                                " ε: `{}`",
+                                "  Δ: `{}`,\n",
+                                " 2ε: `{}`",
                             ),
                             stringify!($a),
                             a,
                             stringify!($b),
                             b,
                             delta,
-                            epsilon
+                            two_epsilon,
                         ))
                     }
                 }
@@ -135,8 +135,8 @@ mod test_assert_eq_f64_as_result {
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
             " b debug: `0.3333333333333338`,\n",
-            " Δ: `0.0000000000000004996003610813204`,\n",
-            " ε: `0.0000000000000004440892098500626`",
+            "  Δ: `0.0000000000000004996003610813204`,\n",
+            " 2ε: `0.0000000000000004440892098500626`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -155,14 +155,14 @@ mod test_assert_eq_f64_as_result {
             " a debug: `0.3333333333333338`,\n",
             " b label: `b`,\n",
             " b debug: `0.3333333333333333`,\n",
-            " Δ: `0.0000000000000004996003610813204`,\n",
-            " ε: `0.0000000000000004440892098500626`",
+            "  Δ: `0.0000000000000004996003610813204`,\n",
+            " 2ε: `0.0000000000000004440892098500626`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
 }
 
-/// Assert two floating point numbers are equal within 2.0 * f64::EPSILON.
+/// Assert a floating point 64-bit number is equal to another within 2.0 * f64::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a = b
@@ -205,8 +205,8 @@ mod test_assert_eq_f64_as_result {
 /// #     " a debug: `0.3333333333333333`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `0.3333333333333338`,\n",
-/// #     " Δ: `0.0000000000000004996003610813204`,\n",
-/// #     " ε: `0.0000000000000004440892098500626`",
+/// #     "  Δ: `0.0000000000000004996003610813204`,\n",
+/// #     " 2ε: `0.0000000000000004440892098500626`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -264,8 +264,8 @@ mod test_assert_eq_f64 {
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
             " b debug: `0.3333333333333338`,\n",
-            " Δ: `0.0000000000000004996003610813204`,\n",
-            " ε: `0.0000000000000004440892098500626`",
+            "  Δ: `0.0000000000000004996003610813204`,\n",
+            " 2ε: `0.0000000000000004440892098500626`",
         );
         assert_eq!(
             result
@@ -293,8 +293,8 @@ mod test_assert_eq_f64 {
             " a debug: `0.3333333333333338`,\n",
             " b label: `b`,\n",
             " b debug: `0.3333333333333333`,\n",
-            " Δ: `0.0000000000000004996003610813204`,\n",
-            " ε: `0.0000000000000004440892098500626`",
+            "  Δ: `0.0000000000000004996003610813204`,\n",
+            " 2ε: `0.0000000000000004440892098500626`",
         );
         assert_eq!(
             result
@@ -307,10 +307,10 @@ mod test_assert_eq_f64 {
     }
 }
 
-/// Assert an expression is greater than another.
+/// Assert a floating point 64-bit number is equal to another within 2.0 * f64::EPSILON.
 ///
 /// Pseudocode:<br>
-/// a > b
+/// a = b
 ///
 /// This macro provides the same statements as [`assert_eq_f64`](macro.assert_eq_f64.html),
 /// except this macro's statements are only enabled in non-optimized

@@ -45,9 +45,9 @@ macro_rules! assert_eq_f32_as_result {
                 if (a == b) {
                     Ok(())
                 } else {
-                    let epsilon = f32::EPSILON * 2.0;
+                    let two_epsilon = 2.0 * f32::EPSILON;
                     let delta = if (a >= b) { a - b } else { b - a };
-                    if delta <= epsilon {
+                    if delta <= two_epsilon {
                         Ok(())
                     } else {
                         Err(format!(
@@ -60,15 +60,15 @@ macro_rules! assert_eq_f32_as_result {
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
                                 " b debug: `{:?}`,\n",
-                                " Δ: `{}`,\n",
-                                " ε: `{}`",
+                                "  Δ: `{}`,\n",
+                                " 2ε: `{}`",
                             ),
                             stringify!($a),
                             a,
                             stringify!($b),
                             b,
                             delta,
-                            epsilon
+                            two_epsilon,
                         ))
                     }
                 }
@@ -135,8 +135,8 @@ mod test_assert_eq_f32_as_result {
             " a debug: `0.3333333`,\n",
             " b label: `b`,\n",
             " b debug: `0.3333336`,\n",
-            " Δ: `0.00000029802322`,\n",
-            " ε: `0.00000023841858`",
+            "  Δ: `0.00000029802322`,\n",
+            " 2ε: `0.00000023841858`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -155,8 +155,8 @@ mod test_assert_eq_f32_as_result {
             " a debug: `0.3333336`,\n",
             " b label: `b`,\n",
             " b debug: `0.3333333`,\n",
-            " Δ: `0.00000029802322`,\n",
-            " ε: `0.00000023841858`",
+            "  Δ: `0.00000029802322`,\n",
+            " 2ε: `0.00000023841858`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -205,8 +205,8 @@ mod test_assert_eq_f32_as_result {
 /// #     " a debug: `0.3333333`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `0.3333336`,\n",
-/// #     " Δ: `0.00000029802322`,\n",
-/// #     " ε: `0.00000023841858`",
+/// #     "  Δ: `0.00000029802322`,\n",
+/// #     " 2ε: `0.00000023841858`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -264,8 +264,8 @@ mod test_assert_eq_f32 {
             " a debug: `0.3333333`,\n",
             " b label: `b`,\n",
             " b debug: `0.3333336`,\n",
-            " Δ: `0.00000029802322`,\n",
-            " ε: `0.00000023841858`",
+            "  Δ: `0.00000029802322`,\n",
+            " 2ε: `0.00000023841858`",
         );
         assert_eq!(
             result
@@ -293,8 +293,8 @@ mod test_assert_eq_f32 {
             " a debug: `0.3333336`,\n",
             " b label: `b`,\n",
             " b debug: `0.3333333`,\n",
-            " Δ: `0.00000029802322`,\n",
-            " ε: `0.00000023841858`",
+            "  Δ: `0.00000029802322`,\n",
+            " 2ε: `0.00000023841858`",
         );
         assert_eq!(
             result
@@ -310,7 +310,7 @@ mod test_assert_eq_f32 {
 /// Assert an expression is greater than another.
 ///
 /// Pseudocode:<br>
-/// a > b
+/// a = b
 ///
 /// This macro provides the same statements as [`assert_eq_f32`](macro.assert_eq_f32.html),
 /// except this macro's statements are only enabled in non-optimized
