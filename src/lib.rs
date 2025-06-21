@@ -46,7 +46,7 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.7.1"
+//! assertables = "9.8.0"
 //! ```
 //!
 //! Benefits:
@@ -107,12 +107,12 @@
 //!
 //! Values:
 //!
-//! * [`assert_eq!(a, b)`](module@crate::assert_eq) ≈ a = b ≈ equal to
-//! * [`assert_ne!(a, b)`](module@crate::assert_ne) ≈ a ≠ b ≈ not equal to
-//! * [`assert_lt!(a, b)`](module@crate::assert_lt) ≈ a < b ≈ less than
-//! * [`assert_le!(a, b)`](module@crate::assert_le) ≈ a ≤ b ≈ less than or equal to
-//! * [`assert_gt!(a, b)`](module@crate::assert_gt) ≈ a > b ≈ greater than
-//! * [`assert_ge!(a, b)`](module@crate::assert_ge) ≈ a ≥ b ≈ greater than or equal to
+//! * [`assert_eq!(a, b)`](module@crate::assert_eq) ≈ a = b
+//! * [`assert_ne!(a, b)`](module@crate::assert_ne) ≈ a ≠ b
+//! * [`assert_lt!(a, b)`](module@crate::assert_lt) ≈ a < b
+//! * [`assert_le!(a, b)`](module@crate::assert_le) ≈ a ≤ b
+//! * [`assert_gt!(a, b)`](module@crate::assert_gt) ≈ a > b
+//! * [`assert_ge!(a, b)`](module@crate::assert_ge) ≈ a ≥ b
 //!
 //! Nearness:
 //!
@@ -122,8 +122,6 @@
 //! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta) ≈ |a-b| ≤ Δ
 //! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)
 //! * [`assert_in_range!(a, range)`](module@crate::assert_in::assert_in_range) ≈ range.contains(a)
-//! * [`assert_eq_f32!(a, b)`](module@crate::assert_eq_f32) ≈ |a-b| < f32::ε * 2
-//! * [`assert_eq_f64!(a, b)`](module@crate::assert_eq_f64) ≈ |a-b| < f64::ε * 2
 //!
 //! Groups:
 //!
@@ -221,9 +219,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.7.1
+//! * Version: 9.8.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2025-06-20T14:05:28Z
+//! * Updated: 2025-06-21T11:12:50Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
@@ -239,7 +237,9 @@ pub mod assert_lt;
 pub mod assert_ne; // (in addition to what's provided by Rust `std`)
 
 // Assert value comparison for floats
+pub mod assert_f32;
 pub mod assert_eq_f32;
+pub mod assert_f64;
 pub mod assert_eq_f64;
 
 // Assert difference
