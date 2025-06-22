@@ -1,7 +1,7 @@
-//! Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
+//! Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 //!
 //! Pseudocode:<br>
-//! a ≠ b
+//! a ≤ b
 //!
 //! # Example
 //!
@@ -10,19 +10,19 @@
 //!
 //! let a: f32 = 1.0/3.0;
 //! let b: f32 = 0.3333336;
-//! assert_f32_ne!(a, b);
+//! assert_f32_le!(a, b);
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_f32_ne`](macro@crate::assert_f32_ne)
-//! * [`assert_f32_ne_as_result`](macro@crate::assert_f32_ne_as_result)
-//! * [`debug_assert_f32_ne`](macro@crate::debug_assert_f32_ne)
+//! * [`assert_f32_le`](macro@crate::assert_f32_le)
+//! * [`assert_f32_le_as_result`](macro@crate::assert_f32_le_as_result)
+//! * [`debug_assert_f32_le`](macro@crate::debug_assert_f32_le)
 
-//! Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
+//! Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 ///
 /// Pseudocode:<br>
-/// a ≠ b
+/// a ≤ b
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -33,24 +33,24 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_f32_ne`](macro@crate::assert_f32_ne)
-/// * [`assert_f32_ne_as_result`](macro@crate::assert_f32_ne_as_result)
-/// * [`debug_assert_f32_ne`](macro@crate::debug_assert_f32_ne)
+/// * [`assert_f32_le`](macro@crate::assert_f32_le)
+/// * [`assert_f32_le_as_result`](macro@crate::assert_f32_le_as_result)
+/// * [`debug_assert_f32_le`](macro@crate::debug_assert_f32_le)
 ///
 #[macro_export]
-macro_rules! assert_f32_ne_as_result {
+macro_rules! assert_f32_le_as_result {
     ($a:expr, $b:expr $(,)?) => {
         match (&$a, &$b) {
             (a, b) => {
-                if !(a >= b && a - b < f32::EPSILON) && !(a <= b && b - a < f32::EPSILON) {
+                if (a + f32::EPSILON <= *b) || (a >= b && a - b < f32::EPSILON) || (a <= b && b - a < f32::EPSILON){
                     Ok(())
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_f32_ne!(a, b)`\n",
+                            "assertion failed: `assert_f32_le!(a, b)`\n",
                             "https://docs.rs/assertables/",
                             env!("CARGO_PKG_VERSION"),
-                            "/assertables/macro.assert_f32_ne.html\n",
+                            "/assertables/macro.assert_f32_le.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -78,7 +78,7 @@ macro_rules! assert_f32_ne_as_result {
 #[cfg(test)] pub const GT:    f32 = 0.3333336;
 
 #[cfg(test)]
-mod test_assert_f32_ne_as_result {
+mod test_assert_f32_le_as_result {
     use super::*;
     use std::sync::Once;
 
@@ -87,7 +87,7 @@ mod test_assert_f32_ne_as_result {
         let a: f32 = EQ;
         let b: f32 = GT;
         for _ in 0..1 {
-            let actual = assert_f32_ne_as_result!(a, b);
+            let actual = assert_f32_le_as_result!(a, b);
             assert_eq!(actual.unwrap(), ());
         }
     }
@@ -116,24 +116,24 @@ mod test_assert_f32_ne_as_result {
 
         assert_eq!(A.is_completed(), false);
         assert_eq!(B.is_completed(), false);
-        let result = assert_f32_ne_as_result!(a(), b());
+        let result = assert_f32_le_as_result!(a(), b());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
     }
 
     #[test]
-    fn gt() {
+    fn eq() {
         let a: f32 = EQ;
-        let b: f32 = LT;
+        let b: f32 = EQ;
         for _ in 0..1 {
-            let actual = assert_f32_ne_as_result!(a, b);
+            let actual = assert_f32_le_as_result!(a, b);
             assert_eq!(actual.unwrap(), ());
         }
     }
 
     #[test]
-    fn gt_once() {
+    fn eq_once() {
         static A: Once = Once::new();
         fn a() -> f32 {
             if A.is_completed() {
@@ -151,82 +151,122 @@ mod test_assert_f32_ne_as_result {
             } else {
                 B.call_once(|| {})
             }
-            LT
+            EQ
         }
 
         assert_eq!(A.is_completed(), false);
         assert_eq!(B.is_completed(), false);
-        let result = assert_f32_ne_as_result!(a(), b());
+        let result = assert_f32_le_as_result!(a(), b());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
     }
 
     #[test]
-    fn eq() {
-        let a: f32 = EQ;
-        let b: f32 = EQ;
-        let actual = assert_f32_ne_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_f32_ne!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_f32_ne.html\n",
-            " a label: `a`,\n",
-            " a debug: `0.33333334`,\n",
-            " b label: `b`,\n",
-            " b debug: `0.33333334`,\n",
-            "    diff: `0`,\n",
-            "       ε: `0.00000011920929`",
-        );
-        assert_eq!(actual.unwrap_err(), message);
-    }
-
-    #[test]
     fn eq_lt() {
         let a: f32 = EQ;
         let b: f32 = EQ_GT;
-        let actual = assert_f32_ne_as_result!(a, b);
-        let message = concat!(
-            "assertion failed: `assert_f32_ne!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_f32_ne.html\n",
-            " a label: `a`,\n",
-            " a debug: `0.33333334`,\n",
-            " b label: `b`,\n",
-            " b debug: `0.3333334`,\n",
-            "    diff: `-0.000000059604645`,\n",
-            "       ε: `0.00000011920929`",
-        );
-        assert_eq!(actual.unwrap_err(), message);
+        for _ in 0..1 {
+            let actual = assert_f32_le_as_result!(a, b);
+            assert_eq!(actual.unwrap(), ());
+        }
+    }
+
+    #[test]
+    fn eq_lt_once() {
+        static A: Once = Once::new();
+        fn a() -> f32 {
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
+            EQ
+        }
+
+        static B: Once = Once::new();
+        fn b() -> f32 {
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
+            EQ_GT
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_f32_le_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
     }
 
     #[test]
     fn eq_gt() {
         let a: f32 = EQ;
         let b: f32 = EQ_LT;
-        let actual = assert_f32_ne_as_result!(a, b);
+        for _ in 0..1 {
+            let actual = assert_f32_le_as_result!(a, b);
+            assert_eq!(actual.unwrap(), ());
+        }
+    }
+
+    #[test]
+    fn eq_gt_once() {
+        static A: Once = Once::new();
+        fn a() -> f32 {
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
+            EQ
+        }
+
+        static B: Once = Once::new();
+        fn b() -> f32 {
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
+            EQ_LT
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_f32_le_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+    }
+
+    #[test]
+    fn gt() {
+        let a: f32 = EQ;
+        let b: f32 = LT;
+        let actual = assert_f32_le_as_result!(a, b);
         let message = concat!(
-            "assertion failed: `assert_f32_ne!(a, b)`\n",
+            "assertion failed: `assert_f32_le!(a, b)`\n",
             "https://docs.rs/assertables/",
             env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_f32_ne.html\n",
+            "/assertables/macro.assert_f32_le.html\n",
             " a label: `a`,\n",
             " a debug: `0.33333334`,\n",
             " b label: `b`,\n",
-            " b debug: `0.3333333`,\n",
-            "    diff: `0.000000029802322`,\n",
+            " b debug: `0.3333331`,\n",
+            "    diff: `0.00000023841858`,\n",
             "       ε: `0.00000011920929`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
 }
 
-/// Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
+/// Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 ///
 /// Pseudocode:<br>
-/// a ≠ b
+/// a ≤ b
 ///
 /// * If true, return `()`.
 ///
@@ -242,31 +282,31 @@ mod test_assert_f32_ne_as_result {
 /// # fn main() {
 /// let a: f32 = 1.0/3.0;
 /// let b: f32 = 0.3333336;
-/// assert_f32_ne!(a, b);
+/// assert_f32_le!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: f32 = 1.0/3.0;
-/// let b: f32 = 1.0/3.0;
-/// assert_f32_ne!(a, b);
+/// let b: f32 = 0.3333331;
+/// assert_f32_le!(a, b);
 /// # });
-/// // assertion failed: `assert_f32_ne!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_f32_ne.html
+/// // assertion failed: `assert_f32_le!(a, b)`
+/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_f32_le.html
 /// //  a label: `a`,
 /// //  a debug: `0.33333334`,
 /// //  b label: `b`,
-/// //  b debug: `0.33333334`,`
-/// //     diff: `0`,
+/// //  b debug: `0.3333331`,`
+/// //     diff: `0.00000023841858`,
 /// //        ε: `0.00000011920929`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
-/// #     "assertion failed: `assert_f32_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_f32_ne.html\n",
+/// #     "assertion failed: `assert_f32_le!(a, b)`\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_f32_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `0.33333334`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `0.33333334`,\n",
-/// #     "    diff: `0`,\n",
+/// #     " b debug: `0.3333331`,\n",
+/// #     "    diff: `0.00000023841858`,\n",
 /// #     "       ε: `0.00000011920929`",
 /// # );
 /// # assert_eq!(actual, message);
@@ -275,20 +315,20 @@ mod test_assert_f32_ne_as_result {
 ///
 /// # Module macros
 ///
-/// * [`assert_f32_ne`](macro@crate::assert_f32_ne)
-/// * [`assert_f32_ne_as_result`](macro@crate::assert_f32_ne_as_result)
-/// * [`debug_assert_f32_ne`](macro@crate::debug_assert_f32_ne)
+/// * [`assert_f32_le`](macro@crate::assert_f32_le)
+/// * [`assert_f32_le_as_result`](macro@crate::assert_f32_le_as_result)
+/// * [`debug_assert_f32_le`](macro@crate::debug_assert_f32_le)
 ///
 #[macro_export]
-macro_rules! assert_f32_ne {
+macro_rules! assert_f32_le {
     ($a:expr, $b:expr $(,)?) => {
-        match $crate::assert_f32_ne_as_result!($a, $b) {
+        match $crate::assert_f32_le_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     };
     ($a:expr, $b:expr, $($message:tt)+) => {
-        match $crate::assert_f32_ne_as_result!($a, $b) {
+        match $crate::assert_f32_le_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
@@ -296,29 +336,29 @@ macro_rules! assert_f32_ne {
 }
 
 #[cfg(test)]
-mod test_assert_f32_ne {
+mod test_assert_f32_le {
     use super::*;
     use std::panic;
 
     #[test]
-    fn ne() {
+    fn lt() {
         let a: f32 = EQ;
-        let b: f32 = 0.3333336;
+        let b: f32 = GT;
         for _ in 0..1 {
-            let actual = assert_f32_ne!(a, b);
+            let actual = assert_f32_le!(a, b);
             assert_eq!(actual, ());
         }
     }
 
 }
 
-/// Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
+/// Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 ///
 /// Pseudocode:<br>
-/// a ≠ b
+/// a ≤ b
 ///
 ///
-/// This macro provides the same statements as [`assert_f32_ne`](macro.assert_f32_ne.html),
+/// This macro provides the same statements as [`assert_f32_le`](macro.assert_f32_le.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -340,15 +380,15 @@ mod test_assert_f32_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_f32_ne`](macro@crate::assert_f32_ne)
-/// * [`assert_f32_ne`](macro@crate::assert_f32_ne)
-/// * [`debug_assert_f32_ne`](macro@crate::debug_assert_f32_ne)
+/// * [`assert_f32_le`](macro@crate::assert_f32_le)
+/// * [`assert_f32_le`](macro@crate::assert_f32_le)
+/// * [`debug_assert_f32_le`](macro@crate::debug_assert_f32_le)
 ///
 #[macro_export]
-macro_rules! debug_assert_f32_ne {
+macro_rules! debug_assert_f32_le {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_f32_ne!($($arg)*);
+            $crate::assert_f32_le!($($arg)*);
         }
     };
 }
