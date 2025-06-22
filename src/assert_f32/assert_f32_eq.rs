@@ -8,7 +8,7 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! let a: f32 = 1.0/3.0;
+//! let a: f32 = 1.0 / 3.0;
 //! let b: f32 = 0.3333333;
 //! assert_f32_eq!(a, b);
 //! ```
@@ -71,15 +71,9 @@ macro_rules! assert_f32_eq_as_result {
     };
 }
 
-#[cfg(test)] pub const EQ:    f32 = 1.0/3.0;
-#[cfg(test)] pub const EQ_LT: f32 = 0.3333333;
-#[cfg(test)] pub const EQ_GT: f32 = 0.3333334;
-#[cfg(test)] pub const LT:    f32 = 0.3333331;
-#[cfg(test)] pub const GT:    f32 = 0.3333336;
-
 #[cfg(test)]
 mod test_assert_f32_eq_as_result {
-    use super::*;
+    use crate::assert_f32::{EQ,EQ_LT,EQ_GT,LT,GT};
     use std::sync::Once;
 
     #[test]
@@ -260,13 +254,13 @@ mod test_assert_f32_eq_as_result {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a: f32 = 1.0/3.0;
+/// let a: f32 = 1.0 / 3.0;
 /// let b: f32 = 0.3333333;
 /// assert_f32_eq!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a: f32 = 1.0/3.0;
+/// let a: f32 = 1.0 / 3.0;
 /// let b: f32 = 0.3333336;
 /// assert_f32_eq!(a, b);
 /// # });
@@ -317,7 +311,7 @@ macro_rules! assert_f32_eq {
 
 #[cfg(test)]
 mod test_assert_f32_eq {
-    use super::*;
+    use crate::assert_f32::EQ;
     use std::panic;
 
     #[test]

@@ -10,16 +10,16 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! let a: f64 = 0.3333333333333333;
-//! let b: f64 = 0.3333333333333334;
+//! let a: f64 = 1.0 / 3.0;
+//! let b: f64 = 0.3333333333333335;
 //! assert_f64_eq!(a, b);
 //!
-//! let a: f64 = 0.3333333333333333;
-//! let b: f64 = 0.3333333333333338;
+//! let a: f64 = 1.0 / 3.0;
+//! let b: f64 = 0.3333333333333339;
 //! assert_f64_ne!(a, b);
 //! ```
 
-#[cfg(test)] pub const EQ:    f64 = 1.0/3.0;
+#[cfg(test)] pub const EQ:    f64 = 1.0 / 3.0;
 #[cfg(test)] pub const EQ_LT: f64 = 0.3333333333333332;
 #[cfg(test)] pub const EQ_GT: f64 = 0.3333333333333335;
 #[cfg(test)] pub const LT:    f64 = 0.3333333333333329;

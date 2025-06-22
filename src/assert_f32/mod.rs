@@ -10,14 +10,20 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! let a: f32 = 1.0/3.0;
+//! let a: f32 = 1.0 / 3.0;
 //! let b: f32 = 0.3333333;
 //! assert_f32_eq!(a, b);
 //!
-//! let a: f32 = 1.0/3.0;
+//! let a: f32 = 1.0 / 3.0;
 //! let b: f32 = 0.3333336;
 //! assert_f32_ne!(a, b);
 //! ```
+
+#[cfg(test)] pub const EQ:    f32 = 1.0 / 3.0;
+#[cfg(test)] pub const EQ_LT: f32 = 0.3333333;
+#[cfg(test)] pub const EQ_GT: f32 = 0.3333334;
+#[cfg(test)] pub const LT:    f32 = 0.3333331;
+#[cfg(test)] pub const GT:    f32 = 0.3333336;
 
 mod assert_f32_eq;
 mod assert_f32_ge;

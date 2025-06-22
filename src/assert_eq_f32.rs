@@ -1,4 +1,4 @@
-//! Assert two floating point numbers are equal within 2.0 * f32::EPSILON.
+//! Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 //!
 //! Pseudocode:<br>
 //! a = b
@@ -8,8 +8,8 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! let a: f32 = 0.3333333;
-//! let b: f32 = 0.3333334;
+//! let a: f32 = 1.0 / 3.0;
+//! let b: f32 = 0.3333333;
 //! assert_eq_f32!(a, b);
 //! ```
 //!
@@ -19,7 +19,7 @@
 //! * [`assert_eq_f32_as_result`](macro@crate::assert_eq_f32_as_result)
 //! * [`debug_assert_eq_f32`](macro@crate::debug_assert_eq_f32)
 
-/// Assert two floating point numbers are equal within 2.0 * f32::EPSILON.
+//! Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a = b
@@ -42,49 +42,50 @@ macro_rules! assert_eq_f32_as_result {
     ($a:expr, $b:expr $(,)?) => {
         match (&$a, &$b) {
             (a, b) => {
-                if (a == b) {
+                if (a >= b && a - b < f32::EPSILON) || (a <= b && b - a < f32::EPSILON) {
                     Ok(())
                 } else {
-                    let two_epsilon = 2.0 * f32::EPSILON;
-                    let delta = if (a >= b) { a - b } else { b - a };
-                    if delta <= two_epsilon {
-                        Ok(())
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_eq_f32!(a, b)`\n",
-                                "https://docs.rs/assertables/",
-                                env!("CARGO_PKG_VERSION"),
-                                "/assertables/macro.assert_eq_f32.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                "  Δ: `{}`,\n",
-                                " 2ε: `{}`",
-                            ),
-                            stringify!($a),
-                            a,
-                            stringify!($b),
-                            b,
-                            delta,
-                            two_epsilon,
-                        ))
-                    }
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_eq_f32!(a, b)`\n",
+                            "https://docs.rs/assertables/",
+                            env!("CARGO_PKG_VERSION"),
+                            "/assertables/macro.assert_eq_f32.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{:?}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            "    diff: `{}`,\n",
+                            "       ε: `{}`",
+                        ),
+                        stringify!($a),
+                        a,
+                        stringify!($b),
+                        b,
+                        a - b,
+                        f32::EPSILON,
+                    ))
                 }
             }
         }
     };
 }
 
+#[cfg(test)] pub const EQ:    f32 = 1.0 / 3.0;
+#[cfg(test)] pub const EQ_LT: f32 = 0.3333333;
+#[cfg(test)] pub const EQ_GT: f32 = 0.3333334;
+#[cfg(test)] pub const LT:    f32 = 0.3333331;
+#[cfg(test)] pub const GT:    f32 = 0.3333336;
+
 #[cfg(test)]
 mod test_assert_eq_f32_as_result {
+    use super::*;
     use std::sync::Once;
 
     #[test]
     fn eq() {
-        let a: f32 = 0.3333333;
-        let b: f32 = 0.3333334;
+        let a: f32 = EQ;
+        let b: f32 = EQ;
         for _ in 0..1 {
             let actual = assert_eq_f32_as_result!(a, b);
             assert_eq!(actual.unwrap(), ());
@@ -100,7 +101,7 @@ mod test_assert_eq_f32_as_result {
             } else {
                 A.call_once(|| {})
             }
-            0.3333333
+            EQ
         }
 
         static B: Once = Once::new();
@@ -110,7 +111,87 @@ mod test_assert_eq_f32_as_result {
             } else {
                 B.call_once(|| {})
             }
-            0.3333334
+            EQ
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_eq_f32_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+    }
+
+    #[test]
+    fn eq_lt() {
+        let a: f32 = EQ;
+        let b: f32 = EQ_GT;
+        for _ in 0..1 {
+            let actual = assert_eq_f32_as_result!(a, b);
+            assert_eq!(actual.unwrap(), ());
+        }
+    }
+
+    #[test]
+    fn eq_lt_once() {
+        static A: Once = Once::new();
+        fn a() -> f32 {
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
+            EQ
+        }
+
+        static B: Once = Once::new();
+        fn b() -> f32 {
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
+            EQ_GT
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_eq_f32_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+    }
+
+    #[test]
+    fn eq_gt() {
+        let a: f32 = EQ;
+        let b: f32 = EQ_LT;
+        for _ in 0..1 {
+            let actual = assert_eq_f32_as_result!(a, b);
+            assert_eq!(actual.unwrap(), ());
+        }
+    }
+
+    #[test]
+    fn eq_gt_once() {
+        static A: Once = Once::new();
+        fn a() -> f32 {
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
+            EQ_LT
+        }
+
+        static B: Once = Once::new();
+        fn b() -> f32 {
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
+            EQ_LT
         }
 
         assert_eq!(A.is_completed(), false);
@@ -123,8 +204,8 @@ mod test_assert_eq_f32_as_result {
 
     #[test]
     fn lt() {
-        let a: f32 = 0.3333333;
-        let b: f32 = 0.3333336;
+        let a: f32 = EQ;
+        let b: f32 = GT;
         let actual = assert_eq_f32_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_eq_f32!(a, b)`\n",
@@ -132,19 +213,19 @@ mod test_assert_eq_f32_as_result {
             env!("CARGO_PKG_VERSION"),
             "/assertables/macro.assert_eq_f32.html\n",
             " a label: `a`,\n",
-            " a debug: `0.3333333`,\n",
+            " a debug: `0.33333334`,\n",
             " b label: `b`,\n",
             " b debug: `0.3333336`,\n",
-            "  Δ: `0.00000029802322`,\n",
-            " 2ε: `0.00000023841858`",
+            "    diff: `-0.0000002682209`,\n",
+            "       ε: `0.00000011920929`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
 
     #[test]
     fn gt() {
-        let a: f32 = 0.3333336;
-        let b: f32 = 0.3333333;
+        let a: f32 = EQ;
+        let b: f32 = LT;
         let actual = assert_eq_f32_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_eq_f32!(a, b)`\n",
@@ -152,17 +233,17 @@ mod test_assert_eq_f32_as_result {
             env!("CARGO_PKG_VERSION"),
             "/assertables/macro.assert_eq_f32.html\n",
             " a label: `a`,\n",
-            " a debug: `0.3333336`,\n",
+            " a debug: `0.33333334`,\n",
             " b label: `b`,\n",
-            " b debug: `0.3333333`,\n",
-            "  Δ: `0.00000029802322`,\n",
-            " 2ε: `0.00000023841858`",
+            " b debug: `0.3333331`,\n",
+            "    diff: `0.00000023841858`,\n",
+            "       ε: `0.00000011920929`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
 }
 
-/// Assert two floating point numbers are equal within 2.0 * f32::EPSILON.
+/// Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a = b
@@ -179,34 +260,34 @@ mod test_assert_eq_f32_as_result {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a: f32 = 0.3333333;
+/// let a: f32 = 1.0 / 3.0;
 /// let b: f32 = 0.3333333;
 /// assert_eq_f32!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a: f32 = 0.3333333;
+/// let a: f32 = 1.0 / 3.0;
 /// let b: f32 = 0.3333336;
 /// assert_eq_f32!(a, b);
 /// # });
 /// // assertion failed: `assert_eq_f32!(a, b)`
 /// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_eq_f32.html
 /// //  a label: `a`,
-/// //  a debug: `0.3333333`,
+/// //  a debug: `0.33333334`,
 /// //  b label: `b`,
 /// //  b debug: `0.3333336`,`
-/// //  Δ: `0.00000029802322`,
-/// //  ε: `0.00000023841858`
+/// //     diff: `-0.0000002682209`,
+/// //        ε: `0.00000011920929`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_eq_f32!(a, b)`\n",
 /// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_eq_f32.html\n",
 /// #     " a label: `a`,\n",
-/// #     " a debug: `0.3333333`,\n",
+/// #     " a debug: `0.33333334`,\n",
 /// #     " b label: `b`,\n",
 /// #     " b debug: `0.3333336`,\n",
-/// #     "  Δ: `0.00000029802322`,\n",
-/// #     " 2ε: `0.00000023841858`",
+/// #     "    diff: `-0.0000002682209`,\n",
+/// #     "       ε: `0.00000011920929`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -236,81 +317,26 @@ macro_rules! assert_eq_f32 {
 
 #[cfg(test)]
 mod test_assert_eq_f32 {
+    use super::*;
     use std::panic;
 
     #[test]
     fn eq() {
-        let a: f32 = 0.3333333;
-        let b: f32 = 0.3333334;
+        let a: f32 = EQ;
+        let b: f32 = EQ;
         for _ in 0..1 {
             let actual = assert_eq_f32!(a, b);
             assert_eq!(actual, ());
         }
     }
 
-    #[test]
-    fn lt() {
-        let a: f32 = 0.3333333;
-        let b: f32 = 0.3333336;
-        let result = panic::catch_unwind(|| {
-            let _actual = assert_eq_f32!(a, b);
-        });
-        let message = concat!(
-            "assertion failed: `assert_eq_f32!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_eq_f32.html\n",
-            " a label: `a`,\n",
-            " a debug: `0.3333333`,\n",
-            " b label: `b`,\n",
-            " b debug: `0.3333336`,\n",
-            "  Δ: `0.00000029802322`,\n",
-            " 2ε: `0.00000023841858`",
-        );
-        assert_eq!(
-            result
-                .unwrap_err()
-                .downcast::<String>()
-                .unwrap()
-                .to_string(),
-            message
-        );
-    }
-
-    #[test]
-    fn gt() {
-        let a: f32 = 0.3333336;
-        let b: f32 = 0.3333333;
-        let result = panic::catch_unwind(|| {
-            let _actual = assert_eq_f32!(a, b);
-        });
-        let message = concat!(
-            "assertion failed: `assert_eq_f32!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_eq_f32.html\n",
-            " a label: `a`,\n",
-            " a debug: `0.3333336`,\n",
-            " b label: `b`,\n",
-            " b debug: `0.3333333`,\n",
-            "  Δ: `0.00000029802322`,\n",
-            " 2ε: `0.00000023841858`",
-        );
-        assert_eq!(
-            result
-                .unwrap_err()
-                .downcast::<String>()
-                .unwrap()
-                .to_string(),
-            message
-        );
-    }
 }
 
-/// Assert an expression is greater than another.
+/// Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a = b
+///
 ///
 /// This macro provides the same statements as [`assert_eq_f32`](macro.assert_eq_f32.html),
 /// except this macro's statements are only enabled in non-optimized

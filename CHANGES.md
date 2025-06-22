@@ -1,14 +1,14 @@
 # Changes
 
-Changes as highlights for recent major versions.
+Changes are summarized here as highlights for recent major versions.
 
 ## Version 9.x
 
-* 9.8.0 Add `assert_f32_eq`, `assert_f32_ne`, `assert_f64_eq`, `assert_f64_ne`.
+* 9.8.0 Add float macros: `assert_{f32,f64}_{eq,ne,lt,le,gt,ge}`.
 
 * 9.7.1 Fix `assert_contains` for methods that require `Borrow`.
 
-* 9.7.0 Add `assert_eq_f32` and `assert_eq_f64`.
+* 9.7.0 Add float macros: `assert_eq_f32` and `assert_eq_f64`.
 
 * 9.6.3 Fix `assert_contains` for methods that require `Borrow` (backport from 9.7.1).
 

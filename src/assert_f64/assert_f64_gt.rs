@@ -8,7 +8,7 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! let a: f64 = 1.0/3.0;
+//! let a: f64 = 1.0 / 3.0;
 //! let b: f64 = 0.3333333333333329;
 //! assert_f64_gt!(a, b);
 //! ```
@@ -214,13 +214,13 @@ mod test_assert_f64_gt_as_result {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a: f64 = 1.0/3.0;
+/// let a: f64 = 1.0 / 3.0;
 /// let b: f64 = 0.3333333333333329;
 /// assert_f64_gt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a: f64 = 1.0/3.0;
+/// let a: f64 = 1.0 / 3.0;
 /// let b: f64 = 0.3333333333333339;
 /// assert_f64_gt!(a, b);
 /// # });

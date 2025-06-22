@@ -221,7 +221,7 @@
 //! * Package: assertables-rust-crate
 //! * Version: 9.8.0
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2025-06-21T11:12:50Z
+//! * Updated: 2025-06-21T22:20:00Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
@@ -237,10 +237,10 @@ pub mod assert_lt;
 pub mod assert_ne; // (in addition to what's provided by Rust `std`)
 
 // Assert value comparison for floats
-pub mod assert_f32;
 pub mod assert_eq_f32;
-pub mod assert_f64;
 pub mod assert_eq_f64;
+pub mod assert_f32;
+pub mod assert_f64;
 
 // Assert difference
 pub mod assert_abs_diff;

@@ -1,4 +1,4 @@
-//! Assert a floating point 64-bit number is equal to another within 2.0 * f64::EPSILON.
+//! Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 //!
 //! Pseudocode:<br>
 //! a = b
@@ -8,7 +8,7 @@
 //! ```rust
 //! use assertables::*;
 //!
-//! let a: f64 = 0.3333333333333333;
+//! let a: f64 = 1.0 / 3.0;
 //! let b: f64 = 0.3333333333333334;
 //! assert_eq_f64!(a, b);
 //! ```
@@ -19,7 +19,7 @@
 //! * [`assert_eq_f64_as_result`](macro@crate::assert_eq_f64_as_result)
 //! * [`debug_assert_eq_f64`](macro@crate::debug_assert_eq_f64)
 
-/// Assert two floating point numbers are equal within 2.0 * f64::EPSILON.
+/// Assert two floating point numbers are equal within f64::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a = b
@@ -42,49 +42,50 @@ macro_rules! assert_eq_f64_as_result {
     ($a:expr, $b:expr $(,)?) => {
         match (&$a, &$b) {
             (a, b) => {
-                if (a == b) {
+                if (a >= b && a - b < f64::EPSILON) || (a <= b && b - a < f64::EPSILON) {
                     Ok(())
                 } else {
-                    let two_epsilon = 2.0 * f64::EPSILON;
-                    let delta = if (a >= b) { a - b } else { b - a };
-                    if delta <= two_epsilon {
-                        Ok(())
-                    } else {
-                        Err(format!(
-                            concat!(
-                                "assertion failed: `assert_eq_f64!(a, b)`\n",
-                                "https://docs.rs/assertables/",
-                                env!("CARGO_PKG_VERSION"),
-                                "/assertables/macro.assert_eq_f64.html\n",
-                                " a label: `{}`,\n",
-                                " a debug: `{:?}`,\n",
-                                " b label: `{}`,\n",
-                                " b debug: `{:?}`,\n",
-                                "  Δ: `{}`,\n",
-                                " 2ε: `{}`",
-                            ),
-                            stringify!($a),
-                            a,
-                            stringify!($b),
-                            b,
-                            delta,
-                            two_epsilon,
-                        ))
-                    }
+                    Err(format!(
+                        concat!(
+                            "assertion failed: `assert_eq_f64!(a, b)`\n",
+                            "https://docs.rs/assertables/",
+                            env!("CARGO_PKG_VERSION"),
+                            "/assertables/macro.assert_eq_f64.html\n",
+                            " a label: `{}`,\n",
+                            " a debug: `{}`,\n",
+                            " b label: `{}`,\n",
+                            " b debug: `{:?}`,\n",
+                            "    diff: `{}`,\n",
+                            "       ε: `{}`",
+                        ),
+                        stringify!($a),
+                        a,
+                        stringify!($b),
+                        b,
+                        a - b,
+                        f64::EPSILON,
+                    ))
                 }
             }
         }
     };
 }
 
+#[cfg(test)] pub const EQ:    f64 = 1.0 / 3.0;
+#[cfg(test)] pub const EQ_LT: f64 = 0.3333333333333332;
+#[cfg(test)] pub const EQ_GT: f64 = 0.3333333333333335;
+#[cfg(test)] pub const LT:    f64 = 0.3333333333333329;
+#[cfg(test)] pub const GT:    f64 = 0.3333333333333339;
+
 #[cfg(test)]
 mod test_assert_eq_f64_as_result {
+    use crate::assert_f64::{EQ,EQ_LT,EQ_GT,LT,GT};
     use std::sync::Once;
 
     #[test]
     fn eq() {
-        let a: f64 = 0.3333333333333333;
-        let b: f64 = 0.3333333333333334;
+        let a: f64 = EQ;
+        let b: f64 = EQ;
         for _ in 0..1 {
             let actual = assert_eq_f64_as_result!(a, b);
             assert_eq!(actual.unwrap(), ());
@@ -100,7 +101,7 @@ mod test_assert_eq_f64_as_result {
             } else {
                 A.call_once(|| {})
             }
-            0.3333333333333333
+            EQ
         }
 
         static B: Once = Once::new();
@@ -110,7 +111,87 @@ mod test_assert_eq_f64_as_result {
             } else {
                 B.call_once(|| {})
             }
-            0.3333333333333334
+            EQ
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_eq_f64_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+    }
+
+    #[test]
+    fn eq_lt() {
+        let a: f64 = EQ;
+        let b: f64 = EQ_GT;
+        for _ in 0..1 {
+            let actual = assert_eq_f64_as_result!(a, b);
+            assert_eq!(actual.unwrap(), ());
+        }
+    }
+
+    #[test]
+    fn eq_lt_once() {
+        static A: Once = Once::new();
+        fn a() -> f64 {
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
+            EQ
+        }
+
+        static B: Once = Once::new();
+        fn b() -> f64 {
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
+            EQ_GT
+        }
+
+        assert_eq!(A.is_completed(), false);
+        assert_eq!(B.is_completed(), false);
+        let result = assert_eq_f64_as_result!(a(), b());
+        assert!(result.is_ok());
+        assert_eq!(A.is_completed(), true);
+        assert_eq!(B.is_completed(), true);
+    }
+
+    #[test]
+    fn eq_gt() {
+        let a: f64 = EQ;
+        let b: f64 = EQ_LT;
+        for _ in 0..1 {
+            let actual = assert_eq_f64_as_result!(a, b);
+            assert_eq!(actual.unwrap(), ());
+        }
+    }
+
+    #[test]
+    fn eq_gt_once() {
+        static A: Once = Once::new();
+        fn a() -> f64 {
+            if A.is_completed() {
+                panic!("A.is_completed()")
+            } else {
+                A.call_once(|| {})
+            }
+            EQ
+        }
+
+        static B: Once = Once::new();
+        fn b() -> f64 {
+            if B.is_completed() {
+                panic!("B.is_completed()")
+            } else {
+                B.call_once(|| {})
+            }
+            EQ_LT
         }
 
         assert_eq!(A.is_completed(), false);
@@ -123,8 +204,8 @@ mod test_assert_eq_f64_as_result {
 
     #[test]
     fn lt() {
-        let a: f64 = 0.3333333333333333;
-        let b: f64 = 0.3333333333333338;
+        let a: f64 = EQ;
+        let b: f64 = GT;
         let actual = assert_eq_f64_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_eq_f64!(a, b)`\n",
@@ -134,17 +215,17 @@ mod test_assert_eq_f64_as_result {
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
-            " b debug: `0.3333333333333338`,\n",
-            "  Δ: `0.0000000000000004996003610813204`,\n",
-            " 2ε: `0.0000000000000004440892098500626`",
+            " b debug: `0.3333333333333339`,\n",
+            "    diff: `-0.0000000000000006106226635438361`,\n",
+            "       ε: `0.0000000000000002220446049250313`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
 
     #[test]
     fn gt() {
-        let a: f64 = 0.3333333333333338;
-        let b: f64 = 0.3333333333333333;
+        let a: f64 = EQ;
+        let b: f64 = LT;
         let actual = assert_eq_f64_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_eq_f64!(a, b)`\n",
@@ -152,17 +233,17 @@ mod test_assert_eq_f64_as_result {
             env!("CARGO_PKG_VERSION"),
             "/assertables/macro.assert_eq_f64.html\n",
             " a label: `a`,\n",
-            " a debug: `0.3333333333333338`,\n",
+            " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
-            " b debug: `0.3333333333333333`,\n",
-            "  Δ: `0.0000000000000004996003610813204`,\n",
-            " 2ε: `0.0000000000000004440892098500626`",
+            " b debug: `0.3333333333333329`,\n",
+            "    diff: `0.0000000000000003885780586188048`,\n",
+            "       ε: `0.0000000000000002220446049250313`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
 }
 
-/// Assert a floating point 64-bit number is equal to another within 2.0 * f64::EPSILON.
+/// Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a = b
@@ -179,14 +260,14 @@ mod test_assert_eq_f64_as_result {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a: f64 = 0.3333333333333333;
-/// let b: f64 = 0.3333333333333334;
+/// let a: f64 = 1.0 / 3.0;
+/// let b: f64 = 0.3333333333333335;
 /// assert_eq_f64!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a: f64 = 0.3333333333333333;
-/// let b: f64 = 0.3333333333333338;
+/// let a: f64 = 1.0 / 3.0;
+/// let b: f64 = 0.3333333333333339;
 /// assert_eq_f64!(a, b);
 /// # });
 /// // assertion failed: `assert_eq_f64!(a, b)`
@@ -194,9 +275,9 @@ mod test_assert_eq_f64_as_result {
 /// //  a label: `a`,
 /// //  a debug: `0.3333333333333333`,
 /// //  b label: `b`,
-/// //  b debug: `0.3333333333333338`,`
-/// //  Δ: `0.0000000000000004996003610813204`,
-/// //  ε: `0.0000000000000004440892098500626`
+/// //  b debug: `0.3333333333333339`,`
+/// //     diff: `-0.0000000000000006106226635438361`,
+/// //        ε: `0.0000000000000002220446049250313`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_eq_f64!(a, b)`\n",
@@ -204,9 +285,9 @@ mod test_assert_eq_f64_as_result {
 /// #     " a label: `a`,\n",
 /// #     " a debug: `0.3333333333333333`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `0.3333333333333338`,\n",
-/// #     "  Δ: `0.0000000000000004996003610813204`,\n",
-/// #     " 2ε: `0.0000000000000004440892098500626`",
+/// #     " b debug: `0.3333333333333339`,\n",
+/// #     "    diff: `-0.0000000000000006106226635438361`,\n",
+/// #     "       ε: `0.0000000000000002220446049250313`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -236,78 +317,22 @@ macro_rules! assert_eq_f64 {
 
 #[cfg(test)]
 mod test_assert_eq_f64 {
+    use crate::assert_f64::EQ;
     use std::panic;
 
     #[test]
     fn eq() {
-        let a: f64 = 0.3333333333333333;
-        let b: f64 = 0.3333333333333334;
+        let a: f64 = EQ;
+        let b: f64 = EQ;
         for _ in 0..1 {
             let actual = assert_eq_f64!(a, b);
             assert_eq!(actual, ());
         }
     }
 
-    #[test]
-    fn lt() {
-        let a: f64 = 0.3333333333333333;
-        let b: f64 = 0.3333333333333338;
-        let result = panic::catch_unwind(|| {
-            let _actual = assert_eq_f64!(a, b);
-        });
-        let message = concat!(
-            "assertion failed: `assert_eq_f64!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_eq_f64.html\n",
-            " a label: `a`,\n",
-            " a debug: `0.3333333333333333`,\n",
-            " b label: `b`,\n",
-            " b debug: `0.3333333333333338`,\n",
-            "  Δ: `0.0000000000000004996003610813204`,\n",
-            " 2ε: `0.0000000000000004440892098500626`",
-        );
-        assert_eq!(
-            result
-                .unwrap_err()
-                .downcast::<String>()
-                .unwrap()
-                .to_string(),
-            message
-        );
-    }
-
-    #[test]
-    fn gt() {
-        let a: f64 = 0.3333333333333338;
-        let b: f64 = 0.3333333333333333;
-        let result = panic::catch_unwind(|| {
-            let _actual = assert_eq_f64!(a, b);
-        });
-        let message = concat!(
-            "assertion failed: `assert_eq_f64!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_eq_f64.html\n",
-            " a label: `a`,\n",
-            " a debug: `0.3333333333333338`,\n",
-            " b label: `b`,\n",
-            " b debug: `0.3333333333333333`,\n",
-            "  Δ: `0.0000000000000004996003610813204`,\n",
-            " 2ε: `0.0000000000000004440892098500626`",
-        );
-        assert_eq!(
-            result
-                .unwrap_err()
-                .downcast::<String>()
-                .unwrap()
-                .to_string(),
-            message
-        );
-    }
 }
 
-/// Assert a floating point 64-bit number is equal to another within 2.0 * f64::EPSILON.
+/// Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 ///
 /// Pseudocode:<br>
 /// a = b
