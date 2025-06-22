@@ -1,7 +1,7 @@
-//! Assert a floating point 64-bit number is not equal to another within f64::EPSILON.
+//! Assert a floating point 64-bit number is less than another within f64::EPSILON.
 //!
 //! Pseudocode:<br>
-//! a ≠ b
+//! a < b
 //!
 //! # Example
 //!
@@ -10,19 +10,19 @@
 //!
 //! let a: f64 = 1.0/3.0;
 //! let b: f64 = 0.3333333333333339;
-//! assert_f64_ne!(a, b);
+//! assert_f64_lt!(a, b);
 //! ```
 //!
 //! # Module macros
 //!
-//! * [`assert_f64_ne`](macro@crate::assert_f64_ne)
-//! * [`assert_f64_ne_as_result`](macro@crate::assert_f64_ne_as_result)
-//! * [`debug_assert_f64_ne`](macro@crate::debug_assert_f64_ne)
+//! * [`assert_f64_lt`](macro@crate::assert_f64_lt)
+//! * [`assert_f64_lt_as_result`](macro@crate::assert_f64_lt_as_result)
+//! * [`debug_assert_f64_lt`](macro@crate::debug_assert_f64_lt)
 
 /// Assert two floating point numbers are equal within f64::EPSILON.
 ///
 /// Pseudocode:<br>
-/// a ≠ b
+/// a < b
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -33,24 +33,24 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_f64_ne`](macro@crate::assert_f64_ne)
-/// * [`assert_f64_ne_as_result`](macro@crate::assert_f64_ne_as_result)
-/// * [`debug_assert_f64_ne`](macro@crate::debug_assert_f64_ne)
+/// * [`assert_f64_lt`](macro@crate::assert_f64_lt)
+/// * [`assert_f64_lt_as_result`](macro@crate::assert_f64_lt_as_result)
+/// * [`debug_assert_f64_lt`](macro@crate::debug_assert_f64_lt)
 ///
 #[macro_export]
-macro_rules! assert_f64_ne_as_result {
+macro_rules! assert_f64_lt_as_result {
     ($a:expr, $b:expr $(,)?) => {
         match (&$a, &$b) {
             (a, b) => {
-                if !(a >= b && a - b < f64::EPSILON) && !(a <= b && b - a < f64::EPSILON) {
+                if a + f64::EPSILON < *b {
                     Ok(())
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_f64_ne!(a, b)`\n",
+                            "assertion failed: `assert_f64_lt!(a, b)`\n",
                             "https://docs.rs/assertables/",
                             env!("CARGO_PKG_VERSION"),
-                            "/assertables/macro.assert_f64_ne.html\n",
+                            "/assertables/macro.assert_f64_lt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{}`,\n",
                             " b label: `{}`,\n",
@@ -72,7 +72,7 @@ macro_rules! assert_f64_ne_as_result {
 }
 
 #[cfg(test)]
-mod test_assert_f64_ne_as_result {
+mod test_assert_f64_lt_as_result {
     use crate::assert_f64::{EQ,EQ_LT,EQ_GT,LT,GT};
     use std::sync::Once;
 
@@ -81,7 +81,7 @@ mod test_assert_f64_ne_as_result {
         let a: f64 = EQ;
         let b: f64 = GT;
         for _ in 0..1 {
-            let actual = assert_f64_ne_as_result!(a, b);
+            let actual = assert_f64_lt_as_result!(a, b);
             assert_eq!(actual.unwrap(), ());
         }
     }
@@ -110,47 +110,7 @@ mod test_assert_f64_ne_as_result {
 
         assert_eq!(A.is_completed(), false);
         assert_eq!(B.is_completed(), false);
-        let result = assert_f64_ne_as_result!(a(), b());
-        assert!(result.is_ok());
-        assert_eq!(A.is_completed(), true);
-        assert_eq!(B.is_completed(), true);
-    }
-
-    #[test]
-    fn gt() {
-        let a: f64 = EQ;
-        let b: f64 = LT;
-        for _ in 0..1 {
-            let actual = assert_f64_ne_as_result!(a, b);
-            assert_eq!(actual.unwrap(), ());
-        }
-    }
-
-    #[test]
-    fn gt_once() {
-        static A: Once = Once::new();
-        fn a() -> f64 {
-            if A.is_completed() {
-                panic!("A.is_completed()")
-            } else {
-                A.call_once(|| {})
-            }
-            EQ
-        }
-
-        static B: Once = Once::new();
-        fn b() -> f64 {
-            if B.is_completed() {
-                panic!("B.is_completed()")
-            } else {
-                B.call_once(|| {})
-            }
-            GT
-        }
-
-        assert_eq!(A.is_completed(), false);
-        assert_eq!(B.is_completed(), false);
-        let result = assert_f64_ne_as_result!(a(), b());
+        let result = assert_f64_lt_as_result!(a(), b());
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
         assert_eq!(B.is_completed(), true);
@@ -160,12 +120,12 @@ mod test_assert_f64_ne_as_result {
     fn eq() {
         let a: f64 = EQ;
         let b: f64 = EQ;
-        let actual = assert_f64_ne_as_result!(a, b);
+        let actual = assert_f64_lt_as_result!(a, b);
         let message = concat!(
-            "assertion failed: `assert_f64_ne!(a, b)`\n",
+            "assertion failed: `assert_f64_lt!(a, b)`\n",
             "https://docs.rs/assertables/",
             env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_f64_ne.html\n",
+            "/assertables/macro.assert_f64_lt.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
@@ -180,12 +140,12 @@ mod test_assert_f64_ne_as_result {
     fn eq_lt() {
         let a: f64 = EQ;
         let b: f64 = EQ_GT;
-        let actual = assert_f64_ne_as_result!(a, b);
+        let actual = assert_f64_lt_as_result!(a, b);
         let message = concat!(
-            "assertion failed: `assert_f64_ne!(a, b)`\n",
+            "assertion failed: `assert_f64_lt!(a, b)`\n",
             "https://docs.rs/assertables/",
             env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_f64_ne.html\n",
+            "/assertables/macro.assert_f64_lt.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
@@ -200,12 +160,12 @@ mod test_assert_f64_ne_as_result {
     fn eq_gt() {
         let a: f64 = EQ;
         let b: f64 = EQ_LT;
-        let actual = assert_f64_ne_as_result!(a, b);
+        let actual = assert_f64_lt_as_result!(a, b);
         let message = concat!(
-            "assertion failed: `assert_f64_ne!(a, b)`\n",
+            "assertion failed: `assert_f64_lt!(a, b)`\n",
             "https://docs.rs/assertables/",
             env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_f64_ne.html\n",
+            "/assertables/macro.assert_f64_lt.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
@@ -215,12 +175,32 @@ mod test_assert_f64_ne_as_result {
         );
         assert_eq!(actual.unwrap_err(), message);
     }
+
+    #[test]
+    fn gt() {
+        let a: f64 = EQ;
+        let b: f64 = LT;
+        let actual = assert_f64_lt_as_result!(a, b);
+        let message = concat!(
+            "assertion failed: `assert_f64_lt!(a, b)`\n",
+            "https://docs.rs/assertables/",
+            env!("CARGO_PKG_VERSION"),
+            "/assertables/macro.assert_f64_lt.html\n",
+            " a label: `a`,\n",
+            " a debug: `0.3333333333333333`,\n",
+            " b label: `b`,\n",
+            " b debug: `0.3333333333333329`,\n",
+            "    diff: `0.0000000000000003885780586188048`,\n",
+            "       ε: `0.0000000000000002220446049250313`",
+        );
+        assert_eq!(actual.unwrap_err(), message);
+    }
 }
 
-/// Assert a floating point 64-bit number is not equal to another within f64::EPSILON.
+/// Assert a floating point 64-bit number is less than another within f64::EPSILON.
 ///
 /// Pseudocode:<br>
-/// a ≠ b
+/// a < b
 ///
 /// * If true, return `()`.
 ///
@@ -235,32 +215,32 @@ mod test_assert_f64_ne_as_result {
 ///
 /// # fn main() {
 /// let a: f64 = 1.0/3.0;
-/// let b: f64 = 0.3333333333333338;
-/// assert_f64_ne!(a, b);
+/// let b: f64 = 0.3333333333333339;
+/// assert_f64_lt!(a, b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a: f64 = 1.0/3.0;
-/// let b: f64 = 0.3333333333333333;
-/// assert_f64_ne!(a, b);
+/// let b: f64 = 0.3333333333333329;
+/// assert_f64_lt!(a, b);
 /// # });
-/// // assertion failed: `assert_f64_ne!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_f64_ne.html
+/// // assertion failed: `assert_f64_lt!(a, b)`
+/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_f64_lt.html
 /// //  a label: `a`,
 /// //  a debug: `0.3333333333333333`,
 /// //  b label: `b`,
-/// //  b debug: `0.3333333333333333`,`
-/// //     diff: `0`,
+/// //  b debug: `0.3333333333333329`,`
+/// //     diff: `0.0000000000000003885780586188048`,
 /// //        ε: `0.0000000000000002220446049250313`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
-/// #     "assertion failed: `assert_f64_ne!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_f64_ne.html\n",
+/// #     "assertion failed: `assert_f64_lt!(a, b)`\n",
+/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_f64_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `0.3333333333333333`,\n",
 /// #     " b label: `b`,\n",
-/// #     " b debug: `0.3333333333333333`,\n",
-/// #     "    diff: `0`,\n",
+/// #     " b debug: `0.3333333333333329`,\n",
+/// #     "    diff: `0.0000000000000003885780586188048`,\n",
 /// #     "       ε: `0.0000000000000002220446049250313`",
 /// # );
 /// # assert_eq!(actual, message);
@@ -269,20 +249,20 @@ mod test_assert_f64_ne_as_result {
 ///
 /// # Module macros
 ///
-/// * [`assert_f64_ne`](macro@crate::assert_f64_ne)
-/// * [`assert_f64_ne_as_result`](macro@crate::assert_f64_ne_as_result)
-/// * [`debug_assert_f64_ne`](macro@crate::debug_assert_f64_ne)
+/// * [`assert_f64_lt`](macro@crate::assert_f64_lt)
+/// * [`assert_f64_lt_as_result`](macro@crate::assert_f64_lt_as_result)
+/// * [`debug_assert_f64_lt`](macro@crate::debug_assert_f64_lt)
 ///
 #[macro_export]
-macro_rules! assert_f64_ne {
+macro_rules! assert_f64_lt {
     ($a:expr, $b:expr $(,)?) => {
-        match $crate::assert_f64_ne_as_result!($a, $b) {
+        match $crate::assert_f64_lt_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     };
     ($a:expr, $b:expr, $($message:tt)+) => {
-        match $crate::assert_f64_ne_as_result!($a, $b) {
+        match $crate::assert_f64_lt_as_result!($a, $b) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
@@ -290,28 +270,28 @@ macro_rules! assert_f64_ne {
 }
 
 #[cfg(test)]
-mod test_assert_f64_ne {
+mod test_assert_f64_lt {
     use crate::assert_f64::{EQ,GT};
     use std::panic;
 
     #[test]
-    fn ne() {
+    fn lt() {
         let a: f64 = EQ;
         let b: f64 = GT;
         for _ in 0..1 {
-            let actual = assert_f64_ne!(a, b);
+            let actual = assert_f64_lt!(a, b);
             assert_eq!(actual, ());
         }
     }
 
 }
 
-/// Assert a floating point 64-bit number is not equal to another within f64::EPSILON.
+/// Assert a floating point 64-bit number is less than another within f64::EPSILON.
 ///
 /// Pseudocode:<br>
-/// a ≠ b
+/// a < b
 ///
-/// This macro provides the same statements as [`assert_f64_ne`](macro.assert_f64_ne.html),
+/// This macro provides the same statements as [`assert_f64_lt`](macro.assert_f64_lt.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -333,15 +313,15 @@ mod test_assert_f64_ne {
 ///
 /// # Module macros
 ///
-/// * [`assert_f64_ne`](macro@crate::assert_f64_ne)
-/// * [`assert_f64_ne`](macro@crate::assert_f64_ne)
-/// * [`debug_assert_f64_ne`](macro@crate::debug_assert_f64_ne)
+/// * [`assert_f64_lt`](macro@crate::assert_f64_lt)
+/// * [`assert_f64_lt`](macro@crate::assert_f64_lt)
+/// * [`debug_assert_f64_lt`](macro@crate::debug_assert_f64_lt)
 ///
 #[macro_export]
-macro_rules! debug_assert_f64_ne {
+macro_rules! debug_assert_f64_lt {
     ($($arg:tt)*) => {
         if $crate::cfg!(debug_assertions) {
-            $crate::assert_f64_ne!($($arg)*);
+            $crate::assert_f64_lt!($($arg)*);
         }
     };
 }
