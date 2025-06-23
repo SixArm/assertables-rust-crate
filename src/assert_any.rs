@@ -142,7 +142,7 @@ mod test_assert_any_as_result {
 /// assert_any!(a.into_iter(), |x: i8| x > 3);
 /// # });
 /// // assertion failed: `assert_any!(collection, predicate)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_any.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_any.html
 /// //  collection label: `a.into_iter()`,
 /// //  collection debug: `IntoIter([1, 2, 3])`,
 /// //         predicate: `|x: i8| x > 3`

@@ -271,7 +271,7 @@ mod test_assert_eq_f32_as_result {
 /// assert_eq_f32!(a, b);
 /// # });
 /// // assertion failed: `assert_eq_f32!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_eq_f32.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_eq_f32.html
 /// //  a label: `a`,
 /// //  a debug: `0.33333334`,
 /// //  b label: `b`,

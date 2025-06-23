@@ -285,7 +285,7 @@ mod test_assert_fn_err_ne_as_result {
 /// assert_fn_err_ne!(f, a, f, b);
 /// # });
 /// // assertion failed: `assert_fn_err_ne!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_ne.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_fn_err_ne.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `10`,

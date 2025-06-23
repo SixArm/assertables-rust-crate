@@ -171,7 +171,7 @@ mod test_assert_infix_as_result {
 /// assert_infix!(a == b);
 /// # });
 /// // assertion failed: `assert_infix!(a == b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_infix.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_infix.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,

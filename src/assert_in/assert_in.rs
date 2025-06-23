@@ -158,7 +158,7 @@ mod test_assert_in_as_result {
 /// assert_in!(a, b);
 /// # });
 /// // assertion failed: `assert_in!(a, container)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_in.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_in.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  container label: `b`,

@@ -134,7 +134,7 @@ mod test_assert_not_matches_as_result {
 /// assert_not_matches!(a, 'a'..='z');
 /// # });
 /// // assertion failed: `assert_not_matches!(a)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_matches.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_not_matches.html
 /// //  args: `a, 'a'..='z'`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(

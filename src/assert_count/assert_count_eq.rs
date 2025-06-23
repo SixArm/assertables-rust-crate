@@ -186,7 +186,7 @@ mod test_assert_count_eq_as_result {
 /// assert_count_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_count_eq!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_eq.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_count_eq.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",

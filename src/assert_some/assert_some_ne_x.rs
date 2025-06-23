@@ -238,7 +238,7 @@ mod test_assert_some_ne_x_as_result {
 /// assert_some_ne_x!(a, b);
 /// # });
 /// // assertion failed: `assert_some_ne_x!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_some_ne_x.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_some_ne_x.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`,
 /// //  a inner: `1`,

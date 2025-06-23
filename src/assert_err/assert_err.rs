@@ -132,7 +132,7 @@ mod test_assert_err_as_result {
 /// assert_err!(a);
 /// # });
 /// // assertion failed: `assert_err!(a)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_err.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_err.html
 /// //  a label: `a`,
 /// //  a debug: `Ok(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();

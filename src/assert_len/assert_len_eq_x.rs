@@ -181,7 +181,7 @@ mod test_assert_len_eq_x_as_result {
 /// assert_len_eq_x!(a, b);
 /// # });
 /// // assertion failed: `assert_len_eq_x!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_eq_x.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_len_eq_x.html
 /// //  a label: `a`,
 /// //  a debug: `\"x\"`,
 /// //  a.len(): `1`",

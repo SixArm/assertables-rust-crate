@@ -144,7 +144,7 @@ mod test_assert_iter_le_as_result {
 /// assert_iter_le!(&a, &b);
 /// # });
 /// // assertion failed: `assert_iter_le!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_iter_le.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_iter_le.html
 /// //  a label: `&a`,
 /// //  a debug: `[3, 4]`,
 /// //  b label: `&b`,

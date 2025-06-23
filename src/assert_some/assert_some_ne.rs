@@ -241,7 +241,7 @@ mod test_assert_some_ne_as_result {
 /// assert_some_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_some_ne!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_some_ne.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_some_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`,
 /// //  b label: `b`,

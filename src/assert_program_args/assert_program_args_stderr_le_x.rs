@@ -269,7 +269,7 @@ mod test_assert_program_args_stderr_le_x_as_result {
 /// assert_program_args_stderr_le_x!(program, args, bytes);
 /// # });
 /// // assertion failed: `assert_program_args_stderr_le_x!(a_program, a_args, b_expr)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_le_x.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_program_args_stderr_le_x.html
 /// //  a_program label: `program`,
 /// //  a_program debug: `\"bin/printf-stderr\"`,
 /// //     a_args label: `args`,

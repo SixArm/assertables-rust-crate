@@ -232,7 +232,7 @@ mod test_assert_command_stdout_ne_x_as_result {
 /// assert_command_stdout_ne_x!(command, bytes);
 /// # });
 /// // assertion failed: `assert_command_stdout_ne_x!(command, expr)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_ne_x.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_command_stdout_ne_x.html
 /// //  command label: `command`,
 /// //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 /// //  command value: `[97, 108, 102, 97]`,

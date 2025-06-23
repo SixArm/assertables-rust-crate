@@ -169,7 +169,7 @@ mod test_assert_starts_with_as_result {
 /// let subsequence = "fa";
 /// assert_starts_with!(sequence, subsequence);
 /// // assertion failed: `assert_starts_with!(sequence, subsequence)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_starts_with.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_starts_with.html
 /// //  sequence label: `sequence`,
 /// //  sequence debug: `\"alfa\"`,
 /// //   part label: `subsequence`,

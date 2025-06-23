@@ -9778,7 +9778,7 @@ let b = 2;
 assert_ge!(a, b);
 # });
 // assertion failed: `assert_ge!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ge.html
 //  a label: `a`,
 //  a debug: `1`,
 //  b label: `b`,
@@ -9925,7 +9925,7 @@ let b = 2;
 assert_gt!(a, b);
 # });
 // assertion failed: `assert_gt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_gt.html
 //  a label: `a`,
 //  a debug: `1`,
 //  b label: `b`,
@@ -10072,7 +10072,7 @@ let b = 1;
 assert_le!(a, b);
 # });
 // assertion failed: `assert_le!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_le.html
 //  a label: `a`,
 //  a debug: `2`,
 //  b label: `b`,
@@ -10220,7 +10220,7 @@ let b = 1;
 assert_lt!(a, b);
 # });
 // assertion failed: `assert_lt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_lt.html
 //  a label: `a`,
 //  a debug: `2`,
 //  b label: `b`,
@@ -10403,7 +10403,7 @@ let b: f32 = 0.3333336;
 assert_eq_f32!(a, b);
 # });
 // assertion failed: `assert_eq_f32!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_eq_f32.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_eq_f32.html
 //  a label: `a`,
 //  a debug: `0.33333334`,
 //  b label: `b`,
@@ -10555,7 +10555,7 @@ let b: f64 = 0.3333333333333339;
 assert_eq_f64!(a, b);
 # });
 // assertion failed: `assert_eq_f64!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_eq_f64.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_eq_f64.html
 //  a label: `a`,
 //  a debug: `0.3333333333333333`,
 //  b label: `b`,
@@ -10705,7 +10705,7 @@ let b: f32 = 0.3333336;
 assert_f32_eq!(a, b);
 # });
 // assertion failed: `assert_f32_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f32_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f32_eq.html
 //  a label: `a`,
 //  a debug: `0.33333334`,
 //  b label: `b`,
@@ -10856,7 +10856,7 @@ let b: f32 = 0.3333336;
 assert_f32_ge!(a, b);
 # });
 // assertion failed: `assert_f32_ge!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f32_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f32_ge.html
 //  a label: `a`,
 //  a debug: `0.33333334`,
 //  b label: `b`,
@@ -11007,7 +11007,7 @@ let b: f32 = 0.3333336;
 assert_f32_gt!(a, b);
 # });
 // assertion failed: `assert_f32_gt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f32_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f32_gt.html
 //  a label: `a`,
 //  a debug: `0.33333334`,
 //  b label: `b`,
@@ -11158,7 +11158,7 @@ let b: f32 = 0.3333331;
 assert_f32_le!(a, b);
 # });
 // assertion failed: `assert_f32_le!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f32_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f32_le.html
 //  a label: `a`,
 //  a debug: `0.33333334`,
 //  b label: `b`,
@@ -11309,7 +11309,7 @@ let b: f32 = 0.3333331;
 assert_f32_lt!(a, b);
 # });
 // assertion failed: `assert_f32_lt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f32_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f32_lt.html
 //  a label: `a`,
 //  a debug: `0.33333334`,
 //  b label: `b`,
@@ -11460,7 +11460,7 @@ let b: f32 = 1.0 / 3.0;
 assert_f32_ne!(a, b);
 # });
 // assertion failed: `assert_f32_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f32_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f32_ne.html
 //  a label: `a`,
 //  a debug: `0.33333334`,
 //  b label: `b`,
@@ -11612,7 +11612,7 @@ let b: f64 = 0.3333333333333339;
 assert_f64_eq!(a, b);
 # });
 // assertion failed: `assert_f64_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f64_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f64_eq.html
 //  a label: `a`,
 //  a debug: `0.3333333333333333`,
 //  b label: `b`,
@@ -11763,7 +11763,7 @@ let b: f64 = 0.3333333333333339;
 assert_f64_ge!(a, b);
 # });
 // assertion failed: `assert_f64_ge!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f64_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f64_ge.html
 //  a label: `a`,
 //  a debug: `0.3333333333333333`,
 //  b label: `b`,
@@ -11914,7 +11914,7 @@ let b: f64 = 0.3333333333333339;
 assert_f64_gt!(a, b);
 # });
 // assertion failed: `assert_f64_gt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f64_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f64_gt.html
 //  a label: `a`,
 //  a debug: `0.3333333333333333`,
 //  b label: `b`,
@@ -12065,7 +12065,7 @@ let b: f64 = 0.3333333333333329;
 assert_f64_le!(a, b);
 # });
 // assertion failed: `assert_f64_le!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f64_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f64_le.html
 //  a label: `a`,
 //  a debug: `0.3333333333333333`,
 //  b label: `b`,
@@ -12216,7 +12216,7 @@ let b: f64 = 0.3333333333333329;
 assert_f64_lt!(a, b);
 # });
 // assertion failed: `assert_f64_lt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f64_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f64_lt.html
 //  a label: `a`,
 //  a debug: `0.3333333333333333`,
 //  b label: `b`,
@@ -12367,7 +12367,7 @@ let b: f64 = 0.3333333333333333;
 assert_f64_ne!(a, b);
 # });
 // assertion failed: `assert_f64_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_f64_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_f64_ne.html
 //  a label: `a`,
 //  a debug: `0.3333333333333333`,
 //  b label: `b`,
@@ -12521,7 +12521,7 @@ let x = 2;
 assert_abs_diff_eq_x!(a, b, x);
 # });
 // assertion failed: `assert_abs_diff_eq_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_abs_diff_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_abs_diff_eq_x.html
 //  a label: `a`,
 //  a debug: `10`,
 //  b label: `b`,
@@ -12679,7 +12679,7 @@ let x = 4;
 assert_abs_diff_ge_x!(a, b, x);
 # });
 // assertion failed: `assert_abs_diff_ge_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_abs_diff_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_abs_diff_ge_x.html
 //  a label: `a`,
 //  a debug: `10`,
 //  b label: `b`,
@@ -12837,7 +12837,7 @@ let x = 4;
 assert_abs_diff_gt_x!(a, b, x);
 # });
 // assertion failed: `assert_abs_diff_gt_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_abs_diff_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_abs_diff_gt_x.html
 //  a label: `a`,
 //  a debug: `10`,
 //  b label: `b`,
@@ -12995,7 +12995,7 @@ let x = 2;
 assert_abs_diff_le_x!(a, b, x);
 # });
 // assertion failed: `assert_abs_diff_le_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_abs_diff_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_abs_diff_le_x.html
 //  a label: `a`,
 //  a debug: `10`,
 //  b label: `b`,
@@ -13153,7 +13153,7 @@ let x = 2;
 assert_abs_diff_lt_x!(a, b, x);
 # });
 // assertion failed: `assert_abs_diff_lt_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_abs_diff_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_abs_diff_lt_x.html
 //  a label: `a`,
 //  a debug: `10`,
 //  b label: `b`,
@@ -13311,7 +13311,7 @@ let x = 3;
 assert_abs_diff_ne_x!(a, b, x);
 # });
 // assertion failed: `assert_abs_diff_ne_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_abs_diff_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_abs_diff_ne_x.html
 //  a label: `a`,
 //  a debug: `10`,
 //  b label: `b`,
@@ -13848,7 +13848,7 @@ let b: f32 = 1.0000012;
 assert_approx_eq!(a, b);
 # });
 // assertion failed: `assert_approx_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_approx_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_approx_eq.html
 //             a label: `a`,
 //             a debug: `1.0000001`,
 //             b label: `b`,
@@ -14023,7 +14023,7 @@ let b: f32 = 1.0000011;
 assert_approx_ne!(a, b);
 # });
 // assertion failed: `assert_approx_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_approx_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_approx_ne.html
 //             a label: `a`,
 //             a debug: `1.0000001`,
 //             b label: `b`,
@@ -14200,7 +14200,7 @@ let x: i8 = 2;
 assert_diff_eq_x!(a, b, x);
 # });
 // assertion failed: `assert_diff_eq_x!(a, b, x)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_diff_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_diff_eq_x.html
 //  a label: `a`,
 //  a debug: `10`,
 //  b label: `b`,
@@ -14361,7 +14361,7 @@ let x: i8 = 4;
 assert_diff_ge_x!(a, b, x);
 # });
 // assertion failed: `assert_diff_ge_x!(a, b, x)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_diff_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_diff_ge_x.html
 //        a label: `a`,
 //        a debug: `10`,
 //        b label: `b`,
@@ -14522,7 +14522,7 @@ let x: i8 = 4;
 assert_diff_gt_x!(a, b, x);
 # });
 // assertion failed: `assert_diff_gt_x!(a, b, x)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_diff_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_diff_gt_x.html
 //        a label: `a`,
 //        a debug: `10`,
 //        b label: `b`,
@@ -14683,7 +14683,7 @@ let x: i8 = 1;
 assert_diff_le_x!(a, b, x);
 # });
 // assertion failed: `assert_diff_le_x!(a, b, x)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_diff_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_diff_le_x.html
 //        a label: `a`,
 //        a debug: `10`,
 //        b label: `b`,
@@ -14844,7 +14844,7 @@ let x: i8 = 2;
 assert_diff_lt_x!(a, b, x);
 # });
 // assertion failed: `assert_diff_lt_x!(a, b, x)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_diff_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_diff_lt_x.html
 //        a label: `a`,
 //        a debug: `10`,
 //        b label: `b`,
@@ -15005,7 +15005,7 @@ let x: i8 = 3;
 assert_diff_ne_x!(a, b, x);
 # });
 // assertion failed: `assert_diff_ne_x!(a, b, x)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_diff_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_diff_ne_x.html
 //        a label: `a`,
 //        a debug: `10`,
 //        b label: `b`,
@@ -15160,7 +15160,7 @@ let b = 2..4;
 assert_in!(a, b);
 # });
 // assertion failed: `assert_in!(a, container)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_in.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_in.html
 //  a label: `a`,
 //  a debug: `1`,
 //  container label: `b`,
@@ -15313,7 +15313,7 @@ let delta: i8 = 1;
 assert_in_delta!(a, b, delta);
 # });
 // assertion failed: `assert_in_delta!(a, b, Δ)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_in_delta.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_in_delta.html
 //        a label: `a`,
 //        a debug: `10`,
 //        b label: `b`,
@@ -15489,7 +15489,7 @@ let epsilon: i8 = 1;
 assert_in_epsilon!(a, b, epsilon);
 # });
 // assertion failed: `assert_in_epsilon!(a, b, epsilon)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_in_epsilon.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_in_epsilon.html
 //                    a label: `a`,
 //                    a debug: `10`,
 //                    b label: `b`,
@@ -15664,7 +15664,7 @@ let b = 2..4;
 assert_in_range!(a, b);
 # });
 // assertion failed: `assert_in_range!(a, range)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_in_range.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_in_range.html
 //  a label: `a`,
 //  a debug: `1`,
 //  range label: `b`,
@@ -15811,7 +15811,7 @@ let a = [1, -2, 3];
 assert_all!(a.into_iter(), |x: i8| x > 0);
 # });
 // assertion failed: `assert_all!(collection, predicate)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_all.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_all.html
 //  collection label: `a.into_iter()`,
 //  collection debug: `IntoIter([1, -2, 3])`,
 //         predicate: `|x: i8| x > 0`
@@ -15958,7 +15958,7 @@ let a = [1, 2, 3];
 assert_any!(a.into_iter(), |x: i8| x > 3);
 # });
 // assertion failed: `assert_any!(collection, predicate)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_any.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_any.html
 //  collection label: `a.into_iter()`,
 //  collection debug: `IntoIter([1, 2, 3])`,
 //         predicate: `|x: i8| x > 3`
@@ -16105,7 +16105,7 @@ let b = 2;
 assert_infix!(a == b);
 # });
 // assertion failed: `assert_infix!(a == b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_infix.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_infix.html
 //  a label: `a`,
 //  a debug: `1`,
 //  b label: `b`,
@@ -16297,7 +16297,7 @@ let b = "xx";
 assert_contains!(a, b);
 # });
 // assertion failed: `assert_contains!(container, containee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_contains.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_contains.html
 //  container label: `a`,
 //  container debug: `\"alfa\"`,
 //  containee label: `b`,
@@ -16467,7 +16467,7 @@ let b = "lf";
 assert_not_contains!(a, b);
 # });
 // assertion failed: `assert_not_contains!(container, containee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_contains.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_not_contains.html
 //  container label: `a`,
 //  container debug: `\"alfa\"`,
 //  containee label: `b`,
@@ -16614,7 +16614,7 @@ let b = "xx".chars();
 assert_count_eq!(a, b);
 # });
 // assertion failed: `assert_count_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_eq.html
 //  a label: `a`,
 //  a debug: `Chars(['x'])`,
 //  a.count(): `1`",
@@ -16765,7 +16765,7 @@ let b = "xx".chars();
 assert_count_ge!(a, b);
 # });
 // assertion failed: `assert_count_ge!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_ge.html
 //  a label: `a`,
 //  a debug: `Chars(['x'])`,
 //  a.count(): `1`",
@@ -16916,7 +16916,7 @@ let b = "xx".chars();
 assert_count_gt!(a, b);
 # });
 // assertion failed: `assert_count_gt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_gt.html
 //  a label: `a`,
 //  a debug: `Chars(['x'])`,
 //  a.count(): `1`",
@@ -17067,7 +17067,7 @@ let b = "x".chars();
 assert_count_le!(a, b);
 # });
 // assertion failed: `assert_count_le!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_le.html
 //  a label: `a`,
 //  a debug: `Chars(['x', 'x'])`,
 //  a.count(): `2`",
@@ -17218,7 +17218,7 @@ let b = "x".chars();
 assert_count_lt!(a, b);
 # });
 // assertion failed: `assert_count_lt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_lt.html
 //  a label: `a`,
 //  a debug: `Chars(['x', 'x'])`,
 //  a.count(): `2`",
@@ -17369,7 +17369,7 @@ let b = "x".chars();
 assert_count_ne!(a, b);
 # });
 // assertion failed: `assert_count_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_ne.html
 //  a label: `a`,
 //  a debug: `Chars(['x'])`,
 //  a.count(): `1`",
@@ -17520,7 +17520,7 @@ let b = 2;
 assert_count_eq_x!(a, b);
 # });
 // assertion failed: `assert_count_eq_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_eq_x.html
 //  a label: `a`,
 //  a debug: `Chars(['x'])`,
 //  a.count(): `1`",
@@ -17669,7 +17669,7 @@ let b = 2;
 assert_count_ge_x!(a, b);
 # });
 // assertion failed: `assert_count_ge_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_ge_x.html
 //  a label: `a`,
 //  a debug: `Chars(['x'])`,
 //  a.count(): `1`",
@@ -17818,7 +17818,7 @@ let b = 2;
 assert_count_gt_x!(a, b);
 # });
 // assertion failed: `assert_count_gt_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_gt_x.html
 //  a label: `a`,
 //  a debug: `Chars(['x'])`,
 //  a.count(): `1`",
@@ -17967,7 +17967,7 @@ let b = 1;
 assert_count_le_x!(a, b);
 # });
 // assertion failed: `assert_count_le_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_le_x.html
 //  a label: `a`,
 //  a debug: `Chars(['x', 'x'])`,
 //  a.count(): `2`",
@@ -18116,7 +18116,7 @@ let b = 1;
 assert_count_lt_x!(a, b);
 # });
 // assertion failed: `assert_count_lt_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_lt_x.html
 //  a label: `a`,
 //  a debug: `Chars(['x', 'x'])`,
 //  a.count(): `2`",
@@ -18265,7 +18265,7 @@ let b = 1;
 assert_count_ne_x!(a, b);
 # });
 // assertion failed: `assert_count_ne_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_count_ne_x.html
 //  a label: `a`,
 //  a debug: `Chars(['x'])`,
 //  a.count(): `1`",
@@ -18406,7 +18406,7 @@ let a = "hello*example.com";
 assert_email_address!(a);
 # });
 // assertion failed: `assert_email_address!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_email_address.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_email_address.html
 //  Email address must contain an '@' at sign.
 //  a label: `a`,
 //  a debug: `\"hello*example.com\"`,
@@ -18542,7 +18542,7 @@ let a = "hello@example.com";
 assert_not_email_address!(a);
 # });
 // assertion failed: `assert_not_email_address!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_email_address.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_not_email_address.html
 //  Email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.
 //  a label: `a`,
 //  a debug: `\"hello@example.com\"`,
@@ -18696,7 +18696,7 @@ let subsequence = "al";
 assert_ends_with!(sequence, subsequence);
 # });
 // assertion failed: `assert_ends_with!(sequence, subsequence)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ends_with.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ends_with.html
 //  sequence label: `sequence`,
 //  sequence debug: `\"alfa\"`,
 //   part label: `subsequence`,
@@ -18849,7 +18849,7 @@ let subsequence = "fa";
 assert_not_ends_with!(sequence, subsequence);
 # });
 // assertion failed: `assert_not_ends_with!(sequence, subsequence)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_ends_with.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_not_ends_with.html
 //  sequence label: `sequence`,
 //  sequence debug: `\"alfa\"`,
 //   part label: `subsequence`,
@@ -18994,7 +18994,7 @@ let a = "alfa";
 assert_is_empty!(a);
 # });
 // assertion failed: `assert_is_empty!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_is_empty.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_is_empty.html
 //  label: `a`,
 //  debug: `\"alfa\"`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -19135,7 +19135,7 @@ let a = "";
 assert_not_empty!(a);
 # });
 // assertion failed: `assert_not_empty!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_empty.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_not_empty.html
 //  label: `a`,
 //  debug: `\"\"`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -19279,7 +19279,7 @@ let b = "alfa";
 assert_is_match!(a, b);
 # });
 // assertion failed: `assert_is_match!(matcher, matchee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_is_match.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_is_match.html
 //  matcher label: `a`,
 //  matcher debug: `Regex(\"xx\")`,
 //  matchee label: `b`,
@@ -19427,7 +19427,7 @@ let b = "alfa";
 assert_not_match!(a, b);
 # });
 // assertion failed: `assert_not_match!(matcher, matchee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_match.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_not_match.html
 //  matcher label: `a`,
 //  matcher debug: `Regex(\"lf\")`,
 //  matchee label: `b`,
@@ -19574,7 +19574,7 @@ let b = "xx";
 assert_len_eq!(a, b);
 # });
 // assertion failed: `assert_len_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_eq.html
 //  a label: `a`,
 //  a debug: `\"x\"`,
 //  a.len(): `1`",
@@ -19725,7 +19725,7 @@ let b = "xx";
 assert_len_ge!(a, b);
 # });
 // assertion failed: `assert_len_ge!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_ge.html
 //  a label: `a`,
 //  a debug: `\"x\"`,
 //  a.len(): `1`",
@@ -19876,7 +19876,7 @@ let b = "xx";
 assert_len_gt!(a, b);
 # });
 // assertion failed: `assert_len_gt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_gt.html
 //  a label: `a`,
 //  a debug: `\"x\"`,
 //  a.len(): `1`",
@@ -20027,7 +20027,7 @@ let b = "x";
 assert_len_le!(a, b);
 # });
 // assertion failed: `assert_len_le!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_le.html
 //  a label: `a`,
 //  a debug: `\"xx\"`,
 //  a.len(): `2`",
@@ -20178,7 +20178,7 @@ let b = "x";
 assert_len_lt!(a, b);
 # });
 // assertion failed: `assert_len_lt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_lt.html
 //  a label: `a`,
 //  a debug: `\"xx\"`,
 //  a.len(): `2`",
@@ -20329,7 +20329,7 @@ let b = "x";
 assert_len_ne!(a, b);
 # });
 // assertion failed: `assert_len_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_ne.html
 //  a label: `a`,
 //  a debug: `\"x\"`,
 //  a.len(): `1`",
@@ -20480,7 +20480,7 @@ let b = 2;
 assert_len_eq_x!(a, b);
 # });
 // assertion failed: `assert_len_eq_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_eq_x.html
 //  a label: `a`,
 //  a debug: `\"x\"`,
 //  a.len(): `1`",
@@ -20629,7 +20629,7 @@ let b = 2;
 assert_len_ge_x!(a, b);
 # });
 // assertion failed: `assert_len_ge_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_ge_x.html
 //  a label: `a`,
 //  a debug: `\"x\"`,
 //  a.len(): `1`",
@@ -20778,7 +20778,7 @@ let b = 2;
 assert_len_gt_x!(a, b);
 # });
 // assertion failed: `assert_len_gt_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_gt_x.html
 //  a label: `a`,
 //  a debug: `\"x\"`,
 //  a.len(): `1`",
@@ -20927,7 +20927,7 @@ let b = 1;
 assert_len_le_x!(a, b);
 # });
 // assertion failed: `assert_len_le_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_le_x.html
 //  a label: `a`,
 //  a debug: `\"xx\"`,
 //  a.len(): `2`",
@@ -21076,7 +21076,7 @@ let b = 1;
 assert_len_lt_x!(a, b);
 # });
 // assertion failed: `assert_len_lt_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_lt_x.html
 //  a label: `a`,
 //  a debug: `\"xx\"`,
 //  a.len(): `2`",
@@ -21225,7 +21225,7 @@ let b = 1;
 assert_len_ne_x!(a, b);
 # });
 // assertion failed: `assert_len_ne_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_len_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_len_ne_x.html
 //  a label: `a`,
 //  a debug: `\"x\"`,
 //  a.len(): `1`",
@@ -21366,7 +21366,7 @@ let a = 'a';
 assert_matches!(a, 'b'..='z');
 # });
 // assertion failed: `assert_matches!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_matches.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_matches.html
 //  args: `a, 'b'..='z'`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
@@ -21498,7 +21498,7 @@ let a = 'a';
 assert_not_matches!(a, 'a'..='z');
 # });
 // assertion failed: `assert_not_matches!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_matches.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_not_matches.html
 //  args: `a, 'a'..='z'`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
@@ -21644,7 +21644,7 @@ let subsequence = "al";
 assert_not_starts_with!(sequence, subsequence);
 # });
 // assertion failed: `assert_not_starts_with!(sequence, subsequence)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_starts_with.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_not_starts_with.html
 //  sequence label: `sequence`,
 //  sequence debug: `\"alfa\"`,
 //   part label: `subsequence`,
@@ -21796,7 +21796,7 @@ let sequence = "alfa";
 let subsequence = "fa";
 assert_starts_with!(sequence, subsequence);
 // assertion failed: `assert_starts_with!(sequence, subsequence)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_starts_with.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_starts_with.html
 //  sequence label: `sequence`,
 //  sequence debug: `\"alfa\"`,
 //   part label: `subsequence`,
@@ -21942,7 +21942,7 @@ let a: Result<i8, i8> = Ok(1);
 assert_err!(a);
 # });
 // assertion failed: `assert_err!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_err.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_err.html
 //  a label: `a`,
 //  a debug: `Ok(1)`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -22085,7 +22085,7 @@ let b: Result<i8, i8> = Err(2);
 assert_err_eq!(a, b);
 # });
 // assertion failed: `assert_err_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_err_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_err_eq.html
 //  a label: `a`,
 //  a debug: `Err(1)`,
 //  a inner: `1`,
@@ -22236,7 +22236,7 @@ let b: Result<i8, i8> = Err(1);
 assert_err_ne!(a, b);
 # });
 // assertion failed: `assert_err_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_err_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_err_ne.html
 //  a label: `a`,
 //  a debug: `Err(1)`,
 //  a inner: `1`,
@@ -22384,7 +22384,7 @@ let b: i8 = 2;
 assert_err_eq_x!(a, b);
 # });
 // assertion failed: `assert_err_eq_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_err_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_err_eq_x.html
 //  a label: `a`,
 //  a debug: `Err(1)`,
 //  a inner: `1`,
@@ -22533,7 +22533,7 @@ let b: i8 = 1;
 assert_err_ne_x!(a, b);
 # });
 // assertion failed: `assert_err_ne_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_err_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_err_ne_x.html
 //  a label: `a`,
 //  a debug: `Err(1)`,
 //  a inner: `1`,
@@ -22680,7 +22680,7 @@ let a: Result<i8, i8> = Err(1);
 assert_ok!(a);
 # });
 // assertion failed: `assert_ok!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ok.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ok.html
 //  a label: `a`,
 //  a debug: `Err(1)`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -22823,7 +22823,7 @@ let b: Result<i8, i8> = Ok(2);
 assert_ok_eq!(a, b);
 # });
 // assertion failed: `assert_ok_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ok_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ok_eq.html
 //  a label: `a`,
 //  a debug: `Ok(1)`,
 //  a inner: `1`,
@@ -22974,7 +22974,7 @@ let b: Result<i8, i8> = Ok(1);
 assert_ok_ne!(a, b);
 # });
 // assertion failed: `assert_ok_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ok_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ok_ne.html
 //  a label: `a`,
 //  a debug: `Ok(1)`,
 //  a inner: `1`,
@@ -23122,7 +23122,7 @@ let b: i8 = 2;
 assert_ok_eq_x!(a, b);
 # });
 // assertion failed: `assert_ok_eq_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ok_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ok_eq_x.html
 //  a label: `a`,
 //  a debug: `Ok(1)`,
 //  a inner: `1`,
@@ -23271,7 +23271,7 @@ let b: i8 = 1;
 assert_ok_ne_x!(a, b);
 # });
 // assertion failed: `assert_ok_ne_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ok_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ok_ne_x.html
 //  a label: `a`,
 //  a debug: `Ok(1)`,
 //  a inner: `1`,
@@ -23669,7 +23669,7 @@ let a: Option<i8> = Option::Some(1);
 assert_none!(a);
 # });
 // assertion failed: `assert_none!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_none.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_none.html
 //  a label: `a`,
 //  a debug: `Some(1)`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -24062,7 +24062,7 @@ let a: Option<i8> = Option::None;
 assert_some!(a);
 # });
 // assertion failed: `assert_some!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_some.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_some.html
 //  option label: `a`,
 //  option debug: `None`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -24207,7 +24207,7 @@ let b: Option<i8> = Option::Some(2);
 assert_some_eq!(a, b);
 # });
 // assertion failed: `assert_some_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_some_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_some_eq.html
 //  a label: `a`,
 //  a debug: `Some(1)`,
 //  a inner: `1`,
@@ -24361,7 +24361,7 @@ let b: Option<i8> = Option::Some(1);
 assert_some_ne!(a, b);
 # });
 // assertion failed: `assert_some_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_some_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_some_ne.html
 //  a label: `a`,
 //  a debug: `Some(1)`,
 //  b label: `b`,
@@ -24515,7 +24515,7 @@ let b: i8 = 2;
 assert_some_eq_x!(a, b);
 # });
 // assertion failed: `assert_some_eq_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_some_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_some_eq_x.html
 //  a label: `a`,
 //  a debug: `Some(1)`,
 //  a inner: `1`,
@@ -24667,7 +24667,7 @@ let b: i8 = 1;
 assert_some_ne_x!(a, b);
 # });
 // assertion failed: `assert_some_ne_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_some_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_some_ne_x.html
 //  a label: `a`,
 //  a debug: `Some(1)`,
 //  a inner: `1`,
@@ -24815,7 +24815,7 @@ let a: Poll<i8> = Ready(1);
 assert_pending!(a);
 # });
 // assertion failed: `assert_pending!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_pending.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_pending.html
 //  a label: `a`,
 //  a debug: `Ready(1)`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -25209,7 +25209,7 @@ let a: Poll<i8> = Pending;
 assert_ready!(a);
 # });
 // assertion failed: `assert_ready!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ready.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ready.html
 //  a label: `a`,
 //  a debug: `Pending`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -25356,7 +25356,7 @@ let b: Poll<i8> = Ready(2);
 assert_ready_eq!(a, b);
 # });
 // assertion failed: `assert_ready_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ready_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ready_eq.html
 //  a label: `a`,
 //  a debug: `Ready(1)`,
 //  a inner: `1`,
@@ -25511,7 +25511,7 @@ let b: Poll<i8> = Ready(1);
 assert_ready_ne!(a, b);
 # });
 // assertion failed: `assert_ready_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ready_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ready_ne.html
 //  a label: `a`,
 //  a debug: `Ready(1)`,
 //  a inner: `1`,
@@ -25666,7 +25666,7 @@ let b: i8 = 2;
 assert_ready_eq_x!(a, b);
 # });
 // assertion failed: `assert_ready_eq_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ready_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ready_eq_x.html
 //  a label: `a`,
 //  a debug: `Ready(1)`,
 //  a inner: `1`,
@@ -25819,7 +25819,7 @@ let b: i8 = 1;
 assert_ready_ne_x!(a, b);
 # });
 // assertion failed: `assert_ready_ne_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_ready_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_ready_ne_x.html
 //  a label: `a`,
 //  a debug: `Ready(1)`,
 //  a inner: `1`,
@@ -25984,7 +25984,7 @@ let b = [1, 1, 1];
 assert_bag_eq!(a, b);
 # });
 // assertion failed: `assert_bag_eq!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_bag_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_bag_eq.html
 //  a label: `a`,
 //  a debug: `[1, 1]`,
 //  b label: `b`,
@@ -26137,7 +26137,7 @@ let b = [1, 1];
 assert_bag_ne!(a, b);
 # });
 // assertion failed: `assert_bag_ne!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_bag_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_bag_ne.html
 //  a label: `a`,
 //  a debug: `[1, 1]`,
 //  b label: `b`,
@@ -26290,7 +26290,7 @@ let b = [1, 1];
 assert_bag_subbag!(a, b);
 # });
 // assertion failed: `assert_bag_subbag!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_bag_subbag.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_bag_subbag.html
 //  a label: `a`,
 //  a debug: `[1, 1, 1]`,
 //  b label: `b`,
@@ -26443,7 +26443,7 @@ let b = [1, 1, 1];
 assert_bag_superbag!(a, b);
 # });
 // assertion failed: `assert_bag_superbag!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_bag_superbag.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_bag_superbag.html
 //  a label: `a`,
 //  a debug: `[1, 1]`,
 //  b label: `b`,
@@ -26598,7 +26598,7 @@ let b = [2, 1];
 assert_iter_eq!(&a, &b);
 # });
 // assertion failed: `assert_iter_eq!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_iter_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_iter_eq.html
 //  a label: `&a`,
 //  a debug: `[1, 2]`,
 //  b label: `&b`,
@@ -26749,7 +26749,7 @@ let b = [3, 4];
 assert_iter_ge!(&a, &b);
 # });
 // assertion failed: `assert_iter_ge!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_iter_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_iter_ge.html
 //  a label: `&a`,
 //  a debug: `[1, 2]`,
 //  b label: `&b`,
@@ -26900,7 +26900,7 @@ let b = [3, 4];
 assert_iter_gt!(&a, &b);
 # });
 // assertion failed: `assert_iter_gt!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_iter_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_iter_gt.html
 //  a label: `&a`,
 //  a debug: `[1, 2]`,
 //  b label: `&b`,
@@ -27051,7 +27051,7 @@ let b = [1, 2];
 assert_iter_le!(&a, &b);
 # });
 // assertion failed: `assert_iter_le!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_iter_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_iter_le.html
 //  a label: `&a`,
 //  a debug: `[3, 4]`,
 //  b label: `&b`,
@@ -27202,7 +27202,7 @@ let b = [1, 2];
 assert_iter_lt!(&a, &b);
 # });
 // assertion failed: `assert_iter_lt!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_iter_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_iter_lt.html
 //  a label: `&a`,
 //  a debug: `[3, 4]`,
 //  b label: `&b`,
@@ -27353,7 +27353,7 @@ let b = [1, 2];
 assert_iter_ne!(&a, &b);
 # });
 // assertion failed: `assert_iter_ne!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_iter_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_iter_ne.html
 //  a label: `&a`,
 //  a debug: `[1, 2]`,
 //  b label: `&b`,
@@ -27520,7 +27520,7 @@ let b = [3, 4];
 assert_set_eq!(a, b);
 # });
 // assertion failed: `assert_set_eq!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_set_eq.html
 //  a label: `a`,
 //  a debug: `[1, 2]`,
 //  b label: `b`,
@@ -27673,7 +27673,7 @@ let b = [1, 2];
 assert_set_ne!(a, b);
 # });
 // assertion failed: `assert_set_ne!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_set_ne.html
 //  a label: `a`,
 //  a debug: `[1, 2]`,
 //  b label: `b`,
@@ -27826,7 +27826,7 @@ let b = [2, 3];
 assert_set_disjoint!(a, b);
 # });
 // assertion failed: `assert_set_disjoint!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_disjoint.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_set_disjoint.html
 //  a label: `a`,
 //  a debug: `[1, 2]`,
 //  b label: `b`,
@@ -27979,7 +27979,7 @@ let b = [3, 4];
 assert_set_joint!(a, b);
 # });
 // assertion failed: `assert_set_joint!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_joint.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_set_joint.html
 //  a label: `a`,
 //  a debug: `[1, 2]`,
 //  b label: `b`,
@@ -28132,7 +28132,7 @@ let b = [1, 2];
 assert_set_subset!(a, b);
 # });
 // assertion failed: `assert_set_subset!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_subset.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_set_subset.html
 //  a label: `a`,
 //  a debug: `[1, 2, 3]`,
 //  b label: `b`,
@@ -28287,7 +28287,7 @@ let b = [1, 2, 3];
 assert_set_superset!(a, b);
 # });
 // assertion failed: `assert_set_superset!(a_collection, b_collection)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_superset.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_set_superset.html
 //  a label: `a`,
 //  a debug: `[1, 2]`,
 //  b label: `b`,
@@ -28441,7 +28441,7 @@ let b: i8 = 2;
 assert_fn_eq!(i8::abs, a, i8::abs, b);
 # });
 // assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_eq.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `-1`,
@@ -28599,7 +28599,7 @@ let b: i8 = -2;
 assert_fn_ge!(i8::abs, a, i8::abs, b);
 # });
 // assertion failed: `assert_fn_ge!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ge.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -28757,7 +28757,7 @@ let b: i8 = -2;
 assert_fn_gt!(i8::abs, a, i8::abs, b);
 # });
 // assertion failed: `assert_fn_gt!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_gt.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -28917,7 +28917,7 @@ let b: i8 = 1;
 assert_fn_le!(i8::abs, a, i8::abs, b);
 # });
 // assertion failed: `assert_fn_le!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_le.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `-2`,
@@ -29075,7 +29075,7 @@ let b: i8 = 1;
 assert_fn_lt!(i8::abs, a, i8::abs, b);
 # });
 // assertion failed: `assert_fn_lt!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_lt.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `-2`,
@@ -29233,7 +29233,7 @@ let b: i8 = 1;
 assert_fn_ne!(i8::abs, a, i8::abs, b);
 # });
 // assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ne.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `-1`,
@@ -29391,7 +29391,7 @@ let b: i8 = 2;
 assert_fn_eq_x!(i8::abs, a, b);
 # });
 // assertion failed: `assert_fn_eq_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_eq_x.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `-1`,
@@ -29547,7 +29547,7 @@ let b: i8 = 2;
 assert_fn_ge_x!(i8::abs, a, b);
 # });
 // assertion failed: `assert_fn_ge_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ge_x.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `-1`,
@@ -29703,7 +29703,7 @@ let b: i8 = 2;
 assert_fn_gt_x!(i8::abs, a, b);
 # });
 // assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_gt_x.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `-1`,
@@ -29862,7 +29862,7 @@ let b: i8 = 1;
 assert_fn_le_x!(i8::abs, a, b);
 # });
 // assertion failed: `assert_fn_le_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_le_x.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `-2`,
@@ -30018,7 +30018,7 @@ let b: i8 = 1;
 assert_fn_lt_x!(i8::abs, a, b);
 # });
 // assertion failed: `assert_fn_lt_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_lt_x.html
 //  a_function label: `i8::abs`,
 //     a_param label: `a`,
 //     a_param debug: `-2`,
@@ -30334,7 +30334,7 @@ let b: i8 = 20;
 assert_fn_err_eq!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_err_eq!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_eq.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `10`,
@@ -30498,7 +30498,7 @@ let b: i8 = 20;
 assert_fn_err_ge!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_err_ge!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_ge.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `10`,
@@ -30662,7 +30662,7 @@ let b: i8 = 20;
 assert_fn_err_gt!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_err_gt!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_gt.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `10`,
@@ -30826,7 +30826,7 @@ let b: i8 = 10;
 assert_fn_err_le!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_le.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `20`,
@@ -30984,7 +30984,7 @@ let b: i8 = 10;
 assert_fn_err_lt!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_lt.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `20`,
@@ -31145,7 +31145,7 @@ let b: i8 = 10;
 assert_fn_err_ne!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_err_ne!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_ne.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `10`,
@@ -31309,7 +31309,7 @@ let b = String::from("20 is out of range");
 assert_fn_err_eq_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_err_eq_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_eq_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `10`,
@@ -31471,7 +31471,7 @@ let b = String::from("20 is out of range");
 assert_fn_err_ge_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_err_ge_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_ge_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `10`,
@@ -31633,7 +31633,7 @@ let b = String::from("20 is out of range");
 assert_fn_err_gt_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_gt_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `10`,
@@ -31795,7 +31795,7 @@ let b = String::from("10 is out of range");
 assert_fn_err_le_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_err_le_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_le_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `20`,
@@ -31957,7 +31957,7 @@ let b = String::from("10 is out of range");
 assert_fn_err_lt_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_err_lt_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_lt_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `20`,
@@ -32119,7 +32119,7 @@ let b = String::from("10 is out of range");
 assert_fn_err_ne_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_err_ne_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_err_ne_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `10`,
@@ -32281,7 +32281,7 @@ let b: i8 = 2;
 assert_fn_ok_eq!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_ok_eq!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_eq.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -32445,7 +32445,7 @@ let b: i8 = 2;
 assert_fn_ok_ge!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_ge.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -32609,7 +32609,7 @@ let b: i8 = 2;
 assert_fn_ok_gt!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_ok_gt!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_gt.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -32773,7 +32773,7 @@ let b: i8 = 1;
 assert_fn_ok_le!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_le.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `2`,
@@ -33099,7 +33099,7 @@ let b: i8 = 1;
 assert_fn_ok_ne!(f, a, f, b);
 # });
 // assertion failed: `assert_fn_ok_ne!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_ne.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -33263,7 +33263,7 @@ let b = String::from("2");
 assert_fn_ok_eq_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_ok_eq_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_eq_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -33425,7 +33425,7 @@ let b = String::from("2");
 assert_fn_ok_ge_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_ok_ge_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_ge_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -33587,7 +33587,7 @@ let b = String::from("2");
 assert_fn_ok_gt_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_ok_gt_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_gt_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -33749,7 +33749,7 @@ let b = String::from("1");
 assert_fn_ok_le_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_ok_le_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_le_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `2`,
@@ -33913,7 +33913,7 @@ let b = String::from("1");
 assert_fn_ok_lt_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_ok_lt_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_lt_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `2`,
@@ -34075,7 +34075,7 @@ let b = String::from("1");
 assert_fn_ok_ne_x!(f, a, b);
 # });
 // assertion failed: `assert_fn_ok_ne_x!(a_function, a_param, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fn_ok_ne_x.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `1`,
@@ -34231,7 +34231,7 @@ let b = "bravo.txt";
 assert_fs_read_to_string_eq!(a, b);
 # });
 // assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_eq.html
 //  a_path label: `a`,
 //  a_path debug: `\"alfa.txt\"`,
 //  b_path label: `b`,
@@ -34383,7 +34383,7 @@ let b = "bravo.txt";
 assert_fs_read_to_string_ge!(a, b);
 # });
 // assertion failed: `assert_fs_read_to_string_ge!(a_path, b_path)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_ge.html
 //  a_path label: `a`,
 //  a_path debug: `\"alfa.txt\"`,
 //  b_path label: `b`,
@@ -34535,7 +34535,7 @@ let b = "bravo.txt";
 assert_fs_read_to_string_gt!(a, b);
 # });
 // assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_gt.html
 //  a_path label: `a`,
 //  a_path debug: `\"alfa.txt\"`,
 //  b_path label: `b`,
@@ -34687,7 +34687,7 @@ let b = "alfa.txt";
 assert_fs_read_to_string_le!(a, b);
 # });
 // assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_le.html
 //  a_path label: `a`,
 //  a_path debug: `\"bravo.txt\"`,
 //  b_path label: `b`,
@@ -34839,7 +34839,7 @@ let b = "alfa.txt";
 assert_fs_read_to_string_lt!(a, b);
 # });
 // assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_lt.html
 //  a_path label: `a`,
 //  a_path debug: `\"bravo.txt\"`,
 //  b_path label: `b`,
@@ -34990,7 +34990,7 @@ let a = "alfa.txt";
 let b = "alfa.txt";
 assert_fs_read_to_string_ne!(a, b);
 // assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_ne.html
 //  a_path label: `a`,
 //  a_path debug: `\"alfa.txt\"`,
 //  b_path label: `b`,
@@ -35143,7 +35143,7 @@ let x = "bravo\n";
 assert_fs_read_to_string_eq_x!(path, x);
 # });
 // assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_eq_x.html
 //  a_path label: `path`,
 //  a_path debug: `\"alfa.txt\"`,
 //  b_expr label: `x`,
@@ -35295,7 +35295,7 @@ let x = "bravo\n";
 assert_fs_read_to_string_ge_x!(path, x);
 # });
 // assertion failed: `assert_fs_read_to_string_ge_x!(a_path, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_ge_x.html
 //  a_path label: `path`,
 //  a_path debug: `\"alfa.txt\"`,
 //  b_expr label: `x`,
@@ -35447,7 +35447,7 @@ let x = "bravo\n";
 assert_fs_read_to_string_gt_x!(path, x);
 # });
 // assertion failed: `assert_fs_read_to_string_gt_x!(a_path, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_gt_x.html
 //  a_path label: `path`,
 //  a_path debug: `\"alfa.txt\"`,
 //  b_expr label: `x`,
@@ -35599,7 +35599,7 @@ let x = "alfa\n";
 assert_fs_read_to_string_le_x!(path, x);
 # });
 // assertion failed: `assert_fs_read_to_string_le_x!(a_path, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_le_x.html
 //  a_path label: `path`,
 //  a_path debug: `\"bravo.txt\"`,
 //  b_expr label: `x`,
@@ -35751,7 +35751,7 @@ let x = "alfa\n";
 assert_fs_read_to_string_lt_x!(path, x);
 # });
 // assertion failed: `assert_fs_read_to_string_lt_x!(a_path, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_lt_x.html
 //  a_path label: `path`,
 //  a_path debug: `\"bravo.txt\"`,
 //  b_expr label: `x`,
@@ -35903,7 +35903,7 @@ let x = "alfa\n";
 assert_fs_read_to_string_ne_x!(path, x);
 # });
 // assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_ne_x.html
 //  a_path label: `path`,
 //  a_path debug: `\"alfa.txt\"`,
 //  b_expr label: `x`,
@@ -36055,7 +36055,7 @@ let containee = "zz";
 assert_fs_read_to_string_contains!(path, containee);
 # });
 // assertion failed: `assert_fs_read_to_string_contains!(path, containee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_contains.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_contains.html
 //       path label: `path`,
 //       path debug: `\"alfa.txt\"`,
 //  containee label: `containee`,
@@ -36206,7 +36206,7 @@ let matcher = Regex::new(r"zz").expect("regex");
 assert_fs_read_to_string_is_match!(path, matcher);
 # });
 // assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_is_match.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_fs_read_to_string_is_match.html
 //     path label: `path`,
 //     path debug: `\"alfa.txt\"`,
 //  matcher label: `matcher`,
@@ -36419,7 +36419,7 @@ let b = "zz".as_bytes();
 assert_io_read_to_string_eq!(a, b);
 # });
 // assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_eq.html
 //  a label: `a`,
 //  a debug: `[97, 108, 102, 97]`,
 //  b label: `b`,
@@ -36571,7 +36571,7 @@ let b = "zz".as_bytes();
 assert_io_read_to_string_ge!(a, b);
 # });
 // assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_ge.html
 //  a label: `a`,
 //  a debug: `[97, 108, 102, 97]`,
 //  b label: `b`,
@@ -36723,7 +36723,7 @@ let b = "zz".as_bytes();
 assert_io_read_to_string_gt!(a, b);
 # });
 // assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_gt.html
 //  a label: `a`,
 //  a debug: `[97, 108, 102, 97]`,
 //  b label: `b`,
@@ -36875,7 +36875,7 @@ let b = "aa".as_bytes();
 assert_io_read_to_string_le!(a, b);
 # });
 // assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_le.html
 //  a label: `a`,
 //  a debug: `[97, 108, 102, 97]`,
 //  b label: `b`,
@@ -37027,7 +37027,7 @@ let b = "aa".as_bytes();
 assert_io_read_to_string_lt!(a, b);
 # });
 // assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_lt.html
 //  a label: `a`,
 //  a debug: `[97, 108, 102, 97]`,
 //  b label: `b`,
@@ -37179,7 +37179,7 @@ let b = "alfa".as_bytes();
 assert_io_read_to_string_ne!(a, b);
 # });
 // assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_ne.html
 //  a label: `a`,
 //  a debug: `[97, 108, 102, 97]`,
 //  b label: `b`,
@@ -37331,7 +37331,7 @@ let x = String::from("zz");
 assert_io_read_to_string_eq_x!(reader, x);
 # });
 // assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_eq_x.html
 //  a_reader label: `reader`,
 //  a_reader debug: `[97, 108, 102, 97]`,
 //    b_expr label: `x`,
@@ -37481,7 +37481,7 @@ let x = String::from("zz");
 assert_io_read_to_string_ge_x!(reader, x);
 # });
 // assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_ge_x.html
 //  a_reader label: `reader`,
 //  a_reader debug: `[97, 108, 102, 97]`,
 //    b_expr label: `x`,
@@ -37633,7 +37633,7 @@ let x = String::from("zz");
 assert_io_read_to_string_gt_x!(reader, x);
 # });
 // assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_gt_x.html
 //  a_reader label: `reader`,
 //  a_reader debug: `[97, 108, 102, 97]`,
 //    b_expr label: `x`,
@@ -37785,7 +37785,7 @@ let x = String::from("aa");
 assert_io_read_to_string_le_x!(reader, x);
 # });
 // assertion failed: `assert_io_read_to_string_le_x!(a_reader, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_le_x.html
 //  a_reader label: `reader`,
 //  a_reader debug: `[97, 108, 102, 97]`,
 //    b_expr label: `x`,
@@ -37937,7 +37937,7 @@ let x = String::from("aa");
 assert_io_read_to_string_lt_x!(reader, x);
 # });
 // assertion failed: `assert_io_read_to_string_lt_x!(a_reader, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_lt_x.html
 //  a_reader label: `reader`,
 //  a_reader debug: `[97, 108, 102, 97]`,
 //    b_expr label: `x`,
@@ -38089,7 +38089,7 @@ let x = String::from("alfa");
 assert_io_read_to_string_ne_x!(reader, x);
 # });
 // assertion failed: `assert_io_read_to_string_ne_x!(a_reader, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_ne_x.html
 //  a_reader label: `reader`,
 //  a_reader debug: `[97, 108, 102, 97]`,
 //    b_expr label: `x`,
@@ -38241,7 +38241,7 @@ let containee = "zz";
 assert_io_read_to_string_contains!(reader, containee);
 # });
 // assertion failed: `assert_io_read_to_string_contains!(reader, containee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_contains.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_contains.html
 //     reader label: `&reader`,
 //     reader debug: `[104, 101, 108, 108, 111]`,
 //  containee label: `containee`,
@@ -38391,7 +38391,7 @@ let matcher = Regex::new(r"zz").expect("regex");
 assert_io_read_to_string_is_match!(reader, matcher);
 # });
 // assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_is_match.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_io_read_to_string_is_match.html
 //   reader label: `reader`,
 //   reader debug: `[104, 101, 108, 108, 111]`,
 //  matcher label: `matcher`,
@@ -38608,7 +38608,7 @@ b.args(["%s", "zz"]);
 assert_command_stdout_eq!(a, b);
 # });
 // assertion failed: `assert_command_stdout_eq!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_eq.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  a value: `[97, 108, 102, 97]`,
@@ -38761,7 +38761,7 @@ b.args(["%s", "zz"]);
 assert_command_stdout_ge!(a, b);
 # });
 // assertion failed: `assert_command_stdout_ge!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_ge.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  b label: `b`,
@@ -38914,7 +38914,7 @@ b.args(["%s", "zz"]);
 assert_command_stdout_gt!(a, b);
 # });
 // assertion failed: `assert_command_stdout_gt!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_gt.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  b label: `b`,
@@ -39067,7 +39067,7 @@ b.args(["%s", "aa"]);
 assert_command_stdout_le!(a, b);
 # });
 // assertion failed: `assert_command_stdout_le!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_le.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  b label: `b`,
@@ -39220,7 +39220,7 @@ b.args(["%s", "aa"]);
 assert_command_stdout_lt!(a, b);
 # });
 // assertion failed: `assert_command_stdout_lt!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_lt.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  b label: `b`,
@@ -39373,7 +39373,7 @@ b.args(["%s", "alfa"]);
 assert_command_stdout_ne!(a, b);
 # });
 // assertion failed: `assert_command_stdout_ne!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_ne.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  b label: `b`,
@@ -39524,7 +39524,7 @@ let bytes = vec![b'z', b'z'];
 assert_command_stdout_eq_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stdout_eq_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_eq_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -39678,7 +39678,7 @@ let bytes = vec![b'z', b'z'];
 assert_command_stdout_ge_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stdout_ge_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_ge_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -39832,7 +39832,7 @@ let bytes = vec![b'z', b'z'];
 assert_command_stdout_gt_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stdout_gt_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_gt_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -39986,7 +39986,7 @@ let bytes = vec![b'a', b'a'];
 assert_command_stdout_le_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stdout_le_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_le_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -40140,7 +40140,7 @@ let bytes = vec![b'a', b'a'];
 assert_command_stdout_lt_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stdout_lt_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_lt_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -40294,7 +40294,7 @@ let bytes = vec![b'a', b'l', b'f', b'a'];
 assert_command_stdout_ne_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stdout_ne_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_ne_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -40579,7 +40579,7 @@ let containee = "zz";
 assert_command_stdout_string_contains!(command, containee);
 # });
 // assertion failed: `assert_command_stdout_string_contains!(command, containee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_string_contains.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_string_contains.html
 //    command label: `command`,
 //    command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //    command value: `\"alfa\"`,
@@ -40734,7 +40734,7 @@ let matcher = Regex::new(r"zz").expect("regex");
 assert_command_stdout_string_is_match!(command, matcher);
 # });
 // assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stdout_string_is_match.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stdout_string_is_match.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,
 //  command value: `\"alfa\"`,
@@ -40890,7 +40890,7 @@ b.args(["%s", "zz"]);
 assert_command_stderr_eq!(a, b);
 # });
 // assertion failed: `assert_command_stderr_eq!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_eq.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  a value: `[97, 108, 102, 97]`,
@@ -41043,7 +41043,7 @@ b.args(["%s", "zz"]);
 assert_command_stderr_ge!(a, b);
 # });
 // assertion failed: `assert_command_stderr_ge!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_ge.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  a value: `[97, 108, 102, 97]`,
@@ -41196,7 +41196,7 @@ b.args(["%s", "zz"]);
 assert_command_stderr_gt!(a, b);
 # });
 // assertion failed: `assert_command_stderr_gt!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_gt.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  b label: `b`,
@@ -41349,7 +41349,7 @@ b.args(["%s", "aa"]);
 assert_command_stderr_le!(a, b);
 # });
 // assertion failed: `assert_command_stderr_le!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_le.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  b label: `b`,
@@ -41502,7 +41502,7 @@ b.args(["%s", "aa"]);
 assert_command_stderr_lt!(a, b);
 # });
 // assertion failed: `assert_command_stderr_lt!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_lt.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  a value: `[97, 108, 102, 97]`,
@@ -41655,7 +41655,7 @@ b.args(["%s", "alfa"]);
 assert_command_stderr_ne!(a, b);
 # });
 // assertion failed: `assert_command_stderr_ne!(a_command, b_command)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_ne.html
 //  a label: `a`,
 //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  a value: `[97, 108, 102, 97]`,
@@ -41806,7 +41806,7 @@ let bytes = vec![b'z', b'z'];
 assert_command_stderr_eq_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stderr_eq_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_eq_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -41960,7 +41960,7 @@ let bytes = vec![b'z', b'z'];
 assert_command_stderr_ge_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stderr_ge_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_ge_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -42114,7 +42114,7 @@ let bytes = vec![b'z', b'z'];
 assert_command_stderr_gt_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stderr_gt_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_gt_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -42268,7 +42268,7 @@ let bytes = vec![b'a', b'a'];
 assert_command_stderr_le_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stderr_le_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_le_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -42422,7 +42422,7 @@ let bytes = vec![b'a', b'a'];
 assert_command_stderr_lt_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stderr_lt_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_lt_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -42576,7 +42576,7 @@ let bytes = vec![b'a', b'l', b'f', b'a'];
 assert_command_stderr_ne_x!(command, bytes);
 # });
 // assertion failed: `assert_command_stderr_ne_x!(command, expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_ne_x.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  command value: `[97, 108, 102, 97]`,
@@ -42866,7 +42866,7 @@ let containee = "zz";
 assert_command_stderr_string_contains!(command, containee);
 # });
 // assertion failed: `assert_command_stderr_string_contains!(command, containee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_string_contains.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_string_contains.html
 //    command label: `command`,
 //    command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //    command value: `\"alfa\"`,
@@ -43021,7 +43021,7 @@ let matcher = Regex::new(r"zz").expect("regex");
 assert_command_stderr_string_is_match!(command, matcher);
 # });
 // assertion failed: `assert_command_stderr_string_is_match!(command, matcher)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_string_is_match.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_command_stderr_string_is_match.html
 //  command label: `command`,
 //  command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 //  command value: `\"alfa\"`,
@@ -43193,7 +43193,7 @@ let b_args = ["%s%s", "z", "z" ];
 assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_eq.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `a_args`,
@@ -43357,7 +43357,7 @@ let b_args = ["%s%s", "z", "z"];
 assert_program_args_stdout_ge!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stdout_ge!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_ge.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `a_args`,
@@ -43521,7 +43521,7 @@ let b_args = ["%s%s", "z", "z"];
 assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_gt.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `a_args`,
@@ -43685,7 +43685,7 @@ let b_args = ["%s%s", "a", "a"];
 assert_program_args_stdout_le!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stdout_le!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_le.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `a_args`,
@@ -43849,7 +43849,7 @@ let b_args = ["%s%s", "a", "a"];
 assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_lt.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `a_args`,
@@ -44013,7 +44013,7 @@ let b_args = ["%s%s%s%s", "a", "l", "f", "a"];
 assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_ne.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `a_args`,
@@ -44171,7 +44171,7 @@ let bytes = vec![b'z', b'z'];
 assert_program_args_stdout_eq_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_eq_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `args`,
@@ -44328,7 +44328,7 @@ let bytes = vec![b'z', b'z'];
 assert_program_args_stdout_ge_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stdout_ge_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_ge_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `args`,
@@ -44485,7 +44485,7 @@ let bytes = vec![b'z', b'z'];
 assert_program_args_stdout_gt_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stdout_gt_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_gt_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `args`,
@@ -44642,7 +44642,7 @@ let bytes = vec![b'a', b'a'];
 assert_program_args_stdout_le_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_le_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `args`,
@@ -44799,7 +44799,7 @@ let bytes = vec![b'a', b'a'];
 assert_program_args_stdout_lt_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_lt_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `args`,
@@ -44956,7 +44956,7 @@ let bytes = vec![b'a', b'l', b'f', b'a'];
 assert_program_args_stdout_ne_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stdout_ne_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_ne_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `args`,
@@ -45244,7 +45244,7 @@ let containee = "zz";
 assert_program_args_stdout_string_contains!(program, args, containee);
 # });
 // assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_string_contains.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_string_contains.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `args`,
@@ -45399,7 +45399,7 @@ let matcher = Regex::new(r"zz").expect("regex");
 assert_program_args_stdout_string_is_match!(program, args, matcher);
 # });
 // assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_string_is_match.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stdout_string_is_match.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stdout\"`,
 //     a_args label: `args`,
@@ -45558,7 +45558,7 @@ let b_args = ["%s", "zz"];
 assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_eq.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `a_args`,
@@ -45721,7 +45721,7 @@ let b_args = ["%s", "zz"];
 assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_ge.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `a_args`,
@@ -45884,7 +45884,7 @@ let b_args = ["%s", "zz"];
 assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_gt.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `a_args`,
@@ -46047,7 +46047,7 @@ let b_args = ["%s", "aa"];
 assert_program_args_stderr_le!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_le.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `a_args`,
@@ -46210,7 +46210,7 @@ let b_args = ["%s", "aa"];
 assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_lt.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `a_args`,
@@ -46373,7 +46373,7 @@ let b_args = ["%s", "alfa"];
 assert_program_args_stderr_ne!(a_program, a_args, b_program, b_args);
 # });
 // assertion failed: `assert_program_args_stderr_ne!(a_program, a_args, b_program, b_args)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_ne.html
 //  a_program label: `a_program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `a_args`,
@@ -46534,7 +46534,7 @@ let bytes = vec![b'z', b'z'];
 assert_program_args_stderr_eq_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_eq_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `args`,
@@ -46691,7 +46691,7 @@ let bytes = vec![b'z', b'z'];
 assert_program_args_stderr_ge_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stderr_ge_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_ge_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `args`,
@@ -46848,7 +46848,7 @@ let bytes = vec![b'z', b'z'];
 assert_program_args_stderr_gt_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stderr_gt_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_gt_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `args`,
@@ -47005,7 +47005,7 @@ let bytes = vec![b'a', b'a'];
 assert_program_args_stderr_le_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stderr_le_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_le_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `args`,
@@ -47162,7 +47162,7 @@ let bytes = vec![b'a', b'a'];
 assert_program_args_stderr_lt_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stderr_lt_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_lt_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `args`,
@@ -47319,7 +47319,7 @@ let bytes = vec![b'a', b'l', b'f', b'a'];
 assert_program_args_stderr_ne_x!(program, args, bytes);
 # });
 // assertion failed: `assert_program_args_stderr_ne_x!(a_program, a_args, b_expr)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_ne_x.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `args`,
@@ -47607,7 +47607,7 @@ let containee = "zz";
 assert_program_args_stderr_string_contains!(program, args, containee);
 # });
 // assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_string_contains.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_string_contains.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `args`,
@@ -47765,7 +47765,7 @@ let matcher = Regex::new(r"zz").expect("regex");
 assert_program_args_stderr_string_is_match!(program, args, matcher);
 # });
 // assertion failed: `assert_program_args_stderr_string_is_match!(a_program, b_matcher)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stderr_string_is_match.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_program_args_stderr_string_is_match.html
 //  a_program label: `program`,
 //  a_program debug: `\"bin/printf-stderr\"`,
 //     a_args label: `args`,
@@ -47919,7 +47919,7 @@ let mut a = Command::new("bin/exit-with-arg"); a.arg("1");
 assert_status_success!(a);
 # });
 // assertion failed: `assert_status_success!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_success.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_success.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -48061,7 +48061,7 @@ let mut a = Command::new("bin/exit-with-arg"); a.arg("0");
 assert_status_success_false!(a);
 # });
 // assertion failed: `assert_status_success_false!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_success_false.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_success_false.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"0\"`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -48203,7 +48203,7 @@ let mut a = Command::new("bin/exit-with-arg"); a.arg("0");
 assert_status_failure!(a);
 # });
 // assertion failed: `assert_status_failure!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_failure.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_failure.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"0\"`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -48347,7 +48347,7 @@ let mut b = Command::new("bin/exit-with-arg"); b.arg("2");
 assert_status_code_value_eq!(a, b);
 # });
 // assertion failed: `assert_status_code_value_eq!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_eq.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_eq.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `1`",
@@ -48499,7 +48499,7 @@ let mut b = Command::new("bin/exit-with-arg"); b.arg("2");
 assert_status_code_value_ge!(a, b);
 # });
 // assertion failed: `assert_status_code_value_ge!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_ge.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_ge.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `1`",
@@ -48651,7 +48651,7 @@ let mut b = Command::new("bin/exit-with-arg"); b.arg("2");
 assert_status_code_value_gt!(a, b);
 # });
 // assertion failed: `assert_status_code_value_gt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_gt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_gt.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `1`",
@@ -48803,7 +48803,7 @@ let mut b = Command::new("bin/exit-with-arg"); b.arg("1");
 assert_status_code_value_le!(a, b);
 # });
 // assertion failed: `assert_status_code_value_le!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_le.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_le.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `2`",
@@ -48955,7 +48955,7 @@ let mut b = Command::new("bin/exit-with-arg"); b.arg("1");
 assert_status_code_value_lt!(a, b);
 # });
 // assertion failed: `assert_status_code_value_lt!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_lt.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `2`",
@@ -49107,7 +49107,7 @@ let mut b = Command::new("bin/exit-with-arg"); b.arg("1");
 assert_status_code_value_ne!(a, b);
 # });
 // assertion failed: `assert_status_code_value_ne!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_ne.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_ne.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `1`",
@@ -49259,7 +49259,7 @@ let b = 2;
 assert_status_code_value_eq_x!(a, b);
 # });
 // assertion failed: `assert_status_code_value_eq_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_eq_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_eq_x.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `1`",
@@ -49409,7 +49409,7 @@ let b = 2;
 assert_status_code_value_ge_x!(a, b);
 # });
 // assertion failed: `assert_status_code_value_ge_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_ge_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_ge_x.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `1`",
@@ -49559,7 +49559,7 @@ let b = 2;
 assert_status_code_value_gt_x!(a, b);
 # });
 // assertion failed: `assert_status_code_value_gt_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_gt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_gt_x.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `1`",
@@ -49709,7 +49709,7 @@ let b = 1;
 assert_status_code_value_le_x!(a, b);
 # });
 // assertion failed: `assert_status_code_value_le_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_le_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_le_x.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `2`",
@@ -49859,7 +49859,7 @@ let b = 1;
 assert_status_code_value_lt_x!(a, b);
 # });
 // assertion failed: `assert_status_code_value_lt_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_lt_x.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `2`",
@@ -50009,7 +50009,7 @@ let b = 1;
 assert_status_code_value_ne_x!(a, b);
 # });
 // assertion failed: `assert_status_code_value_ne_x!(a, b)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_ne_x.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_status_code_value_ne_x.html
 //  a label: `a`,
 //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 //  a value: `1`",
@@ -50162,7 +50162,7 @@ let a = A{};
 assert_success!(a);
 # });
 // assertion failed: `assert_success!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_success.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_success.html
 //  a label: `a`,
 //  a debug: `A`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -50309,7 +50309,7 @@ let a = A{};
 assert_success_false!(a);
 # });
 // assertion failed: `assert_success_false!(a)`
-// https://docs.rs/assertables/9.7.0/assertables/macro.assert_success_false.html
+// https://docs.rs/assertables/9.8.0/assertables/macro.assert_success_false.html
 //  a label: `a`,
 //  a debug: `A`
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();

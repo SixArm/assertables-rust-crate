@@ -186,7 +186,7 @@ mod test_assert_count_gt_as_result {
 /// assert_count_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_count_gt!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_gt.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_count_gt.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x'])`,
 /// //  a.count(): `1`",

@@ -303,7 +303,7 @@ mod test_assert_le_as_result {
 /// assert_le!(a, b);
 /// # });
 /// // assertion failed: `assert_le!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_le.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_le.html
 /// //  a label: `a`,
 /// //  a debug: `2`,
 /// //  b label: `b`,

@@ -263,7 +263,7 @@ mod test_assert_abs_diff_gt_x_as_result {
 /// assert_abs_diff_gt_x!(a, b, x);
 /// # });
 /// // assertion failed: `assert_abs_diff_gt_x!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_abs_diff_gt_x.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_abs_diff_gt_x.html
 /// //  a label: `a`,
 /// //  a debug: `10`,
 /// //  b label: `b`,

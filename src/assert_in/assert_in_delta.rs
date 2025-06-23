@@ -229,7 +229,7 @@ mod test_assert_in_delta_as_result {
 /// assert_in_delta!(a, b, delta);
 /// # });
 /// // assertion failed: `assert_in_delta!(a, b, Δ)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_in_delta.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_in_delta.html
 /// //        a label: `a`,
 /// //        a debug: `10`,
 /// //        b label: `b`,

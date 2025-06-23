@@ -161,7 +161,7 @@ mod test_assert_is_match_as_result {
 /// assert_is_match!(a, b);
 /// # });
 /// // assertion failed: `assert_is_match!(matcher, matchee)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_is_match.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_is_match.html
 /// //  matcher label: `a`,
 /// //  matcher debug: `Regex(\"xx\")`,
 /// //  matchee label: `b`,

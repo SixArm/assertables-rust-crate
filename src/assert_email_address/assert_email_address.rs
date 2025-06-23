@@ -311,7 +311,7 @@ mod test_assert_email_address_as_result {
 /// assert_email_address!(a);
 /// # });
 /// // assertion failed: `assert_email_address!(a)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_email_address.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_email_address.html
 /// //  Email address must contain an '@' at sign.
 /// //  a label: `a`,
 /// //  a debug: `\"hello*example.com\"`,

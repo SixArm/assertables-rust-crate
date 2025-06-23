@@ -240,7 +240,7 @@ mod test_assert_err_ne_as_result {
 /// assert_err_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_err_ne!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_err_ne.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_err_ne.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`,
 /// //  a inner: `1`,

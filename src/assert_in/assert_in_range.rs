@@ -198,7 +198,7 @@ mod test_assert_in_range_as_result {
 /// assert_in_range!(a, b);
 /// # });
 /// // assertion failed: `assert_in_range!(a, range)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_in_range.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_in_range.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  range label: `b`,

@@ -255,7 +255,7 @@ mod test_assert_command_stderr_ge_as_result {
 /// assert_command_stderr_ge!(a, b);
 /// # });
 /// // assertion failed: `assert_command_stderr_ge!(a_command, b_command)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_command_stderr_ge.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_command_stderr_ge.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,
 /// //  a value: `[97, 108, 102, 97]`,

@@ -135,7 +135,7 @@ mod test_assert_is_empty_as_result {
 /// assert_is_empty!(a);
 /// # });
 /// // assertion failed: `assert_is_empty!(a)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_is_empty.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_is_empty.html
 /// //  label: `a`,
 /// //  debug: `\"alfa\"`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();

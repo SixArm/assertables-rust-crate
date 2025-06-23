@@ -197,7 +197,7 @@ mod test_assert_bag_subbag_as_result {
 /// assert_bag_subbag!(a, b);
 /// # });
 /// // assertion failed: `assert_bag_subbag!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_bag_subbag.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_bag_subbag.html
 /// //  a label: `a`,
 /// //  a debug: `[1, 1, 1]`,
 /// //  b label: `b`,

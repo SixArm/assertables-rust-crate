@@ -171,7 +171,7 @@ mod test_assert_bag_eq_as_result {
 /// assert_bag_eq!(a, b);
 /// # });
 /// // assertion failed: `assert_bag_eq!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_bag_eq.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_bag_eq.html
 /// //  a label: `a`,
 /// //  a debug: `[1, 1]`,
 /// //  b label: `b`,

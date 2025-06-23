@@ -303,7 +303,7 @@ mod test_assert_fn_ok_le_as_result {
 /// assert_fn_ok_le!(f, a, f, b);
 /// # });
 /// // assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_ok_le.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_fn_ok_le.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `2`,

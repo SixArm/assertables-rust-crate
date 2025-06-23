@@ -144,7 +144,7 @@ mod test_assert_iter_ge_as_result {
 /// assert_iter_ge!(&a, &b);
 /// # });
 /// // assertion failed: `assert_iter_ge!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_iter_ge.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_iter_ge.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&b`,

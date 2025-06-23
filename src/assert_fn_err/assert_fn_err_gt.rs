@@ -323,7 +323,7 @@ mod test_assert_fn_err_gt_as_result {
 /// assert_fn_err_gt!(f, a, f, b);
 /// # });
 /// // assertion failed: `assert_fn_err_gt!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_err_gt.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_fn_err_gt.html
 /// //  a_function label: `f`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `10`,

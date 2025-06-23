@@ -591,7 +591,7 @@ mod test_assert_not_contains_as_result {
 /// assert_not_contains!(a, b);
 /// # });
 /// // assertion failed: `assert_not_contains!(container, containee)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_contains.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_not_contains.html
 /// //  container label: `a`,
 /// //  container debug: `\"alfa\"`,
 /// //  containee label: `b`,

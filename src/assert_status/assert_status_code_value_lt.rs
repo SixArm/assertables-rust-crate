@@ -231,7 +231,7 @@ mod test_assert_status_code_value_lt_as_result {
 /// assert_status_code_value_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_status_code_value_lt!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_status_code_value_lt.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_status_code_value_lt.html
 /// //  a label: `a`,
 /// //  a debug: `\"bin/exit-with-arg\" \"1\"`,
 /// //  a value: `2`",

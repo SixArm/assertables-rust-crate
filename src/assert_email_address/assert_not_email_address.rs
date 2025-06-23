@@ -266,7 +266,7 @@ mod test_assert_not_email_address_as_result {
 /// assert_not_email_address!(a);
 /// # });
 /// // assertion failed: `assert_not_email_address!(a)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_not_email_address.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_not_email_address.html
 /// //  Email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.
 /// //  a label: `a`,
 /// //  a debug: `\"hello@example.com\"`,

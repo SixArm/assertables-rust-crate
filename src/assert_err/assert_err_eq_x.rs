@@ -196,7 +196,7 @@ mod test_assert_err_eq_x_as_result {
 /// assert_err_eq_x!(a, b);
 /// # });
 /// // assertion failed: `assert_err_eq_x!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_err_eq_x.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_err_eq_x.html
 /// //  a label: `a`,
 /// //  a debug: `Err(1)`,
 /// //  a inner: `1`,

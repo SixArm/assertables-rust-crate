@@ -228,7 +228,7 @@ mod test_assert_fs_read_to_string_gt_x_as_result {
 /// assert_fs_read_to_string_gt_x!(path, x);
 /// # });
 /// // assertion failed: `assert_fs_read_to_string_gt_x!(a_path, b_expr)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_gt_x.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_fs_read_to_string_gt_x.html
 /// //  a_path label: `path`,
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_expr label: `x`,

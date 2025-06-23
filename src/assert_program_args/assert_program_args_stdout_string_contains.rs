@@ -225,7 +225,7 @@ mod test_assert_program_args_stdout_string_contains_as_result {
 /// assert_program_args_stdout_string_contains!(program, args, containee);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_string_contains.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_program_args_stdout_string_contains.html
 /// //  a_program label: `program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `args`,

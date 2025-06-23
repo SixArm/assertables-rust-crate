@@ -243,7 +243,7 @@ mod test_assert_fn_le_as_result {
 /// assert_fn_le!(i8::abs, a, i8::abs, b);
 /// # });
 /// // assertion failed: `assert_fn_le!(a_function, a_param, b_function, b_param)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_fn_le.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_fn_le.html
 /// //  a_function label: `i8::abs`,
 /// //     a_param label: `a`,
 /// //     a_param debug: `-2`,

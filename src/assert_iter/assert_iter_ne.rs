@@ -134,7 +134,7 @@ mod test_assert_iter_ne_as_result {
 /// assert_iter_ne!(&a, &b);
 /// # });
 /// // assertion failed: `assert_iter_ne!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_iter_ne.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_iter_ne.html
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&b`,

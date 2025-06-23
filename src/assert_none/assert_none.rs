@@ -132,7 +132,7 @@ mod test_assert_none_as_result {
 /// assert_none!(a);
 /// # });
 /// // assertion failed: `assert_none!(a)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_none.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_none.html
 /// //  a label: `a`,
 /// //  a debug: `Some(1)`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();

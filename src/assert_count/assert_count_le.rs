@@ -206,7 +206,7 @@ mod test_assert_count_le_as_result {
 /// assert_count_le!(a, b);
 /// # });
 /// // assertion failed: `assert_count_le!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_le.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_count_le.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",

@@ -186,7 +186,7 @@ mod test_assert_count_lt_as_result {
 /// assert_count_lt!(a, b);
 /// # });
 /// // assertion failed: `assert_count_lt!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_count_lt.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_count_lt.html
 /// //  a label: `a`,
 /// //  a debug: `Chars(['x', 'x'])`,
 /// //  a.count(): `2`",

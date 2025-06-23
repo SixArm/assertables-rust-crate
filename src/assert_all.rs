@@ -141,7 +141,7 @@ mod test_assert_all_as_result {
 /// assert_all!(a.into_iter(), |x: i8| x > 0);
 /// # });
 /// // assertion failed: `assert_all!(collection, predicate)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_all.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_all.html
 /// //  collection label: `a.into_iter()`,
 /// //  collection debug: `IntoIter([1, -2, 3])`,
 /// //         predicate: `|x: i8| x > 0`

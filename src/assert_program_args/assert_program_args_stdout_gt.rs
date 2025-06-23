@@ -273,7 +273,7 @@ mod test_assert_program_args_stdout_gt_as_result {
 /// assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args);
 /// # });
 /// // assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_program_args_stdout_gt.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_program_args_stdout_gt.html
 /// //  a_program label: `a_program`,
 /// //  a_program debug: `\"bin/printf-stdout\"`,
 /// //     a_args label: `a_args`,

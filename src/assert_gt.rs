@@ -259,7 +259,7 @@ mod test_assert_gt_as_result {
 /// assert_gt!(a, b);
 /// # });
 /// // assertion failed: `assert_gt!(a, b)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_gt.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_gt.html
 /// //  a label: `a`,
 /// //  a debug: `1`,
 /// //  b label: `b`,

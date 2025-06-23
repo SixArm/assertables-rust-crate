@@ -171,7 +171,7 @@ mod test_assert_set_ne_as_result {
 /// assert_set_ne!(a, b);
 /// # });
 /// // assertion failed: `assert_set_ne!(a_collection, b_collection)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_set_ne.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_set_ne.html
 /// //  a label: `a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `b`,

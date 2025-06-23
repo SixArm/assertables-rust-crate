@@ -246,7 +246,7 @@ mod test_assert_fs_read_to_string_ne_as_result {
 /// let b = "alfa.txt";
 /// assert_fs_read_to_string_ne!(a, b);
 /// // assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_fs_read_to_string_ne.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_fs_read_to_string_ne.html
 /// //  a_path label: `a`,
 /// //  a_path debug: `\"alfa.txt\"`,
 /// //  b_path label: `b`,

@@ -117,7 +117,7 @@ mod test_assert_ready_as_result {
 /// assert_ready!(a);
 /// # });
 /// // assertion failed: `assert_ready!(a)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_ready.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_ready.html
 /// //  a label: `a`,
 /// //  a debug: `Pending`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();

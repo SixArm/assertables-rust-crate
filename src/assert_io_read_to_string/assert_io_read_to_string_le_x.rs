@@ -232,7 +232,7 @@ mod test_assert_io_read_to_string_le_x_as_result {
 /// assert_io_read_to_string_le_x!(reader, x);
 /// # });
 /// // assertion failed: `assert_io_read_to_string_le_x!(a_reader, b_expr)`
-/// // https://docs.rs/assertables/9.7.0/assertables/macro.assert_io_read_to_string_le_x.html
+/// // https://docs.rs/assertables/…/assertables/macro.assert_io_read_to_string_le_x.html
 /// //  a_reader label: `reader`,
 /// //  a_reader debug: `[97, 108, 102, 97]`,
 /// //    b_expr label: `x`,
