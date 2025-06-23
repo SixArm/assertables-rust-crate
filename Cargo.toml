@@ -9,7 +9,7 @@ repository = "https://github.com/sixarm/assertables-rust-crate/"
 license = "MIT OR Apache-2.0 OR GPL-2.0 OR GPL-3.0 OR BSD-3-Clause"
 keywords = ["assert", "assertable", "assertion", "macro", "test"]
 categories = ["development-tools", "development-tools::testing", "rust-patterns"]
-include = ["src/**/*", "LICENSE.md", "README.md"]
+include = ["src/**/*", "LICENSE.md", "README.md", "llms.txt", "llms.json"]
 
 [profile.dev]
 panic = "unwind"
@@ -30,3 +30,4 @@ cargo-dist = "0.22.1" # Cargo distribution builder for release engineering
 cargo-release = "0.25.18" # Cargo release automation
 cargo-diet = "1.2.7" #  Cargo command to make your crate lean
 regex = "1.11.1" # Regular expressions parser, compiler, and executer
+rustdoc-md = "0.1.0" # Convert Rust documentation JSON into clean, organized Markdown files.

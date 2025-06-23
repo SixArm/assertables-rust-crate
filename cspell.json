@@ -4,6 +4,8 @@
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
+        "assertable",
+        "assertables",
         "concat",
         "fnord",
         "hashset"

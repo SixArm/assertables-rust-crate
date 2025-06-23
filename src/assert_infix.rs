@@ -29,7 +29,6 @@
 //!
 //! * `assert_infix!(a || b)` ≈ a …∨ b ≈ a lazy OR b
 //!
-//!
 //! # Example
 //!
 //! ```rust

@@ -14,7 +14,6 @@
 //! assert_in_delta!(a, b, delta);
 //! ```
 //!
-//!
 //! ## Comparisons
 //!
 //! This crate provides macro groups that test approximations and nearness:
@@ -44,7 +43,6 @@
 //! * For many kinds of applications, the relative error is more important than
 //!   the absolute error.
 //!
-//!
 //! ## Thanks
 //!
 //! * Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
@@ -52,7 +50,6 @@
 //!
 //! * Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
 //!   creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
-//!
 //!
 //! # Module macros
 //!

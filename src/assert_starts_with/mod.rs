@@ -7,7 +7,6 @@
 //!
 //! * [`assert_not_starts_with!(sequence, subsequence)`](macro@crate::assert_not_starts_with) ≈ !container.contains(containee)
 //!
-//!
 //! # Example
 //!
 //! ```rust

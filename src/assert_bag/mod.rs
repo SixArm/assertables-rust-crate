@@ -13,10 +13,9 @@
 //!
 //! For subbag & superbag:
 //!
-//! * [`assert_bag_subbag(a, b)`](macro@crate::assert_bag_subbag) ≈ bag a ⊆ bag b
+//! * [`assert_bag_subbag(collection1, collection2)`](macro@crate::assert_bag_subbag) ≈ bag a ⊆ bag b
 //!
 //! * [`assert_bag_superbag!(collection1, collection2)`](macro@crate::assert_bag_superbag) ≈ bag a ⊇ bag b
-//!
 //!
 //! # Example
 //!

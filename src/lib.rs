@@ -1,13 +1,17 @@
-//! # Assertables: Rust crate of assert macros for testing
+//! # Assertables: assert macros for better testing
 //!
 //! Assertables is a Rust crate that provides many assert macros
 //! to improve your compile-time tests and run-time reliability.
 //!
-//! * Crate: [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
-//! * Docs: [https://docs.rs/assertables/](https://docs.rs/assertables/)
-//! * Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
-//! * Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
-//!
+//! **[documentation](https://docs.rs/assertables/)**
+//! •
+//! **[source](https://github.com/sixarm/assertables-rust-crate/)**
+//! •
+//! **[llms.txt](https://raw.githubusercontent.com/sixarm/assertables-rust-crate/refs/heads/main/llms.txt)**
+//! •
+//! **[crate](https://crates.io/crates/assertables)**
+//! •
+//! **[email](mailto:joel@joelparkerhenderson.com)**
 //!
 //! ## Introduction
 //!
@@ -107,67 +111,92 @@
 //!
 //! Values:
 //!
-//! * [`assert_eq!(a, b)`](module@crate::assert_eq) ≈ a = b
-//! * [`assert_ne!(a, b)`](module@crate::assert_ne) ≈ a ≠ b
-//! * [`assert_lt!(a, b)`](module@crate::assert_lt) ≈ a < b
-//! * [`assert_le!(a, b)`](module@crate::assert_le) ≈ a ≤ b
-//! * [`assert_gt!(a, b)`](module@crate::assert_gt) ≈ a > b
-//! * [`assert_ge!(a, b)`](module@crate::assert_ge) ≈ a ≥ b
+//! * [`assert_eq!(a, b)`](module@crate::assert_eq)
+//! * [`assert_ne!(a, b)`](module@crate::assert_ne)
+//! * [`assert_ge!(a, b)`](module@crate::assert_ge)
+//! * [`assert_gt!(a, b)`](module@crate::assert_gt)
+//! * [`assert_le!(a, b)`](module@crate::assert_le)
+//! * [`assert_lt!(a, b)`](module@crate::assert_lt)
+//!
+//! Floats:
+//! 
+//! * [`assert_f32_eq!(a, b)`](module@crate::assert_f32::assert_f32_eq)
+//! * [`assert_f64_eq!(a, b)`](module@crate::assert_f64::assert_f64_eq)
 //!
 //! Nearness:
 //!
-//! * [`assert_approx_eq!(a, b)`](module@crate::assert_approx::assert_approx_eq) ≈ |a-b| ≤ 1e-6
-//! * [`assert_diff_eq_x!(a, b, x)`](module@crate::assert_diff::assert_diff_eq_x) ≈ (b-a) = x
-//! * [`assert_abs_diff_eq_x!(a, b, x)`](module@crate::assert_abs_diff::assert_abs_diff_eq_x) ≈ |b-a| = x
-//! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta) ≈ |a-b| ≤ Δ
-//! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon) ≈ |a-b| ≤ ε min(a,b)
-//! * [`assert_in_range!(a, range)`](module@crate::assert_in::assert_in_range) ≈ range.contains(a)
+//! * [`assert_approx_eq!(a, b)`](module@crate::assert_approx::assert_approx_eq)
+//! * [`assert_in_delta!(a, b, delta)`](module@crate::assert_in::assert_in_delta)
+//! * [`assert_in_epsilon!(a, b, epsilon)`](module@crate::assert_in::assert_in_epsilon)
+//! * [`assert_in_range!(a, range)`](module@crate::assert_in::assert_in_range)
+//! * [`assert_diff_eq_x!(a, b, x)`](module@crate::assert_diff::assert_diff_eq_x)
+//! * [`assert_abs_diff_eq_x!(a, b, x)`](module@crate::assert_abs_diff::assert_abs_diff_eq_x)
 //!
 //! Groups:
 //!
-//! * [`assert_all!(group, predicate)`](module@crate::assert_all) ≈ group.all(predicate)
-//! * [`assert_any!(group, predicate)`](module@crate::assert_any) ≈ group.any(predicate)
-//! * [`assert_is_empty!(group)`](module@crate::assert_is_empty::assert_is_empty) ≈ a.is_empty()
-//! * [`assert_len_eq!(a, b)`](module@crate::assert_len::assert_len_eq) ≈ a.len() = b.len()
-//! * [`assert_count_eq!(a, b)`](module@crate::assert_count::assert_count_eq) ≈ a.count() = b.count()
+//! * [`assert_all!(group, predicate)`](module@crate::assert_all)
+//! * [`assert_any!(group, predicate)`](module@crate::assert_any)
+//! * [`assert_is_empty!(group)`](module@crate::assert_is_empty::assert_is_empty)
+//! * [`assert_len_eq!(a, b)`](module@crate::assert_len::assert_len_eq)
+//! * [`assert_count_eq!(a, b)`](module@crate::assert_count::assert_count_eq)
 //!
 //! Matching:
 //!
-//! * [`assert_starts_with!(sequence, x)`](module@crate::assert_starts_with) ≈ sequence.starts_with(x)
-//! * [`assert_ends_with!(sequence, x)`](module@crate::assert_ends_with) ≈ sequence.ends_with(x)
-//! * [`assert_contains!(container, x)`](module@crate::assert_contains) ≈ container.contains(x)
-//! * [`assert_is_match!(matcher, x)`](module@crate::assert_is_match) ≈ matcher.is_match(x)
-//! * [`assert_matches!(expr, pattern)`](module@crate::assert_matches) ≈ matches!(expr, pattern)
-//! * [`assert_email_address!(expr)`](module@crate::assert_email_address) ≈ expr has local@domain
+//! * [`assert_starts_with!(sequence, x)`](module@crate::assert_starts_with)
+//! * [`assert_ends_with!(sequence, x)`](module@crate::assert_ends_with)
+//! * [`assert_contains!(container, x)`](module@crate::assert_contains)
+//! * [`assert_is_match!(matcher, x)`](module@crate::assert_is_match)
+//! * [`assert_matches!(expr, pattern)`](module@crate::assert_matches)
+//! * [`assert_email_address!(string)`](module@crate::assert_email_address)
 //!
 //! Results:
 //!
-//! * [`assert_ok!(a)`](module@crate::assert_ok) ≈ a is Ok
-//! * [`assert_err!(a)`](module@crate::assert_err) ≈ a is Err
-//! * [`assert_ok_eq_x!(a, x)`](module@crate::assert_ok::assert_ok_eq_x) ≈ a is Ok ⇒ unwrap = x
+//! * [`assert_ok!(result)`](module@crate::assert_ok)
+//! * [`assert_ok_eq_x!(result, x)`](module@crate::assert_ok::assert_ok_eq_x)
+//! * [`assert_ok_ne_x!(result, x)`](module@crate::assert_ok::assert_ok_ne_x)
+//! * [`assert_err!(result)`](module@crate::assert_err)
 //!
 //! Options:
 //!
-//! * [`assert_some!(a)`](module@crate::assert_some) ≈ a is Some
-//! * [`assert_none!(a)`](module@crate::assert_none) ≈ a is None
-//! * [`assert_some_eq_x!(a, x)`](module@crate::assert_some::assert_some_eq_x) ≈ a is Some ⇒ unwrap = x
+//! * [`assert_some!(option)`](module@crate::assert_some)
+//! * [`assert_some_eq_x!(option, x)`](module@crate::assert_some::assert_some_eq_x)
+//! * [`assert_some_ne_x!(option, x)`](module@crate::assert_some::assert_some_ne_x)
+//! * [`assert_none!(option)`](module@crate::assert_none)
 //!
 //! Polls:
 //!
-//! * [`assert_ready!(a)`](module@crate::assert_ready) ≈ a is Ready
-//! * [`assert_pending!(a)`](module@crate::assert_pending) ≈ a is Pending
-//! * [`assert_ready_eq_x!(a, x)`](module@crate::assert_ready::assert_ready_eq_x) ≈ a is Ready ⇒ unwrap = x
+//! * [`assert_ready!(poll)`](module@crate::assert_ready)
+//! * [`assert_ready_eq_x!(poll, x)`](module@crate::assert_ready::assert_ready_eq_x)
+//! * [`assert_ready_ne_x!(poll, x)`](module@crate::assert_ready::assert_ready_ne_x)
+//! * [`assert_pending!(poll)`](module@crate::assert_pending)
 //!
-//! Collections:
+//! Iterators:
 //!
-//! * [`assert_iter_eq!(a, b)`](module@crate::assert_iter) ≈ a into iter = b into iter
-//! * [`assert_set_eq!(a, b)`](module@crate::assert_set) ≈ a into set = b into set
-//! * [`assert_bag_eq!(a, b)`](module@crate::assert_bag) ≈ a into bag = = b into bag
+//! * [`assert_iter_eq!(a, b)`](module@crate::assert_iter::assert_iter_eq)
+//! * [`assert_iter_ne!(a, b)`](module@crate::assert_iter::assert_iter_ne)
+//! * [`assert_iter_ge!(a, b)`](module@crate::assert_iter::assert_iter_ge)
+//! * [`assert_iter_gt!(a, b)`](module@crate::assert_iter::assert_iter_gt)
+//! * [`assert_iter_le!(a, b)`](module@crate::assert_iter::assert_iter_le)
+//! * [`assert_iter_lt!(a, b)`](module@crate::assert_iter::assert_iter_lt)
+//! 
+//! Sets:
 //!
+//! * [`assert_set_eq!(a, b)`](module@crate::assert_set::assert_set_eq)
+//! * [`assert_set_ne!(a, b)`](module@crate::assert_set::assert_set_ne)
+//! * [`assert_set_subset!(a, b)`](module@crate::assert_set::assert_set_subset)
+//! * [`assert_set_superset!(a, b)`](module@crate::assert_set::assert_set_superset)
+//!
+//! Bags:
+//!
+//! * [`assert_bag_eq!(a, b)`](module@crate::assert_bag::assert_bag_eq)
+//! * [`assert_bag_ne!(a, b)`](module@crate::assert_bag::assert_bag_ne)
+//! * [`assert_bag_subbag!(a, b)`](module@crate::assert_bag::assert_bag_subbag)
+//! * [`assert_bag_superbag!(a, b)`](module@crate::assert_bag::assert_bag_superbag)
+//! 
 //! Readers:
 //!
-//! * [`assert_fs_read_to_string_eq_x!(path, x)`](module@crate::assert_fs_read_to_string) ≈ path ⇒ file ⇒ string = x
-//! * [`assert_io_read_to_string_eq_x!(reader, x)`](module@crate::assert_io_read_to_string) ≈ reader ⇒ bytes ⇒ string = x
+//! * [`assert_fs_read_to_string_eq_x!(path, x)`](module@crate::assert_fs_read_to_string)
+//! * [`assert_io_read_to_string_eq_x!(reader, x)`](module@crate::assert_io_read_to_string)
 //!
 //! Commands:
 //!
@@ -176,17 +205,30 @@
 //!
 //! Status:
 //!
-//! * [`assert_status_success!(a)`](module@crate::assert_status::assert_status_success) ≈ a.status().success()
-//! * [`assert_status_code_value_eq_x!(a, x)`](module@crate::assert_status::assert_status_code_value_eq_x) ≈ a.status().code().unwrap() = x
+//! * [`assert_status_success!(a)`](module@crate::assert_status::assert_status_success)
+//! * [`assert_status_code_value_eq_x!(a, x)`](module@crate::assert_status::assert_status_code_value_eq_x)
+//! * [`assert_status_code_value_ne_x!(a, x)`](module@crate::assert_status::assert_status_code_value_ne_x)
+//! * [`assert_status_failure!(a)`](module@crate::assert_status::assert_status_failure)
 //!
-//! Infix:
-//!
-//! * [`assert_infix!(a == b)`](module@crate::assert_infix) ≈ order operators == != < <= > >=
-//! * [`assert_infix!(a && b)`](module@crate::assert_infix) ≈ logic operators && || ^ & |
+//! Infix values:
+//! 
+//! * [`assert_infix!(a == b)`](module@crate::assert_infix)
+//! * [`assert_infix!(a != b)`](module@crate::assert_infix)
+//! * [`assert_infix!(a < b)`](module@crate::assert_infix)
+//! * [`assert_infix!(a <= b)`](module@crate::assert_infix)
+//! * [`assert_infix!(a > b)`](module@crate::assert_infix)
+//! * [`assert_infix!(a >= b)`](module@crate::assert_infix)
+//! 
+//! Infix logic:
+//! 
+//! * [`assert_infix!(a & b)`](module@crate::assert_infix)
+//! * [`assert_infix!(a | b)`](module@crate::assert_infix)
+//! * [`assert_infix!(a ^ b)`](module@crate::assert_infix)
+//! * [`assert_infix!(a && b)`](module@crate::assert_infix)
+//! * [`assert_infix!(a || b)`](module@crate::assert_infix)
 //!
 //! For a complete list of modules and macros, see the
 //! [docs](https://docs.rs/assertables/).
-//!
 //!
 //! ## Forms
 //!
@@ -194,21 +236,21 @@
 //!
 //! All the macros have forms for an optional message:
 //!
-//! * [`assert_gt!(a, b)`](module@crate::assert_gt) ≈ default message
-//! * [`assert_gt!(a, b, "your text")`](module@crate::assert_gt) ≈ custom message
+//! * [`assert_gt!(a, b)`](module@crate::assert_gt) `// default message`
+//! * [`assert_gt!(a, b, "your text")`](module@crate::assert_gt) `// custom message`
 //!
 //! All the macros have forms for different outcomes:
 //!
-//! * [`assert_gt!(1, 2)`](macro@crate::assert_gt) ≈ panic
-//! * [`assert_gt_as_result!(1, 2)`](macro@crate::assert_gt_as_result) ≈ Result Err
-//! * [`debug_assert_gt!(1, 2)`](macro@crate::debug_assert_gt) ≈ panic in debug mode
+//! * [`assert_gt!(1, 2)`](macro@crate::assert_gt) `// panic`
+//! * [`assert_gt_as_result!(1, 2)`](macro@crate::assert_gt_as_result) `// return Result`
+//! * [`debug_assert_gt!(1, 2)`](macro@crate::debug_assert_gt) `// panic in debug mode`
 //!
 //! Many of the macros have a form "compare left item to right item" that compares
 //! items of the same kind, and a form "compare left item to right expression" that
 //! compares one item to any arbitrary expression:
 //!
-//! * [`assert_len_eq!(a, b)`](module@crate::assert_ok::assert_ok_eq) ≈ a.len() = b.len()
-//! * [`assert_len_eq_x!(a, x)`](module@crate::assert_ok::assert_ok_eq_x)) ≈ a.len() = x
+//! * [`assert_len_eq!(a, b)`](module@crate::assert_ok::assert_ok_eq) `// a.len() = b.len()`
+//! * [`assert_len_eq_x!(a, x)`](module@crate::assert_ok::assert_ok_eq_x)) `// a.len() = x`
 //!
 //! Many of the macros has a "success return", which means the macro returns data that you can optionally use for more testing.
 //!

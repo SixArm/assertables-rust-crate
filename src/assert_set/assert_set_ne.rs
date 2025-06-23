@@ -5,7 +5,6 @@
 //!
 //! # Example
 //!
-//!
 //! ```rust
 //! use assertables::*;
 //!

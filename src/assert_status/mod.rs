@@ -10,6 +10,7 @@
 //!
 //! * [`assert_status_success!(a)`](macro@crate::assert_status_success) ≈ a.status().success() = true``
 //! * [`assert_status_success_false!(a)`](macro@crate::assert_status_success_false) ≈ a.status().success() = false``
+//! * [`assert_status_failure!(a)`](macro@crate::assert_status_failure) ≈ a.status().success() = false``
 //!
 //! Compare a status code with another status code:
 //!
@@ -43,6 +44,7 @@
 // For success/failure
 pub mod assert_status_success;
 pub mod assert_status_success_false;
+pub mod assert_status_failure;
 
 // Compare another
 pub mod assert_status_code_value_eq;

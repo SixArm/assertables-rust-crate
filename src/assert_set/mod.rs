@@ -23,7 +23,6 @@
 //!
 //! * [`assert_set_disjoint!(collection1, collection2)`](macro@crate::assert_set_disjoint) ≈ set a ∩ set b = ∅
 //!
-//!
 //! # Example
 //!
 //! ```rust

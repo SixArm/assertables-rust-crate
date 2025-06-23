@@ -6,17 +6,20 @@
 
 # Module `assertables`
 
-# Assertables: Rust crate of assert macros for testing
+# Assertables: assert macros for better testing
 
 Assertables is a Rust crate that provides many assert macros
 to improve your compile-time tests and run-time reliability.
 
-* Crate: [https://crates.io/crates/assertables](https://crates.io/crates/assertables)
-* Docs: [https://docs.rs/assertables/](https://docs.rs/assertables/)
-* LLMs: [https://github.com/sixarm/assertables-rust-crate/llms.txt](https://github.com/sixarm/assertables-rust-crate/llms.txt)
-* Repo: [https://github.com/sixarm/assertables-rust-crate/](https://github.com/sixarm/assertables-rust-crate/)
-* Contact: [joel@joelparkerhenderson.com](mailto:joel@joelparkerhenderson.com)
-
+**[documentation](https://docs.rs/assertables/)**
+•
+**[source](https://github.com/sixarm/assertables-rust-crate/)**
+•
+**[llms.txt](https://raw.githubusercontent.com/sixarm/assertables-rust-crate/refs/heads/main/llms.txt)**
+•
+**[crate](https://crates.io/crates/assertables)**
+•
+**[email](mailto:joel@joelparkerhenderson.com)**
 
 ## Introduction
 
@@ -118,10 +121,10 @@ Values:
 
 * [`assert_eq!(a, b)`](module@crate::assert_eq)
 * [`assert_ne!(a, b)`](module@crate::assert_ne)
-* [`assert_lt!(a, b)`](module@crate::assert_lt)
-* [`assert_le!(a, b)`](module@crate::assert_le)
-* [`assert_gt!(a, b)`](module@crate::assert_gt)
 * [`assert_ge!(a, b)`](module@crate::assert_ge)
+* [`assert_gt!(a, b)`](module@crate::assert_gt)
+* [`assert_le!(a, b)`](module@crate::assert_le)
+* [`assert_lt!(a, b)`](module@crate::assert_lt)
 
 Floats:
  
@@ -179,10 +182,10 @@ Iterators:
 
 * [`assert_iter_eq!(a, b)`](module@crate::assert_iter::assert_iter_eq)
 * [`assert_iter_ne!(a, b)`](module@crate::assert_iter::assert_iter_ne)
-* [`assert_iter_lt!(a, b)`](module@crate::assert_iter::assert_iter_lt)
-* [`assert_iter_le!(a, b)`](module@crate::assert_iter::assert_iter_le)
-* [`assert_iter_gt!(a, b)`](module@crate::assert_iter::assert_iter_gt)
 * [`assert_iter_ge!(a, b)`](module@crate::assert_iter::assert_iter_ge)
+* [`assert_iter_gt!(a, b)`](module@crate::assert_iter::assert_iter_gt)
+* [`assert_iter_le!(a, b)`](module@crate::assert_iter::assert_iter_le)
+* [`assert_iter_lt!(a, b)`](module@crate::assert_iter::assert_iter_lt)
  
 Sets:
 
@@ -1200,7 +1203,6 @@ let b: f32 = 1.0000011;
 assert_approx_eq!(a, b);
 ```
 
-
 ## Comparisons
 
 This crate provides macro groups that test approximations and nearness:
@@ -1230,7 +1232,6 @@ Examples:
 * For many kinds of applications, the relative error is more important than
   the absolute error.
 
-
 ## Thanks
 
 * Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
@@ -1238,7 +1239,6 @@ Examples:
 
 * Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
   creating and maintaining `assert_in_approx` and `assert_in_epsilon` code.
-
 
 # Module macros
 
@@ -1267,7 +1267,6 @@ let b: f32 = 1.0000012;
 assert_approx_ne!(a, b);
 ```
 
-
 ## Comparisons
 
 This crate provides macro groups that test approximations and nearness:
@@ -1297,7 +1296,6 @@ Examples:
 * For many kinds of applications, the relative error is more important than
   the absolute error.
 
-
 ## Thanks
 
 * Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
@@ -1305,7 +1303,6 @@ Examples:
 
 * Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
   creating and maintaining `assert_in_approx` and `assert_in_epsilon` code.
-
 
 # Module macros
 
@@ -1589,7 +1586,6 @@ let delta: i8 = 1;
 assert_in_delta!(a, b, delta);
 ```
 
-
 ## Comparisons
 
 This crate provides macro groups that test approximations and nearness:
@@ -1619,7 +1615,6 @@ Examples:
 * For many kinds of applications, the relative error is more important than
   the absolute error.
 
-
 ## Thanks
 
 * Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
@@ -1627,7 +1622,6 @@ Examples:
 
 * Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
   creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
-
 
 # Module macros
 
@@ -1657,7 +1651,6 @@ let epsilon: i8 = 1;
 assert_in_epsilon!(a, b, epsilon);
 ```
 
-
 ## Comparisons
 
 This crate provides macro groups that test approximations and nearness:
@@ -1687,7 +1680,6 @@ Examples:
 * For many kinds of applications, the relative error is more important than
   the absolute error.
 
-
 ## Thanks
 
 * Thanks to [Ashley Williams](https://github.com/ashleygwilliams) for
@@ -1695,7 +1687,6 @@ Examples:
 
 * Thanks to [Ryan Davis](https://github.com/zenspider) and Ruby minitest for
   creating and maintaining `assert_in_delta` and `assert_in_epsilon` code.
-
 
 # Module macros
 
@@ -1822,7 +1813,6 @@ Relate values via infix logical operator:
 * `assert_infix!(a && b)` ≈ a …∧ b ≈ a lazy AND b
 
 * `assert_infix!(a || b)` ≈ a …∨ b ≈ a lazy OR b
-
 
 # Example
 
@@ -2478,7 +2468,6 @@ and a part (such as a string substring, an array element, a range value).
 * [`assert_ends_with(sequence, subsequence)`](macro@crate::assert_ends_with) ≈ container.contains(containee)
 
 * [`assert_not_ends_with!(sequence, subsequence)`](macro@crate::assert_not_ends_with) ≈ !container.contains(containee)
-
 
 # Example
 
@@ -3184,7 +3173,6 @@ and a part (such as a string substring, an array element, a range value).
 * [`assert_starts_with(sequence, subsequence)`](macro@crate::assert_starts_with) ≈ container.contains(containee)
 
 * [`assert_not_starts_with!(sequence, subsequence)`](macro@crate::assert_not_starts_with) ≈ !container.contains(containee)
-
 
 # Example
 
@@ -4256,10 +4244,9 @@ For eq & ne:
 
 For subbag & superbag:
 
-* [`assert_bag_subbag(a, b)`](macro@crate::assert_bag_subbag) ≈ bag a ⊆ bag b
+* [`assert_bag_subbag(collection1, collection2)`](macro@crate::assert_bag_subbag) ≈ bag a ⊆ bag b
 
 * [`assert_bag_superbag!(collection1, collection2)`](macro@crate::assert_bag_superbag) ≈ bag a ⊇ bag b
-
 
 # Example
 
@@ -4687,7 +4674,6 @@ For joint & disjoint:
 
 * [`assert_set_disjoint!(collection1, collection2)`](macro@crate::assert_set_disjoint) ≈ set a ∩ set b = ∅
 
-
 # Example
 
 ```rust
@@ -4800,7 +4786,6 @@ Pseudocode:<br>
 (a_collection ⇒ a_set) ≠ (b_collection ⇒ b_set)
 
 # Example
-
 
 ```rust
 use assertables::*;
@@ -4962,7 +4947,6 @@ Compare a function with an expression:
 * [`assert_fn_gt_x!(function, expr)`](macro@crate::assert_fn_gt_x) ≈ function() > expr
 * [`assert_fn_le_x!(function, expr)`](macro@crate::assert_fn_le_x) ≈ function() ≤ expr
 * [`assert_fn_lt_x!(function, expr)`](macro@crate::assert_fn_lt_x) ≈ function() < expr
-
 
 # Example
 
@@ -5334,7 +5318,6 @@ Compare a function Err() with an expression:
 * [`assert_fn_err_gt_x!(function, expr)`](macro@crate::assert_fn_err_gt_x) ≈ function().unwrap_err() > expr
 * [`assert_fn_err_le_x!(function, expr)`](macro@crate::assert_fn_err_le_x) ≈ function().unwrap_err() ≤ expr
 * [`assert_fn_err_lt_x!(function, expr)`](macro@crate::assert_fn_err_lt_x) ≈ function().unwrap_err() < expr
-
 
 # Example
 
@@ -6697,7 +6680,6 @@ Compare a reader with its contents:
 
 * [`assert_io_read_to_string_contains!(reader, &containee)`](macro@crate::assert_io_read_to_string_contains) ≈ reader.read_to_string().contains(containee)
 * [`assert_io_read_to_string_is_match!(reader, matcher)`](macro@crate::assert_io_read_to_string_is_match) ≈ matcher.is_match(reader.read_to_string())
-
 
 # Example
 

@@ -27,7 +27,6 @@
 //! * [`assert_fn_err_le_x!(function, expr)`](macro@crate::assert_fn_err_le_x) ≈ function().unwrap_err() ≤ expr
 //! * [`assert_fn_err_lt_x!(function, expr)`](macro@crate::assert_fn_err_lt_x) ≈ function().unwrap_err() < expr
 //!
-//!
 //! # Example
 //!
 //! ```rust

@@ -21,7 +21,6 @@
 //! * [`assert_fn_le_x!(function, expr)`](macro@crate::assert_fn_le_x) ≈ function() ≤ expr
 //! * [`assert_fn_lt_x!(function, expr)`](macro@crate::assert_fn_lt_x) ≈ function() < expr
 //!
-//!
 //! # Example
 //!
 //! ```rust
