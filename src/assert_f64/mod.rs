@@ -25,9 +25,9 @@
 #[cfg(test)] pub const LT:    f64 = 0.3333333333333329;
 #[cfg(test)] pub const GT:    f64 = 0.3333333333333339;
 
-mod assert_f64_eq;
-mod assert_f64_ge;
-mod assert_f64_gt;
-mod assert_f64_le;
-mod assert_f64_lt;
-mod assert_f64_ne;
+pub mod assert_f64_eq;
+pub mod assert_f64_ge;
+pub mod assert_f64_gt;
+pub mod assert_f64_le;
+pub mod assert_f64_lt;
+pub mod assert_f64_ne;

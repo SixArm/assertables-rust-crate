@@ -25,9 +25,9 @@
 #[cfg(test)] pub const LT:    f32 = 0.3333331;
 #[cfg(test)] pub const GT:    f32 = 0.3333336;
 
-mod assert_f32_eq;
-mod assert_f32_ge;
-mod assert_f32_gt;
-mod assert_f32_le;
-mod assert_f32_lt;
-mod assert_f32_ne;
+pub mod assert_f32_eq;
+pub mod assert_f32_ge;
+pub mod assert_f32_gt;
+pub mod assert_f32_le;
+pub mod assert_f32_lt;
+pub mod assert_f32_ne;
