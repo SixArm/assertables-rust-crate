@@ -1,4 +1,0 @@
-# Custom Dictionary Words
-assertables
-containee
-fnord
