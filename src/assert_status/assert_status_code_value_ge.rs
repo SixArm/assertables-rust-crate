@@ -50,9 +50,7 @@ macro_rules! assert_status_code_value_ge_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_status_code_value_ge!(a, b)`\n",
-                                "https://docs.rs/assertables/",
-                                env!("CARGO_PKG_VERSION"),
-                                "/assertables/macro.assert_status_code_value_ge.html\n",
+                                "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_code_value_ge.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 "  a code: `{:?}`,\n",
@@ -72,9 +70,7 @@ macro_rules! assert_status_code_value_ge_as_result {
                 _ => Err(format!(
                     concat!(
                         "assertion failed: `assert_status_code_value_ge!(a, b)`\n",
-                        "https://docs.rs/assertables/",
-                        env!("CARGO_PKG_VERSION"),
-                        "/assertables/macro.assert_status_code_value_ge.html\n",
+                        "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_code_value_ge.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -89,9 +85,7 @@ macro_rules! assert_status_code_value_ge_as_result {
             _ => Err(format!(
                 concat!(
                     "assertion failed: `assert_status_code_value_ge!(a, b)`\n",
-                    "https://docs.rs/assertables/",
-                    env!("CARGO_PKG_VERSION"),
-                    "/assertables/macro.assert_status_code_value_ge.html\n",
+                    "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_code_value_ge.html\n",
                     "  a label: `{}`,\n",
                     "  a debug: `{:?}`,\n",
                     "  b label: `{}`,\n",
@@ -212,9 +206,7 @@ mod test_assert_status_code_value_ge_as_result {
         let actual = assert_status_code_value_ge_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_status_code_value_ge!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_status_code_value_ge.html\n",
+            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_code_value_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",
@@ -265,7 +257,7 @@ mod test_assert_status_code_value_ge_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_code_value_ge!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_status_code_value_ge.html\n",
+/// #     "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_code_value_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 /// #     "  a code: `1`,\n",
@@ -339,9 +331,7 @@ mod test_assert_status_code_value_ge {
         });
         let message = concat!(
             "assertion failed: `assert_status_code_value_ge!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_status_code_value_ge.html\n",
+            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_code_value_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",

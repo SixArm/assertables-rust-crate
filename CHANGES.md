@@ -4,6 +4,8 @@ Changes are summarized here as highlights for recent major versions.
 
 ## Version 9.x
 
+* 9.8.1 Fix docs link version.
+
 * 9.8.0 Add float macros: `assert_{f32,f64}_{eq,ne,lt,le,gt,ge}`.
 
 * 9.7.1 Fix `assert_contains` for methods that require `Borrow`.

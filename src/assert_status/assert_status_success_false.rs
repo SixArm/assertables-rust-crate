@@ -48,9 +48,7 @@ macro_rules! assert_status_success_false_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_status_success_false!(a)`\n",
-                            "https://docs.rs/assertables/",
-                            env!("CARGO_PKG_VERSION"),
-                            "/assertables/macro.assert_status_success_false.html\n",
+                            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_success_false.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`",
                         ),
@@ -62,9 +60,7 @@ macro_rules! assert_status_success_false_as_result {
             a_status => Err(format!(
                 concat!(
                     "assertion failed: `assert_status_success_false!(a)`\n",
-                    "https://docs.rs/assertables/",
-                    env!("CARGO_PKG_VERSION"),
-                    "/assertables/macro.assert_status_success_false.html\n",
+                    "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_success_false.html\n",
                     "  a label: `{}`,\n",
                     "  a debug: `{:?}`,\n",
                     " a status: `{:?}`",
@@ -119,9 +115,7 @@ mod test_assert_status_success_false_as_result {
         let actual = assert_status_success_false_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_status_success_false!(a)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_status_success_false.html\n",
+            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_success_false.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"0\"`",
         );
@@ -162,7 +156,7 @@ mod test_assert_status_success_false_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_success_false!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_status_success_false.html\n",
+/// #     "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_success_false.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"0\"`"
 /// # );
@@ -216,9 +210,7 @@ mod test_assert_status_success_false {
         });
         let message = concat!(
             "assertion failed: `assert_status_success_false!(a)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_status_success_false.html\n",
+            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_status_success_false.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"0\"`",
         );
