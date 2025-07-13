@@ -47,9 +47,7 @@ macro_rules! assert_not_empty_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_not_empty!(a)`\n",
-                            "https://docs.rs/assertables/",
-                            env!("CARGO_PKG_VERSION"),
-                            "/assertables/macro.assert_not_empty.html\n",
+                            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_not_empty.html\n",
                             " label: `{}`,\n",
                             " debug: `{:?}`"
                         ),
@@ -99,9 +97,7 @@ mod test_assert_not_empty_as_result {
         let actual = assert_not_empty_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_not_empty!(a)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_not_empty.html\n",
+            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_not_empty.html\n",
             " label: `a`,\n",
             " debug: `\"\"`",
         );
@@ -141,7 +137,7 @@ mod test_assert_not_empty_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_not_empty!(a)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_not_empty.html\n",
+/// #     "https://docs.rs/assertables/9.8.1/assertables/macro.assert_not_empty.html\n",
 /// #     " label: `a`,\n",
 /// #     " debug: `\"\"`"
 /// # );
@@ -192,9 +188,7 @@ mod test_assert_not_empty {
         });
         let message = concat!(
             "assertion failed: `assert_not_empty!(a)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_not_empty.html\n",
+            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_not_empty.html\n",
             " label: `a`,\n",
             " debug: `\"\"`",
         );

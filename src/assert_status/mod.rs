@@ -42,9 +42,9 @@
 //! ```
 
 // For success/failure
+pub mod assert_status_failure;
 pub mod assert_status_success;
 pub mod assert_status_success_false;
-pub mod assert_status_failure;
 
 // Compare another
 pub mod assert_status_code_value_eq;

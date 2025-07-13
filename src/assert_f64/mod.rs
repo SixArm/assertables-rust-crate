@@ -19,11 +19,16 @@
 //! assert_f64_ne!(a, b);
 //! ```
 
-#[cfg(test)] pub const EQ:    f64 = 1.0 / 3.0;
-#[cfg(test)] pub const EQ_LT: f64 = 0.3333333333333332;
-#[cfg(test)] pub const EQ_GT: f64 = 0.3333333333333335;
-#[cfg(test)] pub const LT:    f64 = 0.3333333333333329;
-#[cfg(test)] pub const GT:    f64 = 0.3333333333333339;
+#[cfg(test)]
+pub const EQ: f64 = 1.0 / 3.0;
+#[cfg(test)]
+pub const EQ_LT: f64 = 0.3333333333333332;
+#[cfg(test)]
+pub const EQ_GT: f64 = 0.3333333333333335;
+#[cfg(test)]
+pub const LT: f64 = 0.3333333333333329;
+#[cfg(test)]
+pub const GT: f64 = 0.3333333333333339;
 
 pub mod assert_f64_eq;
 pub mod assert_f64_ge;

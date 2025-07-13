@@ -50,7 +50,7 @@
 //! To use this crate, add it to your file `Cargo.toml`:
 //!
 //! ```toml
-//! assertables = "9.8.0"
+//! assertables = "9.8.1"
 //! ```
 //!
 //! Benefits:
@@ -119,7 +119,7 @@
 //! * [`assert_lt!(a, b)`](module@crate::assert_lt)
 //!
 //! Floats:
-//! 
+//!
 //! * [`assert_f32_eq!(a, b)`](module@crate::assert_f32::assert_f32_eq)
 //! * [`assert_f64_eq!(a, b)`](module@crate::assert_f64::assert_f64_eq)
 //!
@@ -178,7 +178,7 @@
 //! * [`assert_iter_gt!(a, b)`](module@crate::assert_iter::assert_iter_gt)
 //! * [`assert_iter_le!(a, b)`](module@crate::assert_iter::assert_iter_le)
 //! * [`assert_iter_lt!(a, b)`](module@crate::assert_iter::assert_iter_lt)
-//! 
+//!
 //! Sets:
 //!
 //! * [`assert_set_eq!(a, b)`](module@crate::assert_set::assert_set_eq)
@@ -192,7 +192,7 @@
 //! * [`assert_bag_ne!(a, b)`](module@crate::assert_bag::assert_bag_ne)
 //! * [`assert_bag_subbag!(a, b)`](module@crate::assert_bag::assert_bag_subbag)
 //! * [`assert_bag_superbag!(a, b)`](module@crate::assert_bag::assert_bag_superbag)
-//! 
+//!
 //! Readers:
 //!
 //! * [`assert_fs_read_to_string_eq_x!(path, x)`](module@crate::assert_fs_read_to_string)
@@ -211,16 +211,16 @@
 //! * [`assert_status_failure!(a)`](module@crate::assert_status::assert_status_failure)
 //!
 //! Infix values:
-//! 
+//!
 //! * [`assert_infix!(a == b)`](module@crate::assert_infix)
 //! * [`assert_infix!(a != b)`](module@crate::assert_infix)
 //! * [`assert_infix!(a < b)`](module@crate::assert_infix)
 //! * [`assert_infix!(a <= b)`](module@crate::assert_infix)
 //! * [`assert_infix!(a > b)`](module@crate::assert_infix)
 //! * [`assert_infix!(a >= b)`](module@crate::assert_infix)
-//! 
+//!
 //! Infix logic:
-//! 
+//!
 //! * [`assert_infix!(a & b)`](module@crate::assert_infix)
 //! * [`assert_infix!(a | b)`](module@crate::assert_infix)
 //! * [`assert_infix!(a ^ b)`](module@crate::assert_infix)
@@ -261,9 +261,9 @@
 //! ## Tracking
 //!
 //! * Package: assertables-rust-crate
-//! * Version: 9.8.0
+//! * Version: 9.8.1
 //! * Created: 2021-03-30T15:47:49Z
-//! * Updated: 2025-06-21T22:20:00Z
+//! * Updated: 2025-07-13T10:36:02Z
 //! * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 //! * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 

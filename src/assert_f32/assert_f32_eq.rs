@@ -48,9 +48,7 @@ macro_rules! assert_f32_eq_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_f32_eq!(a, b)`\n",
-                            "https://docs.rs/assertables/",
-                            env!("CARGO_PKG_VERSION"),
-                            "/assertables/macro.assert_f32_eq.html\n",
+                            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_f32_eq.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -73,7 +71,7 @@ macro_rules! assert_f32_eq_as_result {
 
 #[cfg(test)]
 mod test_assert_f32_eq_as_result {
-    use crate::assert_f32::{EQ,EQ_LT,EQ_GT,LT,GT};
+    use crate::assert_f32::{EQ, EQ_GT, EQ_LT, GT, LT};
     use std::sync::Once;
 
     #[test]
@@ -185,7 +183,7 @@ mod test_assert_f32_eq_as_result {
             } else {
                 B.call_once(|| {})
             }
-            EQ_LT        
+            EQ_LT
         }
 
         assert_eq!(A.is_completed(), false);
@@ -203,9 +201,7 @@ mod test_assert_f32_eq_as_result {
         let actual = assert_f32_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_f32_eq!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_f32_eq.html\n",
+            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_f32_eq.html\n",
             " a label: `a`,\n",
             " a debug: `0.33333334`,\n",
             " b label: `b`,\n",
@@ -223,9 +219,7 @@ mod test_assert_f32_eq_as_result {
         let actual = assert_f32_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_f32_eq!(a, b)`\n",
-            "https://docs.rs/assertables/",
-            env!("CARGO_PKG_VERSION"),
-            "/assertables/macro.assert_f32_eq.html\n",
+            "https://docs.rs/assertables/9.8.1/assertables/macro.assert_f32_eq.html\n",
             " a label: `a`,\n",
             " a debug: `0.33333334`,\n",
             " b label: `b`,\n",
@@ -275,7 +269,7 @@ mod test_assert_f32_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_f32_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_f32_eq.html\n",
+/// #     "https://docs.rs/assertables/9.8.1/assertables/macro.assert_f32_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `0.33333334`,\n",
 /// #     " b label: `b`,\n",
@@ -323,7 +317,6 @@ mod test_assert_f32_eq {
             assert_eq!(actual, ());
         }
     }
-
 }
 
 /// Assert a floating point 32-bit number is equal to another within f32::EPSILON.

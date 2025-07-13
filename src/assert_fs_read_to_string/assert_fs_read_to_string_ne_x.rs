@@ -52,7 +52,7 @@ macro_rules! assert_fs_read_to_string_ne_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-                                        "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+                                        "https://docs.rs/assertables/9.8.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
                                         " a_path label: `{}`,\n",
                                         " a_path debug: `{:?}`,\n",
                                         " b_expr label: `{}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_fs_read_to_string_ne_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-                                    "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+                                    "https://docs.rs/assertables/9.8.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
                                     " a_path label: `{}`,\n",
                                     " a_path debug: `{:?}`,\n",
                                     " b_expr label: `{}`,\n",
@@ -200,9 +200,7 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-                "https://docs.rs/assertables/",
-                env!("CARGO_PKG_VERSION"),
-                "/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+                "https://docs.rs/assertables/9.8.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
                 " a_path label: `path`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_expr label: `x`,\n",
@@ -255,7 +253,7 @@ mod test_assert_fs_read_to_string_ne_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-/// #     "https://docs.rs/assertables/", env!("CARGO_PKG_VERSION"), "/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.8.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
 /// #     " a_path label: `path`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_expr label: `x`,\n",
@@ -335,9 +333,7 @@ mod test_assert_fs_read_to_string_ne_x {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-                "https://docs.rs/assertables/",
-                env!("CARGO_PKG_VERSION"),
-                "/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+                "https://docs.rs/assertables/9.8.1/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
                 " a_path label: `path`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_expr label: `x`,\n",
