@@ -56,7 +56,7 @@ This documentation is also available as
 To use this crate, add it to your file `Cargo.toml`:
 
 ```toml
-assertables = "9.8.0"
+assertables = "9.8.1"
 ```
 
 Benefits:
