@@ -4,6 +4,8 @@ Changes are summarized here as highlights for recent major versions.
 
 ## Version 9.x
 
+* 9.8.2 Fix `assert_bag_impl_prep` and `assert_set_impl_prep` crate path.
+
 * 9.8.1 Fix docs link version.
 
 * 9.8.0 Add float macros: `assert_{f32,f64}_{eq,ne,lt,le,gt,ge}`.

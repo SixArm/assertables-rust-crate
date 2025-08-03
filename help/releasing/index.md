@@ -43,7 +43,15 @@ cargo doc
 
 ## Generate docs as JSON & markdown & llms.txt
 
-Generate the crate's documentation:
+Run:
+
+```sh
+RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="-Z unstable-options --output-format json" cargo doc --no-deps
+rustdoc-md --path target/doc/assertables.json --output assertables.md
+cp assertables.md llms.txt
+```
+
+The code above generates the crate's documentation:
 
 1. Generate one JSON file `target/doc/assertables.json`.
 
@@ -51,11 +59,6 @@ Generate the crate's documentation:
 
 3. Copy the Markdown file to the standard file name `llms.txt`; do a copy instead of a symlink because symlinks don't work well on some operating systems.
 
-```sh
-RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="-Z unstable-options --output-format json" cargo doc --no-deps
-rustdoc-md --path target/doc/assertables.json --output assertables.md
-cp assertables.md llms.txt
-```
 
 ## Release
 
