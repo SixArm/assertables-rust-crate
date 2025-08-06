@@ -42,15 +42,15 @@ macro_rules! assert_ok_as_result {
         match ($a) {
             a => match (a) {
                 Ok(a1) => Ok(a1),
-                _ => Err(format!(
+                Err(e) => Err(format!(
                     concat!(
                         "assertion failed: `assert_ok!(a)`\n",
                         "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ok.html\n",
                         " a label: `{}`,\n",
-                        " a debug: `{:?}`",
+                        " a.unwrap_err() debug: `{:?}`",
                     ),
                     stringify!($a),
-                    a
+                    e
                 )),
             },
         }
@@ -96,7 +96,7 @@ mod test_assert_ok_as_result {
             "assertion failed: `assert_ok!(a)`\n",
             "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ok.html\n",
             " a label: `a`,\n",
-            " a debug: `Err(1)`",
+            " a.unwrap_err() debug: `1`",
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -130,13 +130,13 @@ mod test_assert_ok_as_result {
 /// // assertion failed: `assert_ok!(a)`
 /// // https://docs.rs/assertables/…/assertables/macro.assert_ok.html
 /// //  a label: `a`,
-/// //  a debug: `Err(1)`
+/// //  a.unwrap_err() debug: `1`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_ok!(a)`\n",
 /// #     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ok.html\n",
 /// #     " a label: `a`,\n",
-/// #     " a debug: `Err(1)`",
+/// #     " a.unwrap_err() debug: `1`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -187,7 +187,7 @@ mod test_assert_ok {
             "assertion failed: `assert_ok!(a)`\n",
             "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ok.html\n",
             " a label: `a`,\n",
-            " a debug: `Err(1)`",
+            " a.unwrap_err() debug: `1`",
         );
         assert_eq!(
             result
