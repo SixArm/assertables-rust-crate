@@ -169,7 +169,7 @@ macro_rules! assert_matches {
         }
     };
     ($expression:expr, $pattern:pat, $($message:tt)+) => {
-        match $crate::assert_matches_as_result!($expression, $pattern if $guard) {
+        match $crate::assert_matches_as_result!($expression, $pattern) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
@@ -191,12 +191,41 @@ mod test_assert_matches {
         }
 
         #[test]
+        fn success_with_custom_message() {
+            let a = 'a';
+            let actual = assert_matches!(a, 'a'..='z', "a is {a}");
+            assert_eq!(actual, ());
+        }
+
+        #[test]
         fn failure() {
             let a = 'a';
             let result = panic::catch_unwind(|| {
                 let _actual = assert_matches!(a, 'b'..='z');
             });
             let message = concat!(
+                "assertion failed: `assert_matches!(a)`\n",
+                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_matches.html\n",
+                " args: `a, 'b'..='z'`",
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+
+        #[test]
+        fn failure_with_custom_message() {
+            let a = 'a';
+            let result = panic::catch_unwind(|| {
+                let _actual = assert_matches!(a, 'b'..='z', "a is {a}");
+            });
+            let message = concat!(
+                "a is a\n",
                 "assertion failed: `assert_matches!(a)`\n",
                 "https://docs.rs/assertables/9.8.2/assertables/macro.assert_matches.html\n",
                 " args: `a, 'b'..='z'`",
