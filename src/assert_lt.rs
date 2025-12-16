@@ -49,7 +49,7 @@ macro_rules! assert_lt_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_lt!(a, b)`\n",
-                            "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+                            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -120,7 +120,7 @@ mod test_assert_lt_as_result {
             let actual = assert_lt_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
@@ -136,7 +136,7 @@ mod test_assert_lt_as_result {
             let actual = assert_lt_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `2`,\n",
                 " b label: `b`,\n",
@@ -196,7 +196,7 @@ mod test_assert_lt_as_result {
             let actual = assert_lt_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"1\"`,\n",
                 " b label: `b`,\n",
@@ -212,7 +212,7 @@ mod test_assert_lt_as_result {
             let actual = assert_lt_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"2\"`,\n",
                 " b label: `b`,\n",
@@ -259,7 +259,7 @@ mod test_assert_lt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_lt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+/// #     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `2`,\n",
 /// #     " b label: `b`,\n",
@@ -317,7 +317,7 @@ mod test_assert_lt {
             });
             let message = concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
@@ -342,7 +342,7 @@ mod test_assert_lt {
             });
             let message = concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `2`,\n",
                 " b label: `b`,\n",
@@ -381,7 +381,7 @@ mod test_assert_lt {
             });
             let message = concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"1\"`,\n",
                 " b label: `b`,\n",
@@ -406,7 +406,7 @@ mod test_assert_lt {
             });
             let message = concat!(
                 "assertion failed: `assert_lt!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+                "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"2\"`,\n",
                 " b label: `b`,\n",

@@ -1,8 +1,8 @@
 # Crate Documentation
 
-**Version:** 9.8.2
+**Version:** 9.8.3
 
-**Format Version:** 45
+**Format Version:** 56
 
 # Module `assertables`
 
@@ -58,7 +58,7 @@ that can help you develop, test, and debug.
 To use this crate, add it to your file `Cargo.toml`:
 
 ```toml
-assertables = "9.8.2"
+assertables = "9.8.3"
 ```
 
 Benefits:
@@ -266,9 +266,9 @@ Many of the macros has a "success return", which means the macro returns data th
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 9.8.2
+* Version: 9.8.3
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2025-08-03T10:17:46Z
+* Updated: 2025-12-16T04:16:24Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
@@ -9645,7 +9645,7 @@ pub mod assert_success_false { /* ... */ }
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a condition is true.
 
@@ -9676,7 +9676,7 @@ pub macro_rules! assert_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is equal to another.
 
@@ -9712,7 +9712,7 @@ pub macro_rules! assert_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is greater than or equal to another.
 
@@ -9745,7 +9745,7 @@ pub macro_rules! assert_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is greater than or equal to another.
 
@@ -9783,7 +9783,7 @@ assert_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `1`,\n",
 #     " b label: `b`,\n",
@@ -9813,7 +9813,7 @@ pub macro_rules! assert_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is greater than or equal to another.
 
@@ -9859,7 +9859,7 @@ pub macro_rules! debug_assert_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is greater than another.
 
@@ -9892,7 +9892,7 @@ pub macro_rules! assert_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is greater than another.
 
@@ -9930,7 +9930,7 @@ assert_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `1`,\n",
 #     " b label: `b`,\n",
@@ -9960,7 +9960,7 @@ pub macro_rules! assert_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is greater than another.
 
@@ -10006,7 +10006,7 @@ pub macro_rules! debug_assert_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is less than or equal to another.
 
@@ -10039,7 +10039,7 @@ pub macro_rules! assert_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is less than or equal to another.
 
@@ -10077,7 +10077,7 @@ assert_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `2`,\n",
 #     " b label: `b`,\n",
@@ -10107,7 +10107,7 @@ pub macro_rules! assert_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is less than or equal to another.
 
@@ -10153,7 +10153,7 @@ pub macro_rules! debug_assert_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is less than another.
 
@@ -10187,7 +10187,7 @@ pub macro_rules! assert_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is less than another.
 
@@ -10225,7 +10225,7 @@ assert_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `2`,\n",
 #     " b label: `b`,\n",
@@ -10255,7 +10255,7 @@ pub macro_rules! assert_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is less than another.
 
@@ -10301,7 +10301,7 @@ pub macro_rules! debug_assert_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is not equal to another.
 
@@ -10338,7 +10338,7 @@ pub macro_rules! assert_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 
 Pseudocode:<br>
@@ -10370,7 +10370,7 @@ pub macro_rules! assert_eq_f32_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -10410,7 +10410,7 @@ assert_eq_f32!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_eq_f32!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_eq_f32.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_eq_f32.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -10442,7 +10442,7 @@ pub macro_rules! assert_eq_f32 {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -10489,7 +10489,7 @@ pub macro_rules! debug_assert_eq_f32 {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two floating point numbers are equal within f64::EPSILON.
 
@@ -10522,7 +10522,7 @@ pub macro_rules! assert_eq_f64_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -10562,7 +10562,7 @@ assert_eq_f64!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_eq_f64!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_eq_f64.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_eq_f64.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -10594,7 +10594,7 @@ pub macro_rules! assert_eq_f64 {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -10640,7 +10640,7 @@ pub macro_rules! debug_assert_eq_f64 {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 
 Pseudocode:<br>
@@ -10672,7 +10672,7 @@ pub macro_rules! assert_f32_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -10712,7 +10712,7 @@ assert_f32_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f32_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f32_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -10744,7 +10744,7 @@ pub macro_rules! assert_f32_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -10791,7 +10791,7 @@ pub macro_rules! debug_assert_f32_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 
 Pseudocode:<br>
@@ -10823,7 +10823,7 @@ pub macro_rules! assert_f32_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is greater than or equal to another within f32::EPSILON.
 
@@ -10863,7 +10863,7 @@ assert_f32_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f32_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f32_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -10895,7 +10895,7 @@ pub macro_rules! assert_f32_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is greater than or equal to another within f32::EPSILON.
 
@@ -10942,7 +10942,7 @@ pub macro_rules! debug_assert_f32_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 
 Pseudocode:<br>
@@ -10974,7 +10974,7 @@ pub macro_rules! assert_f32_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is greater than another within f32::EPSILON.
 
@@ -11014,7 +11014,7 @@ assert_f32_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f32_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f32_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -11046,7 +11046,7 @@ pub macro_rules! assert_f32_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is greater than another within f32::EPSILON.
 
@@ -11093,7 +11093,7 @@ pub macro_rules! debug_assert_f32_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 
 Pseudocode:<br>
@@ -11125,7 +11125,7 @@ pub macro_rules! assert_f32_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 
@@ -11165,7 +11165,7 @@ assert_f32_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f32_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f32_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -11197,7 +11197,7 @@ pub macro_rules! assert_f32_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is less than or equal to another within f32::EPSILON.
 
@@ -11244,7 +11244,7 @@ pub macro_rules! debug_assert_f32_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 
 Pseudocode:<br>
@@ -11276,7 +11276,7 @@ pub macro_rules! assert_f32_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -11316,7 +11316,7 @@ assert_f32_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f32_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f32_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -11348,7 +11348,7 @@ pub macro_rules! assert_f32_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is equal to another within f32::EPSILON.
 
@@ -11395,7 +11395,7 @@ pub macro_rules! debug_assert_f32_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 
 Pseudocode:<br>
@@ -11427,7 +11427,7 @@ pub macro_rules! assert_f32_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
 
@@ -11467,7 +11467,7 @@ assert_f32_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f32_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f32_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -11499,7 +11499,7 @@ pub macro_rules! assert_f32_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 32-bit number is not equal to another within f32::EPSILON.
 
@@ -11546,7 +11546,7 @@ pub macro_rules! debug_assert_f32_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two floating point numbers are equal within f64::EPSILON.
 
@@ -11579,7 +11579,7 @@ pub macro_rules! assert_f64_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -11619,7 +11619,7 @@ assert_f64_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f64_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f64_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -11651,7 +11651,7 @@ pub macro_rules! assert_f64_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -11697,7 +11697,7 @@ pub macro_rules! debug_assert_f64_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two floating point numbers are equal within f64::EPSILON.
 
@@ -11730,7 +11730,7 @@ pub macro_rules! assert_f64_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is greater than or equal to another within f64::EPSILON.
 
@@ -11770,7 +11770,7 @@ assert_f64_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f64_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f64_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -11802,7 +11802,7 @@ pub macro_rules! assert_f64_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is greater than or equal to another within f64::EPSILON.
 
@@ -11848,7 +11848,7 @@ pub macro_rules! debug_assert_f64_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two floating point numbers are equal within f64::EPSILON.
 
@@ -11881,7 +11881,7 @@ pub macro_rules! assert_f64_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is greater than another within f64::EPSILON.
 
@@ -11921,7 +11921,7 @@ assert_f64_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f64_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f64_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -11953,7 +11953,7 @@ pub macro_rules! assert_f64_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is greater than another within f64::EPSILON.
 
@@ -11999,7 +11999,7 @@ pub macro_rules! debug_assert_f64_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two floating point numbers are equal within f64::EPSILON.
 
@@ -12032,7 +12032,7 @@ pub macro_rules! assert_f64_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -12072,7 +12072,7 @@ assert_f64_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f64_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f64_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -12104,7 +12104,7 @@ pub macro_rules! assert_f64_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is equal to another within f64::EPSILON.
 
@@ -12150,7 +12150,7 @@ pub macro_rules! debug_assert_f64_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two floating point numbers are equal within f64::EPSILON.
 
@@ -12183,7 +12183,7 @@ pub macro_rules! assert_f64_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is less than another within f64::EPSILON.
 
@@ -12223,7 +12223,7 @@ assert_f64_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f64_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f64_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -12255,7 +12255,7 @@ pub macro_rules! assert_f64_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is less than another within f64::EPSILON.
 
@@ -12301,7 +12301,7 @@ pub macro_rules! debug_assert_f64_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two floating point numbers are equal within f64::EPSILON.
 
@@ -12334,7 +12334,7 @@ pub macro_rules! assert_f64_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is not equal to another within f64::EPSILON.
 
@@ -12374,7 +12374,7 @@ assert_f64_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_f64_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_f64_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -12406,7 +12406,7 @@ pub macro_rules! assert_f64_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a floating point 64-bit number is not equal to another within f64::EPSILON.
 
@@ -12452,7 +12452,7 @@ pub macro_rules! debug_assert_f64_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is equal to an expression.
 
@@ -12486,7 +12486,7 @@ pub macro_rules! assert_abs_diff_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is equal to an expression.
 
@@ -12530,7 +12530,7 @@ assert_abs_diff_eq_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_eq_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_abs_diff_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_abs_diff_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -12564,7 +12564,7 @@ pub macro_rules! assert_abs_diff_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is equal to an expression.
 
@@ -12610,7 +12610,7 @@ pub macro_rules! debug_assert_abs_diff_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is greater than or equal to an expression.
 
@@ -12644,7 +12644,7 @@ pub macro_rules! assert_abs_diff_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is greater than or equal to an expression.
 
@@ -12688,7 +12688,7 @@ assert_abs_diff_ge_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_ge_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_abs_diff_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_abs_diff_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -12722,7 +12722,7 @@ pub macro_rules! assert_abs_diff_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is greater than or equal to an expression.
 
@@ -12768,7 +12768,7 @@ pub macro_rules! debug_assert_abs_diff_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is greater than an expression.
 
@@ -12802,7 +12802,7 @@ pub macro_rules! assert_abs_diff_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is greater than an expression.
 
@@ -12846,7 +12846,7 @@ assert_abs_diff_gt_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_gt_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_abs_diff_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_abs_diff_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -12880,7 +12880,7 @@ pub macro_rules! assert_abs_diff_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is greater than an expression.
 
@@ -12926,7 +12926,7 @@ pub macro_rules! debug_assert_abs_diff_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is less than or equal to an expression.
 
@@ -12960,7 +12960,7 @@ pub macro_rules! assert_abs_diff_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is less than or equal to an expression.
 
@@ -13004,7 +13004,7 @@ assert_abs_diff_le_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_abs_diff_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_abs_diff_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -13038,7 +13038,7 @@ pub macro_rules! assert_abs_diff_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is less than or equal to an expression.
 
@@ -13084,7 +13084,7 @@ pub macro_rules! debug_assert_abs_diff_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is less than an expression.
 
@@ -13118,7 +13118,7 @@ pub macro_rules! assert_abs_diff_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is less than an expression.
 
@@ -13162,7 +13162,7 @@ assert_abs_diff_lt_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_lt_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_abs_diff_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_abs_diff_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -13196,7 +13196,7 @@ pub macro_rules! assert_abs_diff_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is less than an expression.
 
@@ -13242,7 +13242,7 @@ pub macro_rules! debug_assert_abs_diff_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is not equal to an expression.
 
@@ -13276,7 +13276,7 @@ pub macro_rules! assert_abs_diff_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is not equal to an expression.
 
@@ -13320,7 +13320,7 @@ assert_abs_diff_ne_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_ne_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_abs_diff_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_abs_diff_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -13354,7 +13354,7 @@ pub macro_rules! assert_abs_diff_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an absolute difference is not equal to an expression.
 
@@ -13400,7 +13400,7 @@ pub macro_rules! debug_assert_abs_diff_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_eq_as_result` into `assert_abs_diff_eq_x_as_result`.
 
@@ -13421,7 +13421,7 @@ pub macro_rules! assert_abs_diff_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_eq` into `assert_abs_diff_eq_x`.
 
@@ -13442,7 +13442,7 @@ pub macro_rules! assert_abs_diff_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_eq` into `debug_assert_abs_diff_eq_x`.
 
@@ -13463,7 +13463,7 @@ pub macro_rules! debug_assert_abs_diff_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_ge_as_result` into `assert_abs_diff_ge_x_as_result`.
 
@@ -13484,7 +13484,7 @@ pub macro_rules! assert_abs_diff_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_ge` into `assert_abs_diff_ge_x`.
 
@@ -13505,7 +13505,7 @@ pub macro_rules! assert_abs_diff_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_ge` into `debug_assert_abs_diff_ge_x`.
 
@@ -13526,7 +13526,7 @@ pub macro_rules! debug_assert_abs_diff_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_gt_as_result` into `assert_abs_diff_gt_x_as_result`.
 
@@ -13547,7 +13547,7 @@ pub macro_rules! assert_abs_diff_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_gt` into `assert_abs_diff_gt_x`.
 
@@ -13568,7 +13568,7 @@ pub macro_rules! assert_abs_diff_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_gt` into `debug_assert_abs_diff_gt_x`.
 
@@ -13589,7 +13589,7 @@ pub macro_rules! debug_assert_abs_diff_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_le_as_result` into `assert_abs_diff_le_x_as_result`.
 
@@ -13610,7 +13610,7 @@ pub macro_rules! assert_abs_diff_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_le` into `assert_abs_diff_le_x`.
 
@@ -13631,7 +13631,7 @@ pub macro_rules! assert_abs_diff_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_le` into `debug_assert_abs_diff_le_x`.
 
@@ -13652,7 +13652,7 @@ pub macro_rules! debug_assert_abs_diff_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_lt_as_result` into `assert_abs_diff_lt_x_as_result`.
 
@@ -13673,7 +13673,7 @@ pub macro_rules! assert_abs_diff_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_lt` into `assert_abs_diff_lt_x`.
 
@@ -13694,7 +13694,7 @@ pub macro_rules! assert_abs_diff_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_lt` into `debug_assert_abs_diff_lt_x`.
 
@@ -13715,7 +13715,7 @@ pub macro_rules! debug_assert_abs_diff_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_ne_as_result` into `assert_abs_diff_ne_x_as_result`.
 
@@ -13736,7 +13736,7 @@ pub macro_rules! assert_abs_diff_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_abs_diff_ne` into `assert_abs_diff_ne_x`.
 
@@ -13757,7 +13757,7 @@ pub macro_rules! assert_abs_diff_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_abs_diff_ne` into `debug_assert_abs_diff_ne_x`.
 
@@ -13778,7 +13778,7 @@ pub macro_rules! debug_assert_abs_diff_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is approximately equal to another.
 
@@ -13815,7 +13815,7 @@ pub macro_rules! assert_approx_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is approximately equal to another.
 
@@ -13856,7 +13856,7 @@ assert_approx_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_approx_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_approx_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_approx_eq.html\n",
 #     "            a label: `a`,\n",
 #     "            a debug: `1.0000001`,\n",
 #     "            b label: `b`,\n",
@@ -13907,7 +13907,7 @@ pub macro_rules! assert_approx_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is approximately equal to another.
 
@@ -13953,7 +13953,7 @@ pub macro_rules! debug_assert_approx_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is approximately not equal to another.
 
@@ -13990,7 +13990,7 @@ pub macro_rules! assert_approx_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is approximately not equal to another.
 
@@ -14031,7 +14031,7 @@ assert_approx_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_approx_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_approx_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_approx_ne.html\n",
 #     "            a label: `a`,\n",
 #     "            a debug: `1.0000001`,\n",
 #     "            b label: `b`,\n",
@@ -14082,7 +14082,7 @@ pub macro_rules! assert_approx_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is approximately not equal to another.
 
@@ -14128,7 +14128,7 @@ pub macro_rules! debug_assert_approx_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is equal to an expression.
 
@@ -14165,7 +14165,7 @@ pub macro_rules! assert_diff_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is equal to an expression.
 
@@ -14209,7 +14209,7 @@ assert_diff_eq_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_diff_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_diff_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -14243,7 +14243,7 @@ pub macro_rules! assert_diff_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is equal to an expression.
 
@@ -14289,7 +14289,7 @@ pub macro_rules! debug_assert_diff_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is greater than or equal to an expression.
 
@@ -14326,7 +14326,7 @@ pub macro_rules! assert_diff_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is greater than or equal to an expression.
 
@@ -14370,7 +14370,7 @@ assert_diff_ge_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_ge_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_diff_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_diff_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -14404,7 +14404,7 @@ pub macro_rules! assert_diff_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is greater than or equal to an expression.
 
@@ -14450,7 +14450,7 @@ pub macro_rules! debug_assert_diff_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is greater than an expression.
 
@@ -14487,7 +14487,7 @@ pub macro_rules! assert_diff_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is greater than an expression.
 
@@ -14531,7 +14531,7 @@ assert_diff_gt_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_gt_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_diff_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_diff_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -14565,7 +14565,7 @@ pub macro_rules! assert_diff_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is greater than an expression.
 
@@ -14611,7 +14611,7 @@ pub macro_rules! debug_assert_diff_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is less than or equal to an expression.
 
@@ -14648,7 +14648,7 @@ pub macro_rules! assert_diff_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is less than or equal to an expression.
 
@@ -14692,7 +14692,7 @@ assert_diff_le_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_le_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_diff_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_diff_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -14726,7 +14726,7 @@ pub macro_rules! assert_diff_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is less than or equal to an expression.
 
@@ -14772,7 +14772,7 @@ pub macro_rules! debug_assert_diff_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is less than an expression.
 
@@ -14809,7 +14809,7 @@ pub macro_rules! assert_diff_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is less than an expression.
 
@@ -14853,7 +14853,7 @@ assert_diff_lt_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_lt_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_diff_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_diff_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -14887,7 +14887,7 @@ pub macro_rules! assert_diff_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is less than an expression.
 
@@ -14933,7 +14933,7 @@ pub macro_rules! debug_assert_diff_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is not equal to an expression.
 
@@ -14970,7 +14970,7 @@ pub macro_rules! assert_diff_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is not equal to an expression.
 
@@ -15014,7 +15014,7 @@ assert_diff_ne_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_diff_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_diff_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -15048,7 +15048,7 @@ pub macro_rules! assert_diff_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a difference is not equal to an expression.
 
@@ -15094,7 +15094,7 @@ pub macro_rules! debug_assert_diff_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an item is in a container.
 
@@ -15127,7 +15127,7 @@ pub macro_rules! assert_in_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an item is in a container.
 
@@ -15165,7 +15165,7 @@ assert_in!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_in!(a, container)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_in.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_in.html\n",
 #     "         a label: `a`,\n",
 #     "         a debug: `1`,\n",
 #     " container label: `b`,\n",
@@ -15195,7 +15195,7 @@ pub macro_rules! assert_in {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an item is in a container.
 
@@ -15241,7 +15241,7 @@ pub macro_rules! debug_assert_in {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is within delta of another.
 
@@ -15278,7 +15278,7 @@ pub macro_rules! assert_in_delta_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is within delta of another.
 
@@ -15322,7 +15322,7 @@ assert_in_delta!(a, b, delta);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_in_delta.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_in_delta.html\n",
 #     "       a label: `a`,\n",
 #     "       a debug: `10`,\n",
 #     "       b label: `b`,\n",
@@ -15374,7 +15374,7 @@ pub macro_rules! assert_in_delta {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is within delta of another.
 
@@ -15420,7 +15420,7 @@ pub macro_rules! debug_assert_in_delta {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is within epsilon of another.
 
@@ -15454,7 +15454,7 @@ pub macro_rules! assert_in_epsilon_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is within epsilon of another.
 
@@ -15499,7 +15499,7 @@ assert_in_epsilon!(a, b, epsilon);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_in_epsilon.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_in_epsilon.html\n",
 #     "                   a label: `a`,\n",
 #     "                   a debug: `10`,\n",
 #     "                   b label: `b`,\n",
@@ -15552,7 +15552,7 @@ pub macro_rules! assert_in_epsilon {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a number is within epsilon of another.
 
@@ -15598,7 +15598,7 @@ pub macro_rules! debug_assert_in_epsilon {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an item is in a range.
 
@@ -15631,7 +15631,7 @@ pub macro_rules! assert_in_range_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an item is in a range.
 
@@ -15669,7 +15669,7 @@ assert_in_range!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_in_range!(a, range)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_in_range.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_in_range.html\n",
 #     "     a label: `a`,\n",
 #     "     a debug: `1`,\n",
 #     " range label: `b`,\n",
@@ -15699,7 +15699,7 @@ pub macro_rules! assert_in_range {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an item is in a range.
 
@@ -15745,7 +15745,7 @@ pub macro_rules! debug_assert_in_range {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert every element of the iterator matches a predicate.
 
@@ -15780,7 +15780,7 @@ pub macro_rules! assert_all_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert every element of the iterator matches a predicate.
 
@@ -15815,7 +15815,7 @@ assert_all!(a.into_iter(), |x: i8| x > 0);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_all!(collection, predicate)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_all.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_all.html\n",
 #     " collection label: `a.into_iter()`,\n",
 #     " collection debug: `IntoIter([1, -2, 3])`,\n",
 #     "        predicate: `|x: i8| x > 0`",
@@ -15846,7 +15846,7 @@ pub macro_rules! assert_all {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert every element of the iterator matches a predicate.
 
@@ -15892,7 +15892,7 @@ pub macro_rules! debug_assert_all {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert every element of the iterator matches a predicate.
 
@@ -15927,7 +15927,7 @@ pub macro_rules! assert_any_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert every element of the iterator matches a predicate.
 
@@ -15962,7 +15962,7 @@ assert_any!(a.into_iter(), |x: i8| x > 3);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_any!(collection, predicate)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_any.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_any.html\n",
 #     " collection label: `a.into_iter()`,\n",
 #     " collection debug: `IntoIter([1, 2, 3])`,\n",
 #     "        predicate: `|x: i8| x > 3`",
@@ -15993,7 +15993,7 @@ pub macro_rules! assert_any {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert every element of the iterator matches a predicate.
 
@@ -16039,7 +16039,7 @@ pub macro_rules! debug_assert_any {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a infix operator, such as assert_infix!(a == b).
 
@@ -16072,7 +16072,7 @@ pub macro_rules! assert_infix_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a infix operator, such as assert_infix!(a == b).
 
@@ -16110,7 +16110,7 @@ assert_infix!(a == b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_infix!(a == b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_infix.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_infix.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `1`,\n",
 #     " b label: `b`,\n",
@@ -16160,7 +16160,7 @@ pub macro_rules! assert_infix {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a infix operator, such as assert_infix!(a == b).
 
@@ -16206,7 +16206,7 @@ pub macro_rules! debug_assert_infix {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) contains an expression (such as a substring).
 
@@ -16239,7 +16239,7 @@ pub macro_rules! assert_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a container is a match for an expression.
 
@@ -16302,7 +16302,7 @@ assert_contains!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_contains!(container, containee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_contains.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_contains.html\n",
 #     " container label: `a`,\n",
 #     " container debug: `\"alfa\"`,\n",
 #     " containee label: `b`,\n",
@@ -16330,7 +16330,7 @@ pub macro_rules! assert_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a container is a match for an expression.
 
@@ -16376,7 +16376,7 @@ pub macro_rules! debug_assert_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) does not contain an expression (such as a substring).
 
@@ -16409,7 +16409,7 @@ pub macro_rules! assert_not_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) does not contain an expression (such as a substring).
 
@@ -16472,7 +16472,7 @@ assert_not_contains!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_contains!(container, containee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_not_contains.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_not_contains.html\n",
 #     " container label: `a`,\n",
 #     " container debug: `\"alfa\"`,\n",
 #     " containee label: `b`,\n",
@@ -16502,7 +16502,7 @@ pub macro_rules! assert_not_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) does not contain an expression (such as a substring).
 
@@ -16548,7 +16548,7 @@ pub macro_rules! debug_assert_not_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is equal to another.
 
@@ -16581,7 +16581,7 @@ pub macro_rules! assert_count_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is equal to another.
 
@@ -16621,7 +16621,7 @@ assert_count_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -16653,7 +16653,7 @@ pub macro_rules! assert_count_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is equal to another.
 
@@ -16699,7 +16699,7 @@ pub macro_rules! debug_assert_count_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than or equal to another.
 
@@ -16732,7 +16732,7 @@ pub macro_rules! assert_count_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than or equal to another.
 
@@ -16772,7 +16772,7 @@ assert_count_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -16804,7 +16804,7 @@ pub macro_rules! assert_count_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than or equal to another.
 
@@ -16850,7 +16850,7 @@ pub macro_rules! debug_assert_count_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than another.
 
@@ -16883,7 +16883,7 @@ pub macro_rules! assert_count_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than another.
 
@@ -16923,7 +16923,7 @@ assert_count_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -16955,7 +16955,7 @@ pub macro_rules! assert_count_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than another.
 
@@ -17001,7 +17001,7 @@ pub macro_rules! debug_assert_count_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than or equal to another.
 
@@ -17034,7 +17034,7 @@ pub macro_rules! assert_count_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than or equal to another.
 
@@ -17074,7 +17074,7 @@ assert_count_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x', 'x'])`,\n",
 #     " a.count(): `2`,\n",
@@ -17106,7 +17106,7 @@ pub macro_rules! assert_count_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than or equal to another.
 
@@ -17152,7 +17152,7 @@ pub macro_rules! debug_assert_count_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than another.
 
@@ -17185,7 +17185,7 @@ pub macro_rules! assert_count_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than another.
 
@@ -17225,7 +17225,7 @@ assert_count_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x', 'x'])`,\n",
 #     " a.count(): `2`,\n",
@@ -17257,7 +17257,7 @@ pub macro_rules! assert_count_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than another.
 
@@ -17303,7 +17303,7 @@ pub macro_rules! debug_assert_count_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is not equal to another.
 
@@ -17336,7 +17336,7 @@ pub macro_rules! assert_count_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is not equal to another.
 
@@ -17376,7 +17376,7 @@ assert_count_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -17408,7 +17408,7 @@ pub macro_rules! assert_count_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is not equal to another.
 
@@ -17454,7 +17454,7 @@ pub macro_rules! debug_assert_count_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is equal to an expression.
 
@@ -17487,7 +17487,7 @@ pub macro_rules! assert_count_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is equal to an expression.
 
@@ -17526,7 +17526,7 @@ assert_count_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -17557,7 +17557,7 @@ pub macro_rules! assert_count_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is equal to an expression.
 
@@ -17603,7 +17603,7 @@ pub macro_rules! debug_assert_count_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than or equal to an expression.
 
@@ -17636,7 +17636,7 @@ pub macro_rules! assert_count_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than or equal to an expression.
 
@@ -17675,7 +17675,7 @@ assert_count_ge_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_ge_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -17706,7 +17706,7 @@ pub macro_rules! assert_count_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than or equal to an expression.
 
@@ -17752,7 +17752,7 @@ pub macro_rules! debug_assert_count_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than an expression.
 
@@ -17785,7 +17785,7 @@ pub macro_rules! assert_count_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than an expression.
 
@@ -17824,7 +17824,7 @@ assert_count_gt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_gt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -17855,7 +17855,7 @@ pub macro_rules! assert_count_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is greater than an expression.
 
@@ -17901,7 +17901,7 @@ pub macro_rules! debug_assert_count_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than or equal to an expression.
 
@@ -17934,7 +17934,7 @@ pub macro_rules! assert_count_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than or equal to an expression.
 
@@ -17973,7 +17973,7 @@ assert_count_le_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_le_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x', 'x'])`,\n",
 #     " a.count(): `2`,\n",
@@ -18004,7 +18004,7 @@ pub macro_rules! assert_count_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than or equal to an expression.
 
@@ -18050,7 +18050,7 @@ pub macro_rules! debug_assert_count_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than an expression.
 
@@ -18083,7 +18083,7 @@ pub macro_rules! assert_count_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than an expression.
 
@@ -18122,7 +18122,7 @@ assert_count_lt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_lt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x', 'x'])`,\n",
 #     " a.count(): `2`,\n",
@@ -18153,7 +18153,7 @@ pub macro_rules! assert_count_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is less than an expression.
 
@@ -18199,7 +18199,7 @@ pub macro_rules! debug_assert_count_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is not equal to an expression.
 
@@ -18232,7 +18232,7 @@ pub macro_rules! assert_count_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is not equal to an expression.
 
@@ -18271,7 +18271,7 @@ assert_count_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_count_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_count_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -18302,7 +18302,7 @@ pub macro_rules! assert_count_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a count is not equal to an expression.
 
@@ -18348,7 +18348,7 @@ pub macro_rules! debug_assert_count_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is possibly an email address.
 
@@ -18378,7 +18378,7 @@ pub macro_rules! assert_email_address_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is possibly an email address.
 
@@ -18411,7 +18411,7 @@ assert_email_address!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_email_address!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_email_address.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_email_address.html\n",
 #     " email address must contain an '@' at sign.\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"hello*example.com\"`,\n",
@@ -18441,7 +18441,7 @@ pub macro_rules! assert_email_address {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is possibly an email address.
 
@@ -18484,7 +18484,7 @@ pub macro_rules! debug_assert_email_address {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is possibly not an email address.
 
@@ -18514,7 +18514,7 @@ pub macro_rules! assert_not_email_address_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is possibly not an email address.
 
@@ -18549,7 +18549,7 @@ assert_not_email_address!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_email_address!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_not_email_address.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_not_email_address.html\n",
 #     " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"hello@example.com\"`,\n",
@@ -18581,7 +18581,7 @@ pub macro_rules! assert_not_email_address {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is possibly not an email address.
 
@@ -18624,7 +18624,7 @@ pub macro_rules! debug_assert_not_email_address {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) ends with an expression (such as a substring).
 
@@ -18657,7 +18657,7 @@ pub macro_rules! assert_ends_with_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) ends with an expression (such as a string).
 
@@ -18701,7 +18701,7 @@ assert_ends_with!(sequence, subsequence);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ends_with!(sequence, subsequence)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ends_with.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ends_with.html\n",
 #     "     sequence label: `sequence`,\n",
 #     "     sequence debug: `\"alfa\"`,\n",
 #     "  subsequence label: `subsequence`,\n",
@@ -18731,7 +18731,7 @@ pub macro_rules! assert_ends_with {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) ends with an expression (such as a string).
 
@@ -18777,7 +18777,7 @@ pub macro_rules! debug_assert_ends_with {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) does not end with an expression (such as a substring).
 
@@ -18810,7 +18810,7 @@ pub macro_rules! assert_not_ends_with_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) does not end with an expression (such as a string).
 
@@ -18854,7 +18854,7 @@ assert_not_ends_with!(sequence, subsequence);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_ends_with!(sequence, subsequence)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_not_ends_with.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_not_ends_with.html\n",
 #     "     sequence label: `sequence`,\n",
 #     "     sequence debug: `\"alfa\"`,\n",
 #     "  subsequence label: `subsequence`,\n",
@@ -18884,7 +18884,7 @@ pub macro_rules! assert_not_ends_with {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) does not end with an expression (such as a string).
 
@@ -18930,7 +18930,7 @@ pub macro_rules! debug_assert_not_ends_with {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a regex) is a match for an expression (such as a string).
 
@@ -18963,7 +18963,7 @@ pub macro_rules! assert_is_empty_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string or array) is empty.
 
@@ -18997,7 +18997,7 @@ assert_is_empty!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_is_empty!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_is_empty.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_is_empty.html\n",
 #     " label: `a`,\n",
 #     " debug: `\"alfa\"`"
 # );
@@ -19025,7 +19025,7 @@ pub macro_rules! assert_is_empty {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string or array) is empty.
 
@@ -19071,7 +19071,7 @@ pub macro_rules! debug_assert_is_empty {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string or array) is not empty.
 
@@ -19104,7 +19104,7 @@ pub macro_rules! assert_not_empty_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string or array) is not empty.
 
@@ -19138,7 +19138,7 @@ assert_not_empty!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_empty!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_not_empty.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_not_empty.html\n",
 #     " label: `a`,\n",
 #     " debug: `\"\"`"
 # );
@@ -19166,7 +19166,7 @@ pub macro_rules! assert_not_empty {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string or array) is not empty.
 
@@ -19212,7 +19212,7 @@ pub macro_rules! debug_assert_not_empty {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a regex) is a match for an expression (such as a string).
 
@@ -19245,7 +19245,7 @@ pub macro_rules! assert_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a matcher is a match for an expression.
 
@@ -19284,7 +19284,7 @@ assert_is_match!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_is_match.html\n",
 #     " matcher label: `a`,\n",
 #     " matcher debug: `Regex(\"xx\")`,\n",
 #     " matchee label: `b`,\n",
@@ -19314,7 +19314,7 @@ pub macro_rules! assert_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a matcher is a match for an expression.
 
@@ -19360,7 +19360,7 @@ pub macro_rules! debug_assert_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a regex) is not a match for an expression (such as a string).
 
@@ -19393,7 +19393,7 @@ pub macro_rules! assert_not_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a regex) is not a match for an expression (such as a string).
 
@@ -19432,7 +19432,7 @@ assert_not_match!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_not_match.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_not_match.html\n",
 #     " matcher label: `a`,\n",
 #     " matcher debug: `Regex(\"lf\")`,\n",
 #     " matchee label: `b`,\n",
@@ -19462,7 +19462,7 @@ pub macro_rules! assert_not_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a regex) is not a match for an expression (such as a string).
 
@@ -19508,7 +19508,7 @@ pub macro_rules! debug_assert_not_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is equal to another.
 
@@ -19541,7 +19541,7 @@ pub macro_rules! assert_len_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is equal to another.
 
@@ -19581,7 +19581,7 @@ assert_len_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -19613,7 +19613,7 @@ pub macro_rules! assert_len_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is equal to another.
 
@@ -19659,7 +19659,7 @@ pub macro_rules! debug_assert_len_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than or equal to another.
 
@@ -19692,7 +19692,7 @@ pub macro_rules! assert_len_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than or equal to another.
 
@@ -19732,7 +19732,7 @@ assert_len_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -19764,7 +19764,7 @@ pub macro_rules! assert_len_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than or equal to another.
 
@@ -19810,7 +19810,7 @@ pub macro_rules! debug_assert_len_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than another.
 
@@ -19843,7 +19843,7 @@ pub macro_rules! assert_len_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than another.
 
@@ -19883,7 +19883,7 @@ assert_len_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -19915,7 +19915,7 @@ pub macro_rules! assert_len_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than another.
 
@@ -19961,7 +19961,7 @@ pub macro_rules! debug_assert_len_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than or equal to another.
 
@@ -19994,7 +19994,7 @@ pub macro_rules! assert_len_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than or equal to another.
 
@@ -20034,7 +20034,7 @@ assert_len_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"xx\"`,\n",
 #     " a.len(): `2`,\n",
@@ -20066,7 +20066,7 @@ pub macro_rules! assert_len_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than or equal to another.
 
@@ -20112,7 +20112,7 @@ pub macro_rules! debug_assert_len_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than another.
 
@@ -20145,7 +20145,7 @@ pub macro_rules! assert_len_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than another.
 
@@ -20185,7 +20185,7 @@ assert_len_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"xx\"`,\n",
 #     " a.len(): `2`,\n",
@@ -20217,7 +20217,7 @@ pub macro_rules! assert_len_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than another.
 
@@ -20263,7 +20263,7 @@ pub macro_rules! debug_assert_len_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is not equal to another.
 
@@ -20296,7 +20296,7 @@ pub macro_rules! assert_len_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is not equal to another.
 
@@ -20336,7 +20336,7 @@ assert_len_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -20368,7 +20368,7 @@ pub macro_rules! assert_len_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is not equal to another.
 
@@ -20414,7 +20414,7 @@ pub macro_rules! debug_assert_len_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is equal to an expression.
 
@@ -20447,7 +20447,7 @@ pub macro_rules! assert_len_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is equal to an expression.
 
@@ -20486,7 +20486,7 @@ assert_len_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -20517,7 +20517,7 @@ pub macro_rules! assert_len_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is equal to an expression.
 
@@ -20563,7 +20563,7 @@ pub macro_rules! debug_assert_len_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than or equal to an expression.
 
@@ -20596,7 +20596,7 @@ pub macro_rules! assert_len_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than or equal to an expression.
 
@@ -20635,7 +20635,7 @@ assert_len_ge_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_ge_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -20666,7 +20666,7 @@ pub macro_rules! assert_len_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than or equal to an expression.
 
@@ -20712,7 +20712,7 @@ pub macro_rules! debug_assert_len_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than an expression.
 
@@ -20745,7 +20745,7 @@ pub macro_rules! assert_len_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than an expression.
 
@@ -20784,7 +20784,7 @@ assert_len_gt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_gt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -20815,7 +20815,7 @@ pub macro_rules! assert_len_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is greater than an expression.
 
@@ -20861,7 +20861,7 @@ pub macro_rules! debug_assert_len_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than or equal to an expression.
 
@@ -20894,7 +20894,7 @@ pub macro_rules! assert_len_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than or equal to an expression.
 
@@ -20933,7 +20933,7 @@ assert_len_le_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_le_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"xx\"`,\n",
 #     " a.len(): `2`,\n",
@@ -20964,7 +20964,7 @@ pub macro_rules! assert_len_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than or equal to an expression.
 
@@ -21010,7 +21010,7 @@ pub macro_rules! debug_assert_len_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than an expression.
 
@@ -21043,7 +21043,7 @@ pub macro_rules! assert_len_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than an expression.
 
@@ -21082,7 +21082,7 @@ assert_len_lt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_lt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"xx\"`,\n",
 #     " a.len(): `2`,\n",
@@ -21113,7 +21113,7 @@ pub macro_rules! assert_len_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is less than an expression.
 
@@ -21159,7 +21159,7 @@ pub macro_rules! debug_assert_len_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is not equal to an expression.
 
@@ -21192,7 +21192,7 @@ pub macro_rules! assert_len_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is not equal to an expression.
 
@@ -21231,7 +21231,7 @@ assert_len_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_len_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_len_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -21262,7 +21262,7 @@ pub macro_rules! assert_len_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a length is not equal to an expression.
 
@@ -21308,7 +21308,7 @@ pub macro_rules! debug_assert_len_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression matches a case.
 
@@ -21338,7 +21338,7 @@ pub macro_rules! assert_matches_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Some.
 
@@ -21368,7 +21368,7 @@ assert_matches!(a, 'b'..='z');
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_matches!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_matches.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_matches.html\n",
 #     " args: `a, 'b'..='z'`",
 # );
 # assert_eq!(actual, message);
@@ -21397,7 +21397,7 @@ pub macro_rules! assert_matches {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Some.
 
@@ -21440,7 +21440,7 @@ pub macro_rules! debug_assert_matches {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression matches a case.
 
@@ -21470,7 +21470,7 @@ pub macro_rules! assert_not_matches_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Some.
 
@@ -21500,7 +21500,7 @@ assert_not_matches!(a, 'a'..='z');
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_matches!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_not_matches.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_not_matches.html\n",
 #     " args: `a, 'a'..='z'`",
 # );
 # assert_eq!(actual, message);
@@ -21529,7 +21529,7 @@ pub macro_rules! assert_not_matches {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Some.
 
@@ -21572,7 +21572,7 @@ pub macro_rules! debug_assert_not_matches {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) does not start with an expression (such as a substring).
 
@@ -21605,7 +21605,7 @@ pub macro_rules! assert_not_starts_with_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) does not start with an expression (such as a string).
 
@@ -21649,7 +21649,7 @@ assert_not_starts_with!(sequence, subsequence);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_starts_with!(sequence, subsequence)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_not_starts_with.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_not_starts_with.html\n",
 #     "     sequence label: `sequence`,\n",
 #     "     sequence debug: `\"alfa\"`,\n",
 #     "  subsequence label: `subsequence`,\n",
@@ -21679,7 +21679,7 @@ pub macro_rules! assert_not_starts_with {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) does not start with an expression (such as a string).
 
@@ -21725,7 +21725,7 @@ pub macro_rules! debug_assert_not_starts_with {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) starts with an expression (such as a substring).
 
@@ -21758,7 +21758,7 @@ pub macro_rules! assert_starts_with_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) starts with an expression (such as a string).
 
@@ -21802,7 +21802,7 @@ assert_starts_with!(sequence, subsequence);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_starts_with.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_starts_with.html\n",
 #     "     sequence label: `sequence`,\n",
 #     "     sequence debug: `\"alfa\"`,\n",
 #     "  subsequence label: `subsequence`,\n",
@@ -21832,7 +21832,7 @@ pub macro_rules! assert_starts_with {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression (such as a string) starts with an expression (such as a string).
 
@@ -21878,7 +21878,7 @@ pub macro_rules! debug_assert_starts_with {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Err.
 
@@ -21911,7 +21911,7 @@ pub macro_rules! assert_err_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Err.
 
@@ -21945,7 +21945,7 @@ assert_err!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_err.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_err.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`",
 # );
@@ -21973,7 +21973,7 @@ pub macro_rules! assert_err {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Err.
 
@@ -22019,7 +22019,7 @@ pub macro_rules! debug_assert_err {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Err and their values are equal.
 
@@ -22052,7 +22052,7 @@ pub macro_rules! assert_err_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Err and their values are equal.
 
@@ -22092,7 +22092,7 @@ assert_err_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_err_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_err_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22124,7 +22124,7 @@ pub macro_rules! assert_err_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Err and their values are equal.
 
@@ -22170,7 +22170,7 @@ pub macro_rules! debug_assert_err_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Err and their values are not equal.
 
@@ -22203,7 +22203,7 @@ pub macro_rules! assert_err_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Err and their values are not equal.
 
@@ -22243,7 +22243,7 @@ assert_err_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_err_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_err_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22275,7 +22275,7 @@ pub macro_rules! assert_err_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Err and their values are not equal.
 
@@ -22318,7 +22318,7 @@ pub macro_rules! debug_assert_err_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Err and its value is equal to an expression.
 
@@ -22351,7 +22351,7 @@ pub macro_rules! assert_err_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Err and its value is equal to an expression.
 
@@ -22390,7 +22390,7 @@ assert_err_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_err_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_err_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22421,7 +22421,7 @@ pub macro_rules! assert_err_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Err and its value is equal to an expression.
 
@@ -22467,7 +22467,7 @@ pub macro_rules! debug_assert_err_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Err and its value is not equal to an expression.
 
@@ -22500,7 +22500,7 @@ pub macro_rules! assert_err_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Err and its value is not equal to an expression.
 
@@ -22539,7 +22539,7 @@ assert_err_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_err_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_err_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22570,7 +22570,7 @@ pub macro_rules! assert_err_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Err and its value is not equal to an expression.
 
@@ -22616,7 +22616,7 @@ pub macro_rules! debug_assert_err_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Ok.
 
@@ -22649,7 +22649,7 @@ pub macro_rules! assert_ok_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Ok.
 
@@ -22683,7 +22683,7 @@ assert_ok!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ok.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ok.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`",
 # );
@@ -22711,7 +22711,7 @@ pub macro_rules! assert_ok {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Ok.
 
@@ -22757,7 +22757,7 @@ pub macro_rules! debug_assert_ok {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ok and their values are equal.
 
@@ -22790,7 +22790,7 @@ pub macro_rules! assert_ok_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ok and their values are equal.
 
@@ -22830,7 +22830,7 @@ assert_ok_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ok_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ok_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22862,7 +22862,7 @@ pub macro_rules! assert_ok_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ok and their values are equal.
 
@@ -22908,7 +22908,7 @@ pub macro_rules! debug_assert_ok_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ok and their values are not equal.
 
@@ -22941,7 +22941,7 @@ pub macro_rules! assert_ok_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ok and their values are not equal.
 
@@ -22981,7 +22981,7 @@ assert_ok_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ok_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ok_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`,\n",
 #     " a inner: `1`,\n",
@@ -23013,7 +23013,7 @@ pub macro_rules! assert_ok_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ok and their values are not equal.
 
@@ -23056,7 +23056,7 @@ pub macro_rules! debug_assert_ok_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ok and its value is equal to an expression.
 
@@ -23089,7 +23089,7 @@ pub macro_rules! assert_ok_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ok and its value is equal to an expression.
 
@@ -23128,7 +23128,7 @@ assert_ok_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ok_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ok_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`,\n",
 #     " a inner: `1`,\n",
@@ -23159,7 +23159,7 @@ pub macro_rules! assert_ok_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ok and its value is equal to an expression.
 
@@ -23205,7 +23205,7 @@ pub macro_rules! debug_assert_ok_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ok and its value is not equal to an expression.
 
@@ -23238,7 +23238,7 @@ pub macro_rules! assert_ok_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ok and its value is not equal to an expression.
 
@@ -23277,7 +23277,7 @@ assert_ok_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ok_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ok_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`,\n",
 #     " a inner: `1`,\n",
@@ -23308,7 +23308,7 @@ pub macro_rules! assert_ok_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ok and its value is not equal to an expression.
 
@@ -23354,7 +23354,7 @@ pub macro_rules! debug_assert_ok_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_result_err_as_result` into `assert_err_as_result` because more developers prefer the shorter name.
 
@@ -23375,7 +23375,7 @@ pub macro_rules! assert_result_err_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_result_err` into `assert_err` because more developers prefer the shorter name.
 
@@ -23395,7 +23395,7 @@ pub macro_rules! assert_result_err {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_result_err` into `debug_assert_err` because more developers prefer the shorter name.
 
@@ -23416,7 +23416,7 @@ pub macro_rules! debug_assert_result_err {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_as_result` into `assert_ok_as_result` because more developers prefer the shorter name.
 
@@ -23437,7 +23437,7 @@ pub macro_rules! assert_result_ok_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok` into `assert_ok` because more developers prefer the shorter name.
 
@@ -23458,7 +23458,7 @@ pub macro_rules! assert_result_ok {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_result_ok` into `debug_assert_ok` because more developers prefer the shorter name.
 
@@ -23479,7 +23479,7 @@ pub macro_rules! debug_assert_result_ok {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_eq_as_result` into `assert_ok_eq_as_result` because more developers prefer the shorter name.
 
@@ -23500,7 +23500,7 @@ pub macro_rules! assert_result_ok_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_eq` into `assert_ok_eq` because more developers prefer the shorter name.
 
@@ -23521,7 +23521,7 @@ pub macro_rules! assert_result_ok_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_result_ok_eq` into `debug_assert_ok_eq` because more developers prefer the shorter name.
 
@@ -23542,7 +23542,7 @@ pub macro_rules! debug_assert_result_ok_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_ne_as_result` into `assert_ok_ne_as_result` because more developers prefer the shorter name.
 
@@ -23563,7 +23563,7 @@ pub macro_rules! assert_result_ok_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_result_ok_ne` into `assert_ok_ne` because more developers prefer the shorter name.
 
@@ -23584,7 +23584,7 @@ pub macro_rules! assert_result_ok_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_result_ok_ne` into `debug_result_ok_ne` because more developers prefer the shorter name.
 
@@ -23605,7 +23605,7 @@ pub macro_rules! debug_assert_result_ok_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is None.
 
@@ -23638,7 +23638,7 @@ pub macro_rules! assert_none_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is None.
 
@@ -23672,7 +23672,7 @@ assert_none!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_none!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_none.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_none.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`",
 # );
@@ -23700,7 +23700,7 @@ pub macro_rules! assert_none {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is None.
 
@@ -23746,7 +23746,7 @@ pub macro_rules! debug_assert_none {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_option_none_as_result` into `assert_none_as_result` because more developers prefer the shorter name.
 
@@ -23767,7 +23767,7 @@ pub macro_rules! assert_option_none_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_option_none` into `assert_none` because more developers prefer the shorter name.
 
@@ -23788,7 +23788,7 @@ pub macro_rules! assert_option_none {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_option_none` into `debug_assert_none` because more developers prefer the shorter name.
 
@@ -23809,7 +23809,7 @@ pub macro_rules! debug_assert_option_none {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_as_result` into `assert_some_as_result` because more developers prefer the shorter name.
 
@@ -23830,7 +23830,7 @@ pub macro_rules! assert_option_some_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some` into `assert_some` because more developers prefer the shorter name.
 
@@ -23851,7 +23851,7 @@ pub macro_rules! assert_option_some {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_option_some` into `debug_assert_some` because more developers prefer the shorter name.
 
@@ -23872,7 +23872,7 @@ pub macro_rules! debug_assert_option_some {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_eq_as_result` into `assert_some_eq_as_result` because more developers prefer the shorter name.
 
@@ -23893,7 +23893,7 @@ pub macro_rules! assert_option_some_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_eq` into `assert_some_eq` because more developers prefer the shorter name.
 
@@ -23914,7 +23914,7 @@ pub macro_rules! assert_option_some_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_option_some_eq` into `debug_assert_some_eq` because more developers prefer the shorter name.
 
@@ -23935,7 +23935,7 @@ pub macro_rules! debug_assert_option_some_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_ne_as_result` into `assert_some_ne_as_result` because more developers prefer the shorter name.
 
@@ -23956,7 +23956,7 @@ pub macro_rules! assert_option_some_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_option_some_ne` into `assert_some_ne` because more developers prefer the shorter name.
 
@@ -23977,7 +23977,7 @@ pub macro_rules! assert_option_some_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_option_some_ne` into `debug_assert_some_ne` because more developers prefer the shorter name.
 
@@ -23998,7 +23998,7 @@ pub macro_rules! debug_assert_option_some_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression.is_some() is true.
 
@@ -24031,7 +24031,7 @@ pub macro_rules! assert_some_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Some.
 
@@ -24065,7 +24065,7 @@ assert_some!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_some.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_some.html\n",
 #     " option label: `a`,\n",
 #     " option debug: `None`",
 # );
@@ -24093,7 +24093,7 @@ pub macro_rules! assert_some {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert expression is Some.
 
@@ -24139,7 +24139,7 @@ pub macro_rules! debug_assert_some {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 
 Pseudocode:<br>
@@ -24174,7 +24174,7 @@ pub macro_rules! assert_some_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Some and their values are equal.
 
@@ -24214,7 +24214,7 @@ assert_some_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_some_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_some_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`,\n",
 #     " a inner: `1`,\n",
@@ -24246,7 +24246,7 @@ pub macro_rules! assert_some_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Some and their values are equal.
 
@@ -24292,7 +24292,7 @@ pub macro_rules! debug_assert_some_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Some and their values are not equal.
 
@@ -24328,7 +24328,7 @@ pub macro_rules! assert_some_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Some and their values are not equal.
 
@@ -24368,7 +24368,7 @@ assert_some_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_some_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_some_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`,\n",
 #     " a inner: `1`,\n",
@@ -24400,7 +24400,7 @@ pub macro_rules! assert_some_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Some and their values are not equal.
 
@@ -24446,7 +24446,7 @@ pub macro_rules! debug_assert_some_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a.is_some() and a.unwrap() are equal to another.
 
@@ -24482,7 +24482,7 @@ pub macro_rules! assert_some_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Some and its value is equal to an expression.
 
@@ -24521,7 +24521,7 @@ assert_some_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_some_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_some_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`,\n",
 #     " a inner: `1`,\n",
@@ -24552,7 +24552,7 @@ pub macro_rules! assert_some_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Some and its value is equal to an expression.
 
@@ -24598,7 +24598,7 @@ pub macro_rules! debug_assert_some_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a.is_some() and a.unwrap() are equal to another.
 
@@ -24634,7 +24634,7 @@ pub macro_rules! assert_some_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Some and its value is not equal to an expression.
 
@@ -24673,7 +24673,7 @@ assert_some_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_some_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_some_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`,\n",
 #     " a inner: `1`,\n",
@@ -24704,7 +24704,7 @@ pub macro_rules! assert_some_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Some and its value is not equal to an expression.
 
@@ -24750,7 +24750,7 @@ pub macro_rules! debug_assert_some_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression.is_pending() is true.
 
@@ -24783,7 +24783,7 @@ pub macro_rules! assert_pending_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Pending.
 
@@ -24818,7 +24818,7 @@ assert_pending!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_pending!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_pending.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_pending.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`",
 # );
@@ -24846,7 +24846,7 @@ pub macro_rules! assert_pending {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Pending.
 
@@ -24892,7 +24892,7 @@ pub macro_rules! debug_assert_pending {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_pending_as_result` into `assert_pending_as_result` because more developers prefer the shorter name.
 
@@ -24913,7 +24913,7 @@ pub macro_rules! assert_poll_pending_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_pending` into `assert_pending` because more developers prefer the shorter name.
 
@@ -24934,7 +24934,7 @@ pub macro_rules! assert_poll_pending {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_poll_pending` into `debug_assert_pending` because more developers prefer the shorter name.
 
@@ -24955,7 +24955,7 @@ pub macro_rules! debug_assert_poll_pending {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_as_result` into `assert_ready_as_result` because more developers prefer the shorter name.
 
@@ -24976,7 +24976,7 @@ pub macro_rules! assert_poll_ready_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready` into `assert_ready` because more developers prefer the shorter name.
 
@@ -24997,7 +24997,7 @@ pub macro_rules! assert_poll_ready {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_poll_ready` into `debug_assert_ready` because more developers prefer the shorter name.
 
@@ -25018,7 +25018,7 @@ pub macro_rules! debug_assert_poll_ready {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_eq_as_result` into `assert_ready_eq_as_result` because more developers prefer the shorter name.
 
@@ -25039,7 +25039,7 @@ pub macro_rules! assert_poll_ready_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_eq` into `assert_ready_eq` because more developers prefer the shorter name.
 
@@ -25060,7 +25060,7 @@ pub macro_rules! assert_poll_ready_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_poll_ready_eq` into `debug_assert_ready_eq` because more developers prefer the shorter name.
 
@@ -25081,7 +25081,7 @@ pub macro_rules! debug_assert_poll_ready_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_ne_as_result` into `assert_ready_ne_as_result` because more developers prefer the shorter name.
 
@@ -25102,7 +25102,7 @@ pub macro_rules! assert_poll_ready_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_poll_ready_ne` into `assert_ready_ne` because more developers prefer the shorter name.
 
@@ -25123,7 +25123,7 @@ pub macro_rules! assert_poll_ready_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_poll_ready_ne` into `debug_assert_ready_ne` because more developers prefer the shorter name.
 
@@ -25144,7 +25144,7 @@ pub macro_rules! debug_assert_poll_ready_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ready.
 
@@ -25177,7 +25177,7 @@ pub macro_rules! assert_ready_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ready.
 
@@ -25212,7 +25212,7 @@ assert_ready!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ready.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ready.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Pending`",
 # );
@@ -25240,7 +25240,7 @@ pub macro_rules! assert_ready {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ready.
 
@@ -25286,7 +25286,7 @@ pub macro_rules! debug_assert_ready {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ready and their values are equal.
 
@@ -25322,7 +25322,7 @@ pub macro_rules! assert_ready_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ready and their values are equal.
 
@@ -25363,7 +25363,7 @@ assert_ready_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ready_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ready_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`,\n",
 #     " a inner: `1`,\n",
@@ -25395,7 +25395,7 @@ pub macro_rules! assert_ready_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ready and their values are equal.
 
@@ -25441,7 +25441,7 @@ pub macro_rules! debug_assert_ready_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ready and their values are not equal.
 
@@ -25477,7 +25477,7 @@ pub macro_rules! assert_ready_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ready and their values are not equal.
 
@@ -25518,7 +25518,7 @@ assert_ready_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ready_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ready_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`,\n",
 #     " a inner: `1`,\n",
@@ -25550,7 +25550,7 @@ pub macro_rules! assert_ready_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert two expressions are Ready and their values are not equal.
 
@@ -25596,7 +25596,7 @@ pub macro_rules! debug_assert_ready_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ready and its value is equal to an expression.
 
@@ -25632,7 +25632,7 @@ pub macro_rules! assert_ready_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ready and its value is equal to an expression.
 
@@ -25672,7 +25672,7 @@ assert_ready_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ready_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ready_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`,\n",
 #     " a inner: `1`,\n",
@@ -25703,7 +25703,7 @@ pub macro_rules! assert_ready_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ready and its value is equal to an expression.
 
@@ -25749,7 +25749,7 @@ pub macro_rules! debug_assert_ready_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ready and its value is not equal to an expression.
 
@@ -25785,7 +25785,7 @@ pub macro_rules! assert_ready_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ready and its value is not equal to an expression.
 
@@ -25825,7 +25825,7 @@ assert_ready_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_ready_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_ready_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`,\n",
 #     " a inner: `1`,\n",
@@ -25856,7 +25856,7 @@ pub macro_rules! assert_ready_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an expression is Ready and its value is not equal to an expression.
 
@@ -25902,7 +25902,7 @@ pub macro_rules! debug_assert_ready_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert bag implementation preparation.
 
@@ -25918,7 +25918,7 @@ pub macro_rules! assert_bag_impl_prep {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is equal to another.
 
@@ -25951,7 +25951,7 @@ pub macro_rules! assert_bag_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is equal to another.
 
@@ -25991,7 +25991,7 @@ assert_bag_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_bag_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_bag_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 1]`,\n",
 #     " b label: `b`,\n",
@@ -26025,7 +26025,7 @@ pub macro_rules! assert_bag_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is equal to another.
 
@@ -26071,7 +26071,7 @@ pub macro_rules! debug_assert_bag_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is not equal to another.
 
@@ -26104,7 +26104,7 @@ pub macro_rules! assert_bag_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is not equal to another.
 
@@ -26144,7 +26144,7 @@ assert_bag_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_bag_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_bag_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 1]`,\n",
 #     " b label: `b`,\n",
@@ -26178,7 +26178,7 @@ pub macro_rules! assert_bag_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is not equal to another.
 
@@ -26224,7 +26224,7 @@ pub macro_rules! debug_assert_bag_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is a subbag of another.
 
@@ -26257,7 +26257,7 @@ pub macro_rules! assert_bag_subbag_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is a subbag of another.
 
@@ -26297,7 +26297,7 @@ assert_bag_subbag!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_bag_subbag.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_bag_subbag.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 1, 1]`,\n",
 #     " b label: `b`,\n",
@@ -26331,7 +26331,7 @@ pub macro_rules! assert_bag_subbag {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is a subbag of another.
 
@@ -26377,7 +26377,7 @@ pub macro_rules! debug_assert_bag_subbag {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is a superbag of another.
 
@@ -26410,7 +26410,7 @@ pub macro_rules! assert_bag_superbag_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is a superbag of another.
 
@@ -26450,7 +26450,7 @@ assert_bag_superbag!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_bag_superbag.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_bag_superbag.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 1]`,\n",
 #     " b label: `b`,\n",
@@ -26484,7 +26484,7 @@ pub macro_rules! assert_bag_superbag {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a bag is a superbag of another.
 
@@ -26530,7 +26530,7 @@ pub macro_rules! debug_assert_bag_superbag {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is equal to another.
 
@@ -26565,7 +26565,7 @@ pub macro_rules! assert_iter_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is equal to another.
 
@@ -26603,7 +26603,7 @@ assert_iter_eq!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_eq!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_iter_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_iter_eq.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `&b`,\n",
@@ -26635,7 +26635,7 @@ pub macro_rules! assert_iter_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is equal to another.
 
@@ -26681,7 +26681,7 @@ pub macro_rules! debug_assert_iter_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is greater than or equal to another.
 
@@ -26716,7 +26716,7 @@ pub macro_rules! assert_iter_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is greater than or equal to another.
 
@@ -26754,7 +26754,7 @@ assert_iter_ge!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_ge!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_iter_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_iter_ge.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `&b`,\n",
@@ -26786,7 +26786,7 @@ pub macro_rules! assert_iter_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is greater than or equal to another.
 
@@ -26832,7 +26832,7 @@ pub macro_rules! debug_assert_iter_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is greater than another.
 
@@ -26867,7 +26867,7 @@ pub macro_rules! assert_iter_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is greater than another.
 
@@ -26905,7 +26905,7 @@ assert_iter_gt!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_iter_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_iter_gt.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `&b`,\n",
@@ -26937,7 +26937,7 @@ pub macro_rules! assert_iter_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is greater than another.
 
@@ -26983,7 +26983,7 @@ pub macro_rules! debug_assert_iter_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is less than or equal to another.
 
@@ -27018,7 +27018,7 @@ pub macro_rules! assert_iter_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is less than or equal to another.
 
@@ -27056,7 +27056,7 @@ assert_iter_le!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_le!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_iter_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_iter_le.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[3, 4]`,\n",
 #     " b label: `&b`,\n",
@@ -27088,7 +27088,7 @@ pub macro_rules! assert_iter_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is less than or equal to another.
 
@@ -27134,7 +27134,7 @@ pub macro_rules! debug_assert_iter_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is less than another.
 
@@ -27169,7 +27169,7 @@ pub macro_rules! assert_iter_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is less than another.
 
@@ -27207,7 +27207,7 @@ assert_iter_lt!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_iter_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_iter_lt.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[3, 4]`,\n",
 #     " b label: `&b`,\n",
@@ -27239,7 +27239,7 @@ pub macro_rules! assert_iter_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is less than another.
 
@@ -27285,7 +27285,7 @@ pub macro_rules! debug_assert_iter_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is not equal to another.
 
@@ -27320,7 +27320,7 @@ pub macro_rules! assert_iter_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is not equal to another.
 
@@ -27358,7 +27358,7 @@ assert_iter_ne!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_ne!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_iter_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_iter_ne.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `&b`,\n",
@@ -27390,7 +27390,7 @@ pub macro_rules! assert_iter_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert an iterable is not equal to another.
 
@@ -27436,7 +27436,7 @@ pub macro_rules! debug_assert_iter_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert set implementation preparation.
 
@@ -27452,7 +27452,7 @@ pub macro_rules! assert_set_impl_prep {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is equal to another.
 
@@ -27487,7 +27487,7 @@ pub macro_rules! assert_set_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is equal to another.
 
@@ -27527,7 +27527,7 @@ assert_set_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_set_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_set_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -27561,7 +27561,7 @@ pub macro_rules! assert_set_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is equal to another.
 
@@ -27607,7 +27607,7 @@ pub macro_rules! debug_assert_set_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is not equal to another.
 
@@ -27640,7 +27640,7 @@ pub macro_rules! assert_set_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is not equal to another.
 
@@ -27680,7 +27680,7 @@ assert_set_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_ne!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_set_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_set_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -27714,7 +27714,7 @@ pub macro_rules! assert_set_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is not equal to another.
 
@@ -27760,7 +27760,7 @@ pub macro_rules! debug_assert_set_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is disjoint with another.
 
@@ -27793,7 +27793,7 @@ pub macro_rules! assert_set_disjoint_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is disjoint with another.
 
@@ -27833,7 +27833,7 @@ assert_set_disjoint!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_disjoint!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_set_disjoint.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_set_disjoint.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -27867,7 +27867,7 @@ pub macro_rules! assert_set_disjoint {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is disjoint with another.
 
@@ -27913,7 +27913,7 @@ pub macro_rules! debug_assert_set_disjoint {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is joint with another.
 
@@ -27946,7 +27946,7 @@ pub macro_rules! assert_set_joint_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is joint with another.
 
@@ -27986,7 +27986,7 @@ assert_set_joint!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_joint!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_set_joint.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_set_joint.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -28020,7 +28020,7 @@ pub macro_rules! assert_set_joint {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is joint with another.
 
@@ -28066,7 +28066,7 @@ pub macro_rules! debug_assert_set_joint {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is a subset of another.
 
@@ -28099,7 +28099,7 @@ pub macro_rules! assert_set_subset_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is a subset of another.
 
@@ -28139,7 +28139,7 @@ assert_set_subset!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_set_subset.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_set_subset.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2, 3]`,\n",
 #     " b label: `b`,\n",
@@ -28173,7 +28173,7 @@ pub macro_rules! assert_set_subset {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is a subset of another.
 
@@ -28219,7 +28219,7 @@ pub macro_rules! debug_assert_set_subset {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is a superset of another.
 
@@ -28254,7 +28254,7 @@ pub macro_rules! assert_set_superset_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is a superset of another.
 
@@ -28294,7 +28294,7 @@ assert_set_superset!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_superset!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_set_superset.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_set_superset.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -28328,7 +28328,7 @@ pub macro_rules! assert_set_superset {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a set is a superset of another.
 
@@ -28374,7 +28374,7 @@ pub macro_rules! debug_assert_set_superset {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is equal to another.
 
@@ -28408,7 +28408,7 @@ pub macro_rules! assert_fn_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is equal to another.
 
@@ -28450,7 +28450,7 @@ assert_fn_eq!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_eq.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -28486,7 +28486,7 @@ pub macro_rules! assert_fn_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is equal to another.
 
@@ -28532,7 +28532,7 @@ pub macro_rules! debug_assert_fn_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than or equal to another.
 
@@ -28566,7 +28566,7 @@ pub macro_rules! assert_fn_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than or equal to another.
 
@@ -28608,7 +28608,7 @@ assert_fn_ge!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ge!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ge.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -28644,7 +28644,7 @@ pub macro_rules! assert_fn_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than or equal to another.
 
@@ -28690,7 +28690,7 @@ pub macro_rules! debug_assert_fn_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than another.
 
@@ -28724,7 +28724,7 @@ pub macro_rules! assert_fn_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than another.
 
@@ -28766,7 +28766,7 @@ assert_fn_gt!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_gt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_gt.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -28802,7 +28802,7 @@ pub macro_rules! assert_fn_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than another.
 
@@ -28848,7 +28848,7 @@ pub macro_rules! debug_assert_fn_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than or equal to another.
 
@@ -28884,7 +28884,7 @@ pub macro_rules! assert_fn_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than or equal to another.
 
@@ -28926,7 +28926,7 @@ assert_fn_le!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_le!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_le.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-2`,\n",
@@ -28962,7 +28962,7 @@ pub macro_rules! assert_fn_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than or equal to another.
 
@@ -29008,7 +29008,7 @@ pub macro_rules! debug_assert_fn_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than another.
 
@@ -29042,7 +29042,7 @@ pub macro_rules! assert_fn_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than another.
 
@@ -29084,7 +29084,7 @@ assert_fn_lt!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_lt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_lt.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-2`,\n",
@@ -29120,7 +29120,7 @@ pub macro_rules! assert_fn_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than another.
 
@@ -29166,7 +29166,7 @@ pub macro_rules! debug_assert_fn_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is not equal to another.
 
@@ -29200,7 +29200,7 @@ pub macro_rules! assert_fn_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is not equal to another.
 
@@ -29242,7 +29242,7 @@ assert_fn_ne!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ne.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -29278,7 +29278,7 @@ pub macro_rules! assert_fn_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is not equal to another.
 
@@ -29324,7 +29324,7 @@ pub macro_rules! debug_assert_fn_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is equal to an expression.
 
@@ -29358,7 +29358,7 @@ pub macro_rules! assert_fn_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is equal to an expression.
 
@@ -29399,7 +29399,7 @@ assert_fn_eq_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_eq_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_eq_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -29434,7 +29434,7 @@ pub macro_rules! assert_fn_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is equal to an expression.
 
@@ -29480,7 +29480,7 @@ pub macro_rules! debug_assert_fn_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than or equal to an expression.
 
@@ -29514,7 +29514,7 @@ pub macro_rules! assert_fn_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than or equal to an expression.
 
@@ -29555,7 +29555,7 @@ assert_fn_ge_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ge_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ge_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -29590,7 +29590,7 @@ pub macro_rules! assert_fn_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than or equal to an expression.
 
@@ -29636,7 +29636,7 @@ pub macro_rules! debug_assert_fn_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than an expression.
 
@@ -29670,7 +29670,7 @@ pub macro_rules! assert_fn_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than an expression.
 
@@ -29711,7 +29711,7 @@ assert_fn_gt_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_gt_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -29746,7 +29746,7 @@ pub macro_rules! assert_fn_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is greater than an expression.
 
@@ -29792,7 +29792,7 @@ pub macro_rules! debug_assert_fn_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than or equal to an expression.
 
@@ -29829,7 +29829,7 @@ pub macro_rules! assert_fn_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than or equal to an expression.
 
@@ -29870,7 +29870,7 @@ assert_fn_le_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_le_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_le_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-2`,\n",
@@ -29905,7 +29905,7 @@ pub macro_rules! assert_fn_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than or equal to an expression.
 
@@ -29951,7 +29951,7 @@ pub macro_rules! debug_assert_fn_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than an expression.
 
@@ -29985,7 +29985,7 @@ pub macro_rules! assert_fn_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than an expression.
 
@@ -30026,7 +30026,7 @@ assert_fn_lt_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_lt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_lt_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-2`,\n",
@@ -30061,7 +30061,7 @@ pub macro_rules! assert_fn_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is less than an expression.
 
@@ -30107,7 +30107,7 @@ pub macro_rules! debug_assert_fn_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is not equal to an expression.
 
@@ -30141,7 +30141,7 @@ pub macro_rules! assert_fn_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is not equal to an expression.
 
@@ -30180,7 +30180,7 @@ assert_fn_ne_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ne_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ne_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -30215,7 +30215,7 @@ pub macro_rules! assert_fn_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function output is not equal to an expression.
 
@@ -30261,7 +30261,7 @@ pub macro_rules! debug_assert_fn_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is equal to another.
 
@@ -30295,7 +30295,7 @@ pub macro_rules! assert_fn_err_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is equal to another.
 
@@ -30343,7 +30343,7 @@ assert_fn_err_eq!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_eq!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_eq.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -30379,7 +30379,7 @@ pub macro_rules! assert_fn_err_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is equal to another.
 
@@ -30425,7 +30425,7 @@ pub macro_rules! debug_assert_fn_err_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than or equal to another.
 
@@ -30459,7 +30459,7 @@ pub macro_rules! assert_fn_err_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than or equal to another.
 
@@ -30507,7 +30507,7 @@ assert_fn_err_ge!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_ge.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -30543,7 +30543,7 @@ pub macro_rules! assert_fn_err_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than or equal to another.
 
@@ -30589,7 +30589,7 @@ pub macro_rules! debug_assert_fn_err_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than another.
 
@@ -30623,7 +30623,7 @@ pub macro_rules! assert_fn_err_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than another.
 
@@ -30671,7 +30671,7 @@ assert_fn_err_gt!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_gt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_gt.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -30707,7 +30707,7 @@ pub macro_rules! assert_fn_err_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than another.
 
@@ -30753,7 +30753,7 @@ pub macro_rules! debug_assert_fn_err_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than or equal to another.
 
@@ -30787,7 +30787,7 @@ pub macro_rules! assert_fn_err_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than or equal to another.
 
@@ -30835,7 +30835,7 @@ assert_fn_err_le!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_le.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `20`,\n",
@@ -30871,7 +30871,7 @@ pub macro_rules! assert_fn_err_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than or equal to another.
 
@@ -30917,7 +30917,7 @@ pub macro_rules! debug_assert_fn_err_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than another.
 
@@ -30948,7 +30948,7 @@ pub macro_rules! assert_fn_err_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than another.
 
@@ -30993,7 +30993,7 @@ assert_fn_err_lt!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_lt.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `20`,\n",
@@ -31029,7 +31029,7 @@ pub macro_rules! assert_fn_err_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than another.
 
@@ -31072,7 +31072,7 @@ pub macro_rules! debug_assert_fn_err_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is not equal to another.
 
@@ -31106,7 +31106,7 @@ pub macro_rules! assert_fn_err_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is not equal to another.
 
@@ -31154,7 +31154,7 @@ assert_fn_err_ne!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_ne!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_ne.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -31190,7 +31190,7 @@ pub macro_rules! assert_fn_err_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is not equal to another.
 
@@ -31236,7 +31236,7 @@ pub macro_rules! debug_assert_fn_err_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is equal to an expression.
 
@@ -31270,7 +31270,7 @@ pub macro_rules! assert_fn_err_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is equal to an expression.
 
@@ -31317,7 +31317,7 @@ assert_fn_err_eq_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_eq_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_eq_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -31352,7 +31352,7 @@ pub macro_rules! assert_fn_err_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is equal to an expression.
 
@@ -31398,7 +31398,7 @@ pub macro_rules! debug_assert_fn_err_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than or equal to an expression.
 
@@ -31432,7 +31432,7 @@ pub macro_rules! assert_fn_err_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than or equal to an expression.
 
@@ -31479,7 +31479,7 @@ assert_fn_err_ge_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_ge_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_ge_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -31514,7 +31514,7 @@ pub macro_rules! assert_fn_err_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than or equal to an expression.
 
@@ -31560,7 +31560,7 @@ pub macro_rules! debug_assert_fn_err_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than an expression.
 
@@ -31594,7 +31594,7 @@ pub macro_rules! assert_fn_err_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than an expression.
 
@@ -31641,7 +31641,7 @@ assert_fn_err_gt_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_gt_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -31676,7 +31676,7 @@ pub macro_rules! assert_fn_err_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is greater than an expression.
 
@@ -31722,7 +31722,7 @@ pub macro_rules! debug_assert_fn_err_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than or equal to an expression.
 
@@ -31756,7 +31756,7 @@ pub macro_rules! assert_fn_err_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than or equal to an expression.
 
@@ -31803,7 +31803,7 @@ assert_fn_err_le_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_le_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_le_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `20`,\n",
@@ -31838,7 +31838,7 @@ pub macro_rules! assert_fn_err_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than or equal to an expression.
 
@@ -31884,7 +31884,7 @@ pub macro_rules! debug_assert_fn_err_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than an expression.
 
@@ -31918,7 +31918,7 @@ pub macro_rules! assert_fn_err_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than an expression.
 
@@ -31965,7 +31965,7 @@ assert_fn_err_lt_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_lt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_lt_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `20`,\n",
@@ -32000,7 +32000,7 @@ pub macro_rules! assert_fn_err_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is less than an expression.
 
@@ -32046,7 +32046,7 @@ pub macro_rules! debug_assert_fn_err_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is not equal to an expression.
 
@@ -32080,7 +32080,7 @@ pub macro_rules! assert_fn_err_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is not equal to an expression.
 
@@ -32127,7 +32127,7 @@ assert_fn_err_ne_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_ne_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_err_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_err_ne_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -32162,7 +32162,7 @@ pub macro_rules! assert_fn_err_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function error is not equal to an expression.
 
@@ -32208,7 +32208,7 @@ pub macro_rules! debug_assert_fn_err_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is equal to another.
 
@@ -32242,7 +32242,7 @@ pub macro_rules! assert_fn_ok_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is equal to another.
 
@@ -32290,7 +32290,7 @@ assert_fn_ok_eq!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_eq!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_eq.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -32326,7 +32326,7 @@ pub macro_rules! assert_fn_ok_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is equal to another.
 
@@ -32372,7 +32372,7 @@ pub macro_rules! debug_assert_fn_ok_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than or equal to another.
 
@@ -32406,7 +32406,7 @@ pub macro_rules! assert_fn_ok_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than or equal to another.
 
@@ -32454,7 +32454,7 @@ assert_fn_ok_ge!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_ge.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -32490,7 +32490,7 @@ pub macro_rules! assert_fn_ok_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than or equal to another.
 
@@ -32536,7 +32536,7 @@ pub macro_rules! debug_assert_fn_ok_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than another.
 
@@ -32570,7 +32570,7 @@ pub macro_rules! assert_fn_ok_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than another.
 
@@ -32618,7 +32618,7 @@ assert_fn_ok_gt!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_gt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_gt.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -32654,7 +32654,7 @@ pub macro_rules! assert_fn_ok_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than another.
 
@@ -32700,7 +32700,7 @@ pub macro_rules! debug_assert_fn_ok_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than or equal to another.
 
@@ -32734,7 +32734,7 @@ pub macro_rules! assert_fn_ok_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than or equal to another.
 
@@ -32782,7 +32782,7 @@ assert_fn_ok_le!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_le.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `2`,\n",
@@ -32818,7 +32818,7 @@ pub macro_rules! assert_fn_ok_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than or equal to another.
 
@@ -32864,7 +32864,7 @@ pub macro_rules! debug_assert_fn_ok_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than another.
 
@@ -32898,7 +32898,7 @@ pub macro_rules! assert_fn_ok_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than another.
 
@@ -32944,7 +32944,7 @@ assert_fn_ok_lt!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_lt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_lt.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `2`,\n",
@@ -32980,7 +32980,7 @@ pub macro_rules! assert_fn_ok_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than another.
 
@@ -33026,7 +33026,7 @@ pub macro_rules! debug_assert_fn_ok_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is not equal to another.
 
@@ -33060,7 +33060,7 @@ pub macro_rules! assert_fn_ok_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is not equal to another.
 
@@ -33108,7 +33108,7 @@ assert_fn_ok_ne!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_ne!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_ne.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -33144,7 +33144,7 @@ pub macro_rules! assert_fn_ok_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is not equal to another.
 
@@ -33190,7 +33190,7 @@ pub macro_rules! debug_assert_fn_ok_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is equal to an expression.
 
@@ -33224,7 +33224,7 @@ pub macro_rules! assert_fn_ok_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is equal to an expression.
 
@@ -33271,7 +33271,7 @@ assert_fn_ok_eq_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_eq_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_eq_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -33306,7 +33306,7 @@ pub macro_rules! assert_fn_ok_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is equal to an expression.
 
@@ -33352,7 +33352,7 @@ pub macro_rules! debug_assert_fn_ok_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than or equal to an expression.
 
@@ -33386,7 +33386,7 @@ pub macro_rules! assert_fn_ok_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than or equal to an expression.
 
@@ -33433,7 +33433,7 @@ assert_fn_ok_ge_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_ge_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_ge_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -33468,7 +33468,7 @@ pub macro_rules! assert_fn_ok_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than or equal to an expression.
 
@@ -33514,7 +33514,7 @@ pub macro_rules! debug_assert_fn_ok_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than an expression.
 
@@ -33548,7 +33548,7 @@ pub macro_rules! assert_fn_ok_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than an expression.
 
@@ -33595,7 +33595,7 @@ assert_fn_ok_gt_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_gt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_gt_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -33630,7 +33630,7 @@ pub macro_rules! assert_fn_ok_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is greater than an expression.
 
@@ -33676,7 +33676,7 @@ pub macro_rules! debug_assert_fn_ok_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than or equal to an expression.
 
@@ -33710,7 +33710,7 @@ pub macro_rules! assert_fn_ok_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than or equal to an expression.
 
@@ -33757,7 +33757,7 @@ assert_fn_ok_le_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_le_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_le_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `2`,\n",
@@ -33792,7 +33792,7 @@ pub macro_rules! assert_fn_ok_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than or equal to an expression.
 
@@ -33838,7 +33838,7 @@ pub macro_rules! debug_assert_fn_ok_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than an expression.
 
@@ -33874,7 +33874,7 @@ pub macro_rules! assert_fn_ok_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than an expression.
 
@@ -33921,7 +33921,7 @@ assert_fn_ok_lt_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_lt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_lt_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `2`,\n",
@@ -33956,7 +33956,7 @@ pub macro_rules! assert_fn_ok_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is less than an expression.
 
@@ -34002,7 +34002,7 @@ pub macro_rules! debug_assert_fn_ok_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is not equal to an expression.
 
@@ -34036,7 +34036,7 @@ pub macro_rules! assert_fn_ok_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is not equal to an expression.
 
@@ -34083,7 +34083,7 @@ assert_fn_ok_ne_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_ne_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fn_ok_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fn_ok_ne_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -34118,7 +34118,7 @@ pub macro_rules! assert_fn_ok_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a function Ok(…) is not equal to an expression.
 
@@ -34164,7 +34164,7 @@ pub macro_rules! debug_assert_fn_ok_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is equal to another.
 
@@ -34197,7 +34197,7 @@ pub macro_rules! assert_fs_read_to_string_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is equal to another.
 
@@ -34238,7 +34238,7 @@ assert_fs_read_to_string_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_eq.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34270,7 +34270,7 @@ pub macro_rules! assert_fs_read_to_string_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is equal to another.
 
@@ -34316,7 +34316,7 @@ pub macro_rules! debug_assert_fs_read_to_string_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to another.
 
@@ -34349,7 +34349,7 @@ pub macro_rules! assert_fs_read_to_string_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to another.
 
@@ -34390,7 +34390,7 @@ assert_fs_read_to_string_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_ge!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_ge.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34422,7 +34422,7 @@ pub macro_rules! assert_fs_read_to_string_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to another.
 
@@ -34468,7 +34468,7 @@ pub macro_rules! debug_assert_fs_read_to_string_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than another.
 
@@ -34501,7 +34501,7 @@ pub macro_rules! assert_fs_read_to_string_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than another.
 
@@ -34542,7 +34542,7 @@ assert_fs_read_to_string_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_gt.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34574,7 +34574,7 @@ pub macro_rules! assert_fs_read_to_string_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than another.
 
@@ -34620,7 +34620,7 @@ pub macro_rules! debug_assert_fs_read_to_string_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 
@@ -34653,7 +34653,7 @@ pub macro_rules! assert_fs_read_to_string_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 
@@ -34694,7 +34694,7 @@ assert_fs_read_to_string_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_le.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"bravo.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34726,7 +34726,7 @@ pub macro_rules! assert_fs_read_to_string_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to another.
 
@@ -34772,7 +34772,7 @@ pub macro_rules! debug_assert_fs_read_to_string_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than another.
 
@@ -34805,7 +34805,7 @@ pub macro_rules! assert_fs_read_to_string_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than another.
 
@@ -34846,7 +34846,7 @@ assert_fs_read_to_string_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_lt.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"bravo.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34878,7 +34878,7 @@ pub macro_rules! assert_fs_read_to_string_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than another.
 
@@ -34924,7 +34924,7 @@ pub macro_rules! debug_assert_fs_read_to_string_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is not equal to another.
 
@@ -34957,7 +34957,7 @@ pub macro_rules! assert_fs_read_to_string_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is not equal to another.
 
@@ -34998,7 +34998,7 @@ assert_fs_read_to_string_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_ne.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -35030,7 +35030,7 @@ pub macro_rules! assert_fs_read_to_string_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is not equal to another.
 
@@ -35076,7 +35076,7 @@ pub macro_rules! debug_assert_fs_read_to_string_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is equal to an expression.
 
@@ -35109,7 +35109,7 @@ pub macro_rules! assert_fs_read_to_string_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is equal to an expression.
 
@@ -35150,7 +35150,7 @@ assert_fs_read_to_string_eq_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35182,7 +35182,7 @@ pub macro_rules! assert_fs_read_to_string_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is equal to an expression.
 
@@ -35228,7 +35228,7 @@ pub macro_rules! debug_assert_fs_read_to_string_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to an expression.
 
@@ -35261,7 +35261,7 @@ pub macro_rules! assert_fs_read_to_string_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to an expression.
 
@@ -35302,7 +35302,7 @@ assert_fs_read_to_string_ge_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_ge_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_ge_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35334,7 +35334,7 @@ pub macro_rules! assert_fs_read_to_string_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than or equal to an expression.
 
@@ -35380,7 +35380,7 @@ pub macro_rules! debug_assert_fs_read_to_string_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than an expression.
 
@@ -35413,7 +35413,7 @@ pub macro_rules! assert_fs_read_to_string_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than an expression.
 
@@ -35454,7 +35454,7 @@ assert_fs_read_to_string_gt_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_gt_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_gt_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35486,7 +35486,7 @@ pub macro_rules! assert_fs_read_to_string_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is greater than an expression.
 
@@ -35532,7 +35532,7 @@ pub macro_rules! debug_assert_fs_read_to_string_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
 
@@ -35565,7 +35565,7 @@ pub macro_rules! assert_fs_read_to_string_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
 
@@ -35606,7 +35606,7 @@ assert_fs_read_to_string_le_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_le_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_le_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"bravo.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35638,7 +35638,7 @@ pub macro_rules! assert_fs_read_to_string_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than or equal to an expression.
 
@@ -35684,7 +35684,7 @@ pub macro_rules! debug_assert_fs_read_to_string_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than an expression.
 
@@ -35717,7 +35717,7 @@ pub macro_rules! assert_fs_read_to_string_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than an expression.
 
@@ -35758,7 +35758,7 @@ assert_fs_read_to_string_lt_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_lt_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_lt_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"bravo.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35790,7 +35790,7 @@ pub macro_rules! assert_fs_read_to_string_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) value is less than an expression.
 
@@ -35836,7 +35836,7 @@ pub macro_rules! debug_assert_fs_read_to_string_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is not equal to an expression.
 
@@ -35869,7 +35869,7 @@ pub macro_rules! assert_fs_read_to_string_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is not equal to an expression.
 
@@ -35910,7 +35910,7 @@ assert_fs_read_to_string_ne_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35942,7 +35942,7 @@ pub macro_rules! assert_fs_read_to_string_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is not equal to an expression.
 
@@ -35988,7 +35988,7 @@ pub macro_rules! debug_assert_fs_read_to_string_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) contains a pattern.
 
@@ -36021,7 +36021,7 @@ pub macro_rules! assert_fs_read_to_string_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) contains a pattern.
 
@@ -36061,7 +36061,7 @@ assert_fs_read_to_string_contains!(path, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_contains.html\n",
 #     "      path label: `path`,\n",
 #     "      path debug: `\"alfa.txt\"`,\n",
 #     " containee label: `containee`,\n",
@@ -36092,7 +36092,7 @@ pub macro_rules! assert_fs_read_to_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) contains a pattern.
 
@@ -36138,7 +36138,7 @@ pub macro_rules! debug_assert_fs_read_to_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is a match to a regex.
 
@@ -36171,7 +36171,7 @@ pub macro_rules! assert_fs_read_to_string_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is a match to a regex.
 
@@ -36212,7 +36212,7 @@ assert_fs_read_to_string_is_match!(path, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_fs_read_to_string_is_match.html\n",
 #     "    path label: `path`,\n",
 #     "    path debug: `\"alfa.txt\"`,\n",
 #     " matcher label: `matcher`,\n",
@@ -36243,7 +36243,7 @@ pub macro_rules! assert_fs_read_to_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::fs::read_to_string(path) is a match to a regex.
 
@@ -36289,7 +36289,7 @@ pub macro_rules! debug_assert_fs_read_to_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_fs_read_to_string_matches_as_result` into `assert_fs_read_to_string_is_match_as_result`.
 
@@ -36310,7 +36310,7 @@ pub macro_rules! assert_fs_read_to_string_matches_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_fs_read_to_string_matches` into `assert_fs_read_to_string_is_match`.
 
@@ -36331,7 +36331,7 @@ pub macro_rules! assert_fs_read_to_string_matches {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_fs_read_to_string_matches` into `debug_assert_fs_read_to_string_is_match`.
 
@@ -36352,7 +36352,7 @@ pub macro_rules! debug_assert_fs_read_to_string_matches {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is equal to another.
 
@@ -36385,7 +36385,7 @@ pub macro_rules! assert_io_read_to_string_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is equal to another.
 
@@ -36426,7 +36426,7 @@ assert_io_read_to_string_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -36458,7 +36458,7 @@ pub macro_rules! assert_io_read_to_string_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is equal to another.
 
@@ -36504,7 +36504,7 @@ pub macro_rules! debug_assert_io_read_to_string_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to another.
 
@@ -36537,7 +36537,7 @@ pub macro_rules! assert_io_read_to_string_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to another.
 
@@ -36578,7 +36578,7 @@ assert_io_read_to_string_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -36610,7 +36610,7 @@ pub macro_rules! assert_io_read_to_string_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to another.
 
@@ -36656,7 +36656,7 @@ pub macro_rules! debug_assert_io_read_to_string_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than another.
 
@@ -36689,7 +36689,7 @@ pub macro_rules! assert_io_read_to_string_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than another.
 
@@ -36730,7 +36730,7 @@ assert_io_read_to_string_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -36762,7 +36762,7 @@ pub macro_rules! assert_io_read_to_string_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than another.
 
@@ -36808,7 +36808,7 @@ pub macro_rules! debug_assert_io_read_to_string_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to another.
 
@@ -36841,7 +36841,7 @@ pub macro_rules! assert_io_read_to_string_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to another.
 
@@ -36882,7 +36882,7 @@ assert_io_read_to_string_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -36914,7 +36914,7 @@ pub macro_rules! assert_io_read_to_string_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to another.
 
@@ -36960,7 +36960,7 @@ pub macro_rules! debug_assert_io_read_to_string_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than another.
 
@@ -36993,7 +36993,7 @@ pub macro_rules! assert_io_read_to_string_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than another.
 
@@ -37034,7 +37034,7 @@ assert_io_read_to_string_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -37066,7 +37066,7 @@ pub macro_rules! assert_io_read_to_string_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than another.
 
@@ -37112,7 +37112,7 @@ pub macro_rules! debug_assert_io_read_to_string_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is not equal to another.
 
@@ -37145,7 +37145,7 @@ pub macro_rules! assert_io_read_to_string_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is not equal to another.
 
@@ -37186,7 +37186,7 @@ assert_io_read_to_string_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -37218,7 +37218,7 @@ pub macro_rules! assert_io_read_to_string_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is not equal to another.
 
@@ -37264,7 +37264,7 @@ pub macro_rules! debug_assert_io_read_to_string_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is equal to an expression.
 
@@ -37297,7 +37297,7 @@ pub macro_rules! assert_io_read_to_string_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is equal to an expression.
 
@@ -37337,7 +37337,7 @@ assert_io_read_to_string_eq_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_eq_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -37368,7 +37368,7 @@ pub macro_rules! assert_io_read_to_string_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is equal to an expression.
 
@@ -37414,7 +37414,7 @@ pub macro_rules! debug_assert_io_read_to_string_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to an expression.
 
@@ -37447,7 +37447,7 @@ pub macro_rules! assert_io_read_to_string_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than or equal to an expression.
 
@@ -37488,7 +37488,7 @@ assert_io_read_to_string_ge_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_ge_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -37520,7 +37520,7 @@ pub macro_rules! assert_io_read_to_string_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert zzz.
 
@@ -37566,7 +37566,7 @@ pub macro_rules! debug_assert_io_read_to_string_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than an expression.
 
@@ -37599,7 +37599,7 @@ pub macro_rules! assert_io_read_to_string_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than an expression.
 
@@ -37640,7 +37640,7 @@ assert_io_read_to_string_gt_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_gt_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -37672,7 +37672,7 @@ pub macro_rules! assert_io_read_to_string_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is greater than an expression.
 
@@ -37718,7 +37718,7 @@ pub macro_rules! debug_assert_io_read_to_string_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to an expression.
 
@@ -37751,7 +37751,7 @@ pub macro_rules! assert_io_read_to_string_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to an expression.
 
@@ -37792,7 +37792,7 @@ assert_io_read_to_string_le_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_le_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_le_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -37824,7 +37824,7 @@ pub macro_rules! assert_io_read_to_string_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than or equal to an expression.
 
@@ -37870,7 +37870,7 @@ pub macro_rules! debug_assert_io_read_to_string_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than an expression.
 
@@ -37903,7 +37903,7 @@ pub macro_rules! assert_io_read_to_string_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than an expression.
 
@@ -37944,7 +37944,7 @@ assert_io_read_to_string_lt_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_lt_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_lt_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -37976,7 +37976,7 @@ pub macro_rules! assert_io_read_to_string_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() value is less than an expression.
 
@@ -38022,7 +38022,7 @@ pub macro_rules! debug_assert_io_read_to_string_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is not equal to an expression.
 
@@ -38055,7 +38055,7 @@ pub macro_rules! assert_io_read_to_string_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is not equal to an expression.
 
@@ -38096,7 +38096,7 @@ assert_io_read_to_string_ne_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_ne_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_ne_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -38128,7 +38128,7 @@ pub macro_rules! assert_io_read_to_string_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is not equal to an expression.
 
@@ -38174,7 +38174,7 @@ pub macro_rules! debug_assert_io_read_to_string_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() contains a pattern.
 
@@ -38207,7 +38207,7 @@ pub macro_rules! assert_io_read_to_string_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() contains a pattern.
 
@@ -38247,7 +38247,7 @@ assert_io_read_to_string_contains!(reader, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_contains.html\n",
 #     "    reader label: `reader`,\n",
 #     "    reader debug: `[104, 101, 108, 108, 111]`,\n",
 #     " containee label: `containee`,\n",
@@ -38278,7 +38278,7 @@ pub macro_rules! assert_io_read_to_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() contains a pattern.
 
@@ -38324,7 +38324,7 @@ pub macro_rules! debug_assert_io_read_to_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is a match to a regex.
 
@@ -38357,7 +38357,7 @@ pub macro_rules! assert_io_read_to_string_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is a match to a regex.
 
@@ -38397,7 +38397,7 @@ assert_io_read_to_string_is_match!(reader, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_io_read_to_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_io_read_to_string_is_match.html\n",
 #     "  reader label: `reader`,\n",
 #     "  reader debug: `[104, 101, 108, 108, 111]`,\n",
 #     " matcher label: `matcher`,\n",
@@ -38428,7 +38428,7 @@ pub macro_rules! assert_io_read_to_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a ::std::io::Read read_to_string() is a match to a regex.
 
@@ -38474,7 +38474,7 @@ pub macro_rules! debug_assert_io_read_to_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_io_read_to_string_matches_as_result` into `assert_io_read_to_string_is_match_as_result`.
 
@@ -38495,7 +38495,7 @@ pub macro_rules! assert_io_read_to_string_matches_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_io_read_to_string_matches` into `assert_io_read_to_string_is_match`.
 
@@ -38516,7 +38516,7 @@ pub macro_rules! assert_io_read_to_string_matches {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_io_read_to_string_matches` into `debug_assert_io_read_to_string_is_match`.
 
@@ -38537,7 +38537,7 @@ pub macro_rules! debug_assert_io_read_to_string_matches {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is equal to another.
 
@@ -38570,7 +38570,7 @@ pub macro_rules! assert_command_stdout_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is equal to another.
 
@@ -38615,7 +38615,7 @@ assert_command_stdout_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -38647,7 +38647,7 @@ pub macro_rules! assert_command_stdout_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is equal to another.
 
@@ -38690,7 +38690,7 @@ pub macro_rules! debug_assert_command_stdout_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than or equal to another.
 
@@ -38723,7 +38723,7 @@ pub macro_rules! assert_command_stdout_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than or equal to another.
 
@@ -38768,7 +38768,7 @@ assert_command_stdout_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_ge!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -38800,7 +38800,7 @@ pub macro_rules! assert_command_stdout_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than or equal to another.
 
@@ -38843,7 +38843,7 @@ pub macro_rules! debug_assert_command_stdout_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than another.
 
@@ -38876,7 +38876,7 @@ pub macro_rules! assert_command_stdout_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than another.
 
@@ -38921,7 +38921,7 @@ assert_command_stdout_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_gt!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -38953,7 +38953,7 @@ pub macro_rules! assert_command_stdout_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than another.
 
@@ -38996,7 +38996,7 @@ pub macro_rules! debug_assert_command_stdout_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than or equal to another.
 
@@ -39029,7 +39029,7 @@ pub macro_rules! assert_command_stdout_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than or equal to another.
 
@@ -39074,7 +39074,7 @@ assert_command_stdout_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -39106,7 +39106,7 @@ pub macro_rules! assert_command_stdout_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than or equal to another.
 
@@ -39149,7 +39149,7 @@ pub macro_rules! debug_assert_command_stdout_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than another.
 
@@ -39182,7 +39182,7 @@ pub macro_rules! assert_command_stdout_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than another.
 
@@ -39227,7 +39227,7 @@ assert_command_stdout_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_lt!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -39259,7 +39259,7 @@ pub macro_rules! assert_command_stdout_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than another.
 
@@ -39302,7 +39302,7 @@ pub macro_rules! debug_assert_command_stdout_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is not equal to another.
 
@@ -39335,7 +39335,7 @@ pub macro_rules! assert_command_stdout_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is not equal to another.
 
@@ -39380,7 +39380,7 @@ assert_command_stdout_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_ne!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -39412,7 +39412,7 @@ pub macro_rules! assert_command_stdout_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is not equal to another.
 
@@ -39455,7 +39455,7 @@ pub macro_rules! debug_assert_command_stdout_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is equal to an expression.
 
@@ -39488,7 +39488,7 @@ pub macro_rules! assert_command_stdout_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is equal to an expression.
 
@@ -39531,7 +39531,7 @@ assert_command_stdout_eq_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_eq_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -39563,7 +39563,7 @@ pub macro_rules! assert_command_stdout_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is equal to an expression.
 
@@ -39609,7 +39609,7 @@ pub macro_rules! debug_assert_command_stdout_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than or equal to an expression.
 
@@ -39642,7 +39642,7 @@ pub macro_rules! assert_command_stdout_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than or equal to an expression.
 
@@ -39685,7 +39685,7 @@ assert_command_stdout_ge_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_ge_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -39717,7 +39717,7 @@ pub macro_rules! assert_command_stdout_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than or equal to an expression.
 
@@ -39763,7 +39763,7 @@ pub macro_rules! debug_assert_command_stdout_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than an expression.
 
@@ -39796,7 +39796,7 @@ pub macro_rules! assert_command_stdout_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than an expression.
 
@@ -39839,7 +39839,7 @@ assert_command_stdout_gt_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_gt_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_gt_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -39871,7 +39871,7 @@ pub macro_rules! assert_command_stdout_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is greater than an expression.
 
@@ -39917,7 +39917,7 @@ pub macro_rules! debug_assert_command_stdout_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than or equal to an expression.
 
@@ -39950,7 +39950,7 @@ pub macro_rules! assert_command_stdout_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than or equal to an expression.
 
@@ -39993,7 +39993,7 @@ assert_command_stdout_le_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_le_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_le_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -40025,7 +40025,7 @@ pub macro_rules! assert_command_stdout_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than or equal to an expression.
 
@@ -40071,7 +40071,7 @@ pub macro_rules! debug_assert_command_stdout_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than an expression.
 
@@ -40104,7 +40104,7 @@ pub macro_rules! assert_command_stdout_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than an expression.
 
@@ -40147,7 +40147,7 @@ assert_command_stdout_lt_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_lt_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_lt_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -40179,7 +40179,7 @@ pub macro_rules! assert_command_stdout_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is less than an expression.
 
@@ -40225,7 +40225,7 @@ pub macro_rules! debug_assert_command_stdout_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is not equal to an expression.
 
@@ -40258,7 +40258,7 @@ pub macro_rules! assert_command_stdout_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is not equal to an expression.
 
@@ -40301,7 +40301,7 @@ assert_command_stdout_ne_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_ne_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -40333,7 +40333,7 @@ pub macro_rules! assert_command_stdout_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is not equal to an expression.
 
@@ -40379,7 +40379,7 @@ pub macro_rules! debug_assert_command_stdout_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stdout_contains_as_result` into `assert_command_stdout_string_contains_as_result`.
 
@@ -40400,7 +40400,7 @@ pub macro_rules! assert_command_stdout_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stdout_contains` into `assert_command_stdout_string_contains`.
 
@@ -40421,7 +40421,7 @@ pub macro_rules! assert_command_stdout_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_command_stdout_contains` into `debug_assert_command_stdout_string_contains`.
 
@@ -40442,7 +40442,7 @@ pub macro_rules! debug_assert_command_stdout_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stdout_is_match_as_result` into `assert_command_stdout_string_is_match_as_result`.
 
@@ -40463,7 +40463,7 @@ pub macro_rules! assert_command_stdout_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stdout_is_match` into `assert_command_stdout_string_is_match`.
 
@@ -40484,7 +40484,7 @@ pub macro_rules! assert_command_stdout_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_command_stdout_is_match` into `debug_assert_command_stdout_string_is_match`.
 
@@ -40505,7 +40505,7 @@ pub macro_rules! debug_assert_command_stdout_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string contains a given containee.
 
@@ -40538,7 +40538,7 @@ pub macro_rules! assert_command_stdout_string_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string contains a given containee.
 
@@ -40586,7 +40586,7 @@ assert_command_stdout_string_contains!(command, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_string_contains.html\n",
 #     "   command label: `command`,\n",
 #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     "   command value: `\"alfa\"`,\n",
@@ -40618,7 +40618,7 @@ pub macro_rules! assert_command_stdout_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string contains a given containee.
 
@@ -40664,7 +40664,7 @@ pub macro_rules! debug_assert_command_stdout_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is a match to a regex.
 
@@ -40697,7 +40697,7 @@ pub macro_rules! assert_command_stdout_string_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is a match to a regex.
 
@@ -40741,7 +40741,7 @@ assert_command_stdout_string_is_match!(command, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stdout_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stdout_string_is_match.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `\"alfa\"`,\n",
@@ -40773,7 +40773,7 @@ pub macro_rules! assert_command_stdout_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stdout string is a match to a regex.
 
@@ -40819,7 +40819,7 @@ pub macro_rules! debug_assert_command_stdout_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is equal to another.
 
@@ -40852,7 +40852,7 @@ pub macro_rules! assert_command_stderr_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is equal to another.
 
@@ -40897,7 +40897,7 @@ assert_command_stderr_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -40929,7 +40929,7 @@ pub macro_rules! assert_command_stderr_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is equal to another.
 
@@ -40972,7 +40972,7 @@ pub macro_rules! debug_assert_command_stderr_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than or equal to another.
 
@@ -41005,7 +41005,7 @@ pub macro_rules! assert_command_stderr_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than or equal to another.
 
@@ -41050,7 +41050,7 @@ assert_command_stderr_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41082,7 +41082,7 @@ pub macro_rules! assert_command_stderr_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than or equal to another.
 
@@ -41125,7 +41125,7 @@ pub macro_rules! debug_assert_command_stderr_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than another.
 
@@ -41158,7 +41158,7 @@ pub macro_rules! assert_command_stderr_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than another.
 
@@ -41203,7 +41203,7 @@ assert_command_stderr_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_gt!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41235,7 +41235,7 @@ pub macro_rules! assert_command_stderr_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than another.
 
@@ -41278,7 +41278,7 @@ pub macro_rules! debug_assert_command_stderr_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than or equal to another.
 
@@ -41311,7 +41311,7 @@ pub macro_rules! assert_command_stderr_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than or equal to another.
 
@@ -41356,7 +41356,7 @@ assert_command_stderr_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41388,7 +41388,7 @@ pub macro_rules! assert_command_stderr_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than or equal to another.
 
@@ -41431,7 +41431,7 @@ pub macro_rules! debug_assert_command_stderr_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than another.
 
@@ -41464,7 +41464,7 @@ pub macro_rules! assert_command_stderr_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than another.
 
@@ -41509,7 +41509,7 @@ assert_command_stderr_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_lt!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41541,7 +41541,7 @@ pub macro_rules! assert_command_stderr_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than another.
 
@@ -41584,7 +41584,7 @@ pub macro_rules! debug_assert_command_stderr_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is not equal to another.
 
@@ -41617,7 +41617,7 @@ pub macro_rules! assert_command_stderr_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is not equal to another.
 
@@ -41662,7 +41662,7 @@ assert_command_stderr_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_ne!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41694,7 +41694,7 @@ pub macro_rules! assert_command_stderr_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is not equal to another.
 
@@ -41737,7 +41737,7 @@ pub macro_rules! debug_assert_command_stderr_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is equal to an expression.
 
@@ -41770,7 +41770,7 @@ pub macro_rules! assert_command_stderr_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is equal to an expression.
 
@@ -41813,7 +41813,7 @@ assert_command_stderr_eq_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_eq_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_eq_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -41845,7 +41845,7 @@ pub macro_rules! assert_command_stderr_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is equal to an expression.
 
@@ -41891,7 +41891,7 @@ pub macro_rules! debug_assert_command_stderr_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than or equal to an expression.
 
@@ -41924,7 +41924,7 @@ pub macro_rules! assert_command_stderr_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than or equal to an expression.
 
@@ -41967,7 +41967,7 @@ assert_command_stderr_ge_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_ge_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_ge_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -41999,7 +41999,7 @@ pub macro_rules! assert_command_stderr_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than or equal to an expression.
 
@@ -42045,7 +42045,7 @@ pub macro_rules! debug_assert_command_stderr_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than an expression.
 
@@ -42078,7 +42078,7 @@ pub macro_rules! assert_command_stderr_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than an expression.
 
@@ -42121,7 +42121,7 @@ assert_command_stderr_gt_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_gt_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -42153,7 +42153,7 @@ pub macro_rules! assert_command_stderr_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is greater than an expression.
 
@@ -42199,7 +42199,7 @@ pub macro_rules! debug_assert_command_stderr_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than or equal to an expression.
 
@@ -42232,7 +42232,7 @@ pub macro_rules! assert_command_stderr_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than or equal to an expression.
 
@@ -42275,7 +42275,7 @@ assert_command_stderr_le_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_le_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_le_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -42307,7 +42307,7 @@ pub macro_rules! assert_command_stderr_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than or equal to an expression.
 
@@ -42353,7 +42353,7 @@ pub macro_rules! debug_assert_command_stderr_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than an expression.
 
@@ -42386,7 +42386,7 @@ pub macro_rules! assert_command_stderr_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than an expression.
 
@@ -42429,7 +42429,7 @@ assert_command_stderr_lt_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_lt_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_lt_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -42461,7 +42461,7 @@ pub macro_rules! assert_command_stderr_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is less than an expression.
 
@@ -42507,7 +42507,7 @@ pub macro_rules! debug_assert_command_stderr_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is not equal to an expression.
 
@@ -42540,7 +42540,7 @@ pub macro_rules! assert_command_stderr_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is not equal to an expression.
 
@@ -42583,7 +42583,7 @@ assert_command_stderr_ne_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_ne_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_ne_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -42615,7 +42615,7 @@ pub macro_rules! assert_command_stderr_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is not equal to an expression.
 
@@ -42661,7 +42661,7 @@ pub macro_rules! debug_assert_command_stderr_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stderr_contains_as_result` into `assert_command_stderr_string_contains_as_result`.
 
@@ -42684,7 +42684,7 @@ pub macro_rules! assert_command_stderr_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stderr_contains` into `assert_command_stderr_string_contains`.
 
@@ -42706,7 +42706,7 @@ pub macro_rules! assert_command_stderr_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_command_stderr_contains` into `debug_assert_command_stderr_string_contains`.
 
@@ -42728,7 +42728,7 @@ pub macro_rules! debug_assert_command_stderr_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stderr_is_match_as_result` into `assert_command_stderr_string_is_match_as_result`.
 
@@ -42750,7 +42750,7 @@ pub macro_rules! assert_command_stderr_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_command_stderr_is_match` into `assert_command_stderr_string_is_match`.
 
@@ -42771,7 +42771,7 @@ pub macro_rules! assert_command_stderr_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_command_stderr_is_match` into `debug_assert_command_stderr_string_is_match`.
 
@@ -42792,7 +42792,7 @@ pub macro_rules! debug_assert_command_stderr_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string contains a given containee.
 
@@ -42825,7 +42825,7 @@ pub macro_rules! assert_command_stderr_string_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string contains a given containee.
 
@@ -42873,7 +42873,7 @@ assert_command_stderr_string_contains!(command, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_string_contains.html\n",
 #     "   command label: `command`,\n",
 #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     "   command value: `\"alfa\"`,\n",
@@ -42905,7 +42905,7 @@ pub macro_rules! assert_command_stderr_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string contains a given containee.
 
@@ -42951,7 +42951,7 @@ pub macro_rules! debug_assert_command_stderr_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is a match to a regex.
 
@@ -42984,7 +42984,7 @@ pub macro_rules! assert_command_stderr_string_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is a match to a regex.
 
@@ -43028,7 +43028,7 @@ assert_command_stderr_string_is_match!(command, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_string_is_match!(command, matcher)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_string_is_match.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `\"alfa\"`,\n",
@@ -43060,7 +43060,7 @@ pub macro_rules! assert_command_stderr_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command stderr string is a match to a regex.
 
@@ -43106,7 +43106,7 @@ pub macro_rules! debug_assert_command_stderr_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert program args implementation preparation.
 
@@ -43122,7 +43122,7 @@ pub macro_rules! assert_program_args_impl_prep {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is equal to another.
 
@@ -43156,7 +43156,7 @@ pub macro_rules! assert_program_args_stdout_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is equal to another.
 
@@ -43204,7 +43204,7 @@ assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_eq.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -43240,7 +43240,7 @@ pub macro_rules! assert_program_args_stdout_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is equal to another.
 
@@ -43286,7 +43286,7 @@ pub macro_rules! debug_assert_program_args_stdout_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than or equal to another.
 
@@ -43320,7 +43320,7 @@ pub macro_rules! assert_program_args_stdout_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than or equal to another.
 
@@ -43368,7 +43368,7 @@ assert_program_args_stdout_ge!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_ge!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_ge.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -43404,7 +43404,7 @@ pub macro_rules! assert_program_args_stdout_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than or equal to another.
 
@@ -43450,7 +43450,7 @@ pub macro_rules! debug_assert_program_args_stdout_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than to another.
 
@@ -43484,7 +43484,7 @@ pub macro_rules! assert_program_args_stdout_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than another.
 
@@ -43532,7 +43532,7 @@ assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_gt.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -43568,7 +43568,7 @@ pub macro_rules! assert_program_args_stdout_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than another.
 
@@ -43614,7 +43614,7 @@ pub macro_rules! debug_assert_program_args_stdout_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than or equal to another.
 
@@ -43648,7 +43648,7 @@ pub macro_rules! assert_program_args_stdout_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than or equal to another.
 
@@ -43696,7 +43696,7 @@ assert_program_args_stdout_le!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_le!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_le.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -43732,7 +43732,7 @@ pub macro_rules! assert_program_args_stdout_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than or equal to another.
 
@@ -43778,7 +43778,7 @@ pub macro_rules! debug_assert_program_args_stdout_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than another.
 
@@ -43812,7 +43812,7 @@ pub macro_rules! assert_program_args_stdout_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than another.
 
@@ -43860,7 +43860,7 @@ assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_lt.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -43896,7 +43896,7 @@ pub macro_rules! assert_program_args_stdout_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than another.
 
@@ -43942,7 +43942,7 @@ pub macro_rules! debug_assert_program_args_stdout_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is not equal to another.
 
@@ -43976,7 +43976,7 @@ pub macro_rules! assert_program_args_stdout_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is not equal to another.
 
@@ -44024,7 +44024,7 @@ assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_ne.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -44060,7 +44060,7 @@ pub macro_rules! assert_program_args_stdout_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is not equal to another.
 
@@ -44103,7 +44103,7 @@ pub macro_rules! debug_assert_program_args_stdout_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is equal to an expression.
 
@@ -44136,7 +44136,7 @@ pub macro_rules! assert_program_args_stdout_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is equal to an expression.
 
@@ -44180,7 +44180,7 @@ assert_program_args_stdout_eq_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_eq_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44214,7 +44214,7 @@ pub macro_rules! assert_program_args_stdout_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is equal to an expression.
 
@@ -44260,7 +44260,7 @@ pub macro_rules! debug_assert_program_args_stdout_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than or equal to an expression.
 
@@ -44293,7 +44293,7 @@ pub macro_rules! assert_program_args_stdout_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than or equal to an expression.
 
@@ -44337,7 +44337,7 @@ assert_program_args_stdout_ge_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_ge_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_ge_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44371,7 +44371,7 @@ pub macro_rules! assert_program_args_stdout_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than or equal to an expression.
 
@@ -44417,7 +44417,7 @@ pub macro_rules! debug_assert_program_args_stdout_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than an expression.
 
@@ -44450,7 +44450,7 @@ pub macro_rules! assert_program_args_stdout_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than an expression.
 
@@ -44494,7 +44494,7 @@ assert_program_args_stdout_gt_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_gt_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_gt_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44528,7 +44528,7 @@ pub macro_rules! assert_program_args_stdout_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is greater than an expression.
 
@@ -44574,7 +44574,7 @@ pub macro_rules! debug_assert_program_args_stdout_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than or equal to an expression.
 
@@ -44607,7 +44607,7 @@ pub macro_rules! assert_program_args_stdout_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than or equal to an expression.
 
@@ -44651,7 +44651,7 @@ assert_program_args_stdout_le_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_le_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44685,7 +44685,7 @@ pub macro_rules! assert_program_args_stdout_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than or equal to an expression.
 
@@ -44731,7 +44731,7 @@ pub macro_rules! debug_assert_program_args_stdout_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than an expression.
 
@@ -44764,7 +44764,7 @@ pub macro_rules! assert_program_args_stdout_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than an expression.
 
@@ -44808,7 +44808,7 @@ assert_program_args_stdout_lt_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_lt_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44842,7 +44842,7 @@ pub macro_rules! assert_program_args_stdout_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is less than an expression.
 
@@ -44888,7 +44888,7 @@ pub macro_rules! debug_assert_program_args_stdout_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is not equal to an expression.
 
@@ -44921,7 +44921,7 @@ pub macro_rules! assert_program_args_stdout_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is not equal to an expression.
 
@@ -44965,7 +44965,7 @@ assert_program_args_stdout_ne_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_ne_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_ne_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44999,7 +44999,7 @@ pub macro_rules! assert_program_args_stdout_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout is not equal to an expression.
 
@@ -45045,7 +45045,7 @@ pub macro_rules! debug_assert_program_args_stdout_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stdout_contains_as_result` to `assert_program_args_stdout_string_contains_as_result`.
 
@@ -45066,7 +45066,7 @@ pub macro_rules! assert_program_args_stdout_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stdout_contains` to `assert_program_args_stdout_string_contains`.
 
@@ -45087,7 +45087,7 @@ pub macro_rules! assert_program_args_stdout_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_program_args_stdout_contains` to `debug_assert_program_args_stdout_string_contains`.
 
@@ -45108,7 +45108,7 @@ pub macro_rules! debug_assert_program_args_stdout_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stdout_is_match_as_result` to `assert_program_args_stdout_string_is_match_as_result`.
 
@@ -45129,7 +45129,7 @@ pub macro_rules! assert_program_args_stdout_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stdout_is_match` to `assert_program_args_stdout_string_is_match`.
 
@@ -45150,7 +45150,7 @@ pub macro_rules! assert_program_args_stdout_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_program_args_stdout_is_match` to `debug_assert_program_args_stdout_string_is_match`.
 
@@ -45171,7 +45171,7 @@ pub macro_rules! debug_assert_program_args_stdout_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout into a string contains a given containee.
 
@@ -45204,7 +45204,7 @@ pub macro_rules! assert_program_args_stdout_string_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout into a string contains a given containee.
 
@@ -45253,7 +45253,7 @@ assert_program_args_stdout_string_contains!(program, args, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_string_contains.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -45287,7 +45287,7 @@ pub macro_rules! assert_program_args_stdout_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout into a string contains a given containee.
 
@@ -45330,7 +45330,7 @@ pub macro_rules! debug_assert_program_args_stdout_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout into a string is a match to a regex.
 
@@ -45363,7 +45363,7 @@ pub macro_rules! assert_program_args_stdout_string_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout into a string is a match to a regex.
 
@@ -45408,7 +45408,7 @@ assert_program_args_stdout_string_is_match!(program, args, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -45442,7 +45442,7 @@ pub macro_rules! assert_program_args_stdout_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stdout into a string is a match to a regex.
 
@@ -45488,7 +45488,7 @@ pub macro_rules! debug_assert_program_args_stdout_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is equal to another.
 
@@ -45521,7 +45521,7 @@ pub macro_rules! assert_program_args_stderr_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is equal to another.
 
@@ -45569,7 +45569,7 @@ assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_eq.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -45605,7 +45605,7 @@ pub macro_rules! assert_program_args_stderr_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is equal to another.
 
@@ -45651,7 +45651,7 @@ pub macro_rules! debug_assert_program_args_stderr_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than or equal to another.
 
@@ -45684,7 +45684,7 @@ pub macro_rules! assert_program_args_stderr_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than or equal to another.
 
@@ -45732,7 +45732,7 @@ assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_ge.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -45768,7 +45768,7 @@ pub macro_rules! assert_program_args_stderr_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr greater than or equal to another.
 
@@ -45814,7 +45814,7 @@ pub macro_rules! debug_assert_program_args_stderr_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than another.
 
@@ -45847,7 +45847,7 @@ pub macro_rules! assert_program_args_stderr_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than to another.
 
@@ -45895,7 +45895,7 @@ assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_gt.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -45931,7 +45931,7 @@ pub macro_rules! assert_program_args_stderr_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than another.
 
@@ -45977,7 +45977,7 @@ pub macro_rules! debug_assert_program_args_stderr_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than or equal to another.
 
@@ -46010,7 +46010,7 @@ pub macro_rules! assert_program_args_stderr_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than or equal to another.
 
@@ -46058,7 +46058,7 @@ assert_program_args_stderr_le!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_le.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -46094,7 +46094,7 @@ pub macro_rules! assert_program_args_stderr_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than or equal to another.
 
@@ -46140,7 +46140,7 @@ pub macro_rules! debug_assert_program_args_stderr_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than another.
 
@@ -46173,7 +46173,7 @@ pub macro_rules! assert_program_args_stderr_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than another.
 
@@ -46221,7 +46221,7 @@ assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_lt.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -46257,7 +46257,7 @@ pub macro_rules! assert_program_args_stderr_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than another.
 
@@ -46303,7 +46303,7 @@ pub macro_rules! debug_assert_program_args_stderr_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is not equal to another.
 
@@ -46336,7 +46336,7 @@ pub macro_rules! assert_program_args_stderr_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is not equal to another.
 
@@ -46384,7 +46384,7 @@ assert_program_args_stderr_ne!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_ne!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_ne.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -46420,7 +46420,7 @@ pub macro_rules! assert_program_args_stderr_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is not equal to another.
 
@@ -46466,7 +46466,7 @@ pub macro_rules! debug_assert_program_args_stderr_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is equal to an expression.
 
@@ -46499,7 +46499,7 @@ pub macro_rules! assert_program_args_stderr_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is equal to an expression.
 
@@ -46543,7 +46543,7 @@ assert_program_args_stderr_eq_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_eq_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -46577,7 +46577,7 @@ pub macro_rules! assert_program_args_stderr_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is equal to an expression.
 
@@ -46623,7 +46623,7 @@ pub macro_rules! debug_assert_program_args_stderr_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than or equal to an expression.
 
@@ -46656,7 +46656,7 @@ pub macro_rules! assert_program_args_stderr_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than or equal to an expression.
 
@@ -46700,7 +46700,7 @@ assert_program_args_stderr_ge_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_ge_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_ge_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -46734,7 +46734,7 @@ pub macro_rules! assert_program_args_stderr_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than or equal to an expression.
 
@@ -46780,7 +46780,7 @@ pub macro_rules! debug_assert_program_args_stderr_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than an expression.
 
@@ -46813,7 +46813,7 @@ pub macro_rules! assert_program_args_stderr_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than an expression.
 
@@ -46857,7 +46857,7 @@ assert_program_args_stderr_gt_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_gt_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_gt_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -46891,7 +46891,7 @@ pub macro_rules! assert_program_args_stderr_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is greater than an expression.
 
@@ -46937,7 +46937,7 @@ pub macro_rules! debug_assert_program_args_stderr_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than or equal to an expression.
 
@@ -46970,7 +46970,7 @@ pub macro_rules! assert_program_args_stderr_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than or equal to an expression.
 
@@ -47014,7 +47014,7 @@ assert_program_args_stderr_le_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_le_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_le_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47048,7 +47048,7 @@ pub macro_rules! assert_program_args_stderr_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than or equal to an expression.
 
@@ -47094,7 +47094,7 @@ pub macro_rules! debug_assert_program_args_stderr_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than an expression.
 
@@ -47127,7 +47127,7 @@ pub macro_rules! assert_program_args_stderr_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than an expression.
 
@@ -47171,7 +47171,7 @@ assert_program_args_stderr_lt_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_lt_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_lt_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47205,7 +47205,7 @@ pub macro_rules! assert_program_args_stderr_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is less than an expression.
 
@@ -47251,7 +47251,7 @@ pub macro_rules! debug_assert_program_args_stderr_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is not equal to an expression.
 
@@ -47284,7 +47284,7 @@ pub macro_rules! assert_program_args_stderr_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is not equal to an expression.
 
@@ -47328,7 +47328,7 @@ assert_program_args_stderr_ne_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_ne_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_ne_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47362,7 +47362,7 @@ pub macro_rules! assert_program_args_stderr_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr is not equal to an expression.
 
@@ -47408,7 +47408,7 @@ pub macro_rules! debug_assert_program_args_stderr_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stderr_contains_as_result` to `assert_program_args_stderr_string_contains_as_result`.
 
@@ -47429,7 +47429,7 @@ pub macro_rules! assert_program_args_stderr_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stderr_contains` to `assert_program_args_stderr_string_contains`.
 
@@ -47450,7 +47450,7 @@ pub macro_rules! assert_program_args_stderr_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_program_args_stderr_contains` to `debug_assert_program_args_stderr_string_contains`.
 
@@ -47471,7 +47471,7 @@ pub macro_rules! debug_assert_program_args_stderr_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stderr_is_match_as_result` to `assert_program_args_stderr_string_is_match_as_result`.
 
@@ -47492,7 +47492,7 @@ pub macro_rules! assert_program_args_stderr_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `assert_program_args_stderr_is_match` to `assert_program_args_stderr_string_is_match`.
 
@@ -47513,7 +47513,7 @@ pub macro_rules! assert_program_args_stderr_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 **⚠️ Deprecated**: Please rename from `debug_assert_program_args_stderr_is_match` to `debug_assert_program_args_stderr_string_is_match`.
 
@@ -47534,7 +47534,7 @@ pub macro_rules! debug_assert_program_args_stderr_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr into a string contains a given containee.
 
@@ -47567,7 +47567,7 @@ pub macro_rules! assert_program_args_stderr_string_contains_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr into a string contains a given containee.
 
@@ -47616,7 +47616,7 @@ assert_program_args_stderr_string_contains!(program, args, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_string_contains.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47650,7 +47650,7 @@ pub macro_rules! assert_program_args_stderr_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr into a string contains a given containee.
 
@@ -47696,7 +47696,7 @@ pub macro_rules! debug_assert_program_args_stderr_string_contains {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr into a string is a match to a regex.
 
@@ -47729,7 +47729,7 @@ pub macro_rules! assert_program_args_stderr_string_is_match_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr into a string is a match to a regex.
 
@@ -47774,7 +47774,7 @@ assert_program_args_stderr_string_is_match!(program, args, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_string_is_match!(a_program, b_matcher)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_program_args_stderr_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_program_args_stderr_string_is_match.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47808,7 +47808,7 @@ pub macro_rules! assert_program_args_stderr_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a command (built with program and args) stderr into a string is a match to a regex.
 
@@ -47854,7 +47854,7 @@ pub macro_rules! debug_assert_program_args_stderr_string_is_match {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status is a failure.
 
@@ -47887,7 +47887,7 @@ pub macro_rules! assert_status_failure_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status is a failure.
 
@@ -47922,7 +47922,7 @@ assert_status_failure!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_failure!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_failure.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_failure.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"0\"`"
 # );
@@ -47950,7 +47950,7 @@ pub macro_rules! assert_status_failure {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status is a failure.
 
@@ -47996,7 +47996,7 @@ pub macro_rules! debug_assert_status_failure {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status is a success.
 
@@ -48029,7 +48029,7 @@ pub macro_rules! assert_status_success_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status is a success.
 
@@ -48064,7 +48064,7 @@ assert_status_success!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_success!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_success.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_success.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`"
 # );
@@ -48092,7 +48092,7 @@ pub macro_rules! assert_status_success {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status is a success.
 
@@ -48138,7 +48138,7 @@ pub macro_rules! debug_assert_status_success {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status is a failure.
 
@@ -48171,7 +48171,7 @@ pub macro_rules! assert_status_success_false_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status is a failure.
 
@@ -48206,7 +48206,7 @@ assert_status_success_false!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_success_false!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_success_false.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_success_false.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"0\"`"
 # );
@@ -48234,7 +48234,7 @@ pub macro_rules! assert_status_success_false {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status is a failure.
 
@@ -48280,7 +48280,7 @@ pub macro_rules! debug_assert_status_success_false {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is equal to another.
 
@@ -48313,7 +48313,7 @@ pub macro_rules! assert_status_code_value_eq_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is equal to another.
 
@@ -48354,7 +48354,7 @@ assert_status_code_value_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_eq.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -48386,7 +48386,7 @@ pub macro_rules! assert_status_code_value_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is equal to another.
 
@@ -48432,7 +48432,7 @@ pub macro_rules! debug_assert_status_code_value_eq {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than or equal to another.
 
@@ -48465,7 +48465,7 @@ pub macro_rules! assert_status_code_value_ge_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than or equal to another.
 
@@ -48506,7 +48506,7 @@ assert_status_code_value_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_ge.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -48538,7 +48538,7 @@ pub macro_rules! assert_status_code_value_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than or equal to another.
 
@@ -48584,7 +48584,7 @@ pub macro_rules! debug_assert_status_code_value_ge {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than another.
 
@@ -48617,7 +48617,7 @@ pub macro_rules! assert_status_code_value_gt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than another.
 
@@ -48658,7 +48658,7 @@ assert_status_code_value_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_gt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -48690,7 +48690,7 @@ pub macro_rules! assert_status_code_value_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than another.
 
@@ -48736,7 +48736,7 @@ pub macro_rules! debug_assert_status_code_value_gt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than or equal to another.
 
@@ -48769,7 +48769,7 @@ pub macro_rules! assert_status_code_value_le_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than or equal to another.
 
@@ -48810,7 +48810,7 @@ assert_status_code_value_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_le.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 #     "  a code: `2`,\n",
@@ -48842,7 +48842,7 @@ pub macro_rules! assert_status_code_value_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than or equal to another.
 
@@ -48888,7 +48888,7 @@ pub macro_rules! debug_assert_status_code_value_le {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than another.
 
@@ -48921,7 +48921,7 @@ pub macro_rules! assert_status_code_value_lt_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than another.
 
@@ -48962,7 +48962,7 @@ assert_status_code_value_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_lt.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 #     "  a code: `2`,\n",
@@ -48994,7 +48994,7 @@ pub macro_rules! assert_status_code_value_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than another.
 
@@ -49040,7 +49040,7 @@ pub macro_rules! debug_assert_status_code_value_lt {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is not equal to another.
 
@@ -49073,7 +49073,7 @@ pub macro_rules! assert_status_code_value_ne_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is not equal to another.
 
@@ -49114,7 +49114,7 @@ assert_status_code_value_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_ne.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -49146,7 +49146,7 @@ pub macro_rules! assert_status_code_value_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is not equal to another.
 
@@ -49192,7 +49192,7 @@ pub macro_rules! debug_assert_status_code_value_ne {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is equal to an expression.
 
@@ -49225,7 +49225,7 @@ pub macro_rules! assert_status_code_value_eq_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is equal to an expression.
 
@@ -49265,7 +49265,7 @@ assert_status_code_value_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -49296,7 +49296,7 @@ pub macro_rules! assert_status_code_value_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is equal to an expression.
 
@@ -49342,7 +49342,7 @@ pub macro_rules! debug_assert_status_code_value_eq_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than or equal to an expression.
 
@@ -49375,7 +49375,7 @@ pub macro_rules! assert_status_code_value_ge_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than or equal to an expression.
 
@@ -49415,7 +49415,7 @@ assert_status_code_value_ge_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_ge_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -49446,7 +49446,7 @@ pub macro_rules! assert_status_code_value_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than or equal to an expression.
 
@@ -49492,7 +49492,7 @@ pub macro_rules! debug_assert_status_code_value_ge_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than an expression.
 
@@ -49525,7 +49525,7 @@ pub macro_rules! assert_status_code_value_gt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than an expression.
 
@@ -49565,7 +49565,7 @@ assert_status_code_value_gt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_gt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -49596,7 +49596,7 @@ pub macro_rules! assert_status_code_value_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is greater than an expression.
 
@@ -49642,7 +49642,7 @@ pub macro_rules! debug_assert_status_code_value_gt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than or equal to an expression.
 
@@ -49675,7 +49675,7 @@ pub macro_rules! assert_status_code_value_le_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than or equal to an expression.
 
@@ -49715,7 +49715,7 @@ assert_status_code_value_le_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_le_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 #     "  a code: `2`,\n",
@@ -49746,7 +49746,7 @@ pub macro_rules! assert_status_code_value_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than or equal to an expression.
 
@@ -49792,7 +49792,7 @@ pub macro_rules! debug_assert_status_code_value_le_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than an expression.
 
@@ -49825,7 +49825,7 @@ pub macro_rules! assert_status_code_value_lt_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than an expression.
 
@@ -49865,7 +49865,7 @@ assert_status_code_value_lt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 #     "  a code: `2`,\n",
@@ -49896,7 +49896,7 @@ pub macro_rules! assert_status_code_value_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is less than an expression.
 
@@ -49942,7 +49942,7 @@ pub macro_rules! debug_assert_status_code_value_lt_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is not equal to another.
 
@@ -49975,7 +49975,7 @@ pub macro_rules! assert_status_code_value_ne_x_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is not equal to another.
 
@@ -50015,7 +50015,7 @@ assert_status_code_value_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_status_code_value_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_status_code_value_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -50046,7 +50046,7 @@ pub macro_rules! assert_status_code_value_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a status code value is not equal to another.
 
@@ -50092,7 +50092,7 @@ pub macro_rules! debug_assert_status_code_value_ne_x {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a success method is true.
 
@@ -50125,7 +50125,7 @@ pub macro_rules! assert_success_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a success method is true.
 
@@ -50165,7 +50165,7 @@ assert_success!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_success!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_success.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_success.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `A`",
 # );
@@ -50193,7 +50193,7 @@ pub macro_rules! assert_success {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a success method is true.
 
@@ -50239,7 +50239,7 @@ pub macro_rules! debug_assert_success {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a failure method is true.
 
@@ -50272,7 +50272,7 @@ pub macro_rules! assert_success_false_as_result {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a failure method is true.
 
@@ -50312,7 +50312,7 @@ assert_success_false!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_success_false!(a)`\n",
-#     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_success_false.html\n",
+#     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_success_false.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `A`",
 # );
@@ -50340,7 +50340,7 @@ pub macro_rules! assert_success_false {
 
 **Attributes:**
 
-- `#[macro_export]`
+- `macro_export`
 
 Assert a failure method is true.
 

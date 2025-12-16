@@ -51,7 +51,7 @@ macro_rules! assert_command_stderr_gt_x_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-                            "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_gt_x.html\n",
+                            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_gt_x.html\n",
                             " command label: `{}`,\n",
                             " command debug: `{:?}`,\n",
                             " command value: `{:?}`,\n",
@@ -71,7 +71,7 @@ macro_rules! assert_command_stderr_gt_x_as_result {
             (a, b) => Err(format!(
                 concat!(
                     "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-                    "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_gt_x.html\n",
+                    "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_gt_x.html\n",
                     " command label: `{}`,\n",
                     " command debug: `{:?}`,\n",
                     " command value: `{:?}`,\n",
@@ -146,7 +146,7 @@ mod test_assert_command_stderr_gt_x_as_result {
         let actual = assert_command_stderr_gt_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_gt_x.html\n",
+            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_gt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -165,7 +165,7 @@ mod test_assert_command_stderr_gt_x_as_result {
         let actual = assert_command_stderr_gt_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_gt_x.html\n",
+            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_gt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -218,7 +218,7 @@ mod test_assert_command_stderr_gt_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_gt_x.html\n",
+/// #     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_gt_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 /// #     " command value: `[97, 108, 102, 97]`,\n",
@@ -278,7 +278,7 @@ mod test_assert_command_stderr_gt_x {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_gt_x.html\n",
+            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_gt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -306,7 +306,7 @@ mod test_assert_command_stderr_gt_x {
         });
         let message = concat!(
             "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.8.2/assertables/macro.assert_command_stderr_gt_x.html\n",
+            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_command_stderr_gt_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
