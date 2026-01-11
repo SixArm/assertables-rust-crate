@@ -26,8 +26,9 @@ split-debuginfo = "packed"
 [dependencies]
 
 [dev-dependencies]
-cargo-dist = "0.22.1" # Cargo distribution builder for release engineering
-cargo-release = "0.25.20" # Cargo release automation
 cargo-diet = "1.2.7" #  Cargo command to make your crate lean
+cargo-dist = "0.22.1" # Cargo distribution builder for release engineering
+cargo-release = "0.25.22" # Cargo release automation
+cargo-semver-checks = "0.45.0" # Scan for semantic version errors
 regex = "1.12.2" # Regular expressions parser, compiler, and executer
 rustdoc-md = "0.1.0" # Convert Rust documentation JSON into clean, organized Markdown files.

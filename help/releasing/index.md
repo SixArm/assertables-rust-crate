@@ -37,6 +37,7 @@ Verify everything is correct locally:
 ```sh
 cargo fmt
 cargo test
+cargo semver-checks
 cargo build --release
 cargo doc
 ```
