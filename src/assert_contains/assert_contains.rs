@@ -2,10 +2,13 @@
 //!
 //! Pseudocode:<br>
 //! a.contains(b)
+//! or
+//! a.iter().any(|item| item == *b)
 //!
 //! These macros work with many kinds of Rust types, such as String, Vec, Range, HashSet.
-//! The specifics depend on each type's implementation of a method `contains`, and some types
-//! require the second argument to be borrowable, so be sure to check the Rust documentation.
+//! The specifics depend on each type's implementation of a method `contains` or iterate over
+//! the container if you specify it. Some types require the second argument to be borrowable,
+//! so be sure to check the Rust documentation.
 //!
 //! # Example
 //!
@@ -23,6 +26,14 @@
 //! let a = 1..3;
 //! let b = 2;
 //! assert_contains!(a, &b);
+//!
+//! // An iterable that does not implement the "contains" method.
+//! // Notice the => Iterator identifier to make it clear to the macro that you want to iterate over it.
+//! let a = std::collections::BinaryHeap::new();
+//! heap.push(5);
+//! heap.push(2);
+//! let b = 2;
+//! assert_contains!(a => Iterator, &b);
 //!
 //! // Vector contains element.
 //! // Notice the &b because the macro calls Vec.contains(&self, &value).
@@ -67,9 +78,35 @@
 /// * [`assert_contains`](macro@crate::assert_contains)
 /// * [`assert_contains_as_result`](macro@crate::assert_contains_as_result)
 /// * [`debug_assert_contains`](macro@crate::debug_assert_contains)
-///
 #[macro_export]
 macro_rules! assert_contains_as_result {
+    (@msg) => {
+        concat!(
+            "assertion failed: `assert_contains!(container, containee)`\n",
+            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_contains.html\n",
+            " container label: `{}`,\n",
+            " container debug: `{:?}`,\n",
+            " containee label: `{}`,\n",
+            " containee debug: `{:?}`",
+        )
+    };
+    ($container:expr => Iterator, $containee:expr $(,)?) => {
+        match (&$container, &$containee) {
+        (container, containee) => {
+            if container.iter().any(|x| x == *containee) {
+                Ok(())
+            } else {
+                Err(format!(
+                    $crate::assert_contains_as_result!(@msg),
+                    stringify!($container),
+                    container,
+                    stringify!($containee),
+                    containee,
+                ))
+            }
+        }
+    }
+    };
     ($container:expr, $containee:expr $(,)?) => {
         match (&$container, &$containee) {
             (container, containee) => {
@@ -77,14 +114,7 @@ macro_rules! assert_contains_as_result {
                     Ok(())
                 } else {
                     Err(format!(
-                        concat!(
-                            "assertion failed: `assert_contains!(container, containee)`\n",
-                            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_contains.html\n",
-                            " container label: `{}`,\n",
-                            " container debug: `{:?}`,\n",
-                            " containee label: `{}`,\n",
-                            " containee debug: `{:?}`",
-                        ),
+                        $crate::assert_contains_as_result!(@msg),
                         stringify!($container),
                         container,
                         stringify!($containee),
@@ -274,6 +304,68 @@ mod test_assert_contains_as_result {
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
                 "https://docs.rs/assertables/9.8.3/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `\"1\"..\"3\"`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"4\"`"
+            );
+            assert_eq!(actual.unwrap_err(), message);
+        }
+    }
+
+    mod binary_heap_string {
+        use super::*;
+        use std::collections::BinaryHeap;
+
+        #[test]
+        fn success() {
+            let a: BinaryHeap<String> =
+                BinaryHeap::from(vec![String::from("1"), String::from("3")]);
+            let b: String = String::from("2");
+            for _ in 0..1 {
+                let actual = assert_contains_as_result!(a => Iterator, &b);
+                assert_eq!(actual.unwrap(), ());
+            }
+        }
+
+        #[test]
+        fn success_once() {
+            static A: Once = Once::new();
+            fn a() -> BinaryHeap<String> {
+                if A.is_completed() {
+                    panic!("A.is_completed()")
+                } else {
+                    A.call_once(|| {})
+                }
+                BinaryHeap::from(vec![String::from("1"), String::from("3")])
+            }
+
+            static B: Once = Once::new();
+            fn b() -> String {
+                if B.is_completed() {
+                    panic!("B.is_completed()")
+                } else {
+                    B.call_once(|| {})
+                }
+                String::from("2")
+            }
+
+            assert_eq!(A.is_completed(), false);
+            assert_eq!(B.is_completed(), false);
+            let result = assert_contains_as_result!(a() => Iterator, &b());
+            assert!(result.is_ok());
+            assert_eq!(A.is_completed(), true);
+            assert_eq!(B.is_completed(), true);
+        }
+
+        #[test]
+        fn failure() {
+            let a = BinaryHeap::from(vec![String::from("1"), String::from("3")]);
+            let b: String = String::from("4");
+            let actual = assert_contains_as_result!(a => Iterator, &b);
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.8.2/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"1\"..\"3\"`,\n",
                 " containee label: `&b`,\n",
@@ -604,6 +696,18 @@ mod test_assert_contains_as_result {
 ///
 #[macro_export]
 macro_rules! assert_contains {
+    ($container:expr, Iterator, $containee:expr $(,)?) => {
+        match $crate::assert_contains_as_result!($container, Iterator, $containee) {
+            Ok(()) => (),
+            Err(err) => panic!("{}", err),
+        }
+    };
+    ($container:expr, Iterator, $containee:expr, $($message:tt)+) => {
+        match $crate::assert_contains_as_result!($container, Iterator, $containee) {
+            Ok(()) => (),
+            Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
+        }
+    };
     ($container:expr, $containee:expr $(,)?) => {
         match $crate::assert_contains_as_result!($container, $containee) {
             Ok(()) => (),
