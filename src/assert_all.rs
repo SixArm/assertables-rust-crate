@@ -9,7 +9,7 @@
 //! use assertables::*;
 //!
 //! let a = [1, 2, 3];
-//! assert_all!(a.into_iter(), |x: i8| x > 0);
+//! assert_all!(a.iter(), |&x| x > 0);
 //! ```
 //!
 //! This implementation uses [`::std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
@@ -51,7 +51,7 @@ macro_rules! assert_all_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_all!(collection, predicate)`\n",
-                            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_all.html\n",
+                            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_all.html\n",
                             " collection label: `{}`,\n",
                             " collection debug: `{:?}`,\n",
                             "        predicate: `{}`"
@@ -74,7 +74,7 @@ mod test_assert_all_as_result {
     fn success() {
         let a = [1, 2, 3];
         for _ in 0..1 {
-            let actual = assert_all_as_result!(a.into_iter(), |x: i8| x > 0);
+            let actual = assert_all_as_result!(a.iter(), |&x| x > 0);
             assert_eq!(actual.unwrap(), ());
         }
     }
@@ -91,7 +91,7 @@ mod test_assert_all_as_result {
         }
 
         assert_eq!(A.is_completed(), false);
-        let result = assert_all_as_result!(a().into_iter(), |x: i8| x > 0);
+        let result = assert_all_as_result!(a().iter(), |&x| x > 0);
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
     }
@@ -99,13 +99,13 @@ mod test_assert_all_as_result {
     #[test]
     fn failure() {
         let a = [1, -2, 3];
-        let actual = assert_all_as_result!(a.into_iter(), |x: i8| x > 0);
+        let actual = assert_all_as_result!(a.iter(), |&x| x > 0);
         let message = concat!(
             "assertion failed: `assert_all!(collection, predicate)`\n",
-            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_all.html\n",
-            " collection label: `a.into_iter()`,\n",
-            " collection debug: `IntoIter([1, -2, 3])`,\n",
-            "        predicate: `|x: i8| x > 0`"
+            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_all.html\n",
+            " collection label: `a.iter()`,\n",
+            " collection debug: `Iter([1, -2, 3])`,\n",
+            "        predicate: `|&x| x > 0`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -129,25 +129,25 @@ mod test_assert_all_as_result {
 ///
 /// # fn main() {
 /// let a = [1, 2, 3];
-/// assert_all!(a.into_iter(), |x: i8| x > 0);
+/// assert_all!(a.iter(), |&x| x > 0);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = [1, -2, 3];
-/// assert_all!(a.into_iter(), |x: i8| x > 0);
+/// assert_all!(a.iter(), |&x| x > 0);
 /// # });
 /// // assertion failed: `assert_all!(collection, predicate)`
 /// // https://docs.rs/assertables/…/assertables/macro.assert_all.html
-/// //  collection label: `a.into_iter()`,
-/// //  collection debug: `IntoIter([1, -2, 3])`,
-/// //         predicate: `|x: i8| x > 0`
+/// //  collection label: `a.iter()`,
+/// //  collection debug: `Iter([1, -2, 3])`,
+/// //         predicate: `|&x| x > 0`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_all!(collection, predicate)`\n",
-/// #     "https://docs.rs/assertables/9.8.3/assertables/macro.assert_all.html\n",
-/// #     " collection label: `a.into_iter()`,\n",
-/// #     " collection debug: `IntoIter([1, -2, 3])`,\n",
-/// #     "        predicate: `|x: i8| x > 0`",
+/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_all.html\n",
+/// #     " collection label: `a.iter()`,\n",
+/// #     " collection debug: `Iter([1, -2, 3])`,\n",
+/// #     "        predicate: `|&x| x > 0`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -185,7 +185,7 @@ mod test_assert_all {
     fn success() {
         let a = [1, 2, 3];
         for _ in 0..1 {
-            let actual = assert_all!(a.into_iter(), |x: i8| x > 0);
+            let actual = assert_all!(a.iter(), |&x| x > 0);
             assert_eq!(actual, ());
         }
     }
@@ -194,14 +194,14 @@ mod test_assert_all {
     fn failure() {
         let a = [1, -2, 3];
         let result = panic::catch_unwind(|| {
-            let _actual = assert_all!(a.into_iter(), |x: i8| x > 0);
+            let _actual = assert_all!(a.iter(), |&x| x > 0);
         });
         let message = concat!(
             "assertion failed: `assert_all!(collection, predicate)`\n",
-            "https://docs.rs/assertables/9.8.3/assertables/macro.assert_all.html\n",
-            " collection label: `a.into_iter()`,\n",
-            " collection debug: `IntoIter([1, -2, 3])`,\n",
-            "        predicate: `|x: i8| x > 0`"
+            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_all.html\n",
+            " collection label: `a.iter()`,\n",
+            " collection debug: `Iter([1, -2, 3])`,\n",
+            "        predicate: `|&x| x > 0`"
         );
         assert_eq!(
             result
