@@ -5,9 +5,12 @@
 //! or
 //! a.iter().any(|item| item == *b)
 //!
-//! These macros work with many kinds of Rust types, such as String, Vec, Range, HashSet.
-//! The specifics depend on each type's implementation of a method `contains` or iterate over
-//! the container if you specify it. Some types require the second argument to be borrowable,
+//! These macros work with many kinds of Rust types, such as String, Vec, Range,
+//! HashSet and any IntoIterator. The specifics depend on each type's implementation of
+//! a method `contains`. Or you can add the `=> IntoIterator` to the container like
+//! `assert_contains(a => IntoIterator, &b)` to iterate over the container instead
+//! of relying on a potentially-missing `contains` method.
+//! Some types require the second argument to be borrowable,
 //! so be sure to check the Rust documentation.
 //!
 //! # Example
@@ -28,12 +31,13 @@
 //! assert_contains!(a, &b);
 //!
 //! // An iterable that does not implement the "contains" method.
-//! // Notice the => Iterator identifier to make it clear to the macro that you want to iterate over it.
+//! // Notice the `=> IntoIterator` separator/identifier to make it clear that you want
+//! // to iterate over every item of the container to look for the containee.
 //! let a = std::collections::BinaryHeap::new();
 //! heap.push(5);
 //! heap.push(2);
 //! let b = 2;
-//! assert_contains!(a => Iterator, &b);
+//! assert_contains!(a => IntoIterator, &b);
 //!
 //! // Vector contains element.
 //! // Notice the &b because the macro calls Vec.contains(&self, &value).
@@ -90,10 +94,10 @@ macro_rules! assert_contains_as_result {
             " containee debug: `{:?}`",
         )
     };
-    ($container:expr => Iterator, $containee:expr $(,)?) => {
+    ($container:expr => IntoIterator, $containee:expr $(,)?) => {
         match (&$container, &$containee) {
         (container, containee) => {
-            if container.iter().any(|x| x == *containee) {
+            if container.into_iter().any(|x| x == *containee) {
                 Ok(())
             } else {
                 Err(format!(
@@ -323,7 +327,7 @@ mod test_assert_contains_as_result {
                 BinaryHeap::from(vec![String::from("1"), String::from("3")]);
             let b: String = String::from("2");
             for _ in 0..1 {
-                let actual = assert_contains_as_result!(a => Iterator, &b);
+                let actual = assert_contains_as_result!(a => IntoIterator, &b);
                 assert_eq!(actual.unwrap(), ());
             }
         }
@@ -352,7 +356,7 @@ mod test_assert_contains_as_result {
 
             assert_eq!(A.is_completed(), false);
             assert_eq!(B.is_completed(), false);
-            let result = assert_contains_as_result!(a() => Iterator, &b());
+            let result = assert_contains_as_result!(a() => IntoIterator, &b());
             assert!(result.is_ok());
             assert_eq!(A.is_completed(), true);
             assert_eq!(B.is_completed(), true);
@@ -362,7 +366,7 @@ mod test_assert_contains_as_result {
         fn failure() {
             let a = BinaryHeap::from(vec![String::from("1"), String::from("3")]);
             let b: String = String::from("4");
-            let actual = assert_contains_as_result!(a => Iterator, &b);
+            let actual = assert_contains_as_result!(a => IntoIterator, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
                 "https://docs.rs/assertables/9.8.2/assertables/macro.assert_contains.html\n",
@@ -696,14 +700,14 @@ mod test_assert_contains_as_result {
 ///
 #[macro_export]
 macro_rules! assert_contains {
-    ($container:expr, Iterator, $containee:expr $(,)?) => {
-        match $crate::assert_contains_as_result!($container, Iterator, $containee) {
+    ($container:expr => IntoIterator , $containee:expr $(,)?) => {
+        match $crate::assert_contains_as_result!($container => IntoIterator, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     };
-    ($container:expr, Iterator, $containee:expr, $($message:tt)+) => {
-        match $crate::assert_contains_as_result!($container, Iterator, $containee) {
+    ($container:expr => IntoIterator, $containee:expr, $($message:tt)+) => {
+        match $crate::assert_contains_as_result!($container => IntoIterator, $containee) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
