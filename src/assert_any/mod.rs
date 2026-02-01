@@ -17,7 +17,7 @@
 //! use assertables::*;
 //!
 //! let a = [1, 2];
-//! let b = [1, 2];
+//! let b = 1;
 //! assert_any_eq!(&a, &b);
 //! ```
 

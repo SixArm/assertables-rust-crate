@@ -77,7 +77,7 @@ mod test_assert_any_ne_as_result {
     #[test]
     fn success() {
         let a = [2, 2];
-        let b = 2;
+        let b = 1;
         for _ in 0..1 {
             let actual = assert_any_ne_as_result!(&a, &b);
             assert_eq!(actual.unwrap(), ());
@@ -86,14 +86,14 @@ mod test_assert_any_ne_as_result {
 
     #[test]
     fn failure() {
-        let a = [1, 2];
+        let a = [2, 2];
         let b = 2;
         let actual = assert_any_ne_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_any_ne!(a_collection, b_item)`\n",
             "https://docs.rs/assertables/9.8.4/assertables/macro.assert_any_ne.html\n",
             " a label: `&a`,\n",
-            " a debug: `[1, 2]`,\n",
+            " a debug: `[2, 2]`,\n",
             " b label: `&b`,\n",
             " b debug: `2`"
         );
@@ -118,20 +118,20 @@ mod test_assert_any_ne_as_result {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a = [2, 2];
+/// let a = [1, 2];
 /// let b = 2;
 /// assert_any_ne!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a = [1, 2];
+/// let a = [2, 2];
 /// let b = 2;
 /// assert_any_ne!(&a, &b);
 /// # });
 /// // assertion failed: `assert_any_ne!(a_collection, b_item)`
 /// // https://docs.rs/assertables/…/assertables/macro.assert_any_ne.html
 /// //  a label: `&a`,
-/// //  a debug: `[1, 2]`,
+/// //  a debug: `[2, 2]`,
 /// //  b label: `&b`,
 /// //  b debug: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
@@ -139,7 +139,7 @@ mod test_assert_any_ne_as_result {
 /// #     "assertion failed: `assert_any_ne!(a_collection, b_item)`\n",
 /// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_any_ne.html\n",
 /// #     " a label: `&a`,\n",
-/// #     " a debug: `[1, 2]`,\n",
+/// #     " a debug: `[2, 2]`,\n",
 /// #     " b label: `&b`,\n",
 /// #     " b debug: `2`",
 /// # );
@@ -177,7 +177,7 @@ mod test_assert_any_ne {
 
     #[test]
     fn success() {
-        let a = [2, 2];
+        let a = [1, 2];
         let b = 2;
         for _ in 0..1 {
             let actual = assert_any_ne!(&a, &b);
@@ -187,7 +187,7 @@ mod test_assert_any_ne {
 
     #[test]
     fn failure() {
-        let a = [1, 2];
+        let a = [2, 2];
         let b = 2;
         let result = panic::catch_unwind(|| {
             let _actual = assert_any_ne!(&a, &b);
@@ -196,7 +196,7 @@ mod test_assert_any_ne {
             "assertion failed: `assert_any_ne!(a_collection, b_item)`\n",
             "https://docs.rs/assertables/9.8.4/assertables/macro.assert_any_ne.html\n",
             " a label: `&a`,\n",
-            " a debug: `[1, 2]`,\n",
+            " a debug: `[2, 2]`,\n",
             " b label: `&b`,\n",
             " b debug: `2`"
         );

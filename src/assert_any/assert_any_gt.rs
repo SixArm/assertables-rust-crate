@@ -9,7 +9,7 @@
 //! use assertables::*;
 //!
 //! let a = [3, 4];
-//! let b = 4;
+//! let b = 2;
 //! assert_any_gt!(&a, &b);
 //! ```
 //!
@@ -103,7 +103,7 @@ mod test_assert_any_gt_as_result {
     #[test]
     fn lt() {
         let a = [1, 2];
-        let b = 0;
+        let b = 5;
         let actual = assert_any_gt_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_any_gt!(a_collection, b_item)`\n",
@@ -111,7 +111,7 @@ mod test_assert_any_gt_as_result {
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
-            " b debug: `0`"
+            " b debug: `5`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -135,7 +135,7 @@ mod test_assert_any_gt_as_result {
 ///
 /// # fn main() {
 /// let a = [3, 4];
-/// let b = 5;
+/// let b = 3;
 /// assert_any_gt!(&a, &b);
 ///
 /// # let result = panic::catch_unwind(|| {
@@ -229,7 +229,7 @@ mod test_assert_any_gt {
     #[test]
     fn lt() {
         let a = [1, 2];
-        let b = 0;
+        let b = 5;
         let result = panic::catch_unwind(|| {
             let _actual = assert_any_gt!(&a, &b);
         });
@@ -239,7 +239,7 @@ mod test_assert_any_gt {
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
-            " b debug: `0`"
+            " b debug: `5`"
         );
         assert_eq!(
             result

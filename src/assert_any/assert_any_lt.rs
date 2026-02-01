@@ -103,7 +103,7 @@ mod test_assert_any_lt_as_result {
     #[test]
     fn gt() {
         let a = [3, 4];
-        let b = 5;
+        let b = 2;
         let actual = assert_any_lt_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_any_lt!(a_collection, b_item)`\n",
@@ -111,7 +111,7 @@ mod test_assert_any_lt_as_result {
             " a label: `&a`,\n",
             " a debug: `[3, 4]`,\n",
             " b label: `&b`,\n",
-            " b debug: `5`"
+            " b debug: `2`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -141,7 +141,7 @@ mod test_assert_any_lt_as_result {
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = [3, 4];
-/// let b = 3;
+/// let b = 2;
 /// assert_any_lt!(&a, &b);
 /// # });
 /// // assertion failed: `assert_any_lt!(a_collection, b_item)`
@@ -149,7 +149,7 @@ mod test_assert_any_lt_as_result {
 /// //  a label: `&a`,
 /// //  a debug: `[3, 4]`,
 /// //  b label: `&b`,
-/// //  b debug: `3`
+/// //  b debug: `2`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_any_lt!(a_collection, b_item)`\n",
@@ -157,7 +157,7 @@ mod test_assert_any_lt_as_result {
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[3, 4]`,\n",
 /// #     " b label: `&b`,\n",
-/// #     " b debug: `3`",
+/// #     " b debug: `2`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -194,7 +194,7 @@ mod test_assert_any_lt {
     #[test]
     fn lt() {
         let a = [1, 2];
-        let b = 1;
+        let b = 2;
         for _ in 0..1 {
             let actual = assert_any_lt!(&a, &b);
             assert_eq!(actual, ());
@@ -204,7 +204,7 @@ mod test_assert_any_lt {
     #[test]
     fn eq() {
         let a = [1, 2];
-        let b = 2;
+        let b = 1;
         let result = panic::catch_unwind(|| {
             let _actual = assert_any_lt!(&a, &b);
         });
@@ -214,7 +214,7 @@ mod test_assert_any_lt {
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
-            " b debug: `2`"
+            " b debug: `1`"
         );
         assert_eq!(
             result
@@ -229,7 +229,7 @@ mod test_assert_any_lt {
     #[test]
     fn gt() {
         let a = [3, 4];
-        let b = 5;
+        let b = 2;
         let result = panic::catch_unwind(|| {
             let _actual = assert_any_lt!(&a, &b);
         });
@@ -239,7 +239,7 @@ mod test_assert_any_lt {
             " a label: `&a`,\n",
             " a debug: `[3, 4]`,\n",
             " b label: `&b`,\n",
-            " b debug: `5`"
+            " b debug: `2`"
         );
         assert_eq!(
             result

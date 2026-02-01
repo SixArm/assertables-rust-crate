@@ -97,7 +97,7 @@ mod test_assert_any_ge_as_result {
     #[test]
     fn lt() {
         let a = [1, 2];
-        let b = 0;
+        let b = 3;
         let actual = assert_any_ge_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_any_ge!(a_collection, b_item)`\n",
@@ -105,7 +105,7 @@ mod test_assert_any_ge_as_result {
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
-            " b debug: `[3, 4]`"
+            " b debug: `3`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
@@ -156,7 +156,7 @@ mod test_assert_any_ge_as_result {
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
 /// let a = [1, 2];
-/// let b = 0;
+/// let b = 5;
 /// assert_any_ge!(&a, &b);
 /// # });
 /// // assertion failed: `assert_any_ge!(a_collection, b_item)`
@@ -164,7 +164,7 @@ mod test_assert_any_ge_as_result {
 /// //  a label: `&a`,
 /// //  a debug: `[1, 2]`,
 /// //  b label: `&b`,
-/// //  b debug: `0`
+/// //  b debug: `5`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_any_ge!(a_collection, b_item)`\n",
@@ -172,7 +172,7 @@ mod test_assert_any_ge_as_result {
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[1, 2]`,\n",
 /// #     " b label: `&b`,\n",
-/// #     " b debug: `0`",
+/// #     " b debug: `5`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -229,7 +229,7 @@ mod test_assert_any_ge {
     #[test]
     fn lt() {
         let a = [1, 2];
-        let b = 0;
+        let b = 3;
         let result = panic::catch_unwind(|| {
             let _actual = assert_any_ge!(&a, &b);
         });
@@ -239,7 +239,7 @@ mod test_assert_any_ge {
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
-            " b debug: `[3, 4]`"
+            " b debug: `3`"
         );
         assert_eq!(
             result
