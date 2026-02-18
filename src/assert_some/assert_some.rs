@@ -44,7 +44,7 @@ macro_rules! assert_some_as_result {
             _ => Err(format!(
                 concat!(
                     "assertion failed: `assert_some!(a)`\n",
-                    "https://docs.rs/assertables/9.8.4/assertables/macro.assert_some.html\n",
+                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some.html\n",
                     " option label: `{}`,\n",
                     " option debug: `{:?}`",
                 ),
@@ -92,7 +92,7 @@ mod test_assert_some_as_result {
         let actual = assert_some_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_some!(a)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_some.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some.html\n",
             " option label: `a`,\n",
             " option debug: `None`",
         );
@@ -132,7 +132,7 @@ mod test_assert_some_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_some!(a)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_some.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some.html\n",
 /// #     " option label: `a`,\n",
 /// #     " option debug: `None`",
 /// # );
@@ -183,7 +183,7 @@ mod test_assert_some {
         });
         let message = concat!(
             "assertion failed: `assert_some!(a)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_some.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some.html\n",
             " option label: `a`,\n",
             " option debug: `None`",
         );
@@ -232,7 +232,7 @@ mod test_assert_some {
 #[macro_export]
 macro_rules! debug_assert_some {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::assert_some!($($arg)*);
         }
     };

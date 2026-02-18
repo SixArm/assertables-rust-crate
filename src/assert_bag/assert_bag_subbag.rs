@@ -56,7 +56,7 @@ macro_rules! assert_bag_subbag_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
-                            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_subbag.html\n",
+                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_subbag.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -133,7 +133,7 @@ mod test_assert_bag_subbag_as_result {
         let actual = assert_bag_subbag_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_subbag.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_subbag.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 1]`,\n",
             " b label: `b`,\n",
@@ -151,7 +151,7 @@ mod test_assert_bag_subbag_as_result {
         let actual = assert_bag_subbag_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_subbag.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_subbag.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 1, 1]`,\n",
             " b label: `b`,\n",
@@ -201,7 +201,7 @@ mod test_assert_bag_subbag_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_subbag.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_subbag.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[1, 1, 1]`,\n",
 /// #     " b label: `b`,\n",
@@ -264,7 +264,7 @@ mod test_assert_bag_subbag {
         });
         let message = concat!(
             "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_subbag.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_subbag.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 1]`,\n",
             " b label: `b`,\n",
@@ -291,7 +291,7 @@ mod test_assert_bag_subbag {
         });
         let message = concat!(
             "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_subbag.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_subbag.html\n",
             " a label: `a`,\n",
             " a debug: `[1, 1, 1]`,\n",
             " b label: `b`,\n",
@@ -344,7 +344,7 @@ mod test_assert_bag_subbag {
 #[macro_export]
 macro_rules! debug_assert_bag_subbag {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::assert_bag_subbag!($($arg)*);
         }
     };

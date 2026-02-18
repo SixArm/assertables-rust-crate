@@ -79,7 +79,7 @@ macro_rules! assert_contains_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_contains!(container, containee)`\n",
-                            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                             " container label: `{}`,\n",
                             " container debug: `{:?}`,\n",
                             " containee label: `{}`,\n",
@@ -151,7 +151,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `b`,\n",
@@ -212,7 +212,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `&b`,\n",
@@ -273,7 +273,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"1\"..\"3\"`,\n",
                 " containee label: `&b`,\n",
@@ -333,7 +333,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[1, 2, 3]`,\n",
                 " containee label: `&b`,\n",
@@ -394,7 +394,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[\"1\", \"2\", \"3\"]`,\n",
                 " containee label: `&b`,\n",
@@ -455,7 +455,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `{\"1\"}`,\n",
                 " containee label: `&b`,\n",
@@ -516,7 +516,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `{\"1\"}`,\n",
                 " containee label: `b`,\n",
@@ -588,7 +588,7 @@ mod test_assert_contains_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_contains!(container, containee)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
 /// #     " container label: `a`,\n",
 /// #     " container debug: `\"alfa\"`,\n",
 /// #     " containee label: `b`,\n",
@@ -644,7 +644,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `b`,\n",
@@ -684,7 +684,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `&b`,\n",
@@ -724,7 +724,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"1\"..\"3\"`,\n",
                 " containee label: `&b`,\n",
@@ -763,7 +763,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[1, 2, 3]`,\n",
                 " containee label: `&b`,\n",
@@ -802,7 +802,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[\"1\", \"2\", \"3\"]`,\n",
                 " containee label: `&b`,\n",
@@ -842,7 +842,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `{\"1\"}`,\n",
                 " containee label: `&b`,\n",
@@ -882,7 +882,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `{\"1\"}`,\n",
                 " containee label: `b`,\n",
@@ -934,7 +934,7 @@ mod test_assert_contains {
 #[macro_export]
 macro_rules! debug_assert_contains {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::assert_contains!($($arg)*);
         }
     };

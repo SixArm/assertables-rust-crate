@@ -58,7 +58,7 @@ macro_rules! assert_program_args_stderr_gt_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`\n",
-                                        "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_gt.html\n",
+                                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_gt.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -89,7 +89,7 @@ macro_rules! assert_program_args_stderr_gt_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`\n",
-                                    "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_gt.html\n",
+                                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_gt.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -201,7 +201,7 @@ mod test_assert_program_args_stderr_gt_as_result {
         let actual = assert_program_args_stderr_gt_as_result!(a_program, a_args, b_program, b_args);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_gt.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_gt.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -225,7 +225,7 @@ mod test_assert_program_args_stderr_gt_as_result {
         let actual = assert_program_args_stderr_gt_as_result!(a_program, a_args, b_program, b_args);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_gt.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_gt.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -287,7 +287,7 @@ mod test_assert_program_args_stderr_gt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_gt.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_gt.html\n",
 /// #     " a_program label: `a_program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `a_args`,\n",
@@ -352,7 +352,7 @@ mod test_assert_program_args_stderr_gt {
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_gt.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_gt.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -385,7 +385,7 @@ mod test_assert_program_args_stderr_gt {
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_gt.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_gt.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -442,7 +442,7 @@ mod test_assert_program_args_stderr_gt {
 #[macro_export]
 macro_rules! debug_assert_program_args_stderr_gt {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::assert_program_args_stderr_gt!($($arg)*);
         }
     };

@@ -49,7 +49,7 @@ macro_rules! assert_err_eq_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_err_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_eq.html\n",
+                                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a inner: `{:?}`,\n",
@@ -69,7 +69,7 @@ macro_rules! assert_err_eq_as_result {
                 _ => Err(format!(
                     concat!(
                         "assertion failed: `assert_err_eq!(a, b)`\n",
-                        "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_eq.html\n",
+                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_eq.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -136,7 +136,7 @@ mod test_assert_err_eq_as_result {
         let actual = assert_err_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_err_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_eq.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`,\n",
             " a inner: `1`,\n",
@@ -154,7 +154,7 @@ mod test_assert_err_eq_as_result {
         let actual = assert_err_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_err_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_eq.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`,\n",
             " b label: `b`,\n",
@@ -202,7 +202,7 @@ mod test_assert_err_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_err_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_eq.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Err(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -259,7 +259,7 @@ mod test_assert_err_eq {
         });
         let message = concat!(
             "assertion failed: `assert_err_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_eq.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`,\n",
             " a inner: `1`,\n",
@@ -286,7 +286,7 @@ mod test_assert_err_eq {
         });
         let message = concat!(
             "assertion failed: `assert_err_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_eq.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`,\n",
             " b label: `b`,\n",
@@ -337,7 +337,7 @@ mod test_assert_err_eq {
 #[macro_export]
 macro_rules! debug_assert_err_eq {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::assert_err_eq!($($arg)*);
         }
     };

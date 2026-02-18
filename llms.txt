@@ -1,8 +1,8 @@
 # Crate Documentation
 
-**Version:** 9.8.4
+**Version:** 9.8.5
 
-**Format Version:** 56
+**Format Version:** 57
 
 # Module `assertables`
 
@@ -266,9 +266,9 @@ Many of the macros has a "success return", which means the macro returns data th
 ## Tracking
 
 * Package: assertables-rust-crate
-* Version: 9.8.4
+* Version: 9.8.5
 * Created: 2021-03-30T15:47:49Z
-* Updated: 2026-01-14T21:43:14Z
+* Updated: 2026-02-18T16:20:52Z
 * License: MIT or Apache-2.0 or GPL-2.0 or GPL-3.0 or contact us for more
 * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
 
@@ -9783,7 +9783,7 @@ assert_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `1`,\n",
 #     " b label: `b`,\n",
@@ -9930,7 +9930,7 @@ assert_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `1`,\n",
 #     " b label: `b`,\n",
@@ -10077,7 +10077,7 @@ assert_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `2`,\n",
 #     " b label: `b`,\n",
@@ -10225,7 +10225,7 @@ assert_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `2`,\n",
 #     " b label: `b`,\n",
@@ -10410,7 +10410,7 @@ assert_eq_f32!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_eq_f32!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_eq_f32.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_eq_f32.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -10562,7 +10562,7 @@ assert_eq_f64!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_eq_f64!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_eq_f64.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_eq_f64.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -10712,7 +10712,7 @@ assert_f32_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f32_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f32_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -10863,7 +10863,7 @@ assert_f32_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f32_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f32_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -11014,7 +11014,7 @@ assert_f32_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f32_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f32_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -11165,7 +11165,7 @@ assert_f32_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f32_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f32_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -11316,7 +11316,7 @@ assert_f32_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f32_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f32_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -11467,7 +11467,7 @@ assert_f32_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f32_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f32_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f32_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.33333334`,\n",
 #     " b label: `b`,\n",
@@ -11619,7 +11619,7 @@ assert_f64_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f64_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -11770,7 +11770,7 @@ assert_f64_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f64_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -11921,7 +11921,7 @@ assert_f64_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f64_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -12072,7 +12072,7 @@ assert_f64_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f64_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -12223,7 +12223,7 @@ assert_f64_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f64_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -12374,7 +12374,7 @@ assert_f64_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_f64_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_f64_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `0.3333333333333333`,\n",
 #     " b label: `b`,\n",
@@ -12530,7 +12530,7 @@ assert_abs_diff_eq_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_eq_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_abs_diff_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_abs_diff_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -12688,7 +12688,7 @@ assert_abs_diff_ge_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_ge_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_abs_diff_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_abs_diff_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -12846,7 +12846,7 @@ assert_abs_diff_gt_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_gt_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_abs_diff_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_abs_diff_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -13004,7 +13004,7 @@ assert_abs_diff_le_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_le_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_abs_diff_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_abs_diff_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -13162,7 +13162,7 @@ assert_abs_diff_lt_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_lt_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_abs_diff_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_abs_diff_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -13320,7 +13320,7 @@ assert_abs_diff_ne_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_abs_diff_ne_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_abs_diff_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_abs_diff_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -13856,7 +13856,7 @@ assert_approx_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_approx_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_approx_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_approx_eq.html\n",
 #     "            a label: `a`,\n",
 #     "            a debug: `1.0000001`,\n",
 #     "            b label: `b`,\n",
@@ -14031,7 +14031,7 @@ assert_approx_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_approx_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_approx_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_approx_ne.html\n",
 #     "            a label: `a`,\n",
 #     "            a debug: `1.0000001`,\n",
 #     "            b label: `b`,\n",
@@ -14209,7 +14209,7 @@ assert_diff_eq_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_eq_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_diff_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -14370,7 +14370,7 @@ assert_diff_ge_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_ge_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_diff_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -14531,7 +14531,7 @@ assert_diff_gt_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_gt_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_diff_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -14692,7 +14692,7 @@ assert_diff_le_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_le_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_diff_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -14853,7 +14853,7 @@ assert_diff_lt_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_lt_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_diff_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -15014,7 +15014,7 @@ assert_diff_ne_x!(a, b, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_diff_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `10`,\n",
 #     " b label: `b`,\n",
@@ -15165,7 +15165,7 @@ assert_in!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_in!(a, container)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_in.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in.html\n",
 #     "         a label: `a`,\n",
 #     "         a debug: `1`,\n",
 #     " container label: `b`,\n",
@@ -15322,7 +15322,7 @@ assert_in_delta!(a, b, delta);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_in_delta.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_delta.html\n",
 #     "       a label: `a`,\n",
 #     "       a debug: `10`,\n",
 #     "       b label: `b`,\n",
@@ -15499,7 +15499,7 @@ assert_in_epsilon!(a, b, epsilon);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_in_epsilon.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_epsilon.html\n",
 #     "                   a label: `a`,\n",
 #     "                   a debug: `10`,\n",
 #     "                   b label: `b`,\n",
@@ -15669,7 +15669,7 @@ assert_in_range!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_in_range!(a, range)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_in_range.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_range.html\n",
 #     "     a label: `a`,\n",
 #     "     a debug: `1`,\n",
 #     " range label: `b`,\n",
@@ -15815,7 +15815,7 @@ assert_all!(a.iter(), |&x| x > 0);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_all!(collection, predicate)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_all.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_all.html\n",
 #     " collection label: `a.iter()`,\n",
 #     " collection debug: `Iter([1, -2, 3])`,\n",
 #     "        predicate: `|&x| x > 0`",
@@ -15962,7 +15962,7 @@ assert_any!(a.iter(), |&x| x > 3);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_any!(collection, predicate)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_any.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_any.html\n",
 #     " collection label: `a.iter()`,\n",
 #     " collection debug: `Iter([1, 2, 3])`,\n",
 #     "        predicate: `|&x| x > 3`",
@@ -16110,7 +16110,7 @@ assert_infix!(a == b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_infix!(a == b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_infix.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_infix.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `1`,\n",
 #     " b label: `b`,\n",
@@ -16302,7 +16302,7 @@ assert_contains!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_contains!(container, containee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_contains.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
 #     " container label: `a`,\n",
 #     " container debug: `\"alfa\"`,\n",
 #     " containee label: `b`,\n",
@@ -16472,7 +16472,7 @@ assert_not_contains!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_contains!(container, containee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_not_contains.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_contains.html\n",
 #     " container label: `a`,\n",
 #     " container debug: `\"alfa\"`,\n",
 #     " containee label: `b`,\n",
@@ -16621,7 +16621,7 @@ assert_count_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -16772,7 +16772,7 @@ assert_count_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -16923,7 +16923,7 @@ assert_count_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -17074,7 +17074,7 @@ assert_count_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x', 'x'])`,\n",
 #     " a.count(): `2`,\n",
@@ -17225,7 +17225,7 @@ assert_count_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x', 'x'])`,\n",
 #     " a.count(): `2`,\n",
@@ -17376,7 +17376,7 @@ assert_count_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -17526,7 +17526,7 @@ assert_count_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -17675,7 +17675,7 @@ assert_count_ge_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_ge_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -17824,7 +17824,7 @@ assert_count_gt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_gt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -17973,7 +17973,7 @@ assert_count_le_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_le_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x', 'x'])`,\n",
 #     " a.count(): `2`,\n",
@@ -18122,7 +18122,7 @@ assert_count_lt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_lt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x', 'x'])`,\n",
 #     " a.count(): `2`,\n",
@@ -18271,7 +18271,7 @@ assert_count_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_count_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_count_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Chars(['x'])`,\n",
 #     " a.count(): `1`,\n",
@@ -18411,7 +18411,7 @@ assert_email_address!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_email_address!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_email_address.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_email_address.html\n",
 #     " email address must contain an '@' at sign.\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"hello*example.com\"`,\n",
@@ -18549,7 +18549,7 @@ assert_not_email_address!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_email_address!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_not_email_address.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_email_address.html\n",
 #     " email address has local part with valid length 1..64, then an '@' sign, then a domain part with valid length 1..255.\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"hello@example.com\"`,\n",
@@ -18701,7 +18701,7 @@ assert_ends_with!(sequence, subsequence);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ends_with!(sequence, subsequence)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ends_with.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ends_with.html\n",
 #     "     sequence label: `sequence`,\n",
 #     "     sequence debug: `\"alfa\"`,\n",
 #     "  subsequence label: `subsequence`,\n",
@@ -18854,7 +18854,7 @@ assert_not_ends_with!(sequence, subsequence);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_ends_with!(sequence, subsequence)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_not_ends_with.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_ends_with.html\n",
 #     "     sequence label: `sequence`,\n",
 #     "     sequence debug: `\"alfa\"`,\n",
 #     "  subsequence label: `subsequence`,\n",
@@ -18997,7 +18997,7 @@ assert_is_empty!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_is_empty!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_is_empty.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_is_empty.html\n",
 #     " label: `a`,\n",
 #     " debug: `\"alfa\"`"
 # );
@@ -19138,7 +19138,7 @@ assert_not_empty!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_empty!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_not_empty.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_empty.html\n",
 #     " label: `a`,\n",
 #     " debug: `\"\"`"
 # );
@@ -19284,7 +19284,7 @@ assert_is_match!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_is_match!(matcher, matchee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_is_match.html\n",
 #     " matcher label: `a`,\n",
 #     " matcher debug: `Regex(\"xx\")`,\n",
 #     " matchee label: `b`,\n",
@@ -19432,7 +19432,7 @@ assert_not_match!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_match!(matcher, matchee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_not_match.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_match.html\n",
 #     " matcher label: `a`,\n",
 #     " matcher debug: `Regex(\"lf\")`,\n",
 #     " matchee label: `b`,\n",
@@ -19581,7 +19581,7 @@ assert_len_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -19732,7 +19732,7 @@ assert_len_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -19883,7 +19883,7 @@ assert_len_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -20034,7 +20034,7 @@ assert_len_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"xx\"`,\n",
 #     " a.len(): `2`,\n",
@@ -20185,7 +20185,7 @@ assert_len_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"xx\"`,\n",
 #     " a.len(): `2`,\n",
@@ -20336,7 +20336,7 @@ assert_len_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -20486,7 +20486,7 @@ assert_len_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -20635,7 +20635,7 @@ assert_len_ge_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_ge_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -20784,7 +20784,7 @@ assert_len_gt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_gt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -20933,7 +20933,7 @@ assert_len_le_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_le_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"xx\"`,\n",
 #     " a.len(): `2`,\n",
@@ -21082,7 +21082,7 @@ assert_len_lt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_lt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"xx\"`,\n",
 #     " a.len(): `2`,\n",
@@ -21231,7 +21231,7 @@ assert_len_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_len_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"x\"`,\n",
 #     " a.len(): `1`,\n",
@@ -21368,7 +21368,7 @@ assert_matches!(a, 'b'..='z');
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_matches!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_matches.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_matches.html\n",
 #     " args: `a, 'b'..='z'`",
 # );
 # assert_eq!(actual, message);
@@ -21500,7 +21500,7 @@ assert_not_matches!(a, 'a'..='z');
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_matches!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_not_matches.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_matches.html\n",
 #     " args: `a, 'a'..='z'`",
 # );
 # assert_eq!(actual, message);
@@ -21649,7 +21649,7 @@ assert_not_starts_with!(sequence, subsequence);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_not_starts_with!(sequence, subsequence)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_not_starts_with.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_starts_with.html\n",
 #     "     sequence label: `sequence`,\n",
 #     "     sequence debug: `\"alfa\"`,\n",
 #     "  subsequence label: `subsequence`,\n",
@@ -21802,7 +21802,7 @@ assert_starts_with!(sequence, subsequence);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_starts_with!(sequence, subsequence)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_starts_with.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_starts_with.html\n",
 #     "     sequence label: `sequence`,\n",
 #     "     sequence debug: `\"alfa\"`,\n",
 #     "  subsequence label: `subsequence`,\n",
@@ -21945,7 +21945,7 @@ assert_err!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`",
 # );
@@ -22092,7 +22092,7 @@ assert_err_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22243,7 +22243,7 @@ assert_err_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22390,7 +22390,7 @@ assert_err_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22539,7 +22539,7 @@ assert_err_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_err_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_err_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22683,7 +22683,7 @@ assert_ok!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ok.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Err(1)`",
 # );
@@ -22830,7 +22830,7 @@ assert_ok_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ok_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`,\n",
 #     " a inner: `1`,\n",
@@ -22981,7 +22981,7 @@ assert_ok_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ok_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`,\n",
 #     " a inner: `1`,\n",
@@ -23128,7 +23128,7 @@ assert_ok_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ok_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`,\n",
 #     " a inner: `1`,\n",
@@ -23277,7 +23277,7 @@ assert_ok_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ok_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ok_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ok(1)`,\n",
 #     " a inner: `1`,\n",
@@ -23672,7 +23672,7 @@ assert_none!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_none!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_none.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_none.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`",
 # );
@@ -24065,7 +24065,7 @@ assert_some!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_some.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some.html\n",
 #     " option label: `a`,\n",
 #     " option debug: `None`",
 # );
@@ -24214,7 +24214,7 @@ assert_some_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_some_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`,\n",
 #     " a inner: `1`,\n",
@@ -24368,7 +24368,7 @@ assert_some_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_some_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`,\n",
 #     " a inner: `1`,\n",
@@ -24521,7 +24521,7 @@ assert_some_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_some_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`,\n",
 #     " a inner: `1`,\n",
@@ -24673,7 +24673,7 @@ assert_some_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_some_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_some_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Some(1)`,\n",
 #     " a inner: `1`,\n",
@@ -24818,7 +24818,7 @@ assert_pending!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_pending!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_pending.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_pending.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`",
 # );
@@ -25212,7 +25212,7 @@ assert_ready!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ready.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ready.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Pending`",
 # );
@@ -25363,7 +25363,7 @@ assert_ready_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ready_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ready_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`,\n",
 #     " a inner: `1`,\n",
@@ -25518,7 +25518,7 @@ assert_ready_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ready_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ready_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`,\n",
 #     " a inner: `1`,\n",
@@ -25672,7 +25672,7 @@ assert_ready_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ready_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ready_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`,\n",
 #     " a inner: `1`,\n",
@@ -25825,7 +25825,7 @@ assert_ready_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_ready_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ready_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ready_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `Ready(1)`,\n",
 #     " a inner: `1`,\n",
@@ -25991,7 +25991,7 @@ assert_bag_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_bag_eq!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 1]`,\n",
 #     " b label: `b`,\n",
@@ -26144,7 +26144,7 @@ assert_bag_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_bag_ne!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 1]`,\n",
 #     " b label: `b`,\n",
@@ -26297,7 +26297,7 @@ assert_bag_subbag!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_bag_subbag!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_subbag.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_subbag.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 1, 1]`,\n",
 #     " b label: `b`,\n",
@@ -26450,7 +26450,7 @@ assert_bag_superbag!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_bag_superbag!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_bag_superbag.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_bag_superbag.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 1]`,\n",
 #     " b label: `b`,\n",
@@ -26603,7 +26603,7 @@ assert_iter_eq!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_eq!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_iter_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_eq.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `&b`,\n",
@@ -26754,7 +26754,7 @@ assert_iter_ge!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_ge!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_iter_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_ge.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `&b`,\n",
@@ -26905,7 +26905,7 @@ assert_iter_gt!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_gt!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_iter_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_gt.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `&b`,\n",
@@ -27056,7 +27056,7 @@ assert_iter_le!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_le!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_iter_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_le.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[3, 4]`,\n",
 #     " b label: `&b`,\n",
@@ -27207,7 +27207,7 @@ assert_iter_lt!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_iter_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_lt.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[3, 4]`,\n",
 #     " b label: `&b`,\n",
@@ -27358,7 +27358,7 @@ assert_iter_ne!(&a, &b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_iter_ne!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_iter_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_ne.html\n",
 #     " a label: `&a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `&b`,\n",
@@ -27527,7 +27527,7 @@ assert_set_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_eq!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_set_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_set_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -27680,7 +27680,7 @@ assert_set_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_ne!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_set_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_set_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -27833,7 +27833,7 @@ assert_set_disjoint!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_disjoint!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_set_disjoint.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_set_disjoint.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -27986,7 +27986,7 @@ assert_set_joint!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_joint!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_set_joint.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_set_joint.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -28139,7 +28139,7 @@ assert_set_subset!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_subset!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_set_subset.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_set_subset.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2, 3]`,\n",
 #     " b label: `b`,\n",
@@ -28294,7 +28294,7 @@ assert_set_superset!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_set_superset!(a_collection, b_collection)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_set_superset.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_set_superset.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[1, 2]`,\n",
 #     " b label: `b`,\n",
@@ -28450,7 +28450,7 @@ assert_fn_eq!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_eq.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -28608,7 +28608,7 @@ assert_fn_ge!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ge!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ge.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -28766,7 +28766,7 @@ assert_fn_gt!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_gt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_gt.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -28926,7 +28926,7 @@ assert_fn_le!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_le!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_le.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-2`,\n",
@@ -29084,7 +29084,7 @@ assert_fn_lt!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_lt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_lt.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-2`,\n",
@@ -29242,7 +29242,7 @@ assert_fn_ne!(i8::abs, a, i8::abs, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ne!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ne.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -29399,7 +29399,7 @@ assert_fn_eq_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_eq_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_eq_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -29555,7 +29555,7 @@ assert_fn_ge_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ge_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ge_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -29711,7 +29711,7 @@ assert_fn_gt_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_gt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_gt_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -29870,7 +29870,7 @@ assert_fn_le_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_le_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_le_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-2`,\n",
@@ -30026,7 +30026,7 @@ assert_fn_lt_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_lt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_lt_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-2`,\n",
@@ -30180,7 +30180,7 @@ assert_fn_ne_x!(i8::abs, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ne_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ne_x.html\n",
 #     " a_function label: `i8::abs`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `-1`,\n",
@@ -30343,7 +30343,7 @@ assert_fn_err_eq!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_eq!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_eq.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -30507,7 +30507,7 @@ assert_fn_err_ge!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_ge!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_ge.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -30671,7 +30671,7 @@ assert_fn_err_gt!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_gt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_gt.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -30835,7 +30835,7 @@ assert_fn_err_le!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_le.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `20`,\n",
@@ -30993,7 +30993,7 @@ assert_fn_err_lt!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_lt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_lt.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `20`,\n",
@@ -31154,7 +31154,7 @@ assert_fn_err_ne!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_ne!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_ne.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -31317,7 +31317,7 @@ assert_fn_err_eq_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_eq_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_eq_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -31479,7 +31479,7 @@ assert_fn_err_ge_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_ge_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_ge_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -31641,7 +31641,7 @@ assert_fn_err_gt_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_gt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_gt_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -31803,7 +31803,7 @@ assert_fn_err_le_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_le_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_le_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `20`,\n",
@@ -31965,7 +31965,7 @@ assert_fn_err_lt_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_lt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_lt_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `20`,\n",
@@ -32127,7 +32127,7 @@ assert_fn_err_ne_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_err_ne_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_err_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_ne_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `10`,\n",
@@ -32290,7 +32290,7 @@ assert_fn_ok_eq!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_eq!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_eq.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -32454,7 +32454,7 @@ assert_fn_ok_ge!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_ge!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_ge.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -32618,7 +32618,7 @@ assert_fn_ok_gt!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_gt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_gt.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -32782,7 +32782,7 @@ assert_fn_ok_le!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_le.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `2`,\n",
@@ -32944,7 +32944,7 @@ assert_fn_ok_lt!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_lt!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_lt.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `2`,\n",
@@ -33108,7 +33108,7 @@ assert_fn_ok_ne!(f, a, f, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_ne!(a_function, a_param, b_function, b_param)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_ne.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -33271,7 +33271,7 @@ assert_fn_ok_eq_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_eq_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_eq_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -33433,7 +33433,7 @@ assert_fn_ok_ge_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_ge_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_ge_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -33595,7 +33595,7 @@ assert_fn_ok_gt_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_gt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_gt_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -33757,7 +33757,7 @@ assert_fn_ok_le_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_le_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_le_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `2`,\n",
@@ -33921,7 +33921,7 @@ assert_fn_ok_lt_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_lt_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_lt_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `2`,\n",
@@ -34083,7 +34083,7 @@ assert_fn_ok_ne_x!(f, a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fn_ok_ne_x!(a_function, a_param, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fn_ok_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_ne_x.html\n",
 #     " a_function label: `f`,\n",
 #     "    a_param label: `a`,\n",
 #     "    a_param debug: `1`,\n",
@@ -34238,7 +34238,7 @@ assert_fs_read_to_string_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_eq!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_eq.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34390,7 +34390,7 @@ assert_fs_read_to_string_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_ge!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_ge.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34542,7 +34542,7 @@ assert_fs_read_to_string_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_gt!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_gt.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34694,7 +34694,7 @@ assert_fs_read_to_string_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_le!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_le.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"bravo.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34846,7 +34846,7 @@ assert_fs_read_to_string_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_lt!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_lt.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"bravo.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -34998,7 +34998,7 @@ assert_fs_read_to_string_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_ne!(a_path, b_path)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_ne.html\n",
 #     " a_path label: `a`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_path label: `b`,\n",
@@ -35150,7 +35150,7 @@ assert_fs_read_to_string_eq_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_eq_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_eq_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35302,7 +35302,7 @@ assert_fs_read_to_string_ge_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_ge_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_ge_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35454,7 +35454,7 @@ assert_fs_read_to_string_gt_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_gt_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_gt_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35606,7 +35606,7 @@ assert_fs_read_to_string_le_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_le_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_le_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"bravo.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35758,7 +35758,7 @@ assert_fs_read_to_string_lt_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_lt_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_lt_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"bravo.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -35910,7 +35910,7 @@ assert_fs_read_to_string_ne_x!(path, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_ne_x!(a_path, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_ne_x.html\n",
 #     " a_path label: `path`,\n",
 #     " a_path debug: `\"alfa.txt\"`,\n",
 #     " b_expr label: `x`,\n",
@@ -36061,7 +36061,7 @@ assert_fs_read_to_string_contains!(path, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_contains!(path, containee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_contains.html\n",
 #     "      path label: `path`,\n",
 #     "      path debug: `\"alfa.txt\"`,\n",
 #     " containee label: `containee`,\n",
@@ -36212,7 +36212,7 @@ assert_fs_read_to_string_is_match!(path, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_is_match.html\n",
 #     "    path label: `path`,\n",
 #     "    path debug: `\"alfa.txt\"`,\n",
 #     " matcher label: `matcher`,\n",
@@ -36426,7 +36426,7 @@ assert_io_read_to_string_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_eq!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -36578,7 +36578,7 @@ assert_io_read_to_string_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_ge!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -36730,7 +36730,7 @@ assert_io_read_to_string_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -36882,7 +36882,7 @@ assert_io_read_to_string_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_le!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -37034,7 +37034,7 @@ assert_io_read_to_string_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_lt!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -37186,7 +37186,7 @@ assert_io_read_to_string_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_ne!(a_reader, b_reader)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `[97, 108, 102, 97]`,\n",
 #     " b label: `b`,\n",
@@ -37337,7 +37337,7 @@ assert_io_read_to_string_eq_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_eq_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_eq_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -37488,7 +37488,7 @@ assert_io_read_to_string_ge_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_ge_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -37640,7 +37640,7 @@ assert_io_read_to_string_gt_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_gt_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_gt_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -37792,7 +37792,7 @@ assert_io_read_to_string_le_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_le_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_le_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -37944,7 +37944,7 @@ assert_io_read_to_string_lt_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_lt_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_lt_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -38096,7 +38096,7 @@ assert_io_read_to_string_ne_x!(reader, x);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_ne_x!(a_reader, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_ne_x.html\n",
 #     " a_reader label: `reader`,\n",
 #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 #     "   b_expr label: `x`,\n",
@@ -38247,7 +38247,7 @@ assert_io_read_to_string_contains!(reader, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_contains!(reader, containee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_contains.html\n",
 #     "    reader label: `reader`,\n",
 #     "    reader debug: `[104, 101, 108, 108, 111]`,\n",
 #     " containee label: `containee`,\n",
@@ -38397,7 +38397,7 @@ assert_io_read_to_string_is_match!(reader, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_io_read_to_string_is_match!(a_reader, &matcher)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_io_read_to_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_is_match.html\n",
 #     "  reader label: `reader`,\n",
 #     "  reader debug: `[104, 101, 108, 108, 111]`,\n",
 #     " matcher label: `matcher`,\n",
@@ -38615,7 +38615,7 @@ assert_command_stdout_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_eq!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -38768,7 +38768,7 @@ assert_command_stdout_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_ge!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -38921,7 +38921,7 @@ assert_command_stdout_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_gt!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -39074,7 +39074,7 @@ assert_command_stdout_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -39227,7 +39227,7 @@ assert_command_stdout_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_lt!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -39380,7 +39380,7 @@ assert_command_stdout_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_ne!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " b label: `b`,\n",
@@ -39531,7 +39531,7 @@ assert_command_stdout_eq_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_eq_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -39685,7 +39685,7 @@ assert_command_stdout_ge_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_ge_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_ge_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -39839,7 +39839,7 @@ assert_command_stdout_gt_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_gt_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_gt_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -39993,7 +39993,7 @@ assert_command_stdout_le_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_le_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_le_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -40147,7 +40147,7 @@ assert_command_stdout_lt_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_lt_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_lt_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -40301,7 +40301,7 @@ assert_command_stdout_ne_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_ne_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_ne_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -40586,7 +40586,7 @@ assert_command_stdout_string_contains!(command, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_string_contains!(command, containee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_string_contains.html\n",
 #     "   command label: `command`,\n",
 #     "   command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     "   command value: `\"alfa\"`,\n",
@@ -40741,7 +40741,7 @@ assert_command_stdout_string_is_match!(command, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stdout_string_is_match!(command, matcher)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_string_is_match.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 #     " command value: `\"alfa\"`,\n",
@@ -40897,7 +40897,7 @@ assert_command_stderr_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_eq!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41050,7 +41050,7 @@ assert_command_stderr_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_ge!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41203,7 +41203,7 @@ assert_command_stderr_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_gt!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41356,7 +41356,7 @@ assert_command_stderr_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_le!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41509,7 +41509,7 @@ assert_command_stderr_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_lt!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41662,7 +41662,7 @@ assert_command_stderr_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_ne!(a_command, b_command)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " a value: `[97, 108, 102, 97]`,\n",
@@ -41813,7 +41813,7 @@ assert_command_stderr_eq_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_eq_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_eq_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -41967,7 +41967,7 @@ assert_command_stderr_ge_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_ge_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_ge_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -42121,7 +42121,7 @@ assert_command_stderr_gt_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_gt_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_gt_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -42275,7 +42275,7 @@ assert_command_stderr_le_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_le_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_le_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -42429,7 +42429,7 @@ assert_command_stderr_lt_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_lt_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_lt_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -42583,7 +42583,7 @@ assert_command_stderr_ne_x!(command, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_ne_x!(command, expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_ne_x.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `[97, 108, 102, 97]`,\n",
@@ -42873,7 +42873,7 @@ assert_command_stderr_string_contains!(command, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_string_contains!(command, containee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_string_contains.html\n",
 #     "   command label: `command`,\n",
 #     "   command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     "   command value: `\"alfa\"`,\n",
@@ -43028,7 +43028,7 @@ assert_command_stderr_string_is_match!(command, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_command_stderr_string_is_match!(command, matcher)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stderr_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stderr_string_is_match.html\n",
 #     " command label: `command`,\n",
 #     " command debug: `\"bin/printf-stderr\" \"%s\" \"alfa\"`,\n",
 #     " command value: `\"alfa\"`,\n",
@@ -43204,7 +43204,7 @@ assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_eq!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_eq.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -43368,7 +43368,7 @@ assert_program_args_stdout_ge!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_ge!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_ge.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -43532,7 +43532,7 @@ assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_gt!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_gt.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -43696,7 +43696,7 @@ assert_program_args_stdout_le!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_le!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_le.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -43860,7 +43860,7 @@ assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_lt!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_lt.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -44024,7 +44024,7 @@ assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_ne!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_ne.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -44180,7 +44180,7 @@ assert_program_args_stdout_eq_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_eq_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_eq_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44337,7 +44337,7 @@ assert_program_args_stdout_ge_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_ge_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_ge_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44494,7 +44494,7 @@ assert_program_args_stdout_gt_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_gt_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_gt_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44651,7 +44651,7 @@ assert_program_args_stdout_le_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_le_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_le_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44808,7 +44808,7 @@ assert_program_args_stdout_lt_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_lt_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_lt_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -44965,7 +44965,7 @@ assert_program_args_stdout_ne_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_ne_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_ne_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -45253,7 +45253,7 @@ assert_program_args_stdout_string_contains!(program, args, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_string_contains!(a_program, a_args, containee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_string_contains.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -45408,7 +45408,7 @@ assert_program_args_stdout_string_is_match!(program, args, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stdout_string_is_match!(a_program, b_matcher)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stdout_string_is_match.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stdout\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -45569,7 +45569,7 @@ assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_eq!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_eq.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -45732,7 +45732,7 @@ assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_ge!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_ge.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -45895,7 +45895,7 @@ assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_gt!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_gt.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -46058,7 +46058,7 @@ assert_program_args_stderr_le!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_le!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_le.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -46221,7 +46221,7 @@ assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_lt!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_lt.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -46384,7 +46384,7 @@ assert_program_args_stderr_ne!(a_program, a_args, b_program, b_args);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_ne!(a_program, a_args, b_program, b_args)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_ne.html\n",
 #     " a_program label: `a_program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `a_args`,\n",
@@ -46543,7 +46543,7 @@ assert_program_args_stderr_eq_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_eq_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -46700,7 +46700,7 @@ assert_program_args_stderr_ge_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_ge_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_ge_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -46857,7 +46857,7 @@ assert_program_args_stderr_gt_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_gt_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_gt_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47014,7 +47014,7 @@ assert_program_args_stderr_le_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_le_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_le_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47171,7 +47171,7 @@ assert_program_args_stderr_lt_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_lt_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_lt_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47328,7 +47328,7 @@ assert_program_args_stderr_ne_x!(program, args, bytes);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_ne_x!(a_program, a_args, b_expr)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_ne_x.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47616,7 +47616,7 @@ assert_program_args_stderr_string_contains!(program, args, containee);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_string_contains!(a_program, a_args, containee)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_string_contains.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_string_contains.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47774,7 +47774,7 @@ assert_program_args_stderr_string_is_match!(program, args, matcher);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_program_args_stderr_string_is_match!(a_program, b_matcher)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_program_args_stderr_string_is_match.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_string_is_match.html\n",
 #     " a_program label: `program`,\n",
 #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 #     "    a_args label: `args`,\n",
@@ -47922,7 +47922,7 @@ assert_status_failure!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_failure!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_failure.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_failure.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"0\"`"
 # );
@@ -48064,7 +48064,7 @@ assert_status_success!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_success!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_success.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_success.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`"
 # );
@@ -48206,7 +48206,7 @@ assert_status_success_false!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_success_false!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_success_false.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_success_false.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"0\"`"
 # );
@@ -48354,7 +48354,7 @@ assert_status_code_value_eq!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_eq!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_eq.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_eq.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -48506,7 +48506,7 @@ assert_status_code_value_ge!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_ge!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_ge.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ge.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -48658,7 +48658,7 @@ assert_status_code_value_gt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_gt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_gt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_gt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -48810,7 +48810,7 @@ assert_status_code_value_le!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_le!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_le.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_le.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 #     "  a code: `2`,\n",
@@ -48962,7 +48962,7 @@ assert_status_code_value_lt!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_lt!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_lt.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_lt.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 #     "  a code: `2`,\n",
@@ -49114,7 +49114,7 @@ assert_status_code_value_ne!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_ne!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_ne.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ne.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -49265,7 +49265,7 @@ assert_status_code_value_eq_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_eq_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_eq_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_eq_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -49415,7 +49415,7 @@ assert_status_code_value_ge_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_ge_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_ge_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ge_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -49565,7 +49565,7 @@ assert_status_code_value_gt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_gt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_gt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_gt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -49715,7 +49715,7 @@ assert_status_code_value_le_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_le_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_le_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_le_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 #     "  a code: `2`,\n",
@@ -49865,7 +49865,7 @@ assert_status_code_value_lt_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_lt_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_lt_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_lt_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"2\"`,\n",
 #     "  a code: `2`,\n",
@@ -50015,7 +50015,7 @@ assert_status_code_value_ne_x!(a, b);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_status_code_value_ne_x!(a, b)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_status_code_value_ne_x.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ne_x.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 #     "  a code: `1`,\n",
@@ -50165,7 +50165,7 @@ assert_success!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_success!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_success.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_success.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `A`",
 # );
@@ -50312,7 +50312,7 @@ assert_success_false!(a);
 # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 # let message = concat!(
 #     "assertion failed: `assert_success_false!(a)`\n",
-#     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_success_false.html\n",
+#     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_success_false.html\n",
 #     " a label: `a`,\n",
 #     " a debug: `A`",
 # );

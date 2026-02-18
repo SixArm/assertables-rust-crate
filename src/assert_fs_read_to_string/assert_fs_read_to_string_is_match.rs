@@ -52,7 +52,7 @@ macro_rules! assert_fs_read_to_string_is_match_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                                        "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_is_match.html\n",
                                         "    path label: `{}`,\n",
                                         "    path debug: `{:?}`,\n",
                                         " matcher label: `{}`,\n",
@@ -73,7 +73,7 @@ macro_rules! assert_fs_read_to_string_is_match_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                                    "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_is_match.html\n",
                                     "    path label: `{}`,\n",
                                     "    path debug: `{:?}`,\n",
                                     " matcher label: `{}`,\n",
@@ -157,7 +157,7 @@ mod test_assert_fs_read_to_string_is_match_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_is_match.html\n",
                 "    path label: `path`,\n",
                 "    path debug: `{:?}`,\n",
                 " matcher label: `matcher`,\n",
@@ -209,7 +209,7 @@ mod test_assert_fs_read_to_string_is_match_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_is_match.html\n",
 /// #     "    path label: `path`,\n",
 /// #     "    path debug: `\"alfa.txt\"`,\n",
 /// #     " matcher label: `matcher`,\n",
@@ -277,7 +277,7 @@ mod test_assert_fs_read_to_string_is_match {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_is_match!(path, matcher)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_fs_read_to_string_is_match.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_is_match.html\n",
                 "    path label: `path`,\n",
                 "    path debug: `{:?}`,\n",
                 " matcher label: `matcher`,\n",
@@ -331,7 +331,7 @@ mod test_assert_fs_read_to_string_is_match {
 #[macro_export]
 macro_rules! debug_assert_fs_read_to_string_is_match {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::std::fs::read_to_string_is_match!($($arg)*);
         }
     };

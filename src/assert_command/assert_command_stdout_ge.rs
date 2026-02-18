@@ -53,7 +53,7 @@ macro_rules! assert_command_stdout_ge_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_ge!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_ge.html\n",
+                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_ge.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -73,7 +73,7 @@ macro_rules! assert_command_stdout_ge_as_result {
             (a, b) => Err(format!(
                 concat!(
                     "assertion failed: `assert_command_stdout_ge!(a_command, b_command)`\n",
-                    "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_ge.html\n",
+                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_ge.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`,\n",
                     " b label: `{}`,\n",
@@ -204,7 +204,7 @@ mod test_assert_command_stdout_ge_as_result {
         let actual = assert_command_stdout_ge_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stdout_ge!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_ge.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -259,7 +259,7 @@ mod test_assert_command_stdout_ge_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_ge!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_ge.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
@@ -336,7 +336,7 @@ mod test_assert_command_stdout_ge {
         });
         let message = concat!(
             "assertion failed: `assert_command_stdout_ge!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_command_stdout_ge.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -386,7 +386,7 @@ mod test_assert_command_stdout_ge {
 #[macro_export]
 macro_rules! debug_assert_command_stdout_ge {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::assert_command_stdout_ge!($($arg)*);
         }
     };

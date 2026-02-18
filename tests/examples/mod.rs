@@ -6,6 +6,7 @@
 //! * [Validations: examples that combine Assertable macros into runtime code](module@validations)
 
 mod comparisons;
+mod debug;
 mod namespaces;
 mod starters;
 mod validations;

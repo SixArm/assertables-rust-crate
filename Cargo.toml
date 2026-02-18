@@ -1,6 +1,6 @@
 [package]
 name = "assertables"
-version = "9.8.4"
+version = "9.8.5"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 edition = "2021"
 description = "Assertables: assert macros for better testing, debugging, quality assurance, and runtime reliability."
@@ -28,8 +28,8 @@ split-debuginfo = "packed"
 [dev-dependencies]
 cargo-diet = "1.2.7" #  Make your crate lean
 cargo-deny = "0.19.0" # Lint dependencies
-cargo-dist = "0.22.1" # Distribution builder for release engineering
-cargo-release = "0.25.22" # Release automation
-cargo-semver-checks = "0.45.0" # Scan for semantic version errors
-regex = "1.12.2" # Regular expressions parser, compiler, and executer
-rustdoc-md = "0.1.0" # Convert Rust documentation JSON into clean, organized Markdown files.
+cargo-dist = "0.30.4" # Distribution builder for release engineering
+cargo-release = "1.0.0" # Release automation
+cargo-semver-checks = "0.46.0" # Scan for semantic version errors
+regex = "1.12.3" # Regular expressions parser, compiler, and executer
+rustdoc-md = "0.2.0" # Convert Rust documentation JSON into clean, organized Markdown files.

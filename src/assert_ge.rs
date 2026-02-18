@@ -48,7 +48,7 @@ macro_rules! assert_ge_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_ge!(a, b)`\n",
-                            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ge.html\n",
+                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ge.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -159,7 +159,7 @@ mod test_assert_ge_as_result {
             let actual = assert_ge_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_ge!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ge.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ge.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
@@ -259,7 +259,7 @@ mod test_assert_ge_as_result {
             let actual = assert_ge_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_ge!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ge.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ge.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"1\"`,\n",
                 " b label: `b`,\n",
@@ -306,7 +306,7 @@ mod test_assert_ge_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_ge!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ge.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `1`,\n",
 /// #     " b label: `b`,\n",
@@ -374,7 +374,7 @@ mod test_assert_ge {
             });
             let message = concat!(
                 "assertion failed: `assert_ge!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ge.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ge.html\n",
                 " a label: `a`,\n",
                 " a debug: `1`,\n",
                 " b label: `b`,\n",
@@ -423,7 +423,7 @@ mod test_assert_ge {
             });
             let message = concat!(
                 "assertion failed: `assert_ge!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.4/assertables/macro.assert_ge.html\n",
+                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ge.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"1\"`,\n",
                 " b label: `b`,\n",
@@ -475,7 +475,7 @@ mod test_assert_ge {
 #[macro_export]
 macro_rules! debug_assert_ge {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::assert_ge!($($arg)*);
         }
     };

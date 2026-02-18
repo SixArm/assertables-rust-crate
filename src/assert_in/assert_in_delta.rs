@@ -91,7 +91,7 @@ macro_rules! assert_in_delta_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-                            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_in_delta.html\n",
+                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_delta.html\n",
                             "       a label: `{}`,\n",
                             "       a debug: `{:?}`,\n",
                             "       b label: `{}`,\n",
@@ -181,7 +181,7 @@ mod test_assert_in_delta_as_result {
         let actual = assert_in_delta_as_result!(a, b, delta);
         let message = concat!(
             "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_in_delta.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_delta.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
@@ -237,7 +237,7 @@ mod test_assert_in_delta_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_in_delta.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_delta.html\n",
 /// #     "       a label: `a`,\n",
 /// #     "       a debug: `10`,\n",
 /// #     "       b label: `b`,\n",
@@ -316,7 +316,7 @@ mod test_assert_in_delta {
         });
         let message = concat!(
             "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_in_delta.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_delta.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
@@ -371,7 +371,7 @@ mod test_assert_in_delta {
 #[macro_export]
 macro_rules! debug_assert_in_delta {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::assert_in_delta!($($arg)*);
         }
     };

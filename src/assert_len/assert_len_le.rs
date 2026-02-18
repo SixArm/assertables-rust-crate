@@ -50,7 +50,7 @@ macro_rules! assert_len_le_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_len_le!(a, b)`\n",
-                            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_le.html\n",
+                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_le.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a.len(): `{:?}`,\n",
@@ -162,7 +162,7 @@ mod test_assert_len_le_as_result {
         let actual = assert_len_le_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_len_le!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_le.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"xx\"`,\n",
             " a.len(): `2`,\n",
@@ -212,7 +212,7 @@ mod test_assert_len_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_len_le!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_le.html\n",
+/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"xx\"`,\n",
 /// #     " a.len(): `2`,\n",
@@ -279,7 +279,7 @@ mod test_assert_len_le {
         });
         let message = concat!(
             "assertion failed: `assert_len_le!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.4/assertables/macro.assert_len_le.html\n",
+            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"xx\"`,\n",
             " a.len(): `2`,\n",
@@ -332,7 +332,7 @@ mod test_assert_len_le {
 #[macro_export]
 macro_rules! debug_assert_len_le {
     ($($arg:tt)*) => {
-        if $crate::cfg!(debug_assertions) {
+        if cfg!(debug_assertions) {
             $crate::assert_len_le!($($arg)*);
         }
     };
