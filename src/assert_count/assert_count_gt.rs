@@ -50,7 +50,7 @@ macro_rules! assert_count_gt_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_count_gt!(a, b)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_gt.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_count_gt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a.count(): `{:?}`,\n",
@@ -122,7 +122,7 @@ mod test_assert_count_gt_as_result {
         let actual = assert_count_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_count_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_count_gt.html\n",
             " a label: `a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
@@ -140,7 +140,7 @@ mod test_assert_count_gt_as_result {
         let actual = assert_count_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_count_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_count_gt.html\n",
             " a label: `a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
@@ -190,7 +190,7 @@ mod test_assert_count_gt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_count_gt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_gt.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_count_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Chars(['x'])`,\n",
 /// #     " a.count(): `1`,\n",
@@ -247,7 +247,7 @@ mod test_assert_count_gt {
         });
         let message = concat!(
             "assertion failed: `assert_count_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_count_gt.html\n",
             " a label: `a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
@@ -274,7 +274,7 @@ mod test_assert_count_gt {
         });
         let message = concat!(
             "assertion failed: `assert_count_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_count_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_count_gt.html\n",
             " a label: `a`,\n",
             " a debug: `Chars(['x'])`,\n",
             " a.count(): `1`,\n",
@@ -331,4 +331,73 @@ macro_rules! debug_assert_count_gt {
             $crate::assert_count_gt!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_count_gt {
+    use std::panic;
+
+    #[test]
+    fn gt() {
+        let a = "xx".chars();
+        let b = "x".chars();
+        for _ in 0..1 {
+            let _actual = debug_assert_count_gt!(a, b);
+            // assert_eq!(actual, (2, 1));
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let result = panic::catch_unwind(|| {
+            let a = "x".chars();
+            let b = "x".chars();
+            let _actual = debug_assert_count_gt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_count_gt!(a, b)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_count_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `Chars(['x'])`,\n",
+            " a.count(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `Chars(['x'])`\n",
+            " b.count(): `1`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn lt() {
+        let result = panic::catch_unwind(|| {
+            let a = "x".chars();
+            let b = "xx".chars();
+            let _actual = debug_assert_count_gt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_count_gt!(a, b)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_count_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `Chars(['x'])`,\n",
+            " a.count(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `Chars(['x', 'x'])`\n",
+            " b.count(): `2`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

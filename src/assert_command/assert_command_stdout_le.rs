@@ -53,7 +53,7 @@ macro_rules! assert_command_stdout_le_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_le.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_le.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -73,7 +73,7 @@ macro_rules! assert_command_stdout_le_as_result {
             (a, b) => Err(format!(
                 concat!(
                     "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_le.html\n",
+                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_le.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`,\n",
                     " b label: `{}`,\n",
@@ -204,7 +204,7 @@ mod test_assert_command_stdout_le_as_result {
         let actual = assert_command_stdout_le_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_le.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -259,7 +259,7 @@ mod test_assert_command_stdout_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_le.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " b label: `b`,\n",
@@ -318,10 +318,8 @@ mod test_assert_command_stdout_le {
         b.args(["%s", "alfa"]);
         for _ in 0..1 {
             let actual = assert_command_stdout_le!(a, b);
-            assert_eq!(
-                actual,
-                (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a'])
-            );
+            let expect = (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a']);
+            assert_eq!(actual, expect);
         }
     }
 
@@ -336,7 +334,7 @@ mod test_assert_command_stdout_le {
         });
         let message = concat!(
             "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_le.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_le.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " b label: `b`,\n",
@@ -390,4 +388,64 @@ macro_rules! debug_assert_command_stdout_le {
             $crate::assert_command_stdout_le!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_command_stdout_le {
+    use std::panic;
+    use std::process::Command;
+
+    #[test]
+    fn lt() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let mut b = Command::new("bin/printf-stdout");
+        b.args(["%s", "zz"]);
+        for _ in 0..1 {
+            let _actual = debug_assert_command_stdout_le!(a, b);
+            // assert_eq!(actual, (vec![b'a', b'l', b'f', b'a'], vec![b'z', b'z']));
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let mut b = Command::new("bin/printf-stdout");
+        b.args(["%s", "alfa"]);
+        for _ in 0..1 {
+            let _actual = debug_assert_command_stdout_le!(a, b);
+            let _expect = (vec![b'a', b'l', b'f', b'a'], vec![b'a', b'l', b'f', b'a']);
+            // assert_eq!(actual, expect);
+        }
+    }
+
+    #[test]
+    fn gt() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/printf-stdout");
+            a.args(["%s", "alfa"]);
+            let mut b = Command::new("bin/printf-stdout");
+            b.args(["%s", "aa"]);
+            let _actual = debug_assert_command_stdout_le!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_command_stdout_le!(a_command, b_command)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_le.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"bin/printf-stdout\" \"%s\" \"aa\"`,\n",
+            " a value: `[97, 108, 102, 97]`,\n",
+            " b value: `[97, 97]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

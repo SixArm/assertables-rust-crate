@@ -49,7 +49,7 @@ macro_rules! assert_ok_eq_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_ok_eq!(a, b)`\n",
-                                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_eq.html\n",
+                                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_ok_eq.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " a inner: `{:?}`,\n",
@@ -69,7 +69,7 @@ macro_rules! assert_ok_eq_as_result {
                 _ => Err(format!(
                     concat!(
                         "assertion failed: `assert_ok_eq!(a, b)`\n",
-                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_eq.html\n",
+                        "https://docs.rs/assertables/9.8.6/assertables/macro.assert_ok_eq.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -136,7 +136,7 @@ mod test_assert_ok_eq_as_result {
         let actual = assert_ok_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ok_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_eq.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_ok_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`,\n",
             " a inner: `1`,\n",
@@ -154,7 +154,7 @@ mod test_assert_ok_eq_as_result {
         let actual = assert_ok_eq_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_ok_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_eq.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_ok_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`,\n",
             " b label: `b`,\n",
@@ -202,7 +202,7 @@ mod test_assert_ok_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_ok_eq!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_eq.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_ok_eq.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -259,7 +259,7 @@ mod test_assert_ok_eq {
         });
         let message = concat!(
             "assertion failed: `assert_ok_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_eq.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_ok_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`,\n",
             " a inner: `1`,\n",
@@ -286,7 +286,7 @@ mod test_assert_ok_eq {
         });
         let message = concat!(
             "assertion failed: `assert_ok_eq!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_ok_eq.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_ok_eq.html\n",
             " a label: `a`,\n",
             " a debug: `Err(1)`,\n",
             " b label: `b`,\n",
@@ -341,4 +341,71 @@ macro_rules! debug_assert_ok_eq {
             $crate::assert_ok_eq!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_ok_eq {
+    use std::panic;
+
+    #[test]
+    fn eq() {
+        let a: Result<i8, i8> = Ok(1);
+        let b: Result<i8, i8> = Ok(1);
+        for _ in 0..1 {
+            let _actual = debug_assert_ok_eq!(a, b);
+            // assert_eq!(actual, (1, 1));
+        }
+    }
+
+    #[test]
+    fn ne() {
+        let a: Result<i8, i8> = Ok(1);
+        let b: Result<i8, i8> = Ok(2);
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_ok_eq!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_ok_eq!(a, b)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_ok_eq.html\n",
+            " a label: `a`,\n",
+            " a debug: `Ok(1)`,\n",
+            " a inner: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `Ok(2)`,\n",
+            " b inner: `2`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn not_ok() {
+        let a: Result<i8, i8> = Err(1);
+        let b: Result<i8, i8> = Ok(1);
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_ok_eq!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_ok_eq!(a, b)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_ok_eq.html\n",
+            " a label: `a`,\n",
+            " a debug: `Err(1)`,\n",
+            " b label: `b`,\n",
+            " b debug: `Ok(1)`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

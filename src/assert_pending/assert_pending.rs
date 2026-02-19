@@ -47,7 +47,7 @@ macro_rules! assert_pending_as_result {
                 _ => Err(format!(
                     concat!(
                         "assertion failed: `assert_pending!(a)`\n",
-                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_pending.html\n",
+                        "https://docs.rs/assertables/9.8.6/assertables/macro.assert_pending.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`",
                     ),
@@ -98,7 +98,7 @@ mod test_assert_pending_as_result {
         let actual = assert_pending_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_pending!(a)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_pending.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_pending.html\n",
             " a label: `a`,\n",
             " a debug: `Ready(1)`"
         );
@@ -139,7 +139,7 @@ mod test_assert_pending_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_pending!(a)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_pending.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_pending.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ready(1)`",
 /// # );
@@ -192,7 +192,7 @@ mod test_assert_pending {
         });
         let message = concat!(
             "assertion failed: `assert_pending!(a)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_pending.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_pending.html\n",
             " a label: `a`,\n",
             " a debug: `Ready(1)`"
         );
@@ -245,4 +245,42 @@ macro_rules! debug_assert_pending {
             $crate::assert_pending!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_pending {
+    use std::panic;
+    use std::task::Poll;
+    use std::task::Poll::*;
+
+    #[test]
+    fn success() {
+        let a: Poll<i8> = Pending;
+        for _ in 0..1 {
+            let _actual = debug_assert_pending!(a);
+            // assert_eq!(actual, ());
+        }
+    }
+
+    #[test]
+    fn failure() {
+        let a: Poll<i8> = Ready(1);
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_pending!(a);
+        });
+        let message = concat!(
+            "assertion failed: `assert_pending!(a)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_pending.html\n",
+            " a label: `a`,\n",
+            " a debug: `Ready(1)`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

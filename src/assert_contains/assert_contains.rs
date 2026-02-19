@@ -79,7 +79,7 @@ macro_rules! assert_contains_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_contains!(container, containee)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                             " container label: `{}`,\n",
                             " container debug: `{:?}`,\n",
                             " containee label: `{}`,\n",
@@ -151,7 +151,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `b`,\n",
@@ -212,7 +212,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `&b`,\n",
@@ -273,7 +273,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"1\"..\"3\"`,\n",
                 " containee label: `&b`,\n",
@@ -333,7 +333,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[1, 2, 3]`,\n",
                 " containee label: `&b`,\n",
@@ -394,7 +394,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[\"1\", \"2\", \"3\"]`,\n",
                 " containee label: `&b`,\n",
@@ -455,7 +455,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, &b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `{\"1\"}`,\n",
                 " containee label: `&b`,\n",
@@ -516,7 +516,7 @@ mod test_assert_contains_as_result {
             let actual = assert_contains_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `{\"1\"}`,\n",
                 " containee label: `b`,\n",
@@ -588,7 +588,7 @@ mod test_assert_contains_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_contains!(container, containee)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
 /// #     " container label: `a`,\n",
 /// #     " container debug: `\"alfa\"`,\n",
 /// #     " containee label: `b`,\n",
@@ -631,7 +631,8 @@ mod test_assert_contains {
             let b: &'static str = "lf";
             for _ in 0..1 {
                 let actual = assert_contains!(a, b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -644,7 +645,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"alfa\"`,\n",
                 " containee label: `b`,\n",
@@ -671,7 +672,8 @@ mod test_assert_contains {
             let b: i32 = 2;
             for _ in 0..1 {
                 let actual = assert_contains!(a, &b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -684,7 +686,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `1..3`,\n",
                 " containee label: `&b`,\n",
@@ -711,7 +713,8 @@ mod test_assert_contains {
             let b: String = String::from("2");
             for _ in 0..1 {
                 let actual = assert_contains!(a, &b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -724,7 +727,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `\"1\"..\"3\"`,\n",
                 " containee label: `&b`,\n",
@@ -750,7 +753,8 @@ mod test_assert_contains {
             let b: i32 = 2;
             for _ in 0..1 {
                 let actual = assert_contains!(a, &b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -763,7 +767,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[1, 2, 3]`,\n",
                 " containee label: `&b`,\n",
@@ -789,7 +793,8 @@ mod test_assert_contains {
             let b: String = String::from("2");
             for _ in 0..1 {
                 let actual = assert_contains!(a, &b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -802,7 +807,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `[\"1\", \"2\", \"3\"]`,\n",
                 " containee label: `&b`,\n",
@@ -829,7 +834,8 @@ mod test_assert_contains {
             let b: String = String::from("1");
             for _ in 0..1 {
                 let actual = assert_contains!(a, &b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -842,7 +848,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `{\"1\"}`,\n",
                 " containee label: `&b`,\n",
@@ -869,7 +875,8 @@ mod test_assert_contains {
             let b: &'static str = "1";
             for _ in 0..1 {
                 let actual = assert_contains!(a, b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -882,7 +889,7 @@ mod test_assert_contains {
             });
             let message = concat!(
                 "assertion failed: `assert_contains!(container, containee)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_contains.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
                 " container label: `a`,\n",
                 " container debug: `{\"1\"}`,\n",
                 " containee label: `b`,\n",
@@ -938,4 +945,293 @@ macro_rules! debug_assert_contains {
             $crate::assert_contains!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_contains {
+    use std::panic;
+
+    mod str {
+        use super::*;
+
+        #[test]
+        fn success() {
+            let a: &'static str = "alfa";
+            let b: &'static str = "lf";
+            for _ in 0..1 {
+                let _actual = debug_assert_contains!(a, b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a: &'static str = "alfa";
+            let b: &'static str = "xx";
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_contains!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `\"alfa\"`,\n",
+                " containee label: `b`,\n",
+                " containee debug: `\"xx\"`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod range_i32 {
+        use super::*;
+        use std::ops::Range;
+
+        #[test]
+        fn success() {
+            let a: Range<i32> = 1..3;
+            let b: i32 = 2;
+            for _ in 0..1 {
+                let _actual = debug_assert_contains!(a, &b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a: Range<i32> = 1..3;
+            let b: i32 = 4;
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `1..3`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `4`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod range_string {
+        use super::*;
+        use std::ops::Range;
+
+        #[test]
+        fn success() {
+            let a: Range<String> = String::from("1")..String::from("3");
+            let b: String = String::from("2");
+            for _ in 0..1 {
+                let _actual = debug_assert_contains!(a, &b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a: Range<String> = String::from("1")..String::from("3");
+            let b: String = String::from("4");
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `\"1\"..\"3\"`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"4\"`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod vec_i32 {
+        use super::*;
+
+        #[test]
+        fn success() {
+            let a: Vec<i32> = vec![1, 2, 3];
+            let b: i32 = 2;
+            for _ in 0..1 {
+                let _actual = debug_assert_contains!(a, &b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a: Vec<i32> = vec![1, 2, 3];
+            let b: i32 = 4;
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `[1, 2, 3]`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `4`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod vec_string {
+        use super::*;
+
+        #[test]
+        fn success() {
+            let a: Vec<String> = vec![String::from("1"), String::from("2"), String::from("3")];
+            let b: String = String::from("2");
+            for _ in 0..1 {
+                let _actual = debug_assert_contains!(a, &b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a = vec![String::from("1"), String::from("2"), String::from("3")];
+            let b: String = String::from("4");
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `[\"1\", \"2\", \"3\"]`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"4\"`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod hashset_string {
+        use super::*;
+        use std::collections::HashSet;
+
+        #[test]
+        fn success() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: String = String::from("1");
+            for _ in 0..1 {
+                let _actual = debug_assert_contains!(a, &b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: String = String::from("2");
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_contains!(a, &b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `{\"1\"}`,\n",
+                " containee label: `&b`,\n",
+                " containee debug: `\"2\"`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod hashset_string_with_str_automatic_borrow_optimization {
+        use super::*;
+        use std::collections::HashSet;
+
+        #[test]
+        fn success() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: &'static str = "1";
+            for _ in 0..1 {
+                let _actual = debug_assert_contains!(a, b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn failure() {
+            let a: HashSet<String> = [String::from("1")].into();
+            let b: &'static str = "2";
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_contains!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_contains!(container, containee)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_contains.html\n",
+                " container label: `a`,\n",
+                " container debug: `{\"1\"}`,\n",
+                " containee label: `b`,\n",
+                " containee debug: `\"2\"`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
 }

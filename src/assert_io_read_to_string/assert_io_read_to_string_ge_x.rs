@@ -52,7 +52,7 @@ macro_rules! assert_io_read_to_string_ge_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_ge_x.html\n",
+                                        "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_ge_x.html\n",
                                         " a_reader label: `{}`,\n",
                                         " a_reader debug: `{:?}`,\n",
                                         "   b_expr label: `{}`,\n",
@@ -75,7 +75,7 @@ macro_rules! assert_io_read_to_string_ge_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_ge_x.html\n",
+                                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_ge_x.html\n",
                                     " a_reader label: `{}`,\n",
                                     " a_reader debug: `{:?}`,\n",
                                     "   b_expr label: `{}`,\n",
@@ -189,7 +189,7 @@ mod test_assert_io_read_to_string_ge_x_as_result {
         let actual = assert_io_read_to_string_ge_x_as_result!(reader, x);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_ge_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_ge_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[97, 108, 102, 97]`,\n",
             "   b_expr label: `x`,\n",
@@ -240,7 +240,7 @@ mod test_assert_io_read_to_string_ge_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_ge_x.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_ge_x.html\n",
 /// #     " a_reader label: `reader`,\n",
 /// #     " a_reader debug: `[97, 108, 102, 97]`,\n",
 /// #     "   b_expr label: `x`,\n",
@@ -308,7 +308,7 @@ mod test_assert_io_read_to_string_ge_x {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_ge_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_ge_x.html\n",
             " a_reader label: `reader`,\n",
             " a_reader debug: `[97, 108, 102, 97]`,\n",
             "   b_expr label: `x`,\n",
@@ -365,4 +365,57 @@ macro_rules! debug_assert_io_read_to_string_ge_x {
             $crate::assert_io_read_to_string_ge_x!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_io_read_to_string_ge_x {
+    #[allow(unused_imports)]
+    use std::panic;
+
+    #[test]
+    fn gt() {
+        let reader = "alfa".as_bytes();
+        let x = String::from("aa");
+        for _ in 0..1 {
+            let _actual = debug_assert_io_read_to_string_ge_x!(reader, x);
+            // assert_eq!(actual, String::from("alfa"));
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let reader = "alfa".as_bytes();
+        let x = String::from("alfa");
+        for _ in 0..1 {
+            let _actual = debug_assert_io_read_to_string_ge_x!(reader, x);
+            // assert_eq!(actual, String::from("alfa"));
+        }
+    }
+
+    #[test]
+    fn lt() {
+        let result = panic::catch_unwind(|| {
+            let reader = "alfa".as_bytes();
+            let x = String::from("zz");
+            let _actual = debug_assert_io_read_to_string_ge_x!(reader, x);
+        });
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_ge_x!(a_reader, b_expr)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_ge_x.html\n",
+            " a_reader label: `reader`,\n",
+            " a_reader debug: `[97, 108, 102, 97]`,\n",
+            "   b_expr label: `x`,\n",
+            "   b_expr debug: `\"zz\"`,\n",
+            "              a: `\"alfa\"`,\n",
+            "              b: `\"zz\"`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

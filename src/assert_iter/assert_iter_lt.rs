@@ -54,7 +54,7 @@ macro_rules! assert_iter_lt_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_lt.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_iter_lt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -92,7 +92,7 @@ mod test_assert_iter_lt_as_result {
         let actual = assert_iter_lt_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_lt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_iter_lt.html\n",
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
@@ -108,7 +108,7 @@ mod test_assert_iter_lt_as_result {
         let actual = assert_iter_lt_as_result!(&a, &b);
         let message = concat!(
             "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_lt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_iter_lt.html\n",
             " a label: `&a`,\n",
             " a debug: `[3, 4]`,\n",
             " b label: `&b`,\n",
@@ -154,7 +154,7 @@ mod test_assert_iter_lt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_lt.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_iter_lt.html\n",
 /// #     " a label: `&a`,\n",
 /// #     " a debug: `[3, 4]`,\n",
 /// #     " b label: `&b`,\n",
@@ -211,7 +211,7 @@ mod test_assert_iter_lt {
         });
         let message = concat!(
             "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_lt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_iter_lt.html\n",
             " a label: `&a`,\n",
             " a debug: `[1, 2]`,\n",
             " b label: `&b`,\n",
@@ -236,7 +236,7 @@ mod test_assert_iter_lt {
         });
         let message = concat!(
             "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_iter_lt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_iter_lt.html\n",
             " a label: `&a`,\n",
             " a debug: `[3, 4]`,\n",
             " b label: `&b`,\n",
@@ -291,4 +291,69 @@ macro_rules! debug_assert_iter_lt {
             $crate::assert_iter_lt!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_iter_lt {
+    use std::panic;
+
+    #[test]
+    fn lt() {
+        let a = [1, 2];
+        let b = [3, 4];
+        for _ in 0..1 {
+            let _actual = debug_assert_iter_lt!(&a, &b);
+            // assert_eq!(actual, ());
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let a = [1, 2];
+        let b = [1, 2];
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_iter_lt!(&a, &b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_iter_lt.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[1, 2]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[1, 2]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn gt() {
+        let a = [3, 4];
+        let b = [1, 2];
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_iter_lt!(&a, &b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_iter_lt!(a_collection, b_collection)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_iter_lt.html\n",
+            " a label: `&a`,\n",
+            " a debug: `[3, 4]`,\n",
+            " b label: `&b`,\n",
+            " b debug: `[1, 2]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

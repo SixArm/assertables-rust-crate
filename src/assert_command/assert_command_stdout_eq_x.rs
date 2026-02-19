@@ -51,7 +51,7 @@ macro_rules! assert_command_stdout_eq_x_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_eq_x.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_eq_x.html\n",
                             " command label: `{}`,\n",
                             " command debug: `{:?}`,\n",
                             " command value: `{:?}`,\n",
@@ -71,7 +71,7 @@ macro_rules! assert_command_stdout_eq_x_as_result {
             (a, b) => Err(format!(
                 concat!(
                     "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
-                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_eq_x.html\n",
+                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_eq_x.html\n",
                     "  command label: `{}`,\n",
                     "  command debug: `{:?}`,\n",
                     "  command value: `{:?}`,\n",
@@ -146,7 +146,7 @@ mod test_assert_command_stdout_eq_x_as_result {
         let actual = assert_command_stdout_eq_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_eq_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_eq_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -165,7 +165,7 @@ mod test_assert_command_stdout_eq_x_as_result {
         let actual = assert_command_stdout_eq_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_eq_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_eq_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -218,7 +218,7 @@ mod test_assert_command_stdout_eq_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_eq_x.html\n",
 /// #     " command label: `command`,\n",
 /// #     " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
 /// #     " command value: `[97, 108, 102, 97]`,\n",
@@ -278,7 +278,7 @@ mod test_assert_command_stdout_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_eq_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_eq_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -306,7 +306,7 @@ mod test_assert_command_stdout_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_command_stdout_eq_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_eq_x.html\n",
             " command label: `a`,\n",
             " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
             " command value: `[97, 108, 102, 97]`,\n",
@@ -363,4 +363,77 @@ macro_rules! debug_assert_command_stdout_eq_x {
             $crate::assert_command_stdout_eq_x!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_command_stdout_eq_x {
+    use std::panic;
+    use std::process::Command;
+
+    #[test]
+    fn eq() {
+        let mut a = Command::new("bin/printf-stdout");
+        a.args(["%s", "alfa"]);
+        let b = vec![b'a', b'l', b'f', b'a'];
+        for _ in 0..1 {
+            let _actual = debug_assert_command_stdout_eq_x!(a, b);
+            // assert_eq!(actual, vec![b'a', b'l', b'f', b'a']);
+        }
+    }
+
+    #[test]
+    fn gt() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/printf-stdout");
+            a.args(["%s", "alfa"]);
+            let b = vec![b'z', b'z'];
+            let _actual = debug_assert_command_stdout_eq_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_eq_x.html\n",
+            " command label: `a`,\n",
+            " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
+            "    expr label: `b`,\n",
+            "    expr debug: `[122, 122]`,\n",
+            "    expr value: `[122, 122]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn lt() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/printf-stdout");
+            a.args(["%s", "alfa"]);
+            let b = vec![b'a', b'a'];
+            let _actual = debug_assert_command_stdout_eq_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_command_stdout_eq_x!(command, expr)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_command_stdout_eq_x.html\n",
+            " command label: `a`,\n",
+            " command debug: `\"bin/printf-stdout\" \"%s\" \"alfa\"`,\n",
+            " command value: `[97, 108, 102, 97]`,\n",
+            "    expr label: `b`,\n",
+            "    expr debug: `[97, 97]`,\n",
+            "    expr value: `[97, 97]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
