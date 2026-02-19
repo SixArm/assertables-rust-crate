@@ -351,3 +351,13 @@ macro_rules! debug_assert_approx_eq {
         }
     };
 }
+
+#[cfg(test)]
+mod test_debug_assert_approx_eq {
+
+    #[test]
+    fn callable() {
+        debug_assert_approx_eq!(1, 1);
+    }
+
+}

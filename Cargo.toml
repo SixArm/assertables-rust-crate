@@ -23,7 +23,8 @@ inherits = "release"
 debug = true
 split-debuginfo = "packed"
 
-[dependencies]
+[build-dependencies]
+walkdir = "2.5.0" # Recursively walk a directory.
 
 [dev-dependencies]
 cargo-diet = "1.2.7" #  Make your crate lean
