@@ -1,27 +1,20 @@
 //! build.rs build step for assertables
-//! 
+//!
 //! This build step does proofreading, and doesn't do any transformation.
-//! 
+//!
 //! To see print output:
-//! 
+//!
 //! ```sh
 //! cargo -vv build
 //! ```
 
-use std::path::Path;
 use regex::Regex;
+use std::path::Path;
 use walkdir::WalkDir;
 
-const SKIP_FILE_NAME_LIST: [&str; 2] = [
-    "mod.rs",
-    "lib.rs",
-];
+const SKIP_FILE_NAME_LIST: [&str; 2] = ["mod.rs", "lib.rs"];
 
-const HYBRID_FILE_NAME_LIST: [&str; 3] = [
-    "assert.rs",
-    "assert_eq.rs",
-    "assert_ne.rs",
-];
+const HYBRID_FILE_NAME_LIST: [&str; 3] = ["assert.rs", "assert_eq.rs", "assert_ne.rs"];
 
 const DEPRECATED_FILE_NAME_LIST: [&str; 28] = [
     "assert_abs_diff_eq.rs",
@@ -56,33 +49,87 @@ const DEPRECATED_FILE_NAME_LIST: [&str; 28] = [
 
 fn do_assert_file_entry(e: walkdir::DirEntry) {
     let path = Path::new(e.path());
-    let stem = e.path().file_stem().expect("file_stem").to_str().expect("to_str");
-    let text = std::fs::read_to_string(path).unwrap_or_else(|path| panic!("read_to_string {}", path));
-    println!("path:{}, stem:{}, len:{}", path.display(), stem, text.len());
+    let stem = e
+        .path()
+        .file_stem()
+        .expect("file_stem")
+        .to_str()
+        .expect("to_str");
+    let text =
+        std::fs::read_to_string(path).unwrap_or_else(|path| panic!("read_to_string {}", path));
+    // println!("path:{}, stem:{}, len:{}", path.display(), stem, text.len());
     vet_test_assert_x_as_result(&path, &stem, &text);
     vet_test_assert_x(&path, &stem, &text);
-    
+    vet_test_debug_assert_x(&path, &stem, &text);
 }
 
 fn vet_test_assert_x_as_result(path: &Path, stem: &str, text: &str) {
-    let regex_string = format!(r"(?m)(?s)^\#\[cfg\(test\)\]\nmod (?P<mod>test_{}_as_result) ", stem);
+    let regex_string = format!(
+        r"(?m)(?s)^\#\[cfg\(test\)\]\nmod (?P<mod>test_{}_as_result) ",
+        stem
+    );
     match Regex::new(&regex_string).unwrap().captures(&text) {
-        Some(captures) => {            
-            let x = String::from(captures.name("mod").unwrap().as_str());
-            println!("{}", x);
-        },
-        None => panic!("vet_test_assert_foo_as_result path:{}, stem:{}, no match.", path.display(), stem)
+        Some(_captures) => {
+            // let x = String::from(captures.name("mod").unwrap().as_str());
+            // println!("{}", x);
+        }
+        None => panic!(
+            "vet_test_assert_foo_as_result path:{}, stem:{}, no match.",
+            path.display(),
+            stem
+        ),
     }
 }
 
 fn vet_test_assert_x(path: &Path, stem: &str, text: &str) {
     let regex_string = format!(r"(?m)(?s)^\#\[cfg\(test\)\]\nmod (?P<mod>test_{}) ", stem);
     match Regex::new(&regex_string).unwrap().captures(&text) {
-        Some(captures) => {            
-            let x = String::from(captures.name("mod").unwrap().as_str());
-            println!("{}", x);
-        },
-        None => panic!("vet_test_assert_x path:{}, stem:{}, no match.", path.display(), stem)
+        Some(_captures) => {
+            // let x = String::from(captures.name("mod").unwrap().as_str());
+            // println!("{}", x);
+        }
+        None => panic!(
+            "vet_test_assert_x path:{}, stem:{}, no match.",
+            path.display(),
+            stem
+        ),
+    }
+}
+
+// fn fix_test_debug_assert_x(path: &Path, stem: &str, text: &str) {
+//     let regex_string = format!(r"(?m)(?s)^(?P<block>\#\[cfg\(test\)\]\nmod test_{} .\n.*?\n}})", stem);
+//     match Regex::new(&regex_string).unwrap().captures(&text) {
+//         Some(captures) => {
+//             let test_assert_x = String::from(captures.name("block").unwrap().as_str());
+//             let test_debug_assert_x = test_assert_x
+//                 .replace(&format!("mod test_{} ", stem), &format!("mod test_debug_{} ", stem))
+//                 .replace(&format!(" = {}", stem), &format!(" = debug_{}", stem))
+//                 .replace("let actual = ", "let _actual = ")
+//                 .replace("let expect = ", "let _expect = ")
+//                 .replace("    assert_eq!(actual, expect)", "    // assert_eq!(actual, expect)");
+//             println!("{}", test_debug_assert_x);
+//             let output = format!("{}\n\n{}", text.trim(), test_debug_assert_x);
+//             std::fs::write(path, output).expect(&format!("fix_test_debug_assert_x std::fs::write path:{}, stem:{}", path.display(), stem));
+//         },
+//         None => panic!("fix_test_debug_assert_x path:{}, stem:{}, no match.", path.display(), stem)
+//     }
+// }
+
+fn vet_test_debug_assert_x(path: &Path, stem: &str, text: &str) {
+    let regex_string = format!(
+        r"(?m)(?s)^\#\[cfg\(test\)\]\nmod (?P<mod>test_debug_{}) ",
+        stem
+    );
+    match Regex::new(&regex_string).unwrap().captures(&text) {
+        Some(_captures) => {
+            // let x = String::from(captures.name("mod").unwrap().as_str());
+            // println!("{}", x);
+        }
+        None => panic!(
+            "vet_test_debug_assert_x path:{}, stem:{}, no match.",
+            path.display(),
+            stem
+        ),
     }
 }
 
@@ -93,10 +140,9 @@ fn main() {
         .filter(|e| e.file_type().is_file())
         .filter(|e| {
             let file_name = e.file_name().to_str().expect("file_name().to_str()");
-            !SKIP_FILE_NAME_LIST.contains(&file_name) && 
-            !HYBRID_FILE_NAME_LIST.contains(&file_name) &&
-            !DEPRECATED_FILE_NAME_LIST.contains(&file_name)
+            !SKIP_FILE_NAME_LIST.contains(&file_name)
+                && !HYBRID_FILE_NAME_LIST.contains(&file_name)
+                && !DEPRECATED_FILE_NAME_LIST.contains(&file_name)
         })
         .for_each(|e| do_assert_file_entry(e))
 }
-

@@ -90,7 +90,7 @@ macro_rules! assert_in_epsilon_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_epsilon.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_epsilon.html\n",
                             "                   a label: `{}`,\n",
                             "                   a debug: `{:?}`,\n",
                             "                   b label: `{}`,\n",
@@ -182,7 +182,7 @@ mod test_assert_in_epsilon_as_result {
         let actual = assert_in_epsilon_as_result!(a, b, epsilon);
         let message = concat!(
             "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_epsilon.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_epsilon.html\n",
             "                   a label: `a`,\n",
             "                   a debug: `10`,\n",
             "                   b label: `b`,\n",
@@ -240,7 +240,7 @@ mod test_assert_in_epsilon_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_epsilon.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_epsilon.html\n",
 /// #     "                   a label: `a`,\n",
 /// #     "                   a debug: `10`,\n",
 /// #     "                   b label: `b`,\n",
@@ -320,7 +320,7 @@ mod test_assert_in_epsilon {
         });
         let message = concat!(
             "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_epsilon.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_epsilon.html\n",
             "                   a label: `a`,\n",
             "                   a debug: `10`,\n",
             "                   b label: `b`,\n",
@@ -380,4 +380,51 @@ macro_rules! debug_assert_in_epsilon {
             $crate::assert_in_epsilon!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_in_epsilon {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a: i8 = 10;
+        let b: i8 = 20;
+        let epsilon: i8 = 1;
+        for _ in 0..1 {
+            let _actual = debug_assert_in_epsilon!(a, b, epsilon);
+            // assert_eq!(actual, (10, 10));
+        }
+    }
+
+    #[test]
+    fn failure() {
+        let a: i8 = 10;
+        let b: i8 = 30;
+        let epsilon: i8 = 1;
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_in_epsilon!(a, b, epsilon);
+        });
+        let message = concat!(
+            "assertion failed: `assert_in_epsilon!(a, b, ε)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_epsilon.html\n",
+            "                   a label: `a`,\n",
+            "                   a debug: `10`,\n",
+            "                   b label: `b`,\n",
+            "                   b debug: `30`,\n",
+            "                   ε label: `epsilon`,\n",
+            "                   ε debug: `1`,\n",
+            "                 | a - b |: `20`,\n",
+            "             ε * min(a, b): `10`,\n",
+            " | a - b | ≤ ε * min(a, b): false"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

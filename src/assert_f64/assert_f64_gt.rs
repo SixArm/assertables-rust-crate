@@ -48,7 +48,7 @@ macro_rules! assert_f64_gt_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_f64_gt!(a, b)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_gt.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_f64_gt.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{}`,\n",
                             " b label: `{}`,\n",
@@ -121,7 +121,7 @@ mod test_assert_f64_gt_as_result {
         let actual = assert_f64_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_f64_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_f64_gt.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
@@ -139,7 +139,7 @@ mod test_assert_f64_gt_as_result {
         let actual = assert_f64_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_f64_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_f64_gt.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
@@ -157,7 +157,7 @@ mod test_assert_f64_gt_as_result {
         let actual = assert_f64_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_f64_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_f64_gt.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
@@ -175,7 +175,7 @@ mod test_assert_f64_gt_as_result {
         let actual = assert_f64_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_f64_gt!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_f64_gt.html\n",
             " a label: `a`,\n",
             " a debug: `0.3333333333333333`,\n",
             " b label: `b`,\n",
@@ -225,7 +225,7 @@ mod test_assert_f64_gt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_f64_gt!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_f64_gt.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_f64_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `0.3333333333333333`,\n",
 /// #     " b label: `b`,\n",
@@ -313,4 +313,20 @@ macro_rules! debug_assert_f64_gt {
             $crate::assert_f64_gt!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_f64_gt {
+    use crate::assert_f64::{EQ, LT};
+    use std::panic;
+
+    #[test]
+    fn gt() {
+        let a: f64 = EQ;
+        let b: f64 = LT;
+        for _ in 0..1 {
+            let _actual = debug_assert_f64_gt!(a, b);
+            // assert_eq!(actual, ());
+        }
+    }
 }

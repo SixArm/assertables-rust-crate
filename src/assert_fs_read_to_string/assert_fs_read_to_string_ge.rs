@@ -51,7 +51,7 @@ macro_rules! assert_fs_read_to_string_ge_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fs_read_to_string_ge!(a_path, b_path)`\n",
-                                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_ge.html\n",
+                                        "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fs_read_to_string_ge.html\n",
                                         " a_path label: `{}`,\n",
                                         " a_path debug: `{:?}`,\n",
                                         " b_path label: `{}`,\n",
@@ -74,7 +74,7 @@ macro_rules! assert_fs_read_to_string_ge_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fs_read_to_string_ge!(a_path, b_path)`\n",
-                                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_ge.html\n",
+                                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fs_read_to_string_ge.html\n",
                                     " a_path label: `{}`,\n",
                                     " a_path debug: `{:?}`,\n",
                                     " b_path label: `{}`,\n",
@@ -203,7 +203,7 @@ mod test_assert_fs_read_to_string_ge_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_ge!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_ge.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fs_read_to_string_ge.html\n",
                 " a_path label: `a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `b`,\n",
@@ -256,7 +256,7 @@ mod test_assert_fs_read_to_string_ge_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fs_read_to_string_ge!(a_path, b_path)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_ge.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fs_read_to_string_ge.html\n",
 /// #     " a_path label: `a`,\n",
 /// #     " a_path debug: `\"alfa.txt\"`,\n",
 /// #     " b_path label: `b`,\n",
@@ -336,7 +336,7 @@ mod test_assert_fs_read_to_string_ge {
         let message = format!(
             concat!(
                 "assertion failed: `assert_fs_read_to_string_ge!(a_path, b_path)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fs_read_to_string_ge.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fs_read_to_string_ge.html\n",
                 " a_path label: `a`,\n",
                 " a_path debug: `{:?}`,\n",
                 " b_path label: `b`,\n",
@@ -392,7 +392,74 @@ mod test_assert_fs_read_to_string_ge {
 macro_rules! debug_assert_fs_read_to_string_ge {
     ($($arg:tt)*) => {
         if cfg!(debug_assertions) {
-            $crate::std::fs::read_to_string_ge!($($arg)*);
+            $crate::assert_fs_read_to_string_ge!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_fs_read_to_string_ge {
+    #[allow(unused_imports)]
+    use std::io::Read;
+    use std::panic;
+    use std::path::PathBuf;
+    use std::sync::LazyLock;
+
+    pub static DIR: LazyLock<PathBuf> = LazyLock::new(|| {
+        PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("tests")
+            .join("src")
+            .join("std")
+            .join("fs")
+    });
+
+    #[test]
+    fn gt() {
+        let a = DIR.join("bravo.txt");
+        let b = DIR.join("alfa.txt");
+        for _ in 0..1 {
+            let _actual = debug_assert_fs_read_to_string_ge!(a, b);
+            // assert_eq!(actual, (String::from("bravo\n"), String::from("alfa\n")));
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let a = DIR.join("alfa.txt");
+        let b = DIR.join("alfa.txt");
+        for _ in 0..1 {
+            let _actual = debug_assert_fs_read_to_string_ge!(a, b);
+            // assert_eq!(actual, (String::from("alfa\n"), String::from("alfa\n")));
+        }
+    }
+
+    #[test]
+    fn lt() {
+        let a = DIR.join("alfa.txt");
+        let b = DIR.join("bravo.txt");
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_fs_read_to_string_ge!(a, b);
+        });
+        let message = format!(
+            concat!(
+                "assertion failed: `assert_fs_read_to_string_ge!(a_path, b_path)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fs_read_to_string_ge.html\n",
+                " a_path label: `a`,\n",
+                " a_path debug: `{:?}`,\n",
+                " b_path label: `b`,\n",
+                " b_path debug: `{:?}`,\n",
+                "     a string: `alfa\n`,\n",
+                "     b string: `bravo\n`"
+            ),
+            a, b
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

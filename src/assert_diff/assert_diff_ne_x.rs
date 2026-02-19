@@ -55,7 +55,7 @@ macro_rules! assert_diff_ne_x_as_result {
                             Err(format!(
                                 concat!(
                                     "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
-                                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_ne_x.html\n",
+                                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_diff_ne_x.html\n",
                                     " a label: `{}`,\n",
                                     " a debug: `{:?}`,\n",
                                     " b label: `{}`,\n",
@@ -80,7 +80,7 @@ macro_rules! assert_diff_ne_x_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
-                                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_ne_x.html\n",
+                                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_diff_ne_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -221,7 +221,7 @@ mod test_assert_diff_ne_x_as_result {
         let actual = assert_diff_ne_x_as_result!(a, b, x);
         let message = concat!(
             "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_ne_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_diff_ne_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -243,7 +243,7 @@ mod test_assert_diff_ne_x_as_result {
         let message = format!(
             concat!(
                 "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_ne_x.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_diff_ne_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `{}`,\n",
                 " b label: `b`,\n",
@@ -300,7 +300,7 @@ mod test_assert_diff_ne_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_diff_ne_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `10`,\n",
 /// #     " b label: `b`,\n",
@@ -372,7 +372,7 @@ mod test_assert_diff_ne_x {
         });
         let message = concat!(
             "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_ne_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_diff_ne_x.html\n",
             " a label: `a`,\n",
             " a debug: `10`,\n",
             " b label: `b`,\n",
@@ -403,7 +403,7 @@ mod test_assert_diff_ne_x {
         let message = format!(
             concat!(
                 "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_diff_ne_x.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_diff_ne_x.html\n",
                 " a label: `a`,\n",
                 " a debug: `{}`,\n",
                 " b label: `b`,\n",
@@ -463,4 +463,93 @@ macro_rules! debug_assert_diff_ne_x {
             $crate::assert_diff_ne_x!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_diff_ne_x {
+    use std::panic;
+
+    #[test]
+    fn lt() {
+        let a: i8 = 10;
+        let b: i8 = 13;
+        let x: i8 = 4;
+        for _ in 0..1 {
+            let _actual = debug_assert_diff_ne_x!(a, b, x);
+            // assert_eq!(actual, (3 as i8, 4 as i8));
+        }
+    }
+
+    #[test]
+    fn gt() {
+        let a: i8 = 10;
+        let b: i8 = 13;
+        let x: i8 = 2;
+        for _ in 0..1 {
+            let _actual = debug_assert_diff_ne_x!(a, b, x);
+            // assert_eq!(actual, (3 as i8, 2 as i8));
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let a: i8 = 10;
+        let b: i8 = 13;
+        let x: i8 = 3;
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_diff_ne_x!(a, b, x);
+        });
+        let message = concat!(
+            "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_diff_ne_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `10`,\n",
+            " b label: `b`,\n",
+            " b debug: `13`,\n",
+            " x label: `x`,\n",
+            " x debug: `3`,\n",
+            "       Δ: `3`,\n",
+            "   Δ ≠ x: false"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn overflow() {
+        let a: i8 = i8::MAX;
+        let b: i8 = i8::MIN;
+        let x: i8 = 0;
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_diff_ne_x!(a, b, x);
+        });
+        let message = format!(
+            concat!(
+                "assertion failed: `assert_diff_ne_x!(a, b, x)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_diff_ne_x.html\n",
+                " a label: `a`,\n",
+                " a debug: `{}`,\n",
+                " b label: `b`,\n",
+                " b debug: `{}`,\n",
+                " x label: `x`,\n",
+                " x debug: `{}`,\n",
+                "       Δ: panic"
+            ),
+            a, b, x
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

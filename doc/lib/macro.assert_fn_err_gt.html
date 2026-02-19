@@ -1,22 +1,162 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Assert a function error is greater than another."><title>assert_fn_err_gt in lib - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-492a78a4a87dcc01.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="lib" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0 (f6e511eec 2024-10-15)" data-channel="1.82.0" data-search-js="search-a99f1315e7cc5121.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-921df33f47b8780c.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../lib/index.html">lib</a></h2></div><div class="sidebar-elems"></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Macro <a href="index.html">lib</a>::<wbr><a class="macro" href="#">assert_fn_err_gt</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/lib/assert_fn_err/assert_fn_err_gt.rs.html#346-379">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><span class="macro">macro_rules!</span> assert_fn_err_gt {
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content="rustdoc" />
+        <meta
+            name="description"
+            content="Assert a function error is greater than another."
+        />
+        <title>assert_fn_err_gt in lib - Rust</title>
+        <script>
+            if (window.location.protocol !== "file:")
+                document.head.insertAdjacentHTML(
+                    "beforeend",
+                    "SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"
+                        .split(",")
+                        .map(
+                            (f) =>
+                                `<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`,
+                        )
+                        .join(""),
+                );
+        </script>
+        <link
+            rel="stylesheet"
+            href="../static.files/normalize-76eba96aa4d2e634.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../static.files/rustdoc-492a78a4a87dcc01.css"
+        />
+        <meta
+            name="rustdoc-vars"
+            data-root-path="../"
+            data-static-root-path="../static.files/"
+            data-current-crate="lib"
+            data-themes=""
+            data-resource-suffix=""
+            data-rustdoc-version="1.82.0 (f6e511eec 2024-10-15)"
+            data-channel="1.82.0"
+            data-search-js="search-a99f1315e7cc5121.js"
+            data-settings-js="settings-4313503d2e1961c2.js"
+        />
+        <script src="../static.files/storage-118b08c4c78b968e.js"></script>
+        <script defer src="sidebar-items.js"></script>
+        <script defer src="../static.files/main-921df33f47b8780c.js"></script>
+        <noscript
+            ><link
+                rel="stylesheet"
+                href="../static.files/noscript-3b12f09e550e0385.css"
+        /></noscript>
+        <link
+            rel="alternate icon"
+            type="image/png"
+            href="../static.files/favicon-32x32-422f7d1d52889060.png"
+        />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="../static.files/favicon-2c020d218678b618.svg"
+        />
+    </head>
+    <body class="rustdoc macro">
+        <!--[if lte IE 11
+            ]><div class="warning">
+                This old browser is unsupported and will most likely display
+                funky things.
+            </div><!
+        [endif]-->
+        <nav class="mobile-topbar">
+            <button class="sidebar-menu-toggle" title="show sidebar"></button>
+        </nav>
+        <nav class="sidebar">
+            <div class="sidebar-crate">
+                <h2><a href="../lib/index.html">lib</a></h2>
+            </div>
+            <div class="sidebar-elems"></div>
+        </nav>
+        <div class="sidebar-resizer"></div>
+        <main>
+            <div class="width-limiter">
+                <rustdoc-search></rustdoc-search>
+                <section id="main-content" class="content">
+                    <div class="main-heading">
+                        <h1>
+                            Macro <a href="index.html">lib</a>::<wbr /><a
+                                class="macro"
+                                href="#"
+                                >assert_fn_err_gt</a
+                            ><button
+                                id="copy-path"
+                                title="Copy item path to clipboard"
+                            >
+                                Copy item path
+                            </button>
+                        </h1>
+                        <span class="out-of-band"
+                            ><a
+                                class="src"
+                                href="../src/lib/assert_fn_err/assert_fn_err_gt.rs.html#346-379"
+                                >source</a
+                            >
+                            ·
+                            <button
+                                id="toggle-all-docs"
+                                title="collapse all docs"
+                            >
+                                [<span>&#x2212;</span>]
+                            </button></span
+                        >
+                    </div>
+                    <pre
+                        class="rust item-decl"
+                    ><span class="macro">macro_rules!</span> assert_fn_err_gt {
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_function</span>:path, <span class="macro-nonterminal">$b_param</span>:expr $(,)<span class="question-mark">?</span>) =&gt; { ... };
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$a_param</span>:expr, <span class="macro-nonterminal">$b_function</span>:path, <span class="macro-nonterminal">$b_param</span>:expr, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; { ... };
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_function</span>:path) =&gt; { ... };
     (<span class="macro-nonterminal">$a_function</span>:path, <span class="macro-nonterminal">$b_function</span>:path, $(<span class="macro-nonterminal">$message</span>:tt)+) =&gt; { ... };
-}</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Assert a function error is greater than another.</p>
-<p>Pseudocode:<br>
-(a_function(a_param) ⇒ Err(a) ⇒ a) &gt; (b_function(b_param) ⇒ Err(b) ⇒ b)</p>
-<ul>
-<li>
-<p>If true, return <code>(a, b)</code>.</p>
-</li>
-<li>
-<p>Otherwise, call <a href="https://doc.rust-lang.org/1.82.0/std/macro.panic.html" title="macro std::panic"><code>panic!</code></a> with a message and the values of the
-expressions with their debug representations.</p>
-</li>
-</ul>
-<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
+}</pre>
+                    <details class="toggle top-doc" open>
+                        <summary class="hideme">
+                            <span>Expand description</span>
+                        </summary>
+                        <div class="docblock">
+                            <p>
+                                Assert a function error is greater than another.
+                            </p>
+                            <p>
+                                Pseudocode:<br />
+                                (a_function(a_param) ⇒ Err(a) ⇒ a) &gt;
+                                (b_function(b_param) ⇒ Err(b) ⇒ b)
+                            </p>
+                            <ul>
+                                <li>
+                                    <p>If true, return <code>(a, b)</code>.</p>
+                                </li>
+                                <li>
+                                    <p>
+                                        Otherwise, call
+                                        <a
+                                            href="https://doc.rust-lang.org/1.82.0/std/macro.panic.html"
+                                            title="macro std::panic"
+                                            ><code>panic!</code></a
+                                        >
+                                        with a message and the values of the
+                                        expressions with their debug
+                                        representations.
+                                    </p>
+                                </li>
+                            </ul>
+                            <h2 id="examples">
+                                <a class="doc-anchor" href="#examples">§</a
+                                >Examples
+                            </h2>
+                            <div class="example-wrap">
+                                <pre
+                                    class="rust rust-example-rendered"
+                                ><code><span class="kw">use </span>assertables::<span class="kw-2">*</span>;
 <span class="kw">fn </span>f(i: i8) -&gt; <span class="prelude-ty">Result</span>&lt;String, String&gt; {
     <span class="kw">match </span>i {
         <span class="number">0</span>..=<span class="number">9 </span>=&gt; <span class="prelude-val">Ok</span>(<span class="macro">format!</span>(<span class="string">"{}"</span>, i)),
@@ -33,7 +173,7 @@ expressions with their debug representations.</p>
 <span class="kw">let </span>b: i8 = <span class="number">20</span>;
 <span class="macro">assert_fn_err_gt!</span>(f, a, f, b);
 <span class="comment">// assertion failed: `assert_fn_err_gt!(a_function, a_param, b_function, b_param)`
-// https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_gt.html
+// https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_err_gt.html
 //  a_function label: `f`,
 //     a_param label: `a`,
 //     a_param debug: `10`,
@@ -41,11 +181,41 @@ expressions with their debug representations.</p>
 //     b_param label: `b`,
 //     b_param debug: `20`,
 //                 a: `\"10 is out of range\"`,
-//                 b: `\"20 is out of range\"`</span></code></pre></div>
-<h2 id="module-macros"><a class="doc-anchor" href="#module-macros">§</a>Module macros</h2>
-<ul>
-<li><a href="macro.assert_fn_err_gt.html" title="macro lib::assert_fn_err_gt"><code>assert_fn_err_gt</code></a></li>
-<li><a href="macro.assert_fn_err_gt_as_result.html" title="macro lib::assert_fn_err_gt_as_result"><code>assert_fn_err_gt_as_result</code></a></li>
-<li><a href="macro.debug_assert_fn_err_gt.html" title="macro lib::debug_assert_fn_err_gt"><code>debug_assert_fn_err_gt</code></a></li>
-</ul>
-</div></details></section></div></main></body></html>
+//                 b: `\"20 is out of range\"`</span></code></pre>
+                            </div>
+                            <h2 id="module-macros">
+                                <a class="doc-anchor" href="#module-macros">§</a
+                                >Module macros
+                            </h2>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="macro.assert_fn_err_gt.html"
+                                        title="macro lib::assert_fn_err_gt"
+                                        ><code>assert_fn_err_gt</code></a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="macro.assert_fn_err_gt_as_result.html"
+                                        title="macro lib::assert_fn_err_gt_as_result"
+                                        ><code
+                                            >assert_fn_err_gt_as_result</code
+                                        ></a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="macro.debug_assert_fn_err_gt.html"
+                                        title="macro lib::debug_assert_fn_err_gt"
+                                        ><code>debug_assert_fn_err_gt</code></a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+                </section>
+            </div>
+        </main>
+    </body>
+</html>

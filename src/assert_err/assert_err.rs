@@ -45,7 +45,7 @@ macro_rules! assert_err_as_result {
                 _ => Err(format!(
                     concat!(
                         "assertion failed: `assert_err!(a)`\n",
-                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err.html\n",
+                        "https://docs.rs/assertables/9.8.6/assertables/macro.assert_err.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`",
                     ),
@@ -94,7 +94,7 @@ mod test_assert_err_as_result {
         let actual = assert_err_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_err!(a)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_err.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`",
         );
@@ -134,7 +134,7 @@ mod test_assert_err_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_err!(a)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_err.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Ok(1)`",
 /// # );
@@ -185,7 +185,7 @@ mod test_assert_err {
         });
         let message = concat!(
             "assertion failed: `assert_err!(a)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_err.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_err.html\n",
             " a label: `a`,\n",
             " a debug: `Ok(1)`",
         );
@@ -238,4 +238,40 @@ macro_rules! debug_assert_err {
             $crate::assert_err!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_err {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a: Result<i8, i8> = Err(1);
+        for _ in 0..1 {
+            let _actual = debug_assert_err!(a);
+            // assert_eq!(actual, 1);
+        }
+    }
+
+    #[test]
+    fn failure() {
+        let result = panic::catch_unwind(|| {
+            let a: Result<i8, i8> = Ok(1);
+            let _actual = debug_assert_err!(a);
+        });
+        let message = concat!(
+            "assertion failed: `assert_err!(a)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_err.html\n",
+            " a label: `a`,\n",
+            " a debug: `Ok(1)`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

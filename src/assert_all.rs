@@ -51,7 +51,7 @@ macro_rules! assert_all_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_all!(collection, predicate)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_all.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
                             " collection label: `{}`,\n",
                             " collection debug: `{:?}`,\n",
                             "        predicate: `{}`"
@@ -102,7 +102,7 @@ mod test_assert_all_as_result {
         let actual = assert_all_as_result!(a.iter(), |&x| x > 0);
         let message = concat!(
             "assertion failed: `assert_all!(collection, predicate)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_all.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
             " collection label: `a.iter()`,\n",
             " collection debug: `Iter([1, -2, 3])`,\n",
             "        predicate: `|&x| x > 0`"
@@ -144,7 +144,7 @@ mod test_assert_all_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_all!(collection, predicate)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_all.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
 /// #     " collection label: `a.iter()`,\n",
 /// #     " collection debug: `Iter([1, -2, 3])`,\n",
 /// #     "        predicate: `|&x| x > 0`",
@@ -198,7 +198,7 @@ mod test_assert_all {
         });
         let message = concat!(
             "assertion failed: `assert_all!(collection, predicate)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_all.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
             " collection label: `a.iter()`,\n",
             " collection debug: `Iter([1, -2, 3])`,\n",
             "        predicate: `|&x| x > 0`"
@@ -252,4 +252,41 @@ macro_rules! debug_assert_all {
             $crate::assert_all!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_all {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a = [1, 2, 3];
+        for _ in 0..1 {
+            let _actual = debug_assert_all!(a.iter(), |&x| x > 0);
+            // assert_eq!(actual, ());
+        }
+    }
+
+    #[test]
+    fn failure() {
+        let a = [1, -2, 3];
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_all!(a.iter(), |&x| x > 0);
+        });
+        let message = concat!(
+            "assertion failed: `assert_all!(collection, predicate)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
+            " collection label: `a.iter()`,\n",
+            " collection debug: `Iter([1, -2, 3])`,\n",
+            "        predicate: `|&x| x > 0`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

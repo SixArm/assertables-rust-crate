@@ -48,7 +48,7 @@ macro_rules! assert_le_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_le!(a, b)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_le.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_le.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " b label: `{}`,\n",
@@ -159,7 +159,7 @@ mod test_assert_le_as_result {
             let actual = assert_le_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_le!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_le.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_le.html\n",
                 " a label: `a`,\n",
                 " a debug: `2`,\n",
                 " b label: `b`,\n",
@@ -258,7 +258,7 @@ mod test_assert_le_as_result {
             let actual = assert_le_as_result!(a, b);
             let message = concat!(
                 "assertion failed: `assert_le!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_le.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_le.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"2\"`,\n",
                 " b label: `b`,\n",
@@ -305,7 +305,7 @@ mod test_assert_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_le!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_le.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_le.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `2`,\n",
 /// #     " b label: `b`,\n",
@@ -350,7 +350,8 @@ mod test_assert_le {
             let b: i8 = 2;
             for _ in 0..1 {
                 let actual = assert_le!(a, b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -360,7 +361,8 @@ mod test_assert_le {
             let b: i8 = 1;
             for _ in 0..1 {
                 let actual = assert_le!(a, b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -373,7 +375,7 @@ mod test_assert_le {
             });
             let message = concat!(
                 "assertion failed: `assert_le!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_le.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_le.html\n",
                 " a label: `a`,\n",
                 " a debug: `2`,\n",
                 " b label: `b`,\n",
@@ -399,7 +401,8 @@ mod test_assert_le {
             let b: String = String::from("2");
             for _ in 0..1 {
                 let actual = assert_le!(a, b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -409,7 +412,8 @@ mod test_assert_le {
             let b: String = String::from("1");
             for _ in 0..1 {
                 let actual = assert_le!(a, b);
-                assert_eq!(actual, ());
+                let expect = ();
+                assert_eq!(actual, expect);
             }
         }
 
@@ -422,7 +426,7 @@ mod test_assert_le {
             });
             let message = concat!(
                 "assertion failed: `assert_le!(a, b)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_le.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_le.html\n",
                 " a label: `a`,\n",
                 " a debug: `\"2\"`,\n",
                 " b label: `b`,\n",
@@ -478,4 +482,111 @@ macro_rules! debug_assert_le {
             $crate::assert_le!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_le {
+    use std::panic;
+
+    mod integer {
+        use super::*;
+
+        #[test]
+        fn lt() {
+            let a: i8 = 1;
+            let b: i8 = 2;
+            for _ in 0..1 {
+                let _actual = debug_assert_le!(a, b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn eq() {
+            let a: i8 = 1;
+            let b: i8 = 1;
+            for _ in 0..1 {
+                let _actual = debug_assert_le!(a, b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn gt() {
+            let a: i8 = 2;
+            let b: i8 = 1;
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_le!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_le!(a, b)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_le.html\n",
+                " a label: `a`,\n",
+                " a debug: `2`,\n",
+                " b label: `b`,\n",
+                " b debug: `1`",
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod string {
+        use super::*;
+
+        #[test]
+        fn lt() {
+            let a: String = String::from("1");
+            let b: String = String::from("2");
+            for _ in 0..1 {
+                let _actual = debug_assert_le!(a, b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn eq() {
+            let a: String = String::from("1");
+            let b: String = String::from("1");
+            for _ in 0..1 {
+                let _actual = debug_assert_le!(a, b);
+                let _expect = ();
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn gt() {
+            let a: String = String::from("2");
+            let b: String = String::from("1");
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_le!(a, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_le!(a, b)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_le.html\n",
+                " a label: `a`,\n",
+                " a debug: `\"2\"`,\n",
+                " b label: `b`,\n",
+                " b debug: `\"1\"`",
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
 }

@@ -53,7 +53,7 @@ macro_rules! assert_io_read_to_string_gt_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
-                                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_gt.html\n",
+                                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_gt.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 " b label: `{}`,\n",
@@ -77,7 +77,7 @@ macro_rules! assert_io_read_to_string_gt_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_gt.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_gt.html\n",
                             "  a label: `{}`,\n",
                             "  a debug: `{:?}`,\n",
                             "  b label: `{}`,\n",
@@ -149,7 +149,7 @@ mod test_assert_io_read_to_string_gt_as_result {
         let actual = assert_io_read_to_string_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_gt.html\n",
             " a label: `a`,\n",
             " a debug: `[97, 108, 102, 97]`,\n",
             " b label: `b`,\n",
@@ -167,7 +167,7 @@ mod test_assert_io_read_to_string_gt_as_result {
         let actual = assert_io_read_to_string_gt_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_gt.html\n",
             " a label: `a`,\n",
             " a debug: `[97, 108, 102, 97]`,\n",
             " b label: `b`,\n",
@@ -218,7 +218,7 @@ mod test_assert_io_read_to_string_gt_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_gt.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_gt.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `[97, 108, 102, 97]`,\n",
 /// #     " b label: `b`,\n",
@@ -276,7 +276,7 @@ mod test_assert_io_read_to_string_gt {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_gt.html\n",
             " a label: `a`,\n",
             " a debug: `[97, 108, 102, 97]`,\n",
             " b label: `b`,\n",
@@ -303,7 +303,7 @@ mod test_assert_io_read_to_string_gt {
         });
         let message = concat!(
             "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_io_read_to_string_gt.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_gt.html\n",
             " a label: `a`,\n",
             " a debug: `[97, 108, 102, 97]`,\n",
             " b label: `b`,\n",
@@ -360,4 +360,74 @@ macro_rules! debug_assert_io_read_to_string_gt {
             $crate::assert_io_read_to_string_gt!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_io_read_to_string_gt {
+    #[allow(unused_imports)]
+    use std::panic;
+
+    #[test]
+    fn gt() {
+        let a = "alfa".as_bytes();
+        let b = "aa".as_bytes();
+        for _ in 0..1 {
+            let _actual = debug_assert_io_read_to_string_gt!(a, b);
+            // assert_eq!(actual, (String::from("alfa"), String::from("aa")));
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let result = panic::catch_unwind(|| {
+            let a = "alfa".as_bytes();
+            let b = "alfa".as_bytes();
+            let _actual = debug_assert_io_read_to_string_gt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `[97, 108, 102, 97]`,\n",
+            " b label: `b`,\n",
+            " b debug: `[97, 108, 102, 97]`,\n",
+            "       a: `\"alfa\"`,\n",
+            "       b: `\"alfa\"`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn lt() {
+        let result = panic::catch_unwind(|| {
+            let a = "alfa".as_bytes();
+            let b = "zz".as_bytes();
+            let _actual = debug_assert_io_read_to_string_gt!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_io_read_to_string_gt!(a_reader, b_reader)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_io_read_to_string_gt.html\n",
+            " a label: `a`,\n",
+            " a debug: `[97, 108, 102, 97]`,\n",
+            " b label: `b`,\n",
+            " b debug: `[122, 122]`,\n",
+            "       a: `\"alfa\"`,\n",
+            "       b: `\"zz\"`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

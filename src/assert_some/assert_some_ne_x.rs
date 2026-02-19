@@ -51,7 +51,7 @@ macro_rules! assert_some_ne_x_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_some_ne_x!(a, b)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_ne_x.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_some_ne_x.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a inner: `{:?}`,\n",
@@ -69,7 +69,7 @@ macro_rules! assert_some_ne_x_as_result {
             _ => Err(format!(
                 concat!(
                     "assertion failed: `assert_some_ne_x!(a, b)`\n",
-                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_ne_x.html\n",
+                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_some_ne_x.html\n",
                     " a label: `{}`,\n",
                     " a debug: `{:?}`,\n",
                     " b label: `{}`,\n",
@@ -175,7 +175,7 @@ mod test_assert_some_ne_x_as_result {
         let actual = assert_some_ne_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_some_ne_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_ne_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_some_ne_x.html\n",
             " a label: `a`,\n",
             " a debug: `Some(1)`,\n",
             " a inner: `1`,\n",
@@ -192,7 +192,7 @@ mod test_assert_some_ne_x_as_result {
         let actual = assert_some_ne_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_some_ne_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_ne_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_some_ne_x.html\n",
             " a label: `a`,\n",
             " a debug: `None`,\n",
             " b label: `b`,\n",
@@ -239,7 +239,7 @@ mod test_assert_some_ne_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_some_ne_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_ne_x.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_some_ne_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `Some(1)`,\n",
 /// #     " a inner: `1`,\n",
@@ -295,7 +295,7 @@ mod test_assert_some_ne_x {
         });
         let message = concat!(
             "assertion failed: `assert_some_ne_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_ne_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_some_ne_x.html\n",
             " a label: `a`,\n",
             " a debug: `Some(1)`,\n",
             " a inner: `1`,\n",
@@ -321,7 +321,7 @@ mod test_assert_some_ne_x {
         });
         let message = concat!(
             "assertion failed: `assert_some_ne_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_some_ne_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_some_ne_x.html\n",
             " a label: `a`,\n",
             " a debug: `None`,\n",
             " b label: `b`,\n",
@@ -376,4 +376,70 @@ macro_rules! debug_assert_some_ne_x {
             $crate::assert_some_ne_x!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_some_ne_x {
+    use std::panic;
+
+    #[test]
+    fn ne() {
+        let a: Option<i8> = Option::Some(1);
+        let b: i8 = 2;
+        for _ in 0..1 {
+            let _actual = debug_assert_some_ne_x!(a, b);
+            // assert_eq!(actual, 1);
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let a: Option<i8> = Option::Some(1);
+        let b: i8 = 1;
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_some_ne_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_some_ne_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_some_ne_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `Some(1)`,\n",
+            " a inner: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `1`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn not_some() {
+        let a: Option<i8> = Option::None;
+        let b: i8 = 1;
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_some_ne_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_some_ne_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_some_ne_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `None`,\n",
+            " b label: `b`,\n",
+            " b debug: `1`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

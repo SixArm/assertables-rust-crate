@@ -91,7 +91,7 @@ macro_rules! assert_in_delta_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_delta.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_delta.html\n",
                             "       a label: `{}`,\n",
                             "       a debug: `{:?}`,\n",
                             "       b label: `{}`,\n",
@@ -181,7 +181,7 @@ mod test_assert_in_delta_as_result {
         let actual = assert_in_delta_as_result!(a, b, delta);
         let message = concat!(
             "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_delta.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_delta.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
@@ -237,7 +237,7 @@ mod test_assert_in_delta_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_delta.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_delta.html\n",
 /// #     "       a label: `a`,\n",
 /// #     "       a debug: `10`,\n",
 /// #     "       b label: `b`,\n",
@@ -316,7 +316,7 @@ mod test_assert_in_delta {
         });
         let message = concat!(
             "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_in_delta.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_delta.html\n",
             "       a label: `a`,\n",
             "       a debug: `10`,\n",
             "       b label: `b`,\n",
@@ -375,4 +375,50 @@ macro_rules! debug_assert_in_delta {
             $crate::assert_in_delta!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_in_delta {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a: i8 = 10;
+        let b: i8 = 11;
+        let delta: i8 = 1;
+        for _ in 0..1 {
+            let _actual = debug_assert_in_delta!(a, b, delta);
+            // assert_eq!(actual, (1 as i8, 1 as i8));
+        }
+    }
+
+    #[test]
+    fn failure() {
+        let a: i8 = 10;
+        let b: i8 = 12;
+        let delta: i8 = 1;
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_in_delta!(a, b, delta);
+        });
+        let message = concat!(
+            "assertion failed: `assert_in_delta!(a, b, Δ)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_in_delta.html\n",
+            "       a label: `a`,\n",
+            "       a debug: `10`,\n",
+            "       b label: `b`,\n",
+            "       b debug: `12`,\n",
+            "       Δ label: `delta`,\n",
+            "       Δ debug: `1`,\n",
+            "     | a - b |: `2`,\n",
+            " | a - b | ≤ Δ: false"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

@@ -1,7 +1,7 @@
 //! Assert a status code value is greater than or equal to an expression.
 //!
 //! Pseudocode:<br>
-//! a.len() ≥ b
+//! a ⇒ status ⇒ code ⇒ value ≥ b
 //!
 //! # Example
 //!
@@ -23,7 +23,7 @@
 /// Assert a status code value is greater than or equal to an expression.
 ///
 /// Pseudocode:<br>
-/// a.len() ≥ b
+/// a ⇒ status ⇒ code ⇒ value ≥ b
 ///
 /// * If true, return Result `Ok(a ⇒ status ⇒ code ⇒ value)`.
 ///
@@ -50,7 +50,7 @@ macro_rules! assert_status_code_value_ge_x_as_result {
                         Err(format!(
                             concat!(
                                 "assertion failed: `assert_status_code_value_ge_x!(a, b)`\n",
-                                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ge_x.html\n",
+                                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_code_value_ge_x.html\n",
                                 " a label: `{}`,\n",
                                 " a debug: `{:?}`,\n",
                                 "  a code: `{:?}`,\n",
@@ -68,7 +68,7 @@ macro_rules! assert_status_code_value_ge_x_as_result {
                 None => Err(format!(
                     concat!(
                         "assertion failed: `assert_status_code_value_ge_x!(a, b)`\n",
-                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ge_x.html\n",
+                        "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_code_value_ge_x.html\n",
                         " a label: `{}`,\n",
                         " a debug: `{:?}`,\n",
                         " b label: `{}`,\n",
@@ -83,7 +83,7 @@ macro_rules! assert_status_code_value_ge_x_as_result {
             _ => Err(format!(
                 concat!(
                     "assertion failed: `assert_status_code_value_ge_x!(a, b)`\n",
-                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ge_x.html\n",
+                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_code_value_ge_x.html\n",
                     "  a label: `{}`,\n",
                     "  a debug: `{:?}`,\n",
                     "  b label: `{}`,\n",
@@ -197,7 +197,7 @@ mod test_assert_status_code_value_ge_x_as_result {
         let actual = assert_status_code_value_ge_x_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_status_code_value_ge_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ge_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_code_value_ge_x.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",
@@ -211,7 +211,7 @@ mod test_assert_status_code_value_ge_x_as_result {
 /// Assert a status code value is greater than or equal to an expression.
 ///
 /// Pseudocode:<br>
-/// a.len() ≥ b
+/// a ⇒ status ⇒ code ⇒ value ≥ b
 ///
 /// * If true, return `a ⇒ status ⇒ code ⇒ value``.
 ///
@@ -246,7 +246,7 @@ mod test_assert_status_code_value_ge_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_code_value_ge_x!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ge_x.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_code_value_ge_x.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
 /// #     "  a code: `1`,\n",
@@ -316,7 +316,7 @@ mod test_assert_status_code_value_ge_x {
         });
         let message = concat!(
             "assertion failed: `assert_status_code_value_ge_x!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_code_value_ge_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_code_value_ge_x.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
             "  a code: `1`,\n",
@@ -337,7 +337,7 @@ mod test_assert_status_code_value_ge_x {
 /// Assert a status code value is greater than or equal to an expression.
 ///
 /// Pseudocode:<br>
-/// a.len() ≥ b
+/// a ⇒ status ⇒ code ⇒ value ≥ b
 ///
 /// This macro provides the same statements as [`assert_status_code_value_ge_x`](macro.assert_status_code_value_ge_x.html),
 /// except this macro's statements are only enabled in non-optimized
@@ -372,4 +372,59 @@ macro_rules! debug_assert_status_code_value_ge_x {
             $crate::assert_status_code_value_ge_x!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_status_code_value_ge_x {
+    use std::panic;
+    use std::process::Command;
+
+    #[test]
+    fn gt() {
+        let mut a = Command::new("bin/exit-with-arg");
+        a.arg("2");
+        let b = 1;
+        for _ in 0..1 {
+            let _actual = debug_assert_status_code_value_ge_x!(a, b);
+            // assert_eq!(actual, 2);
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let mut a = Command::new("bin/exit-with-arg");
+        a.arg("1");
+        let b = 1;
+        for _ in 0..1 {
+            let _actual = debug_assert_status_code_value_ge_x!(a, b);
+            // assert_eq!(actual, 1);
+        }
+    }
+
+    #[test]
+    fn lt() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/exit-with-arg");
+            a.arg("1");
+            let b = 2;
+            let _actual = debug_assert_status_code_value_ge_x!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_status_code_value_ge_x!(a, b)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_code_value_ge_x.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/exit-with-arg\" \"1\"`,\n",
+            "  a code: `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `2`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

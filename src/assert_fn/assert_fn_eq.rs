@@ -54,7 +54,7 @@ macro_rules! assert_fn_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
-                                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_eq.html\n",
+                                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_eq.html\n",
                                 " a_function label: `{}`,\n",
                                 "    a_param label: `{}`,\n",
                                 "    a_param debug: `{:?}`,\n",
@@ -93,7 +93,7 @@ macro_rules! assert_fn_eq_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_eq!(a_function, b_function)`\n",
-                                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_eq.html\n",
+                                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_eq.html\n",
                                 " a_function label: `{}`,\n",
                                 " b_function label: `{}`,\n",
                                 "                a: `{:?}`,\n",
@@ -143,7 +143,7 @@ mod test_assert_fn_eq_as_result {
             let actual = assert_fn_eq_as_result!(f, a, g, b);
             let message = concat!(
                 "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_eq.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_eq.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -180,7 +180,7 @@ mod test_assert_fn_eq_as_result {
             let actual = assert_fn_eq_as_result!(f, g);
             let message = concat!(
                 "assertion failed: `assert_fn_eq!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_eq.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_eq.html\n",
                 " a_function label: `f`,\n",
                 " b_function label: `g`,\n",
                 "                a: `1`,\n",
@@ -231,7 +231,7 @@ mod test_assert_fn_eq_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_eq.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_eq.html\n",
 /// #     " a_function label: `i8::abs`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `-1`,\n",
@@ -309,7 +309,8 @@ mod test_assert_fn_eq {
             let b: i8 = 1;
             for _ in 0..1 {
                 let actual = assert_fn_eq!(f, a, g, b);
-                assert_eq!(actual, (1, 1));
+                let expect = (1, 1);
+                assert_eq!(actual, expect);
             }
         }
 
@@ -322,7 +323,7 @@ mod test_assert_fn_eq {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_eq.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_eq.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `1`,\n",
@@ -358,7 +359,8 @@ mod test_assert_fn_eq {
         fn eq() {
             for _ in 0..1 {
                 let actual = assert_fn_eq!(f, f);
-                assert_eq!(actual, (1, 1));
+                let expect = (1, 1);
+                assert_eq!(actual, expect);
             }
         }
 
@@ -369,7 +371,7 @@ mod test_assert_fn_eq {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_eq!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_eq.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_eq.html\n",
                 " a_function label: `f`,\n",
                 " b_function label: `g`,\n",
                 "                a: `1`,\n",
@@ -425,4 +427,105 @@ macro_rules! debug_assert_fn_eq {
             $crate::assert_fn_eq!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_fn_eq {
+    use std::panic;
+
+    mod arity_1 {
+        use super::*;
+
+        fn f(i: i8) -> i8 {
+            return i;
+        }
+
+        fn g(i: i8) -> i8 {
+            return i;
+        }
+
+        #[test]
+        fn eq() {
+            let a: i8 = 1;
+            let b: i8 = 1;
+            for _ in 0..1 {
+                let _actual = debug_assert_fn_eq!(f, a, g, b);
+                let _expect = (1, 1);
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn ne() {
+            let result = panic::catch_unwind(|| {
+                let a: i8 = 1;
+                let b: i8 = 2;
+                let _actual = debug_assert_fn_eq!(f, a, g, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_fn_eq!(a_function, a_param, b_function, b_param)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_eq.html\n",
+                " a_function label: `f`,\n",
+                "    a_param label: `a`,\n",
+                "    a_param debug: `1`,\n",
+                " b_function label: `g`,\n",
+                "    b_param label: `b`,\n",
+                "    b_param debug: `2`,\n",
+                "                a: `1`,\n",
+                "                b: `2`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod arity_0 {
+        use super::*;
+
+        fn f() -> i8 {
+            return 1;
+        }
+
+        fn g() -> i8 {
+            return 2;
+        }
+
+        #[test]
+        fn eq() {
+            for _ in 0..1 {
+                let _actual = debug_assert_fn_eq!(f, f);
+                let _expect = (1, 1);
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn ne() {
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_fn_eq!(f, g);
+            });
+            let message = concat!(
+                "assertion failed: `assert_fn_eq!(a_function, b_function)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_eq.html\n",
+                " a_function label: `f`,\n",
+                " b_function label: `g`,\n",
+                "                a: `1`,\n",
+                "                b: `2`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
 }

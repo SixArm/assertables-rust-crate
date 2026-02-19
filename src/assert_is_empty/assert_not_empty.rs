@@ -47,7 +47,7 @@ macro_rules! assert_not_empty_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_not_empty!(a)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_empty.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_not_empty.html\n",
                             " label: `{}`,\n",
                             " debug: `{:?}`"
                         ),
@@ -97,7 +97,7 @@ mod test_assert_not_empty_as_result {
         let actual = assert_not_empty_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_not_empty!(a)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_empty.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_not_empty.html\n",
             " label: `a`,\n",
             " debug: `\"\"`",
         );
@@ -137,7 +137,7 @@ mod test_assert_not_empty_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_not_empty!(a)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_empty.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_not_empty.html\n",
 /// #     " label: `a`,\n",
 /// #     " debug: `\"\"`"
 /// # );
@@ -188,7 +188,7 @@ mod test_assert_not_empty {
         });
         let message = concat!(
             "assertion failed: `assert_not_empty!(a)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_not_empty.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_not_empty.html\n",
             " label: `a`,\n",
             " debug: `\"\"`",
         );
@@ -241,4 +241,40 @@ macro_rules! debug_assert_not_empty {
             $crate::assert_not_empty!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_not_empty {
+    use std::panic;
+
+    #[test]
+    fn success() {
+        let a = "alfa";
+        for _ in 0..1 {
+            let _actual = debug_assert_not_empty!(a);
+            // assert_eq!(actual, ());
+        }
+    }
+
+    #[test]
+    fn failure() {
+        let a = "";
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_not_empty!(a);
+        });
+        let message = concat!(
+            "assertion failed: `assert_not_empty!(a)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_not_empty.html\n",
+            " label: `a`,\n",
+            " debug: `\"\"`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

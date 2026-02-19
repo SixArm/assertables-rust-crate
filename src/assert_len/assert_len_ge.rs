@@ -50,7 +50,7 @@ macro_rules! assert_len_ge_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_len_ge!(a, b)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_ge.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_len_ge.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`,\n",
                             " a.len(): `{:?}`,\n",
@@ -162,7 +162,7 @@ mod test_assert_len_ge_as_result {
         let actual = assert_len_ge_as_result!(a, b);
         let message = concat!(
             "assertion failed: `assert_len_ge!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_ge.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_len_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"x\"`,\n",
             " a.len(): `1`,\n",
@@ -212,7 +212,7 @@ mod test_assert_len_ge_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_len_ge!(a, b)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_ge.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_len_ge.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"x\"`,\n",
 /// #     " a.len(): `1`,\n",
@@ -279,7 +279,7 @@ mod test_assert_len_ge {
         });
         let message = concat!(
             "assertion failed: `assert_len_ge!(a, b)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_len_ge.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_len_ge.html\n",
             " a label: `a`,\n",
             " a debug: `\"x\"`,\n",
             " a.len(): `1`,\n",
@@ -336,4 +336,56 @@ macro_rules! debug_assert_len_ge {
             $crate::assert_len_ge!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_len_ge {
+    use std::panic;
+
+    #[test]
+    fn gt() {
+        let a = "xx";
+        let b = "x";
+        for _ in 0..1 {
+            let _actual = debug_assert_len_ge!(a, b);
+            // assert_eq!(actual, (2, 1));
+        }
+    }
+
+    #[test]
+    fn eq() {
+        let a = "x";
+        let b = "x";
+        for _ in 0..1 {
+            let _actual = debug_assert_len_ge!(a, b);
+            // assert_eq!(actual, (1, 1));
+        }
+    }
+
+    #[test]
+    fn lt() {
+        let a = "x";
+        let b = "xx";
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_len_ge!(a, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_len_ge!(a, b)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_len_ge.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"x\"`,\n",
+            " a.len(): `1`,\n",
+            " b label: `b`,\n",
+            " b debug: `\"xx\"`\n",
+            " b.len(): `2`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

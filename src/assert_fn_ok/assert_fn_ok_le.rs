@@ -63,7 +63,7 @@ macro_rules! assert_fn_ok_le_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`\n",
-                                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_le.html\n",
+                                        "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_ok_le.html\n",
                                         " a_function label: `{}`,\n",
                                         "    a_param label: `{}`,\n",
                                         "    a_param debug: `{:?}`,\n",
@@ -90,7 +90,7 @@ macro_rules! assert_fn_ok_le_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_fn_err_le!(a_function, a_param, b_function, b_param)`\n",
-                                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_le.html\n",
+                                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_err_le.html\n",
                                     " a_function label: `{}`,\n",
                                     "    a_param label: `{}`,\n",
                                     "    a_param debug: `{:?}`,\n",
@@ -131,7 +131,7 @@ macro_rules! assert_fn_ok_le_as_result {
                         format!(
                             concat!(
                                 "assertion failed: `assert_fn_ok_le!(a_function, b_function)`\n",
-                                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_le.html\n",
+                                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_ok_le.html\n",
                                 " a_function label: `{}`,\n",
                                 " b_function label: `{}`,\n",
                                 "                a: `{:?}`,\n",
@@ -150,7 +150,7 @@ macro_rules! assert_fn_ok_le_as_result {
                     format!(
                         concat!(
                             "assertion failed: `assert_fn_err_le!(a_function, b_function)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_err_le.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_err_le.html\n",
                             " a_function label: `{}`,\n",
                             " b_function label: `{}`,\n",
                             "                a: `{:?}`,\n",
@@ -209,7 +209,7 @@ mod test_assert_fn_ok_le_as_result {
             let actual = assert_fn_ok_le_as_result!(f, a, g, b);
             let message = concat!(
                 "assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_le.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_ok_le.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `2`,\n",
@@ -254,7 +254,7 @@ mod test_assert_fn_ok_le_as_result {
             let actual = assert_fn_ok_le_as_result!(g, f);
             let message = concat!(
                 "assertion failed: `assert_fn_ok_le!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_le.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_ok_le.html\n",
                 " a_function label: `g`,\n",
                 " b_function label: `f`,\n",
                 "                a: `2`,\n",
@@ -311,7 +311,7 @@ mod test_assert_fn_ok_le_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_le.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_ok_le.html\n",
 /// #     " a_function label: `f`,\n",
 /// #     "    a_param label: `a`,\n",
 /// #     "    a_param debug: `2`,\n",
@@ -388,7 +388,8 @@ mod test_assert_fn_ok_le {
             let b: i8 = 2;
             for _ in 0..1 {
                 let actual = assert_fn_ok_le!(f, a, g, b);
-                assert_eq!(actual, (1, 2));
+                let expect = (1, 2);
+                assert_eq!(actual, expect);
             }
         }
 
@@ -398,7 +399,8 @@ mod test_assert_fn_ok_le {
             let b: i8 = 1;
             for _ in 0..1 {
                 let actual = assert_fn_ok_le!(f, a, g, b);
-                assert_eq!(actual, (1, 1));
+                let expect = (1, 1);
+                assert_eq!(actual, expect);
             }
         }
 
@@ -411,7 +413,7 @@ mod test_assert_fn_ok_le {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_le.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_ok_le.html\n",
                 " a_function label: `f`,\n",
                 "    a_param label: `a`,\n",
                 "    a_param debug: `2`,\n",
@@ -447,7 +449,8 @@ mod test_assert_fn_ok_le {
         fn lt() {
             for _ in 0..1 {
                 let actual = assert_fn_ok_le!(f, g);
-                assert_eq!(actual, (1, 2));
+                let expect = (1, 2);
+                assert_eq!(actual, expect);
             }
         }
 
@@ -455,7 +458,8 @@ mod test_assert_fn_ok_le {
         fn eq() {
             for _ in 0..1 {
                 let actual = assert_fn_ok_le!(f, f);
-                assert_eq!(actual, (1, 1));
+                let expect = (1, 1);
+                assert_eq!(actual, expect);
             }
         }
 
@@ -466,7 +470,7 @@ mod test_assert_fn_ok_le {
             });
             let message = concat!(
                 "assertion failed: `assert_fn_ok_le!(a_function, b_function)`\n",
-                "https://docs.rs/assertables/9.8.5/assertables/macro.assert_fn_ok_le.html\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_ok_le.html\n",
                 " a_function label: `g`,\n",
                 " b_function label: `f`,\n",
                 "                a: `2`,\n",
@@ -522,4 +526,125 @@ macro_rules! debug_assert_fn_ok_le {
             $crate::assert_fn_ok_le!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_fn_ok_le {
+    use std::panic;
+
+    mod arity_1 {
+        use super::*;
+
+        fn f(i: i8) -> Result<i8, i8> {
+            return Ok(i);
+        }
+
+        fn g(i: i8) -> Result<i8, i8> {
+            return Ok(i);
+        }
+
+        #[test]
+        fn lt() {
+            let a: i8 = 1;
+            let b: i8 = 2;
+            for _ in 0..1 {
+                let _actual = debug_assert_fn_ok_le!(f, a, g, b);
+                let _expect = (1, 2);
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn eq() {
+            let a: i8 = 1;
+            let b: i8 = 1;
+            for _ in 0..1 {
+                let _actual = debug_assert_fn_ok_le!(f, a, g, b);
+                let _expect = (1, 1);
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn gt() {
+            let result = panic::catch_unwind(|| {
+                let a: i8 = 2;
+                let b: i8 = 1;
+                let _actual = debug_assert_fn_ok_le!(f, a, g, b);
+            });
+            let message = concat!(
+                "assertion failed: `assert_fn_ok_le!(a_function, a_param, b_function, b_param)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_ok_le.html\n",
+                " a_function label: `f`,\n",
+                "    a_param label: `a`,\n",
+                "    a_param debug: `2`,\n",
+                " b_function label: `g`,\n",
+                "    b_param label: `b`,\n",
+                "    b_param debug: `1`,\n",
+                "                a: `2`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
+
+    mod arity_0 {
+        use super::*;
+
+        fn f() -> Result<i8, i8> {
+            return Ok(1);
+        }
+
+        fn g() -> Result<i8, i8> {
+            return Ok(2);
+        }
+
+        #[test]
+        fn lt() {
+            for _ in 0..1 {
+                let _actual = debug_assert_fn_ok_le!(f, g);
+                let _expect = (1, 2);
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn eq() {
+            for _ in 0..1 {
+                let _actual = debug_assert_fn_ok_le!(f, f);
+                let _expect = (1, 1);
+                // assert_eq!(actual, expect);
+            }
+        }
+
+        #[test]
+        fn gt() {
+            let result = panic::catch_unwind(|| {
+                let _actual = debug_assert_fn_ok_le!(g, f);
+            });
+            let message = concat!(
+                "assertion failed: `assert_fn_ok_le!(a_function, b_function)`\n",
+                "https://docs.rs/assertables/9.8.6/assertables/macro.assert_fn_ok_le.html\n",
+                " a_function label: `g`,\n",
+                " b_function label: `f`,\n",
+                "                a: `2`,\n",
+                "                b: `1`"
+            );
+            assert_eq!(
+                result
+                    .unwrap_err()
+                    .downcast::<String>()
+                    .unwrap()
+                    .to_string(),
+                message
+            );
+        }
+    }
 }

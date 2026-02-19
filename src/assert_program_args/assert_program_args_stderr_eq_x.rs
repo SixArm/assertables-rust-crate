@@ -53,7 +53,7 @@ macro_rules! assert_program_args_stderr_eq_x_as_result {
                                 format!(
                                     concat!(
                                         "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-                                        "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+                                        "https://docs.rs/assertables/9.8.6/assertables/macro.assert_program_args_stderr_eq_x.html\n",
                                         " a_program label: `{}`,\n",
                                         " a_program debug: `{:?}`,\n",
                                         "    a_args label: `{}`,\n",
@@ -80,7 +80,7 @@ macro_rules! assert_program_args_stderr_eq_x_as_result {
                             format!(
                                 concat!(
                                     "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-                                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+                                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_program_args_stderr_eq_x.html\n",
                                     " a_program label: `{}`,\n",
                                     " a_program debug: `{:?}`,\n",
                                     "    a_args label: `{}`,\n",
@@ -170,7 +170,7 @@ mod test_assert_program_args_stderr_eq_x_as_result {
         let actual = assert_program_args_stderr_eq_x_as_result!(a_program, a_args, b);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_program_args_stderr_eq_x.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -191,7 +191,7 @@ mod test_assert_program_args_stderr_eq_x_as_result {
         let actual = assert_program_args_stderr_eq_x_as_result!(a_program, a_args, b);
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_program_args_stderr_eq_x.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -247,7 +247,7 @@ mod test_assert_program_args_stderr_eq_x_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_program_args_stderr_eq_x.html\n",
 /// #     " a_program label: `program`,\n",
 /// #     " a_program debug: `\"bin/printf-stderr\"`,\n",
 /// #     "    a_args label: `args`,\n",
@@ -308,7 +308,7 @@ mod test_assert_program_args_stderr_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_program_args_stderr_eq_x.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -338,7 +338,7 @@ mod test_assert_program_args_stderr_eq_x {
         });
         let message = concat!(
             "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_program_args_stderr_eq_x.html\n",
             " a_program label: `a_program`,\n",
             " a_program debug: `\"bin/printf-stderr\"`,\n",
             "    a_args label: `a_args`,\n",
@@ -397,4 +397,80 @@ macro_rules! debug_assert_program_args_stderr_eq_x {
             $crate::assert_program_args_stderr_eq_x!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_program_args_stderr_eq_x {
+    use std::panic;
+
+    #[test]
+    fn eq() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "alfa"];
+        let b = vec![b'a', b'l', b'f', b'a'];
+        for _ in 0..1 {
+            let _actual = debug_assert_program_args_stderr_eq_x!(a_program, a_args, b);
+            // assert_eq!(actual, [b'a', b'l', b'f', b'a']);
+        }
+    }
+
+    #[test]
+    fn lt() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "alfa"];
+        let b = vec![b'z', b'z'];
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_program_args_stderr_eq_x!(a_program, a_args, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+            " a_program label: `a_program`,\n",
+            " a_program debug: `\"bin/printf-stderr\"`,\n",
+            "    a_args label: `a_args`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+            "    b_expr label: `b`,\n",
+            "    b_expr debug: `[122, 122]`,\n",
+            "               a: `[97, 108, 102, 97]`,\n",
+            "               b: `[122, 122]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
+
+    #[test]
+    fn gt() {
+        let a_program = "bin/printf-stderr";
+        let a_args = ["%s", "alfa"];
+        let b = vec![b'a', b'a'];
+        let result = panic::catch_unwind(|| {
+            let _actual = debug_assert_program_args_stderr_eq_x!(a_program, a_args, b);
+        });
+        let message = concat!(
+            "assertion failed: `assert_program_args_stderr_eq_x!(a_program, a_args, b_expr)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_program_args_stderr_eq_x.html\n",
+            " a_program label: `a_program`,\n",
+            " a_program debug: `\"bin/printf-stderr\"`,\n",
+            "    a_args label: `a_args`,\n",
+            "    a_args debug: `[\"%s\", \"alfa\"]`,\n",
+            "    b_expr label: `b`,\n",
+            "    b_expr debug: `[97, 97]`,\n",
+            "               a: `[97, 108, 102, 97]`,\n",
+            "               b: `[97, 97]`"
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }

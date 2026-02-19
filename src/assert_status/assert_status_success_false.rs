@@ -48,7 +48,7 @@ macro_rules! assert_status_success_false_as_result {
                     Err(format!(
                         concat!(
                             "assertion failed: `assert_status_success_false!(a)`\n",
-                            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_success_false.html\n",
+                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_success_false.html\n",
                             " a label: `{}`,\n",
                             " a debug: `{:?}`",
                         ),
@@ -60,7 +60,7 @@ macro_rules! assert_status_success_false_as_result {
             a_status => Err(format!(
                 concat!(
                     "assertion failed: `assert_status_success_false!(a)`\n",
-                    "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_success_false.html\n",
+                    "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_success_false.html\n",
                     "  a label: `{}`,\n",
                     "  a debug: `{:?}`,\n",
                     " a status: `{:?}`",
@@ -115,7 +115,7 @@ mod test_assert_status_success_false_as_result {
         let actual = assert_status_success_false_as_result!(a);
         let message = concat!(
             "assertion failed: `assert_status_success_false!(a)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_success_false.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_success_false.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"0\"`",
         );
@@ -156,7 +156,7 @@ mod test_assert_status_success_false_as_result {
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
 /// #     "assertion failed: `assert_status_success_false!(a)`\n",
-/// #     "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_success_false.html\n",
+/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_success_false.html\n",
 /// #     " a label: `a`,\n",
 /// #     " a debug: `\"bin/exit-with-arg\" \"0\"`"
 /// # );
@@ -210,7 +210,7 @@ mod test_assert_status_success_false {
         });
         let message = concat!(
             "assertion failed: `assert_status_success_false!(a)`\n",
-            "https://docs.rs/assertables/9.8.5/assertables/macro.assert_status_success_false.html\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_success_false.html\n",
             " a label: `a`,\n",
             " a debug: `\"bin/exit-with-arg\" \"0\"`",
         );
@@ -263,4 +263,43 @@ macro_rules! debug_assert_status_success_false {
             $crate::assert_status_success_false!($($arg)*);
         }
     };
+}
+
+#[cfg(test)]
+mod test_debug_assert_status_success_false {
+    use std::panic;
+    use std::process::Command;
+
+    #[test]
+    fn success() {
+        let mut a = Command::new("bin/exit-with-arg");
+        a.arg("1");
+        for _ in 0..1 {
+            let _actual = debug_assert_status_success_false!(a);
+            // assert_eq!(actual, true);
+        }
+    }
+
+    #[test]
+    fn failure() {
+        let result = panic::catch_unwind(|| {
+            let mut a = Command::new("bin/exit-with-arg");
+            a.arg("0");
+            let _actual = debug_assert_status_success_false!(a);
+        });
+        let message = concat!(
+            "assertion failed: `assert_status_success_false!(a)`\n",
+            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_status_success_false.html\n",
+            " a label: `a`,\n",
+            " a debug: `\"bin/exit-with-arg\" \"0\"`",
+        );
+        assert_eq!(
+            result
+                .unwrap_err()
+                .downcast::<String>()
+                .unwrap()
+                .to_string(),
+            message
+        );
+    }
 }
