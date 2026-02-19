@@ -94,7 +94,7 @@ macro_rules! assert_fs_read_to_string_contains_as_result {
 }
 
 #[cfg(test)]
-mod test_read_to_string_contains_as_result {
+mod test_assert_fs_read_to_string_contains_as_result {
     #[allow(unused_imports)]
     use std::io::Read;
     use std::path::PathBuf;
@@ -242,7 +242,7 @@ macro_rules! assert_fs_read_to_string_contains {
 }
 
 #[cfg(test)]
-mod test_read_to_string_contains {
+mod test_assert_fs_read_to_string_contains {
     #[allow(unused_imports)]
     use std::io::Read;
     use std::panic;

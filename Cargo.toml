@@ -24,6 +24,7 @@ debug = true
 split-debuginfo = "packed"
 
 [build-dependencies]
+regex = "1.12.3" # Regular expressions parser, compiler, and executer
 walkdir = "2.5.0" # Recursively walk a directory.
 
 [dev-dependencies]

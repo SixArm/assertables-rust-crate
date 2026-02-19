@@ -302,7 +302,7 @@ macro_rules! assert_abs_diff_gt_x {
 }
 
 #[cfg(test)]
-mod assert_abs_diff_gt_x {
+mod test_assert_abs_diff_gt_x {
     use std::panic;
 
     #[test]
