@@ -4,6 +4,8 @@ Changes are summarized here as highlights for recent major versions.
 
 ## Version 9.x
 
+- 9.9.0 Add `assert_all_*` and `assert_any_*`.
+
 - 9.8.6 Fix `debug_assert_*` edge cases with better test coverage.
 
 - 9.8.5 Fix `debug_assert_*`.

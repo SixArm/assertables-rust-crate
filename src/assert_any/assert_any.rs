@@ -1,29 +1,29 @@
-//! Assert every element of the iterator matches a predicate.
+//! Assert any element of an iterable matches a predicate.
 //!
 //! Pseudocode:<br>
-//! collection into iter ∀ predicate
+//! iter ∃ predicate
 //!
 //! # Example
 //!
 //! ```rust
 //! use assertables::*;
 //!
-//! let a = [1, 2, 3];
-//! assert_all!(a.iter(), |&x| x > 0);
+//! let a = [1, 2];
+//! assert_any!(a.iter(), |&x| x > 0);
 //! ```
 //!
 //! This implementation uses [`::std::iter::Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 //!
 //! # Module macros
 //!
-//! * [`assert_all`](macro@crate::assert_all)
-//! * [`assert_all_as_result`](macro@crate::assert_all_as_result)
-//! * [`debug_assert_all`](macro@crate::debug_assert_all)
+//! * [`assert_any`](macro@crate::assert_any)
+//! * [`assert_any_as_result`](macro@crate::assert_any_as_result)
+//! * [`debug_assert_any`](macro@crate::debug_assert_any)
 
-/// Assert every element of the iterator matches a predicate.
+/// Assert any element of an iterable matches a predicate.
 ///
 /// Pseudocode:<br>
-/// collection into iter ∀ predicate
+/// iter ∃ predicate
 ///
 /// * If true, return Result `Ok(())`.
 ///
@@ -36,28 +36,28 @@
 ///
 /// # Module macros
 ///
-/// * [`assert_all`](macro@crate::assert_all)
-/// * [`assert_all_as_result`](macro@crate::assert_all_as_result)
-/// * [`debug_assert_all`](macro@crate::debug_assert_all)
+/// * [`assert_any`](macro@crate::assert_any)
+/// * [`assert_any_as_result`](macro@crate::assert_any_as_result)
+/// * [`debug_assert_any`](macro@crate::debug_assert_any)
 ///
 #[macro_export]
-macro_rules! assert_all_as_result {
-    ($collection:expr, $predicate:expr $(,)?) => {
-        match ($collection, $predicate) {
-            (mut collection, predicate) => {
-                if collection.all(predicate) {
+macro_rules! assert_any_as_result {
+    ($iter:expr, $predicate:expr $(,)?) => {
+        match ($iter, $predicate) {
+            (mut iter, predicate) => {
+                if iter.any(predicate) {
                     Ok(())
                 } else {
                     Err(format!(
                         concat!(
-                            "assertion failed: `assert_all!(collection, predicate)`\n",
-                            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
-                            " collection label: `{}`,\n",
-                            " collection debug: `{:?}`,\n",
-                            "        predicate: `{}`"
+                            "assertion failed: `assert_any!(iter, predicate)`\n",
+                            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_any.html\n",
+                            " iter label: `{}`,\n",
+                            " iter debug: `{:?}`,\n",
+                            " predicate: `{}`",
                         ),
-                        stringify!($collection),
-                        $collection,
+                        stringify!($iter),
+                        $iter,
                         stringify!($predicate)
                     ))
                 }
@@ -67,54 +67,55 @@ macro_rules! assert_all_as_result {
 }
 
 #[cfg(test)]
-mod test_assert_all_as_result {
+mod test_assert_any_as_result {
     use std::sync::Once;
 
     #[test]
     fn success() {
-        let a = [1, 2, 3];
+        let a = [1, 2];
         for _ in 0..1 {
-            let actual = assert_all_as_result!(a.iter(), |&x| x > 0);
+            let actual = assert_any_as_result!(a.iter(), |&x| x > 0);
             assert_eq!(actual.unwrap(), ());
         }
     }
+
     #[test]
     fn success_once() {
         static A: Once = Once::new();
-        fn a() -> [i8; 3] {
+        fn a() -> [i8; 2] {
             if A.is_completed() {
                 panic!("A.is_completed()")
             } else {
                 A.call_once(|| {})
             }
-            [1, 2, 3]
+            [1, 2]
         }
 
         assert_eq!(A.is_completed(), false);
-        let result = assert_all_as_result!(a().iter(), |&x| x > 0);
+        let result = assert_any_as_result!(a().iter(), |&x| x > 0);
         assert!(result.is_ok());
         assert_eq!(A.is_completed(), true);
     }
 
     #[test]
     fn failure() {
-        let a = [1, -2, 3];
-        let actual = assert_all_as_result!(a.iter(), |&x| x > 0);
+        let a = [1, 2];
+        let actual = assert_any_as_result!(a.iter(), |&x| x > 3);
         let message = concat!(
-            "assertion failed: `assert_all!(collection, predicate)`\n",
-            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
-            " collection label: `a.iter()`,\n",
-            " collection debug: `Iter([1, -2, 3])`,\n",
-            "        predicate: `|&x| x > 0`"
+            "assertion failed: `assert_any!(iter, predicate)`\n",
+            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_any.html\n",
+            " iter label: `a.iter()`,\n",
+            " iter debug: `Iter([1, 2])`,\n",
+            " predicate: `|&x| x > 3`"
         );
         assert_eq!(actual.unwrap_err(), message);
     }
 }
 
-/// Assert every element of the iterator matches a predicate.
+/// Assert any element of an iterable matches a predicate.
 ///
 /// Pseudocode:<br>
-/// collection into iter ∀ predicate
+/// iter ∃ predicate
 ///
 /// * If true, return `()`.
 ///
@@ -128,26 +129,26 @@ mod test_assert_all_as_result {
 /// # use std::panic;
 ///
 /// # fn main() {
-/// let a = [1, 2, 3];
-/// assert_all!(a.iter(), |&x| x > 0);
+/// let a = [1, 2];
+/// assert_any!(a.iter(), |&x| x > 0);
 ///
 /// # let result = panic::catch_unwind(|| {
 /// // This will panic
-/// let a = [1, -2, 3];
-/// assert_all!(a.iter(), |&x| x > 0);
+/// let a = [1, 2];
+/// assert_any!(a.iter(), |&x| x > 3);
 /// # });
-/// // assertion failed: `assert_all!(collection, predicate)`
-/// // https://docs.rs/assertables/…/assertables/macro.assert_all.html
-/// //  collection label: `a.iter()`,
-/// //  collection debug: `Iter([1, -2, 3])`,
-/// //         predicate: `|&x| x > 0`
+/// // assertion failed: `assert_any!(iter, predicate)`
+/// // https://docs.rs/assertables/…/assertables/macro.assert_any.html
+/// //  iter label: `a.iter()`,
+/// //  iter debug: `Iter([1, 2])`,
+/// //  predicate: `|&x| x > 3`
 /// # let actual = result.unwrap_err().downcast::<String>().unwrap().to_string();
 /// # let message = concat!(
-/// #     "assertion failed: `assert_all!(collection, predicate)`\n",
-/// #     "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
-/// #     " collection label: `a.iter()`,\n",
-/// #     " collection debug: `Iter([1, -2, 3])`,\n",
-/// #     "        predicate: `|&x| x > 0`",
+/// #     "assertion failed: `assert_any!(iter, predicate)`\n",
+/// #     "https://docs.rs/assertables/9.9.0/assertables/macro.assert_any.html\n",
+/// #     " iter label: `a.iter()`,\n",
+/// #     " iter debug: `Iter([1, 2])`,\n",
+/// #     " predicate: `|&x| x > 3`",
 /// # );
 /// # assert_eq!(actual, message);
 /// # }
@@ -157,20 +158,20 @@ mod test_assert_all_as_result {
 ///
 /// # Module macros
 ///
-/// * [`assert_all`](macro@crate::assert_all)
-/// * [`assert_all_as_result`](macro@crate::assert_all_as_result)
-/// * [`debug_assert_all`](macro@crate::debug_assert_all)
+/// * [`assert_any`](macro@crate::assert_any)
+/// * [`assert_any_as_result`](macro@crate::assert_any_as_result)
+/// * [`debug_assert_any`](macro@crate::debug_assert_any)
 ///
 #[macro_export]
-macro_rules! assert_all {
-    ($collection:expr, $predicate:expr $(,)?) => {
-        match $crate::assert_all_as_result!($collection, $predicate) {
+macro_rules! assert_any {
+    ($iter:expr, $predicate:expr $(,)?) => {
+        match $crate::assert_any_as_result!($iter, $predicate) {
             Ok(()) => (),
             Err(err) => panic!("{}", err),
         }
     };
-    ($collection:expr, $predicate:expr, $($message:tt)+) => {
-        match $crate::assert_all_as_result!($collection, $predicate) {
+    ($iter:expr, $predicate:expr, $($message:tt)+) => {
+        match $crate::assert_any_as_result!($iter, $predicate) {
             Ok(()) => (),
             Err(err) => panic!("{}\n{}", format_args!($($message)+), err),
         }
@@ -178,30 +179,30 @@ macro_rules! assert_all {
 }
 
 #[cfg(test)]
-mod test_assert_all {
+mod test_assert_any {
     use std::panic;
 
     #[test]
     fn success() {
-        let a = [1, 2, 3];
+        let a = [1, 2];
         for _ in 0..1 {
-            let actual = assert_all!(a.iter(), |&x| x > 0);
+            let actual = assert_any!(a.iter(), |&x| x > 0);
             assert_eq!(actual, ());
         }
     }
 
     #[test]
     fn failure() {
-        let a = [1, -2, 3];
+        let a = [1, 2];
         let result = panic::catch_unwind(|| {
-            let _actual = assert_all!(a.iter(), |&x| x > 0);
+            let _actual = assert_any!(a.iter(), |&x| x > 3);
         });
         let message = concat!(
-            "assertion failed: `assert_all!(collection, predicate)`\n",
-            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
-            " collection label: `a.iter()`,\n",
-            " collection debug: `Iter([1, -2, 3])`,\n",
-            "        predicate: `|&x| x > 0`"
+            "assertion failed: `assert_any!(iter, predicate)`\n",
+            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_any.html\n",
+            " iter label: `a.iter()`,\n",
+            " iter debug: `Iter([1, 2])`,\n",
+            " predicate: `|&x| x > 3`"
         );
         assert_eq!(
             result
@@ -214,12 +215,12 @@ mod test_assert_all {
     }
 }
 
-/// Assert every element of the iterator matches a predicate.
+/// Assert any element of an iterable matches a predicate.
 ///
 /// Pseudocode:<br>
-/// collection into iter ∀ predicate
+/// iter ∃ predicate
 ///
-/// This macro provides the same statements as [`assert_all`](macro.assert_all.html),
+/// This macro provides the same statements as [`assert_any`](macro.assert_any.html),
 /// except this macro's statements are only enabled in non-optimized
 /// builds by default. An optimized build will not execute this macro's
 /// statements unless `-C debug-assertions` is passed to the compiler.
@@ -241,44 +242,44 @@ mod test_assert_all {
 ///
 /// # Module macros
 ///
-/// * [`assert_all`](macro@crate::assert_all)
-/// * [`assert_all`](macro@crate::assert_all)
-/// * [`debug_assert_all`](macro@crate::debug_assert_all)
+/// * [`assert_any`](macro@crate::assert_any)
+/// * [`assert_any`](macro@crate::assert_any)
+/// * [`debug_assert_any`](macro@crate::debug_assert_any)
 ///
 #[macro_export]
-macro_rules! debug_assert_all {
+macro_rules! debug_assert_any {
     ($($arg:tt)*) => {
         if cfg!(debug_assertions) {
-            $crate::assert_all!($($arg)*);
+            $crate::assert_any!($($arg)*);
         }
     };
 }
 
 #[cfg(test)]
-mod test_debug_assert_all {
+mod test_debug_assert_any {
     use std::panic;
 
     #[test]
     fn success() {
-        let a = [1, 2, 3];
+        let a = [1, 2];
         for _ in 0..1 {
-            let _actual = debug_assert_all!(a.iter(), |&x| x > 0);
+            let _actual = debug_assert_any!(a.iter(), |&x| x > 0);
             // assert_eq!(actual, ());
         }
     }
 
     #[test]
     fn failure() {
-        let a = [1, -2, 3];
+        let a = [1, 2];
         let result = panic::catch_unwind(|| {
-            let _actual = debug_assert_all!(a.iter(), |&x| x > 0);
+            let _actual = debug_assert_any!(a.iter(), |&x| x > 3);
         });
         let message = concat!(
-            "assertion failed: `assert_all!(collection, predicate)`\n",
-            "https://docs.rs/assertables/9.8.6/assertables/macro.assert_all.html\n",
-            " collection label: `a.iter()`,\n",
-            " collection debug: `Iter([1, -2, 3])`,\n",
-            "        predicate: `|&x| x > 0`"
+            "assertion failed: `assert_any!(iter, predicate)`\n",
+            "https://docs.rs/assertables/9.9.0/assertables/macro.assert_any.html\n",
+            " iter label: `a.iter()`,\n",
+            " iter debug: `Iter([1, 2])`,\n",
+            " predicate: `|&x| x > 3`"
         );
         assert_eq!(
             result
